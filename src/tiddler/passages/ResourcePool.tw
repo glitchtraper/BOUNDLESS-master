@@ -1,0 +1,147 @@
+﻿
+<<set $randomizer = random(1,100); $clawMachine = random(1,100)>>
+
+/% The new approach here may be to have resources be a rare event result in most places, and instead boost the incidence of special events in areas where resource-item groves would exist instead.
+
+Right now, no resource encounters are important. That may chance once crafting returns-- but if it doesn't, it would then be safe to convert the rest and 'retire' this event category altogether.
+
+Chances are this'll be made completely obsolete soon; we don't use this table at all anymore (as of 1/25/16)... %/
+
+/% ======================================================================== %/
+/% SCIENCE encounters %/
+
+
+<<if $dungeonLocation is "Abandoned Laboratory Mound">>
+
+	/% Common (50%) %/
+	<<if $randomizer lte 50>>
+
+			<<set $resourceEncounter = "miracrystal">>
+
+	/% Uncommon (30% chance) %/
+	<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+
+			<<set $resourceEncounter = "miracrystal">>
+
+	/% Rare (20%) %/
+	<<elseif $randomizer gte 80>>
+
+			<<set $resourceEncounter = either("fattenium ore","miracrystal")>>
+	<<endif>>
+
+/% ======================================================================== %/
+/% Random civvie encounters %/
+
+<<elseif $dungeonLocation is "Abandoned Storage Mound">>
+
+	/% Common (50%) %/
+	<<if $randomizer lte 50>>
+
+			<<set $resourceEncounter = "miracrystal dust">>
+
+	/% Uncommon (30% chance) %/
+	<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+
+			<<set $resourceEncounter = "miracrystal dust">>
+
+	/% Rare (20%) %/
+	<<elseif $randomizer gte 80>>
+
+			<<set $resourceEncounter = either("fattenium ore","miracrystal")>>
+	<<endif>>
+
+
+/% ======================================================================== %/
+/% Cave resources %/
+
+<<elseif ($subterranean is 1) and ($indoorZone is 0)>>
+
+	/% Common (50%) %/
+	<<if $randomizer lte 50>>
+
+			<<set $resourceEncounter = either("clean water","plump tendrilvines","slime")>>
+
+	/% Uncommon (30% chance) %/
+	<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+
+			<<set $resourceEncounter = either("root veg","unclean water")>>
+
+	/% Rare (20%) %/
+	<<elseif $randomizer gte 80>>
+
+			<<set $resourceEncounter = either("eggs","fattenium ore","miracrystal")>>
+	<<endif>>
+
+
+/% ======================================================================== %/
+/% Unsorted Natural/Wild-Found resources (sort by biome later) %/
+
+<<elseif ($subterranean is 0) and ($indoorZone is 0)>>
+
+/% Specific biomes %/
+/% ======================================================================== %/
+
+	<<if $zoneType is "agriculture">>
+
+		/% Common (50%) %/
+		<<if $randomizer lte 50>>
+
+				<<set $resourceEncounter = either("grain field","root veg","swollen pumpkins","clean water","berry bunch","fruit tree")>>
+
+		/% Uncommon (30% chance) %/
+		<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+
+				<<set $resourceEncounter = either("rain-plumped tendrilgrass","sugarcanes","fragrant herbs","swollen pumpkins","eggs")>>
+
+		/% Rare (20%) %/
+		<<elseif $randomizer gte 80>>
+
+				<<set $resourceEncounter = either("fattenium ore","miracrystal")>>
+			<<endif>>
+
+/% ======================================================================== %/
+
+	<<elseif ($zoneType is "poison") or ($zoneType is "fire")>>
+
+		/% Common (60%) %/
+		<<if $randomizer lte 60>>
+
+				<<set $resourceEncounter = "succulents">>
+
+		/% Uncommon (20% chance) %/
+		<<elseif ($randomizer gt 60) and ($randomizer lt 80)>>
+
+				<<set $resourceEncounter = either("cactus","cactus","cactus","eggs")>>
+
+		/% Rare (20%) %/
+		<<elseif $randomizer gte 80>>
+
+				<<set $resourceEncounter = either("fragrant herbs","unclean water")>>
+			<<endif>>
+
+/% ======================================================================== %/
+
+	/% Catchall/Default biomes %/
+	<<else>>
+
+		/% Common (50%) %/
+		<<if $randomizer lte 50>>
+
+				<<set $resourceEncounter = either("rain-plumped tendrilgrass","clean water")>>
+
+		/% Uncommon (30% chance) %/
+		<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+
+				<<set $resourceEncounter = either("root veg","eggs")>>
+
+		/% Rare (20%) %/
+		<<elseif $randomizer gte 80>>
+
+				<<set $resourceEncounter = either("fattenium ore","miracrystal","sugarcanes","fragrant herbs")>>
+		<<endif>>
+
+
+/% ======================================================================== %/
+
+	<<endif>>
+<<endif>>

@@ -1,0 +1,9 @@
+﻿/% Roll colors for various things, so I don't have to build the randomizer every damn time. %/
+
+<<set $fullChroma = either("red","orange","yellow","golden","green","teal","blue","indigo","violet","pink","magenta","black","gray","silver","white","brown")>>
+
+<<set $briteChroma = either("red","orange","yellow","green","teal","blue","violet","magenta","black","white")>>
+
+<<set $pastelChroma = either("orange","yellow","green","teal","blue","pink","silver","white")>>
+
+<<set $monoChroma = either("black","gray","silver","white")>>

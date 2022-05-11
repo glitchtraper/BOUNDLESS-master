@@ -1,0 +1,178 @@
+﻿<<display ZoneBackgrounds>><center><<print "[img[$dons" + $donsairID + "img]]">>
+<framed><center>You collect <affirmative>''<<nobr>>
+
+/% ================================================ %/
+/% Milk %/
+
+<<if $donsairMilk neq 0>>
+/% This donsair is being milked; announce the results. %/
+
+/% When items are given instead of resources, quantity is determined by milk yield. %/
+
+<<if $donsairMilkYield is 1>><<set $itemYield = 1>>
+<<elseif $donsairMilkYield gte 2>><<set $itemYield = $donsairMilkYield * either(0.5,0.5,1); $itemYield = Math.round($itemYield)>><<endif>>
+
+/% Most creatures will give you bog-standard 'milk'.
+Adephagians yield adephagian milk, while Helenes, naturally, give helene milk. %/
+
+<<if $itemYield neq 0>>
+
+<<if $donsairSpecies is "adephagian">>
+<<set $drink_milk += $itemYield>>[+<<print $itemYield>> Adephagian Milk
+
+<<elseif $donsairSpecies is "helene">>
+<<set $milk_strange += $itemYield>>[+<<print $itemYield>> Strange Milk
+
+<<elseif $donsairSpecies is "leupai">>
+<<set $collectionjar_milk_leupai += $itemYield>>[+<<print $itemYield>> Jar of Leupai Milk
+
+<<else>>
+<<set $milkStock += $donsairMilkYield + either(0,0,0,1,1,2,3)>>[+<<print $donsairMilkYield>> Milk<<endif>>
+] <<endif>><<endif>>
+
+/% ================================================ %/
+/% Venom %/
+
+<<if $donsairVenom neq 0>>
+/% This donsair is being (venom) milked; announce the results. %/
+
+/% You only get one portion of venom per milking. %/
+
+[<<if $donsairVenom is "fattening">>
+<<set $collectionjar_venom_gain += 1>>+1 Jar of Fattening
+<<elseif $donsairVenom is "bellyfattening">>
+<<set $collectionjar_venom_bellygain += 1>>+1 Jar of Belly-Fattening
+<<elseif $donsairVenom is "breastfattening">>
+<<set $collectionjar_venom_breastgain += 1>>+1 Jar of Breast-Fattening
+<<elseif $donsairVenom is "thighfattening">>
+<<set $collectionjar_venom_thighgain += 1>>+1 Jar of Thigh-Fattening
+<<elseif $donsairVenom is "superfattening">>
+<<set $collectionjar_venom_supergain += 1>>+1 Jar of Super-Fattening
+<<elseif $donsairVenom is "superbellyfattening">>
+<<set $collectionjar_venom_superbellygain += 1>>+1 Jar of Belly Super-Fattening Venom
+<<elseif $donsairVenom is "superbreastfattening">>
+<<set $collectionjar_venom_superbreastgain += 1>>+1 Jar of Breast Super-Fattening
+<<elseif $donsairVenom is "superthighfattening">>
+<<set $collectionjar_venom_superthighgain += 1>>+1 Jar of Thigh Super-Fattening
+<<elseif $donsairVenom is "bloating">>
+<<set $collectionjar_venom_bloat += 1>>+1 Jar of Bloating
+<<elseif $donsairVenom is "breastbloating">>
+<<set $collectionjar_venom_breastbloat += 1>>+1 Jar of Breast-Bloating
+<<elseif $donsairVenom is "bursting">>
+<<set $collectionjar_venom_burst += 1>>+1 Jar of Bursting
+<<elseif $donsairVenom is "healing">>
+<<set $collectionjar_venom_heal += 1>>+1 Jar of Healing
+<<elseif $donsairVenom is "flabbifying">>
+<<set $collectionjar_venom_flab += 1>>+1 Jar of Flabbifying
+<<elseif $donsairVenom is "weakening">>
+<<set $collectionjar_venom_weakening += 1>>+1 Jar of Weakening
+<<elseif $donsairVenom is "toxic">>
+<<set $collectionjar_venom_toxic += 1>>+1 Jar of Toxic
+<<elseif $donsairVenom is "lethal">>
+<<set $collectionjar_venom_lethal += 1>>+1 Jar of Lethal
+<<elseif $donsairVenom is "mutagenic">>
+<<set $collectionjar_venom_mutagen += 1>>+1 Jar of Mutagenic
+<<elseif $donsairVenom is "gluttonous">>
+<<set $collectionjar_venom_glutton += 1>>+1 Jar of Voracity
+<<elseif $donsairVenom is "fattenium">>
+<<set $collectionjar_venom_fattenium += 1>>+1 Jar of Fattenium
+<<elseif $donsairVenom is "bulking">>
+<<set $collectionjar_venom_bulk += 1>>+1 Jar of Bulking
+<<elseif $donsairVenom is "hallucenogenic">>
+<<set $collectionjar_venom_hallucenogen += 1>>+1 Jar of Hallucenogenic
+<<elseif $donsairVenom is "caloric">>
+<<set $collectionjar_venom_caloric += 1>>+1 Jar of Caloric
+<<elseif $donsairVenom is "leucanthropic">>
+<<set $collectionjar_venom_leucanthropy += 1>>+1 Jar of Leucanthropic<<endif>>
+ Venom] <<endif>>
+
+/% ================================================ %/
+/% Flesh/Slime %/
+
+<<if ($donsairSpecies is "slime") or ($donsairSubtype is "slime") or ($donsairSpecies is "fyynling") or ($donsairSpecies is "fyynling horror")>>
+/% This donsair is being harvested for flesh/slime; announce the results. %/
+
+[+<<if ($donsairSpecies is "fyynling") or ($donsairSpecies is "fyynling horror")>>
+<<set $leupaiResource = $donsMeat/10; $fatResource = $donsFat/2; $leupaiResource = Math.round($leupaiResource); $fatResource = Math.round($fatResource); $leupaiStock += $leupaiResource; $fatStock += $fatResource>><<print $leupaiResource>> Leupai Flesh] [+<<print $fatResource>> Fat
+<<elseif ($donsairSpecies is "slime") or ($donsairSubtype is "slime")>>
+<<set $jellyResource = (($donsMeat + $donsFat)/10); $jellyResource = Math.round($jellyResource); $jellyStock += $jellyResource>><<print $jellyResource>> Jelly<<endif>>]
+<<endif>>
+
+/% ================================================ %/
+/% Miracrystals %/
+
+<<if $donsairSpecies is "leupai">>
+/% This donsair is being harvested for miracrystal/miracrystal dust; announce the results. %/
+
+<<if $girthClass is "plump">>
+<<set $miraResource = random(0,3); $miraStock += $miraResource>>
+<<if $miraResource neq 0>>[+<<print $miraResource>> Miracrystal Dust] <<endif>>
+
+<<elseif $girthClass is "round">>
+<<set $miraResource = random(0,12); $miraStock += $miraResource>>
+<<if $miraResource neq 0>>[+<<print $miraResource>> Miracrystal Dust] <<endif>>
+
+<<elseif $girthClass is "fat">>
+<<set $miraResource = random(0,36); $miraStock += $miraResource>>
+<<if $miraResource neq 0>>[+<<print $miraResource>> Miracrystal Dust] <<endif>>
+
+<<set $spawnCrystals = either(0,0,0,1); $special_dreamshard += $spawnCrystals>>
+<<if $spawnCrystals neq 0>>[+<<print $spawnCrystals>> Dreamshard] <<endif>>
+
+<<elseif $girthClass is "very fat">>
+<<set $miraResource = random(3,64); $miraStock += $miraResource>>
+[+<<print $miraResource>> Miracrystal Dust]
+
+<<set $spawnCrystals = either(0,0,1,1,1,1,2); $special_dreamshard += $spawnCrystals>>
+<<if $spawnCrystals neq 0>>[+<<print $spawnCrystals>> Dreamshard] <<endif>>
+
+<<set $spawnCrystals = either(0,0,0,0,1); $special_miracrystal += $spawnCrystals>>
+<<if $spawnCrystals neq 0>>[+<<print $spawnCrystals>> Live Miracrystal Chunk] <<endif>>
+
+<<elseif $girthClass is "blubbery">>
+<<set $miraResource = random(8,64); $miraStock += $miraResource>>
+[+<<print $miraResource>> Miracrystal Dust]
+
+<<set $spawnCrystals = either(0,0,1,1,1,2); $special_dreamshard += $spawnCrystals>>
+<<if $spawnCrystals neq 0>>[+<<print $spawnCrystals>> Dreamshard] <<endif>>
+
+<<set $spawnCrystals = either(0,0,1); $special_miracrystal += $spawnCrystals>>
+<<if $spawnCrystals neq 0>>[+<<print $spawnCrystals>> Live Miracrystal Chunk] <<endif>>
+
+<<elseif $girthClass is "immobile">>
+<<set $miraResource = random(8,64); $miraStock += $miraResource>>
+[+<<print $miraResource>> Miracrystal Dust]
+
+<<set $spawnCrystals = either(0,1,1,1,2); $special_dreamshard += $spawnCrystals>>
+<<if $spawnCrystals neq 0>>[+<<print $spawnCrystals>> Dreamshard] <<endif>>
+
+<<set $spawnCrystals = either(0,0,1); $special_miracrystal += $spawnCrystals>>
+<<if $spawnCrystals neq 0>>[+<<print $spawnCrystals>> Live Miracrystal Chunk] <<endif>>
+
+<<set $spawnCrystals = either(0,0,0,0,0,0,0,0,0,1); $shard_stasis += $spawnCrystals>>
+<<if $spawnCrystals neq 0>>[+<<print $spawnCrystals>> Stasis Shard] <<endif>>
+
+<<elseif $girthClass is "billetroaesque">>
+<<set $miraResource = random(12,64); $miraStock += $miraResource>>
+[+<<print $miraResource>> Miracrystal Dust]
+
+<<set $spawnCrystals = either(1,1,2); $special_dreamshard += $spawnCrystals>>
+<<if $spawnCrystals neq 0>>[+<<print $spawnCrystals>> Dreamshard] <<endif>>
+
+<<set $spawnCrystals = either(0,0,1,1,1,2,3); $special_miracrystal += $spawnCrystals>>
+<<if $spawnCrystals neq 0>>[+<<print $spawnCrystals>> Live Miracrystal Chunk] <<endif>>
+
+<<set $spawnCrystals = either(0,0,0,0,0,0,0,1); $shard_stasis += $spawnCrystals>>
+<<if $spawnCrystals neq 0>>[+<<print $spawnCrystals>> Stasis Shard] <<endif>>
+	<<endif>>
+<<endif>>
+
+/% ================================================ %/
+
+/% Randomize how long it'll take before the donsair can be harvested again. %/
+<<set $donsairHarvestRegen = $globalTime + random(32,55)>>
+<<print "<<set $dons" + $donsairID + "HarvestRegen = $donsair" + "HarvestRegen>>">>
+
+/% end delivery frame %/
+<<endnobr>>''</affirmative> from <<print "<<print $dons" + $donsairID + ">>">>.</center></framed>
+<<button [[Back.|DonsairView][$milked = 0; $vMilked = 0]]>></center>

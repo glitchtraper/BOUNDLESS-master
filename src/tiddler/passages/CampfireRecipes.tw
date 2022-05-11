@@ -1,0 +1,45 @@
+﻿/% ======================================================== %/
+/% CAMPFIRE RECIPES %/
+
+/% Campfires are the most basic of cooking centers. Here, you can cook basic resources into basic foods.
+Only recipes that can be directly cooked over a fire go here; everything else should go into Pot Recipes (stuff that needs a container to be cooked in).
+
+These recipes use up an average amount of firewood. %/
+
+<<set $culiBonus = either(0,0,0,1)>>
+
+/% ======================================================== %/
+/% MEATS %/
+
+<<if $fishStock gte 2>>
+<<button [[Barbecued Fish: Fish ~~x~~2|passage()][$craftedQuantity = $culiBonus + either(1,1,1,1,1,2); $cooked_fish += $craftedQuantity; $fishStock -= 2; $firewoodAshed = either(0,0,0,0,0,0,0,1); $crafted = 1; $craftedItem = "Barbecued Fish"; $culinetProgress += $craftedQuantity]]>><<endif>>
+
+
+<<if $poultryStock gte 2>>
+<<button [[Barbecued Poult: Poultry ~~x~~2|passage()][$craftedQuantity = $culiBonus + either(1,1,1,1,1,2); $cooked_poult += $craftedQuantity; $poultryStock -= 2; $firewoodAshed = either(0,0,0,0,0,0,0,1); $crafted = 1; $craftedItem = "Barbecued Poult"; $culinetProgress += $craftedQuantity]]>><<endif>>
+
+
+<<if $fatStock gte 2>>
+<<button [[Barbecued Fat: Fat ~~x~~2|passage()][$craftedQuantity = $culiBonus + either(1,1,1,1,1,2); $cooked_fat += $craftedQuantity; $fatStock -= 2; $firewoodAshed = either(0,0,0,0,0,0,0,1); $crafted = 1; $craftedItem = "Barbecued Fat"; $culinetProgress += $craftedQuantity]]>><<endif>>
+
+
+<<if $meatStock gte 2>>
+<<button [[Spit Roast: Meat ~~x~~2|passage()][$craftedQuantity = $culiBonus + either(1,1,1,1,1,2); $cooked_meat += $craftedQuantity; $meatStock -= 2; $firewoodAshed = either(0,0,0,0,0,0,0,1); $crafted = 1; $craftedItem = "Spit Roast"; $culinetProgress += $craftedQuantity]]>><<endif>>
+
+
+<<if $dragonStock gte 2>>
+<<button [[Roast Dragon: Dragon Meat ~~x~~2|passage()][$craftedQuantity = $culiBonus + either(1,1,1,1,1,2); $cooked_dragon += $craftedQuantity; $dragonStock -= 2; $firewoodAshed = either(0,0,0,0,0,1); $crafted = 1; $craftedItem = "Roast Dragon"; $culinetProgress += $craftedQuantity]]>><<endif>>
+
+
+<<if $leupaiStock gte 2>>
+<<button [[Roast Leupai: Leupai Flesh ~~x~~2|passage()][$craftedQuantity = $culiBonus + either(1,1,1,1,1,2); $cooked_leupai += $craftedQuantity; $leupaiStock -= 2; $firewoodAshed = either(0,0,0,0,0,0,0,1); $crafted = 1; $craftedItem = "Roast Leupai"; $culinetProgress += $craftedQuantity]]>><<endif>>
+
+/% ======================================================== %/
+/% PRODUCE %/
+
+<<if $produce_starchroot gte 1>>
+<<button [[Roast Starchroot: Golden Starchroot ~~x~~1|passage()][$craftedQuantity = $culiBonus + 1; $cooked_starchroot += $craftedQuantity; $produce_starchroot -= 1; $firewoodAshed = either(0,0,0,0,0,0,0,1); $crafted = 1; $craftedItem = "Roast Starchroot"; $culinetProgress += $craftedQuantity]]>><<endif>>
+
+
+<<if $produce_honeycarrot gte 1>>
+<<button [[Roast Honeycarrot: Honeycarrot ~~x~~1|passage()][$craftedQuantity = $culiBonus + 1; $cooked_honeycarrot += $craftedQuantity; $produce_honeycarrot -= 1; $firewoodAshed = either(0,0,0,0,0,1); $crafted = 1; $craftedItem = "Roast Honeycarrot"; $culinetProgress += $craftedQuantity]]>><<endif>>

@@ -1,0 +1,33 @@
+﻿<center><<display ZoneBackgrounds>><<display EncounterImg>><<nobr>>
+
+/% If this was a bribe, now's time to pay. %/
+
+<<if $wasBribed is 1>>
+
+<<if $bribeQuantity lte 0>>
+<<set $bribeQuantity = 1>><<endif>>
+
+<<if $bribeType is "girthWG">>
+
+<<print "<<set $" + $bribeID + " += " + $bribeQuantity + ">>">>
+
+<<elseif $bribeType is "girthDrain">>
+
+<<print "<<set $" + $bribeID + " -= " + $bribeQuantity + ">>">>
+
+
+<<else>>
+
+<<print "<<set $" + $bribeID + " -= " + $bribeQuantity + ">>">>
+<<endif>><<endif>>
+
+
+<<if ($bribeType is "girthWG") or ($bribeType is "girthDrain")>><<set $bribeDesc = "your">>
+<<else>><<set $bribeDesc = "your">><<endif>>
+
+
+They seem //very// interested in <<print $bribeDesc>> ''<<print $bribeName>>''<<print $bribeAction>>
+<<endnobr>>
+''You've made a new friend!''<<set $bribeQuantity = 0; $bribeID = 0; $wasBribed = 0>>
+
+<framed><<button [[Send them home.|DonsairStore][$donsairID = 1; $captiveType = "ally"; $captiveMood = random(70,80)]]>></framed></center>

@@ -1,0 +1,22 @@
+﻿<<if $immobile is 0>><<if $flight is 0>><<if ($wildrunning is 1) and ($indoorZone is 0)>>''__Wildrunning__''
+<<nobr>>
+
+/% Results of travel depend on the population of the current area. %/
+
+<<if $popDensity neq "low">>
+<<button [[Seek Mediquerie.|Mediquerie][$saveStateEncounter = "Explore"; $cycleWeather = 1]]>>
+
+<<button [[Seek Fatiere.|Fatiere][$saveStateEncounter = "Explore"; $weatherType = 0; $newWeather = 1; $cycleWeather = 1]]>>
+
+<<button [[Seek Bovieterie.|Bovieterie][$saveStateEncounter = "Explore"; $cycleWeather = 1]]>><<endif>>
+
+
+<<button [[Seek Billeporte.|Billeporte][$saveStateEncounter = "Explore"; $cycleWeather = 1]]>>
+
+
+<<button [[Seek Dungeon.|Explore][$dungeonType = either("Abandoned Laboratory Mound","Abandoned Storage Mound"); $saveStateEncounter = "Explore"; $specStatus = 0; $exploring = 3; $indoorZone = 1; $dungeonLocation = $dungeonType; $cycleWeather = 1]]>>
+
+
+<<endnobr>><<else>>
+''//You can only Wildrun in wooded & magical Overworld areas.//''<<endif>><<endif>><<else>>
+''//You can't move to wildrun..!//''<<endif>>

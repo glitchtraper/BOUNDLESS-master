@@ -1,0 +1,188 @@
+﻿<<if $forcefedPet neq 0>>
+<framed>You <<print $petUse>> <<print "<<print $dons" + $donsairID + ">>">> the <<print $forcefedPet>>!
+<<display DonsairItemEffect>><<print $forcefedPetEffect>><<set $forcefedPet = 0>></framed>
+<<endif>><<nobr>>
+
+
+
+/% ================================================ %/
+/% Food %/
+
+<<if $donsairFull is 0>>
+
+<<if $waterStock gte 10>><<button [[Feed Water.|passage()][$waterStock -= 10; $forcefedPet = "Water"; $petUse = "feed"; $forcefedPetEffect = "It drinks greedily!"]]>><<endif>>
+<<if $waterStock gte 100>><<button [[(x10)|passage()][$waterStock -= 100; $forcefedPet = "Water (x10)"; $petUse = "feed"; $forcefedPetEffect = "It drinks greedily!"]]>><<endif>>
+
+
+<<if $milkStock gte 10>><<button [[Feed Milk.|passage()][$milkStock -= 10; $forcefedPet = "Milk"; $petUse = "feed"; $forcefedPetEffect = "It drinks greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $milkStock gte 100>><<button [[(x10)|passage()][$milkStock -= 100; $forcefedPet = "Milk (x10)"; $petUse = "feed"; $forcefedPetEffect = "It drinks greedily!"; $culinetProgress += 1]]>><<endif>>
+
+
+<<if ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $jellyStock gte 10>><<button [[Feed Jelly.|passage()][$jellyStock  -= 10; $forcefedPet = "Jelly"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $jellyStock gte 100>><<button [[(x10)|passage()][$jellyStock  -= 100; $forcefedPet = "Jelly (x10)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "herbi") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $fruitStock gte 10>><<button [[Feed Fruit.|passage()][$fruitStock -= 10; $forcefedPet = "Fruit"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $fruitStock gte 100>><<button [[(x10)|passage()][$fruitStock -= 100; $forcefedPet = "Fruit (x10)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "herbi") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $vegStock gte 10>><<button [[Feed Vegetables.|passage()][$vegStock -= 10; $forcefedPet = "Vegetables"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $vegStock gte 100>><<button [[(x10)|passage()][$vegStock -= 100; $forcefedPet = "Vegetables (x10)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "herbi") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $rootStock gte 10>><<button [[Feed Roots.|passage()][$rootStock -= 10; $forcefedPet = "Roots"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $rootStock gte 100>><<button [[(x10)|passage()][$rootStock -= 100; $forcefedPet = "Root (x10)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "herbi") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $grainStock gte 100>><<button [[Feed Grain.|passage()][$grainStock -= 100; $forcefedPet = "Grain"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "herbi") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $nutStock gte 20>><<button [[Feed Nuts.|passage()][$nutStock -= 20; $forcefedPet = "Nuts"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $nutStock gte 50>><<button [[(x50)|passage()][$nutStock -= 50; $forcefedPet = "Nuts (x50)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "carni") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $eggStock gte 6>><<button [[Feed Eggs.|passage()][$eggStock -= 6; $forcefedPet = "Eggs"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $eggStock gte 12>><<button [[(x10)|passage()][$eggStock -= 12; $forcefedPet = "Eggs (x10)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "pisci") or ($donsairVore is "carni") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $fishStock gte 1>><<button [[Feed Fish.|passage()][$fishStock -= 1; $forcefedPet = "Fish"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $fishStock gte 4>><<button [[(x4)|passage()][$fishStock -= 4; $forcefedPet = "Fish (x4)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "carni") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $poultryStock gte 1>><<button [[Feed Poultry.|passage()][$poultryStock -= 1; $forcefedPet = "Poultry"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $poultryStock gte 4>><<button [[(x4)|passage()][$poultryStock -= 4; $forcefedPet = "Poultry (x4)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "carni") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $meatStock gte 1>><<button [[Feed Meat.|passage()][$meatStock -= 1; $forcefedPet = "Meat"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $meatStock gte 4>><<button [[(x4)|passage()][$meatStock -= 4; $forcefedPet = "Meat (x4)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "carni") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $dragonStock gte 1>><<button [[Feed Dragon Meat.|passage()][$dragonStock -= 1; $forcefedPet = "Dragon Meat"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $dragonStock gte 4>><<button [[(x4)|passage()][$dragonStock -= 4; $forcefedPet = "Dragon Meat (x4)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "carni") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $leupaiStock gte 1>><<button [[Feed Leupai Flesh.|passage()][$leupaiStock -= 1; $forcefedPet = "Leupai Flesh"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $leupaiStock gte 4>><<button [[(x4)|passage()][$leupaiStock -= 4; $forcefedPet = "Leupai Flesh (x4)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if $donsairVore is "pan">>
+<<if $sugarStock gte 50>><<button [[Feed Sugar.|passage()][$sugarStock -= 50; $forcefedPet = "Sugar"; $petUse = "feed"; $forcefedPetEffect = "It swallows it down!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if ($donsairVore is "carni") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $fatStock gte 1>><<button [[Feed Fat.|passage()][$fatStock -= 1; $forcefedPet = "Fat"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<if $fatStock gte 4>><<button [[(x4)|passage()][$fatStock -= 4; $forcefedPet = "Fat (x4)"; $petUse = "feed"; $forcefedPetEffect = "It eats greedily!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<endif>>
+
+/% ================================================ %/
+/% Items %/
+
+<<if $donsairFull is 0>>
+
+
+<<if ($donsairVore is "herbi") or ($donsairVore is "pan") or ($donsairVore is "omni")>>
+<<if $berry_mira gt 0>><<button [[Feed Miraberry.|passage()][$berry_mira -= 1; $forcefedPet = "Miraberry"; $petUse = "feed"; $forcefedPetEffect = "It shifts its weight, its body jiggling as it grows a bit plumper!"; $culinetProgress += 1]]>><<endif>>
+<<if $berry_mira gte 10>><<button [[(x10)|passage()][$berry_mira -= 10; $forcefedPet = "Miraberry (x10)"; $petUse = "feed"; $forcefedPetEffect = "It shifts its weight, its body jiggling as it grows plumper!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+<<if $fatteniumStock gte 10>><<button [[Feed Fattenium Powder.|passage()][$fatteniumStock -= 10; $forcefedPet = "Fattenium Powder"; $petUse = "feed"; $forcefedPetEffect = "It shifts its weight, its body jiggling as it grows a bit plumper!"; $culinetProgress += 1]]>><<endif>>
+<<if $fatteniumStock gte 100>><<button [[(x10)|passage()][$fatteniumStock -= 100; $forcefedPet = "Fattenium Powder (x10)"; $petUse = "feed"; $forcefedPetEffect = "It shifts its weight, its body jiggling as it grows plumper!"; $culinetProgress += 1]]>><<endif>>
+
+
+<<if $distensiumStock gte 10>><<button [[Feed Distensium Powder.|passage()][$distensiumStock -= 10; $forcefedPet = "Distensium Powder"; $petUse = "feed"; $forcefedPetEffect = "It wriggles as its body puffs up a bit rounder, its belly protruding!"]]>><<endif>>
+<<if $distensiumStock gte 10>><<button [[(x10)|passage()][$distensiumStock -= 10; $forcefedPet = "Distensium Powder (x10)"; $petUse = "feed"; $forcefedPetEffect = "It wriggles as its body swells, its belly ballooning!"]]>><<endif>>
+
+
+<<if $miraStock gte 10>><<button [[Feed Miracrystal Dust.|passage()][$miraStock -= 10; $forcefedPet = "Miracrystal Dust"; $petUse = "feed"; $forcefedPetEffect = "Nothing seems to happen right away..."]]>><<endif>>
+
+
+<<if $milk_strange gt 0>>
+	<<if ($donsairBreasts is 1) and ($donsairUnderage neq "true")>>
+	<<button [[Feed Strange Milk.|passage()][$milk_strange -= 1; $forcefedPet = "Strange Milk"; $petUse = "feed"; $forcefedPetEffect = "It gasps and squirms a bit as its breasts slowly begin to swell..!"; $culinetProgress += 1]]>>
+
+	<<else>>
+	<<button [[Feed Strange Milk.|passage()][$milk_strange -= 1; $forcefedPet = "Strange Milk"; $petUse = "feed"; $forcefedPetEffect = "It seems to grow a bit plumper and more vital!"; $culinetProgress += 1]]>><<endif>>
+<<endif>>
+
+
+
+<<endif>>
+
+<<if $shot_voracity gt 0>><<button [[Use Voracity Shot.|passage()][$shot_voracity -= 1; $forcefedPet = "Voracity Shot"; $petUse = "give"; $forcefedPetEffect = "Its stomach growls loudly!"; $culinetProgress += 1]]>><<endif>>
+
+<<if $shot_satiatior gt 0>><<button [[Use Satiator Shot.|passage()][$shot_voracity -= 1; $forcefedPet = "Satiator Shot"; $petUse = "give"; $forcefedPetEffect = "Its belly puffs up a bit!"; $culinetProgress += 1]]>><<endif>>
+
+<<if $shot_deflator gt 0>><<button [[Use Deflator Injection.|passage()][$shot_deflator -= 1; $forcefedPet = "Deflator Injection"; $petUse = "give"; $forcefedPetEffect = "It sighs loudly as the pressure in its body decreases!"]]>><<endif>>
+
+<<if $shot_fattenium gt 0>><<button [[Use Fattenium Shot.|passage()][$shot_fattenium -= 1; $forcefedPet = "Fattenium Shot"; $petUse = "give"; $forcefedPetEffect = "It cries out, squirming as its body rapidly bulges and bloats!"; $fatteniumDose += 1; $culinetProgress += 1]]>><<endif>>
+
+<<if $shot_fattenium_pure gt 0>><<button [[Use Pure Fattenium Shot.|passage()][$shot_fattenium_pure -= 1; $forcefedPet = "Pure Fattenium Shot"; $petUse = "give"; $forcefedPetEffect = "It cries out in pain and shock as it blimps up enormously with fat, its skin creaking!"; $fatteniumDose += 2; $culinetProgress += 1]]>><<endif>>
+
+
+/% ================================================ %/
+/% Dyes %/
+
+<<if $dye_rainbow gt 0>><<button [[Use Spectrum Prisma Shard.|passage()][$dye_rainbow -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = either("white","silver","magenta","pink","red","brown","orange","golden","yellow","green","teal","blue","indigo","violet","black","gray"); $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"; ]]>><<endif>>
+
+<<if $dye_white gt 0>><<button [[Use White Prisma Shard.|passage()][$dye_white -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "white"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_silver gt 0>><<button [[Use Silver Prisma Shard.|passage()][$dye_silver -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "silver"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_magenta gt 0>><<button [[Use Magenta Prisma Shard.|passage()][$dye_magenta -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "magenta"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_pink gt 0>><<button [[Use Pink Prisma Shard.|passage()][$dye_pink -= 1;$forcefedPet = "Prisma Shard"; $dyeColor = "pink"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_red gt 0>><<button [[Use Red Prisma Shard.|passage()][$dye_red -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "red"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_brown gt 0>><<button [[Use Brown Prisma Shard.|passage()][$dye_brown -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "brown"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_orange gt 0>><<button [[Use Orange Prisma Shard.|passage()][$dye_orange -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "orange"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_yellow gt 0>><<button [[Use Yellow Prisma Shard.|passage()][$dye_yellow -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "yellow"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_golden gt 0>><<button [[Use Golden Prisma Shard.|passage()][$dye_golden -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "golden"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_green gt 0>><<button [[Use Green Prisma Shard.|passage()][$dye_green -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "green"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_teal gt 0>><<button [[Use Teal Prisma Shard.|passage()][$dye_teal -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "teal"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_blue gt 0>><<button [[Use Blue Prisma Shard.|passage()][$dye_blue -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "blue"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_indigo gt 0>><<button [[Use Indigo Prisma Shard.|passage()][$dye_indigo -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "indigo"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_violet gt 0>><<button [[Use Violet Prisma Shard.|passage()][$dye_violet -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "violet"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_black gt 0>><<button [[Use Black Prisma Shard.|passage()][$dye_black -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "black"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_gray gt 0>><<button [[Use Gray Prisma Shard.|passage()][$dye_gray -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "gray"; $petUse = "give"; $forcefedPetEffect = "It shifts into a new color!"]]>><<endif>>
+
+<<endnobr>>

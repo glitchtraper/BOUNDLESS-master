@@ -1,0 +1,160 @@
+﻿<<display ZoneBackgrounds>><<set $seenIt_Console = 1>><<if $newMachine is 1>><<display MachineEfficiency>><<set $maintained = 3; $maintenanceCap = 0>><<endif>><<display ColorWheel>><<nobr>>
+
+/% Species changes via BodyDatabase %/
+
+
+<<if $mutateSpecies is 1>><<display BodyDatabase>><<set $mutateSpecies = 0>><<endif>>
+
+
+<<endnobr>>
+It's an //enormous// tank attached to a control panel and a variety of thick cables.
+When activated, the control panel spawns a hologram UI around your field of vision that follows you as long as you're within range.
+
+It takes a moment to load, seeming to search for something-- then makes a satisfied little tone, and a series of little 2D and 3D models of a body-- //your// body!-- appear on the hologram screen, along with a little alert window.
+
+<<if $inUse is 0>>The alert gently reminds you that ''the subject must be in the tank to utilize The Console'', and until something is placed inside, it will be in speculative mode.
+
+''You suppose that means //you'll// have to get in.''
+<<endif>><<if $inUse is 1>>
+Climbing into the machine, you close the door and make yourself as comfortable as you're able-- ''shortly before the tank fills with a thick liquid that makes your skin tingle oddly, leaving you to float inside.''
+Thankfully, you can breathe in it, so you turn your attention to the hologram UI to peruse and finally make your selection.
+
+Instantly, a soft alarm sound echoes through the room and tank, several magenta lights on the sides flickering on and flashing in time.
+<brightalert>''A brilliant magenta light floods the tank, and your skin begins to vibrate uncomfortably...''</brightalert><<nobr>>
+
+<<endnobr>><<if $consoleType is 1>><<set $pain += random(24,55)>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.<<nobr>><<if ($species is "arka") and ($subspecies is 0)>><<display RevecroixRandomizer>><<set $subspecies = $randomArka>><<endif>><<endnobr>>
+<deepalert>''Suddenly, a jolt of white hot pain shoots through you; you curl reflexively into fetal position with a agonized scream as your body softens, bulges, tightens, and reshapes itself around you!</deepalert>
+
+<mutation>Finally-- //mercifully//-- the process ends, and as the strange liquid drains and the alarms stop blaring, you settle onto the bottom of the tank with a new <<print $species>> form.''</mutation><<if $sanity gte 60>><<set $sanity -= 2>><<endif>><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 2>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.<<if $sanity gte 70>><<set $sanity -= 1>><<endif>>
+<deepalert>''Suddenly, your <<if $consoleTarget is "belly">>belly creaks as it inflates rapidly, blimping up as tightly as it can!<<set $bellyBloat = $maxBelly * 1.5; $bellyStatus = "bursting"; $lethalKO = either(0,1); $deathCause = "burst belly">><<elseif $consoleTarget is "breast">>breasts creak as they expand rapidly, growing tight, fat, and perfectly round!<<set $breastBloat = ($breast * $maxBreast)>><<elseif $consoleTarget is "fullbody">>breasts and belly groan and creak as they inflate rapidly, growing tight, fat, and perfectly round!<<set $bellyBloat = ($maxBelly * 1.2); $breastBloat = ($maxBreast * 1.2); $breastStatus = "creaking"; $lethalKO = either(0,1); $deathCause = "burst belly">><<endif>>''</deepalert><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 3>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+<brightalert>''Suddenly, your <<if $consoleTarget is "belly">>belly rapidly deflates, leaving you feeling strangely empty!<<set $bellyBloat = 0; $bellyLiquid = 0>><<elseif $consoleTarget is "breast">>breasts rapidly deflate, softening as they settle against your chest!<<set $breastBloat = 0; $storedMilk = 0>><<elseif $consoleTarget is "fullbody">>belly and breasts rapidly deflate, leaving you feeling strangely empty!<<set $bellyBloat = 0; $breastBloat = 0; $bellyLiquid = 0; $storedMilk = 0>>''</brightalert><<endif>><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 4>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.<<if $sanity gte 70>><<set $sanity -= 1>><<endif>>
+<brightalert>''Suddenly, your <<if $consoleTarget is "belly">>belly begins to rapidly fatten up, jiggling and billowing out like dough!<<set $belly += ($machinePower * 2); $bellyBloat = $maxBelly * 2>><<elseif $consoleTarget is "breast">>breasts begin to swell rapidly, bouncing as they grow big, fat, and heavy!<<set $breast += ($machinePower * 2); $breastBloat = $breast; $milkFat += either(10,20,30)>><<elseif $consoleTarget is "thigh">>thighs begin to swell rapidly, jiggling and wobbling as they grow wide and soft!<<set $thigh += ($machinePower * 2); $thighFirmness -= ($machinePower * 2)>><<elseif $consoleTarget is "body">>body inflates rapidly, bloating wider, rounder, and softer as the moments pass!<<set $girth += ($machinePower * 2)>><<elseif $consoleTarget is "fullbody">>entire body begins to surge fatter, jiggling and wobbling as it swells!<<set $girth += ($machinePower * 2); $belly += ($machinePower * 2); $breast += ($machinePower * 2); $bellyBloat = $maxBelly * 2; $breastBloat = $breast; $milkFat += either(30,40,50); $thigh += ($machinePower * 2); $thighFirmness -= ($thighFirmness / 2)>><<endif>>''</brightalert><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 5>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+<brightalert>''Suddenly, your <<if $consoleTarget is "belly">>belly begins to shrink away!<<set $belly -= ($machinePower * 2); $bellyBloat = $maxBelly * 1.1>><<elseif $consoleTarget is "breast">>breasts begin to shrink away!<<set $breast -= ($machinePower * 2); $breastBloat = ($breast * $maxBreast); $milkFat -= either(10,20,30)>><<elseif $consoleTarget is "thigh">>thighs begin to shrink away!<<set $thigh -= ($machinePower * 2); $thighFirmness += ($machinePower * 2)>><<elseif $consoleTarget is "body">>body tightens and shrinks, growing lighter!<<set $girth -= ($machinePower * 2)>><<elseif $consoleTarget is "fullbody">>entire body begins to deflate!<<set $girth -= ($machinePower); $belly -= ($machinePower); $breast -= ($machinePower); $bellyBloat = $belly; $breastBloat = $breast; $milkFat -= either(10,10,20); $thigh -= ($machinePower); $thighFirmness += ($machinePower)>><<endif>>''</brightalert><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 6>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+<brightalert>''Suddenly, your <<if $consoleTarget is "belly">>belly softens up!<<set $maxBelly += ($machinePower * 2); $bellyBloat = ($bellyBloat / 2)>><<elseif $consoleTarget is "breast">>breasts soften up!<<set $maxBreast += ($machinePower * 2); $breastBloat = ($breastBloat / 2)>><<endif>></brightalert>''<<nobr>>
+
+<<endnobr>><<elseif $consoleType is 7>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+<brightalert>''Suddenly, your <<if $consoleTarget is "belly">>belly tightens painfully!<<set $maxBelly -= ($machinePower * 2); $bellyBloat = $maxBelly * 2; $lethalKO = either(0,1); $deathCause = "burst belly">><<elseif $consoleTarget is "breast">>breasts tighten painfully!<<set $maxBreast -= ($machinePower * 2); $breastBloat = $breast>><<endif>></brightalert>''<<nobr>>
+
+<<endnobr>><<elseif $consoleType is 8>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+<brightalert>''Suddenly, you begin to feel anxious and jittery!''</brightalert><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 9>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+<brightalert>''Suddenly, you begin to feel dazed and sluggish...''</brightalert><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 10>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+<brightalert>''Suddenly, you begin to feel //hungrier...//''</brightalert><<set $esurience = 1>><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 11>><<set $pain += random(2,8)>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+</brightalert>''Suddenly, your breasts begin to tighten and expand, jiggling and sloshing as they swell rapidly with fat and milk!''</brightalert><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 12>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.<<if $sanity gte 60>><<set $sanity -= 5>><<endif>>
+<deepalert>''Suddenly, a jolt of white hot pain shoots through you; you curl reflexively into fetal position with a agonized scream as your body softens, bulges, and reshapes itself around you, swelling round, flabby, and soft!
+
+You feel your mind growing dull and fuzzy, and a strange warmth grows in you, as well as a gnawing, incessant hunger...</deepalert>
+
+<mutation>Finally-- //mercifully//-- the process ends, and as the strange liquid drains and the alarms stop blaring, you settle onto the bottom of the tank as a new <<print $species>>, your bloated, blubbery flesh jiggling around you!''</mutation><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 13>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+<brightalert>''Suddenly, your belly balloons enormously, quivering with a thick, pillowy layer of new fat!''</brightalert><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 14>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.<<if $sanity gte 60>><<set $sanity -= 1>><<endif>>
+<deepalert>''Suddenly, the rest of your body begins to shrink away, your <<if $consoleTarget is "belly">>belly rapidly, painfully expanding as all of the excess fat is pumped into it!<<set $belly = (($belly + $girth + $breast + $thigh) - 1150); $bellyBloat = $maxBelly * 2; $girth = 1000; $breast = 50; $thigh = 100; $pain += random(20,30); $health = "Sore"; $lethalKO = either(0,1); $deathCause = "burst belly">><<elseif $consoleTarget is "breast">>breasts rapidly, painfully expanding as all of the excess fat is pumped into them!<<set $breast = (($belly + $girth + $breast + $thigh) - 1300); $breastBloat = ($maxBreast * 2); $girth = 1000; $belly = 200; $thigh = 100; $pain += random(20,30); $health = "Sore">><<elseif $consoleTarget is "thigh">>thighs rapidly, painfully expanding as all of the excess fat is pumped into them!<<set $thigh = (($belly + $girth + $breast + $thigh) - 1250); $girth = 1000; $belly = 200; $breast = 50; $pain += random(20,30); $health = "Sore">><<elseif $consoleTarget is "body">>body rapidly expanding as all of the excess fat is pumped into it!<<set $girth = (($belly + $girth + $breast + $thigh) - 350); $belly = 200; $breast = 50; $thigh = 100; $pain += random(20,30); $health = "Sore"; $lethalKO = 1; $deathCause = "explosion">><<endif>>''</deepalert><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 15>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+<brightalert>''You begin to feel very strange, and your insides shift and lurch...''</brightalert><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 16>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.<<if $sanity gte 70>><<set $sanity -= 1>><<endif>>
+<brightalert>''Suddenly, your entire body begins to expand, your muscles bloating beneath a layer of thickening fat!''<<set $girth += ($machinePower * 2); $belly += ($machinePower * 2); $breast += ($machinePower * 2); $bellyBloat += $maxBelly * 0.3; $breastBloat = ($maxBreast + ($maxBreast / 2)); $milkFat += either(30,40,50); $thigh += ($machinePower * 2); $thighFirmness -= ($machinePower * 2); $strength += 1>></brightalert><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 17>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+<brightalert>''Your skin tingles...''</brightalert><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 333>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.<<if $sanity gte 70>><<set $sanity -= 1>><<endif>>
+<deepalert>''Suddenly, a jolt of white hot pain shoots through you; you curl reflexively into fetal position with a agonized scream as your body softens, bulges, tightens, and reshapes itself around you!</deepalert>
+
+<mutation>Finally-- //mercifully//-- the process ends, and as the strange liquid drains and the alarms stop blaring, you settle onto the bottom of the tank with a new, restored form.''</mutation><<set $consecutiveDrain = 0; $consecutiveGain = 0; $breastParasite = 0; $breastParaLoad += 0; $bellyParasite = 0; $bellyParaLoad += 0; $bodyPlumperParasite = 0; $wgParaLoad += 0; $bellyPlumperParasite = 0; $bellywgParaLoad += 0; $breastPlumperParasite = 0; $breastwgParaLoad += 0; $lactationParasite = 0; $lacParaLoad += 0; $metaParasite = 0; $metaParaLoad += 0; $slimeBellyParasite = 0; $slimeBellyParaLoad = 0; $slimeBreastParasite = 0; $slimeBreastParaLoad = 0; $lactation = 0>><<nobr>>
+
+<<endnobr>><<elseif $consoleType is 666>>\
+The odd vibration grows in intensity, and you grit your teeth as they chatter in your head.
+<deepalert>''Suddenly, your belly begins to bloat, creaking and wobbling as it fills with...//something.//
+
+Something //writhing...//''<<set $bellyBloat = $maxBelly * 2>><<if $sanity gte 50>><<set $sanity -= 5>><<endif>></deepalert><<endif>><<nobr>>
+
+<<endnobr>>
+<<set $consoleType = 0; $consoleTarget = 0>><<endif>><<display BodySystems>><<display Effects>><<if $doMaintenance is 1>>
+
+You sit, removing the back panel from the equipment and setting to work!<<set $doMaintenance = 0>><<if $successMaintenance is 1>>
+After a bit of careful evaluation and maintenance work, ''the machine is now in <<if $machineEfficiency is "poor">><<set $machineEfficiency = "fair">>fair condition!<<elseif $machineEfficiency is "fair">><<set $machineEfficiency = "good">>good condition!<<endif>><<display MachineEfficiency>><<set $maintenanceCap = 1>>''
+<<else>>You work and fiddle with the parts, circuits, and controls, ''but the thing is fighting you all the way..!''
+<<endif>><<endif>><<if $machinePower gt $machineBattery>>
+''It looks like it's run out of power.''<<if $special_battery gt 0>> <<button [[Use a battery.|passage()][$special_battery -= 1; $machineBattery += random(8,24); $inUse = 0]]>><<endif>><<else>>
+<center><framed><mini>''HYPOTHESIS CONSOLEv5.11 COMMAND PANEL.''------------------------
+''__TRANSFORM__''
+~~''WARNING! HIGH-COST PROCEDURE. //POWER LEVELS CRITICAL//''~~
+<<nobr>><<if $machineEfficiency is "good">><<button [[Post-Human|passage()][$machineBattery = 0; $inUse = 1; $consoleType = 1; $species = "post-human"; $starveFloor = 1500; $subspecies = 0; $strength += 1; $painBuffer += 5; $imagination -= 1; $mutateSpecies = 1]]>>
+
+<<button [[Arka|passage()][$machineBattery = 0; $inUse = 1; $consoleType = 1; $species = "arka"; $playerElement = "bestial"; $bodyColor = $fullChroma; $strength += 1; $finesse += 1; $mutateSpecies = 1]]>>
+
+<<button [[Aladri|passage()][$machineBattery = 0; $inUse = 1; $consoleType = 1; $species = "aladri"; $playerElement = "bestial"; $starveFloor = 1000; $finesse += 2; $painAmp += 5; $imagination += 1; $mutateSpecies = 1; $belly += either(0,0,0,0,50)]]>>
+
+<<button [[Mythosi|passage()][$machineBattery = 0; $inUse = 1; $consoleType = 1; $species = "mythosi"; $playerElement = either(0,"mirajin","vitae","bestial","arcane","psionic","electric","radiation","sonic","light","eldritch","void","love","fire","earth","air","water","metal","crystal","toxic","bestial","vegetal","fungal","viral","decay","fat","food","balloon","liquid","vore","egg","parasite","whimsy"); $speciesLock = 0; $girth += ($machinePower * either(2,4,6)); $belly += ($machinePower * either(2,4,6)); $breast += ($machinePower * either(1,2)); $strength += random(8,12); $bodyType = either("belly","round","pear","cubus","bloatpear","bulging","guguetelle"); $starveFloor = 5000; $subspecies = 0; $mutateSpecies = 1]]>><<else>><redalert>''ERROR: PROCEDURES NOT FUNCTIONAL; CONSULT MECHANIC.''</redalert><<endif>><<endnobr>>
+''__DISTORT__''
+''BLOAT''
+ <<button [[Breasts|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 2; $consoleTarget = "breast"]]>><<button [[Belly|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 2; $consoleTarget = "belly"; $playerBody = "bloated"]]>><<button [[ALL|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 2; $consoleTarget = "fullbody"; $playerBody = "bloated"]]>>
+''DEFLATE''
+ <<button [[Breasts|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 3; $consoleTarget = "breast"]]>><<button [[Belly|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 3; $consoleTarget = "belly"]]>><<button [[ALL|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 3; $consoleTarget = "fullbody"]]>>
+''FATTEN''
+ <<button [[Breasts|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 4; $consoleTarget = "breast"]]>><<button [[Belly|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 4; $consoleTarget = "belly"]]>><<button [[Thighs|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 4; $consoleTarget = "thigh"]]>><<button [[Body|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 4; $consoleTarget = "body"]]>><<button [[ALL|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 4; $consoleTarget = "fullbody"]]>>
+''SHRINK''
+ <<button [[Breasts|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 5; $consoleTarget = "breast"]]>><<button [[Belly|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 5; $consoleTarget = "belly"]]>><<button [[Thighs|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 5; $consoleTarget = "thigh"]]>><<button [[Body|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 5; $consoleTarget = "body"]]>><<button [[ALL|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 5; $consoleTarget = "fullbody"]]>>
+<<button [[LIQUEFY|passage()][$machineBattery = 0; $inUse = 1; $consoleType = 12; $species = "blubberslime"; $playerElement = "fat"; $speciesLock = 0; $bellyBloat += ($machinePower * random(5,30)); $starveFloor = 1500; $subspecies = 0; $mutateSpecies = 1]]>>
+''REALLOCATE''
+ <<button [[Breasts|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 14; $consoleTarget = "breast"]]>><<button [[Belly|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 14; $consoleTarget = "belly"; $playerBody = "bloated"]]>><<button [[Thighs|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 14; $consoleTarget = "thigh"]]>><<button [[Body|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 14; $consoleTarget = "body"]]>>
+''__SHAPE__''
+ <<button [[DEFAULT|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 15; $bodyType = 0]]>><<button [[ROUND|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 15; $bodyType = "round"]]>><<button [[BUSTY|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 15; $bodyType = "busty"]]>><<button [[MIRIETE|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 15; $bodyType = "belly"]]>><<button [[PEAR|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 15; $bodyType = "pear"]]>><<button [[HOURGLASS|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 15; $bodyType = "hourglass"]]>><<button [[THIGHS|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 15; $bodyType = "thigh"]]>>
+''__HUE/SATURATION__''
+ <<button [[STRIP|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = 0]]>><<button [[RED|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "red"]]>><<button [[ORANGE|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "orange"]]>><<button [[YELLOW|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "yellow"]]>><<button [[GREEN|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "green"]]>><<button [[BLUE|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "blue"]]>><<button [[INDIGO|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "indigo"]]>><<button [[VIOLET|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "violet"]]>><<button [[PINK|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "pink"]]>><<button [[MAGENTA|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "magenta"]]>><<button [[BLACK|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "black"]]>><<button [[GRAY|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "gray"]]>><<button [[SILVER|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "silver"]]>><<button [[WHITE|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "white"]]>><<button [[BROWN|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = "brown"]]>><<button [[RANDOMIZE|passage()][$machineBattery -= 1; $inUse = 1; $consoleType = 17; $bodyColor = $fullChroma]]>>
+''__PROCESS__''
+''ELASTICIZE''
+ <<button [[Breasts|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 6; $consoleTarget = "breast"]]>><<button [[Belly|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 6; $consoleTarget = "belly"]]>><<button [[ALL|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 6; $consoleTarget = "fullbody"]]>>
+''TIGHTEN''
+<<button [[Breasts|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 7; $consoleTarget = "breast"]]>><<button [[Belly|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 7; $consoleTarget = "belly"]]>><<button [[ALL|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 7; $consoleTarget = "fullbody"]]>>
+<<button [[BULK|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 16; $consoleTarget = "fullbody"]]>>
+<<button [[INCREASE METABOLISM|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 8; $metaGain -= 30; $metaBurn += 20]]>><<button [[DECREASE METABOLISM|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 9; $metaGain += 20; $metaBurn -= 30]]>>
+<<button [[INCREASE APPETITE|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 10; $esurience += $machinePower]]>><<button [[ADMINISTER PAINKILLERS|passage()][$machineBattery -= $machinePower; $inUse = 1; $consoleType = 17; $amalgaToxicity = ($girth/200) + ($girth/400)]]>>
+''__PRESETS__''
+<<nobr>><<button [[BOVIATE|passage()][$machineBattery -= ($machineBattery / 2); $inUse = 1; $consoleType = 11; $maxBreast += either(10,15,20); $breastBloat = ($maxBreast * 5); $storedMilk = $breastBloat; $milkRate += random(2,5); $milkFat += random(2,8); $milkType = 0; $breast += ($machinePower * either(10,15,20)); $playerElement = "food"; $bodyType = "boviete"]]>>
+<<button [[ADIANATE|passage()][$machineBattery = 0; $inUse = 1; $consoleType = 12; $girth += $machinePower * either(4,6,8,10,12); $belly += $machinePower * either(1,2,4,6); $maxBelly += either(10,20,30); $bellyBloat = ($maxBelly * 1.2); $breast += $machinePower * either(1,2,4,6); $milkFat += random(2,5); $milkType = 0; $thigh += $machinePower * either(1,2,4,6); $thighFirmness -= ($machinePower * 2); $consoleType = 12; $metaGain += 20; $metaBurn -= 30; $species = "adephagian"; $playerElement = "fat"; $subspecies = 0; $esurience += random(2,5); $starveFloor = 3000]]>>
+<<button [[ADIA-BOVIATE|passage()][$machineBattery = 0; $inUse = 1; $consoleType = 12; $girth += ($machinePower * either(2,4,6)); $belly += $machinePower * either(1,2,4,6); $maxBelly += either(10,20,30); $bellyBloat = ($maxBelly * 1.2); $maxBreast += either(10,15,20); $breastBloat = ($maxBreast * 1.2); $storedMilk = $breastBloat; $milkRate += random(3,5); $milkFat += random(3,10); $milkType = 0; $breast += ($machinePower * either(2,4,6,8)); $thigh += ($machinePower * either(1,2)); $thighFirmness -= ($machinePower * 2); $metaGain += 20; $metaBurn -= 30; $species = "adephagian"; $subspecies = "bovitype"; $playerElement = "food"; $esurience = 1; $bodyType = "boviete"; $esurience += random(2,5); $starveFloor = 3000]]>>
+<<button [[GUGUETELIE|passage()][$machineBattery -= ($machineBattery / 2); $inUse = 1; $consoleType = 13; $maxBelly += either(10,20,30); $belly += ($machinePower * random(3,6)); $bellyBloat = ($maxBelly * 1.2); $bodyType = "guguetelle"; $playerElement = "egg"; $esurience += random(2,5); $lethalKO = either(0,1); $deathCause = "burst belly"; $playerBody = "bloated"]]>><<endnobr>>
+<<button [[EXPERIMENTAL-- DO NOT USE!!!|passage()][$machineBattery -= ($machineBattery / 2); $inUse = 1; $consoleType = 666; $direParasite = 1; $direParaLoad += $machinePower * random(10,50); $bellyBloat = ($maxBelly * 1.5); $lethalKO = either(0,1); $deathCause = "burst belly"]]>>
+</mini><<if ($activeOcc is "Smithier") or ($activeOcc is "Datiere")>><center><framed><<if ($maintained gt 0) and ($machineEfficiency neq "good") and ($machineEfficiency neq "excellent") and ($machineEfficiency neq "flawless") and ($maintenanceCap neq 1) and ($pain lt 60)>><hr><<button [[Attempt Maintenance.|passage()][$inUse = 0; $maintained -= 1; $doMaintenance = 1; $successMaintenance = either(0,1)]]>><<endif>><<endif>></framed></center><<endif>>
+<center><<button [[Back.|$saveStateSpecial][$inUse = 0]]>></center>

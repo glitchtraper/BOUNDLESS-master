@@ -1,0 +1,21 @@
+﻿<<display ZoneBackgrounds>><center><framed>''__INVENTORY__''<mini><<nobr>>
+
+
+/% Store script %/
+<<if $storing is 1>>
+<<display ItemDatabase>>
+<<display Store>><<set $storing = 0>><<endif>>
+
+/% Wear script %/
+<<if $puttingOn is 1>><<display wearItem>><<set $puttingOn = 0>><<endif>>
+
+/% Resource split script %/
+<<endnobr>><<if $splitResources is 1>>
+You recieve:
+<<display splitItem>><<set $splitResources = 0>><<endif>><<nobr>>
+
+
+<<endnobr>>
+<<display ItemSelect>><<display ItemInventory>><<display Wardrobe>><<display Gubs>><<display ResourceInventory>></mini></framed>
+<<display Worn>>
+<<button [[Continue.|$saveState][$selectedItem = 0; $itemTag = 0; $itemID = 0; $usedItem = 0]]>></center>

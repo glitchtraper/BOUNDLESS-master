@@ -1,0 +1,16 @@
+﻿/% ================================================ %/
+/% Check what types of product this donsair produces and the last harvest time. %/
+
+<<print "<<set $donsair" + "HarvestRegen = $dons" + $donsairID + "HarvestRegen>>">>
+
+<<print "<<set $donsair" + "Milk = $dons" + $donsairID + "Milk>>">>
+<<print "<<set $donsair" + "MilkYield = $dons" + $donsairID + "MilkYield>>">>
+<<print "<<set $donsair" + "Venom = $dons" + $donsairID + "Venom>>">>
+
+/% ================================================ %/
+/% If donsair is harvestable, enable the harvest button.
+The harvest collection page will check all the yields and deliver them. %/
+
+<<if ($donsairMilk neq 0) or ($donsairVenom neq 0) or ($donsairSpecies is "fyynling")  or ($donsairSpecies is "fyynling horror") or ($donsairSpecies is "slime") or ($donsairSubtype is "slime")>>
+	<<if ($donsairHarvestRegen is 0) or ($globalTime gte $donsairHarvestRegen)>>
+<<button [[Harvest Products.|DonsairHarvestCollection]]>><<endif>><<endif>>

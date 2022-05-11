@@ -1,0 +1,829 @@
+﻿#storyAuthor {
+	visibility: hidden;
+}
+
+#sidebar {
+	width: 15%;
+	color: #ffffff;
+    overflow: hidden;
+	position: absolute;
+	left: 170px;
+	padding: 10px;
+}
+
+#sidebar #title, #sidebar #title:hover, #sidebar #title a {
+    color: #999;
+    height: 170px;
+}
+
+#sidebar #storyMenu {
+    color: #ffffff;
+	text-decoration: none;
+}
+
+#sidebar li a{
+	color: #ff4fcf;
+}
+
+#sidebar #credits:hover {
+	color: #ffffff;
+}
+
+#sidebar #credits{
+	color: #ffffff;
+}
+
+#storyMenu {
+	color: #ffffff;
+}
+
+a:link {
+    color: #ff4fcf;
+	text-decoration: none;
+}
+
+a:visited {
+    color: #f449ff;
+	text-decoration: none;
+}
+
+a:hover {
+    color: #ff2f91;
+	text-decoration: none !important;
+}
+
+a:active {
+    color: #5aeaff;
+	text-decoration: none;
+}
+
+/* Disable transitions, hopefully. */
+
+.transition-in {
+	opacity: 100;
+	position:absolute;
+}
+.passage:not(.transition-out) {
+	transition: 0.1s;
+	-webkit-transition: 0.1s;
+}
+.transition-out {
+	opacity:100;
+	position:absolute;
+}
+
+.passage a {
+	font-weight: normal !important;
+}
+
+.passage center {
+    max-width: 90%;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+
+center {
+	margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/*Background By Zone */
+
+body[data-tags~="splash"] {
+		background-image: [img[bg_title]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="blackscreen"] {
+		background-color: #000000;
+}
+
+body[data-tags~="missingno"] {
+		background-image: [img[bg_glitch]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="forest"] {
+		background-image: [img[bg_forest]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="forestpm"] {
+		background-image: [img[bg_forest-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="fields"] {
+		background-image: [img[bg_meadow]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="fieldspm"] {
+		background-image: [img[bg_meadow-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="hills"] {
+		background-image: [img[bg_hills]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="hillspm"] {
+		background-image: [img[bg_hills-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="beach"] {
+		background-image: [img[bg_beach]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="beachpm"] {
+		background-image: [img[bg_beach-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+
+body[data-tags~="deadwood"] {
+		background-image: [img[bg_deadwood]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="deadwoodpm"] {
+		background-image: [img[bg_deadwood-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+
+body[data-tags~="jungle"] {
+		background-image: [img[bg_jungle]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="junglepm"] {
+		background-image: [img[bg_jungle-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+
+body[data-tags~="ocean"] {
+		background-image: [img[bg_ocean]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="oceanpm"] {
+		background-image: [img[bg_ocean-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="coldmountain"] {
+		background-image: [img[bg_coldmountain]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="coldmountainpm"] {
+		background-image: [img[bg_coldmountain-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="crystalforest"] {
+		background-image: [img[bg_crystalforest]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="crystalforestpm"] {
+		background-image: [img[bg_crystalforest-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="ruins"] {
+		background-image: [img[bg_ruins]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="ruinspm"] {
+		background-image: [img[bg_ruins-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="snowforest"] {
+		background-image: [img[bg_snowforest]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="snowforestpm"] {
+		background-image: [img[bg_snowforest-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="mountain"] {
+		background-image: [img[bg_mountain]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="mountainpm"] {
+		background-image: [img[bg_mountain-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="freshwater"] {
+		background-image: [img[bg_freshwater]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="freshwaterpm"] {
+		background-image: [img[bg_freshwater-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+
+body[data-tags~="harddesert"] {
+		background-image: [img[bg_desert]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="harddesertpm"] {
+		background-image: [img[bg_desert-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="sands"] {
+		background-image: [img[bg_sands]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="sandspm"] {
+		background-image: [img[bg_sands-pm]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="moundshop"] {
+		background-image: [img[bg_moundshop]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="hypofarm"] {
+		background-image: [img[bg_bovieterie]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="abandonedmound"] {
+		background-image: [img[bg_abandoned]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="abitte"] {
+		background-image: [img[bg_abitte]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="cave"] {
+		background-image: [img[bg_cave]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="firecave"] {
+		background-image: [img[bg_firecave]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="icecave"] {
+		background-image: [img[bg_icecave]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="crystalcave"] {
+		background-image: [img[bg_crystalcave]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="deepcave"] {
+		background-image: [img[bg_deepcave]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="wetcave"] {
+		background-image: [img[bg_wetcave]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="magmacave"] {
+		background-image: [img[bg_magmacave]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+body[data-tags~="magmacore"] {
+		background-image: [img[bg_magmacore]];
+		background-attachment: fixed;
+		background-position: left top;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+
+.passage {
+	width: 50%;
+	position: absolute;
+	left: 300px;
+    color: #ffffff;
+	background-image: [img[60-blk]];
+	background-size: contain;
+	background-repeat: repeat;
+    overflow: hidden;
+	padding: 15px;
+}
+
+
+/*Text Formatting */
+
+
+hr {
+	border: 0;
+	color: #fff;
+	background-color: #fff;
+	height: 1px;
+}
+
+mini {
+	font-family: "Arial";
+    font-size: 10px;
+}
+
+xtramini {
+	font-family: "Arial";
+    font-size: 9px;
+}
+
+large {
+	font-family: "Arial";
+    font-size: 12px;
+}
+
+xtralarge {
+	font-family: "Arial";
+    font-size: 13px;
+}
+
+huge {
+	font-family: "Arial";
+    font-size: 14px;
+}
+
+xtrahuge {
+	font-family: "Arial";
+    font-size: 16px;
+}
+
+
+/*Colors */
+
+alert {
+	font-family: "Arial";
+    font-size: 9px;
+	color: #f2daab;
+	padding: 0;
+}
+
+affirmative {
+	color: #a2e878;
+}
+
+cheery {
+	color: #a3e7e8;
+}
+
+softalert {
+	color: #f5b999;
+}
+
+brightalert {
+	color: #fcc43c;
+}
+
+deepalert {
+	color: #f88243;
+}
+
+redalert {
+	color: #ff2d5e;
+}
+
+redalert:link {
+    color: #ff2d5e;
+	text-decoration: none;
+}
+
+mirometer {
+	color: #ff9dd4;
+}
+
+mutation {
+	color: #ff3ac5;
+}
+
+rare {
+	color: #d189fe;
+}
+
+warning {
+	color: #f9cd81;
+}
+
+seriouswarning {
+	color: #ff894f;
+}
+
+criticalwarning {
+	color: #ff574f;
+}
+
+rain {
+	color: #9bcedb;
+}
+
+hypo {
+	color: #c6c8cc;
+}
+
+bleak {
+	color: #9d9bb0;
+}
+
+deep {
+	color: #0072bc;
+}
+
+phoe {
+	color: #8f4eb5;
+}
+
+nuclear {
+	color: #c4e41a;
+}
+
+
+/*Frames & Banners*/
+
+frame {
+	border: 1px solid #ffffff;
+}
+
+banner {
+	border: 1px solid #fff;
+	color: #000;
+	background-color: #cee3f0;
+	height: 5px;
+}
+
+plainbanner {
+	border: 1px solid #000;
+	color: #fff;
+	background-color: #000;
+	height: 5px;
+}
+
+battlebanner {
+	border: 1px solid #000;
+	color: #fdd089;
+	background-color: #000;
+	height: 5px;
+}
+
+
+brightbanner {
+	border: 1px solid #000;
+	color: #000;
+	background-color: #fff;
+	height: 5px;
+}
+
+agebanner {
+	border: 1px solid #fff;
+	color: #000;
+	background-color: #d6ffc0;
+	height: 5px;
+}
+
+mirobanner {
+	border: 1px solid #fff;
+	color: #ff9dd4;
+	background-color: #000;
+	height: 5px;
+}
+
+depthbanner {
+	border: 1px solid #fff;
+	color: #41d9e2;
+	background-color: #000;
+	height: 5px;
+}
+
+geigerbanner {
+	border: 1px solid #fff;
+	color: #f1ff12;
+	background-color: #000;
+	height: 5px;
+}
+
+alertbanner {
+	border: 1px solid #fff;
+	color: #000;
+	background-color: #f5bb98;
+	height: 5px;
+}
+
+framed {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+	padding:1em;
+	border: 1px solid white;
+	background-color: #000;
+	font-family: "Arial";
+    font-size: 10px;
+}
+
+wideframe {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+	padding:1em;
+	border: 1px solid white;
+	background-color: #000;
+	font-family: "Arial";
+    font-size: 10px;
+}
+
+wideframe2 {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+	padding:1em;
+	background-color: #000;
+	font-family: "Arial";
+    font-size: 10px;
+}
+
+invisiframe {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+	padding:1em;
+}
+
+framedalert {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+	border: 1px solid white;
+	background-color: #000;
+	align-content: center;
+	font-family: "Arial";
+    font-size: 9px;
+}
+
+miraframed {
+	display: inline-block;
+	background-color: #000;
+	padding: 2px 5px 3px;
+	margin: 2px;
+	color: #e61c98;
+	border: 1px solid #e61c98;
+	line-height: 1;
+	font-family: "Arial";
+    font-size: 12px;
+	text-decoration: none;
+}
+
+unframe {
+	display: inline-block;
+	background-color: #000;
+	padding: 2px 5px 3px;
+	margin: 2px;
+	color: #666;
+	border: 1px solid #333;
+	line-height: 1;
+	font-family: "Arial";
+    font-size: 12px;
+	text-decoration: none;
+}
+
+framedaccent {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+	padding:1em;
+	border: 1px solid white;
+	background-color: #111;
+	align-content: center;
+	font-family: "Arial";
+    font-size: 10px;
+}
+
+midframe {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+	padding:2px;
+	margin:5px;
+	border: 1px solid white;
+	background-color: #000;
+	align-content: center;
+	font-family: "Arial";
+    font-size: 10px;
+}
+
+narrowframe {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+	padding:2px;
+	margin:5px;
+	border: 1px solid white;
+	background-color: #000;
+	align-content: center;
+	font-family: "Arial";
+    font-size: 10px;
+}
+
+tightframe {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+	padding:2px;
+	border: 1px solid white;
+	background-color: #000;
+	align-content: center;
+	font-family: "Arial";
+    font-size: 10px;
+}
+
+invisiframen {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+	align-content: center;
+    width: 60%;
+	padding:1em;
+}
+
+
+/* Hidden */
+
+invisible {
+	visibility: hidden;
+}
+
+/* Buttons */
+
+button.internalButton {
+	display: inline-block;
+	background-color: #000;
+	padding: 2px 5px 3px;
+	margin: 2px;
+	color: #e61c98;
+	border: 1px solid #e61c98;
+	line-height: 1;
+	font-family: "Arial";
+    font-size: 12px;
+	text-decoration: none;
+	cursor: pointer;
+}

@@ -1,0 +1,77 @@
+﻿<center><framed><<nobr>>__''//Round <<print $ffRound>>//''__<<set $ffRound += 1>>
+/% This script replays a certain event over and over again until it's either turned off, escaped from, or the player dies. %/
+
+<<endnobr>><<if $noncon is 0>><<nobr>>
+
+/% Consensual forcefeeding %/
+
+<<endnobr>>
+You squirm and groan as the <<print $ffeedingNoun>> continues to <<print $ffeedingVerb>> you, ''your <<print $ffeedingTarget>> <<print $ffeedingEffect>>!''
+<<nobr>>
+
+<<set $calories += $ffCalories; $bellyBloat += $ffBloat; $bellyLiquid += $ffLiquid; $breastBloat += $ffBreastBloat; $storedMilk += $ffMilk; $pain += $ffPain; $esurience += $ffGreed>>
+
+<<endnobr>><<if ($pain gte $maxPain * 0.7) and ($pain lt $maxPain)>>
+[img[icon_alert_critical]]<redalert>//''You feel like you're going to explode...!''//</redalert><<endif>><<nobr>>
+
+<<endnobr>><<display BodySystems>><<display Vitality>><<display Alert>><<display Effects>>
+<center><<button [[Submit.|passage()][$ffEncouraged = 0]]>><<if $serviceOverride is 0>><<button [[Stop.|passage()][$service = 0]]>></center><<endif>>\
+\
+\
+<<elseif $noncon is 1>><<nobr>>
+
+/% Noncon forcefeeding %/
+
+/% Escape chance for noncon events %/
+
+<<set $fleeAttempt = random(1,$finesse); $fleeDefend = random(1,$encounterFinesse)>>
+
+/% If you've been immobilized, the escape chance is very small %/
+<<if $immobile is 1>><<set $fleeAttempt = ($fleeAttempt / 2)>><<endif>>
+
+<<if $fleeAttempt gte $fleeDefend>><<set $escapedEncounter = $saveStateBattle; $escapedBattle = 1>>
+<<else>><<set $escapedEncounter = 0>><<endif>>
+
+
+<<endnobr>><<if $pain lt 20>><<set $pain = 20>><<endif>>
+You squirm and groan as the <<print $encounter>> continues to <<print $ffeedingVerb>> you, ''your <<print $ffeedingTarget>> <<print $ffeedingEffect>>!''
+<<nobr>>
+
+<<set $calories += $ffCalories; $bellyBloat += $ffBloat; $bellyLiquid += $ffLiquid; $breastBloat += $ffBreastBloat; $storedMilk += $ffMilk; $pain += $ffPain; $esurience += $ffGreed>>
+
+/% Gorge for noncon %/
+<<display Gorging>>
+
+<<endnobr>><<if ($pain gte $pain gte $maxPain * 0.7) and ($pain lt $maxPain)>>
+[img[icon_alert_critical]]<redalert>//''You feel like you're going to explode...!''//</redalert>
+<<endif>><<display BodySystems>><<display Vitality>><<display Alert>><<display Effects>>\
+\
+\
+<<if $pain lt $maxPain>>\
+<center><<if $escapedEncounter neq 0>><<button [[Struggle!|$escapedEncounter][$continueOverride = 0; $ffRound = 0; $ffEncouraged = 0]]>><<else>><<button [[Struggle!|passage()]]>><<endif>><<button [[Encourage!|passage()][$ffEncouraged = 1]]>><<button [[Submit...|passage()][$ffEncouraged = 0]]>></center>\
+\
+\
+<<endif>><<endif>><<nobr>>
+
+/% =========================================== %/
+/% Timers %/
+
+
+/% Default Timer (2 secs.) %/
+
+<<if $forcefeedSpeed is 0>>
+	<<if $pain lt $maxPain>><<timedgoto passage() 2s >><<elseif $pain gte $maxPain>><<set $blackout = 1>><<endif>>
+
+/% Rapid Timer (1 sec.) %/
+<<elseif $forcefeedSpeed is "rapid">>
+	<<if $pain lt $maxPain>><<timedgoto passage() 1s >><<elseif $pain gte $maxPain>><<set $blackout = 1>><<endif>>
+
+/% Max Speed Timer (0.5 sec.) %/
+<<elseif $forcefeedSpeed is "max">>
+	<<if $pain lt $maxPain>><<timedgoto passage() 0.5s >><<elseif $pain gte $maxPain>><<set $blackout = 1>><<endif>>
+<<endif>>
+
+/% Bonus gain for fatiee %/
+<<if ($activeOcc is "Fatiee") and ($ffCalories gt 0)>><<set $fatteningSurge = ($ffCalories * 2)>><<display FatSurge>><<endif>>
+
+<<endnobr>></framed></center>

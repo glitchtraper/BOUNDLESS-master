@@ -1,0 +1,6 @@
+﻿<<if $companion1 is 0>><<set $compSlot = 1; $companions += 1>>
+<<elseif ($companion1 neq 0) and ($companion2 is 0)>><<set $compSlot = 2; $companions += 1>>
+<<elseif ($companion2 neq 0) and ($companion3 is 0)>><<set $compSlot = 3; $companions += 1>>
+<<elseif ($companion1 neq 0) and ($companion2 neq 0) and ($companion3 neq 0)>><<set $companions = 3>><<endif>>
+
+<<display CompanionDatabase>>

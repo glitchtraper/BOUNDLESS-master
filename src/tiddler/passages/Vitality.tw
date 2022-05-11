@@ -1,0 +1,78 @@
+﻿/% ======================================= %/
+/% Modded Pain %/
+/% ??? i'd like to update this to be more subtle.
+
+ + $painBuffer - $painAmp %/
+
+<<set $maxPain = $naturalMaxPain + $painBuffer>>
+
+<<if $pain lt 1>><<set $pain = 0>><<endif>>
+
+/% Decimal cleanup %/
+
+<<set $pain = Math.round($pain)>>
+
+
+/% Pain Chart %/
+
+<<if $painlessMode is 0>>
+
+<<if $pain lt ($maxPain * 0.2)>><<set $health = "Lively">>
+<<elseif ($pain gte ($maxPain * 0.2)) and ($pain lt ($maxPain * 0.25))>><<set $health = "Sore">>
+<<elseif ($pain gte ($maxPain * 0.25)) and ($pain lt ($maxPain * 0.5))>><<set $health = "Pained">>
+<<elseif ($pain gte ($maxPain * 0.5)) and ($pain lt ($maxPain * 0.8))>><<set $health = "Suffering">>
+<<elseif ($pain gte ($maxPain * 0.8)) and ($pain lt $maxPain)>><<set $health = "Agonized!">><<endif>>
+
+
+/% Natural Pain Decay %/
+
+<<if $pain gt 0>><<set $pain -= either(0,0,0,1,2,3)>><<endif>>
+<<if $pain lt 1>><<set $pain = 0>><<endif>>
+
+/% Decimal cleanup %/
+
+<<set $pain = Math.round($pain)>>
+
+
+
+<<else>><<set $health = "Unsuffering"; $pain = 0; $blackout = 0; $lethalKO = 0>><<endif>>
+
+/% ======================================= %/
+/% Radiation %/
+
+<<if $ambientRads gt 0>><<set $nuclearRads += $ambientRads>>
+<<elseif $ambientRads lte 0>><<set $nuclearRads -= either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1)>><<endif>>
+
+
+<<if $nuclearRads lt 1>><<set $nuclearRads = 0>><<endif>>
+
+/% Decimal cleanup %/
+
+<<set $nuclearRads = Math.round($nuclearRads)>>
+
+<<set $ambientRads = 0>>
+
+/% ======================================= %/
+/% Mirajin %/
+
+<<if $ambientMirajin gt 0>><<set $mirajinRads += $ambientMirajin>>
+<<elseif $ambientMirajin lte 0>><<set $mirajinRads -= either(0,1)>><<endif>>
+
+
+<<if $mirajinRads lt 1>><<set $mirajinRads = 0>><<endif>>
+
+/% Decimal cleanup %/
+
+<<set $mirajinRads = Math.round($mirajinRads)>>
+
+<<set $ambientMirajin = 0>>
+
+/% ======================================= %/
+/% Imagination/Sanity %/
+
+<<set $workingSanity = $sanity - $imagination>>
+
+
+/% ======================================= %/
+/% Knockout clause %/
+<<if $pain gte $maxPain>><<set $health = "Comatose"; $overrideExplore = 1; $blackout = 1>><<endif>>

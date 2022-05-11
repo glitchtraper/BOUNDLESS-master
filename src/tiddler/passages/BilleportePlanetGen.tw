@@ -1,0 +1,283 @@
+﻿/% ========================================== %/
+/% Planet pre-generation for Billeportes.
+These only work if you've cleared the appropriate variables. Don't forget to plug new additions in on the billeporte page! %/
+
+/% ========================================== %/
+/% Name planet. %/
+
+<<set $destinationAmbience = 0>>
+
+<<display NPCNamer>><<set $destinationPlanet = $planetName>>
+
+<<if $destinationClass is 0>> <<set $destinationClass = either("Temperate Living","Hot Living","Desolate Living","Mutant Living","Hostile Cold","Hostile Cold","Hostile Hot","Hostile Hot","Dead","Dead")>>
+
+<<endif>>
+
+
+
+/% ========================================== %/
+/% Set parameters. %/
+
+<<if $destinationType is 0>>
+
+/% ==================================================================================== %/
+
+	<<if $destinationClass is "Temperate Living">>
+
+	<<set $destinationMajorDenizen = either("human","revix","aiouran"); $destinationMinorDenizen1 = either("human","revix","aiouran"); $destinationMinorDenizen2 = either("human","revix","aiouran")>>
+
+<<set $destinationType = either("industrialized","flourishing","vitalized","overgrown","distorted","realized"); $destinationTemp = "temperate"; $destinationHumidity = "average"; $destinationAtmosphere = "breathable"; $destinationPop = either("mid","hi")>>
+
+<<if $destinationType is "flourishing">><<set $destinationPop = either("mid","hi")>>
+			<<elseif ($destinationType is "industrialized") or ($destinationType is "overgrown") or ($planetType is "distorted")>><<set $destinationPop = "mid">>
+			<<elseif ($destinationType is "vitalized") or ($destinationType is "realized")>><<set $destinationPop = either("low","mid")>><<endif>>
+
+	/% Weird ambient effects
+			Regen - low-grade regenerative effect
+			Ferality - gradual strength increase/imagination decrease
+			Somnic - gradual miratoxin increase
+			Mira - gradual mirad increase
+			Plump - gradual caloric increase
+			Bloat - gradual bloat increase
+			Chub - gradual targeted weight gain
+			Gainer - gradual metagain increase
+			Shrivel - gradual metaburn increase
+			Rad - gradual radiation increase %/
+
+		<<if $destinationType is "overgrown">><<set $destinationAmbience = either(0,0,0,0,0,"regen")>>
+		<<elseif $destinationType is "flourishing">><<set $destinationAmbience = either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"regen","regen","regen","ferality")>>
+		<<elseif $destinationType is "vitalized">><<set $destinationAmbience = either(0,0,0,0,0,"regen","regen","ferality")>>
+		<<endif>>
+
+
+<<endif>>
+
+/% ==================================================================================== %/
+
+	<<if $destinationClass is "Hot Living">>
+
+	<<set $destinationMajorDenizen = either("human","revix","aiouran"); $destinationMinorDenizen1 = either("human","revix","aiouran"); $destinationMinorDenizen2 = either("human","revix","aiouran")>>
+
+<<set $destinationType = either("burning","irradiated","barren","dying","industrialized"); $destinationTemp = either("hot","hot","very hot"); $destinationHumidity = "high"; $destinationAtmosphere = either("breathable","breathable","toxic"); $destinationPop = either("mid","hi")>>
+
+<<if $destinationType is "industrialized">><<set $destinationPop = either("mid","hi")>>
+			<<elseif ($destinationType is "barren") or ($destinationType is "irradiated") or ($planetType is "dying")>><<set $destinationPop = either("low","mid")>>
+			<<elseif $destinationType is "burning">><<set $destinationPop = "low"; $destinationAtmosphere = "toxic">><<endif>>
+
+	/% Weird ambient effects
+			Regen - low-grade regenerative effect
+			Ferality - gradual strength increase/imagination decrease
+			Somnic - gradual miratoxin increase
+			Mira - gradual mirad increase
+			Plump - gradual caloric increase
+			Bloat - gradual bloat increase
+			Chub - gradual targeted weight gain
+			Gainer - gradual metagain increase
+			Shrivel - gradual metaburn increase
+			Rad - gradual radiation increase %/
+
+		<<if ($destinationType is "industrialized") or ($destinationType is "barren")>><<set $destinationAmbience = either(0,0,0,0,0,"shrivel","shrivel","rad")>>
+		<<elseif $destinationType is "dying">><<set $destinationAmbience = either(0,0,0,"shrivel","rad")>>
+		<<elseif $destinationType is "dead">><<set $destinationAmbience = either(0,0,"shrivel","rad","rad")>>
+		<<elseif ($destinationType is "molten") or ($destinationType is "burning")>><<set $destinationAmbience = either(0,0,"rad")>>
+		<<elseif $destinationType is "irradiated">><<set $destinationAmbience = "rad">>
+		<<endif>>
+
+<<endif>>
+
+/% ==================================================================================== %/
+
+<<if $destinationClass is "Desolate Living">>
+
+	<<set $destinationMajorDenizen = either("human","revix","aiouran"); $destinationMinorDenizen1 = either("human","revix","aiouran"); $destinationMinorDenizen2 = either("human","revix","aiouran")>>
+
+	<<set $destinationType = either("molten","burning","frozen","dead","dying","liquid","irradiated","barren","industrialized"); $destinationTemp = either("very cold","cold","cold","hot","hot","very hot")>>
+
+		<<if $destinationTemp is "very cold">><<set $destinationHumidity = either("low","none"); $destinationAtmosphere = either("breathable","toxic","no"); $destinationPop = "low">><<endif>>
+		<<if $destinationTemp is "cold">><<set $destinationHumidity = either("low","low","none"); $destinationAtmosphere = either("breathable","toxic","no"); $destinationPop = either("low","mid")>><<endif>>
+		<<if ($destinationTemp is "hot") or ($destinationTemp is "very hot")>><<set $destinationHumidity = either("none","low","high"); $destinationAtmosphere = either("breathable","toxic","toxic","no"); $destinationPop = either("low","mid")>><<endif>>
+		<<if ($destinationType is "molten") or ($destinationType is "irradiated") or ($destinationType is "burning") or ($destinationType is "liquid") or ($destinationType is "industrialized")>><<set $destinationHumidity = "high"; $destinationAtmosphere = "toxic"; $destinationPop = "low">><<endif>>
+		<<if ($destinationType is "dead") or ($destinationType is "barren")>><<set $destinationHumidity = "low"; $destinationAtmosphere = either("breathable","toxic","toxic","no"); $destinationPop = "low">><<endif>>
+
+	/% Weird ambient effects
+			Regen - low-grade regenerative effect
+			Ferality - gradual strength increase/imagination decrease
+			Somnic - gradual miratoxin increase
+			Mira - gradual mirad increase
+			Plump - gradual caloric increase
+			Bloat - gradual bloat increase
+			Chub - gradual targeted weight gain
+			Gainer - gradual metagain increase
+			Shrivel - gradual metaburn increase
+			Rad - gradual radiation increase %/
+
+		<<if ($destinationType is "industrialized") or ($destinationType is "barren")>><<set $destinationAmbience = either(0,0,0,0,0,"shrivel","shrivel","rad")>>
+		<<elseif $destinationType is "dying">><<set $destinationAmbience = either(0,0,0,"shrivel","rad")>>
+		<<elseif $destinationType is "dead">><<set $destinationAmbience = either(0,0,"shrivel","rad","rad")>>
+		<<elseif ($destinationType is "molten") or ($destinationType is "burning")>><<set $destinationAmbience = either(0,0,"rad")>>
+		<<elseif $destinationType is "irradiated">><<set $destinationAmbience = "rad">>
+		<<endif>>
+
+	<<endif>>
+
+/% ==================================================================================== %/
+
+	<<if $destinationClass is "Mutant Living">>
+
+	<<set $destinationMajorDenizen = either("human","revix","aiouran"); $destinationMinorDenizen1 = either("human","revix","aiouran"); $destinationMinorDenizen2 = either("human","revix","aiouran")>>
+
+	<<set $destinationType = either("vitalized","overgrown","distorted","realized","crystallized","roiling","bloated"); $destinationTemp = either("cold","temperate","hot"); $destinationAtmosphere = "breathable"; $destinationPop = "low">>
+		<<if ($destinationTemp is "temperate") or ($destinationTemp is "hot")>><<set $destinationHumidity = either("average","high")>>
+		<<elseif $destinationTemp is "cold">><<set $destinationHumidity = either("average","low","high")>><<endif>>
+
+	/% Weird ambient effects
+			Regen - low-grade regenerative effect
+			Ferality - gradual strength increase/imagination decrease
+			Somnic - gradual miratoxin increase
+			Mira - gradual mirad increase
+			Plump - gradual caloric increase
+			Bloat - gradual bloat increase
+			Chub - gradual targeted weight gain
+			Gainer - gradual metagain increase
+			Shrivel - gradual metaburn increase
+			Rad - gradual radiation increase %/
+
+		<<if $destinationType is "overgrown">><<set $destinationAmbience = either(0,0,0,0,0,"regen")>>
+		<<elseif $destinationType is "vitalized">><<set $destinationAmbience = either(0,0,0,0,0,"regen","regen","ferality")>>
+		<<elseif $destinationType is "distorted">><<set $destinationAmbience = either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,"somnic","mira","plump","bloat","chub","gainer")>>
+		<<elseif $destinationType is "realized">><<set $destinationAmbience = either("mira","mira","somnic","somnic","plump","bloat","chub","gainer")>>
+		<<elseif $destinationType is "crystallized">><<set $destinationAmbience = either("mira","mira","mira","somnic","plump","bloat","chub","gainer")>>
+		<<elseif $destinationType is "roiling">><<set $destinationAmbience = either("mira","somnic","plump","bloat","chub","gainer")>>
+		<<elseif $destinationType is "bloated">><<set $destinationAmbience = either("mira","somnic","plump","bloat","chub","gainer")>>
+		<<endif>>
+
+	<<endif>>
+
+/% ==================================================================================== %/
+
+	<<if $destinationClass is "Hostile Cold">>
+
+	<<set $destinationMajorDenizen = either("human","revix","aiouran"); $destinationMinorDenizen1 = either("human","revix","aiouran"); $destinationMinorDenizen2 = either("human","revix","aiouran")>>
+
+	<<set $destinationType = either("frozen","dead","liquid","barren"); $destinationTemp = either("very cold","very cold","cold"); $destinationAtmosphere = either("breathable","toxic","no"); $destinationPop = "low">>
+		<<if $destinationAtmosphere is "no">><<set $destinationHumidity = "low">>
+		<<else>><<set $destinationHumidity = "high">><<endif>>
+
+	/% Weird ambient effects
+			Regen - low-grade regenerative effect
+			Ferality - gradual strength increase/imagination decrease
+			Somnic - gradual miratoxin increase
+			Mira - gradual mirad increase
+			Plump - gradual caloric increase
+			Bloat - gradual bloat increase
+			Chub - gradual targeted weight gain
+			Gainer - gradual metagain increase
+			Shrivel - gradual metaburn increase
+			Rad - gradual radiation increase %/
+
+		<<if ($destinationType is "industrialized") or ($destinationType is "barren")>><<set $destinationAmbience = either(0,0,0,0,0,"shrivel","shrivel","rad")>>
+		<<elseif $destinationType is "dying">><<set $destinationAmbience = either(0,0,0,"shrivel","rad")>>
+		<<elseif $destinationType is "dead">><<set $destinationAmbience = either(0,0,"shrivel","rad","rad")>>
+		<<elseif ($destinationType is "molten") or ($destinationType is "burning")>><<set $destinationAmbience = either(0,0,"rad")>>
+		<<elseif $destinationType is "irradiated">><<set $destinationAmbience = "rad">>
+		<<endif>>
+
+	<<endif>>
+
+/% ==================================================================================== %/
+
+	<<if $destinationClass is "Hostile Hot">>
+
+	<<set $destinationMajorDenizen = either("human","revix","aiouran"); $destinationMinorDenizen1 = either("human","revix","aiouran"); $destinationMinorDenizen2 = either("human","revix","aiouran")>>
+
+	<<set $destinationType = either("molten","burning","frozen","dead","liquid","barren","crystallized"); $destinationTemp = either("very hot","very hot","hot"); $destinationAtmosphere = either("breathable","toxic","no"); $destinationPop = "low">>
+		<<if $destinationAtmosphere is "no">><<set $destinationHumidity = "low">>
+		<<elseif ($destinationType is "liquid") or ($destinationType is "molten")>><<set $destinationHumidity = "high">>
+		<<else>><<set $destinationHumidity = either("low","high")>><<endif>>
+
+	/% Weird ambient effects
+			Regen - low-grade regenerative effect
+			Ferality - gradual strength increase/imagination decrease
+			Somnic - gradual miratoxin increase
+			Mira - gradual mirad increase
+			Plump - gradual caloric increase
+			Bloat - gradual bloat increase
+			Chub - gradual targeted weight gain
+			Gainer - gradual metagain increase
+			Shrivel - gradual metaburn increase
+			Rad - gradual radiation increase %/
+
+		<<if $destinationType is "crystallized">><<set $destinationAmbience = either(0,0,0,0,0,0,"mira","mira","mira","somnic","plump","bloat","chub","gainer")>>
+		<<endif>>
+
+	<<endif>>
+
+
+/% ==================================================================================== %/
+
+
+	<<if $destinationClass is "Dead">>
+
+	<<set $destinationMajorDenizen = either("revix","revix","revix","spatial"); $destinationMinorDenizen1 = either("revix","spatial"); $destinationMinorDenizen2 = either("human","revix","aiouran")>>
+
+	<<set $destinationType = either("shattered","hollow","dead"); $destinationTemp = either("very hot","hot","cold","very cold"); $destinationAtmosphere = "no"; $destinationHumidity = "low" ; $destinationPop = "low">>
+
+	/% Weird ambient effects
+			Regen - low-grade regenerative effect
+			Ferality - gradual strength increase/imagination decrease
+			Somnic - gradual miratoxin increase
+			Mira - gradual mirad increase
+			Plump - gradual caloric increase
+			Bloat - gradual bloat increase
+			Chub - gradual targeted weight gain
+			Gainer - gradual metagain increase
+			Shrivel - gradual metaburn increase
+			Rad - gradual radiation increase %/
+
+		<<if ($destinationType is "shattered") or ($destinationType is "hollow")>><<set $destinationAmbience = either(0,0,"rad","rad","shrivel","mira","mira","somnic","bloat")>>
+		<<elseif $destinationType is "dead">><<set $destinationAmbience = either(0,0,"shrivel","rad","rad","mira","somnic","bloat")>>
+		<<endif>>
+
+	<<endif>>
+
+/% ==================================================================================== %/
+
+<<endif>>
+
+/% Static Surface liquids. %/
+
+<<if $destinationType is "bloated">><<set $destinationLivingType = either("leupai","non-leupai")>>
+	<<if $destinationLivingType is "leupai">><<set $destinationPlanetBlood = either("shimmering blue","glowing teal","glowing blue")>>
+	<<elsef $destinationLivingType is "non-leupai">><<set $destinationPlanetBlood = "dark red">><<endif>>
+<<endif>>
+
+/% Core liquids. %/
+
+<<if ($destinationType is "distorted") or ($destinationType is "realized")>>
+<<set $destinationCoreType = either("molten",0)>><<if $destinationCoreType is "molten">><<set $destinationCoreFluid = either("molten orange goo","molten red goo","molten blue goo")>><<endif>>
+
+<<elseif $destinationType is "crystallized">>
+<<set $destinationCoreType = either("molten","molten",0)>><<if $destinationCoreType is "molten">><<set $destinationCoreFluid = either("molten orange goo","molten red goo","molten blue goo")>><<endif>>
+
+<<elseif ($destinationType is "vitalized") or ($destinationType is "overgrown")>>
+<<set $destinationCoreType = either("molten",0)>><<if $destinationCoreType is "molten">><<set $destinationCoreFluid = "molten teal goo">><<endif>>
+
+<<elseif ($destinationType is "hollow") or ($destinationType is "shattered")>>
+<<set $destinationCoreType = 0>>
+
+<<elseif ($destinationType is "bloated") or ($destinationType is "roiling")>>
+<<set $destinationCoreType = "liquid">>
+
+<<else>>
+
+/% Default planetary core. %/
+
+<<set $destinationCoreFluid = either("molten orange goo","molten orange goo","molten red goo","molten red goo","molten blue goo")>><<endif>>
+
+
+
+/% Ambience adjustments %/
+
+<<if ($destinationAtmosphere is "toxic") and ($destinationAmbience is 0)>><<set $destinationAmbience = either("mira","somnic","plump","bloat","chub","gainer","rad","shrivel","regen","ferality")>><<endif>>
+
+		<<if $destinationAmbience is "chub">><<set $destinationAmbience = either("bodyChub","bellyChub","breastChub","thighChub")>><<endif>>

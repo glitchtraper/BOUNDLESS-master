@@ -1,0 +1,70 @@
+﻿<<if ($overrideExplore is 0) and ($overrideEncounter is 0)>><<nobr>>
+
+<<if $overrideImg is 0>><<set $encImg = 0>><<endif>>
+
+/% Encounter Priorities--
+
+Optimal hierarchy (once it's all implemented):
+resources > monsters > items > npcs > special events > no result %/
+
+/% Pre-setup; clear any residual encounter flags. %/
+
+
+<<set $nullEncounter = "It's quiet..."; $encImg = 0; $randomizer = 0; $encounterKind = 0>>
+
+/% ======================================================================== %/
+/% Ambience %/
+
+<<display BiomeStatus>>
+
+/% ======================================================================== %/
+
+/% Run standard encounter scripts unless something has called a specific encounter through presetEncounter, or if the player has a trap active.
+
+Preset Encounters will bypass their respective 'pool' encounter tables, inputting the parameters you set before calling the database to fill in the blanks as per usual. %/
+
+<<if $presetEncounter neq 0>><<display PresetEncounter>>
+<<elseif $trapArmed is 1>>/% Trap encounters %/
+	<<set $encounterKind = either(0,"creature","creature")>>
+		<<if $encounterKind is "creature">><<display CreaturePool>><<endif>>
+<<else>><<display EncounterEngine>><<endif>>
+
+/% ======================================================================== %/
+
+<<endnobr>><center>\
+\
+\
+<<if $immobile is 0>>\
+\
+\
+\
+<<if $encounterKind is "creature">>\
+\
+<<display CreatureDatabase>><<display EncounterImg>><<display CreatureEncounter>>\
+\
+\
+\
+<<elseif $encounterKind is "item">>\
+\
+<<display ItemDatabase>><<display EncounterImg>><<display ItemEncounter>>\
+\
+\
+\
+<<elseif $encounterKind is "special">>\
+\
+<<display SpecialDatabase>><<display EncounterImg>><<display SpecialEncounter>>\
+\
+\
+<<else>>
+\
+\
+<<display EncounterImg>>//<<print $nullEncounter>>//<<endif>>\
+\
+<<elseif $immobile neq 0>>\
+\
+<<display CreatureDatabase>><<display EncounterImg>><<display CreatureEncounter>>\
+\
+\
+\
+<<endif>></center><<endif>>\
+<<if $presetEncounter neq 0>><<set $presetEncounter = 0>><<endif>>

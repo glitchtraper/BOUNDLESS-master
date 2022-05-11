@@ -1,0 +1,38 @@
+﻿''__<brightalert>Your Mound!</brightalert> <<display ZoneBackgrounds>><<display ZoneDisplay>>__''
+''__Your Donsair__''<<nobr>>
+
+<<display DonsairTraits>><<display DonsairGainchecks>>
+
+<<endnobr>><center>\
+[img[$donsairImg]]</center>
+<center>__''<<print $donsairName>>''__ the <<if $donsairColor neq 0>><<print $donsairColor>> <<endif>><<if $donsairSkin neq 0>><<print $donsairSkin>> <<endif>><<if $donsairSubtype neq 0>><<print $donsairSubtype>> <<endif>><<if $donsairSubspec neq 0>><<print $donsairSubspec>> <<endif>><<print $donsairSpecies>>''</center><<nobr>>
+
+<<endnobr>></center><framed><center>''Girth:'' <<print $donsairGirth / 10>>~~gi~~<<if $donsairVore neq 0>>
+(//<<print $donsairVore>>vorous//)<<endif>>
+<narrowframe><<print $donsairName>> <<print $donsairGirthDesc>></narrowframe>\
+\
+<<if $miniDonsair is 0>>''Power:'' <<print $donsairPower>> ''Finesse:'' <<print $donsairFinesse>><<endif>>
+<<nobr>></mini>
+
+<<if $donsairEars neq 0>>[<<print $donsairEars>> ears] <<endif>>
+<<if $donsairFacet neq 0>>[<<print $donsairFacet>> facet] <<endif>>
+<<if $donsairEyes neq 0>>[<<print $donsairEyes>> eyes] <<endif>>
+<<if $donsairFace neq 0>>[<<print $donsairFace>> face] <<endif>>
+<<if $donsairHead neq 0>>[<<print $donsairHead>>] <<endif>>
+<<if $donsairBody neq 0>>[<<print $donsairBody>> body] <<endif>>
+<<if $donsairBack neq 0>>[<<print $donsairBack>>] <<endif>>
+<<if $donsairLegs neq 0>>[<<print $donsairLegs>> legs]<<endif>>
+<<if $donsairTail neq 0>> [<<print $donsairTail>> tail]<<endif>>
+<<endnobr>><midframe>\
+\
+/% Room for donsair mutation readouts here? %/\
+\
+<<if $donsairExplode is 0>><<display DonsairOptions>>\
+<<elseif $donsairExplode is 1>>[img[icon_alert_red]]<brightalert><<print $donsairName>> ''cries out in pain as its body balloons, creaking as it swells to its absolute limit!''
+You watch in horror as it finally ''explodes'', leaving you with nothing to do but clean up the mess...<<set $butcherConfirm = 1>></brightalert>\
+<<display DonsairButcher>><<endif>>\
+\
+\
+\
+</midframe></center></framed>
+<<if $donsairExplode is 0>><center><<button [[Back.|Donsair][$donsairFetched = 0; $donsairExplode = 0; $donsairBreasts = 0; $donsairLeupai = 0; $donsairSlime = 0; $donsairDragon = 0; $donsairPoultry = 0]]>></center><<endif>>

@@ -1,0 +1,34 @@
+﻿/% Setup. DO NOT REMOVE THE PLUS SIGN FROM THE VARIABLE. For whatever reason, this makes it work without causing the massive lag spikes. what are you even, twine..? %/
+
+/% Set newly-planted seeds. %/
+
+<<if $newPlant is 1>>
+<<print "<<set $plot" + $plotID + " = $planted" + ">>">>
+
+/% Set plant birthdate %/
+<<print "<<set $plot" + $plotID + "PlantStart = $plant" + "Start>>">>
+<<print "<<set $plot" + $plotID + "Thirsty = $plant" + "NeedsWater>>">>
+<<set $newPlant = 0>>
+
+<<endif>>
+
+<<if $watered is 1>>
+<<print "<<set $plot" + $plotID + "WaterTimer = $water" + "Timer>>">>
+<<print "<<set $plot" + $plotID + "Thirsty = $plant" + "NeedsWater>>">>
+<<set $watered = 0>>
+<<endif>>
+
+/% =========================%/
+
+/% Stats for easy access. %/
+<<print "<<set $planted" + " = $plot" + $plotID + ">>">>
+
+<<print "<<set $plant" + "Start = $plot" + $plotID + "PlantStart>>">>
+<<print "<<set $plant" + "Species = $plot" + $plotID + "Species>>">>
+<<print "<<set $plant" + "Timer = $plot" + $plotID + "PlantTimer>>">>
+<<print "<<set $plant" + "NeedsWater = $plot" + $plotID + "Thirsty>>">>
+<<print "<<set $plant" + "Age = $plot" + $plotID + "PlantAge>>">>
+<<print "<<set $plant" + "Name = $plot" + $plotID + "PlantName>>">>
+<<print "<<set $plant" + "Color = $plot" + $plotID + "PlantColor>>">>
+
+/% =========================%/

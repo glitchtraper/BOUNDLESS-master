@@ -1,0 +1,39 @@
+﻿/% Basic setup %/
+
+<<set $bellyBloat += $maxBelly; $belly += (10,10,20,30); $leupaiEggParasite = 1; $eggTimer = 1; $leupaiEggTimer += random(12,18); $quaggyGirth = either(10,10,20,30)>>
+
+<<if $leupaiEggLoad is 0>><<set $leupaiEggLoad += random(1,6)>><<endif>>
+
+
+/% Attempt to figure out species & color possibilities based on the host. %/
+
+<<set $quaggyColorPoint1 = $bodyColor>>
+
+<<if $species is "post-human">>
+<<set $quaggySubspecies1 = either("belmere",0)>>
+
+<<elseif $species is "aladri">>
+<<set $quaggySubspecies1 = either("ouinsel","Kaolani",0)>>
+
+<<elseif $dragonFlag is 1>>
+<<set $quaggySubspecies1 = either("astar","fragmentari")>>
+
+<<elseif ($species is "arka") or ($species is "arquesse") or ($species is "adephagian")>>
+<<set $quaggySubspecies1 = either("celesse","heitene","laworn","kitsch","ein","devinn","rexaur",0,0,0)>> <<endif>>
+
+/% If that failed, randomize. %/
+
+<<if $quaggySubspecies1 is 0>>
+<<set $quaggySubspecies1 = either("belmere","celesse","devinn","erinyi","ein", "heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","null","ouinsel","rexaur","rosso")>><<endif>>
+
+<<if $quaggyColorPoint1 is 0>>
+<<set $quaggyColorPoint1 = either("red","orange","yellow","golden","green","teal","blue","indigo","violet","pink","magenta","black","gray","silver","white","brown")>><<endif>>
+
+<<if $quaggyColorPoint2 is 0>>
+<<set $quaggyColorPoint2 = either("red","orange","yellow","golden","green","teal","blue","indigo","violet","pink","magenta","black","gray","silver","white","brown")>><<endif>>
+
+
+/% Size boost for special species. %/
+
+<<if ($quaggySubspecies1 is "rexaur") or ($quaggySubspecies1 is "devinn")>>
+<<set $quaggyGirth += either(10,10,10,20)>><<endif>>

@@ -1,0 +1,169 @@
+﻿/% ======================================================================== %/
+/% Curios will probably be pretty extensive, so let's store them in a sub-database here, to be called by the special database when needed. %/
+
+/% Default status %/
+<<set $curioAction = "Interact.">>
+
+/% ======================================================================== %/
+/% Trees %/
+					<<if $encounter is "woodtree">>
+					<<set $curioDesc = "You find a small, sturdy tree. It looks like it would make for good harvesting.">>
+	<<if $key_axe gt 0>><<set $curioAction = "Cut!">>
+	<<elseif ($species is "mythosi") or ($fatScore gte 5000) or ($strength gte 30)>><<set $curioAction = "Knock Down!">>
+	<<else>><<set $specialLocked = 1>><<endif>>
+
+					<<elseif $encounter is "antlertree">>
+					<<set $curioDesc = "You find a rack of shed antlers hanging from a nearby tree branch!"; $curioAction = "Take!">>
+
+					<<elseif $encounter is "pottree">>
+					<<set $curioDesc = "You discover a cooking pot hanging from a nearby tree branch!"; $curioAction = "Take!">>
+
+					<<elseif $encounter is "axetree">>
+					<<set $curioDesc = "You discover an axe embedded in a nearby tree!"; $curioAction = "Take!">>
+
+					<<elseif $encounter is "pickaxetree">>
+					<<set $curioDesc = "You discover a pickaxe embedded in a nearby tree!"; $curioAction = "Take!">>
+
+					<<elseif $encounter is "shoveltree">>
+					<<set $curioDesc = "You discover a shovel embedded in a nearby tree. You're really not certain why, and you imagine may not want to know, either..."; $curioAction = "Take!"; $encounter = either("shoveltree","shoveltree","angertree")>>
+
+/% ======================================================================== %/
+/% Feasts %/
+					<<elseif $encounter is "faefeast">>
+					<<set $curioDesc = "You discover an unattended table sitting in the wilderness, piled high with all manner of delicious-looking dishes and treats..."; $curioAction = "Investigate!">>
+
+/% ======================================================================== %/
+/% Mirrors %/
+					<<elseif $encounter is "fattenmirror">>
+					<<set $curioDesc = "You find an odd mirror with a wide, round frame. The surface seems to gleam invitingly...">>
+
+					<<elseif $encounter is "slimmirror">>
+					<<set $curioDesc = "You find an odd mirror with a narrow, square frame. The surface seems to gleam invitingly...">>
+
+					<<elseif $encounter is "funmirror">>
+					<<set $curioDesc = "You find an odd mirror. The surface seems to gleam invitingly, but as you examine it, your reflection seems to warp and twitch oddly...">>
+
+/% ======================================================================== %/
+/% Idols %/
+
+					<<elseif $encounter is "statue">> /% Decorative %/
+					<<set $curioDesc = "You find a curious "+ $curioMaterial + " sitting out in the wilds, " + $statueBiomeFlavor + either("a raging mythosi, claws and fangs bared, wings spread in preparation for flight above some imagined prey.","a burly astar, proudly standing guard over the area with an intense look in its eyes.","a menacing leo, teeth bared in a silent snarl. You find yourself glad it's only a sculpture.","a large, many-faceted crystal-- an interesting choice.","a grand, coiling serpent, glowering down upon you.","a simple sword, embedded in the base blade-first.","a battle-axe, embedded in the base blade-first.","a warhammer, resting head-first among the debris of its crushing impact with the base.","an obelisk, with panels cut away to reveal sparkling miratech computer chips inside.","a crescent moon, accented with swirling clouds and tiny stars.")>>
+
+					<<elseif $encounter is "feeder nefirian">>
+					<<set $curioDesc = "You find a curious but beautiful statue of Nefirian sitting out in the wilds. Jee are smiling in jeir somewhat unsettling way...">>
+
+					<<elseif $encounter is "you">>
+					<<set $curioDesc = "You find a curious but beautiful fleshsculpture of yourself sitting out in the wilds. It unnerves you more than a little bit, but you feel an overwhelming urge to come closer..."; $curioAction = "Approach."; $curioInteraction = 0>>
+
+					<<elseif $encounter is "well-fed helene">> /% Hourglass/Cubus %/
+					<<set $curioDesc = "You find a curious but beautiful stone statue of a helene sitting out in the wilds. It is incredibly plump, with its arms gently curled around its thick breasts and one barrel-wide thigh.">>
+
+					<<elseif $encounter is "egg-fattened daedlan">> /% Round/Bulging %/
+					<<set $curioDesc = "You find a curious but beautiful stone statue of a daedlan sitting out in the wilds. It has grown huge and round from hatching leupai eggs, its sizable breasts perched atop its spherical belly.">>
+
+					<<elseif $encounter is "gluttonous daedlan">> /% Pear/Bloatpear %/
+					<<set $curioDesc = "You find a curious but beautiful stone statue of a daedlan sitting out in the wilds. It is feasting, its great, soft belly spilling out over its massive, pillowy thighs.">>
+
+					<<elseif $encounter is "gluttonous adephagian">> /% Thigh/Blimpthigh %/
+					<<set $curioDesc = "You find a curious but beautiful stone statue of an adephagian sitting out in the wilds. It is feasting, its massive, plush thighs serving as a comfortable seat.">>
+
+					<<elseif $encounter is "spherical leupai">> /% Pot-Bellied/Guguetelle %/
+					<<set $curioDesc = "You find a curious but beautiful stone statue of a leupai sitting out in the wilds. It is hefting its blimp of a belly in both arms.">>
+
+					<<elseif $encounter is "milk-bloated adephagian">> /% Busty/Boviete %/
+					<<set $curioDesc = "You find a curious but beautiful stone statue of an adephagian sitting out in the wilds. Its gargantuan breasts are spilling out of its lap.">>
+
+					<<elseif $encounter is "immobile aladri">> /% Calories + %/
+					<<set $curioDesc = "You find a curious but beautiful stone statue of an elf sitting out in the wilds. It is too fat to stand, gently clinging to its monstrously bloated gut with a serene smile on its fleshy face.">>
+
+					<<elseif $encounter is "billetroa arka">> /% Massive wg tick %/
+					<<set $curioDesc = "You find an unnerving stone statue of an arka sitting out in the wilds. It has been inflated to monumental size, seeming more of a blimp than a living creature. Its face is twisted into an expression of pained terror...">>
+
+/% ======================================================================== %/
+/% Altars %/
+
+					<<elseif $encounter is "old altar">> /% Decorative %/
+					<<set $curioDesc = "You find a worn and crumbling stone slab sitting out in the wilds. The slab is spattered with old blood...">>
+
+					<<elseif $encounter is "blood altar">>
+					<<set $curioDesc = "You find a worn stone slab sitting out in the wilds. The slab is spattered with old blood... and a sharpened blade lies atop it, waiting."; $curioAction = "Bleed.">>
+
+
+/% ======================================================================== %/
+/% Fountains %/
+
+					<<elseif ($encounter is "balloon fountain") or ($encounter is "greed fountain") or ($encounter is "gain fountain") or ($encounter is "bulk fountain") or ($encounter is "water fountain")>>
+					<<set $curioDesc = "You find a bubbling fountain sitting out in the wilds. The water is sparkling and pristine."; $curioAction = "Drink.">>
+
+					<<elseif $encounter is "milk fountain">>
+					<<set $curioDesc = "You find a bubbling fountain sitting out in the wilds. Cool, fresh, creamy milk seems to pour from it!"; $curioAction = "Drink.">>
+
+					<<elseif $encounter is "berry fountain">>
+					<<set $curioDesc = "You find a bubbling fountain sitting out in the wilds. The 'water' is a strange shade of deep purple, and smells fruity..."; $curioAction = "Drink.">>
+
+					<<elseif ($encounter is "venomous fountain") or ($encounter is "fattenium fountain")>>
+					<<set $curioDesc = "You find a bubbling fountain sitting out in the wilds. The 'water' is viscous and murky..."; $curioAction = "Drink."; $effect = random(1,64)>>
+
+					<<elseif $encounter is "metamorphous fountain">>
+					<<set $curioDesc = "You find a bubbling fountain sitting out in the wilds. Gazing into the water, your reflection seems to falter and shift..."; $curioAction = "Drink."; $effect = 1>>
+
+					<<elseif $encounter is "wishing well">>
+					<<set $curioDesc = "You find a little stone well sitting out in the wilds."; $curioAction = "Make a wish.">>
+
+
+/% ======================================================================== %/
+/% Corpses %/
+
+					<<elseif ($encounter is "poisoned corpse") or ($encounter is "pained corpse")>>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + ". Back arched and body curled into pronounced foetal position, this poor creature looks as though its last moments were spent in the worst kind of pain.">>
+
+					<<elseif $encounter is "eaten corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + "...or so you think, at least. The creature has been all but totally devoured, leaving only smears, bloodied scraps, and bits of bone."; $specialLocked = 1>>
+
+					<<elseif $encounter is "incinerated corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + "...or so you think, at least. The creature has been burnt to a crisp...">>
+
+					<<elseif $encounter is "frozen corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + ". It's frozen solid.">>
+
+					<<elseif $encounter is "bled corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + ". The creature is lying in a pool of its own blood...">>
+
+					<<elseif $encounter is "drowned corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + ". The creature's corpse is clammy and bloated fat with liquid.">>
+
+					<<elseif $encounter is "fat-drowned corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + ". It's grown so enormously fat that it seems to have suffocated in its own blubbery flesh...">>
+
+					<<elseif $encounter is "smashed corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + ". It seems to have been battered ferociously by something.">>
+
+					<<elseif $encounter is "slashed corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + ". The creature has been brutally shredded...">>
+
+					<<elseif $encounter is "suffocated corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + ". It seems to have suffocated...">>
+
+					<<elseif $encounter is "burst-bellied corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + ". The unfortunate creature's belly has been distended to the point of rupture, ichor splattered in a telltale pattern around the burst radius.">>
+
+					<<elseif $encounter is "exploded corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + "...or, at least what remains of it. What's left is splattered about the area, all bloated limbs, shredded flesh, and spilled viscera."; $specialLocked = 1>>
+
+					<<elseif $encounter is "irradiated corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + ". Back arched and body curled into pronounced foetal position, the corpse's skin seems to be flaking and peeling away in strips... but it's quite fresh. Something about it strikes a very keen fear into your heart, and you want to be away from it as quickly as possible."; $specialLocked = 1>>
+
+					<<elseif ($encounter is "starved corpse") or ($encounter is "atrophied corpse") or ($encounter is "drained corpse")>>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + ". Back arched and body curled into pronounced foetal position, the corpse is piteously emaciated.">>
+
+					<<elseif $encounter is "vitalized corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + "... or, at least what remains of it. Most of it has apparently dissolved into a brilliantly-glowing teal goo that smells strongly of tea, and strikes a very keen fear into your heart. You don't want to get near it-- or let any of it get near you."; $specialLocked = 1>>
+
+					<<elseif $encounter is "vitannihilated corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + "... or, at least what remains of it. Most of it has dissolved into a brilliantly-glowing teal goo that smells strongly of tea... It strikes a very keen fear into your heart, and as you watch, the last bits of flesh melt away. You don't want to get near it-- or let any of it get near you..."; $specialLocked = 1>>
+
+					<<elseif $encounter is "mirajinized corpse">>
+					<<set $curioDesc = "You discover the corpse of a " + $curioSpecies + "...or, at least what remains of it. What's left is splattered about the area, all bloated limbs, shredded flesh, and spilled viscera-- along with an alarming amount of glowing, sticky magenta ichor. You don't really want to touch it, honestly."; $specialLocked = 1>>
+
+/% ==================== %/
+<<endif>>

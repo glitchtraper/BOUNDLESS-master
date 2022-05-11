@@ -1,0 +1,834 @@
+﻿<center><<display ZoneBackgrounds>><<display EncounterImg>>
+<framed><<nobr>>
+
+
+/% ======================================================================== %/
+/% Interactible idols and their effects, all in one convenient page based on creature & item effects.
+
+Some of these can have direct effects like items, some might work like mini abittes, etc... %/
+
+/% ================================= %/
+/% Trees %/
+
+
+/% ========== %/
+/% Wood Tree %/
+
+<<endnobr>><<if $encounter is "woodtree">><center><<set $forageQuantity = random(4,10); $key_firewood += $forageQuantity>>You harvest ''<affirmative><<print $forageQuantity>> Firewood</affirmative>'' from the felled tree!<<endif>><<nobr>>
+
+/% ========== %/
+/% Antler Tree %/
+
+<<endnobr>><<if $encounter is "antlertree">><<set $antler_trophy += 1>>You take the ''<affirmative> Trophy Antlers</affirmative>'' from the branch before heading along on your way!<<endif>><<nobr>>
+
+/% ========== %/
+/% Pot Tree %/
+
+<<endnobr>><<if $encounter is "pottree">><<set $key_cookpot += 1>>You take the ''<affirmative> Cooking Pot</affirmative>'' from the branch before heading along on your way!<<endif>><<nobr>>
+
+/% ========== %/
+/% Axe Tree %/
+
+<<endnobr>><<if $encounter is "axetree">><<set $key_axe += 1>>You pull the ''<affirmative>Basic Axe</affirmative>'' from the tree before heading along on your way!<<endif>><<nobr>>
+
+/% ========== %/
+/% Axe Tree %/
+
+<<endnobr>><<if $encounter is "pickaxetree">><<set $key_pickaxe_metal += 1>>You pull the ''<affirmative>Metal Pickaxe</affirmative>'' from the tree before heading along on your way!<<endif>><<nobr>>
+
+/% ========== %/
+/% Shovel Tree %/
+
+<<endnobr>><<if $encounter is "shoveltree">><<set $key_shovel_metal += 1>>You confusedly pull the ''<affirmative>Metal Shovel</affirmative>'' from the tree before heading along on your way!<<endif>><<nobr>>
+
+/% ========== %/
+/% AAANGRY Shovel Tree %/
+
+<<endnobr>><<if $encounter is "angertree">>You confusedly reach for the ''<affirmative>Metal Shovel</affirmative>''... only to leap back in shock as ''the tree springs to life with a bellow!''
+That explains a lot! //...kind of.//<<nobr>>
+
+<<set $key_shovel_metal += 1; $curioOverride = 1; $encounter = "arboryvern">>
+<<display CreatureDatabase>>
+
+<<set $encounterFinesse = $finesse + random(2,12); $encounterPower = $strength + random(4,16); $encounterMaxPain = $maxPain + random(10,30)>>
+
+<<endnobr>>
+<center><<button [[Defend!|Combat][$saveStateBattle = "Explore"; $combat = 1; $deathCause = 0; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $overrideExplore = 0]]>></center><<endif>><<nobr>>
+
+/% ================================= %/
+/% Corpses %/
+
+<<endnobr>><<if $specialEncounter is "corpse curio">><<print $curioDesc>>
+<<nobr>>
+
+/% non-harvestable corpses aren't sent to this page, so you can ignore them. %/
+
+/% Swap variable names. I shouldn't need specialEncounter on this page anymore and I'm about to use encounter for the corpse species, so I can save the corpse type as specialEncounter now in case I need to make adjustments. %/
+<<set $specialEncounter = $encounter; $encounter = $curioSpecies>>
+/% Special preset/placeholder species. Send all the rest through creaturedata. %/
+
+<<if $encounter is "human">>
+
+/% Humans aren't as plump as revix species, generally. %/
+
+<<set $creatureCalories = random(100,200); $creatureGirth = random(800,1200); $meatResource = 1; $fatResource = 1>>
+
+/% Base planetary fatness %/
+<<display CreatureSizer>>
+
+/% Output final numbers %/
+<<display CreatureFatness>>
+
+<<elseif ($encounter is "post-human") or ($encounter is "arka")>>
+
+<<set $creatureCalories = random(300,1200); $creatureGirth = random(2500,4500); $meatResource = 1; $fatResource = 1>>
+
+<<display CreatureSizer>>
+
+<<display CreatureFatness>>
+
+<<else>><<display CreatureDatabase>><<endif>>
+
+
+/% Adjust for cause of death.
+Starved creatures shouldn't have much meat/fat, fat-bloated creatures should be huge, etc. %/
+<<display CurioAdjustments>>
+
+<<display FleshCounter>>
+
+<<endnobr>>
+<center><<button [[Harvest.|Autokill][$saveState = "Explore"]]>></center>\
+<<endif>><<nobr>>
+
+
+/% ======================================================================== %/
+/% Feasts %/
+
+
+/% ======================================================================== %/
+/% Faerie Feast %/
+
+<<endnobr>><<if $encounter is "faefeast">>You discover an unattended table sitting in the wilderness, piled high with all manner of delicious-looking dishes and treats.
+There's a //monstrous// quantity of food here, and no apparent owner...<<if $eaten neq 0>>
+
+<<print $eaten>>. It's more delicious than you could've ever imagined... and as you watch, the dishes ''magically refill themselves'', all but spilling over!
+
+You think you can feel your body ''processing everything more quickly, too...''
+<<display Bodytype>><<display Bodytype>><<display Bodytype>><<display Bodytype>><<display BodySystems>>\
+<<if $drankMilk is 1>><<display MilkCure>><<set $drankMilk = 0>><<endif>>\
+<<display Vitality>>
+<<display Alert>><<endif>>
+<<nobr>>
+
+/% Drinks %/
+
+<<button [[Glass of Water.|passage()][$eaten = "You take a long drink from a cool, refreshing glass of water"; $bellyBloat += 10; $bellyLiquid += 10; $bonusEnergy += 5; $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+<<button [[Glass of Milk.|passage()][$eaten = "You take a long drink from a cool, refreshing glass of frothy milk"; $calories += random(40,65); $liquidBloat += random(4,20); $bellyBloat += $liquidBloat; $bellyLiquid += $liquidBloat; $bonusEnergy += 20; $breast += either(0,0,0,0.1,0.1,0.1,0.2,0.3); $milkRate += either(0,0,0,0,0,0,0,0,0.1,0.1,0.1,0.2,0.3,0.5); $milkFat += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.1); $esurience = random(0.0,0.5); $favorNefirian += random(0,2); $lethalKO = 1; $deathCause = "burst belly"; $drankMilk = 1]]>>
+
+<<button [[Glass of Leupai Milk.|passage()][$eaten = "You take a long drink from a cool, refreshing glass of frothy leupai milk"; $calories += random(120,250); $bellyBloat += 50; $bonusEnergy += 50; $bellyLiquid += 50; $miraPoisoning += random(6,16); $esurience = random(0.0,0.5); $favorNefirian += random(2,3); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+<<button [[Vin Cherboret.|passage()][$eaten = "You drink down an entire bottle of bubbly, crisp Vin Cherboret, letting the flavors of belcheries and buttery fattenium linger on your tongue"; $calories += random(30,350); $bellyBloat += 150; $bonusEnergy += 50; $bellyLiquid += 50; $fatteniumPoisoning += either(0,0,0,10,15); $esurience = random(0.0,0.5); $favorNefirian += random(2,3); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+/% Food %/
+
+<<button [[Croissant.|passage()][$eaten = "You hungrily devour a croissant"; $calories += random(90,130); $bellyBloat += 50; $bonusEnergy += 50; $esurience = random(0.0,0.5); $favorNefirian += random(0,2); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+<<button [[Puddingfruit.|passage()][$eaten = "You hungrily devour several puddingfruits in quick succession, enjoying the rich, sweet flavor"; $calories += random(35,125); $bellyBloat += random(3,8); $bonusEnergy += random(6,30); $esurience = random(0.0,0.5); $favorNefirian += random(0,2); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+<<button [[Effervescent Grapes.|passage()][$eaten = "You hungrily devour handful after handful of effervescent grapes, the sparkling juice fizzing in your rapidly-bloating belly"; $calories += random(6,12); $liquidBloat = random(48,125); $bellyBloat += $liquidBloat; $bonusEnergy += random(5,10); $bellyLiquid += $liquidBloat; $bonusEnergy += random(6,30); $esurience = random(0.0,0.3); $favorNefirian += random(0,2); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+<<button [[Milkmelon.|passage()][$eaten = "You hungrily devour the better part of an entire milkmelon"; $calories = random(15,80); $liquidBloat = random(80,140); $bellyBloat = $liquidBloat; $bonusEnergy = random(10,32); $bellyLiquid += $liquidBloat; $breast += either(0,0,0,0.1,0.1,0.1,0.2,0.3); $milkRate += either(0,0,0,0,0,0,0,0,0.1,0.1,0.1,0.2,0.3,0.5); $esurience = random(0.5,1.5); $favorNefirian += random(0,2); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+<<button [[Zeppelon.|passage()][$eaten = "You greedily devour the better part of an entire chilled zeppelon, gasping as your overburdened belly creaks and sloshes"; $calories += random(0,30); $liquidBloat = random(800,2000); $bellyBloat += $liquidBloat; $bonusEnergy += $liquidBloat; $bellyLiquid += $liquidBloat; $esurience = random(1.5,3.5); $favorNefirian += random(0,2); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+<<button [[Royal Gorger Jelly.|passage()][$eaten = "You hungrily devour an entire jarful of royal gorger jelly, shivering as the incredible flavor dances over your tongue"; $calories += random(250,550); $bellyBloat += 20; $bellyLiquid += 20; $bonusEnergy += 500; $esurience = random(2.0,5.5); $favorNefirian += random(0,2); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+<<button [[Twice-baked Starchroot.|passage()][$eaten = "You hungrily devour a twice-baked starchroot, enjoying the contrast between the crispy skin and the buttery, fluffy filling"; $calories += random(8,18); $bellyBloat += random(8,32); $bonusEnergy += random(3,12); $pain -= random(2,5); $esurience = random(0.5,1.0); $favorNefirian += random(0,2); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+<<button [[Roast Leupai.|passage()][$eaten = "You hungrily tear into the roast leupai, delighting in the succulent and incredibly tender fatty flesh"; $calories += random(85,425); $bellyBloat += random(24,90); $bonusEnergy += random(16,38); $miraPoisoning += random(5,25); $pain -= random(5,16); $esurience = random(0.5,3.0); $favorNefirian += random(3,5); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+/% Desserts %/
+
+<<button [[Buttercake.|passage()][$eaten = "You hungrily devour a buttercake"; $calories += random(45,75); $bellyBloat += 8; $bonusEnergy += 10; $esurience = random(0.3,1.0); $favorNefirian += random(0,2); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+<<button [[Fattenium Donut.|passage()][$eaten = "You hungrily devour a fattenium donut"; $calories += random(85,180); $bellyBloat += 50; $fatteniumPoisoning += either(0,0,0,10,15,25); $bonusEnergy += 100; $esurience = random(0.5,1.5); $favorNefirian += random(0,2); $lethalKO = 1; $deathCause = "burst belly"]]>>
+
+<<button [[Enormous Chocolate Cake.|passage()][$eaten = "You hungrily devour slice after slice of chocolate cake, wheezing softly as your belly slowly stretches to contain it all.."; $calories += random(1200,2500); $bellyBloat += random(100,300); $metaGain += random(5,20); $metaBurn -= random(0,20); $fatteniumPoisoning += either(0,0,1,2,3,5,10,20); $esurience += random(3,8); $favorNefirian += random(5,15); $lethalKO = 1; $deathCause = "burst belly"]]>><<endnobr>><<endif>><<nobr>>
+
+
+/% ======================================================================== %/
+/% Enchanted Mirrors %/
+
+
+/% ======================================================================== %/
+/% Fattening Mirror %/
+
+<<endnobr>><<if $encounter is "fattenmirror">>You walk up to gaze curiously at your reflection in the mirror.
+As you watch, it suddenly distorts, bloating fat enough to fill the frame-- and ''you feel your own body rapidly expanding to match!''<<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<endif>><<nobr>>
+
+
+/% ======================================================================== %/
+/% Slimming Mirror %/
+
+<<endnobr>><<if $encounter is "slimmirror">>You walk up to gaze curiously at your reflection in the mirror.
+As you watch, it suddenly distorts, shrinking away as if attempting to fit into the frame-- and ''you feel your own body rapidly deflating to match!''<<display Deflate>><<display Deflate>><<display Deflate>><<display Deflate>><<display Deflate>><<display Deflate>><<display Deflate>><<display Deflate>><<display Deflate>><<display Deflate>><<display Deflate>><<display Deflate>><<endif>><<nobr>>
+
+
+/% ======================================================================== %/
+/% Funhouse Mirror %/
+
+<<endnobr>><<if $encounter is "funmirror">>You walk up to gaze curiously at your reflection in the mirror.
+As you watch, it suddenly distorts,<<nobr>>
+
+<<set $randomizer = random(1,100)>>
+
+/% Massive weight gain %/
+
+''<<if $randomizer is 1>>
+your breasts inflating to //massive// size <<set $breast = $breast * either(1.5,1.7,2,2.5,3,3.5,5); $breastBloat = $maxBreast * 3>>
+<<elseif $randomizer is 2>>
+your belly blimping up with an //immense// amount of fat <<set $belly = $belly * either(1.5,1.7,2,2.5,3,3.5,5); $bellyBloat = $maxBelly * 3>>
+<<elseif $randomizer is 3>>
+your thighs pushing apart as they pile with an //enormous// amount of fat <<set $thigh = $thigh * either(1.5,1.7,2,2.5,3,3.5,5)>>
+<<elseif $randomizer is 4>>
+your belly and breasts blimping up with an //immense// amount of fat <<set $belly = $belly * either(1.5,1.7,2,2.5,3,3.5,5); $bellyBloat = $maxBelly * 3; $breast = $breast * either(1.5,1.7,2,2.5,3,3.5,5); $breastBloat = $maxBreast * 3>>
+<<elseif $randomizer is 5>>
+your belly and thighs blimping up with an //immense// amount of fat <<set $belly = $belly * either(1.5,1.7,2,2.5,3,3.5,5); $bellyBloat = $maxBelly * 3; $thigh = $thigh * either(1.5,1.7,2,2.5,3,3.5,5)>>
+<<elseif $randomizer is 6>>
+your breasts and thighs blimping up with an //immense// amount of fat <<set $breast = $breast * either(1.5,1.7,2,2.5,3,3.5,5); $breastBloat = $maxBreast * 3; $thigh = $thigh * either(1.5,1.7,2,2.5,3,3.5,5)>>
+<<elseif $randomizer is 7>>
+your breasts, belly, and thighs blimping up with an //immense// amount of fat <<set $breast = $breast * either(1.5,1.7,2,2.5,3,3.5,5); $breastBloat = $maxBreast * 3; $belly = $belly * either(1.5,1.7,2,2.5,3,3.5,5); $bellyBloat = $maxBelly * 3; $thigh = $thigh * either(1.5,1.7,2,2.5,3,3.5,5)>>
+<<elseif $randomizer is 10>>
+your entire body blimping up with an //immense// amount of fat <<set $girth = $girth * either(1.5,1.7,2,2.5,3,3.5,5); $breast = $breast * either(1.5,1.7,2,2.5,3,3.5,5); $breastBloat = $maxBreast * 3; $belly = $belly * either(1.5,1.7,2,2.5,3,3.5,5); $bellyBloat = $maxBelly * 3; $thigh = $thigh * either(1.5,1.7,2,2.5,3,3.5,5)>>
+
+/% Massive weight loss %/
+
+<<elseif $randomizer is 11>>
+your breasts withering away <<set $breast = $breast / random(2,6)>>
+<<elseif $randomizer is 12>>
+your belly withering away <<set $belly = $belly / random(2,6)>>
+<<elseif $randomizer is 13>>
+your thighs withering away <<set $thigh = $thigh / random(2,6)>>
+<<elseif $randomizer is 14>>
+your belly and breasts withering away <<set $belly = $belly / random(2,6); $breast = $breast / random(2,6)>>
+<<elseif $randomizer is 15>>
+your belly and thighs withering away <<set $belly = $belly / random(2,6); $thigh = $thigh / random(2,6)>>
+<<elseif $randomizer is 16>>
+your breasts and thighs withering away <<set $breast = $breast / random(2,6); $thigh = $thigh / random(2,6)>>
+<<elseif $randomizer is 17>>
+your breasts, belly, and thighs withering away <<set $breast = $breast / random(2,6); $belly = $belly / random(2,6); $thigh = $thigh / random(2,6)>>
+<<elseif $randomizer is 18>>
+your entire body withering away <<set $girth = $girth / random(2,6); $breast = $breast / random(2,6); $belly = $belly / random(2,6);$thigh = $thigh / random(2,6)>>
+
+/% Alternation %/
+
+<<elseif $randomizer is 19>>
+your breasts swelling fatter <<set $breast = $breast * either(1.5,1.7,2,2.5,3); $breastBloat = $maxBreast * 1.5>>
+as your thighs deflate <<set $thigh = $thigh / random(2,4)>>
+
+<<elseif $randomizer is 20>>
+your breasts swelling fatter <<set $breast = $breast * either(1.5,1.7,2,2.5,3); $breastBloat = $maxBreast * 1.5>>
+as your belly deflates <<set $belly = $belly / random(2,4)>>
+
+<<elseif $randomizer is 21>>
+your breasts swelling fatter <<set $breast = $breast * either(1.5,1.7,2,2.5,3); $breastBloat = $maxBreast * 1.5>>
+as your belly and thighs deflate <<set $belly = $belly / random(2,4); $thigh = $thigh / random(2,4)>>
+
+<<elseif $randomizer is 22>>
+your breasts and belly swelling fatter <<set $breast = $breast * either(1.5,1.7,2,2.5,3); $breastBloat = $maxBreast * 1.5; $belly = $belly * either(1.5,1.7,2,2.5,3); $bellyBloat = $maxBelly * 1.5>>
+as your thighs deflate <<set $thigh = $thigh / random(2,4)>>
+
+<<elseif $randomizer is 23>>
+your breasts and thighs swelling fatter <<set $breast = $breast * either(1.5,1.7,2,2.5,3); $breastBloat = $maxBreast * 1.5; $thigh = $thigh * either(1.5,1.7,2,2.5,3)>>
+as your belly deflates<<set $belly = $belly / random(2,4)>>
+
+<<elseif $randomizer is 24>>
+your belly swelling fatter <<set $belly = $belly * either(1.5,1.7,2,2.5,3); $bellyBloat = $maxBelly * 1.5>>
+as your thighs deflate <<set $thigh = $thigh / random(2,4)>>
+
+<<elseif $randomizer is 25>>
+your belly swelling fatter <<set $belly = $belly * either(1.5,1.7,2,2.5,3); $bellyBloat = $maxBelly * 1.5>>
+as your breasts deflate <<set $breast = $breast / random(2,4)>>
+
+<<elseif $randomizer is 26>>
+your belly swelling fatter <<set $belly = $belly * either(1.5,1.7,2,2.5,3); $bellyBloat = $maxBelly * 1.5>>
+as your breasts and thighs deflate <<set $breast = $breast / random(2,4); $thigh = $thigh / random(2,4)>>
+
+<<elseif $randomizer is 27>>
+your belly and thighs swelling fatter <<set $belly = $belly * either(1.5,1.7,2,2.5,3); $bellyBloat = $maxBelly * 1.5; $thigh = $thigh * either(1.5,1.7,2,2.5,3)>>
+as your breasts deflate <<set $breast = $breast / random(2,4)>>
+
+<<elseif $randomizer is 28>>
+your thighs swelling fatter <<set $thigh = $thigh * either(1.5,1.7,2,2.5,3)>>
+as your belly deflates <<set $belly = $belly / random(2,4)>>
+
+<<elseif $randomizer is 29>>
+your thighs swelling fatter <<set $thigh = $thigh * either(1.5,1.7,2,2.5,3)>>
+as your breasts deflate <<set $breast = $breast / random(2,4)>>
+
+<<elseif $randomizer is 30>>
+your thighs swelling fatter <<set $thigh = $thigh * either(1.5,1.7,2,2.5,3)>>
+as your breasts and belly deflate <<set $breast = $breast / random(2,4); $belly = $belly / random(2,4)>>
+
+
+/% Gain plus muscle %/
+
+<<elseif $randomizer is 31>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your belly billows with extra fat <<set $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.2>>
+
+<<elseif $randomizer is 32>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your thighs bulge fatter <<set $thigh = $thigh * random(1.1,1.5)>>
+
+<<elseif $randomizer is 33>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your breasts rapidly expand <<set $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.2>>
+
+<<elseif $randomizer is 34>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your breasts and thighs billow with extra fat <<set $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.2; $thigh = $thigh * random(1.1,1.5)>>
+
+<<elseif $randomizer is 35>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your belly and thighs billow with extra fat <<set $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.2; $thigh = $thigh * random(1.1,1.5)>>
+
+<<elseif $randomizer is 36>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your breasts and belly billow with extra fat <<set $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.2; $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.2>>
+
+
+/% Loss plus muscle %/
+
+<<elseif $randomizer is 37>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your belly recedes <<set $belly = $belly * random(0.7,0.9)>>
+
+<<elseif $randomizer is 38>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your thighs slim down <<set $thigh = $thigh * random(0.7,0.9)>>
+
+<<elseif $randomizer is 39>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your breasts deflate <<set $breast = $breast * random(0.7,0.9)>>
+
+<<elseif $randomizer is 40>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your breasts and thighs shrink down <<set $breast = $breast * random(0.7,0.9); $thigh = $thigh * random(0.7,0.9)>>
+
+<<elseif $randomizer is 41>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your belly and thighs shrink down <<set $belly = $belly * random(0.7,0.9); $thigh = $thigh * random(0.7,0.9)>>
+
+<<elseif $randomizer is 42>>
+your muscles expanding <<set $strength += random(1,3)>>
+as your breasts and belly shrink down <<set $breast = $breast * random(0.7,0.9); $belly = $belly * random(0.7,0.9)>>
+
+/% Pure muscle %/
+
+<<elseif $randomizer is 43>>
+your muscles swelling larger <<set $strength += random(2,5)>>
+
+<<elseif $randomizer is 44>>
+your muscles expanding rapidly <<set $strength += random(3,8); $pain += 10; $deathCause = "explosion">>
+
+<<elseif $randomizer is 45>>
+your body bulging with muscle <<set $strength += random(5,12); $pain += 20; $deathCause = "explosion">>
+
+
+/% Slight weight gain %/
+
+<<elseif $randomizer is 46>>
+your breasts plumping up <<set $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.2>>
+<<elseif $randomizer is 47>>
+your belly plumping up <<set $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.2>>
+<<elseif $randomizer is 48>>
+your thighs plumping up <<set $thigh = $thigh * random(1.1,1.5)>>
+<<elseif $randomizer is 49>>
+your belly and breasts growing rounder <<set $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.2; $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.2>>
+<<elseif $randomizer is 50>>
+your belly and thighs growing rounder <<set $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.2; $thigh = $thigh * random(1.1,1.5)>>
+<<elseif $randomizer is 51>>
+your breasts and thighs growing rounder <<set $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.2; $thigh = $thigh * random(1.1,1.5)>>
+<<elseif $randomizer is 52>>
+your breasts, belly, and thighs growing rounder <<set $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.2; $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.2; $thigh = $thigh * random(1.1,1.5)>>
+<<elseif $randomizer is 53>>
+your entire body fattening up <<set $girth = $girth * random(1.1,1.5); $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.2; $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.2; $thigh = $thigh * random(1.1,1.5)>>
+
+/% Slight weight loss %/
+
+<<elseif $randomizer is 54>>
+your breasts slimming down <<set $breast = $breast * random(0.7,0.9)>>
+<<elseif $randomizer is 55>>
+your belly slimming down <<set $belly = $belly * random(0.7,0.9)>>
+<<elseif $randomizer is 56>>
+your thighs slimming down <<set $thigh = $thigh * random(0.7,0.9)>>
+<<elseif $randomizer is 57>>
+your belly and breasts slimming down <<set $belly = $belly * random(0.7,0.9); $breast = $breast * random(0.7,0.9)>>
+<<elseif $randomizer is 58>>
+your belly and thighs slimming down <<set $belly = $belly * random(0.7,0.9); $thigh = $thigh * random(0.7,0.9)>>
+<<elseif $randomizer is 59>>
+your breasts and thighs slimming down <<set $breast = $breast * random(0.7,0.9); $thigh = $thigh * random(0.7,0.9)>>
+<<elseif $randomizer is 60>>
+your breasts, belly, and thighs slimming down <<set $breast = $breast * random(0.7,0.9); $belly = $belly * random(0.7,0.9); $thigh = $thigh * random(0.7,0.9)>>
+<<elseif $randomizer is 61>>
+your entire body slimming down <<set $girth = $girth * random(0.7,0.9); $breast = $breast * random(0.7,0.9); $belly = $belly * random(0.7,0.9); $thigh = $thigh * random(0.7,0.9)>>
+
+/% Slight alternation %/
+
+<<elseif $randomizer is 62>>
+your breasts swelling fatter <<set $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.5>>
+as your thighs deflate <<set $thigh = $thigh * random(0.7,0.9)>>
+
+<<elseif $randomizer is 63>>
+your breasts swelling fatter <<set $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.5>>
+as your belly deflates <<set $belly = $belly * random(0.7,0.9)>>
+
+<<elseif $randomizer is 64>>
+your breasts swelling fatter <<set $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.5>>
+as your belly and thighs deflate <<set $belly = $belly * random(0.7,0.9); $thigh = $thigh * random(0.7,0.9)>>
+
+<<elseif $randomizer is 65>>
+your breasts and belly swelling fatter <<set $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.5; $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.5>>
+as your thighs deflate <<set $thigh = $thigh * random(0.7,0.9)>>
+
+<<elseif $randomizer is 66>>
+your breasts and thighs swelling fatter <<set $breast = $breast * random(1.1,1.5); $breastBloat = $maxBreast * 1.5; $thigh = $thigh * random(1.1,1.5)>>
+as your belly deflates <<set $belly = $belly * random(0.7,0.9)>>
+
+<<elseif $randomizer is 67>>
+your belly swelling fatter <<set $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.5>>
+as your thighs deflate <<set $thigh = $thigh * random(0.7,0.9)>>
+
+<<elseif $randomizer is 68>>
+your belly swelling fatter <<set $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.5>>
+as your breasts deflate <<set $breast = $breast * random(0.7,0.9)>>
+
+<<elseif $randomizer is 69>>
+your belly swelling fatter <<set $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.5>>
+as your breasts and thighs deflate <<set $breast = $breast * random(0.7,0.9); $thigh = $thigh * random(0.7,0.9)>>
+
+<<elseif $randomizer is 70>>
+your belly and thighs swelling fatter <<set $belly = $belly * random(1.1,1.5); $bellyBloat = $maxBelly * 1.5; $thigh = $thigh * random(1.1,1.5)>>
+as your breasts deflate <<set $breast = $breast * random(0.7,0.9)>>
+
+<<elseif $randomizer is 71>>
+your thighs swelling fatter <<set $thigh = $thigh * random(1.1,1.5)>>
+as your belly deflates <<set $belly = $belly * random(0.7,0.9)>>
+
+<<elseif $randomizer is 72>>
+your thighs swelling fatter <<set $thigh = $thigh * random(1.1,1.5)>>
+as your breasts deflate <<set $breast = $breast * random(0.7,0.9)>>
+
+<<elseif $randomizer is 73>>
+your thighs swelling fatter <<set $thigh = $thigh * random(1.1,1.5)>>
+as your breasts and belly deflate <<set $breast = $breast * random(0.7,0.9); $belly = $belly * random(0.7,0.9)>>
+
+
+/% Random stufF? %/
+
+<<elseif $randomizer gte 74>>
+//--(rolled <<print $randomizer>>; NYI)--//
+
+
+/% ==================== %/
+
+<<endif>>''
+
+<<set $girth = Math.round($girth); $belly = Math.round($belly); $breast = Math.round($breast); $thigh = Math.round($thigh)>>
+
+<<endnobr>>to match your mirror image's warped new shape!<<endif>><<nobr>>
+
+
+/% ======================================================================== %/
+/% Idols %/
+
+
+/% ======================================================================== %/
+/% Admin Idols %/
+
+<<endnobr>><<if $encounter is "feeder nefirian">>You admire the statue... flinching as ''your belly suddenly grows full, heavy, and round!''
+You feel as though ''you've just had an //enormous// meal'', and you're certain the side effects will be making themselves known on your frame soon... <<set $calories += random(200,900); $bellyBloat += $maxBelly / 2; $belly += $belly * 0.1; $favorNefirian += 5>>
+<<endif>><<nobr>>
+
+/% ======================================================================== %/
+/% Special Idols %/
+
+<<endnobr>><<if $encounter is "you">><<if $curioInteraction is 0>>\
+You can't deny the craftsmanship of the statue... it looks exactly like you as you are now, in the flesh and full of life.
+But for some reason, you feel as though ''you could make a few adjustments, if you wished...''
+<<nobr>>
+
+<<button [[Feed.|Passage()][$curioInteraction = "fatten"]]>>
+<<button [[Inflate.|Passage()][$curioInteraction = "inflate"]]>>
+<<button [[Squeeze.|Passage()][$curioInteraction = "deflate"]]>>
+
+<<button [[Jiggle Breasts.|Passage()][$curioInteraction = "breastfatten"]]>>
+<<button [[Heft Breasts.|Passage()][$curioInteraction = "sbreastfatten"]]>>
+<<button [[Inflate Breasts.|Passage()][$curioInteraction = "breastinflate"]]>>
+<<button [[Squeeze Breasts.|Passage()][$curioInteraction = "breastdeflate"]]>>
+<<button [[Press Breasts.|Passage()][$curioInteraction = "breastslim"]]>>
+
+<<button [[Jiggle Belly.|Passage()][$curioInteraction = "bellyfatten"]]>>
+<<button [[Heft Belly.|Passage()][$curioInteraction = "sbellyfatten"]]>>
+<<button [[Inflate Belly.|Passage()][$curioInteraction = "bellyinflate"]]>>
+<<button [[Squeeze Belly.|Passage()][$curioInteraction = "bellydeflate"]]>>
+<<button [[Press Belly.|Passage()][$curioInteraction = "bellyslim"]]>>
+
+<<button [[Prod Thigh.|Passage()][$curioInteraction = "thighfatten"]]>>
+<<button [[Press Thigh.|Passage()][$curioInteraction = "thighslim"]]>>
+
+<<if $sanity lte 75>>
+<<button [[Whisper to it to fatten up.|Passage()][$curioInteraction = "sfatten"]]>>
+<<button [[Whisper to it to bulk up.|Passage()][$curioInteraction = "bulk"]]>>
+<<button [[Whisper to it to slim down.|Passage()][$curioInteraction = "slim"]]>><<endif>>
+
+<<if $sanity lte 60>>
+<<button [[Whisper to it to grow enormously fat.|Passage()][$curioInteraction = "massivefatten"]]>>
+<<button [[Whisper to it to blow up into a blimp.|Passage()][$curioInteraction = "massiveinflate"]]>>
+<<button [[Whisper to it to bulk up massively.|Passage()][$curioInteraction = "massivebulk"]]>>
+<<endif>>
+
+<<if $sanity lte 50>>
+<<button [[Whisper to it to grow twice as fat.|Passage()][$curioInteraction = "2xfat"]]>>
+<<endif>>
+
+<<if $sanity lte 40>>
+<<button [[Whisper to it to grow three times as fat.|Passage()][$curioInteraction = "3xfat"]]>>
+<<endif>>
+
+<<if $sanity lte 35>>
+<<button [[Just let go.|Passage()][$curioInteraction = "permafatten"]]>>
+<<endif>>
+
+<<if $sanity lte 30>>
+<<button [[Expand infinitely, like the multiverse.|Passage()][$curioInteraction = "infinite"]]>>
+<<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+<<endnobr>>
+<<endif>><<nobr>>
+
+/% ======================================================================== %/
+/% Body Type Shifting Idols %/
+
+<<endnobr>><<if $encounter is "well-fed helene">>You admire the statue... flinching as ''your breasts and thighs suddenly grow just a little bit heftier.''
+Examining your new shape, you have the odd feeling that it may linger... <<nobr>>
+
+<<set $breast = $breast * 1.3; $breastBloat = $maxBreast; $thigh = $thigh * 1.3>>
+
+<<if $bodyStage is 0>><<set $bodyType = "hourglass">>
+<<elseif ($bodyStage is 1) and ($bodyType neq "hourglass")>><<set $bodyType = "hourglass">>
+<<elseif $bodyType is "hourglass">><<set $bodyType = "cubus">><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "egg-fattened daedlan">>You admire the statue... flinching as ''your belly and breasts suddenly grow just a little bit heftier.''
+Examining your new shape, you have the odd feeling that your chest and midsection will soon grow very impressive, indeed...<<nobr>>
+
+<<set $belly = $belly * 1.3; $bellyBloat = $maxBelly; $breast = $breast * 1.3; $breastBloat = $maxBreast * 1.2>>
+
+<<if $bodyStage is 0>><<set $bodyType = "round">>
+<<elseif ($bodyStage is 1) and ($bodyType neq "round")>><<set $bodyType = "round">>
+<<elseif $bodyType is "round">><<set $bodyType = "bulging">><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "gluttonous daedlan">>You admire the statue... flinching as ''your thighs suddenly grow just a little bit heftier.''
+Examining your new shape, you have the odd feeling that your belly and thighs will be happily soaking up every calorie you take in...<<nobr>>
+
+<<set $belly = $belly * 1.3; $bellyBloat = $maxBelly; $thigh = $thigh * 1.5>>
+
+<<if $bodyStage is 0>><<set $bodyType = "pear">>
+<<elseif ($bodyStage is 1) and ($bodyType neq "pear")>><<set $bodyType = "pear">>
+<<elseif $bodyType is "pear">><<set $bodyType = "bloatpear">><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "gluttonous adephagian">>You admire the statue... flinching as ''your thighs suddenly grow just a little bit heftier.''
+Examining your new shape, you have the odd feeling that your belly and thighs will be happily soaking up every calorie you take in...<<nobr>>
+
+<<set $thigh = $thigh * 1.5>>
+
+<<if $bodyStage is 0>><<set $bodyType = "thigh">>
+<<elseif ($bodyStage is 1) and ($bodyType neq "thigh")>><<set $bodyType = "thigh">>
+<<elseif $bodyType is "hourglass">><<set $bodyType = "blimpthigh">><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "spherical leupai">>You admire the statue... flinching as ''your belly suddenly grows just a little bit heftier.''
+Examining your new shape, you have the odd feeling that your belly will soon be growing impressively round, given sufficient calories...<<nobr>>
+
+<<set $belly = $belly * 1.5>>
+
+<<if $bodyStage is 0>><<set $bodyType = "belly">>
+<<elseif ($bodyStage is 1) and ($bodyType neq "belly")>><<set $bodyType = "belly">>
+<<elseif $bodyType is "belly">><<set $bodyType = "guguetelle">><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "milk-bloated adephagian">>You admire the statue... flinching as ''your breasts suddenly grow just a little bit heftier.''
+Examining your new shape, you have the odd feeling that your bust will continue to expand, given sufficient calories...<<nobr>>
+
+<<set $breast = $breast * 1.5>>
+
+<<if $bodyStage is 0>><<set $bodyType = "busty">>
+<<elseif ($bodyStage is 1) and ($bodyType neq "busty")>><<set $bodyType = "busty">>
+<<elseif $bodyType is "busty">><<set $bodyType = "boviete">><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ================================= %/
+
+<<endnobr>><<if $encounter is "immobile aladri">>You admire the statue... flinching as a chill suddenly laces down your spine.''
+Visions of yourself, fattened into immobility-- and perhaps even far beyond-- flash through your mind.'' //A premonition?// <<set $gainerBonus += random(15,25); $calories += $immobilityCeiling * random(1.1,5)>>
+<<endif>><<nobr>>
+
+/% ================================= %/
+
+<<endnobr>><<if $encounter is "billetroa arka">>You admire the statue... flinching as a chill suddenly laces down your spine.''
+Visions of yourself, fattened up to absolutely ludicrous dimensions-- flash through your mind.''
+As you back away, ''your body begins to swell...'' <<set $billetroaMorphSize = random(180000,550000); $billetroaExpand = 1>>
+<<endif>><<nobr>>
+
+
+
+/% ======================================================================== %/
+/% Altars %/
+
+
+/% ======================================================================== %/
+/% Fountains %/
+
+<<endnobr>><<if $encounter is "balloon fountain">>The water is clean and refreshing.
+You drink your fill, then stand to continue on your way--- but gasp in shock as ''your belly suddenly begins to rapidly bloat'', jiggling heavily!<<set $pain -= 20; $belly += either(0,0,0,10,20,50); $bellyBloat = $maxBelly; $bellyLiquid = $bellyBloat; $waterballoonVenom += random(15,40)>>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "greed fountain">>The water is clean and refreshing.
+You drink your fill, then stand to continue on your way... pausing for a moment as an odd chill dances down your spine.
+''You feel... //voracious...//''<<set $pain = 0; $bellyBloat = $maxBelly; $bellyLiquid = $bellyBloat; $esurience += random(6,12); $voreFrenzy += random(16,60); $deathCause = "explosion">>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "gain fountain">>The water is clean and refreshing.
+You drink your fill, then stand to continue on your way... pausing for a moment as an odd chill dances down your spine.
+''You feel sluggish...''<<set $pain = 0; $bellyBloat = $maxBelly; $bellyLiquid = $bellyBloat; $gainerBonus += random(5,20); $calories += random(500,2000); $deathCause = "explosion">>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "bulk fountain">>The water is clean and refreshing.
+You drink your fill, then stand to continue on your way--- but gasp in shock as ''your body suddenly begins to rapidly expand'', bloating with fat and muscle as the magic of the fountain takes effect!
+''You feel more resilient!''<<set $pain += 30; $maxPain += random(25,60); $strength += random(5,12); $girth += random(800,2600); $breast += random(90,500); $breastBloat = $maxBreast; $belly += random(500,1800); $bellyBloat = $maxBelly; $bellyLiquid = $bellyBloat; $deathCause = "explosion">>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "milk fountain">>The milk is thick, frothy, and sweet.
+You drink your fill, your belly sloshing enjoyably as you stand to continue on your way.<<set $pain = 0; $breast += either(0,0,0,10,20,50); $breastBloat = $maxBreast * 1.2; $calories += random(50,130); $bellyBloat = $maxBelly; $bellyLiquid = $bellyBloat; $milkFat += either(0,0,0.1,0.1,0.2,0.5)>>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "berry fountain">>The liquid is sweet and delicious, and fills you up quickly.
+You drink your fill, then stand to continue on your way--- but gasp in shock as ''your belly suddenly begins to rapidly bloat'', tightening as it inflates into a ball!
+''Your skin feels strange...''<<set $pain -= 20; $calories += random(10,60); $belly += either(0,0,0,10,20,50); $bellyBloat = $maxBelly; $bellyLiquid = $bellyBloat; $bodyColor = either("blue","indigo","violet"); $burstberryBloat += random(15,40)>>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "water fountain">>The water is clean and refreshing.
+You drink your fill, then stand to continue on your way... ''feeling slightly odd as you go...''<<set $pain -= 20; $belly += either(0,0,0,10,20,50); $bellyBloat = $maxBelly; $bellyLiquid = $bellyBloat; $playerElement = either("water","liquid")>>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "fattenium fountain">>The liquid is sweet, buttery, and delicious. It fills you up quickly, but ''you find yourself unable to stop drinking...''
+You space out for a few moments, but are jolted to your senses as your ''body begins to rapidly billow with fat... and it shows no signs of stopping!''<<set $calories += random(1000,5000); $bellyBloat = $maxBelly; $bellyLiquid = $bellyBloat; $blubberVenom += random(20,60)>>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "venomous fountain">>The water is ''bitter, filmy, and unpleasant!''
+You choke and gag for a moment, then head along on your way, ''your stomach complaining loudly as you regret your decision...''<<set $calories += random(-50,50)>><<nobr>>
+
+/% Fattenium Venom %/
+<<if $effect is 1>><<set $fatteniumPoisoning += either(500,600,700,800,900,1000,1200,1300,1500,2000)>>
+
+/% Somnus Venom %/
+<<elseif $effect is 2>><<set $miraPoisoning += random(0,48); $somniation += random(3,8)>>
+
+/% Miratoxic Venom %/
+<<elseif $effect is 3>><<set $miraPoisoning += random(8,65)>>
+
+/% Miraberry Venom %/
+<<elseif $effect is 4>><<set $miraberryToxicity += random(0,48)>>
+
+/% Mushroom Venom %/
+<<elseif $effect is 5>><<set $mushroomToxicity += random(0,48)>>
+
+/% Calorie Venom %/
+<<elseif $effect is 6>><<set $calpowderToxicity += random(0,48)>>
+
+/% Gainer Venom %/
+<<elseif $effect is 7>><<set $gainerToxicity += random(0,48)>>
+
+/% Leupai Oil Venom %/
+<<elseif $effect is 8>><<set $leupoilToxicity += random(0,48)>>
+
+/% Instant Fattener Venom %/
+<<elseif $effect is 9>><<set $breastfatteniumToxicity += random(0,48)>>
+
+<<elseif $effect is 10>><<set $bellyfatteniumToxicity += random(0,48)>>
+
+<<elseif $effect is 11>><<set $thighfatteniumToxicity += random(0,48)>>
+
+/% Deflation Venom %/
+<<elseif $effect is 12>>
+<<set $deflaToxicity += random(0,48)>>
+
+/% Inflation Venom %/
+<<elseif $effect is 13>><<set $inflaToxicity += random(0,48)>>
+
+/% Helenic Venom %/
+<<elseif $effect is 14>><<set $helenoToxicity += random(0,48)>>
+
+/% Slime Venom %/
+<<elseif $effect is 15>><<set $slimeBellyParaLoad += either(50,100,150,200,250); $bellyLiquid += either(50,100,150,200,250)>>
+
+<<elseif $effect is 16>><<set $slimeBreastParaLoad += either(50,100,150,200,250); $breastBloat += either(50,100,150,200,250)>>
+
+/% Caffeine Venom %/
+<<elseif $effect is 17>><<set $caffeineToxicity += random(0,48)>>
+
+/% Toxic Venom %/
+<<elseif $effect is 18>><<set $toxicVenom += random(0,48)>>
+
+/% Lethal Venom %/
+<<elseif $effect is 19>><<set $lethalVenom += random(0,48)>>
+
+/% Gain Venom %/
+<<elseif $effect is 20>><<set $gainVenom += random(0,48)>>
+
+/% Supergain Venom %/
+<<elseif $effect is 21>><<set $supergainVenom += random(0,48)>>
+
+/% Belly Gain Venom %/
+<<elseif $effect is 22>><<set $bellygainVenom += random(0,48)>>
+
+/% Belly Supergain Venom %/
+<<elseif $effect is 23>><<set $bellySupergainVenom += random(0,48)>>
+
+/% Breast Gain Venom %/
+<<elseif $effect is 24>><<set $breastgainVenom += random(0,48)>>
+
+/% Breast Supergain Venom %/
+<<elseif $effect is 25>><<set $breastSupergainVenom += random(0,48)>>
+
+/% Thigh Gain Venom %/
+<<elseif $effect is 26>><<set $thighgainVenom += random(0,48)>>
+
+/% Thigh Supergain Venom %/
+<<elseif $effect is 27>><<set $thighSupergainVenom += random(0,48)>>
+
+/% Fattenium Venom %/
+<<elseif $effect is 28>><<set $fatteniumVenom += random(0,48)>>
+
+/% Bulk Venom %/
+<<elseif $effect is 29>><<set $bulkVenom += random(0,48)>>
+
+/% Musclebloat Venom %/
+<<elseif $effect is 30>><<set $musclebloatVenom += random(0,48)>>
+
+/% Flabbifying Venom %/
+<<elseif $effect is 31>><<set $flabbyVenom += random(0,48)>>
+
+/% Bloat Venom %/
+<<elseif $effect is 32>><<set $bloatVenom += random(0,48)>>
+
+/% Breast Bloat Venom %/
+<<elseif $effect is 33>><<set $breastbloatVenom += random(0,48)>>
+
+/% Bursting Venom %/
+<<elseif $effect is 34>><<set $burstVenom += random(0,48)>>
+
+/% Healing Venom %/
+<<elseif $effect is 35>><<set $healVenom += random(0,48)>>
+
+/% Weakening Venom %/
+<<elseif $effect is 36>><<set $weakeningVenom += random(0,48)>>
+
+/% Voracity Venom %/
+<<elseif $effect is 37>><<set $gluttonVenom += random(0,48)>>
+
+/% Caloric Venom %/
+<<elseif $effect is 38>><<set $caloricVenom += random(0,48)>>
+
+/% Hallucenogenic Venom %/
+<<elseif $effect is 39>><<set $hallucenoVenom += random(0,48)>>
+
+/% Mutagenic Venom %/
+<<elseif $effect is 40>><<set $mutagenVenom += random(0,48)>>
+
+/% Leucanthropic Venom %/
+<<elseif $effect is 41>><<set $leucanthropicVenom += random(0,48)>>
+
+/% Esque Venom %/
+<<elseif $effect is 42>><<set $esqueVenom += random(0,48)>>
+
+/% Noxious Venom %/
+<<elseif $effect is 43>><<set $noxiousVenom += random(0,48)>>
+
+/% Blubber Venom %/
+<<elseif $effect is 44>><<set $blubberVenom += random(0,48)>>
+
+/% Amplibaene Venom %/
+<<elseif $effect is 45>><<set $ampliVenom += random(0,48)>>
+
+/% Waterballoon Venom %/
+<<elseif $effect is 46>><<set $waterballoonVenom += random(0,48)>>
+
+/% Wither Venom %/
+<<elseif $effect is 46>><<set $witherVenom += random(0,48)>>
+
+/% Pressure Venom %/
+<<elseif $effect is 47>><<set $hourglassPressureVenom += random(0,48)>>
+
+<<elseif $effect is 48>><<set $bellyPressureVenom += random(0,48)>>
+
+<<elseif $effect is 49>><<set $breastPressureVenom += random(0,48)>>
+
+<<elseif $effect is 50>><<set $thighPressureVenom += random(0,48)>>
+
+<<elseif $effect is 51>><<set $bodyPressureVenom += random(0,48)>>
+
+<<elseif $effect is 52>><<set $pearPressureVenom += random(0,48)>>
+
+<<elseif $effect is 53>><<set $centralPressureVenom += random(0,48)>>
+
+/% Just damage %/
+<<elseif $effect gte 54>><<set $pain += random(0,56); $deathCause = either("poison","agony")>><<endif>>
+
+
+
+<<endnobr>>
+<<endif>><<nobr>>
+
+
+<<endnobr>><<if $encounter is "metamorphous fountain">>The water is clean and refreshing.
+You drink your fill, then stand to continue on your way--- <<nobr>>
+
+
+<<if $effect is 1>>
+<<set $playerElement = either(0,"mirajin","vitae","bestial","arcane","psionic","electric","radiation","sonic","light","eldritch","void","love","fire","earth","air","water","metal","crystal","toxic","bestial","vegetal","fungal","viral","decay","fat","food","balloon","liquid","vore","egg","parasite","whimsy")>>
+
+but gasp in shock as ''your body suddenly begins to rapidly expand'', bloating with fat and muscle and distorting painfully as the magic of the fountain takes effect, transforming you into a ''<<print $playerElement>> mythosi''!
+<<set $pain += 50; $species = "mythosi"; $speciesLock = 0; $maxPain += random(65,180); $strength += random(8,32); $lethalKO = 0>>
+<<set $girth = $girth * random(1.5,3.5); $breast = $breast * random(1.1,2.5); $breastBloat = $maxBreast * 1.2; $belly = $belly * random(1.5,3.5); $bellyBloat = $maxBelly * 1.2; $thigh = $thigh * random(1.1,3.5)>>
+
+<<display BodyDatabase>>
+
+<<if ($playerElement is "fat") or ($playerElement is "eldritch")>><<set $girth = $girth * random(1.2,1.5); $breast = $breast * random(1.2,1.5); $breastBloat = $maxBreast * 1.2; $belly = $belly * random(1.2,1.5); $bellyBloat = $maxBelly * 1.2; $thigh = $thigh * random(1.2,1.5)>>
+<<elseif $playerElement is "vore">><<set $belly = $belly * random(1.1,1.3)>>
+<<elseif ($playerElement is "food") or ($playerElement is "balloon") or ($playerElement is "egg") or ($playerElement is "mirajin")>><<set $belly = $belly * random(1.2,1.5)>><<endif>>
+<<endif>>
+
+
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ======================================================================== %/
+<<display BodySystems>>
+
+<<endnobr>></framed>\
+<<if $curioOverride is 0>>
+<<button [[Continue.|$saveStateSpecial]]>><<endif>></center>

@@ -1,0 +1,281 @@
+﻿<<set $companionAbility = 0>>
+
+<<if $callCompanion is 1>>
+<<set $compCombatSpec = $companion1Spec; $compCombatSubspec = $companion1Subspec; $compCombatSubtype = $companion1Subtype>>
+
+<<elseif $callCompanion is 2>>
+<<set $compCombatSpec = $companion2Spec; $compCombatSubspec = $companion2Subspec; $compCombatSubtype = $companion2Subtype>>
+
+<<elseif $callCompanion is 3>>
+<<set $compCombatSpec = $companion3Spec; $compCombatSubspec = $companion3Subspec; $compCombatSubtype = $companion3Subtype>><<endif>>
+
+/% =========================================== %/
+/% Species Class Setup %/
+
+<<set $speClassInput = $compCombatSpec>>
+
+<<display SpeciesClasses>>
+
+<<set $compCombatSpeClass = $speClassOutput>>
+
+
+/% =========================================== %/
+/% Companion Abilities by Species Class %/
+
+
+<<if $compCombatSpeClass is "leupai">>
+
+	<<if $callCompanion is 1>><<button [[Tonguesiphon|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "tonguesiphon"; $companionAbility = 1; $enemyDeath = "breathes a last, tortured gasp, its vital essence drained away!"]]>>
+	<<elseif $callCompanion is 2>><<button [[Tonguesiphon|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "tonguesiphon"; $companionAbility = 1; $enemyDeath = "breathes a last, tortured gasp, its vital essence drained away!"]]>>
+	<<elseif $callCompanion is 3>><<button [[Tonguesiphon|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "tonguesiphon"; $companionAbility = 1; $enemyDeath = "breathes a last, tortured gasp, its vital essence drained away!"]]>>
+	<<endif>>
+
+/% =========================================== %/
+
+<<elseif $compCombatSpeClass is "dragon">>
+
+
+/% Class special: Breathblast
+Breath attack based on player elemental type %/
+
+	<<if $callCompanion is 1>><<button [[Lunge|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "lunge"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's gnashing teeth!"]]>>
+	<<elseif $callCompanion is 2>><<button [[Lunge|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "lunge"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's gnashing teeth!"]]>>
+	<<elseif $callCompanion is 3>><<button [[Lunge|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "lunge"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's gnashing teeth!"]]>>
+	<<endif>>
+
+	<<if $callCompanion is 1>><<button [[Shred|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "shred"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's deadly talons!"]]>>
+	<<elseif $callCompanion is 2>><<button [[Shred|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "shred"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's deadly talons!"]]>>
+	<<elseif $callCompanion is 3>><<button [[Shred|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "shred"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's deadly talons!"]]>>
+	<<endif>>
+
+
+/% =========================================== %/
+
+<<elseif $compCombatSpeClass is "fae">>
+
+
+
+/% =========================================== %/
+
+<<elseif $compCombatSpeClass is "humanoid">>
+
+
+
+/% =========================================== %/
+
+<<elseif $compCombatSpeClass is "elemental">>
+
+/% Class special: Attune
+Draws essences from the surroundings to heal damage %/
+
+/% =========================================== %/
+
+<<elseif $compCombatSpeClass is "carnibeast">>
+
+	<<if $callCompanion is 1>><<button [[Lunge|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "lunge"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's gnashing teeth!"]]>>
+	<<elseif $callCompanion is 2>><<button [[Lunge|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "lunge"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's gnashing teeth!"]]>>
+	<<elseif $callCompanion is 3>><<button [[Lunge|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "lunge"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's gnashing teeth!"]]>>
+	<<endif>>
+
+/% =========================================== %/
+
+<<elseif $compCombatSpeClass is "omnibeast">>
+
+
+
+/% =========================================== %/
+
+<<elseif $compCombatSpeClass is "burdenbeast">>
+
+/% Class special: Egress
+Guaranteed escape from combat %/
+
+
+	<<if $callCompanion is 1>><<button [[Slam|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "slam"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 2>><<button [[Slam|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "slam"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 3>><<button [[Slam|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "slam"; $companionAbility = 1]]>>
+	<<endif>>
+
+
+	<<button [[Egress|Explore][$escapedBattle = 1; $canEscape = 0]]>>
+
+
+/% =========================================== %/
+
+<<elseif $compCombatSpeClass is "avian">>
+
+
+/% Class special: Shred
+Melee attack with chance of applying bleed %/
+
+	<<if $callCompanion is 1>><<button [[Shred|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "shred"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's deadly talons!"]]>>
+	<<elseif $callCompanion is 2>><<button [[Shred|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "shred"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's deadly talons!"]]>>
+	<<elseif $callCompanion is 3>><<button [[Shred|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "shred"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's deadly talons!"]]>>
+	<<endif>>
+
+/% =========================================== %/
+
+<<elseif $compCombatSpeClass is "mutant">>
+
+
+	<<if $callCompanion is 1>><<button [[Pummel|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "pummel"; $companionAbility = 1; $enemyDeath = "is utterly annihilated by your companion's ferocious fists!"]]>>
+	<<elseif $callCompanion is 2>><<button [[Pummel|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "pummel"; $companionAbility = 1; $enemyDeath = "is utterly annihilated by your companion's ferocious fists!"]]>>
+	<<elseif $callCompanion is 3>><<button [[Pummel|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "pummel"; $companionAbility = 1; $enemyDeath = "is utterly annihilated by your companion's ferocious fists!"]]>>
+	<<endif>>
+
+
+/% =========================================== %/
+
+<<elseif $compCombatSpeClass is "amorphous">>
+
+
+/% Class special: Jelly Shield
+A tough, damage-reducing shield %/
+
+	<<if $callCompanion is 1>><<button [[Jelly Shield|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "jelly shield"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 2>><<button [[Jelly Shield|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "jelly shield"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 3>><<button [[Jelly Shield|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "jelly shield"; $companionAbility = 1]]>>
+	<<endif>>
+
+/% =========================================== %/
+
+<<endif>>
+
+/% =========================================== %/
+/% by Species %/
+
+
+<<if $compCombatSpec is "leupai">>
+
+	<<if $callCompanion is 1>><<button [[Tonguevenom|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $pVenomType = $companion1Venom; $playerChoice = "tonguevenom"; $companionAbility = 1; $enemyDeath = "foams at the mouth and rolls its eyes back as it blows up like a balloon, looking ready to pop!"]]>>
+	<<elseif $callCompanion is 2>><<button [[Tonguevenom|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $pVenomType = $companion2Venom; $playerChoice = "tonguevenom"; $companionAbility = 1; $enemyDeath = "foams at the mouth and rolls its eyes back as it blows up like a balloon, looking ready to pop!"]]>>
+	<<elseif $callCompanion is 3>><<button [[Tonguevenom|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $pVenomType = $companion3Venom; $playerChoice = "tonguevenom"; $companionAbility = 1; $enemyDeath = "foams at the mouth and rolls its eyes back as it blows up like a balloon, looking ready to pop!"]]>>
+	<<endif>>
+
+/% =========================================== %/
+
+<<elseif $compCombatSpec is "helene">>
+
+	<<if $callCompanion is 1>><<button [[Adimancy|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = either("plump","plump","fatten"); $companionAbility = 1]]>>
+	<<elseif $callCompanion is 2>><<button [[Adimancy|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = either("plump","plump","fatten"); $companionAbility = 1]]>>
+	<<elseif $callCompanion is 3>><<button [[Adimancy|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = either("plump","plump","fatten"); $companionAbility = 1]]>>
+	<<endif>>
+
+/% =========================================== %/
+
+<<elseif ($compCombatSpec is "fyynling") or ($compCombatSpec is "fyynmorph") or ($compCombatSpec is "fyynling horror")>>
+
+	<<if $callCompanion is 1>><<button [[Prod|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "merge"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 2>><<button [[Prod|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "merge"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 3>><<button [[Prod|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "merge"; $companionAbility = 1]]>>
+	<<endif>>
+
+/% =========================================== %/
+
+<<elseif $compCombatSpec is "unicorn">>
+
+	<<if $callCompanion is 1>><<button [[Horn Fencing|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = either("thrust","thrust","slam","z-slash"); $combatMagnitude = either(1,1,1,1,2,2,2,3,3,4,5); $companionAbility = 1]]>>
+	<<elseif $callCompanion is 2>><<button [[Horn Fencing|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = either("thrust","thrust","slam","z-slash"); $combatMagnitude = either(1,1,1,1,2,2,2,3,3,4,5); $companionAbility = 1]]>>
+	<<elseif $callCompanion is 3>><<button [[Horn Fencing|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = either("thrust","thrust","slam","z-slash"); $combatMagnitude = either(1,1,1,1,2,2,2,3,3,4,5); $companionAbility = 1]]>>
+	<<endif>>
+
+/% =========================================== %/
+
+<<elseif ($compCombatSpec is "quiann") or ($compCombatSpec is "coyote") or ($compCombatSpec is "wolf") or ($compCombatSpec is "hyena")>>
+
+	<<if $callCompanion is 1>><<button [[Best Friend|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "best friend"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 2>><<button [[Best Friend|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "best friend"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 3>><<button [[Best Friend|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "best friend"; $companionAbility = 1]]>>
+	<<endif>>
+
+
+/% =========================================== %/
+
+<<elseif ($compCombatSpec is "snake") or ($compCombatSpec is "scorpion") or ($compCombatSpec is "serpent") or ($compCombatSpec is "seraphim slug")>>
+
+	<<if $callCompanion is 1>><<button [[Inject|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "inject"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 2>><<button [[Inject|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "inject"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 3>><<button [[Inject|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "inject"; $companionAbility = 1]]>>
+	<<endif>>
+
+
+/% =========================================== %/
+
+<<elseif ($compCombatSpec is "slime") or ($compCombatSpec is "anthroslime")>>
+
+	<<if $callCompanion is 1>><<button [[Bloat|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "bloat"; $companionAbility = 1; $enemyDeath = "wheezes and thrashes, bloated up into a helpless, jiggly ball!"]]>>
+	<<elseif $callCompanion is 2>><<button [[Bloat|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "bloat"; $companionAbility = 1; $enemyDeath = "wheezes and thrashes, bloated up into a helpless, jiggly ball!"]]>>
+	<<elseif $callCompanion is 3>><<button [[Bloat|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "bloat"; $companionAbility = 1; $enemyDeath = "wheezes and thrashes, bloated up into a helpless, jiggly ball!"]]>>
+	<<endif>>
+
+/% =========================================== %/
+
+<<elseif ($compCombatSpec is "deer") or ($compCombatSpec is "stag") or ($compCombatSpec is "chevret") or ($compCombatSpec is "rockcharger")>>
+
+	<<if $callCompanion is 1>><<button [[Slam|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "slam"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 2>><<button [[Slam|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "slam"; $companionAbility = 1]]>>
+	<<elseif $callCompanion is 3>><<button [[Slam|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "slam"; $companionAbility = 1]]>>
+	<<endif>>
+
+/% =========================================== %/
+
+<<elseif $compCombatSpec is "razormouth">>
+
+	<<if $callCompanion is 1>><<button [[Shred|passage()][$compCombatant = $companion1; $compFinesse = $companion1Fin; $compPower = $companion1Pwr; $playerChoice = "shred"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's deadly talons!"]]>>
+	<<elseif $callCompanion is 2>><<button [[Shred|passage()][$compCombatant = $companion2; $compFinesse = $companion2Fin; $compPower = $companion2Pwr; $playerChoice = "shred"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's deadly talons!"]]>>
+	<<elseif $callCompanion is 3>><<button [[Shred|passage()][$compCombatant = $companion3; $compFinesse = $companion3Fin; $compPower = $companion3Pwr; $playerChoice = "shred"; $companionAbility = 1; $enemyDeath = "is torn to ribbons by your companion's deadly talons!"]]>>
+	<<endif>>
+
+	<<button [[Egress|Explore][$escapedBattle = 1; $canEscape = 0]]>>
+
+
+/% =========================================== %/
+
+<<elseif $compCombatSpec is "placeholder">>
+
+
+/% =========================================== %/
+
+
+<<endif>>
+
+
+/% =========================================== %/
+/% by Subspecies %/
+
+
+<<if $compCombatSubspec is "placeholder">>
+
+
+
+<<elseif $compCombatSubspec is "placeholder">>
+
+
+
+<<elseif $compCombatSubspec is "placeholder">>
+
+
+/% =========================================== %/
+
+<<endif>>
+
+
+/% =========================================== %/
+/% by Subtype %/
+
+
+<<if $compCombatSubtype is "placeholder">>
+
+
+
+<<elseif $compCombatSubtype is "placeholder">>
+
+
+
+<<elseif $compCombatSubtype is "placeholder">>
+
+
+
+<<endif>>
+
+/% =========================================== %/

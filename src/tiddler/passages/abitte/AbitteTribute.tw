@@ -1,0 +1,15 @@
+﻿<center>[img[$adminStatue]]
+<<if $service is 0>>
+''What would you like to offer <<print $administreStatue>>?''
+
+<wideframe2><<display Offerings>></wideframe2>
+
+<<button [[Back.|Abitte][$service = 1]]>>\
+\
+\
+<<elseif $service is 1>>
+<<if $rejectOffering is 0>>Your offering ''<<if $administreStatue is "Phoenix">>suddenly bursts into <<print either("green","violet")>> flames, burning away into ash before your eyes<<elseif $administreStatue is "Eliot">>suddenly glitches away in a cascade of magenta binary and strange symbols<<else>>suddenly disappears in a flash<<endif>>!''
+
+<<endif>>You <<print $adminResponse>><<set $rejectOffering = 0>>
+
+<<button [[Make another offering.|passage()][$service = 0]]>><<button [[Back.|Abitte][$service = 1]]>><<endif>></center>

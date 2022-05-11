@@ -1,0 +1,14 @@
+﻿<<display ZoneBackgrounds>><<nobr>>
+
+<center><<if $companionSelected is 1>><<set $companionName = $companion1>>[img[$companion1img]]
+<<elseif $companionSelected is 2>><<set $companionName = $companion2>>[img[$companion2img]]
+<<elseif $companionSelected is 3>><<set $companionName = $companion3>>[img[$companion3img]]<<endif>></center>
+
+<<if $storeCompanion is 1>>
+
+/% Store the companion's info in the donsair database, and then clear it from its slot. %/
+<<display CompanionStorage>><<endif>>
+
+<<endnobr>>
+<<if $storeCompanion is 0>>Are you sure you want to send <<print $companionName>> back to your mound?
+<hr>[[NO.|Companions][$viewingCompanion = 0; $companionSelected = 0]] ♦ [[YES.|passage()][$storeCompanion = 1; $donsairID = 1]]<<endif>>

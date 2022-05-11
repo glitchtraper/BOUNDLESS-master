@@ -1,0 +1,899 @@
+﻿<<nobr>>
+<<display ZoneBackgrounds>>
+
+<<if $pauseGeneration is 0>>
+
+<<set $newQuaggyName1 = 0; $newQuaggyName2 = 0; $newQuaggyColor = 0; $newQuaggyGirth = 0; $newQuaggySubtype = 0>>
+<<set $newQuaggyStrength = 0; $newQuaggyFinesse = 0; $newQuaggyStamina = 0>>
+
+/% ============================================================================== %/
+/% null egg girth check %/
+
+<<if $baseQuaggyGirth lte 0>><<set $baseQuaggyGirth = either(10,10,20)>><<endif>>
+
+/% Step 1 - what kind of quaggy is this? %/
+
+<<set $randomizer = random(1,3)>>
+<<if $randomizer is 1>><<set $newQuaggySubspecies = $species>>
+<<elseif $randomizer is 2>><<set $newQuaggySubspecies = $quaggySubspecies1>>
+<<elseif $randomizer is 3>><<set $newQuaggySubspecies = $quaggySubspecies2>><<endif>>
+
+<<if $newQuaggySubspecies is 0>><<set $newQuaggySubspecies = $species>><<endif>>
+
+/% 1A - take the species result and convert it into a leupai result, if necessary %/
+
+<<if $newQuaggySubspecies is "post-human">><<set $newQuaggySubspecies = "belmere">>
+
+<<elseif $newQuaggySubspecies is "aladri">><<set $newQuaggySubspecies = either("ouinsel","Kaolani")>>
+
+<<elseif $newQuaggySubspecies is "slime">><<set $newQuaggySubspecies = "belmere"; $newQuaggySubtype = "slime">>
+
+<<elseif ($newQuaggySubspecies is "blubberslime") or ($newQuaggySubspecies is "fyynling") or ($newQuaggySubspecies is "fyynling horror")>><<set $newQuaggySubspecies = "belmere"; $newQuaggySubtype = "blubber-bloated">>
+
+<<elseif $newQuaggySubspecies is "mythosi">><<set $newQuaggySubspecies = either("astar","fragmentari")>>
+
+<<elseif $newQuaggySubspecies is "adephagian">><<set $newQuaggySubspecies = "belmere"; $newQuaggySubtype = "adephagian")>>
+
+<<elseif ($newQuaggySubspecies is "arka") or ($newQuaggySubspecies is "arquesse")>><<set $newQuaggySubspecies = either("belmere","celesse","heitene","laworn","kitsch","ein","devinn","rexaur")>>
+
+<<else>><<set $newQuaggySubspecies = "belmere">><<endif>>
+
+/% Hue %/
+
+<<if $bodyColor is 0>><<display ColorWheel>><<set $quaggyColorPoint2 = $fullChroma>>
+<<elseif $bodyColor neq 0>><<display ColorWheel>><<set $quaggyColorPoint2 = $bodyColor>><<endif>>
+
+<<if $quaggyColorPoint1 is 0>><<display ColorWheel>><<set $quaggyColorPoint1 = $fullChroma>><<endif>>
+
+/% ================================================== %/
+/% color gradients %/
+
+<<if ($quaggyColorPoint1 is "red") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("red","orange","brown","black")>>
+<<elseif ($quaggyColorPoint1 is "pink") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("pink","red","brown","black")>>
+<<elseif ($quaggyColorPoint1 is "magenta") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("magenta","pink","violet","black")>>
+<<elseif ($quaggyColorPoint1 is "brown") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("orange","red","brown","black")>>
+<<elseif ($quaggyColorPoint1 is "orange") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("orange","red","brown","black")>>
+<<elseif ($quaggyColorPoint1 is "yellow") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("yellow","golden","brown","black")>>
+<<elseif ($quaggyColorPoint1 is "golden") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("golden","orange","brown","black")>>
+<<elseif ($quaggyColorPoint1 is "green") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("green","teal","indigo","black")>>
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("teal","blue","indigo","black")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("blue","violet","indigo","black")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("blue","violet","indigo","black")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("blue","violet","indigo","black")>>
+<<elseif ($quaggyColorPoint1 is "gray") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("gray","black","silver","white")>>
+<<elseif ($quaggyColorPoint1 is "silver") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("gray","black","silver","white")>>
+<<elseif ($quaggyColorPoint1 is "white") and ($quaggyColorPoint2 is "black")>><<set $newQuaggyColor = either("gray","black","silver","white")>>
+
+<<elseif ($quaggyColorPoint1 is "red") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("red","magenta","pink","white")>>
+<<elseif ($quaggyColorPoint1 is "pink") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("pink","white")>>
+<<elseif ($quaggyColorPoint1 is "magenta") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("magenta","pink","white")>>
+<<elseif ($quaggyColorPoint1 is "brown") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("brown","golden","yellow","white")>>
+<<elseif ($quaggyColorPoint1 is "orange") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("orange","golden","yellow","white")>>
+<<elseif ($quaggyColorPoint1 is "yellow") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("yellow","white")>>
+<<elseif ($quaggyColorPoint1 is "golden") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("golden","yellow","white")>>
+<<elseif ($quaggyColorPoint1 is "green") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("green","teal","blue","white")>>
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("teal","blue","white")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("blue","teal","white")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("violet","blue","white")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("indigo","violet","blue","white")>>
+<<elseif ($quaggyColorPoint1 is "gray") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("gray","silver","white")>>
+<<elseif ($quaggyColorPoint1 is "silver") and ($quaggyColorPoint2 is "white")>><<set $newQuaggyColor = either("silver","white")>>
+
+<<elseif ($quaggyColorPoint1 is "red") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("red","magenta","pink","silver")>>
+<<elseif ($quaggyColorPoint1 is "pink") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("pink","silver")>>
+<<elseif ($quaggyColorPoint1 is "magenta") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("magenta","pink","silver")>>
+<<elseif ($quaggyColorPoint1 is "brown") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("brown","golden","yellow","silver")>>
+<<elseif ($quaggyColorPoint1 is "orange") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("orange","golden","yellow","silver")>>
+<<elseif ($quaggyColorPoint1 is "yellow") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("yellow","silver")>>
+<<elseif ($quaggyColorPoint1 is "golden") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("golden","yellow","silver")>>
+<<elseif ($quaggyColorPoint1 is "green") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("green","teal","blue","silver")>>
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("teal","blue","silver")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("blue","teal","silver")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("violet","blue","silver")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("indigo","violet","blue","silver")>>
+<<elseif ($quaggyColorPoint1 is "gray") and ($quaggyColorPoint2 is "silver")>><<set $newQuaggyColor = either("gray","silver")>>
+
+<<elseif ($quaggyColorPoint1 is "red") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("red","magenta","pink","gray")>>
+<<elseif ($quaggyColorPoint1 is "pink") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("pink","gray")>>
+<<elseif ($quaggyColorPoint1 is "magenta") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("magenta","pink","gray")>>
+<<elseif ($quaggyColorPoint1 is "brown") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("brown","golden","yellow","gray")>>
+<<elseif ($quaggyColorPoint1 is "orange") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("orange","golden","yellow","gray")>>
+<<elseif ($quaggyColorPoint1 is "yellow") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("yellow","gray")>>
+<<elseif ($quaggyColorPoint1 is "golden") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("golden","yellow","gray")>>
+<<elseif ($quaggyColorPoint1 is "green") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("green","teal","blue","gray")>>
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("teal","blue","gray")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("blue","teal","gray")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("violet","blue","gray")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "gray")>><<set $newQuaggyColor = either("indigo","violet","blue","gray")>>
+
+<<elseif ($quaggyColorPoint1 is "pink") and ($quaggyColorPoint2 is "red")>><<set $newQuaggyColor = either("pink","red")>>
+<<elseif ($quaggyColorPoint1 is "magenta") and ($quaggyColorPoint2 is "red")>><<set $newQuaggyColor = either("magenta","pink","red")>>
+<<elseif ($quaggyColorPoint1 is "brown") and ($quaggyColorPoint2 is "red")>><<set $newQuaggyColor = either("brown","orange","red")>>
+<<elseif ($quaggyColorPoint1 is "orange") and ($quaggyColorPoint2 is "red")>><<set $newQuaggyColor = either("orange","red")>>
+<<elseif ($quaggyColorPoint1 is "yellow") and ($quaggyColorPoint2 is "red")>><<set $newQuaggyColor = either("yellow","golden","orange","red")>>
+<<elseif ($quaggyColorPoint1 is "golden") and ($quaggyColorPoint2 is "red")>><<set $newQuaggyColor = either("golden","red")>>
+<<elseif ($quaggyColorPoint1 is "green") and ($quaggyColorPoint2 is "red")>><<set $newQuaggyColor = either("green","brown","gray","red")>>
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "red")>><<set $newQuaggyColor = either("teal","gray","red")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "red")>><<set $newQuaggyColor = either("blue","violet","magenta","red")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "red")>><<set $newQuaggyColor = either("violet","magenta","red")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "red")>><<set $newQuaggyColor = either("indigo","violet","black","magenta","red")>>
+
+<<elseif ($quaggyColorPoint1 is "magenta") and ($quaggyColorPoint2 is "pink")>><<set $newQuaggyColor = either("magenta","pink")>>
+<<elseif ($quaggyColorPoint1 is "brown") and ($quaggyColorPoint2 is "pink")>><<set $newQuaggyColor = either("brown","orange","pink")>>
+<<elseif ($quaggyColorPoint1 is "orange") and ($quaggyColorPoint2 is "pink")>><<set $newQuaggyColor = either("orange","pink")>>
+<<elseif ($quaggyColorPoint1 is "yellow") and ($quaggyColorPoint2 is "pink")>><<set $newQuaggyColor = either("yellow","orange","pink")>>
+<<elseif ($quaggyColorPoint1 is "golden") and ($quaggyColorPoint2 is "pink")>><<set $newQuaggyColor = either("golden","pink")>>
+<<elseif ($quaggyColorPoint1 is "green") and ($quaggyColorPoint2 is "pink")>><<set $newQuaggyColor = either("green","brown","silver","pink")>>
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "pink")>><<set $newQuaggyColor = either("teal","gray","silver","pink")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "pink")>><<set $newQuaggyColor = either("blue","violet","magenta","pink")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "pink")>><<set $newQuaggyColor = either("violet","magenta","pink")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "pink")>><<set $newQuaggyColor = either("indigo","violet","magenta","pink")>>
+
+<<elseif ($quaggyColorPoint1 is "brown") and ($quaggyColorPoint2 is "magenta")>><<set $newQuaggyColor = either("brown","red","magenta")>>
+<<elseif ($quaggyColorPoint1 is "orange") and ($quaggyColorPoint2 is "magenta")>><<set $newQuaggyColor = either("orange","red","magenta")>>
+<<elseif ($quaggyColorPoint1 is "yellow") and ($quaggyColorPoint2 is "magenta")>><<set $newQuaggyColor = either("yellow","orange","red","magenta")>>
+<<elseif ($quaggyColorPoint1 is "golden") and ($quaggyColorPoint2 is "magenta")>><<set $newQuaggyColor = either("golden","yellow","orange","magenta")>>
+<<elseif ($quaggyColorPoint1 is "green") and ($quaggyColorPoint2 is "magenta")>><<set $newQuaggyColor = either("green","brown","gray","magenta")>>
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "magenta")>><<set $newQuaggyColor = either("teal","gray","red","magenta")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "magenta")>><<set $newQuaggyColor = either("blue","violet","pink","magenta")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "magenta")>><<set $newQuaggyColor = either("violet","magenta")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "magenta")>><<set $newQuaggyColor = either("indigo","violet","magenta")>>
+
+<<elseif ($quaggyColorPoint1 is "orange") and ($quaggyColorPoint2 is "brown")>><<set $newQuaggyColor = either("orange","red","brown")>>
+<<elseif ($quaggyColorPoint1 is "yellow") and ($quaggyColorPoint2 is "brown")>><<set $newQuaggyColor = either("yellow","golden","orange","brown")>>
+<<elseif ($quaggyColorPoint1 is "golden") and ($quaggyColorPoint2 is "brown")>><<set $newQuaggyColor = either("golden","brown")>>
+<<elseif ($quaggyColorPoint1 is "green") and ($quaggyColorPoint2 is "brown")>><<set $newQuaggyColor = either("green","gray","brown")>>
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "brown")>><<set $newQuaggyColor = either("teal","gray","orange","brown")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "brown")>><<set $newQuaggyColor = either("blue","black","gray","brown")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "brown")>><<set $newQuaggyColor = either("violet","red","brown")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "brown")>><<set $newQuaggyColor = either("indigo","violet","red","brown")>>
+
+<<elseif ($quaggyColorPoint1 is "yellow") and ($quaggyColorPoint2 is "orange")>><<set $newQuaggyColor = either("yellow","golden","orange")>>
+<<elseif ($quaggyColorPoint1 is "golden") and ($quaggyColorPoint2 is "orange")>><<set $newQuaggyColor = either("golden","orange")>>
+<<elseif ($quaggyColorPoint1 is "green") and ($quaggyColorPoint2 is "orange")>><<set $newQuaggyColor = either("green","gray","golden","orange")>>
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "orange")>><<set $newQuaggyColor = either("teal","gray","golden","orange")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "orange")>><<set $newQuaggyColor = either("blue","black","brown","orange")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "orange")>><<set $newQuaggyColor = either("violet","red","orange")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "orange")>><<set $newQuaggyColor = either("indigo","black","red","orange")>>
+
+<<elseif ($quaggyColorPoint1 is "golden") and ($quaggyColorPoint2 is "yellow")>><<set $newQuaggyColor = either("golden","yellow")>>
+<<elseif ($quaggyColorPoint1 is "green") and ($quaggyColorPoint2 is "yellow")>><<set $newQuaggyColor = either("green","golden","yellow")>>
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "yellow")>><<set $newQuaggyColor = either("teal","gray","golden","yellow")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "yellow")>><<set $newQuaggyColor = either("blue","green","golden","yellow")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "yellow")>><<set $newQuaggyColor = either("violet","black","red","yellow")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "yellow")>><<set $newQuaggyColor = either("indigo","black","red","yellow")>>
+
+<<elseif ($quaggyColorPoint1 is "green") and ($quaggyColorPoint2 is "golden")>><<set $newQuaggyColor = either("green","yellow","golden")>>
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "golden")>><<set $newQuaggyColor = either("teal","green","yellow","golden")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "golden")>><<set $newQuaggyColor = either("blue","green","yellow","golden")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "golden")>><<set $newQuaggyColor = either("violet","black","orange","golden")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "golden")>><<set $newQuaggyColor = either("indigo","black","orange","golden")>>
+
+<<elseif ($quaggyColorPoint1 is "teal") and ($quaggyColorPoint2 is "green")>><<set $newQuaggyColor = either("teal","green")>>
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "green")>><<set $newQuaggyColor = either("blue","yellow","green")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "green")>><<set $newQuaggyColor = either("violet","blue","teal","green")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "green")>><<set $newQuaggyColor = either("indigo","blue","teal","green")>>
+
+<<elseif ($quaggyColorPoint1 is "blue") and ($quaggyColorPoint2 is "teal")>><<set $newQuaggyColor = either("blue","green","teal")>>
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "teal")>><<set $newQuaggyColor = either("violet","blue","teal")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "teal")>><<set $newQuaggyColor = either("indigo","blue","teal")>>
+
+<<elseif ($quaggyColorPoint1 is "violet") and ($quaggyColorPoint2 is "blue")>><<set $newQuaggyColor = either("violet","indigo","blue")>>
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "blue")>><<set $newQuaggyColor = either("indigo","blue")>>
+
+<<elseif ($quaggyColorPoint1 is "indigo") and ($quaggyColorPoint2 is "violet")>><<set $newQuaggyColor = either("indigo","violet")>><<endif>>
+
+<<if $newQuaggyColor is 0>><<display ColorWheel>><<set $newQuaggyColor = $fullChroma>>
+
+/% ================================================== %/
+/% Subtypes %/
+
+<<if $substatus is "slime">><<set $newQuaggySubtype = "slime">>
+<<elseif $substatus is "balloon">><<set $newQuaggySubtype = "balloon">>
+<<elseif ($substatus is "balloon") and ($newQuaggySubspecies is "astar")>><<set $newQuaggySubtype = "blimp">>
+<<elseif ($substatus is "balloon") and ($newQuaggySubspecies is "fragmentari")>><<set $newQuaggySubtype = "blimp">><<endif>>
+
+/% If none from the parent, draw from the current environment. %/
+
+<<if $zoneType is "freshwater">><<set $newQuaggySubtype = either(0,0,0,"waterballoon","amphibious","gilled")>>
+<<elseif $zoneType is "saltwater">><<set $newQuaggySubtype = either(0,0,0,"seaspray","tidal","gilled","deep")>>
+<<elseif $zoneType is "fire">><<set $newQuaggySubtype = either(0,0,0,"sandstorm","blazing","volcanic","scorched")>>
+<<elseif $zoneType is "earth">><<set $newQuaggySubtype = either(0,0,0,"dry","boulder","mountain","stone")>>
+<<elseif $zoneType is "ice">><<set $newQuaggySubtype = either(0,0,0,"polar","blubber-bloated","crystalline","blizzard")>>
+<<elseif $zoneType is "faerie">><<set $newQuaggySubtype = either(0,0,0,"fey","ephemeral","enchanted")>>
+<<elseif $zoneType is "agriculture">><<set $newQuaggySubtype = either(0,0,0,"blubber-bloated","fleshbeast","insatiable","adephagian","overabundant")>>
+<<elseif $zoneType is "dark">><<set $newQuaggySubtype = either(0,0,0,"cavern","slug","slime","eldritch","shade","gargoyle")>>
+<<elseif $zoneType is "steel">><<set $newQuaggySubtype = either(0,0,0,"mecha","dreampunk","iron","cyber","android","miratech")>>
+<<elseif $zoneType is "poison">><<set $newQuaggySubtype = either(0,0,0,"nuclear","toxic","miasmic","ruinous","stygian")>>
+<<elseif $zoneType is "eldritch">><<set $newQuaggySubtype = either(0,0,0,"daedlic","oozing","tendril-bound","ink-bloated")>>
+<<else>><<endif>>
+<<endif>>
+
+/% ================================================== %/
+/% Stash some important stats for a little later %/
+
+/% Base starting girth %/
+<<set $newQuaggyGirth = $baseQuaggyGirth>>
+<<if $newQuaggyGirth lte 0>><<set $newQuaggyGirth = either(50000000000000000000,600000000000000,700000000000000,800000000,90000000,100000,110000,120000000,13000000000000,1400000,1500000)>><<endif>>
+
+/% Base starting stats %/
+/% Strength - physical power; Finesse - speed and grace; Stamina - max pain %/
+<<set $newQuaggyStrength = random(6,12); $newQuaggyFinesse = random(6,12); $newQuaggyEnergy = either(8,10,12,1400000000000000,16000000000000000000000000000); $newQuaggyStamina = random(300000000000000000000000000000000000,85000000000000000000000)>>
+
+<<set $newQuaggyBreast = 100000000000000; $newQuaggyBelly = either(30000000000000,400000000000,5000000000000000,6000000000000000000000000); $newQuaggyThigh = either(1000000000000000,2000000000000,3000000000,400000000000)>>
+
+/% Body type setup %/
+<<if $bodytype is 0>><<set $newQuaggyBodytype = either("busty","hourglass","round","belly","pear","thigh")>>
+<<elseif $bodytype is "busty">><<set $newQuaggyBodytype = either("busty","hourglass","boviete","cubus")>>
+<<elseif $bodytype is "hourglass">><<set $newQuaggyBodytype = either("hourglass","cubus")>>
+<<elseif $bodytype is "round">><<set $newQuaggyBodytype = either("round","bulging")>>
+<<elseif $bodytype is "belly">><<set $newQuaggyBodytype = either("belly","guguetelle","bulging")>>
+<<elseif $bodytype is "pear">><<set $newQuaggyBodytype = either("pear","bulging","bloatpear")>>
+<<elseif $bodytype is "thigh">><<set $newQuaggyBodytype = either("thigh","bloatpear","blimpthigh")>>
+<<elseif ($bodytype is "boviete") or ($bodytype is "cubus")>><<set $newQuaggyBodytype = either("boviete","cubus","bulging","bloatpear")>>
+<<elseif ($bodytype is "guguetelle") or ($bodytype is "bulging")>><<set $newQuaggyBodytype = either("cubus","guguetelle","bulging","bloatpear")>>
+<<elseif ($bodytype is "bloatpear") or ($bodytype is "blimpthigh")>><<set $newQuaggyBodytype = either("cubus","bloatpear","blimpthigh")>>
+<<else>><<set $newQuaggyBodytype = either("busty","hourglass","round","belly","pear","thigh","boviete","cubus","guguetelle","bulging","bloatpear","blimpthigh")>><<endif>>
+
+/% ================================================== %/
+/% Traits %/
+
+/% These are always random %/
+
+<<set $newQuaggyFacet = either("round","heart","diamond","cabochon","square","rectangular","star","horn","maw","eye","fleur","angler","spike")>>
+
+/% The rest are based on species %/
+
+/% BELMERE============================== %/
+
+<<if $newQuaggySubspecies is "belmere">>
+
+<<set $newQuaggyEars = either("round","triangular","long","double","winged","finned","split","fae","equine","tendril")>>
+
+<<set $newQuaggyEyes = either("no","two","four","six","eight")>>
+
+<<set $newQuaggyFace = either("flat","humanoid","blunt","leonine","feline","avian","crocodilian","saurian","sharklike","gecko","canine","seal","vulpine","boid","oneroiesque","crusher","eel")>>
+
+<<set $newQuaggyHead = either(0,"spines","mane","quills","hair","feather crest","horns","winged head","crystal points","armor","spikes","tentacles","fins","snake hair")>>
+
+<<set $newQuaggySkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","toy","plush","stitched","vial","candy","cake","jelly","feathered","wispy")>>
+
+<<set $newQuaggyBody = either("bipedal","digitigrade","quadrupedal","kentaurid","raptor","weasel","cetacean","serpentine")>>
+
+<<set $newQuaggyBack = either(0,"spines","mane","quills","feather crest","horns","wings","crystal points","armor","spikes","tentacles","fins","bioluminescent spots","zipper","stitches","teeth")>>
+
+<<set $newQuaggyLegs = either("no","two","four","six","eight","tentacle")>>
+
+<<set $newQuaggyTail = either("no","nub","serpentine","crocodilian","worm","slug","equine","leonine","feline","rooster","phoenix","spade","maw","tentacle","gecko","club","canine","bushy","feathered","carnosaur","sauropod")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(0,4); $newQuaggyFinesse += random(0,4); $newQuaggyStamina += random(0,15)>>
+
+<<endif>>
+
+/% CELESSE============================== %/
+
+<<if $newQuaggySubspecies is "celesse">>
+
+<<set $newQuaggyEars = either("round","triangular","split","fae","equine")>>
+
+<<set $newQuaggyEyes = either("no","two","four","six","eight")>>
+
+<<set $newQuaggyFace = either("flat","leonine","feline","vulpine")>>
+
+<<set $newQuaggyHead = either(0,"spines","mane","quills","hair","feather crest","horns","winged head","crystal points","crystal points","armor","spikes","tentacles","fins","snake hair")>>
+
+<<set $newQuaggySkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","plush","stitched","jelly")>>
+
+<<set $newQuaggyBody = either("bipedal","digitigrade","quadrupedal","kentaurid","weasel","miniature")>>
+
+<<set $newQuaggyBack = either(0,"spined","maned","quilled","feather crested","horned","winged","crystal pointed","crystal pointed","armored","spiked","tentacled","finned","zipper","stitches","teeth")>>
+
+<<set $newQuaggyLegs = either("no","two","four","six","eight","tentacle")>>
+
+<<set $newQuaggyTail = either("no","nub","serpentine","crocodilian","worm","slug","equine","leonine","leonine","feline","feline","rooster","phoenix","spade","maw","tentacle","gecko","club","canine","bushy")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(0,1); $newQuaggyFinesse += random(3,5)>>
+
+<<endif>>
+
+/% DEVINN============================== %/
+
+<<if $newQuaggySubspecies is "devinn">>
+
+<<set $newQuaggyEars = either("round","triangular","long","double","winged","split","fae","tendril")>>
+
+<<set $newQuaggyEyes = either("no","no","no","two","four","six","eight","nine")>>
+
+<<set $newQuaggyFace = either("flat","humanoid","blunt","leonine","leonine","feline","crocodilian","crocodilian","canine","seal","boid","eel")>>
+
+<<set $newQuaggyHead = either(0,"mane","mane","quills","hair","feather crest","tentacles","snake hair")>>
+
+<<set $newQuaggySkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","plush","stitched","jelly","feathered","wispy")>>
+
+<<set $newQuaggyBody = either("bipedal","digitigrade","quadrupedal","kentaurid","weasel","cetacean")>>
+
+<<set $newQuaggyBack = either(0,"spines","quills","wings","crystal points","armor","armor","spikes","tentacles","bioluminescent spots","zipper","stitches","teeth")>>
+
+<<set $newQuaggyLegs = either("two","four","six","eight","tentacle")>>
+
+<<set $newQuaggyTail = either("no","nub","serpentine","crocodilian","crocodilian","worm","slug","equine","leonine","leonine","feline","rooster","phoenix","spade","maw","tentacle","gecko","club","canine","bushy","carnosaur","sauropod")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(3,8); $newQuaggyFinesse += random(0,2);  $newQuaggyStamina += random(10,30)>>
+
+<<endif>>
+
+/% ERINYI============================== %/
+
+<<if $newQuaggySubspecies is "erinyi">>
+
+<<set $newQuaggyEars = "winged">>
+
+<<set $newQuaggyEyes = either("no","two","four","six","eight")>>
+
+<<set $newQuaggyFace = either("humanoid","blunt","avian","avian","crocodilian","saurian","sharklike","gecko","canine","seal","vulpine","boid","oneroiesque","crusher","eel")>>
+
+<<set $newQuaggyHead = either(0,"spines","mane","mane","quills","hair","hair","feather crest","horns","crystal points","armor","spikes","tentacles","fins","snake hair")>>
+
+<<set $newQuaggySkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","jelly","plush","stitched","slick","feathered","feathered","wispy")>>
+
+<<set $newQuaggyBody = either("bipedal","raptor","raptor","digitigrade","kentaurid","weasel","cetacean","serpentine","miniature")>>
+
+<<set $newQuaggyBack = "wings">>
+
+<<set $newQuaggyLegs = either("no","two","four","six","eight","tentacle")>>
+
+<<set $newQuaggyTail = either("no","nub","serpentine","crocodilian","worm","slug","equine","leonine","feline","rooster","phoenix","spade","maw","tentacle","gecko","club","canine","bushy","feathered","carnosaur","carnosaur","carnosaur","sauropod")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(3,5); $newQuaggyFinesse += random(0,6); $newQuaggyStamina += random(3,10)>>
+
+<<endif>>
+
+/% EIN============================== %/
+
+<<if $newQuaggySubspecies is "ein">>
+
+<<set $newQuaggyFacet = either("horn","horn","antler","spike","tendril")>>
+
+<<set $newQuaggyEars = either("round","winged","split","fae","fae","equine","equine","finned")>>
+
+<<set $newQuaggyEyes = either("two","two","three","four")>>
+
+<<set $newQuaggyFace = either("flat","humanoid","humanoid","blunt")>>
+
+<<set $newQuaggyHead = either("mane","mane","hair","feather crest","tentacles","snake hair","winged head")>>
+
+<<set $newQuaggySkin = either("smooth","smooth","scaled","armored","fish-scaled","carapaced","furry","furry","velvet","velvet","plush","stitched","crystalline","feathered","wispy")>>
+
+<<set $newQuaggyBody = either("bipedal","bipedal","bipedal","digitigrade","digitigrade","digitigrade","quadrupedal","kentaurid")>>
+
+<<set $newQuaggyBack = either(0,"spines","mane","quills","feather crest","wings","crystal points","armor","spikes","tentacles","fins","zipper","stitches","teeth")>>
+
+<<set $newQuaggyLegs = either("two","two","four","eight","tentacle")>>
+
+<<set $newQuaggyTail = either("serpentine","crocodilian","worm","slug","equine","equine","leonine","leonine","feline","rooster","phoenix","spade","maw","tentacle","gecko","club","canine","bushy")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(0,2); $newQuaggyFinesse += random(5,8)>>
+
+<<endif>>
+
+/% HEITENE & LAWORN============================== %/
+
+<<if ($newQuaggySubspecies is "heitene") or ($newQuaggySubspecies is "laworn")>>
+
+<<set $newQuaggyEars = either("round","triangular","long","double","winged","split","fae","equine")>>
+
+<<set $newQuaggyEyes = either("no","two","four","six","eight")>>
+
+<<set $newQuaggyFace = either("blunt","canine","seal","vulpine","boid")>>
+
+<<set $newQuaggyHead = either(0,"spines","mane","mane","quills","hair","hair","feather crest","horns","winged head","crystal points","armor","spikes","tentacles","tentacles","snake hair")>>
+
+<<set $newQuaggySkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","feathered","plush","stitched","wispy")>>
+
+<<set $newQuaggyBody = either("bipedal","digitigrade","digitigrade","quadrupedal")>>
+
+<<set $newQuaggyBack = either(0,"spines","mane","mane","mane","quills","feather crest","horns","wings","crystal points","armor","spikes","tentacles","zipper","stitches","teeth")>>
+
+<<set $newQuaggyLegs = either("two","four")>>
+
+<<set $newQuaggyTail = either("no","nub","serpentine","crocodilian","worm","slug","equine","leonine","feline","rooster","phoenix","spade","maw","tentacle","gecko","club","canine","canine","bushy","bushy","carnosaur","sauropod")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(2,5); $newQuaggyFinesse += random(2,5); $newQuaggyStamina += random(5,15)>>
+
+<<endif>>
+
+/% INTERE============================== %/
+
+<<if $newQuaggySubspecies is "intere">>
+
+<<set $newQuaggyEars = either("round","triangular","long","double","winged","finned","split","fae","equine","tendril")>>
+
+<<set $newQuaggyEyes = either("no","two","four","six","eight","nine")>>
+
+<<set $newQuaggyFace = either("flat","humanoid","blunt","leonine","feline","avian","crocodilian","saurian","sharklike","gecko","canine","seal","vulpine","boid","boid","boid","oneroiesque","crusher","eel")>>
+
+<<set $newQuaggyHead = either(0,"spines","mane","quills","hair","feather crest","horns","winged head","crystal points","armor","spikes","tentacles","tentacles","tentacles","fins","snake hair")>>
+
+<<set $newQuaggySkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","jelly","slick","slick","feathered","wispy")>>
+
+<<set $newQuaggyBody = "serpentine">>
+
+<<set $newQuaggyBack = either(0,"spines","mane","quills","feather crest","horns","wings","crystal points","armor","spikes","tentacles","fins","bioluminescent spots","stitches","teeth")>>
+
+<<set $newQuaggyLegs = either("no","no","no","tentacle")>>
+
+<<set $newQuaggyTail = either("serpentine","serpentine","crocodilian","worm","worm","slug","slug","maw","tentacle")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(0,5); $newQuaggyFinesse += random(5,10)>>
+
+<<endif>>
+
+/% ISRI============================== %/
+
+<<if $newQuaggySubspecies is "isri">>
+
+<<set $newQuaggyEars = either("round","triangular","long","double","winged","finned","split","fae","equine","tendril")>>
+
+<<set $newQuaggyEyes = either("no","two","four","six","eight")>>
+
+<<set $newQuaggyFace = either("flat","humanoid","blunt","leonine","feline","avian","crocodilian","saurian","sharklike","gecko","canine","seal","vulpine","boid","oneroiesque","crusher","eel")>>
+
+<<set $newQuaggyHead = either(0,"spines","mane","quills","hair","feather crest","horns","winged head","crystal points","crystal points","armor","armor","spikes","tentacles","fins","snake hair")>>
+
+<<set $newQuaggySkin = either("smooth","scaled","bumpy","fish-scaled","carapaced","crystalline","crystalline")>>
+
+<<set $newQuaggyBody = either("bipedal","digitigrade","quadrupedal","kentaurid","weasel","cetacean","serpentine","miniature")>>
+
+<<set $newQuaggyBack = either("spines","mane","quills","feather crest","horns","wings","crystal points","armor","armor","armor","spikes","tentacles","fins")>>
+
+<<set $newQuaggyLegs = either("no","two","four","six","eight","tentacle")>>
+
+<<set $newQuaggyTail = either("no","nub","serpentine","crocodilian","worm","slug","equine","leonine","feline","rooster","phoenix","spade","maw","tentacle","gecko","club","club","club","carnosaur","sauropod")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(1,5); $newQuaggyFinesse += random(0,3);  $newQuaggyStamina += random(5,10)>>
+
+<<endif>>
+
+/% Kaolani============================== %/
+
+<<if $newQuaggySubspecies is "Kaolani">>
+
+<<set $newQuaggyFacet = "eye">>
+
+<<set $newQuaggyEars = "fae">>
+
+<<set $newQuaggyEyes = either("two","four","six","eight")>>
+
+<<set $newQuaggyFace = either("flat","humanoid","blunt","blunt","leonine","feline","avian","avian","crocodilian","saurian","sharklike","gecko","canine","seal","vulpine","boid","eel")>>
+
+<<set $newQuaggyHead = either(0,"spines","mane","quills","hair","feather crest","feather crest","feather crest","horns","winged head","crystal points","armor","spikes","tentacles","fins","snake hair")>>
+
+<<set $newQuaggySkin = either("smooth","smooth","scaled","scaled","armored","armored","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","feathered")>>
+
+<<set $newQuaggyBody = either("bipedal","digitigrade")>>
+
+<<set $newQuaggyBack = either(0,"spines","mane","quills","feather crest","feather crest","horns","wings","armor","spikes","tentacles","fins")>>
+
+<<set $newQuaggyLegs = either("no","two","two","two","two","four")>>
+
+<<set $newQuaggyTail = either("serpentine","serpentine","serpentine","crocodilian","worm","slug","equine","leonine","feline","rooster","phoenix","phoenix","spade","maw","tentacle","gecko","club","carnosaur","sauropod")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(2,3); $newQuaggyFinesse += random(3,5); $newQuaggyStamina += random(5,15)>>
+
+<<endif>>
+
+/% KITSCH============================== %/
+
+<<if $newQuaggySubspecies is "kitsch">>
+
+<<set $newQuaggyEars = either("round","triangular","triangular","split","fae")>>
+
+<<set $newQuaggyEyes = either("two","four","six","eight")>>
+
+<<set $newQuaggyFace = either("feline","seal","vulpine","vulpine")>>
+
+<<set $newQuaggyHead = either(0,0,"spines","mane","mane","quills","hair","hair","feather crest","horns","winged head","crystal points","armor","spikes","tentacles","tentacles","snake hair")>>
+
+<<set $newQuaggySkin = either("smooth","scaled","armored","bumpy","fish-scaled","carapaced","furry","furry","velvet","velvet","crystalline","plush","stitched","jelly","feathered","feathered","wispy")>>
+
+<<set $newQuaggyBody = either("bipedal","digitigrade","digitigrade","quadrupedal")>>
+
+<<set $newQuaggyBack = either(0,"spines","mane","quills","feather crest","horns","wings","wings","crystal points","armor","spikes","tentacles","zipper","stitches","teeth")>>
+
+<<set $newQuaggyLegs = either("two","four")>>
+
+<<set $newQuaggyTail = either(0,"nub","serpentine","crocodilian","worm","slug","equine","leonine","feline","rooster","phoenix","spade","maw","tentacle","gecko","club","canine","canine","bushy","bushy","bushy","feathered")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(0,1); $newQuaggyFinesse += random(5,10)>>
+
+<<endif>>
+
+/% MOREAUI & ROSSO============================== %/
+
+<<if ($newQuaggySubspecies is "moreaui") or ($newQuaggySubspecies is "rosso")>>
+
+<<set $newQuaggyEars = either("round","triangular","long","double","winged","finned","split","fae","equine","tendril")>>
+
+<<set $newQuaggyEyes = either("no","two","four","six")>>
+
+<<set $newQuaggyFace = either("flat","humanoid","blunt","leonine","feline","avian","crocodilian","saurian","sharklike","gecko","canine","seal","vulpine","boid","oneroiesque","crusher","eel")>>
+
+<<set $newQuaggyHead = either(0,"spines","mane","quills","hair","feather crest","horns","winged head","crystal points","armor","spikes","tentacles","fins","snake hair")>>
+
+<<set $newQuaggySkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","jelly","feathered","wispy")>>
+
+<<set $newQuaggyBody = "bipedal">>
+
+<<set $newQuaggyBack = either(0,"spines","mane","quills","feather crest","horns","wings","crystal points","armor","spikes","tentacles","fins","bioluminescent spots")>>
+
+<<set $newQuaggyLegs = "two">>
+
+<<set $newQuaggyTail = either("no","nub","serpentine","crocodilian","worm","slug","equine","leonine","feline","rooster","phoenix","spade","maw","tentacle","gecko","club","canine","canine","bushy","bushy","bushy","feathered","carnosaur","sauropod")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(0,2); $newQuaggyFinesse += random(0,2);$newQuaggyStamina += random(0,8)>>
+
+<<endif>>
+
+/% NULL============================== %/
+
+<<if $newQuaggySubspecies is "null">>
+
+<<set $newQuaggyFacet = "bioluminescent " + either("heart","diamond","cabochon","star","star","eye","fleur","angler")>>
+
+<<set $newQuaggyEars = either("round","triangular","long","double","winged","finned","split","fae","equine","tendril","tendril")>>
+
+<<set $newQuaggyEyes = either("no","two","four","six")>>
+
+<<set $newQuaggyFace = either("flat","humanoid","blunt","leonine","feline","avian","crocodilian","saurian","sharklike","gecko","canine","seal","vulpine","boid","oneroiesque","crusher","eel")>>
+
+<<set $newQuaggyHead = either(0,"spines","mane","quills","hair","feather crest","horns","winged head","crystal points","armor","spikes","tentacles","fins","snake hair")>>
+
+<<set $newQuaggySkin = either("smooth","smooth","scaled","armored","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","jelly","feathered","wispy")>>
+
+<<set $newQuaggyBody = either("bipedal","digitigrade","cetacean")>>
+
+<<set $newQuaggyBack = either(0,"spines","mane","quills","feather crest","horns","wings","wings","crystal points","armor","spikes","tentacles","tentacles","fins","bioluminescent spots")>>
+
+<<set $newQuaggyLegs = "two">>
+
+<<set $newQuaggyTail = either("no","nub","serpentine","crocodilian","worm","slug","equine","leonine","feline","rooster","phoenix","spade","maw","tentacle","gecko","club","canine","canine","bushy","bushy","bushy","feathered","carnosaur","sauropod")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(0,2); $newQuaggyFinesse += random(5,15)>>
+
+<<endif>>
+
+/% OUINSEL============================== %/
+
+<<if $newQuaggySubspecies is "ouinsel">>
+
+<<set $newQuaggyEars = either("round","fae","fae")>>
+
+<<set $newQuaggyEyes = either("two","two","two","three","four")>>
+
+<<set $newQuaggyFace = either("flat","humanoid","humanoid","blunt")>>
+
+<<set $newQuaggyHead = either("mane","hair","feather crest","tentacles","tentacles","snake hair","winged head")>>
+
+<<set $newQuaggySkin = "smooth">>
+
+<<set $newQuaggyBody = "bipedal">>
+
+<<set $newQuaggyBack = either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"wings","tentacles","tentacles")>>
+
+<<set $newQuaggyLegs = "two">>
+
+<<set $newQuaggyTail = either("no","no","no","no","no","no","no","no","serpentine","crocodilian","worm","slug","equine","equine","leonine","leonine","feline","rooster","phoenix","spade","maw","tentacle","gecko","club","canine","bushy")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(0,1); $newQuaggyFinesse += random(3,8)>>
+
+<<endif>>
+
+/% REXAUR============================== %/
+
+<<if $newQuaggySubspecies is "rexaur">>
+
+<<set $newQuaggyEars = either("round","triangular","long","double","winged","finned","split","fae","equine","tendril")>>
+
+<<set $newQuaggyEyes = either("no","two","four","six","eight")>>
+
+<<set $newQuaggyFace = either("flat","humanoid","blunt","leonine","feline","avian","crocodilian","saurian","saurian","sharklike","gecko","canine","seal","vulpine","boid","oneroiesque","crusher","eel")>>
+
+<<set $newQuaggyHead = either(0,"spines","mane","quills","hair","feather crest","horns","winged head","crystal points","armor","spikes","tentacles","fins","snake hair","hadrosaur crest","ceratopsian crest","pterosaur crest")>>
+
+<<set $newQuaggySkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","toy","stitched","candy","cake","plush","jelly","feathered","wispy")>>
+
+<<set $newQuaggyBody = either("bipedal","digitigrade","digitigrade","quadrupedal","kentaurid","raptor","raptor","weasel","cetacean","serpentine","miniature")>>
+
+<<set $newQuaggyBack = either(0,"spines","mane","quills","feather crest","horns","wings","crystal points","armor","spikes","tentacles","fins","bioluminescent spots","zipper","stitches","laces","teeth","pterosaur wings")>>
+
+<<set $newQuaggyLegs = either("no","two","four","six","eight","tentacle")>>
+
+<<set $newQuaggyTail = either("serpentine","crocodilian","crocodilian","leonine","rooster","phoenix","spade","maw","maw","club","club","carnosaur","carnosaur","sauropod","sauropod")>>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(3,8); $newQuaggyFinesse += random(1,3); $newQuaggyStamina += random(10,15)>>
+
+<<endif>>
+
+/% ASTAR============================== %/
+
+<<if $newQuaggySubspecies is "astar">>
+
+<<set $newQuaggyFacet = "eye">>
+
+<<set $newQuaggyEars = "fae">>
+
+<<set $newQuaggyEyes = "two">>
+
+<<set $newQuaggyFace = "crusher">>
+
+<<set $newQuaggyHead = either(0,"mane","crystal points","tentacles")>>
+
+<<set $newQuaggySkin = either("scaled","armored","crystalline")>>
+
+<<set $newQuaggyBody = either("quadrupedal","quadrupedal","quadrupedal","digitigrade","bipedal")>>
+
+<<set $newQuaggyBack = "wings">>
+
+<<set $newQuaggyLegs = "four">>
+
+<<set $newQuaggyTail = "serpentine">>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(3,5); $newQuaggyFinesse += random(0,2); $newQuaggyStamina += random(8,15)>>
+
+<<endif>>
+
+/% FRAGMENTARI============================== %/
+
+<<if $newQuaggySubspecies is "fragmentari">>
+
+<<set $newQuaggyFacet = "crystal point">>
+
+<<set $newQuaggyEars = "split">>
+
+<<set $newQuaggyEyes = "two">>
+
+<<set $newQuaggyFace = "oneroiesque">>
+
+<<set $newQuaggyHead = "crystal points">>
+
+<<set $newQuaggySkin = "smooth">>
+
+<<set $newQuaggyBody = either("quadrupedal","quadrupedal","quadrupedal","digitigrade","bipedal")>>
+
+<<set $newQuaggyBack = "wings">>
+
+<<set $newQuaggyLegs = either("four","four","four","six","eight")>>
+
+<<set $newQuaggyTail = "serpentine">>
+
+/% Starting bonus %/
+<<set $newQuaggyStrength += random(2,3); $newQuaggyFinesse += random(2,3);  $newQuaggyStamina += random(10,20)>>
+
+<<endif>>
+
+/% ================================================== %/
+/% Extra Genes %/
+
+<<if $newQuaggySubtype is "amphibious">><<set $newQuaggySkin = "clammy">><<endif>>
+<<if $newQuaggySubtype is "blubber-bloated">><<set $newQuaggySkin = "blubbery"; $newQuaggyStamina += 5>><<endif>>
+<<if $newQuaggySubtype is "crystalline">><<set $newQuaggySkin = either("snowglobe","crystalline","faceted","jeweled")>><<endif>>
+<<if $newQuaggySubtype is "enchanted">><<set $newQuaggySkin = either("glittering","snowglobe","faceted","jeweled","lacework","toy","plush","porcelain","glass")>><<endif>>
+<<if $newQuaggySubtype is "slime">><<set $newQuaggySkin = "jelly"; $newQuaggyStamina += 5>><<endif>>
+<<if $newQuaggySubtype is "cavern">><<set $newQuaggySkin = "rough"; $newQuaggyStamina += 5>><<endif>>
+<<if $newQuaggySubtype is "shade">><<set $newQuaggySkin = "wispy"; $newQuaggyStamina += 5>><<endif>>
+<<if $newQuaggySubtype is "miratech">><<set $newQuaggySkin = either("wired","robotic","steel","plastic","carapaced","holographic","laser-light"); $newQuaggyStamina += 10; $newQuaggyStrength += 1>><<endif>>
+<<if $newQuaggySubtype is "dreampunk">><<set $newQuaggySkin = either("wired","robotic","steel","plastic","carapaced","holographic","laser-light","clockwork","prismatic"); $newQuaggyStamina += 5; $newQuaggyStrength += 1>><<endif>>
+<<if $newQuaggySubtype is "miasmic">><<set $newQuaggySkin = either("wispy","fuming"); $newQuaggyStamina += 5>><<endif>>
+<<if $newQuaggySubtype is "tendril-bound">><<set $newQuaggySkin = either("pulsating","squirming","bulging","clammy","damp"); $newQuaggyStamina += random(0,2); $newQuaggyStrength += 1>><<endif>>
+<<if $newQuaggySubtype is "daedlic">><<set $newQuaggySkin = either("squirming","bulging")>><<endif>>
+
+<<if ($newQuaggySubtype is "balloon") or ($newQuaggySubtype is "waterballoon") or ($newQuaggySubtype is "blimp")>><<set $newQuaggySkin = "super-rubbery">><<endif>>
+<<if ($newQuaggySubtype is "gilled") or ($newQuaggySubtype is "seaspray") or ($newQuaggySubtype is "tidal") or ($newQuaggySubtype is "deep")>><<set $newQuaggySkin = either("damp","clammy","rough","fish-scaled","puffer"); $newQuaggyTail = either("fin","shark fin","whale","eel")>><<endif>>
+<<if ($newQuaggySubtype is "sandstorm") or ($newQuaggySubtype is "dry")>><<set $newQuaggySkin = "rough"; $newQuaggyStamina += 5>><<endif>>
+<<if ($newQuaggySubtype is "boulder") or ($newQuaggySubtype is "mountain") or ($newQuaggySubtype is "stone") or ($newQuaggySubtype is "gargoyle")>><<set $newQuaggySkin = either("rough","boulder","craggy","cracked"); $newQuaggyStamina += 5; $newQuaggyStrength += 1>><<endif>>
+<<if ($newQuaggySubtype is "polar") or ($newQuaggySubtype is "blizzard")>><<set $newQuaggySkin = either("snowy","icy","frozen")>><<endif>>
+<<if ($newQuaggySubtype is "blazing") or ($newQuaggySubtype is "volcanic") or ($newQuaggySubtype is "scorched") or ($newQuaggySubtype is "ruinous") or ($newQuaggySubtype is "stygian")>><<set $newQuaggySkin = either("ashen","molten","burning","fiery","melting"); $newQuaggyStamina += 5>><<endif>>
+<<if ($newQuaggySubtype is "slug") or ($newQuaggySubtype is "eldritch")>><<set $newQuaggySkin = "clammy">><<endif>>
+<<if ($newQuaggySubtype is "mecha") or ($newQuaggySubtype is "iron") or ($newQuaggySubtype is "cyber") or ($newQuaggySubtype is "android")>><<set $newQuaggySkin = either("high-tech","robotic","steel","plastic","carapaced"); $newQuaggyStamina += 10; $newQuaggyStrength += 1>><<endif>>
+<<if ($newQuaggySubtype is "oozing") or ($newQuaggySubtype is "ink-bloated")>><<set $newQuaggySkin = either("dripping","weeping","clammy")>><<endif>>
+<<if ($newQuaggySubtype is "fleshbeast") or ($newQuaggySubtype is "insatiable") or ($newQuaggySubtype is "adephagian") or ($newQuaggySubtype is "overabundant")>><<set $newQuaggySkin = either("blubbery","fleshy"); $newQuaggyStamina += 5>><<endif>>
+
+
+/% ================================================== %/
+/% Residual toxin gene traits %/
+
+<<if ($fatteniumPoisoning gte 10) or ($miraberryToxicity gte ($girth/100)) or ($calpowderToxicity gte ($girth/100)) or ($gainerToxicity gte ($girth/100)) or ($gainerToxicity gte ($girth/100)) or ($bodyPlumperParasite is 1) or ($metaParasite is 1) or ($quaggySuperfattened is 1)>>
+<<set $newQuaggySuperfat = either(0,1)>><<endif>>
+
+<<if ($helenoToxicity gte ($girth/100)) or ($breastfatteniumToxicity gte ($girth/100)) or ($breastPlumperParasite is 1)>>
+<<set $newQuaggyBoviete = either(0,0,1)>><<else>><<set $newQuaggyBoviete = 0>><<endif>>
+
+<<if $lactationParasite is 1>>
+<<set $newQuaggyMilky = either(0,0,1)>><<else>><<set $newQuaggyMilky = 0>><<endif>>
+
+<<if ($bellyfatteniumToxicity gte ($girth/100)) or ($bellyPlumperParasite is 1)>>
+<<set $newQuaggyMiriete = either(0,1); $newQuaggyBelly += either(20,30,40,50)>><<else>><<set $newQuaggyMiriete = 0>><<endif>>
+
+<<if $thighfatteniumToxicity gte ($girth/100)>>
+<<set $newQuaggySuperthigh = either(0,0,1); $newQuaggyThigh += either(10,20,30)>><<else>><<set $newQuaggySuperthigh = 0>><<endif>>
+
+<<if ($inflaToxicity gte ($girth/100)) or ($bellyParasite is 1)>>
+<<set $newQuaggyBloated = either(0,1)>><<else>><<set $newQuaggyBloated = 0>><<endif>>
+
+<<if ($slimeBellyParaLoad gte ($girth/2)) or ($slimeBreastParaLoad gte ($girth/2))>>
+<<set $newQuaggyOozing = either(0,0,1)>><<else>><<set $newQuaggyOozing = 0>><<endif>>
+
+<<if $direParasite is 1>>
+<<set $newQuaggyWormed = either(0,0,1)>><<else>><<set $newQuaggyWormed = 0>><<endif>>
+
+<<if ($vitaePPM gt 0) and ($newQuaggySubspecies neq "Kaolani")>>
+<<set $newQuaggyDead = either(0,1)>>
+<<if $newQuaggyDead is 0>><<set $newQuaggySickly = either(0,1,1)>><<endif>><<else>><<set $newQuaggyDead = 0; $newQuaggySickly = 0>><<endif>>
+
+<<if $newQuaggySuperfat is 1>>
+<<set $newQuaggyGirth = ($newQuaggyGirth * either(1.1,1.2,1.3,1.5,2,3))>><<endif>>
+
+<<if $newQuaggySickly is 1>><<set $newQuaggyGirth = $newQuaggyGirth/2; $newQuaggyBelly = either(10,10,20); $newQuaggyThigh = 10; $newQuaggyStrength = random(2,8); $newQuaggyFinesse = random(1,3); $newQuaggyEnergy = either(8,10,12,15); $newQuaggyStamina = either(0,0,1,2,3)>><<endif>>
+
+
+/% ====================================================================================================================== %/
+/% Step 2 - personality and base stats %/
+
+
+/% Zodiac %/
+<<set $newQuaggyZodiac = either("Nefirian","Nameless","Phoenix","Kaolan","Giovan","Ander","Lyric’Ai","Reks","Eliot","Andreu","Na’than","Eva","Cello","Tristan")>>
+
+/% Administre may 'claim' their own species. %/
+
+<<set $randomizer = random(1,3)>>
+<<if $randomizer is 1>>
+
+<<if ($newQuaggySubspecies is "belmere") or ($newQuaggySubspecies is "isri") or ($newQuaggySubspecies is "celesse") or ($newQuaggySubspecies is "fragmentari")>><<set $newQuaggyZodiac = "Nefirian">><<endif>>
+<<if ($newQuaggySubspecies is "moreaui") or ($newQuaggySubspecies is "erinyi")>><<set $newQuaggyZodiac = "Phoenix">><<endif>>
+<<if ($newQuaggySubspecies is "intere") or ($newQuaggySubspecies is "devinn")>><<set $newQuaggyZodiac = "Nameless">><<endif>>
+<<if $newQuaggySubspecies is "ouinsel">><<set $newQuaggyZodiac = either("Nefirian","Kaolan")>><<endif>>
+<<if $newQuaggySubspecies is "Kaolani">><<set $newQuaggyZodiac = "Kaolan">><<endif>>
+<<if $newQuaggySubspecies is "null">><<set $newQuaggyZodiac = "Giovan">><<endif>>
+<<if $newQuaggySubspecies is "ein">><<set $newQuaggyZodiac = "Ander">><<endif>>
+<<if $newQuaggySubspecies is "astar">><<set $newQuaggyZodiac = "Lyric’Ai">><<endif>>
+<<if $newQuaggySubspecies is "rexaur">><<set $newQuaggyZodiac = "Reks">><<endif>>
+<<if ($newQuaggySubspecies is "heitene") or ($newQuaggySubspecies is "laworn")>><<set $newQuaggyZodiac = either("Eva","Na’than")>><<endif>>
+<<if $newQuaggySubspecies is "kitsch">><<set $newQuaggyZodiac = "Tristan">><<endif>>
+<<endif>>
+
+/% Patrons. %/
+
+<<if $newQuaggyZodiac is "Nefirian">><<set $newQuaggyTrait = either("expansionist","expansionist","corruptor","dramatic")>><<endif>>
+<<if $newQuaggyZodiac is "Nameless">><<set $newQuaggyTrait = either("brooding","brooding","observant","wildling")>><<endif>>
+<<if $newQuaggyZodiac is "Phoenix">><<set $newQuaggyTrait = either("anarchist","anarchist","corruptor","suave")>><<endif>>
+<<if $newQuaggyZodiac is "Kaolan">><<set $newQuaggyTrait = either("wildling","wildling","observant","guardian")>><<endif>>
+<<if $newQuaggyZodiac is "Giovan">><<set $newQuaggyTrait = either("cool","cool","dramatic","suave")>><<endif>>
+<<if $newQuaggyZodiac is "Ander">><<set $newQuaggyTrait = either("suave","suave","misfit","parent")>><<endif>>
+<<if $newQuaggyZodiac is "Lyric’Ai">><<set $newQuaggyTrait = either("dramatic","dramatic","misfit","anarchist")>><<endif>>
+<<if $newQuaggyZodiac is "Reks">><<set $newQuaggyTrait = either("misfit","misfit","anarchist","expansionist")>><<endif>>
+<<if $newQuaggyZodiac is "Eliot">><<set $newQuaggyTrait = either("observant","observant","calculator","guardian")>><<endif>>
+<<if $newQuaggyZodiac is "Andreu">><<set $newQuaggyTrait = either("corruptor","corruptor","expansionist","suave")>><<endif>>
+<<if $newQuaggyZodiac is "Na’than">><<set $newQuaggyTrait = either("parent","parent","wildling","guardian")>><<endif>>
+<<if $newQuaggyZodiac is "Eva">><<set $newQuaggyTrait = either("guardian","guardian","observant","brooding")>><<endif>>
+<<if $newQuaggyZodiac is "Cello">><<set $newQuaggyTrait = either("observant","calculator","calculator","corruptor")>><<endif>>
+<<if $newQuaggyZodiac is "Tristan">><<set $newQuaggyTrait = either("brooding","touchy","touchy","calculator")>><<endif>>
+
+/% Aspecte. %/
+
+<<if $newQuaggyTrait is "expansionist">><<set $newQuaggyAspecte = either("belepresse","beletoire","belsusset","coudonsair","guguetele","predatrix","revetoire","susseroit","vitossi","vouere")>><<endif>>
+<<if $newQuaggyTrait is "brooding">><<set $newQuaggyAspecte = either("belepresse","belsusset","coudonsair","guguetele","revetoire","susseroit","vouere")>><<endif>>
+<<if $newQuaggyTrait is "anarchist">><<set $newQuaggyAspecte = either("beletoire","belsusset","guguetele","predatrix","susseroit","vitossi","vouere")>><<endif>>
+<<if $newQuaggyTrait is "cool">><<set $newQuaggyAspecte = either("beletoire","belsusset","coudonsair","guguetele","vitossi")>><<endif>>
+<<if $newQuaggyTrait is "suave">><<set $newQuaggyAspecte = either("coudonsair","guguetele",0,0,0)>><<endif>>
+<<if $newQuaggyTrait is "dramatic">><<set $newQuaggyAspecte = either("belepresse","vouere",0,0,0)>><<endif>>
+<<if ($newQuaggyTrait is "corruptor") or ($newQuaggyTrait is "calculator")>><<set $newQuaggyAspecte = either("belsusset","revetoire","susseroit","vouere",0)>><<endif>>
+<<if $newQuaggyTrait is "parent">><<set $newQuaggyAspecte = either("susseroit",0,0,0,0)>><<endif>>
+
+
+<<if $newQuaggyAspecte is 0>><<set $newQuaggyAspecte = either("belepresse","beletoire","belsusset","coudonsair","guguetele","predatrix","revetoire","susseroit","vitossi","vouere")>><<endif>>
+
+<<if ($newQuaggyAspecte is "belepresse") or ($newQuaggyAspecte is "belsusset")>><<set $newQuaggyAspecteFlavor = "has a passionate love for food">><<endif>>
+<<if ($newQuaggyAspecte is "beletoire") or ($newQuaggyAspecte is "susseroit")>><<set $newQuaggyAspecteFlavor = "seems to have an intense fascination with balloons">><<endif>>
+<<if ($newQuaggyAspecte is "predatrix") or ($newQuaggyAspecte is "vitossi")>><<set $newQuaggyAspecteFlavor = "is already looking around for its next meal">><<endif>>
+<<if ($newQuaggyAspecte is "vouere") or ($newQuaggyAspecte is "revetoire")>><<set $newQuaggyAspecteFlavor = "has been examining you with a great deal of interest the entire time">><<endif>>
+<<if ($newQuaggyAspecte is "coudonsair") or ($newQuaggyAspecte is "guguetele")>><<set $newQuaggyAspecteFlavor = "seems to enjoy meeting new people">><<endif>>
+
+/% Full Occupation roll. %/
+
+<<if $newQuaggyTrait is "expansionist">><<set $newQuaggyOccroll1 = either("Sculptor", "Hypothesi"); $newQuaggyOccroll2 = either("Beltedier","Culinet")>><<endif>>
+<<if $newQuaggyTrait is "brooding">><<set $newQuaggyOccroll1 = either("Beltedier","Scribier"); $newQuaggyOccroll2 = either("Datiere","Donsair")>><<endif>>
+<<if $newQuaggyTrait is "anarchist">><<set $newQuaggyOccroll1 = either("Alchemiee","Mercine"); $newQuaggyOccroll2 = either("Taxidere","Mercine")>><<endif>>
+<<if $newQuaggyTrait is "wildling">><<set $newQuaggyOccroll1 = either("Wildere","Militiere"); $newQuaggyOccroll2 = either("Subtlee","Caviere")>><<endif>>
+<<if $newQuaggyTrait is "cool">><<set $newQuaggyOccroll1 = either("Astronomier","Hypothesi"); $newQuaggyOccroll2 = either("Performier","Caviere")>><<endif>>
+<<if $newQuaggyTrait is "suave">><<set $newQuaggyOccroll1 = either("Subtlee","Performier"); $newQuaggyOccroll2 = either("Hypothesi","Finier")>><<endif>>
+<<if $newQuaggyTrait is "dramatic">><<set $newQuaggyOccroll1 = either("Performier","Professor"); $newQuaggyOccroll2 = either("Scribier","Donsair")>><<endif>>
+<<if $newQuaggyTrait is "misfit">><<set $newQuaggyOccroll1 = either("Taxidere","Wildere"); $newQuaggyOccroll2 = either("Jaque","Caviere")>><<endif>>
+<<if $newQuaggyTrait is "observant">><<set $newQuaggyOccroll1 = either("Scribier","Hypothesi"); $newQuaggyOccroll2 = either("Professor","Caviere")>><<endif>>
+<<if $newQuaggyTrait is "corruptor">><<set $newQuaggyOccroll1 = either("Sculptor","Professor"); $newQuaggyOccroll2 = either("Datiere","Culinet")>><<endif>>
+<<if $newQuaggyTrait is "parent">><<set $newQuaggyOccroll1 = either("Smithier","Medique"); $newQuaggyOccroll2 = either("Datiere","Wildere")>><<endif>>
+<<if $newQuaggyTrait is "guardian">><<set $newQuaggyOccroll1 = either("Jillaume","Militiere"); $newQuaggyOccroll2 = either("Wildere","Smithier")>><<endif>>
+<<if $newQuaggyTrait is "calculator">><<set $newQuaggyOccroll1 = either("Hypothesi","Sculptor"); $newQuaggyOccroll2 = either("Datiere","Alchemiee")>><<endif>>
+<<if $newQuaggyTrait is "touchy">><<set $newQuaggyOccroll1 = either("Wildere","Taxidere"); $newQuaggyOccroll2 = either("Jillaume","Scribier")>><<endif>>
+
+/% Occupational wild cards. %/
+
+<<set $randomizer = random(1,6)>>
+<<if $randomizer is 1>><<set $newQuaggyOccroll1 = either("Boviet","Caviere","Culinet","Donsair","Fatiee","Finier","Jaque","Mercine","Smithier","Succulee")>><<endif>>
+
+<<set $randomizer = random(1,4)>>
+<<if $randomizer is 1>>
+<<if ($newQuaggyAspecte is "belepresse") or ($newQuaggyAspecte is "belsusset") or ($newQuaggyAspecte is "predatrix") or ($newQuaggyAspecte is "vitossi")>>
+<<set $newQuaggyOccroll1 = either("Succulee","Fatiee","Donsair","Boviet")>><<endif>>
+<<if ($newQuaggyAspecte is "vouere") or ($newQuaggyAspecte is "revetoire") or ($newQuaggyAspecte is "susseroit") or ($newQuaggyAspecte is "beletoire")>>
+<<set $newQuaggyOccroll1 = either("Culinet","Sculptor","Hypothesi","Astronomier")>><<endif>>
+<<if ($newQuaggyAspecte is "coudonsair") or ($newQuaggyAspecte is "guguetele")>>
+<<set $newQuaggyOccroll1 = either("Beltedier","Donsair","Fatiee")>><<endif>><<endif>>
+
+/% How soon will this quaggy name itself?
+
+Some personality types are more likely to do it sooner than others.
+Observants have almost definitely been listening in to the outside worlds, and have likely decided on one by the time they come out of the egg.
+
+Others vary. Some may not name themselves until adulthood (brooding quaggies are likely to take a long time, while dramatic quaggies may change theirs frequently!) %/
+
+<<if $newQuaggyTrait is "observant">><<set $randomizer = random(1,4)>>
+<<elseif $newQuaggyTrait is "dramatic">><<set $randomizer = random(1,6)>>
+<<else>><<set $randomizer = random(1,12)>><<endif>>
+
+<<if $randomizer is 1>>
+<<if $newQuaggyTrait neq "dramatic">><<set $randomizer = either(1,1,1,1,2)>>
+<<elseif $newQuaggyTrait is "dramatic">><<set $randomizer = either(1,1,2)>><<endif>><<endif>>
+
+/% Single name %/<<if $randomizer is 1>>
+	<<display NPCNamer>><<set $newQuaggyName1 = $revName>>
+	/% Double name %/ <<elseif $randomizer is 2>>
+	<<display NPCNamer>><<set $newQuaggyName1 = $revName>>
+	<<display NPCNamer>><<set $newQuaggyName2 = $revName>><<endif>>
+
+/% No name chosen yet.
+For 'undeclared' quaggies, they will get a special proc that has a small chance of making them choose a name and announce it at random later on.
+Dramatic and Brooding quaggies will have a small chance of changing their names again even if they already have one. %/
+
+<<if $newQuaggyName1 is 0>><<set $newQuaggyName1 = "undeclared"; $newQuaggyName2 = 0>><<endif>>
+
+
+/% Once generation is complete, tick the counter down one. %/
+
+<<set $quaggyRerolls -= 1>><<endif>>
+
+<<endnobr>><<if $newQuaggyDead is 0>>
+You gaze down at the quaggy closest to you, and it returns the look ''<<if ($newQuaggyTrait is "anarchist") or ($newQuaggyTrait is "misfit")>>fiercely!<<elseif ($newQuaggyTrait is "suave") or ($newQuaggyTrait is "dramatic")>>with a little smirk...<<elseif ($newQuaggyTrait is "expansionist") or ($newQuaggyTrait is "corruptor")>>with an unsettling, naughty grin...<<elseif ($newQuaggyTrait is "wildling") or ($newQuaggyTrait is "guardian")>>with a firm and even gaze...<<elseif ($newQuaggyTrait is "observant") or ($newQuaggyTrait is "cool")>>with wide, attentive eyes...<<elseif $newQuaggyTrait is "brooding">>with hesitation...<<elseif $newQuaggyTrait is "parent">>with a loving gaze!<<elseif $newQuaggyTrait is "calculator">>with keen, appraising eyes...<<elseif $newQuaggyTrait is "touchy">>with a bit of a sneer...<<endif>>''<<if $newQuaggyName1 neq "undeclared">>
+
+Clearing its throat, the <<print $newQuaggySubspecies>> quaggy introduces itself to you as ''<<print $newQuaggyName1>><<if $newQuaggyName2 neq 0>> <<print $newQuaggyName2>><<endif>>!''<<endif>><hr>__''<<print $newQuaggyName1>><<if $newQuaggyName2 neq 0>> <<print $newQuaggyName2>><<endif>> - <<print $newQuaggyColor>> <<print $newQuaggySkin>> <<if $newQuaggySubtype neq 0>> <<print $newQuaggySubtype>> <<endif>><<print $newQuaggySubspecies>>''__
+
+<center>''Girth:'' <<print ($newQuaggyGirth + $newQuaggyBreast + $newQuaggyBelly + $newQuaggyThigh) / 10>>~~gi~~
+
+[<<print $newQuaggyEars>> ears] [<<print $newQuaggyFacet>> facet] [<<print $newQuaggyEyes>> eyes]
+[<<print $newQuaggyFace>> face]<<if $newQuaggyHead neq 0>> [<<print $newQuaggyHead>>]<<endif>>
+[<<print $newQuaggyBody>> body]<<if $newQuaggyBack neq 0>> [<<print $newQuaggyBack>>]<<endif>>
+[<<print $newQuaggyLegs>> legs]  [<<print $newQuaggyTail>> tail]</center>
+<<elseif $newQuaggyDead is 1>>
+//[img[icon_alert_red]]<redalert>''...it looks like this quaggy didn't make it,''</redalert> likely because of your recent vitae exposure...//<<endif>><<if $newQuaggyDead is 0>><<endif>><hr><center><<nobr>>
+<<if $newQuaggyDead is 0>>
+
+	<<if $hasMound is 1>>
+	<<button [[Send this quaggy home.|QuaggyStore][$donsairID = 1; $addQuaggy = 1; $pauseGeneration = 0]]>><<endif>>
+
+	<<if $quaggyRerolls gt 0>><<button [[Examine the next quaggy.|passage()][$pauseGeneration = 0]]>><<endif>>
+
+<<endif>><<endnobr>><<button [[Leave them behind.|QuaggyDismissal]]>></center>

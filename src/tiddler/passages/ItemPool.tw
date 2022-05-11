@@ -1,0 +1,703 @@
+﻿/% Pre-setup; clear any residual item flags. %/
+
+<<set $encImg = 0; $useDesc = 0; $itemType = 0; $itemID = 0; $itemGrammar = 0; $itemQuantity = 0; $foodFat = 0; $foodBloat = 0; $foodLiquid = 0; $energy = 0; $itemEncounter = 0; $caffeineContent = 0>>
+
+	<<set $randomizer = random(1,100); $clawMachine = random(1,100)>>
+
+/% ===================================================================== %/
+/% industrial-strength revecroit medicines, experimental drugs, undiluted chems, etc %/
+
+<<if $dungeonLocation is "Abandoned Laboratory Mound">>
+
+
+/% Common (40%) %/
+	<<if $randomizer lte 40>>
+
+			/% Candy %/
+			<<if $clawMachine lte 20>><<set $itemEncounter = either("fruit candies","milky candies","bubble candies")>>
+
+			/% Food %/
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 30)>><<set $itemEncounter = either("croissant","plump suai belsuite")>>
+			<<elseif ($clawMachine gte 31) and ($clawMachine lte 40)>><<set $itemEncounter = either("buttercake","indulgence biscuits")>>
+			<<elseif ($clawMachine gte 41) and ($clawMachine lte 45)>><<set $itemEncounter = "overstuffed suai belsuite">>
+
+			/% Beverages %/
+			<<elseif ($clawMachine gte 46) and ($clawMachine lte 70)>><<set $itemEncounter = either("fragrant","adephagian milk")>>
+			<<elseif $clawMachine gte 71>><<set $itemEncounter = either("milky coffee","black coffee","espresso","mysterious potion")>>
+			<<endif>>
+		<<endif>>
+
+/% Uncommon (30% chance) %/
+	<<if ($randomizer gt 40) and ($randomizer lt 70)>>
+
+			/% Frivolous consumables %/
+			<<if $clawMachine lte 20>><<set $itemEncounter = either("bellybomb","voracity shot","satiator shot","fattenium donut","mysterious potion","miracrystal ore","fattenium ore")>>
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 25)>><<set $itemEncounter = either("mega bellybomb","egg accelerator injection","flimsy hospital gown","bloody hospital gown","hospital slippers","thick-rimmed glasses","laboratory goggles","paper medical mask","classic labcoat","plushifier","belly plushifier","breast plushifier")>>
+
+			/% Useful/Valuable consumables %/
+
+			<<elseif ($clawMachine gte 26) and ($clawMachine lte 40)>><<set $itemEncounter = either("glass jar","prisma shard","dartgun","HYPOTHESIS kite","HYPOTHESIS cesile","HYPOTHESIS coroles","HYPOTHESIS kilt")>>
+
+	<<if $itemEncounter is "prisma shard">>
+	/% Tier 1 prisma shards %/
+		<<set $itemEncounter = either("red prisma shard","orange prisma shard","yellow prisma shard","green prisma shard","blue prisma shard","indigo prisma shard","violet prisma shard","brown prisma shard","gray prisma shard")>><<endif>>
+
+			<<elseif ($clawMachine gte 41) and ($clawMachine lte 65)>><<set $itemEncounter = either("soothers","dreamshard","dreamshard","prisma shard","dartgun")>>
+
+<<if $itemEncounter is "prisma shard">>
+	/% Tier 2 prisma shards %/
+		<<set $itemEncounter = either("spectrum prisma shard","magenta prisma shard","pink prisma shard","white prisma shard","silver prisma shard","teal prisma shard","golden prisma shard","black prisma shard")>><<endif>>
+
+			<<elseif ($clawMachine gte 66) and ($clawMachine lte 75)>><<set $itemEncounter = either("deflator injection","leupai oil","battery crystal","tranquilizer dart","helium pills")>>
+			<<elseif ($clawMachine gte 76) and ($clawMachine lte 85)>><<set $itemEncounter = either("calorie powder","gainer pills","belly booster","bust billower shot","thigh plumper shot","jar of somnus","jar of vital water","jar of blood","jar of leupai blood","fattenium dart","distensium dart")>>
+
+			/% Lottery consumables %/
+			<<elseif $clawMachine gte 86>><<set $itemEncounter = either("experimental buttercake","science soda","jar of strong somnus","dartgun")>>
+			<<endif>>
+		<<endif>>
+
+/% Rare (20%) %/
+	<<if ($randomizer gte 70) and ($randomizer lt 90)>>
+
+			/% Clothing %/
+			<<if $clawMachine lte 10>><<set $itemEncounter = either("HYPOTHESIS kite","HYPOTHESIS cesile","HYPOTHESIS coroles","HYPOTHESIS kilt")>>
+
+			/% Valuable consumables %/
+			<<elseif ($clawMachine gte 11) and ($clawMachine lte 25)>><<set $itemEncounter = either("unmarked injection","jar of dilute fattenium","jar of miratoxin","fat ray")>>
+			<<elseif ($clawMachine gte 26) and ($clawMachine lte 40)>><<set $itemEncounter = either("M. belesse injection","M. miriete injection","M. belebaret injection","M. belite injection","M. moreauii injection","M. heleni injection","L. virii injection","slime injection","dire worm injection","miradetoxin shot","toxic dart")>>
+			<<elseif ($clawMachine gte 41) and ($clawMachine lte 55)>><<set $itemEncounter = either("miratoxin shot","dose of reality injection")>>
+			<<elseif ($clawMachine gte 56) and ($clawMachine lte 70)>><<set $itemEncounter = either("extra strength calorie powder","tiny fyynling specimen","super belly booster","super bust billower shot","super thigh plumper shot")>>
+			<<elseif ($clawMachine gte 71) and ($clawMachine lte 85)>><<set $itemEncounter = "jar of " + either("toxic","fattening","belly-fattening","breast-fattening","thigh-fattening","flabbifying","bloating","breast-bloating","healing","weakening","voracity","caloric","hallucenogenic") + " venom">>
+
+			/% Blood pools %/
+			<<elseif $clawMachine gte 86>><<set $itemEncounter = either("pool of dark red ichor","pool of shimmering blue ichor")>>
+			<<endif>>
+		<<endif>>
+
+/% Very Rare (10%) %/
+	<<if $randomizer gte 90>>
+
+			/% Rare consumables %/
+			<<if $clawMachine lte 40>><<set $itemEncounter = either("maximum strength calorie powder","experimental calorie powder","enormous cake","strange milk")>>
+			<<elseif ($clawMachine gte 41) and ($clawMachine lte 60)>><<set $itemEncounter = "fattenium shot">>
+			<<elseif ($clawMachine gte 61) and ($clawMachine lte 70)>><<set $itemEncounter = either("bolstering vitamin slurry","bulk powder","limber tonic")>>
+
+			/% Rare pools %/
+			<<elseif ($clawMachine gte 71) and ($clawMachine lte 90)>><<set $itemEncounter = either("pool of somnus","pool of golden water")>>
+
+			/% Very Rare pools %/
+			<<elseif $clawMachine gte 91>><<set $itemEncounter = either("pool of pink water","pool of golden oil")>>
+			<<endif>>
+		<<endif>>
+
+
+/% ======================================================================== %/
+/% food, common-use revecroit medicines, clothing. For civilian-lived areas. %/
+
+<<elseif $dungeonLocation is "Abandoned Storage Mound">>
+
+/% Common (50%) %/
+	<<if $randomizer lte 50>>
+
+			<<if $clawMachine lte 20>><<set $itemEncounter = either("fruit candies","milky candies","bubble candies","prisma shard")>>
+
+	<<if $itemEncounter is "prisma shard">>
+	/% Tier 1 prisma shards %/
+		<<set $itemEncounter = either("red prisma shard","orange prisma shard","yellow prisma shard","green prisma shard","blue prisma shard","indigo prisma shard","violet prisma shard","brown prisma shard","gray prisma shard")>><<endif>>
+
+			/% Food & Beverages %/
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 55)>><<set $itemEncounter = either("croissant","plump suai belsuite","buttercake","indulgence biscuits","overstuffed suai belsuite","fattenium donut","fragrant","adephagian milk","milky coffee","black coffee","espresso","plushifier","belly plushifier","breast plushifier")>>
+
+			/% Clothing %/
+			<<elseif $clawMachine gte 56>><<set $itemEncounter = either("threadbare cape","threadbare top","threadbare pants","threadbare skirt","worn leather sandals","thick-rimmed glasses","laboratory goggles","top hat")>>
+			<<endif>>
+		<<endif>>
+
+/% Uncommon (30% chance) %/
+	<<if ($randomizer gt 50) and ($randomizer lt 70)>>
+
+			/% Frivolous consumables %/
+			<<if $clawMachine lte 20>><<set $itemEncounter = either("bellybomb","egg accelerator injection","voracity shot","mysterious potion")>>
+
+			/% Useful consumables %/
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 35)>><<set $itemEncounter = either("deflator injection","leupai oil","satiator shot","jar of somnus","prisma shard")>>
+
+	<<if $itemEncounter is "prisma shard">>
+	/% Tier 2 prisma shards %/
+		<<set $itemEncounter = either("spectrum prisma shard","magenta prisma shard","pink prisma shard","white prisma shard","silver prisma shard","teal prisma shard","golden prisma shard","black prisma shard")>><<endif>>
+
+			/% Useful/Valuable consumables %/
+			<<elseif ($clawMachine gte 36) and ($clawMachine lte 65)>><<set $itemEncounter = either("glass jar","soothers","dreamshard","battery crystal","dartgun")>>
+
+			<<elseif ($clawMachine gte 66) and ($clawMachine lte 80)>><<set $itemEncounter = either("calorie powder","gainer pills","belly booster","bust billower shot","thigh plumper shot")>>
+			<<elseif $clawMachine gte 81>><<set $itemEncounter = either("jar of vital water","jar of blood","jar of strong somnus","jar of leupai blood","cooking pot")>>
+			<<endif>>
+		<<endif>>
+
+/% Rare (15%) %/
+	<<if ($randomizer gte 70) and ($randomizer lt 95)>>
+
+			/% Useful/Valuable consumables %/
+			<<if $clawMachine lte 20>><<set $itemEncounter = either("enormous cake","strange milk","helium pills")>>
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 40)>><<set $itemEncounter = "jar of " + either("toxic","fattening","belly-fattening","breast-fattening","thigh-fattening","flabbifying","bloating","breast-bloating","healing","weakening","voracity","caloric","hallucenogenic") + " venom">>
+			<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $itemEncounter = either("jar of dilute fattenium","jar of miratoxin","fat ray")>>
+
+			/% Rare consumables %/
+			<<elseif $clawMachine gte 71>><<set $itemEncounter = "jar of " + either("lethal","super-fattening","belly super-fattening","breast super-fattening","thigh super-fattening","fattenium","bulking","bursting","mutagenic","leucanthropic") + " venom">>
+			<<endif>>
+		<<endif>>
+
+/% Very Rare (5%) %/
+	<<if $randomizer gte 95>>
+
+			/% Rare consumables %/
+			<<if $clawMachine lte 40>><<set $itemEncounter = either("extra strength calorie powder","super belly booster","super bust billower shot","super thigh plumper shot")>>
+			<<elseif ($clawMachine gte 41) and ($clawMachine lte 60)>><<set $itemEncounter = either("bolstering vitamin slurry","bulk powder","limber tonic")>>
+			<<elseif ($clawMachine gte 61) and ($clawMachine lte 85)>><<set $itemEncounter = either("fattenium shot","jar of fattenium","jar of vitae")>>
+
+			/% Rare pools %/
+			<<elseif $clawMachine gte 86>><<set $itemEncounter = either("pool of somnus","pool of golden water")>>
+			<<endif>>
+		<<endif>>
+
+
+/% ======================================================================== %/
+<<elseif $zoneType is "woodland">>
+
+	/% Default grassy natural shit %/
+
+/% Common (50%) %/
+	<<if $randomizer lte 50>>
+
+	/% Wild plants, The most common wild item. %/
+
+			<<if $clawMachine lte 20>><<set $itemEncounter = either("firewood","plump tendrilgrass","inert tendrilvines")>>
+
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 45)>><<set $itemEncounter = either("mushroom","rockroot","golden starchroot","honeycarrot")>>
+			<<elseif ($clawMachine gte 46) and ($clawMachine lte 85)>><<set $itemEncounter = either("fat pumpkin","fragrant herbs")>>
+			<<elseif $clawMachine gte 86>><<set $itemEncounter = "puffbelly mushroom">>
+			<<endif>>
+		<<endif>>
+
+/% Uncommon (30% chance) %/
+	<<if ($randomizer gt 50) and ($randomizer lt 65)>>
+
+	/% Found clothing. Rarer than stat plants, more common than meds. %/
+
+		<<set $itemEncounter = either("threadbare cape","threadbare top","threadbare pants","threadbare skirt","worn leather sandals")>>
+
+		<<endif>>
+
+/% Rare (12%) %/
+	<<if ($randomizer gte 65) and ($randomizer lt 92)>>
+
+	/% Found meds. Very randomized, and mostly basic shit. %/
+
+			/% Most frequent. Common food and Junk. %/
+			<<if $clawMachine lte 50>><<set $itemEncounter = either("mysterious potion","mysterious potion","bellybomb","leupai oil","deflator injection","adephagian milk","fattenium donut","buttercake","indulgence biscuits")>>
+
+			/% Tier-one expanders. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 80)>><<set $itemEncounter = either("calorie powder","gainer pills","belly booster","bust billower shot","thigh plumper shot")>>
+
+			/% Nicer stuff. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 94)>><<set $itemEncounter = either("glass jar","jar of vital water","soothers","dreamshard")>>
+
+			/% Tier-one statters plus randomized dungeon loot. %/
+			<<elseif $clawMachine gte 95>><<set $itemEncounter = either("bolstering vitamin slurry","bulk powder","limber tonic","science soda","jar of dilute fattenium","jar of miratoxin")>>
+			<<endif>>
+		<<endif>>
+
+/% Very Rare (8%) %/
+	<<if $randomizer gte 92>>
+
+	/% Interactive static objects. Rare, but not TOO rare. %/
+
+			/% Bug trees. (60%) %/
+			<<if $clawMachine lte 60>><<set $itemEncounter = "hollow tree">>
+
+			/% Tainted water pools. (40%) %/
+			<<elseif $clawMachine gte 61>><<set $itemEncounter = "tainted pool">>
+			<<endif>>
+		<<endif>>
+
+
+/% ======================================================================== %/
+<<elseif $zoneType is "agriculture">>
+
+	/% Default grassy natural shit %/
+
+/% Common (50%) %/
+	<<if $randomizer lte 50>>
+
+	/% Wild plants, The most common wild item. %/
+
+			<<if $clawMachine lte 20>><<set $itemEncounter = either("plump tendrilgrass","inert tendrilvines","mushroom")>>
+
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 45)>><<set $itemEncounter = either("firewood","rockroot","golden starchroot","honeycarrot","ripe tomato","plump plum","fragrant herbs")>>
+			<<elseif ($clawMachine gte 46) and ($clawMachine lte 85)>><<set $itemEncounter = either("giant peach","voluptuous pear","imperial apple","fat pumpkin","bloated milkmelon","creaking milkmelon","zeppelon")>>
+
+			<<elseif $clawMachine gte 86>><<set $itemEncounter = "puffbelly mushroom">>
+			<<endif>>
+		<<endif>>
+
+/% Uncommon (30% chance) %/
+	<<if ($randomizer gt 50) and ($randomizer lt 65)>>
+
+	/% Found clothing. Rarer than stat plants, more common than meds. %/
+
+		<<set $itemEncounter = either("threadbare cape","threadbare top","threadbare pants","threadbare skirt","worn leather sandals")>>
+
+		<<endif>>
+
+/% Rare (12%) %/
+	<<if ($randomizer gte 65) and ($randomizer lt 92)>>
+
+	/% Found meds. Very randomized, and mostly basic shit. %/
+
+			/% Most frequent. Common food and Junk. %/
+			<<if $clawMachine lte 50>><<set $itemEncounter = either("bellybomb","leupai oil","deflator injection","adephagian milk","fattenium donut","buttercake","indulgence biscuits")>>
+
+			/% Tier-one expanders. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 80)>><<set $itemEncounter = either("calorie powder","gainer pills","belly booster","bust billower shot","thigh plumper shot")>>
+
+			/% Nicer stuff. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 94)>><<set $itemEncounter = either("glass jar","jar of vital water","soothers","dreamshard")>>
+
+			/% Tier-one statters plus randomized dungeon loot. %/
+			<<elseif $clawMachine gte 95>><<set $itemEncounter = either("bolstering vitamin slurry","bulk powder","limber tonic","science soda","jar of dilute fattenium","jar of miratoxin")>>
+			<<endif>>
+		<<endif>>
+
+/% Very Rare (8%) %/
+	<<if $randomizer gte 92>>
+
+	/% Interactive static objects. Rare, but not TOO rare. %/
+
+			/% Bug trees. (60%) %/
+			<<if $clawMachine lte 60>><<set $itemEncounter = "hollow tree">>
+
+			/% Tainted water pools. (40%) %/
+			<<elseif $clawMachine gte 61>><<set $itemEncounter = "tainted pool">>
+			<<endif>>
+		<<endif>>
+
+
+/% ======================================================================== %/
+<<elseif ($location is "Riverside") or ($location is "River") or ($location is "Lake") or ($location is "Marsh") or ($location is "Reeds") or ($location is "Bog") or ($location is "Swamp")>>
+
+	/% Wetlands %/
+
+/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+	/% Wild plants, The most common wild item. No food-only items here; natural foods should be resources, so these need to be stat foods or grown consumables %/
+
+	/% Mushrooms are more common in damp and swampy areas. (40%) %/
+			<<if $clawMachine lte 40>><<set $itemEncounter = "mushroom">>
+
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 45)>><<set $itemEncounter = either("rockroot","golden starchroot","honeycarrot")>>
+			<<elseif ($clawMachine gte 46) and ($clawMachine lte 85)>><<set $itemEncounter = either("firewood","sugarcane","fat pumpkin","zeppelon","fragrant herbs")>>
+
+	/% Puffbelly mushrooms. (20%) %/
+			<<elseif $clawMachine gte 80>><<set $itemEncounter = "puffbelly mushroom">>
+			<<endif>>
+		<<endif>>
+
+/% Uncommon (20% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 65)>>
+
+	/% Found clothing. Rarer than stat plants, more common than meds. %/
+
+		<<set $itemEncounter = either("threadbare cape","threadbare top","threadbare pants","threadbare skirt","worn leather sandals")>>
+
+		<<endif>>
+
+/% Rare (10%) %/
+	<<if ($randomizer gte 65) and ($randomizer lt 90)>>
+
+	/% Found meds. Very randomized, and mostly basic shit. %/
+
+			/% Most frequent. Common food and Junk. %/
+			<<if $clawMachine lte 50>><<set $itemEncounter = either("bellybomb","leupai oil","deflator injection","adephagian milk","fattenium donut","buttercake","indulgence biscuits")>>
+
+			/% Tier-one expanders. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 80)>><<set $itemEncounter = either("calorie powder","gainer pills","belly booster","bust billower shot","thigh plumper shot")>>
+
+			/% Nicer stuff. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 94)>><<set $itemEncounter = either("glass jar","jar of vital water","soothers","dreamshard")>>
+
+			/% Tier-one statters plus randomized dungeon loot. %/
+			<<elseif $clawMachine gte 95>><<set $itemEncounter = either("bolstering vitamin slurry","bulk powder","limber tonic","science soda","jar of dilute fattenium","jar of miratoxin")>>
+			<<endif>>
+		<<endif>>
+
+/% Interactive static objects. Rare, but not TOO rare. %/
+	<<if $randomizer gte 90>>
+
+			/% Bug trees. (40%) %/
+			<<if $clawMachine lte 40>><<set $itemEncounter = "hollow tree">>
+
+			/% Tainted water pools. (60%) %/
+			<<elseif $clawMachine gte 41>><<set $itemEncounter = "tainted pool">>
+			<<endif>>
+		<<endif>>
+
+/% ======================================================================== %/
+<<elseif $location is "Beach">>
+
+	/% Beaches %/
+
+/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+	/% Wild plants, The most common wild item. No food-only items here; natural foods should be resources, so these need to be stat foods or grown consumables %/
+
+	/% Mushrooms are more common in damp and swampy areas. (40%) %/
+			<<if $clawMachine lte 20>><<set $itemEncounter = "mushroom">>
+
+			<<elseif ($clawMachine gt 20) and ($clawMachine lte 70)>><<set $itemEncounter = "sugarcane">>
+			<<elseif ($clawMachine gt 70) and ($clawMachine lte 90)>><<set $itemEncounter = "fragrant herbs">>
+
+	/% Puffbelly mushrooms. (10%) %/
+			<<elseif $clawMachine gte 90>><<set $itemEncounter = "puffbelly mushroom">>
+			<<endif>>
+		<<endif>>
+
+/% Uncommon (20% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 65)>>
+
+	/% Found clothing. Rarer than stat plants, more common than meds. %/
+
+		<<set $itemEncounter = either("threadbare cape","threadbare top","threadbare pants","threadbare skirt","worn leather sandals","worn leather sandals","worn leather sandals","worn leather sandals")>>
+
+		<<endif>>
+
+/% Rare (10%) %/
+	<<if ($randomizer gte 65) and ($randomizer lt 90)>>
+
+	/% Found meds. Very randomized, and mostly basic shit. %/
+
+			/% Most frequent. Common food and Junk. %/
+			<<if $clawMachine lte 50>><<set $itemEncounter = either("bellybomb","leupai oil","deflator injection","adephagian milk","fattenium donut","buttercake","indulgence biscuits")>>
+
+			/% Tier-one expanders. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 80)>><<set $itemEncounter = either("calorie powder","gainer pills","belly booster","bust billower shot","thigh plumper shot")>>
+
+			/% Nicer stuff. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 94)>><<set $itemEncounter = either("glass jar","jar of vital water","soothers","dreamshard")>>
+
+			/% Tier-one statters plus randomized dungeon loot. %/
+			<<elseif $clawMachine gte 95>><<set $itemEncounter = either("bolstering vitamin slurry","bulk powder","limber tonic","science soda","jar of dilute fattenium","jar of miratoxin")>>
+			<<endif>>
+		<<endif>>
+
+/% Interactive static objects. Rare, but not TOO rare. %/
+	<<if $randomizer gte 90>>
+
+			<<set $itemEncounter = "tainted pool">>
+		<<endif>>
+
+/% ======================================================================== %/
+<<elseif ($location is "Ocean") or ($location is "Reef") or ($location is "Brackish Depths")>>
+
+	/% Ocean. SUPER WIP; need ocean-specific plants, coral, items, etc %/
+
+/% Common (60%) %/
+	<<if $randomizer lte 30>>
+
+	/% Found clothing. %/
+
+		<<set $itemEncounter = either("threadbare cape","threadbare top","threadbare pants","threadbare skirt","worn leather sandals","worn leather sandals","worn leather sandals","worn leather sandals")>>
+
+		<<endif>>
+
+/% Rare (10%) %/
+	<<if $randomizer gt 30>>
+
+	/% Found meds. Very randomized, and mostly basic shit. %/
+
+			/% Most frequent. Common food and Junk. %/
+			<<if $clawMachine lte 70>><<set $itemEncounter = either("bellybomb","leupai oil","deflator injection","adephagian milk","fattenium donut","buttercake","indulgence biscuits")>>
+
+			/% Tier-one expanders. %/
+			<<elseif ($clawMachine gte 71) and ($clawMachine lte 80)>><<set $itemEncounter = either("calorie powder","gainer pills","belly booster","bust billower shot","thigh plumper shot")>>
+
+			/% Nicer stuff. %/
+			<<elseif ($clawMachine gte 81) and ($clawMachine lte 94)>><<set $itemEncounter = either("glass jar","jar of vital water","soothers","dreamshard")>>
+
+			/% Tier-one statters plus randomized dungeon loot. %/
+			<<elseif $clawMachine gte 95>><<set $itemEncounter = either("bolstering vitamin slurry","bulk powder","limber tonic","science soda","jar of dilute fattenium","jar of miratoxin")>>
+			<<endif>>
+
+		<<endif>>
+
+
+
+/% ======================================================================== %/
+<<elseif ($location is "Valley") or ($location is "Scrublands") or ($location is "Canyon") or ($location is "Cliffs") or ($location is "Rocky Desert") or ($location is "Red Sands") or ($location is "Volcano") or ($location is "Crater")>>
+
+	/% Desert areas. %/
+
+/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+	/% Wild plants, The most common wild item. %/
+
+			<<if $clawMachine lte 40>><<set $itemEncounter = "cactus pad">>
+
+			<<elseif ($clawMachine gte 41) and ($clawMachine lte 85)>><<set $itemEncounter = "succulent rose">>
+			<<elseif $clawMachine gt 85>><<set $itemEncounter = either("pricklepear","fragrant herbs")>>
+			<<endif>>
+		<<endif>>
+
+/% Uncommon (30% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 65)>>
+
+	/% Found clothing. Rarer than stat plants, more common than meds. %/
+
+		<<set $itemEncounter = either("threadbare cape","threadbare top","threadbare pants","threadbare skirt","worn leather sandals")>>
+
+		<<endif>>
+
+/% Rare (10%) %/
+	<<if $randomizer gte 65>>
+
+	/% Found meds. Very randomized, and mostly basic shit. %/
+
+			/% Most frequent. Common food and Junk. %/
+			<<if $clawMachine lte 50>><<set $itemEncounter = either("bellybomb","leupai oil","deflator injection","adephagian milk","fattenium donut","buttercake","indulgence biscuits")>>
+
+			/% Tier-one expanders. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 80)>><<set $itemEncounter = either("calorie powder","gainer pills","belly booster","bust billower shot","thigh plumper shot")>>
+
+			/% Nicer stuff. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 94)>><<set $itemEncounter = either("glass jar","jar of vital water","soothers","dreamshard")>>
+
+			/% Tier-one statters plus randomized dungeon loot. %/
+			<<elseif $clawMachine gte 95>><<set $itemEncounter = either("bolstering vitamin slurry","bulk powder","limber tonic","science soda","jar of dilute fattenium","jar of miratoxin")>>
+			<<endif>>
+		<<endif>>
+
+/% ======================================================================== %/
+<<elseif ($location is "Wastelands") or ($location is "Ruins") or ($location is "Obsidian Wastes") or ($location is "Molten Fields") or ($location is "Molten Sea") or ($location is "Boiling Ocean") or ($location is "Slagheap")>>
+
+	/% Wastelands. %/
+
+/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+	/% Wild plants, The most common wild item. %/
+
+			<<if $clawMachine lte 40>><<set $itemEncounter = "cactus pad">>
+
+			<<elseif ($clawMachine gte 41) and ($clawMachine lte 85)>><<set $itemEncounter = "succulent rose">>
+			<<elseif $clawMachine gt 85>><<set $itemEncounter = "pricklepear">>
+			<<endif>>
+		<<endif>>
+
+/% Uncommon (30% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 65)>>
+
+	/% Found clothing. Rarer than stat plants, more common than meds. %/
+
+		<<set $itemEncounter = either("threadbare cape","threadbare top","threadbare pants","threadbare skirt","worn leather sandals")>>
+
+		<<endif>>
+
+/% Rare (10%) %/
+	<<if $randomizer gte 65>>
+
+	/% Found meds. Very randomized, and mostly basic shit. %/
+
+			/% Most frequent. Common food and Junk. %/
+			<<if $clawMachine lte 50>><<set $itemEncounter = either("bellybomb","leupai oil","deflator injection","adephagian milk","fattenium donut","buttercake","indulgence biscuits")>>
+
+			/% Tier-one expanders. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 80)>><<set $itemEncounter = either("calorie powder","gainer pills","belly booster","bust billower shot","thigh plumper shot")>>
+
+			/% Nicer stuff. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 94)>><<set $itemEncounter = either("glass jar","jar of vital water","soothers","dreamshard")>>
+
+			/% Tier-one statters plus randomized dungeon loot. %/
+			<<elseif $clawMachine gte 95>><<set $itemEncounter = either("bolstering vitamin slurry","bulk powder","limber tonic","science soda","jar of dilute fattenium","jar of miratoxin")>>
+			<<endif>>
+		<<endif>>
+
+
+
+/% ======================================================================== %/
+
+<<elseif ($subterranean is 1) and ($indoorZone is 0)>>
+
+	/% Default Caverns %/
+
+/% Common (40%) %/
+	<<if $randomizer lte 40>>
+
+	/% Wild plants. No food-only items here; natural foods should be resources, so these need to be stat foods or grown consumables %/
+
+	/% Mushrooms are more common underground. (50%) %/
+			<<if $clawMachine lte 50>><<set $itemEncounter = "mushroom">>
+
+	/% Magical fruits, less common here (20%). Placeholder; think of subterranean ones. %/
+			<<elseif ($clawMachine gte 61) and ($clawMachine lte 80)>><<set $itemEncounter = either("rockroot","golden starchroot","honeycarrot")>>
+
+	/% Puffbelly mushrooms. (20%) %/
+			<<elseif $clawMachine gte 80>><<set $itemEncounter = "puffbelly mushroom">>
+			<<endif>>
+		<<endif>>
+
+/% Uncommon (30% chance) %/
+	<<if ($randomizer gt 40) and ($randomizer lt 65)>>
+
+	/% Found clothing. Rarer than stat plants, more common than meds. %/
+
+		<<set $itemEncounter = either("threadbare cape","threadbare top","threadbare pants","threadbare skirt","worn leather sandals")>>
+
+		<<endif>>
+
+/% Rare (10%) %/
+	<<if ($randomizer gte 65) and ($randomizer lt 80)>>
+
+	/% Found meds. Very randomized, and mostly basic shit. %/
+
+			/% Most frequent. Dreamshards and mound junk. %/
+			<<if $clawMachine lte 50>><<set $itemEncounter = either("dreamshard","bellybomb","leupai oil","deflator injection","adephagian milk","fattenium donut","buttercake","indulgence biscuits")>>
+
+			/% Tier-one expanders. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 80)>><<set $itemEncounter = either("calorie powder","gainer pills","belly booster","bust billower shot","thigh plumper shot")>>
+
+			/% Nicer stuff. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 94)>><<set $itemEncounter = either("glass jar","jar of vital water","soothers")>>
+
+			/% Tier-one statters plus randomized dungeon loot. %/
+			<<elseif $clawMachine gte 95>><<set $itemEncounter = either("bolstering vitamin slurry","bulk powder","limber tonic","science soda","jar of dilute fattenium","jar of miratoxin")>>
+			<<endif>>
+		<<endif>>
+
+/% Tainted water pools, more common underground. %/
+	<<if $randomizer gte 80>>
+			<<set $itemEncounter = "tainted pool">>
+		<<endif>>
+
+/% ======================================================================== %/
+<<else>>
+
+	/% Undefined/Placeholder zones. %/
+
+/% Common (50%) %/
+	<<if $randomizer lte 50>>
+
+	/% Wild plants, The most common wild item. %/
+
+			<<if $clawMachine lte 20>><<set $itemEncounter = either("firewood","plump tendrilgrass","inert tendrilvines")>>
+
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 45)>><<set $itemEncounter = either("mushroom","rockroot","golden starchroot","honeycarrot")>>
+			<<elseif ($clawMachine gte 46) and ($clawMachine lte 85)>><<set $itemEncounter = "fat pumpkin">>
+			<<elseif $clawMachine gte 86>><<set $itemEncounter = "puffbelly mushroom">>
+			<<endif>>
+		<<endif>>
+
+/% Uncommon (30% chance) %/
+	<<if ($randomizer gt 50) and ($randomizer lt 65)>>
+
+	/% Found clothing. Rarer than stat plants, more common than meds. %/
+
+		<<set $itemEncounter = either("threadbare cape","threadbare top","threadbare pants","threadbare skirt","worn leather sandals")>>
+
+		<<endif>>
+
+/% Rare (12%) %/
+	<<if ($randomizer gte 65) and ($randomizer lt 92)>>
+
+	/% Found meds. Very randomized, and mostly basic shit. %/
+
+			/% Most frequent. Common food and Junk. %/
+			<<if $clawMachine lte 50>><<set $itemEncounter = either("bellybomb","leupai oil","deflator injection","adephagian milk","fattenium donut","buttercake","indulgence biscuits")>>
+
+			/% Tier-one expanders. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 80)>><<set $itemEncounter = either("calorie powder","gainer pills","belly booster","bust billower shot","thigh plumper shot")>>
+
+			/% Nicer stuff. %/
+			<<elseif ($clawMachine gte 51) and ($clawMachine lte 94)>><<set $itemEncounter = either("glass jar","jar of vital water","soothers","dreamshard")>>
+
+			/% Tier-one statters plus randomized dungeon loot. %/
+			<<elseif $clawMachine gte 95>><<set $itemEncounter = either("bolstering vitamin slurry","bulk powder","limber tonic","science soda","jar of dilute fattenium","jar of miratoxin")>>
+			<<endif>>
+		<<endif>>
+
+/% Very Rare (8%) %/
+	<<if $randomizer gte 92>>
+
+	/% Interactive static objects. Rare, but not TOO rare. %/
+
+			/% Bug trees. (55%) %/
+			<<if $clawMachine lte 55>><<set $itemEncounter = "hollow tree">>
+
+			/% Tainted water pools. (45%) %/
+			<<elseif $clawMachine gte 56>><<set $itemEncounter = "tainted pool">>
+			<<endif>>
+		<<endif>>
+
+<<endif>>
+
+/% ======================================================================== %/
+/% Special - reveric biomes %/
+
+	<<if $zoneType is "faerie">>
+		<<set $randomizer = random(1,100)>>
+			<<if $randomizer lte 10>>
+
+				<<set $clawMachine = random(1,100)>>
+
+				/% Crystal fragments. (40%) %/
+					<<if $clawMachine lte 40>><<set $itemEncounter = either("dreamshard","battery crystal","live miracrystal chunk")>>
+
+				/% Tier 1 pools. (30%) %/
+					<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $itemEncounter = either("pool of somnus","pool of golden water")>>
+
+				/% Tier 2 pools. (20%) %/
+					<<elseif ($clawMachine gte 71) and ($clawMachine lte 90)>><<set $itemEncounter = either("pool of pink water","pool of golden oil")>>
+
+				/% Miraplasm. (10%) %/
+					<<elseif $clawMachine gte 91>><<set $itemEncounter = "pool of glowing magenta goo">>
+				<<endif>>
+
+			<<endif>>
+		<<endif>>
+
+/% ======================================================================== %/
+/% Deep subterranean molten pools %/
+
+<<if $planetCoreType is "molten">>
+	<<set $randomizer = random(1,100)>>
+	<<if ($location is "Crystal Caverns") or ($location is "Underglade")>>
+
+	/% 1 in 12 chance of molten pool instead of an item %/
+		<<if $randomizer lte 8>><<set $itemEncounter = "molten pool">><<endif>>
+
+	<<elseif ($location is "Ash Cave") or ($location is "Vents") or ($location is "Mine") or ($location is "Slagheap") or ($location is "Nest")>>
+
+	/% 1 in 10 chance of molten pool instead of an item %/
+		<<if $randomizer lte 10>><<set $itemEncounter = "molten pool">><<endif>>
+
+	<<elseif ($location is "Obsidian Tunnel") or ($location is "Vents") or ($location is "Labyrinth")>>
+
+	/% 1 in 5 chance of molten pool instead of an item %/
+		<<if $randomizer lte 20>><<set $itemEncounter = "molten pool">><<endif>><<endif>>
+
+
+/% ================================= %/
+/% Planetary core & molten core molten pools %/
+
+	<<elseif ($location is "Magma Pit") or ($location is "Boiling Dark") or ($location is "Volcano") or ($location is "Obsidian Wastes")>>
+
+	/% 1 in 6 chance of molten pool instead of an item %/
+		<<if $randomizer lte 15>><<set $itemEncounter = "molten pool">><<endif>>
+
+	<<elseif ($location is "Magma Pit") or ($location is "Boiling Dark") or ($location is "Hellmouth Depths") or ($location is "Molten Void") or ($location is "Molten Fields") or ($location is "Molten Sea") or ($location is "Boiling Ocean") or ($location is "Planet's Heart")>>
+
+	/% No items, only hell. (change later, possibly, so it only lets certain heat-proof items through) %/
+		<<set $itemEncounter = "molten pool">>
+
+<<endif>>

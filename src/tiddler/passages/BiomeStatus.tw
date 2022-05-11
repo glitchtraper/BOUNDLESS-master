@@ -1,0 +1,504 @@
+﻿/% Pre-setup; clear any residual status flags. %/
+
+<<set $creatureStatus = 0; $absorption = 0; $absorpMagnitude = 0>>
+
+/% Absorption is for weather types that expose the player to planetary liquids (rain, fog, submersion, snow, etc).
+Absorption Magnitude is how powerful the exposure is (slight for drizzle and slow, up to extreme for submersion). %/
+
+/% If no weather is set, pick it now. %/
+<<if $weatherTime lte 0>><<set $cycleWeather = 1; $weatherBiome = $location>>
+
+<<elseif ($weatherBiome neq 0) and ($weatherBiome neq $location)>><<set $cycleWeather = 1; $weatherBiome = $location>><<endif>>
+
+/% ========================================== %/
+/% Physworld Ambience %/
+
+
+/% ========================================== %/
+/% MIRAJIN AMBIENCE METER %/
+
+/% 0(None)================500(HIGH)==================1000(CATASTROPHIC) %/
+
+/% Natural + "Clean" areas tend to be balanced so there is no or very little ambient mirajin, or a little ambient vitae (which sets the meter in the negative.)
+Other places may naturally have slightly higher ambient mirajin.
+
+Remember that the default ambience should only have a low chance (right now it's 1 in 3) of ticking even a single mirad a turn. Other biomes might add to/subtract from that number if they're more or less hazardous.
+
+Even catastrophic radiation shouldn't kill you instantly; you should get a sense of impending doom as the status effects and mutations ramp up on your screen (how amalgatoxic poisoning works is a good example of this!
+but subdued. miraplasmic cascade is NOT subtle. Compared to miraplasmic cascade, amalgatoxic/vitae poisoning is subtle.) %/
+
+
+/% ========================================== %/
+/% Overworld (buildings and dungeons count as shelter) %/
+
+/% ========================================== %/
+/% Temperate & mildly rainy %/
+
+		<<if $weatherType is "lush">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("calm","calm","cloudy","breezy","light rain","windy","thunderstorm"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Calm %/
+					<<if $forecast is "calm">><<set $locStatus = "The air is still."; $raining = 0; $wetWeather = 0>>
+
+				/% Cloudy %/
+					<<elseif $forecast is "cloudy">><<set $locStatus = "Clouds sweep over the sky!"; $raining = 0; $wetWeather = 0>>
+
+				/% Breezy %/
+					<<elseif $forecast is "breezy">><<set $locStatus = "A gentle breeze dances over your skin."; $raining = 0; $pain -= random(1,2); $wetWeather = 0>>
+
+				/% Light Rain %/
+					<<elseif $forecast is "light rain">><<set $locStatus = "A light rain whispers softly!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 1>>
+
+				/% Strong wind %/
+					<<elseif $forecast is "windy">><<set $locStatus = "A gale wind blows!"; $raining = 0; $wetWeather = 0>>
+
+				/% Thunderstorm %/
+					<<elseif $forecast is "thunderstorm">><<set $locStatus = "A thunderstorm sweeps over the area, the skies bellowing low."; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 2>>
+					<<endif>>
+
+/% ========================================== %/
+/% Humid & rainy %/
+
+		<<elseif $weatherType is "humid wet">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("humid","humid","breezy","light rain","windy","thunderstorm"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Humid %/
+					<<if $forecast is "humid">><<set $locStatus = "The air is thick..."; $raining = 0; $wetWeather = 1>>
+
+				/% Breezy %/
+					<<elseif $forecast is "breezy">><<set $locStatus = "A gentle breeze dances over your skin."; $raining = 0; $pain -= random(1,2); $wetWeather = 0>>
+
+				/% Light Rain %/
+					<<elseif $forecast is "light rain">><<set $locStatus = "A light rain whispers softly!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 1>>
+
+				/% Strong wind %/
+					<<elseif $forecast is "windy">><<set $locStatus = "A gale wind blows!"; $raining = 0; $wetWeather = 0>>
+
+				/% Thunderstorm %/
+					<<elseif $forecast is "thunderstorm">><<set $locStatus = "A thunderstorm sweeps over the area, the skies bellowing low."; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 2>>
+					<<endif>>
+
+/% ========================================== %/
+/% Foggy & Rainy %/
+
+		<<elseif $weatherType is "foggy">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("calm","foggy","light rain","windy","thunderstorm"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Calm %/
+					<<if $forecast is "calm">><<set $locStatus = "The air is still."; $raining = 0; $wetWeather = 0>>
+
+				/% Fog %/
+					<<elseif $forecast is "foggy">><<set $locStatus = "A solid fog covers the area..."; $raining = 1; $wetWeather = 1>>
+
+				/% Light Rain %/
+				<<elseif $forecast is "light rain">><<set $locStatus = "A light rain whispers softly!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 1>>
+
+				/% Strong wind %/
+				<<elseif $forecast is "windy">><<set $forecast = "windy"; $locStatus = "A gale wind blows!"; $raining = 0; $wetWeather = 0>>
+
+				/% Thunderstorm %/
+					<<elseif $forecast is "thunderstorm">><<set $locStatus = "A thunderstorm sweeps over the area, the skies bellowing low."; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 2>>
+					<<endif>>
+
+/% ========================================== %/
+/% Frequent Rain %/
+
+		<<elseif $weatherType is "rainy">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("calm","light rain","thunderstorm"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Calm %/
+					<<if $forecast is "calm">><<set $locStatus = "The air is still."; $raining = 0; $wetWeather = 0>>
+
+				/% Light Rain %/
+				<<elseif $forecast is "light rain">><<set $locStatus = "A light rain whispers softly!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 1>>
+
+				/% Thunderstorm %/
+					<<elseif $forecast is "thunderstorm">><<set $locStatus = "A thunderstorm sweeps over the area, the skies bellowing low."; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 2>>
+					<<endif>>
+
+/% ========================================== %/
+/% Snow %/
+
+		<<elseif $weatherType is "snowy">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("calm","calm","cloudy","light snow","strong wind","snowstorm"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Calm %/
+					<<if $forecast is "calm">><<set $locStatus = "The air is still."; $raining = 0; $wetWeather = 0>>
+
+				/% Cloudy %/
+					<<elseif $forecast is "cloudy">><<set $locStatus = "Clouds sweep over the sky!"; $raining = 0; $wetWeather = 0>>
+
+				/% Light Snow %/
+					<<elseif $forecast is "light snow">><<set $locStatus = "It's snowing gently!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 1>>
+
+				/% Strong wind %/
+					<<elseif $forecast is "strong wind">><<set $locStatus = "A gale wind blows!"; $raining = 0; $wetWeather = 0>>
+
+				/% Snowstorm %/
+					<<elseif $forecast is "snowstorm">><<set $locStatus = "A snowstorm sweeps over the area!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = either(1,2)>>
+					<<endif>>
+
+/% ========================================== %/
+/% Foggy Snow %/
+
+		<<elseif $weatherType is "snowfog">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("calm","foggy","foggy","light snow","strong wind","snowstorm"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Calm %/
+					<<if $forecast is "calm">><<set $locStatus = "The air is still."; $raining = 0; $wetWeather = 0>>
+
+				/% Fog %/
+					<<elseif $forecast is "foggy">><<set $locStatus = "A solid fog covers the area..."; $raining = 1; $wetWeather = 1>>
+
+				/% Light Snow %/
+					<<elseif $forecast is "light snow">><<set $locStatus = "It's snowing gently!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 1>>
+
+				/% Strong wind %/
+					<<elseif $forecast is "strong wind">><<set $locStatus = "A gale wind blows!"; $raining = 0; $wetWeather = 0>>
+
+				/% Snowstorm %/
+					<<elseif $forecast is "snowstorm">><<set $locStatus = "A snowstorm sweeps over the area!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = either(1,2)>>
+					<<endif>>
+
+/% ========================================== %/
+/% Cold Snap %/
+
+		<<elseif $weatherType is "coldsnap">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("calm","calm","foggy","foggy","light snow","cold"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Calm %/
+					<<if $forecast is "calm">><<set $locStatus = "The air is still."; $raining = 0; $wetWeather = 0>>
+
+				/% Fog %/
+					<<elseif $forecast is "foggy">><<set $locStatus = "A solid fog covers the area..."; $raining = 1; $wetWeather = 1>>
+
+				/% Light Snow %/
+					<<elseif $forecast is "light snow">><<set $locStatus = "It's snowing gently!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 1>>
+
+				/% Temperature drop %/
+					<<elseif $forecast is "cold">><<set $locStatus = "The cold is biting!"; $raining = 0; $wetWeather = 0; $lethalCold = either(0,0,1)>>
+					<<endif>>
+
+/% ========================================== %/
+/% Blizzard %/
+
+		<<elseif $weatherType is "blizzard">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("calm","calm","light snow","light snow","blizzard"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Calm %/
+					<<if $forecast is "calm">><<set $locStatus = "The air is still."; $raining = 0; $wetWeather = 0>>
+
+				/% Light Snow %/
+					<<elseif $forecast is "light snow">><<set $locStatus = "It's snowing gently!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 1>>
+
+				/% Blizzard %/
+					<<elseif $forecast is "blizzard">><<set $locStatus = "It's freezing cold! The snow seems endless..."; $raining = 1; $wetWeather = 1; $lethalCold = either(0,0,1); $absorption = 1; $absorpMagnitude = either(1,1,2,2,2,3)>>
+					<<endif>>
+
+/% ========================================== %/
+/% Tropical %/
+
+		<<elseif $weatherType is "tropical">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("humid","humid","rain","thunderstorm"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Humid %/
+					<<if $forecast is "humid">><<set $locStatus = "The air is thick..."; $raining = 0; $wetWeather = 1>>
+
+				/% Rain %/
+				<<elseif $forecast is "rain">><<set $locStatus = "A steady rain washes over the area!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = either(1,1,2)>>
+
+				/% Thunderstorm %/
+					<<elseif $forecast is "thunderstorm">><<set $locStatus = "A thunderstorm sweeps over the area, the skies bellowing low."; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = either(1,1,2,2,2,3)>>
+					<<endif>>
+
+/% ========================================== %/
+/% Arid %/
+
+		<<elseif $weatherType is "arid">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("calm","calm","calm","calm","calm","calm","calm","calm","calm","breezy","breezy","breezy","breezy","strong wind","strong wind","strong wind","strong wind","light rain","light rain","thunderstorm"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Calm %/
+					<<if $forecast is "calm">><<set $locStatus = "The air is still."; $raining = 0; $wetWeather = 0>>
+
+				/% Breezy %/
+					<<elseif $forecast is "breezy">><<set $locStatus = "A gentle breeze dances over your skin."; $raining = 0; $pain -= random(1,2); $wetWeather = 0>>
+
+				/% Light Rain %/
+				<<elseif $forecast is "light rain">><<set $locStatus = "A light rain whispers softly!"; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 1>>
+
+				/% Strong wind %/
+					<<elseif $forecast is "strong wind">><<set $locStatus = "A dry wind blows!"; $raining = 0; $wetWeather = 0>>
+
+				/% Thunderstorm %/
+					<<elseif $forecast is "thunderstorm">><<set $locStatus = "A thunderstorm sweeps over the area, the skies bellowing low."; $raining = 1; $wetWeather = 1; $absorption = 1; $absorpMagnitude = either(1,1,2)>>
+					<<endif>>
+
+/% ========================================== %/
+/% Drought %/
+
+		<<elseif $weatherType is "drought">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("calm","calm","calm","calm","calm","calm","strong wind","strong wind","strong wind","strong wind","sandstorm"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Calm %/
+					<<if $forecast is "calm">><<set $locStatus = "The air is still."; $raining = 0; $wetWeather = 0>>
+
+				/% Breezy %/
+					<<elseif $forecast is "breezy">><<set $locStatus = "A gentle breeze dances over your skin."; $raining = 0; $pain -= random(1,2); $wetWeather = 0>>
+
+				/% Strong wind %/
+					<<elseif $forecast is "strong wind">><<set $locStatus = "A dry wind blows!"; $raining = 0; $wetWeather = 0>>
+
+				/% Sandstorm %/
+					<<elseif $forecast is "sandstorm">><<set $locStatus = "An enormous cloud of dust consumes the area, blotting out the sky!"; $raining = 0; $wetWeather = 0; $darkArea = 1; $pain += random(0,3)>>
+					<<endif>>
+
+/% ========================================== %/
+/% Baked %/
+
+		<<elseif $weatherType is "baked">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("calm","calm","calm","calm","calm","calm","smog","smog","smog","sandstorm","sandstorm","heat"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Calm %/
+					<<if $forecast is "calm">><<set $locStatus = "The air is still."; $raining = 0; $wetWeather = 0>>
+
+				/% Smog %/
+					<<elseif $forecast is "smog">><<set $locStatus = "A strong wind sweeps over the area, carrying dark clouds of thick smoke!"; $raining = 0; $wetWeather = 0; $toxicOverdoseWarning = either(0,0,0,1); $toxicFumes = either(0,0,1)>>
+
+				/% Sandstorm %/
+					<<elseif $forecast is "sandstorm">><<set $locStatus = "An enormous cloud of dust consumes the area, blotting out the sky!"; $raining = 0; $wetWeather = 0; $darkArea = 1; $pain += random(0,3)>>
+
+				/% Heat Wave %/
+					<<elseif $forecast is "heat">><<set $locStatus = "The heat threatens to roast you..."; $raining = 0; $wetWeather = 0; $lethalHeat = either(0,0,1)>>
+					<<endif>>
+
+/% ========================================== %/
+/% Wasted %/
+
+		<<elseif $weatherType is "wasted">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = either("calm","calm","calm","calm","calm","smog","smog","smog","sandstorm","sandstorm","acid rain","acid shower"); $weatherTime = random(3,24); $cycleWeather = 0>>
+				<<endif>>
+
+				/% Calm %/
+					<<if $forecast is "calm">><<set $locStatus = "The air is still."; $raining = 0; $wetWeather = 0>>
+
+				/% Smog %/
+					<<elseif $forecast is "smog">><<set $locStatus = "A strong wind sweeps over the area, carrying dark clouds of thick smoke!"; $raining = 0; $wetWeather = 0; $toxicOverdoseWarning = either(0,0,0,1); $toxicFumes = either(0,0,1)>>
+
+				/% Sandstorm %/
+					<<elseif $forecast is "sandstorm">><<set $locStatus = "An enormous cloud of dust consumes the area, blotting out the sky!"; $raining = 0; $wetWeather = 0; $darkArea = 1; $pain += random(0,3)>>
+
+				/% Light Rain (Acid) %/
+				<<elseif $forecast is "acid rain">><<set $locStatus = "A light rain dampens the area... it stings your skin!"; $raining = 1; $wetWeather = 1; $pain += random(0,2)>>
+
+				/% Acid Shower %/
+					<<elseif $forecast is "acid shower">><<set $locStatus = "A thunderstorm sweeps over the area, the skies bellowing low... it stings and scalds your skin!"; $raining = 1; $wetWeather = 1; $pain += random(0,3)>>
+					<<endif>>
+
+/% ========================================== %/
+/% Aquatic %/
+
+		<<elseif $weatherType is "aquatic">>
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = "aquatic"; $locStatus = "The current dances around you..."; $raining = 0; $wetWeather = 1; $absorption = 1; $absorpMagnitude = 3; $weatherTime = 0; $cycleWeather = 0>><<endif>>
+
+/% ========================================== %/
+/% Ambience: dripping caverns %/
+
+		<<elseif $weatherType is "dampcave">>
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = "damp cave"; $locStatus = "The sound of melodic drips echo through the cave."; $raining = 0; $wetWeather = either(0,1); $weatherTime = 0; $cycleWeather = 0>><<endif>>
+
+				<<if $wetWeather is 1>>
+				/% Moisture - affects slimes %/
+					<<set $randomizer = random(1,3)>>
+					<<if $randomizer is 1>>
+						<<if $slimeBellyParasite is 1>><<set $slimeBellyParaLoad += 2>><<endif>>
+						<<if $slimeBreastParasite is 1>><<set $slimeBreastParaLoad += 2>><<endif>>
+						<<if ($species is "slime") or ($substatus is "slime")>><<set $calories += either(1,1,2)>><<endif>>
+						<<endif>>
+					<<endif>>
+
+/% ========================================== %/
+/% Ambience: wet/water caverns %/
+
+		<<elseif $weatherType is "wetcave">>
+
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = "wet cave"; $locStatus = "Rushing water rumbles and gurgles somewhere nearby."; $wetWeather = 1; $weatherTime = 0; $cycleWeather = 0; $absorption = 1; $absorpMagnitude = 1>><<endif>>
+
+/% ========================================== %/
+/% Ambience: crystalline caverns %/
+
+		<<elseif $weatherType is "crystalcave">>
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = "crystal cave"; $locStatus = "The crystalline walls flicker and shimmer in the low light."; $raining = 0; $wetWeather = 0; $weatherTime = 0; $cycleWeather = 0>><<endif>>
+
+/% ========================================== %/
+/% Ambience: ice caverns %/
+
+		<<elseif $weatherType is "icecave">>
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = "ice cave"; $locStatus = "Your breath forms clouds in the frosty subterranean air..."; $raining = 0; $wetWeather = 0; $lethalCold = either(0,0,0,1); $weatherTime = 0; $cycleWeather = 0>><<endif>>
+
+
+/% ========================================== %/
+/% Ambience: hot caverns %/
+
+		<<elseif $weatherType is "heatcave">>
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = "heat cave"; $locStatus = "The rumble of magma can be heard nearby. It's boiling hot down here..."; $raining = 0; $wetWeather = 0; $lethalHeat = either(0,0,0,1); $weatherTime = 0; $cycleWeather = 0>><<endif>>
+
+/% ========================================== %/
+/% Ambience: smoky caverns %/
+
+		<<elseif $weatherType is "smokecave">>
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = "smoke cave"; $locStatus = "The air is thick and hard to breathe..."; $raining = 0; $wetWeather = 0; $unbreathable = either(0,0,0,1); $weatherTime = 0; $cycleWeather = 0>><<endif>>
+
+
+/% ========================================== %/
+/% Ambience: smog caverns %/
+
+		<<elseif $weatherType is "smogcave">>
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = "smog cave"; $locStatus = "Your throat feels raw and sore. The air here is noxious..."; $raining = 0; $wetWeather = 0; $toxicFumes = either(0,0,0,1); $weatherTime = 0; $cycleWeather = 0>><<endif>>
+
+/% ========================================== %/
+/% Catchall %/
+
+		<<else>>
+			<<if $cycleWeather is 1>> /% If this is not on, the weather SHOULD NOT BE CHANGING. %/
+			<<set $forecast = "nothing"; $locStatus = "The air is still."; $raining = 0; $wetWeather = 0; $weatherTime = 0; $cycleWeather = 0>><<endif>>
+
+/% ========================================== %/
+
+
+<<endif>>
+
+/% ========================================== %/
+/% Global Ambience %/
+
+	/% Weird ambient effects
+			Regen - low-grade regenerative effect
+			Ferality - gradual strength increase/imagination decrease
+			Somnic - gradual miratoxin increase
+			Mira - gradual mirad increase
+			Plump - gradual caloric increase
+			Bloat - gradual bloat increase
+			Chub - gradual targeted weight gain
+			Gainer - gradual metagain increase
+			Shrivel - gradual metaburn increase
+			Rad - gradual radiation increase %/
+
+<<if $planetAmbience is "regen">><<set $ambientStatus = "Something about this place seems to ease your pain..."; $pain -= either(0,1) * $absorpMagnitude>>
+
+<<elseif $planetAmbience is "ferality">><<set $ambientStatus = "Your mind feels clouded and impulsive here... but you feel... strong."; $randomizer = random(1,32)>>
+	<<if $randomizer is 1>><<set $strength += 0.1>>
+		<<elseif $randomizer gte 24>><<set $sanity -= 1>><<endif>>
+
+<<elseif $planetAmbience is "somnic">><<set $ambientStatus = "Your skin tingles faintly..."; $miraPoisoning += either(0,0,1) * $absorpMagnitude>>
+
+<<elseif $planetAmbience is "mira">><<set $ambientStatus = "You feel somewhat dazed..."; $mirajinRads += either(0,0,1) * $absorpMagnitude>>
+
+<<elseif $planetAmbience is "plump">><<set $ambientStatus = "Your belly stirs oddly..."; $calories += either(0,0,5) * $absorpMagnitude>>
+
+<<elseif $planetAmbience is "bodyChub">><<set $ambientStatus = "Your center of balance seems a bit off."; $girth += either(0,0,5) * $absorpMagnitude>>
+
+<<elseif $planetAmbience is "bellyChub">><<set $ambientStatus = "Your center of balance seems a bit off."; $belly += either(0,0,5) * $absorpMagnitude>>
+
+<<elseif $planetAmbience is "breastChub">><<set $ambientStatus = "Your center of balance seems a bit off."; $breast += either(0,0,5) * $absorpMagnitude>>
+
+<<elseif $planetAmbience is "thighChub">><<set $ambientStatus = "Your center of balance seems a bit off."; $thigh += either(0,0,5) * $absorpMagnitude>>
+
+<<elseif $planetAmbience is "gainer">><<set $ambientStatus = "You feel a little sluggish..."; $metaGain += either(0,0,1) * $absorpMagnitude>>
+
+<<elseif $planetAmbience is "shrivel">><<set $ambientStatus = "Your pulse seems quick..."; $metaBurn += either(0,0,0.5) * $absorpMagnitude>>
+
+<<elseif $planetAmbience is "rad">><<set $ambientStatus = "You feel anxious..."; $nuclearRads += either(0,0,1) * $absorpMagnitude>>
+
+
+<<endif>>
+
+/% ========================================== %/
+/% Dungeon Ambience %/
+
+<<if $dungeonLocation is "Abandoned Laboratory Mound">>
+	<<set $locStatus = "This place smells like formaldehyde... and blood.">>
+		<<set $ambientMirajin += either(0,1,2,2,3)>><<endif>>
+
+<<if $dungeonLocation is "Abandoned Storage Mound">>
+	<<set $locStatus = "Dust motes dance through the dim and flickering light...">>
+		<<set $ambientMirajin += either(0,0,1,1,2)>><<endif>>
+
+<<if $dungeonLocation is "Echoing Cavern">>
+	<<set $locStatus = "The squeaks of bats echo through the darkness.">><<endif>>
+
+
+/% ========================================== %/
+/% Precipitation Effects %/
+
+<<if $wetWeather is 1>>
+	<<if $planetFluid is "shining water">>
+	<<set $pain -= either(0,1) * $absorpMagnitude>>
+
+	<<elseif ($planetFluid is "dirty water") or ($planetFluid is "glowing green goo")>>
+	<<set $nuclearRads += either(0,0,0,1) * $absorpMagnitude>>
+
+	<<elseif $planetFluid is "somnus">>
+	<<set $miraPoisoning += either(0,0,1) * $absorpMagnitude>>
+
+	<<elseif ($planetFluid is "pink water") or ($planetFluid is "glowing magenta goo")>>
+	<<set $mirajinRads += either(0,0,1) * $absorpMagnitude>>
+
+	<<elseif ($planetFluid is "golden water") or ($planetFluid is "golden oil")>>
+	<<set $calories += either(0,0,5) * $absorpMagnitude>>
+	<<endif>>
+<<endif>>
+
+	/% Slime effects %/
+	<<if $wetWeather is 1>><<set $randomizer = random(1,3)>>
+	<<if $randomizer is 1>>
+		<<if $slimeBellyParasite is 1>><<set $slimeBellyParaLoad += 10 * $absorpMagnitude>><<endif>>
+		<<if $slimeBreastParasite is 1>><<set $slimeBreastParaLoad += 10 * $absorpMagnitude>><<endif>>
+		<<if ($species is "slime") or ($substatus is "slime")>><<set $calories += either(10,10,20) * $absorpMagnitude>>
+		<<endif>><<endif>>
+	<<endif>>
+

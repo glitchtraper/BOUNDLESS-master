@@ -1,0 +1,61 @@
+﻿/% ===================================================== %/
+
+/% Base loss %/
+
+<<set $girth -= $metaBurn + ($consecutiveDrain * either(0,1))>>
+
+/% Key --
+Body - 1
+Breast - 2
+Belly - 3
+Thigh - 4 %/
+
+<<if $bodyType is 0>>
+<<set $randomizer = either(1,2,2,3,3,4,4)>>
+
+<<elseif ($bodyType is "busty") or ($bodyType is "boviete")>>
+<<set $randomizer = either(1,1,2,3,3,4,4)>>
+
+<<elseif ($bodyType is "hourglass") or ($bodyType is "cubus")>>
+<<set $randomizer = either(1,1,2,3,3,4)>>
+
+<<elseif ($bodyType is "round") or ($bodyType is "bulging")>>
+<<set $randomizer = either(1,1,2,2,3,4,4)>>
+
+<<elseif ($bodyType is "belly") or ($bodyType is "guguetelle")>>
+<<set $randomizer = either(1,1,2,2,3,4,4)>>
+
+<<elseif ($bodyType is "pear") or ($bodyType is "bloatpear")>>
+<<set $randomizer = either(1,1,2,2,3,4)>>
+
+<<elseif ($bodyType is "thigh") or ($bodyType is "blimpthigh")>>
+<<set $randomizer = either(1,1,2,2,3,3,4)>>
+
+<<endif>>
+
+/% ===================================================== %/
+/% Finalize weight loss %/
+
+/% Body loss %/
+
+<<if $randomizer is 1>>
+
+<<set $girth -= $metaBurn>>
+
+/% Breast loss %/
+
+<<elseif $randomizer is 2>>
+
+<<set $breast -= $metaBurn>>
+
+/% Belly loss %/
+
+<<elseif $randomizer is 3>>
+
+<<set $belly -= $metaBurn>>
+
+/% Thigh loss %/
+
+<<elseif $randomizer is 4>>
+
+<<set $thigh -= $metaBurn>><<endif>>

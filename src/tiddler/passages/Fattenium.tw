@@ -1,0 +1,101 @@
+﻿/% ===================================================== %/
+/% Body type-sensitive weight gain scripts for fattenium. It runs on its own power-- $fatteniumPoisoning ticks-- and bypasses actual caloric absorption.  %/
+
+/% Key --
+Body - 1
+Breast - 2
+Belly - 3
+Thigh - 4 %/
+
+<<if $bodyType is 0>>
+<<set $randomizer = either(1,1,2,3,4)>>
+
+<<elseif $bodyType is "busty">>
+<<set $randomizer = either(1,2,5)>>
+
+<<elseif $bodyType is "hourglass">>
+<<set $randomizer = either(1,2,4)>>
+
+<<elseif $bodyType is "round">>
+<<set $randomizer = either(1,3,3,4)>>
+
+<<elseif $bodyType is "belly">>
+<<set $randomizer = either(1,3)>>
+
+<<elseif $bodyType is "pear">>
+<<set $randomizer = either(1,3,4)>>
+
+<<elseif $bodyType is "thigh">>
+<<set $randomizer = either(1,4)>>
+
+/% Special types %/
+
+<<elseif $bodyType is "boviete">>
+<<set $randomizer = 2,6>>
+
+<<elseif $bodyType is "cubus">>
+<<set $randomizer = either(2,4,6)>>
+
+<<elseif $bodyType is "guguetelle">>
+<<set $randomizer = 3,7>>
+
+<<elseif $bodyType is "bulging">>
+<<set $randomizer = either(3,4,7,8)>>
+
+<<elseif $bodyType is "blimpthigh">>
+<<set $randomizer = 4,8>>
+
+<<endif>>
+
+
+/% ===================================================== %/
+/% Finalize weight gain %/
+
+/% Body gain, with possible secondary gain %/
+
+<<if $randomizer is 1>>
+
+<<set $girth += $metaGain; $belly += ($metaGain * either(0,0,1)); $breast += ($metaGain * either(0,0,1)); $thigh += ($metaGain * either(0,0,1)); $thighFirmness -= ($metaGain * either(0,0,1))>>
+
+/% Breast gain, with possible secondary gain %/
+
+<<elseif $randomizer is 2>>
+
+<<set $breast += $metaGain; $belly += ($metaGain * either(0,0,1)); $girth += ($metaGain * either(0,0,1)); $thigh += ($metaGain * either(0,0,1)); $thighFirmness -= ($metaGain * either(0,0,1))>>
+
+/% Belly gain, with possible secondary gain %/
+
+<<elseif $randomizer is 3>>
+
+<<set $belly += $metaGain; $girth += ($metaGain * either(0,0,1)); $breast += ($metaGain * either(0,0,1)); $thigh += ($metaGain * either(0,0,1)); $thighFirmness -= ($metaGain * either(0,0,1))>>
+
+/% Thigh gain, with possible secondary gain %/
+
+<<elseif $randomizer is 4>>
+
+<<set $thigh += $metaGain; $thighFirmness -= $metaGain; $girth += ($metaGain * either(0,0,1)); $breast += ($metaGain * either(0,0,1)); $belly += ($metaGain * either(0,0,1))>>
+
+/% Body gain, no secondary gain %/
+
+<<elseif $randomizer is 5>>
+
+<<set $girth += $metaGain>>
+
+/% Breast gain, no secondary gain %/
+
+<<elseif $randomizer is 6>>
+
+<<set $breast += $metaGain>>
+
+/% Belly gain, no secondary gain %/
+
+<<elseif $randomizer is 7>>
+
+<<set $belly += $metaGain>>
+
+/% Thigh gain, no secondary gain %/
+
+<<elseif $randomizer is 8>>
+
+<<set $thigh += $metaGain; $thighFirmness -= $metaGain>><<endif>>
+

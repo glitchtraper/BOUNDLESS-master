@@ -1,0 +1,72 @@
+﻿/% ============================================================ %/
+/% Mutations %/
+
+
+/% Move flags for alerts that only proc at random over here, so it can tell the alerts to be visible when they need to ($alerted = 1) %/
+
+<<display Realization>>
+
+
+/% ====================== %/
+/% Fyynling Mutation %/
+
+<<if ($species neq "fyynling") and ($species neq "fyynling horror")>><<if ($fyynlingMorph gte 50) and ($fyyningMutation is 0)>><<set $girth += either(350,400,450,500,550,600,650,700,750,800,850,900,1000); $belly += either(250,300,350,400,450,500); $maxBelly += ($belly / 2); $breast += either(25,30,40,50); $maxBreast += ($breast / 2); $thigh += either(50,60,70,80,90,100); $thighFirmness -= 250; $metaBurn -= 1; $painBuffer += 5; $strength += 1; $finesse -= 1; $fyyningMutation = 1>><<endif>>
+
+<<if ($fyynlingMorph gte 70) and ($fyyningMutation is 2)>><<set $girth += either(550,600,650,700,750,800,850,900,1000,1100,1200,1300,1400,1500); $belly += either(250,300,350,400,450,500,600,700,800); $maxBelly += ($belly / 2); $breast += either(25,30,40,50,60,70,80,90,100); $maxBreast += ($breast / 2); $thigh += either(50,60,70,80,90,100,110,120,130,140,150); $thighFirmness -= 500; $metaBurn -= 2; $painBuffer += 5; $strength += 2; $finesse -= 1; $fyyningMutation = 3>><<endif>>
+
+<<if ($fyynlingMorph gte 100) and ($fyyningMutation is 4)>><<set $girth += either(2000,2500,3000,3500,5000); $belly += either(500,600,700,800,900,1000); $maxBelly += $belly; $breast += either(100,200,300,400,500); $maxBreast += ($breast / 2); $thigh += either(200,300,400,500); $thighFirmness = 0; $metaBurn = 0; $painBuffer += random(8,16); $strength += 2; $finesse -= 1; $fyyningMutation = 5>><<endif>><<endif>>
+
+
+/% ============================================================ %/
+/% Toxins %/
+
+
+<<if $fatteniumPoisoning gte 10>>
+
+<<display Fattenium>>
+
+<<set $fatteniumPoisoning -= 10>><<endif>>
+
+<<display Overdoses>>
+
+/% ============================================================ %/
+/% Curses %/
+
+/% ============================================================ %/
+/% Diseases %/
+
+<<display Diseases>>
+
+/% ============================================================ %/
+/% Parasites %/
+
+<<display Parasites>>
+
+/% ============================================================ %/
+/% Miscellaneous statuses %/
+
+/% ======================= Lactation %/
+
+<<if $lactation is 1>>
+<<set $randomizer = random(1,3)>>
+<<if $randomizer is 1>><<set $breastBloat += $milkRate; $storedMilk += $milkRate; $milkRate += either(0,0,0,0,0,0,0,0,0,10); $breast += either(0,0,0,0,0,0,0,10)>><<endif>><<endif>>
+
+
+/% ======================= Voracity %/
+
+<<if $autoEat is 1>>
+<<if $bellyBloat gte ($belly / 2)>><<set $bellyBloat = ($maxBelly * 0.5)>><<endif>>
+<<display BodySystems>><<if ($calories lt $metaGain) and ($food gt $mouthful)>>
+
+<<set $alertStatus = "You feel voracious...">>
+
+<<endif>><<endif>>
+
+/% ======================= Starvation %/
+
+<<if $starvation is 1>>
+<<set $pain += random(0,3)>>
+
+<<set $alertStatus = "You're starving...">>
+
+<<endif>>

@@ -1,0 +1,70 @@
+﻿<<nobr>><<display Clocks>><<display BiomeDatabase>><<display ZoneBackgrounds>>
+<<endnobr>>
+<invisiframe>//<mini>[img[icon_clock]]month <<print $months>> (<<print $season>>), week <<print $weeks>>, day <<print $days>>: 0<<print $hours>>:0<<print $minutes>></mini>//<<display PersistentEffects>>
+
+You walk onto the Billeporte platform<<if ($special_avbot is -1) or ($special_avbot is 1)>> with your avbot<<endif>>, watching as the enormous Revecroit ships ascend and descend, their underbellies puffing up to soften their landings or deflating as they prepare to slip away through time and space.
+
+Some of the landed billetroa seem to be staring at you-- ''or even blinking''.
+<<if $sanity gte 80>><bleak>//''It unsettles you a bit...''//</bleak><<set $sanity -= 1>><<endif>>
+
+''A holographic billboard nearby displays the available flights.''</invisiframe><<nobr>>
+
+
+/% If this is your mound world, save it here %/
+
+<<if ($hasMound is 1) and ($moundPlanetStored is 0)>>
+<<set $moundwPlanetID = $planetID; $moundwClass = $planetClass; $moundwType = $planetType; $moundwTemp = $planetTemp; $moundwHumid = $planetHumidity; $moundwAtmos = $planetAtmosphere; $moundwPop = $popDensity; $moundwCore = $planetCoreType; $moundwAmbience = $planetAmbience; $moundwCoreFluid = $planetCoreFluid; $moundwLivingType = $livingPlanetType; $moundwPlanetBlood = $livingPlanetBlood; $moundPlanetStored = 1; $moundwCiv1 = $majorDenizen; $moundwCiv2 = $minorDenizen1; $moundwCiv3 = $minorDenizen2>><<endif>>
+
+/% Randomized destination planets %/
+
+<<set $destinationClass = 0; $destinationType = 0>><<display BilleportePlanetGen>>
+
+/% Randomized Destination 1 %/
+<<set $bille1 = $destinationPlanet; $bille1ID = random(1000000,3999999); $bille1Class = $destinationClass; $bille1Type = $destinationType; $bille1Temp = $destinationTemp; $bille1Humid = $destinationHumidity; $bille1Atmos = $destinationAtmosphere; $bille1Pop = $destinationPop; $bille1Core = $destinationCoreType; $bille1LivingType = $destinationLivingType; $bille1PlanetBlood = $destinationPlanetBlood; $bille1CoreFluid = $destinationCoreFluid; $bille1Ambience = $destinationAmbience; $bille1Civ1 = $destinationMajorDenizen; $bille1Civ2 = $destinationMinorDenizen1; $bille1Civ3 = $destinationMinorDenizen2>>
+
+<<set $destinationClass = 0; $destinationType = 0>><<display BilleportePlanetGen>>
+
+/% Randomized Destination 2 %/
+<<set $bille2 = $destinationPlanet; $bille2ID = random(3000000,3999999); $bille2Class = $destinationClass; $bille2Type = $destinationType; $bille2Temp = $destinationTemp; $bille2Humid = $destinationHumidity; $bille2Atmos = $destinationAtmosphere; $bille2Pop = $destinationPop; $bille2Core = $destinationCoreType; $bille2LivingType = $destinationLivingType; $bille2PlanetBlood = $destinationPlanetBlood; $bille2CoreFluid = $destinationCoreFluid; $bille2Ambience = $destinationAmbience; $bille2Civ1 = $destinationMajorDenizen; $bille2Civ2 = $destinationMinorDenizen1; $bille2Civ3 = $destinationMinorDenizen2>>
+
+<<set $destinationClass = 0; $destinationType = 0>><<display BilleportePlanetGen>>
+
+/% Randomized Destination3 %/
+<<set $bille3 = $destinationPlanet; $bille3ID = random(3000000,3999999); $bille3Class = $destinationClass; $bille3Type = $destinationType; $bille3Temp = $destinationTemp; $bille3Humid = $destinationHumidity; $bille3Atmos = $destinationAtmosphere; $bille3Pop = $destinationPop; $bille3Core = $destinationCoreType; $bille3LivingType = $destinationLivingType; $bille3PlanetBlood = $destinationPlanetBlood; $bille3CoreFluid = $destinationCoreFluid; $bille3Ambience = $destinationAmbience; $bille3Civ1 = $destinationMajorDenizen; $bille3Civ2 = $destinationMinorDenizen1; $bille3Civ3 = $destinationMinorDenizen2>>
+
+<<endnobr>><center><wideframe><xtrahuge>''__DESTINATIONS__''</xtrahuge>\
+/% Home planet %/\
+<<if ($planetID neq $hwPlanetID)>><narrowframe><huge><brightalert>[img[icon_rarestar]]Planet <<print $homeWorld>></brightalert></huge>//<xtramini><affirmative> homeworld</affirmative></xtramini>//
+''<xtralarge><<print $hwType>> planet (<<print $hwTemp>>)</xtralarge>''
+<<print $hwAtmos>> atmosphere ♦ <<print $hwPop>> population
+<<button [[Go!|Explore][$planet = $homeWorld; $planetID = $homewPlanetID; $planetClass = $hwClass; $planetType = $hwType; $planetTemp = $hwTemp; $planetHumidity = $hwHumid; $planetAtmosphere = $hwAtmos; $popDensity = $hwPop; $planetCoreType = $hwCore; $planetCoreFluid = $hwCoreFluid; $planetAmbience = $hwAmbience; $startBiome = 0; $location = $startBiome; $locName = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $newPlanet = 1; $hours += random(2,5); $majorDenizen = $hwCiv1; $minorDenizen1 = $hwCiv2; $minorDenizen2 = $hwCiv3; $weatherType = 0; $newWeather = 1]]>></narrowframe>
+<<endif>>\
+/% Mound planet %/\
+<<if ($hasMound is 1) and ($planetID neq $moundwPlanetID) and ($moundwPlanetID neq $hwPlanetID)>><narrowframe><huge><brightalert>[img[icon_rarestar]]Planet <<print $moundPlanet>></brightalert></huge>//<xtramini><affirmative> mound world</affirmative></xtramini>//
+''<xtralarge><<print $moundwType>> planet (<<print $moundwTemp>>)</xtralarge>''
+<<print $moundwAtmos>> atmosphere ♦ <<print $moundwPop>> population
+<<button [[Go!|Explore][$planet = $moundPlanet; $planetID = $moundwPlanetID; $planetClass = $moundClass; $planetType = $moundwType; $planetTemp = $moundwTemp; $planetHumidity = $moundwHumid; $planetAtmosphere = $moundwAtmos; $popDensity = $moundwPop; $planetCoreType = $moundwCore; $livingPlanetType = $moundwLivingType; $livingPlanetBlood = $moundwPlanetBlood; $planetCoreFluid = $moundwCoreFluid; $planetAmbience = $moundwAmbience; $startBiome = 0; $location = $startBiome; $locName = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $newPlanet = 1; $hours += random(2,5); $majorDenizen = $moundwCiv1; $minorDenizen1 = $moundwCiv2; $minorDenizen2 = $moundwCiv3; $weatherType = 0; $newWeather = 1]]>></narrowframe>
+<<endif>>\
+\
+<narrowframe><huge>Planet <<print $bille1>></huge>
+''<xtralarge><<print $bille1Type>> planet (<<print $bille1Temp>>)</xtralarge>''
+<<print $bille1Atmos>> atmosphere ♦ <<print $bille1Pop>> population
+<<button [[Go!|Explore][$planet = $bille1; $planetID = $bille1ID; $planetClass = $bille1Class; $planetType = $bille1Type; $planetTemp = $bille1Temp; $planetHumidity = $bille1Humid; $planetAtmosphere = $bille1Atmos; $popDensity = $bille1Pop; $planetCoreType = $bille1Core; $livingPlanetType = $bille1LivingType; $livingPlanetBlood = $bille1PlanetBlood; $planetCoreFluid = $bille1CoreFluid; $planetAmbience = $bille1Ambience; $startBiome = 0; $location = $startBiome; $locName = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $newPlanet = 1; $hours += random(2,5); $majorDenizen = $bille1Civ1; $minorDenizen1 = $bille1Civ2; $minorDenizen2 = $bille1Civ3; $weatherType = 0; $newWeather = 1]]>></narrowframe>\
+
+<narrowframe><huge>Planet <<print $bille2>></huge>
+''<xtralarge><<print $bille2Type>> planet (<<print $bille2Temp>>)</xtralarge>''
+<<print $bille2Atmos>> atmosphere ♦ <<print $bille2Pop>> population
+<<button [[Go!|Explore][$planet = $bille2; $planetID = $bille2ID; $planetClass = $bille2Class; $planetType = $bille2Type; $planetTemp = $bille2Temp; $planetHumidity = $bille2Humid; $planetAtmosphere = $bille2Atmos; $popDensity = $bille2Pop; $planetCoreType = $bille2Core; $livingPlanetType = $bille2LivingType; $livingPlanetBlood = $bille2PlanetBlood; $planetCoreFluid = $bille2CoreFluid; $planetAmbience = $bille2Ambience; $startBiome = 0; $location = $startBiome; $locName = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $newPlanet = 1; $hours += random(2,5); $majorDenizen = $bille2Civ1; $minorDenizen1 = $bille2Civ2; $minorDenizen2 = $bille2Civ3; $weatherType = 0; $newWeather = 1]]>></narrowframe>\
+
+<narrowframe><huge>Planet <<print $bille3>></huge>
+''<xtralarge><<print $bille3Type>> planet (<<print $bille3Temp>>)</xtralarge>''
+<<print $bille3Atmos>> atmosphere ♦ <<print $bille3Pop>> population
+<<button [[Go!|Explore][$planet = $bille3; $planetID = $bille3ID; $planetClass = $bille3Class; $planetType = $bille3Type; $planetTemp = $bille3Temp; $planetHumidity = $bille3Humid; $planetAtmosphere = $bille3Atmos; $popDensity = $bille3Pop; $planetCoreType = $bille3Core; $livingPlanetType = $bille3LivingType; $livingPlanetBlood = $bille3PlanetBlood; $planetCoreFluid = $bille3CoreFluid; $planetAmbience = $bille3Ambience; $startBiome = 0; $location = $startBiome; $locName = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $newPlanet = 1; $hours += random(2,5); $majorDenizen = $bille3Civ1; $minorDenizen1 = $bille3Civ2; $minorDenizen2 = $bille3Civ3; $weatherType = 0; $newWeather = 1]]>></narrowframe><<if $floatingStationsUnlocked is 1>>\
+
+<narrowframe><huge><rain>HYPOTHESIS Deep Space Floating Station</rain></huge>
+''<xtralarge><redalert>//special access only//</redalert></xtralarge>''
+<<button [[Go!|Floating Station][$hours += random(2,5); $floatingStationArriving = 1]]>></narrowframe><<endif>>\
+\
+</wideframe>\
+
+<<button [[More.|passage()]]>><<button [[Leave.|$saveStateEncounter][$itemPool = 0; $encounterPool = 0; $mannedShop = 0; $service = 0; $explore = 3; $indoorZone = 0; $dungeonType = 0; $justLeftType = "area"; $justLeft = "Billeporte"; $stepcounter = 1; $stepsCounted = 0; $location = $saveBiome]]>></center>

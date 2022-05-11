@@ -1,0 +1,15 @@
+﻿/% Depth Meter %/\
+\
+<<if $special_depthmeter gt 0>><depthbanner>[img[icon_depthmeter]]depth: ''LV <<print $depthMeter>>\
+<<if ($depthMeter is 0) and ($subterranean is 0)>> (surface) <<endif>>'' </depthbanner><<endif>>\
+/% Mirometer %/\
+\
+<<if $special_dreamshard gt 0>><<if $special_depthmeter gt 0>>
+<<endif>><mirobanner>[img[icon_mirometer]] ''<<print $ambientMirajin>> MIRADs/sec ''\
+<<if $mirajinRads gt 0>><redalert> ♦ ''<<print $mirajinRads>> MIRADs absorbed ''</redalert><<endif>> </mirobanner><<endif>>\
+\
+/% Geiger Counter %/\
+\
+<<if $special_gcounter gt 0>><<if ($special_depthmeter gt 0) or ($special_dreamshard gt 0)>>
+<<endif>><geigerbanner>[img[icon_gcounter]] ''<<print $ambientRads>> RADs/sec ''\
+<<if $nuclearRads gt 0>><redalert> ♦ ''<<print $nuclearRads>> RADs absorbed ''</redalert><<endif>> </geigerbanner><<endif>>

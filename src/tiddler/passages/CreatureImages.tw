@@ -1,0 +1,3 @@
+﻿<<set $encImg = 0>>
+/% Clearing out creature imagesets for now. Later on, we'll use this syntax;
+$encImg = $randomEggLeupai + "_" + $creatureColor  %/

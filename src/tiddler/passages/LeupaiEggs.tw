@@ -1,0 +1,108 @@
+﻿<<if $leupaiEggTimer gt 0>>
+
+/% egg girth check %/
+<<set $eggBloat = $leupaiEggLoad * ($quaggyGirth / 10)>><<endif>>
+
+/% Pre-emergence inflation %/
+
+<<if $leupaiEggTimer is 10>><<set $bellyBloat += 90000000000000>><<endif>>
+
+<<if $leupaiEggTimer is 5>><<set $bellyBloat += 90000000000000; $autoRest = 0>><<endif>>
+
+<<if $leupaiEggTimer is 3>><<set $bellyBloat += 90000000000000; $autoRest = 0>><<endif>>
+
+<<if $leupaiEggTimer is 2>><<set $autoRest = 0>><<endif>>
+
+<<if $leupaiEggTimer is 1>><<set $bellyBloat += 90000000000000; $autoRest = 0>><<endif>>
+
+/% If eggs grow bigger than/you have more eggs than your maxBelly, you explode. %/
+
+<<if (($quaggyGirth /10) * ($leupaiEggLoad/2)) gte (($maxBelly * 1.2)/10) + $stretchMod>><<set $leupaiEggTimer = 0>><<endif>>
+
+/% Vitae will make the quaggies rip out of you immediately, and possibly kill some of them outright %/
+
+<<if $vitaePPM gt 0>><<set $leupaiEggTimer = 0>><<if $leupaiEggLoad gt 3>><<set $leupaiEggLoad -= either(1,2)>><<endif>>
+
+/% Leupai oil & Venom residue %/
+
+<<set $miraPoisoning += either(0,0,0,0,0,0,0,1)>>
+
+/% Miratoxin pain relief! %/
+
+<<set $amalgaToxicity = $girth/200>>
+
+/% Soaks faster to prevent realization. Non-leupai make better nests. %/
+
+<<if $miraPoisoning gte 20>><<set $miraPoisoning -= either(0,0,1,2,3)>><<endif>>
+
+
+/% Residual leupai oil. Helps you not explode before the quaggies can fatten up enough. %/
+<<if $quaggyGirth gte 5>>
+<<set $stretchMod += either(0,0,1)>><<endif>>
+
+
+/% Sanity effect %/
+
+<<if $sanity gte 50>><<set $sanity -= either(0,0,0,0,0,1)>><<endif>>
+
+
+/% Caloric leeching per egg %/
+
+<<set $calories -= (($metaGain * 0.5) * $leupaiEggLoad)>>
+
+/% First pass-- egg gain %/
+	<<if $calories gte $metaGain>>
+
+	/% Fattenium and miratoxin make quaggy embryos blow up like balloons %/
+		<<if $fatteniumPoisoning gte 10>><<set $quaggyGirth += either(0,10,10,20); $calories -= ($calories * 0.1); $randomizer = random(1,8)>>
+		<<elseif $miraPoisoning is 1>><<set $quaggyGirth += either(0,0,10); $calories -= ($calories * 0.1); $randomizer = random(1,8)>>
+
+	/% Mirajin radiation is more likely to fatten them up, and doesn't burn calories %/
+		<<elseif $mirajinRads gte 20>><<set $quaggyGirth += either(0,10); $randomizer = random(1,8)>>
+
+		/% Standard growth %/
+		<<elseif ($fatteniumPoisoning lt 10) and ($miraPoisoning is 0)>><<set $quaggyGirth += either(0,10); $calories -= ($calories * 0.1); $randomizer = random(1,4)>><<endif>>
+
+		/% Second pass-- belly gain %/
+			<<if $randomizer is 1>>
+			<<set $belly += 5; $randomizer = random(1,64)>>
+
+		/% Third pass-- body morph %/
+				<<if $randomizer is 1>>
+		<<display ExpandBodytype>>
+				<<endif>>
+		<<endif>>
+
+	<<elseif $calories lt $metaGain>>
+		/% Not enough calories! Pull energy from body fat, and increase esurience. %/
+				<<set $quaggyGirth += either(0,10); $calories = 0; $esurience += 1; $girth -= 10>><<endif>>
+
+/% Extra venom production %/
+	<<if $venomGland is 1>>
+		<<if ($hunger is "Engorged") or ($hunger is "Overengorged")>>
+			<<set $storedVenom += ($venomProd * 0.5); $bellyBloat += ($venomProd * 0.5)>>
+	<<endif>><<endif>>
+
+/% Egg belly boosting when overengorged %/
+<<if $hunger is "Overengorged">>
+	<<set $randomizer = random(1,4)>>
+	<<if $randomizer is 1>><<set $belly += random(1,3)>><<endif>>
+
+<<endif>>
+
+/% Fattenium egg gain %/
+<<if $fatteniumPoisoning gte 10>>
+<<set $quaggyGirth += ($bonusWG * $metaGain)/10; $eggFattened = 1>><<endif>>
+
+/% Miratoxin egg gain %/
+<<if $miraPoisoning gte 1>>
+
+<<set $randomizer = random(1,3)>>
+<<if $randomizer is 1>><<set $quaggyGirth += ($bonusWG * $metaGain)/10; $eggFattened = 1>><<endif>><<endif>>
+
+<<elseif $leupaiEggTimer lte 0>>
+
+<<set $eggBellyExplode = 1; $leupaiEggTimer = 0; $eggTimer = 0>>
+
+<<endif>>
+

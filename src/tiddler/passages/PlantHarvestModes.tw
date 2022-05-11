@@ -1,0 +1,30 @@
+﻿<<nobr>>
+/% ================================================ %/
+
+<<endnobr>><<if $plantHarvestMode is "combat">><<set $overrideExplore = 1>><<display CreatureDatabase>>
+''Your <<print $plantSpecies>> <redalert>//attacks!//</redalert>''
+<<button [[Defend!|Combat][$saveStateBattle = "PlotView"; $combat = 1; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $overrideExplore = 0; $plantCombatant = 1]]>>
+
+/% ================================================ %/
+<<else>><<nobr>>
+
+/% ================================================ %/
+/% Collection by plant %/
+
+<<if $planted is "glass rose">>
+
+<<set $flower_rose_glass += $plantHarvestFlowers; $produce_rosehip_glass += $plantHarvestFruit>>
+
+
+<<elseif $planted is "placeholder">><<endif>>
+<<endnobr>>\
+/% ================================================ %/
+/% Readout %/\
+You collect <affirmative>''[\
+\
+<<if $plantHarvestFlowers neq 0>>+<<print $plantHarvestFlowers>> <<print $plantFlowerType>> <<endif>>
+<<if $plantHarvestFruit neq 0>>+<<print $plantHarvestFruit>> <<print $plantFruitType>> <<endif>>\
+\
+]''</affirmative> from your <<print $plantSpecies>>.
+/% ================================================ %/
+<<endif>>

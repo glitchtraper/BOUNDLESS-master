@@ -1,0 +1,10 @@
+﻿<<display ZoneBackgrounds>><center>''__COMPANIONS__''
+<<if $companion1 neq 0>>♥ [[<<print $companion1>>|passage()][$viewingCompanion = 1]] - //<<if $companion1Subspec neq 0>><<print $companion1Subspec>> <<endif>><<print $companion1Species>> <<if $companion1Occupation neq 0>><<print $companion1Occupation>><<endif>>//<<if $hasMound is 1>> ♦ [[Send home.|CompanionStore][$companionSelected = 1]]<<endif>><<endif>><<if $companion2 neq 0>>
+♣ [[<<print $companion2>>|passage()][$viewingCompanion = 2]] - //<<if $companion2Subspec neq 0>><<print $companion2Subspec>> <<endif>><<print $companion2Species>> <<if $companion2Occupation neq 0>><<print $companion2Occupation>><<endif>>// <<if $hasMound is 1>> ♦ [[Send home.|CompanionStore][$companionSelected = 2]]<<endif>><<endif>><<if $companion3 neq 0>>
+♠ [[<<print $companion3>>|passage()][$viewingCompanion = 3]] - //<<if $companion3Subspec neq 0>><<print $companion3Subspec>> <<endif>><<print $companion3Species>> <<if $companion3Occupation neq 0>><<print $companion3Occupation>><<endif>>// <<if $hasMound is 1>> ♦ [[Send home.|CompanionStore][$companionSelected = 3]]<<endif>><<endif>></center><<nobr>>
+
+/% Immobility options %/
+<<endnobr>><<if $immobileMode is 1>>
+[[Find help!|CreatureEffects][$encounter = "friendly-looking passerby"; $escorted = 1; $saveStateEncounter = $saveState]]<<if ($companion1Strength + $companion2Strength + $companion3Strength * 1000) gte $fatScore>><<if $immobilityCause is "girth">><<set $rescueDestination = "Fatiere">><<elseif $immobilityCause is "pain">><<set $rescueDestination = "Mediquerie">><<endif>> ♦ [[Carry to safety!|$rescueDestination][$mannedShop = 0; $saveStateEncounter = $saveState]]<<endif>><<endif>><<nobr>>
+
+<<endnobr>><<if $viewingCompanion neq 0>><hr><<display CompanionView>><<endif>><hr>[[Continue.|$saveState][$viewingCompanion = 0]]

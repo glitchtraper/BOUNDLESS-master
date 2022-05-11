@@ -1,0 +1,13 @@
+﻿<<if $service is 0>>
+<center>You take a moment to stop and think about times long-past...
+
+<wideframe2><<textinput $memoryPasscode>>
+<<button [[Confirm.|passage()][$service = 1]]>><<button [[Back.|$saveState][$memoryPasscode = 0; $service = 0]]>></wideframe2></center>\
+\
+\
+<<elseif $service is 1>>
+<center>"''<<print $memoryPasscode>>''"
+
+<<display PastLifeMemories>>
+
+<<button [[Keep reminiscing.|passage()][$memoryPasscode = 0; $service = 0]]>><<button [[Back.|$saveState][$memoryPasscode = 0; $service = 0]]>></center><<endif>>

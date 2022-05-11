@@ -1,0 +1,171 @@
+﻿/% ============================================================ %/
+/% Poisons, Toxins, & Micro-organism Dosages %/
+
+/% ============================================================ %/
+/% ============= Miraberry %/
+
+<<if $miraberryToxicity gt 0>><<set $miraberryToxicity -= either(0,0,1)>><<endif>>
+<<if $leupaiFlag is 0>><<if $miraberryToxicity gte ($girth/100)>><<set $toxicOverdoseWarning = either(0,0,0,1)>><<endif>>
+<<if $miraberryToxicity gte (($girth/100)*1.5)>><<set $miraberryPoisoning = 1>><<endif>><<endif>>
+
+/% ============= Strange Mushroom %/
+
+<<if $mushroomToxicity gt 0>><<set $mushroomToxicity -= either(0,0,0,1)>><<endif>>
+<<if $leupaiFlag is 0>><<if $mushroomToxicity gte ($girth/100)>><<set $toxicOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $mushroomToxicity gte (($girth/100)*1.5)>><<set $mushroomPoisoning = 1>><<endif>><<endif>>
+
+/% ============= M. suculiet spores %/
+
+<<if ($miracoSpores gt 0) and ($miracoSpores lt 100)>><<set $miracoSpores -= either(0,0,0,0,1)>><<endif>>
+<<if ($miracoSpores gte 50) and ($miracoSpores lt 100)>><<set $bloatOverdoseWarning = either(0,0,1)>><<endif>>
+
+/% ============= Calorie Powder %/
+
+<<if $calpowderToxicity gt 0>><<set $calpowderToxicity -= either(0,0,1)>><<endif>>
+<<if $leupaiFlag is 0>><<if $calpowderToxicity gte ($girth/100)>><<set $dizzyOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $calpowderToxicity gte (($girth/100)*1.5)>><<set $calpowderPoisoning = 1>><<endif>><<endif>>
+
+/% ============= Gainer Pill %/
+
+<<if $gainerToxicity gt 0>><<set $gainerToxicity -= either(0,0,0,1)>><<endif>>
+<<if $leupaiFlag is 0>><<if $gainerToxicity gte ($girth/100)>><<set $bloatOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $gainerToxicity gte (($girth/100)*1.5)>><<set $gainPoisoning = either(0,0,1)>><<endif>><<endif>>
+
+/% ============= Leupai Oil %/
+
+<<if $leupoilToxicity gt 0>><<set $leupoilToxicity -= either(0,0,1)>><<endif>>
+<<if $leupaiFlag is 0>><<if $leupoilToxicity gte ($girth/50)>><<set $dizzyOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $leupoilToxicity gte (($girth/50)*1.5)>><<set $leupoilPoisoning = 1>><<endif>><<endif>>
+
+/% ============= Instant Fattener %/
+
+<<if $breastfatteniumToxicity gt 0>><<set $breastfatteniumToxicity -= either(0,0,0,0,1)>><<endif>>
+<<if $leupaiFlag is 0>><<if $breastfatteniumToxicity gte ($girth/100)>><<set $breastbloatOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $breastfatteniumToxicity gte (($girth/100)*1.5)>><<set $breastfatteniumPoisoning = 1>><<endif>><<endif>>
+
+<<if $bellyfatteniumToxicity gt 0>><<set $bellyfatteniumToxicity -= either(0,0,0,0,1)>><<endif>>
+<<if $leupaiFlag is 1>><<if $bellyfatteniumToxicity gte ($girth/100)>><<set $bloatOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $bellyfatteniumToxicity gte (($girth/100)*1.5)>><<set $bellyfatteniumPoisoning = 1>><<endif>><<endif>>
+
+<<if $thighfatteniumToxicity gt 0>><<set $thighfatteniumToxicity -= either(0,0,0,0,1)>><<endif>>
+<<if $leupaiFlag is 0>><<if $thighfatteniumToxicity gte ($girth/100)>><<set $bloatOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $thighfatteniumToxicity gte (($girth/100)*1.5)>><<set $thighfatteniumPoisoning = 1>><<endif>><<endif>>
+
+/% ============= Deflation Drug %/
+
+<<if $deflaToxicity gt 0>><<set $deflaToxicity -= either(0,0,0,0,1)>><<endif>>
+<<if $leupaiFlag is 0>><<if $deflaToxicity gte ($girth/100)>><<set $toxicOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $deflaToxicity gte (($girth/100)*1.5)>><<set $deflaPoisoning = 1>><<endif>><<endif>>
+
+/% ============= Inflation Drug %/
+
+<<if $inflaToxicity gt 0>><<set $inflaToxicity -= either(0,0,1)>><<endif>>
+<<if $leupaiFlag is 0>><<if $inflaToxicity gte ($girth/100)>><<set $bloatOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $inflaToxicity gte (($girth/100)*1.5)>><<set $inflaPoisoning = 1>><<endif>><<endif>>
+
+/% ============= Fattenium %/
+
+<<if $fatteniumPoisoning gte ($girth/20)>><<set $fatteniumCascade = 1>><<endif>>
+
+/% ============= Strange Milk %/
+
+<<if $helenoToxicity gt 0>><<set $helenoToxicity -= either(0,0,0,0,1)>><<endif>>
+<<if $leupaiFlag is 0>><<if $helenoToxicity gte ($girth/100)>><<set $breastbloatOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $helenoToxicity gte (($girth/100)*1.5)>><<set $helenoPoisoning = 1>><<endif>><<endif>>
+
+/% ============= Slime %/
+
+<<if ($species neq "slime") and ($substatus neq "slime")>>
+<<if $leupaiFlag is 0>><<if $slimeBellyParaLoad + $slimeBreastParaLoad gte ($girth/2)>><<set $jiggleOverdoseWarning = either(0,0,0,1)>><<endif>>
+<<if $geneSlimeHarmony is 0>><<if $slimeBellyParaLoad + $slimeBreastParaLoad gte $girth>><<set $slimePoisoning = 1>><<endif>><<endif>><<endif>>
+
+/% ============= Caffeine %/
+
+<<if $caffeineToxicity gt 0>><<set $caffeineToxicity -= either(0,0,1)>><<endif>>
+<<if $leupaiFlag is 0>><<if $caffeineToxicity gte ($girth/100)>><<set $dizzyOverdoseWarning = either(0,0,0,1)>><<endif>>
+<<if $caffeineToxicity gte (($girth/100)*1.5)>><<set $caffeinePoisoning = 1>>
+<<elseif $caffeineToxicity lt (($girth/100)*1.5)>><<set $caffeinePoisoning = 0>><<endif>><<endif>><<endif>>
+
+/% ============= Vitae %/
+
+<<if $vitaePPM gt 0>><<set $vitaePPM -= 1>><<endif>>
+
+
+/% ============= Amalgatoxin %/
+
+<<if $amalgaToxicity gt 0>><<set $amalgaToxicity -= either(0,1)>><<endif>>
+<<if $amalgaToxicity gte ($girth/100)>><<set $painfulOverdoseWarning = either(0,0,1)>>
+<<if $painfulOverdoseWarning is 1>><<set $alerted = 1>><<endif>><<endif>>
+<<if $amalgaToxicity gte (($girth/100)*1.5)>><<set $amalgaPoisoning = 1>>
+<<elseif $amalgaToxicity lt (($girth/100)*1.5)>><<set $amalgaPoisoning = 0>><<endif>>
+
+/% ============= Stomach Virus (Humanoids only) %/
+
+<<if $stomachBug gt 0>><<set $stomachBug -= either(0,1)>><<endif>>
+<<if $species is "post-human">><<if $stomachBug gte ($girth/200)>><<set $toxicOverdoseWarning = either(0,0,0,1); $bloatOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $stomachBug gte (($girth/200)*1.5)>><<set $toxicOverdoseWarning = 1; $bloatOverdoseWarning = either(0,1)>><<endif>><<endif>>
+
+
+/% ============= Indigestion %/
+
+<<if $indigestion gt 0>><<set $indigestion -= random(0,10)>><<endif>>
+<<if $indigestion gte ($girth/200)>><<set $toxicOverdoseWarning = either(0,0,1); $bloatOverdoseWarning = either(0,0,1)>><<endif>>
+<<if $indigestion gte (($girth/200)*1.5)>><<set $toxicOverdoseWarning = 1; $bloatOverdoseWarning = 1>><<endif>>
+
+
+/% ============= Stomach Rot %/
+
+<<if $geneStomachRot is 1>><<set $toxicOverdoseWarning = either(0,0,0,1); $bloatOverdoseWarning = either(0,0,1)>><<endif>>
+
+/% ============= Leucanthropy Incubation %/
+
+<<if $leupaiFlag is 0>>
+<<if $lawornMiratoxin gte ($girth/50)>><<set $bloatOverdoseWarning = either(0,0,0,0,0,1); $esurience += either(0,0,0,0,1); $calories += either(0,0,0,10,10,20); $leucanthropyCountdown += either(0,0,0,0,0,0,0,1); $lawornMiratoxin -= either(0,0,0,0,0,0,1)>><<endif>>
+<<if $leucanthropyCountdown gte 9>><<set $lawornMiratoxin = 0; $lycanthropy = "laworn"; $leupaiFlag = 1; $leucanthropyCountdown = 0>>
+<<elseif $leucanthropyCountdown gt 0>><<set $leucanthropyCountdown -= either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1)>><<endif>><<endif>>
+
+/% ============================================================ %/
+/% Toxin floors %/
+
+<<if $miraberryToxicity lt 1>><<set $miraberryToxicity = 0>><<endif>>
+<<if $mushroomToxicity lt 1>><<set $mushroomToxicity = 0>><<endif>>
+<<if $calpowderToxicity lt 1>><<set $calpowderToxicity = 0>><<endif>>
+<<if $gainerToxicity lt 1>><<set $gainerToxicity = 0>><<endif>>
+<<if $leupoilToxicity lt 1>><<set $leupoilToxicity = 0>><<endif>>
+<<if $breastfatteniumToxicity lt 1>><<set $breastfatteniumToxicity = 0>><<endif>>
+<<if $bellyfatteniumToxicity lt 1>><<set $bellyfatteniumToxicity = 0>><<endif>>
+<<if $thighfatteniumToxicity lt 1>><<set $thighfatteniumToxicity = 0>><<endif>>
+<<if $deflaToxicity lt 1>><<set $deflaToxicity = 0>><<endif>>
+<<if $inflaToxicity lt 1>><<set $inflaToxicity = 0>><<endif>>
+<<if $fatteniumPoisoning lt 1>><<set $fatteniumPoisoning = 0>><<endif>>
+<<if $helenoToxicity lt 1>><<set $helenoToxicity = 0>><<endif>>
+<<if $caffeineToxicity lt 1>><<set $caffeineToxicity = 0>><<endif>>
+<<if $miraPoisoning lt 1>><<set $miraPoisoning = 0>><<endif>>
+<<if $somniation lt 1>><<set $somniation = 0>><<endif>>
+<<if $vitaePPM lt 1>><<set $vitaePPM = 0>><<endif>>
+<<if $amalgaToxicity lt 1>><<set $amalgaToxicity = 0>><<endif>>
+<<if $stomachBug lt 1>><<set $stomachBug = 0>><<endif>>
+<<if $miracoSpores lt 1>><<set $miracoSpores = 0>><<endif>>
+<<if $toxicVenom lt 1>><<set $toxicVenom = 0>><<endif>>
+<<if $lethalVenom lt 1>><<set $lethalVenom = 0>><<endif>>
+<<if $gainVenom lt 1>><<set $gainVenom = 0>><<endif>>
+<<if $supergainVenom lt 1>><<set $supergainVenom = 0>><<endif>>
+<<if $bellygainVenom lt 1>><<set $bellygainVenom = 0>><<endif>>
+<<if $bellySupergainVenom lt 1>><<set $bellySupergainVenom = 0>><<endif>>
+<<if $breastgainVenom lt 1>><<set $breastgainVenom = 0>><<endif>>
+<<if $breastSupergainVenom lt 1>><<set $breastSupergainVenom = 0>><<endif>>
+<<if $thighgainVenom lt 1>><<set $thighgainVenom = 0>><<endif>>
+<<if $thighSupergainVenom lt 1>><<set $thighSupergainVenom = 0>><<endif>>
+<<if $fatteniumVenom lt 1>><<set $fatteniumVenom = 0>><<endif>>
+<<if $bulkVenom lt 1>><<set $bulkVenom = 0>><<endif>>
+<<if $bloatVenom lt 1>><<set $bloatVenom = 0>><<endif>>
+<<if $burstVenom lt 1>><<set $burstVenom = 0>><<endif>>
+<<if $breastbloatVenom lt 1>><<set $breastbloatVenom = 0>><<endif>>
+<<if $healVenom lt 1>><<set $healVenom = 0>><<endif>>
+<<if $gluttonVenom lt 1>><<set $gluttonVenom = 0>><<endif>>
+<<if $caloricVenom lt 1>><<set $caloricVenom = 0>><<endif>>
+<<if $hallucenoVenom lt 1>><<set $hallucenoVenom = 0>><<endif>>
+<<if $mutagenVenom lt 1>><<set $mutagenVenom = 0>><<endif>>
+<<if $flabbyVenom lt 1>><<set $flabbyVenom = 0>><<endif>>
+<<if $weakeningVenom lt 1>><<set $weakeningVenom = 0>><<endif>>
+<<if $leucanthropicVenom lt 1>><<set $leucanthropicVenom = 0>><<endif>>

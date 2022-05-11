@@ -1,0 +1,296 @@
+﻿/% Pre-setup; clear any residual item flags. %/
+
+<<set $encImg = 0; $useDesc = 0; $itemType = 0; $itemID = 0; $itemGrammar = 0; $itemQuantity = 0; $foodFat = 0; $foodBloat = 0; $foodLiquid = 0; $energy = 0; $itemEncounter = 0; $caffeineContent = 0; $currencyAmount = 0>>
+
+	<<set $randomizer = random(1,100); $clawMachine = random(1,100)>>
+
+/% ======================================================================== %/
+/% Treasure Chest Pools %/
+
+/% ==================================== %/
+/% Level 1 Chest %/
+
+<<if $itemPool is "treasureLv1">>
+
+	<<if $randomizer lte 30>><<set $treasureType = "currency">>
+	<<elseif ($randomizer gt 30) and ($randomizer lt 99)>><<set $treasureType = "item">>
+	<<elseif $randomizer gte 99>><<set $treasureType = "creature">><<endif>>
+
+	<<if $treasureType is "currency">>
+
+				<<set $currencyAmount = random(80,200) + either(0,0,0,0,0,0,0,0,0,0,0,900)>>
+
+				/% Common %/
+				<<if $clawMachine lte 40>><<set $currencyAmount = random(80,200)>>
+
+				/% Uncommon %/
+				<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $currencyAmount = random(100,500)>>
+
+				/% Rare %/
+				<<elseif $clawMachine gte 71>><<set $currencyAmount = random(200,500) + random(100,250) + either(0,0,0,0,0,0,100,200,250,500)>>
+				<<endif>>
+
+
+	<<elseif $treasureType is "item">>
+
+				/% Common %/
+				<<if $clawMachine lte 30>><<set $itemEncounter = either("fattenium donut","leupai oil","deflator injection","bust billower shot","thigh plumper shot","belly booster","dreamshard","dose of reality injection","mysterious potion","recall shard","prisma shard","tranquilizer dart","tranquilizer dart")>>
+
+	<<if $itemEncounter is "prisma shard">>
+	/% Tier 1 prisma shards %/
+		<<set $itemEncounter = either("red prisma shard","orange prisma shard","yellow prisma shard","green prisma shard","blue prisma shard","indigo prisma shard","violet prisma shard","brown prisma shard","gray prisma shard")>><<endif>>
+
+				/% Uncommon %/
+				<<elseif ($clawMachine gte 31) and ($clawMachine lte 80)>><<set $itemEncounter = either("extra strength calorie powder","helium pills","battery crystal","prisma shard","dartgun","dartgun")>>
+
+	<<if $itemEncounter is "prisma shard">>
+	/% Tier 2 prisma shards %/
+		<<set $itemEncounter = either("spectrum prisma shard","magenta prisma shard","pink prisma shard","white prisma shard","silver prisma shard","teal prisma shard","golden prisma shard","black prisma shard")>><<endif>>
+
+				/% Rare %/
+				<<elseif $clawMachine gte 81>><<set $itemEncounter = either("limber tonic","bulk powder","bolstering vitamin slurry","plague doctor hood","plague doctor mask")>>
+				<<endif>>
+
+		<<display ItemDatabase>>
+
+
+	<<elseif $treasureType is "creature">>
+
+				<<set $encounter = "small slime","fyynling">>
+
+		<<display CreatureDatabase>><<endif>>
+<<endif>>
+
+/% ==================================== %/
+/% Level 1 Science Chest %/
+
+<<if $itemPool is "treasureScienceLv1">>
+
+	<<if $randomizer lte 40>><<set $treasureType = "currency">>
+	<<elseif $randomizer gte 40>><<set $treasureType = "item">><<endif>>
+
+	<<if $treasureType is "currency">>
+
+				<<set $currencyAmount = random(80,200) + either(0,0,0,0,0,0,0,0,0,0,0,900)>>
+
+				/% Common %/
+				<<if $clawMachine lte 40>><<set $currencyAmount = random(80,200)>>
+
+				/% Uncommon %/
+				<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $currencyAmount = random(100,500)>>
+
+				/% Rare %/
+				<<elseif $clawMachine gte 71>><<set $currencyAmount = random(200,500) + random(100,250) + either(0,0,0,0,0,0,100,200,250,500)>>
+				<<endif>>
+
+	<<elseif $treasureType is "item">>
+
+				/% Common %/
+				<<if $clawMachine lte 30>><<set $itemEncounter = either("soothers","HYPOTHESIS cesile","battery crystal","dreamshard","tiny fyynling specimen","dose of reality injection","voracity shot","satiator shot","egg accelerator injection","mysterious potion","prisma shard","dartgun")>>
+
+	<<if $itemEncounter is "prisma shard">>
+	/% Tier 1 prisma shards %/
+		<<set $itemEncounter = either("red prisma shard","orange prisma shard","yellow prisma shard","green prisma shard","blue prisma shard","indigo prisma shard","violet prisma shard","brown prisma shard","gray prisma shard","pink prisma shard","silver prisma shard","teal prisma shard","golden prisma shard")>><<endif>>
+
+				/% Uncommon %/
+				<<elseif ($clawMachine gte 31) and ($clawMachine lte 80)>><<set $itemEncounter = either("tiny fyynling specimen","miradetoxin shot","super belly booster","super bust billower shot","super thigh plumper shot","depth meter","mysterious potion","helium pills","prisma shard","dartgun","fat ray","genesis shard","plushifier","belly plushifier","breast plushifier")>>
+
+	<<if $itemEncounter is "prisma shard">>
+	/% Tier 2 prisma shards %/
+		<<set $itemEncounter = either("spectrum prisma shard","magenta prisma shard","white prisma shard","black prisma shard")>><<endif>>
+
+				/% Rare %/
+				<<elseif $clawMachine gte 81>><<set $itemEncounter = either("limber tonic","bulk powder","bolstering vitamin slurry","super belly booster","super bust billower shot","super thigh plumper shot","pure fattenium shot")>>
+				<<endif>>
+
+		<<display ItemDatabase>><<endif>>
+
+<<endif>>
+
+/% ======================================================================== %/
+/% Treasure Room Pools %/
+
+/% Treasure rooms can contain a stash of a single item, or (more rarely) a complete set of clothing (top, belt, pants). %/
+
+
+/% ==================================== %/
+/% Level 1 Closet %/
+
+<<if $itemPool is "closetLv1">>
+
+<<set $randomizer = random(1,6)>>
+<<if ($randomizer is 1) and ($dipLock is 0)>>
+<<set $roomStyle = "multiples"; $itemQuantity = random(2,4); $treasureVerb = "find"; $treasureGrammar = "them">>
+
+				/% Common %/
+				<<if $clawMachine lte 30>>
+	<<set $itemEncounter = either("bust billower shot","thigh plumper shot","belly booster","egg accelerator injection","battery crystal","dreamshard","dose of reality injection","voracity shot","satiator shot","mysterious potion","recall shard","prisma shard")>>
+
+	<<if $itemEncounter is "prisma shard">>
+		<<set $itemEncounter = either("spectrum prisma shard","red prisma shard","orange prisma shard","yellow prisma shard","green prisma shard","blue prisma shard","indigo prisma shard","violet prisma shard","brown prisma shard","gray prisma shard","pink prisma shard","silver prisma shard","teal prisma shard","golden prisma shard","magenta prisma shard","white prisma shard","black prisma shard")>><<endif>>
+
+				/% Uncommon %/
+				<<elseif ($clawMachine gte 31) and ($clawMachine lte 80)>>
+	<<set $itemEncounter = either("extra strength calorie powder","tiny fyynling specimen","miradetoxin shot","super belly booster","super bust billower shot","super thigh plumper shot","plushifier","belly plushifier","breast plushifier")>>
+
+				/% Rare %/
+				<<elseif $clawMachine gte 81>>
+	<<set $itemEncounter = either("limber tonic","bulk powder","bolstering vitamin slurry")>>
+				<<endif>>
+
+<<display ItemDatabase>><<endif>>
+
+<<if ($randomizer is 2) or ($dipLock is 1)>><<set $roomStyle = "luckydip"; $itemQuantity = 1; $dipType = "item"; $treasureGrammar = "it">>
+
+<<if $dipLock is 0>><<set $dipLock = 1; $dipsLeft = random(3,5)>><<endif>>
+
+<<if $dipType is "item">>
+
+				/% Common %/
+				<<if $clawMachine lte 30>>
+	<<set $itemEncounter = either("bust billower shot","thigh plumper shot","belly booster","egg accelerator injection","battery crystal","dreamshard","dose of reality injection","voracity shot","satiator shot","mysterious potion")>>
+
+				/% Uncommon %/
+				<<elseif ($clawMachine gte 31) and ($clawMachine lte 80)>>
+	<<set $itemEncounter = either("extra strength calorie powder","tiny fyynling specimen","miradetoxin shot","super belly booster","super bust billower shot","super thigh plumper shot","depth meter","plushifier","belly plushifier","breast plushifier")>>
+
+				/% Rare %/
+				<<elseif $clawMachine gte 81>>
+	<<set $itemEncounter = either("limber tonic","bulk powder","bolstering vitamin slurry")>>
+				<<endif>>
+
+<<display ItemDatabase>><<endif>>
+<<endif>>
+
+<<if ($randomizer is 3) and ($dipLock is 0)>>
+<<set $roomStyle = "fullset"; $setPrizeName = "a complete set of HYPOTHESIS Mega Armor"; $treasureVerb = "find">><<set $set_hypo_top += 1;  $set_hypo_belt += 1; $randomizer = either(1,2); $treasureGrammar = "them">>
+
+	/% Randomize bottoms %/
+	<<if $randomizer is 1>><<set $set_hypo_pants += 1>><<elseif $randomizer is 2>><<set $set_hypo_skirt += 1>><<endif>><<endif>>
+
+<<endif>>
+
+<<if ($randomizer is 4) and ($dipLock is 0)>><<set $roomStyle = "fullset"; $setPrizeName = "a box full of booster meds"; $treasureVerb = "find">><<set $shot_bustbillow += random(3,5);  $shot_thighplump += random(3,5); $pill_bellyboost += random(3,5); $treasureGrammar = "them">><<endif>>
+
+<<if ($randomizer is 5) and ($dipLock is 0)>><<set $roomStyle = "fullset"; $setPrizeName = "a box full of reality doses"; $treasureVerb = "find">><<set $shot_reality += random(4,9); $treasureGrammar = "them">><<endif>>
+
+<<if ($randomizer is 6) and ($dipLock is 0)>><<set $roomStyle = "fullset"; $setPrizeName = "a box full of dreamshards"; $treasureVerb = "find">><<set $special_dreamshard += random(4,9); $treasureGrammar = "them">><<endif>>
+
+
+/% ==================================== %/
+/% Berry Bushes %/
+
+/% Regional berries and fruits are set via SpecialPool %/
+
+<<if $itemPool is "berrybush">>
+
+<<set $roomStyle = "luckydip"; $itemQuantity = random(1,3); $dipType = "item">>
+
+<<if $dipLock is 0>><<set $dipLock = 1; $dipsLeft = random(2,4)>><<endif>>
+
+				<<if $itemClass is "regionberry">><<set $itemEncounter = $regionBerry>><<endif>>
+				<<if $itemClass is "magicberry">><<set $itemEncounter = $magicBerry>><<endif>>
+				<<if $itemClass is "miraberry">><<set $itemEncounter = "miraberries">><<endif>>
+
+<<display ItemDatabase>>
+
+<<set $treasureGrammar = "them">>
+
+<<endif>>
+
+/% ==================================== %/
+/% Fruit Trees %/
+
+/% Regional berries and fruits are set via SpecialPool %/
+
+<<if $itemPool is "fruitree">>
+
+<<set $roomStyle = "luckydip"; $itemQuantity = 1; $dipType = "item">>
+
+<<if $dipLock is 0>><<set $dipLock = 1; $dipsLeft = random(2,5)>><<endif>>
+
+				<<if $itemClass is "regionfruit">><<set $itemEncounter = $regionFruit>><<endif>>
+
+<<display ItemDatabase>>
+
+<<set $treasureGrammar = "them">>
+
+<<endif>>
+
+/% ==================================== %/
+/% Vegetable Patches %/
+
+/% Regional berries and fruits are set via SpecialPool %/
+
+<<if $itemPool is "vegpatch">>
+
+<<set $roomStyle = "luckydip"; $itemQuantity = 1; $dipType = "item">>
+
+<<if $dipLock is 0>><<set $dipLock = 1; $dipsLeft = random(2,5)>><<endif>>
+
+				<<if $itemClass is "melon">><<set $itemEncounter = "zeppelon">><<endif>>
+				<<if $itemClass is "milkmelon">><<set $itemEncounter = either("bloated milkmelon","bloated milkmelon","bloated milkmelon","bloated milkmelon","creaking milkmelon")>><<endif>>
+				<<if $itemClass is "pumpkin">><<set $itemEncounter = either("fat pumpkin")>><<endif>>
+
+
+<<display ItemDatabase>>
+
+<<set $treasureGrammar = "it">>
+
+<<endif>>
+
+/% ==================================== %/
+/% Grain Fields %/
+
+<<if $itemPool is "grain">>
+
+<<set $roomStyle = "luckydip"; $dipType = "resource">>
+
+<<if $dipLock is 0>><<set $dipLock = 1; $dipsLeft = random(4,7)>><<endif>>
+
+<<set $grainStock = random(4,8); $resourceGrammar = "a handful of"; $resourceEncounter = "grain">>
+
+<<set $treasureGrammar = "it">>
+
+<<endif>>
+
+/% ==================================== %/
+/% Level 1 Crystal Cavern %/
+
+<<if $itemPool is "crystalsLv1">> /% Always a lucky dip %/
+
+<<set $roomStyle = "luckydip"; $itemQuantity = random(3,6); $dipType = either("item","resource")>>
+
+<<if $dipLock is 0>><<set $dipLock = 1; $dipsLeft = random(3,6)>><<endif>>
+
+<<if $dipType is "item">>
+	<<set $itemQuantity = 1>>
+
+				/% Common %/
+				<<if $clawMachine lte 50>><<set $itemEncounter = either("battery crystal","dreamshard","recall shard","prisma shard")>>
+
+	<<if $itemEncounter is "prisma shard">>
+	/% Tier 1 prisma shards %/
+		<<set $itemEncounter = either("red prisma shard","orange prisma shard","yellow prisma shard","green prisma shard","blue prisma shard","indigo prisma shard","violet prisma shard","brown prisma shard","gray prisma shard")>><<endif>>
+
+				/% Uncommon %/
+				<<elseif ($clawMachine gte 51) and ($clawMachine lte 90)>><<set $itemEncounter = either("live miracrystal chunk","prisma shard","egress shard","shield shard")>>
+
+	<<if $itemEncounter is "prisma shard">>
+	/% Tier 2 prisma shards %/
+		<<set $itemEncounter = either("spectrum prisma shard","magenta prisma shard","pink prisma shard","white prisma shard","silver prisma shard","teal prisma shard","golden prisma shard","black prisma shard")>><<endif>>
+
+				/% Rare %/
+				<<elseif $clawMachine gte 91>><<set $itemEncounter = either("stasis shard","spectrum prisma shard")>>
+				<<endif>>
+
+<<display ItemDatabase>>
+
+<<elseif $dipType is "resource">>
+	<<set $treasureGrammar = "them">>
+
+				<<set $resourceEncounter = either("fattenium ore","miracrystal")>>
+
+<<display ResourceDatabase>><<endif>>
+
+<<endif>>

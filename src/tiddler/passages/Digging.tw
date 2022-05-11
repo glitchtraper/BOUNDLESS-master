@@ -1,0 +1,15 @@
+﻿<center><<display ZoneBackgrounds>><<display ShovelDatabase>><<nobr>>
+
+<<endnobr>><<display EncounterImg>>
+<framed><<print $forageResult>><<nobr>>
+
+/% Pick decay for basic pickaxes. %/
+
+<<if ($key_shovel gt 0) and ($key_shovel_metal is 0) or ($playerArms is "digging")>>
+<<set $shovelWear += either(0,0,0,1,1,1,1,2)>>
+
+<<endif>>
+
+<<endnobr>><<if $shovelWear gte 16>><<set $shovelWear = 0; $key_shovel -= 1>>
+[img[icon_alert_critical]]<brightalert>Your basic shovel ''breaks!''</brightalert><<endif>></framed>
+<<if ($calories gte 10) or ($calories gte 10)>><<if ($key_shovel gt 0) or ($key_shovel_metal gt 0) or ($playerArms is "digging")>><<button [[Keep Digging.|passage()][$calories -= 10; $bonusEnergy -= 10]]>><<endif>> <<endif>><<button [[Continue.|Explore][$forageResult = 0]]>></center>

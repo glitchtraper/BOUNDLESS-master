@@ -1,0 +1,60 @@
+﻿/% So you died. This passage cleans up all the variables related to your now past life, to make way for a new one. %/
+
+/% Statuses that are cleared if you live. You didn't live, but it's cleaner to just call that passage instead of doing it twice in the scripts.
+Combat Cleanup gets called from here, too. %/
+<<display LiveStatusClear>>
+
+/% Explore variables %/
+<<set $justLeftType = 0; $stepcounter = 0; $escapedBattle = 0; $gorging = 0>>
+
+<<set $location = 0; $subterranean = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0>>
+
+/% Weather/Ambience effects %/
+<<set $underwater = 0; $wetWeather = 0; $coldWeather = 0; $hotWeather = 0; $darkArea = 0; $lethalHeat = 0; $lethalCold = 0; $unbreathable = 0; $toxicFumes = 0; $highPressure = 0; $vaccuum = 0>>
+
+
+/% Body reset %/
+
+<<set $speciesLock = 0; $storedMilk = 0; $lactation = 0; $milkRate = 10; $milkFat = 10; $bellyStatus = "empty"; $breastStatus = "empty"; $thighFirmness = 900; $thighStatus = "firm"; $metaGain = 10; $metaBurn = 10; $milkFat = 10; $milkRate = 10; $storedMilk = 0;  $strength = 15;  $starveFloor = 1500; $hunger = "Growling"; $bodyColor = 0; $health = "Sore"; $pain = 22; $bonusEnergy = random(20,40); $esurience = 0; $substatus = 0; $subtype = 0; $calories = 0; $stretchMod = 0; $venomGland = 0; $playerVenom = 0; $venomProd = 0; $storedVenom = 0>>
+
+/% Genes %/
+
+<<set $playerEarNumber = 2; $playerEyeNumber = 2; $playerArmNumber = 2; $playerLegNumber = 2; $playerEyeColor = "black">>
+
+<<set $playerHead = 0; $playerEars = "round"; $playerEyes = 0; $playerFace = 0; $playerSkin = 0; $playerBody = "humanoid"; $playerBack = 0; $playerWings = 0; $playerTail = 0>>
+
+<<set $geneFattyI = 0; $geneFattyII = 0; $geneLeanI = 0; $geneLeanII = 0; $geneMuscular = 0; $geneDextrous = 0; $geneEnergetic = 0; $geneGainer = 0; $genePlumpBreast = 0; $genePlumpBelly = 0; $genePlumpThigh = 0; $geneFatBreast = 0; $geneFatBelly = 0; $geneFatThigh = 0; $geneSolidThighs = 0; $geneFlabbyThighs = 0; $geneGlutton = 0; $geneSatisfied = 0; $bodyType = 0; $geneTough = 0; $geneProductive = 0; $genePlump = 0; $geneSleek = 0; $geneRapidAbsorption = 0; $geneLeadBelly = 0; $geneHugeBreast = 0;  $geneHugeBelly = 0; $geneHugeThigh = 0; $geneAmphibious = 0; $geneRubber = 0; $geneRigid = 0; $geneLiquidConversion = 0; $geneSlimeHarmony = 0; $geneDeflation = 0; $geneExpandable = 0; $geneOvivore = 0; $geneDaedlan = 0; $geneWeatherSensitive = 0; $geneThermalConversion = 0; $geneRapidGain = 0;  $geneFatteniumResistance = 0; $geneMirajinicGain = 0; $geneMirajinicBloat = 0; $geneVitality = 0; $geneVitalEssence = 0; $geneDry = 0; $geneExhaustion = 0; $geneFrail = 0; $geneSoft = 0; $geneBloat = 0; $geneRapidBurn = 0; $geneWasting = 0; $geneMoistureSensitive = 0; $geneLightSensitive = 0; $geneHeatSensitive = 0; $geneColdSensitive = 0; $geneFatteniumAllergy = 0; $geneMirajinSensitive = 0; $geneVitalAllergy = 0; $geneStomachRot = 0; $geneOverinflation = 0; $geneLiquification = 0; $geneSponge = 0; $geneOvergrowth = 0; $geneDissolution = 0; $geneWeakSkin = 0; $geneBlubber = 0; $geneBlubberstuffed = 0; $geneRippling = 0; $geneVenomBloated = 0; $geneNourishingLight = 0; $stretchy = 0>>
+
+
+/% Lethal Genes %/
+<<set $dissolving = 0; $overgrowth = 0; $mutationFlagI = 0; $mutationFlagII = 0>>
+
+/% Species Powers & Flags %/
+<<set $miscPowers = 0; $powers = 0; $humanoidFlag = 0; $aladriPowers = 0; $leupaiFlag = 0;  $leupaiPowers = 0; $slimeFlag = 0; $slimePowers = 0; $dragonFlag = 0; $dragonPowers = 0>>
+
+<<set $dragonFlag = 0; $slimeFlag = 0; $leupaiFlag = 0>>
+
+
+/% Mutations %/
+<<set $earMutation = 0; $eyeMutation = 0; $faceMutation = 0; $headMutation = 0; $armMutation = 0; $skinMutation = 0; $bodyMutation = 0; $legMutation = 0; $tailMutation = 0; $bellyMod = 0; $breastMod = 0; $armMod = 0; $legMod = 0; $gainerBonus = 0>>
+
+
+/% Diseases %/
+<<set $diseaseMoonbelly = 0>>
+
+/% Parasites %/
+<<set $slimeBellyParasite = 0; $slimeBellyParaLoad = 0; $slimeBreastParasite = 0; $slimeBreastParaLoad = 0; $direParasite = 0; $direParaLoad = 0; $ampliParasite = 0; $ampliParaLoad = 0; $quaggyGirth = 0; $bellyLiquid = 0; $milkQuantity = 0; $leupaiEggTimer = 0; $leupaiEggLoad = 0; $venomGland = 0; $venomProd = 0; $stomachBug = 0; $zeppelonParasite = 0; $milkmelonParasite = 0; $tendrilvineParasite = 0>>
+
+
+/% ...I don't know if i'm using these things, or if they even work in the code right now. Look into this. %/
+<<set $painBuffer = 0; $painAmp = 0; $bonusWG = 0; $consecutiveGain = 0; $consecutiveDrain = 0>>
+
+
+/% Administre-laid curses, which may or may not clear between deaths... %/
+
+<<if $curse_revixVoracity is 1>><<set $curse_revixVoracity = either(1,1,0)>><<endif>>
+
+
+/% Vitae Soulsickness (not working yet?) %/
+
+<<set $soulSick = $vitaePPM>>

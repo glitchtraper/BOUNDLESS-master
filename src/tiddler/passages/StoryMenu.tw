@@ -1,0 +1,126 @@
+﻿<<if $hiddenSidebar is 0>><framed><center><<nobr>>
+
+/% RPG mode, no Avbot %/
+<<endnobr>><<if $special_avbot is 0>><large><cheery><<print $playerName>></cheery> the <<if $bodyColor neq 0>><<print $bodyColor>> <<endif>><<if $substatus neq 0>><<print $substatus>> <<endif>><<if $subspecies neq 0>><<print $subspecies>> <<endif>><<print $species>></large><<nobr>>
+
+
+<<if ($lycanthropy neq 0) and ($manualShift is 1)>>
+
+<<if $shiftPhase is 0>>[''[[Shapeshift|passage()][$wereShift = 1]]'']
+<<elseif $shiftPhase is 1>>[''[[Shapeshift|passage()][$wereShift = 2]]'']<<endif>><<endif>>
+
+
+<<endnobr>><<if $special_walkermech is 1>>
+[''<<nobr>>
+
+<<if $mechDamage lt 5>><affirmative><<print $walkermech_Class>>-Class Walker Mech</affirmative>
+<<elseif ($mechDamage gte 5) and ($mechDamage lt 8)>><deepalert>[img[icon_tinyalert]]<<print $walkermech_Class>>-Class Walker Mech</deepalert>
+<<elseif $mechDamage gte 8>><redalert>[img[icon_tinycrit]]<<print $walkermech_Class>>-Class Walker Mech</redalert><<endif>>
+
+<<endnobr>>'']<<endif>><<nobr>>
+
+/% RPG mode, Avbot toggle available %/
+<<endnobr>><<elseif $special_avbot is -1>><large><cheery><<print $playerName>></cheery> the <<if $bodyColor neq 0>><<print $bodyColor>> <<endif>><<if $substatus neq 0>><<print $substatus>> <<endif>><<if $subspecies neq 0>><<print $subspecies>> <<endif>><<print $species>>
+[<brightalert>''Avbot on Standby''</brightalert>]</large><<nobr>>
+
+/% RPG mode, Avbot toggle available %/
+<<endnobr>><<elseif $special_avbot is 1>><large><cheery><<print $playerName>></cheery>'s <<if $bodyColor neq 0>><<print $bodyColor>> <<endif>><<if $substatus neq 0>><<print $substatus>> <<endif>><<if $subspecies neq 0>><<print $subspecies>> <<endif>><<print $species>>
+[<affirmative>''Avbot ENGAGED''</affirmative>]</large><<endif>><<nobr>>
+
+
+<<endnobr>>
+<mini><<if $toggleDisplay is 0>>[[Occupation|Occupations]]<<else>>Occupation<<endif>>: <<if $activeOcc neq 0>><<print $activeOcc>><<else>>//None//<<endif>>
+<<nobr>>
+
+<<endnobr>><<nobr>>
+
+''Vitality:'' <<if $health is "Lively">><<print $health>> <xtramini>''(<<print $pain>>/<<print $maxPain>>)''</xtramini>
+
+<<elseif $health is "Sore">><warning><<print $health>> <xtramini>''(<<print $pain>>/<<print $maxPain>>)''</xtramini></warning>[img[icon_tinyalert]]
+
+<<elseif $health is "Pained">><warning><<print $health>> <xtramini>''(<<print $pain>>/<<print $maxPain>>)''</xtramini></warning>[img[icon_tinyalert]]
+
+<<elseif $health is "Suffering">><seriouswarning><<print $health>>[img[icon_tinycrit]] <xtramini>''(<<print $pain>>/<<print $maxPain>>)''</xtramini></seriouswarning>
+
+<<elseif $health is "Agonized!">><criticalwarning><<print $health>>[img[icon_tinycrit]] <xtramini>''(<<print $pain>>/<<print $maxPain>>)''</xtramini></criticalwarning>
+
+<<elseif $health is "Comatose">><bleak><<print $health>>[img[icon_tinycrit]] <xtramini>''(<<print $pain>>/<<print $maxPain>>)''</xtramini></bleak>
+
+<<elseif $health is "Unsuffering">><bleak><<print $health>></bleak><<endif>>
+
+
+
+
+ • ''Overall:'' <<if $fatScore lte $immobilityCeiling * 0.35>><<print $fatScore / 10>>~~gi~~<<elseif ($fatScore gte $immobilityCeiling * 0.35) and ($fatScore lt $immobilityCeiling * 0.5)>><warning><<print $fatScore / 10>>~~gi~~</warning><<elseif ($fatScore gte $immobilityCeiling * 0.5) and ($fatScore lt $immobilityCeiling * 0.75)>><seriouswarning><<print $fatScore / 10>>~~gi~~</seriouswarning><<elseif $fatScore gte $immobilityCeiling * 0.75>><criticalwarning><<print $fatScore / 10>>~~gi~~</criticalwarning><<endif>></center><<endnobr>>
+<<nobr>>
+
+''Str'': <<print $strength>> •
+
+''Fin'': <<print $finesse>> •
+
+''Img'': <<print $imagination>></div><<endnobr>>
+<<nobr>>
+
+''Body:'' <<print $girth / 10>>
+
+ • ''Breasts:'' <<print $breast / 10>> <<if $breastStatus neq "empty">>(<<print $breastStatus>>)<<endif>>
+
+<<if $toggleDisplay is 0>><xtramini><<if $lactation is 1>><<if $storedMilk gte $mouthful>> [[(Drink Milk)|Lactation][$saveStateLac = passage(); $toggleDisplay = 1; $function = "drink"]]<<endif>><<if ($special_jar gt 0) and ($storedMilk gte 30)>> [[(Collect Milk)|Lactation][$saveStateLac = passage(); $toggleDisplay = 1; $function = "milk"]]<<endif>><<endif>></xtramini><<endif>>
+
+<<endnobr>><<nobr>>
+
+<<endnobr>>
+<<nobr>>
+
+''Belly:'' <<print $belly / 10>> <<if $bellyStatus neq "empty">>(<<print $bellyStatus>>)<<endif>>
+
+<<if $toggleDisplay is 0>><<if ($venomGland is 1) and ($storedVenom gte 10) and ($special_jar gt 0)>> <xtramini>[[(Milk Venom)|Venom][$saveStateLac = passage();$special_jar -= 1; $storedVenom -= 10]] </xtramini><<endif>><<endif>>
+
+ • ''Thighs:'' <<print $thigh / 10>><<endnobr>><<nobr>>
+
+<<endnobr>>
+<<nobr>>
+
+''Hunger:'' <<print $hunger>>
+
+/% Resource count ('cos where else to put it) %/
+
+<<set $resourceCount = $waterStock + $milkStock + $meatStock + $fishStock + $poultryStock + $eggStock + $grainStock + $rootStock + $fruitStock + $vegStock + $sugarStock + $nutStock + $fatStock + $herbStock + $jellyStock + $dragonStock + $leupaiStock + $fatteniumStock + $miraStock>>
+
+<<endnobr>>
+<center><<print $food>>~~consiee~~ • <<print $resourceCount>> Resources
+</center></mini><<display Bodygrid>><xtramini>//\
+\
+\
+\
+<<button [[Stuck?|Explore][$overrideExplore = 0; $overrideEncounter = 0]]>>\
+\
+\
+//</xtramini></mini></center></framed><<endif>>\
+<<if $planetarySidebar is 1>>
+<framed><center>''__STATUS__
+<<if $planetGirth / 10 gte 50000000>>Planet<<endif>> <<print $playerName>>''<mini>
+''Size:'' <<print $planetGirth / 10>>~~gi~~
+''Type:'' <<print $playerPlanetType>> <<print $playerPlanetClass>> <<print $playerPlanetSize>>
+''Atmosphere:'' <<print $playerPlanetAtmosphere>>
+''Humidity:'' <<print $playerPlanetHumidity>>
+''Precipitation:'' <<print $playerPlanetFluid>>
+''Population:'' <<print $playerPlanetPopulation>>
+''Dominant Species:'' <<print $planetSpecies>>
+''Population Average Girth:'' <<print $popFatness>>
+''Animals:'' <<print $playerAnimalPopulation>>
+''Animal Pop Average Girth:'' <<print $popAnimalFatness * 10>>
+''Hides:'' <<print $planetHides>>
+''Flesh:'' <<print $planetMeat>>
+''Crops:'' <<print $planetCrops>><<if $planetCalfood gt 0>>
+''Processed Food:'' <<print $planetCalfood>><<endif>><<if $planetCaves gt 0>>
+''Caves:'' <<print $planetCaves>><<endif>><<if $planetAetherholes gt 0>>
+''Aetherholes:'' <<print $planetAetherholes>><<endif>><<if $planetMiracrystal gt 0>>
+''Miracrystal:'' <<print $planetMiracrystal>><<endif>><<if $planetFattenium gt 0>>
+''Fattenium:'' <<print $planetFattenium>><<endif>><<if $planetMetal gt 0>>
+''Metal:'' <<print $planetMetal>><<endif>><<if $planetSlime gt 0>>
+''Slime:'' <<print $planetSlime>><<endif>><<if $planetPlutonium gt 0>>
+''Plutonium:'' <<print $planetPlutonium>><<endif>><<if $planetResearch gt 0>>
+''Research:'' <<print $planetResearch>><<endif>><<if $planetMiratoxin gt 0>>
+''Miratoxin:'' <<print $planetMiratoxin>><<endif>>
+</mini></center></framed><<endif>>

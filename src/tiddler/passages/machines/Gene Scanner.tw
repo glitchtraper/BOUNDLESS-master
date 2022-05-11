@@ -1,0 +1,156 @@
+﻿You step behind the Gene Scanner with the help of one of the HYPOTHESIS scientists, and watch with fascination as it reads off your genetic traits.
+
+<center><framed><huge>''__Minor Genes__''</huge>
+<<nobr>>''
+
+/% Minor Genes %/
+
+<cheery>
+
+<<if $geneFattyI is 1>>[Fatty I: + meta gain] <<endif>>
+<<if $geneFattyII is 1>>[Fatty II: - meta burn] <<endif>>
+
+<<if $geneLeanI is 1>>[Lean I: + meta burn] <<endif>>
+<<if $geneLeanII is 1>>[Lean II: - meta gain] <<endif>>
+
+<<if $geneMuscular is 1>>[Muscular: + strength; + min strength - finesse] <<endif>>
+<<if $geneDextrous is 1>>[Dextrous: + finesse; + min finesse - strength] <<endif>>
+
+<<if $geneEnergetic is 1>>[Energetic: + energy] <<endif>>
+
+<<if $geneGainer is 1>>[Gainer: + incidental meta burn negation] <<endif>>
+
+<<if $genePlumpBreast is 1>>[Plump Breast: + breast] <<endif>>
+<<if $genePlumpBelly is 1>>[Plump Belly: + belly] <<endif>>
+<<if $genePlumpThigh is 1>>[Plump Thigh: + thigh] <<endif>>
+
+<<if $geneFatBreast is 1>>[Fat Breast: ++ breast] <<endif>>
+<<if $geneFatBelly is 1>>[Fat Belly: ++ belly] <<endif>>
+<<if $geneFatThigh is 1>>[Fat Thigh: ++ thigh] <<endif>>
+
+<<if $geneSolidThighs is 1>>[Solid Thighs: + thigh firm] <<endif>>
+<<if $geneFlabbyThighs is 1>>[Flabby Thighs: - thigh firm] <<endif>>
+
+<<if $geneGlutton is 1>>[Glutton: + min esurience] <<endif>>
+<<if $geneSatisfied is 1>>[Satisfied: - max esurience] <<endif>>
+
+/% Body Types %/
+
+<<if $bodyType is "busty">>[Base Body Shape: Busty] <<endif>>
+<<if $bodyType is "cubus">>[Base Body Shape: Helene] <<endif>>
+<<if $bodyType is "boviete">>[Base Body Shape: Boviete] <<endif>>
+<<if $bodyType is "hourglass">>[Base Body Shape: Hourglass] <<endif>>
+<<if $bodyType is "round">>[Base Body Shape: Round] <<endif>>
+<<if $bodyType is "belly">>[Base Body Shape: Pot-Bellied] <<endif>>
+<<if $bodyType is "guguetelle">>[Base Body Shape: Guguetelle] <<endif>>
+<<if $bodyType is "pear">>[Base Body Shape: Pear] <<endif>>
+<<if $bodyType is "bloatpear">>[Base Body Shape: Pear II] <<endif>>
+<<if $bodyType is "thigh">>[Base Body Shape: Thigh I] <<endif>>
+<<if $bodyType is "blimpthigh">>[Base Body Shape: Thigh II] <<endif>>
+<<if $bodyType is "bulging">>[Base Body Shape: Bulging] <<endif>>
+
+</cheery>''<<endnobr>></framed>
+<framed><huge>''__Major Genes__''</huge>
+<<nobr>>''
+/% Major Genes %/
+
+<mutation>
+
+<<if $geneTough is 1>>[Tough: + strength + max pain] <<endif>>
+
+<<if $geneProductive is 1>>[Productive: + lactation] <<endif>>
+
+<<if $genePlump is 1>>[Plump: + min gi] <<endif>>
+<<if $geneSleek is 1>>[Sleek: - max gi] <<endif>>
+
+<<if $geneRapidAbsorption is 1>>[Rapid Absorption: + meta absorption] <<endif>>
+
+<<if $geneLeadBelly is 1>>[Lead Belly: + stomach virus immunity] <<endif>>
+
+<<if $geneHugeBreast is 1>>[Huge Breast: +++ breast] <<endif>>
+<<if $geneHugeBelly is 1>>[Huge Belly: +++ belly] <<endif>>
+<<if $geneHugeThigh is 1>>[Huge Thigh: +++ thigh] <<endif>>
+
+<<if $geneAmphibious is 1>>[Amphibious: + underwater breathing] <<endif>>
+
+<<if $geneVenomBloated is 1>>[Venom-Bloated: + venom production] <<endif>>
+
+<<if $geneBlubber is 1>>[Blubber: ++ min gi] <<endif>>
+<<if $geneBlubberstuffed is 1>>[Blubber-Stuffed: +++ min gi] <<endif>>
+<<if $geneRippling is 1>>[Rippling: ++++ min gi] <<endif>>
+
+<<if $geneRubber is 1>>[Rubber: + max belly + max breast] <<endif>>
+<<if $geneRigid is 1>>[Rigid: - max belly - max breast] <<endif>>
+
+<<if $geneLiquidConversion is 1>>[Liquid Conversion: liquids & parasitic slime = gain] <<endif>>
+<<if $geneSlimeHarmony is 1>>[Slime Harmony: + parasitic slime transformation immunity] <<endif>>
+
+<<if $geneDeflation is 1>>[Deflation: - belly bloat - breast bloat] <<endif>>
+
+<<if $geneExpandable is 1>>[Expandable: + bloat immunity] <<endif>>
+<<if $geneOvivore is 1>>[Ovivore: parasites = gain] <<endif>>
+<<if $geneDaedlan is 1>>[Daedlan: leupai eggs = - pain + leupai egg gain] <<endif>>
+
+<<if $geneWeatherSensitive is 1>>[Weather Sensitive: heat = bloat; cold = gain] <<endif>>
+<<if $geneThermalConversion is 1>>[Thermal Conversion: heat = calories] <<endif>>
+<<if $geneNourishingLight is 1>>[Nourishing Light: light = calories] <<endif>>
+
+<<if $geneRapidGain is 1>>[Rapid Gain: + gain] <<endif>>
+
+<<if $geneFatteniumResistance is 1>>[Fattenium Resistant: + fattenium cascade immunity; fattenium = calories] <<endif>>
+
+<<if $geneMirajinicGain is 1>>[Mirajinic Gain: mirads = calories] <<endif>>
+<<if $geneUnreal is 1>>[Unreal: miratoxin = calories; somniation = calories] <<endif>>
+<<if $geneMirajinicBloat is 1>>[Mirajinic Bloat: mirads = bloat] <<endif>>
+
+<<if $geneVitality is 1>>[Vitality: vitae = energy - pain] <<endif>>
+<<if $geneVitalEssence is 1>>[Vital Essence: - mirads - miratoxin; - somniation] <<endif>>
+
+</mutation>''<<endnobr>></framed>
+<framed><huge><softwarning>''__Afflictive Genes__''</softwarning></huge>
+<<nobr>>''
+
+/% Afflictive Genes %/
+
+<softwarning>
+
+<<if $geneDry is 1>>[Dry: lactation immune] <<endif>>
+
+<<if $geneFrail is 1>>[Frail: - strength - max strength] <<endif>>
+<<if $geneSoft is 1>>[Soft: - strength - max pain] <<endif>>
+
+<<if $geneBloat is 1>>[Bloat: + belly bloat + breast bloat] <<endif>>
+
+</softwarning>
+<warning><<if $geneRapidBurn is 1>>[Rapid Burn: - gain] <<endif>>
+<<if $geneWasting is 1>>[Wasting: - drain] <<endif>>
+
+<<if $geneMoistureSensitive is 1>>[Moisture Sensitive: moisture = pain] <<endif>>
+<<if $geneDroughtSensitive is 1>>[Drought Sensitive: dry weather = pain] <<endif>>
+<<if $geneLightSensitive is 1>>[Light Sensitive: light = pain] <<endif>>
+<<if $geneHeatSensitive is 1>>[Heat Sensitive: heat = pain] <<endif>>
+<<if $geneColdSensitive is 1>>[Cold Sensitive: cold = pain] <<endif>>
+
+<<if $geneFatteniumAllergy is 1>>[Fattenium Allergy: fattenium = + pain + gain] <<endif>>
+<<if $geneMirajinSensitive is 1>>[Mirajin Sensitive: + mirads + miratoxin + somniation] <<endif>>
+<<if $geneVitalAllergy is 1>>[Vital Allergy: + vitae lethality] <<endif>>
+
+
+</warning>''<<endnobr>></framed>
+<framed><criticalwarning><huge>''__Lethal Genes__''</huge>
+<<nobr>>''
+
+/% Lethal Genes %/
+
+<<if $geneStomachRot is 1>>[Stomach Rot: degenerative affliction] <<endif>>
+<<if $geneOverinflation is 1>>[Overinflation: lethal bloat cascade] <<endif>>
+<<if $geneLiquification is 1>>[Liquification: lethal gain cascade] <<endif>>
+<<if $geneSponge is 1>>[Sponge: lethal degenerative affliction] <<endif>>
+<<if $geneOvergrowth is 1>>[Overgrowth: lethal bloat cascade] <<endif>>
+<<if $geneDissolution is 1>>[Dissolution: lethal degenerative affliction] <<endif>>
+<<if $geneWeakSkin is 1>>[Weak Skin: lethal degenerative affliction] <<endif>>
+
+</criticalwarning>
+
+''<<endnobr>></center></framed><center>
+<<button [[Leave.|$saveStateEncounter]]>></center>

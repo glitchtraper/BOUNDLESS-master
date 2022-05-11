@@ -1,0 +1,97 @@
+﻿/% ====================================================== %/
+/% These items can be split, and turn on the "ItemSplits" flag for the inventory. All other items will turn it off. %/
+
+<<set $itemSplits = 0>>
+
+/% ==================================== %/
+/% Eggs %/
+
+<<if $itemEncounter is "small eggs">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemEncounter is "eggs">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemEncounter is "large eggs">><<set $itemSplits = 1>><<endif>>
+
+/% ====================================================== %/
+/% Produce %/
+
+
+<<if $itemID is "produce_tendrilgrass">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_tendrilvine">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_succulent">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_cactus">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_pricklepear">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_rockroot">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_starchroot">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_honeycarrot">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_puffshroom">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_starberry">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_rosehip_glass">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_coffee">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_grape">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_sugarcane">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_tomato">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_belcheri">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_plum">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_peach">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_pear">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_apple">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_milkmelon">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_milkmelon_creaking">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_fatpumpkin">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "produce_zeppelon">><<set $itemSplits = 1>><<endif>>
+
+
+/% ====================================================== %/
+/% Liquids %/
+
+
+<<if $itemID is "drink_milk">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "collectionjar_milk">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "collectionjar_milk_adephagian">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "collectionjar_cream">><<set $itemSplits = 1>><<endif>>
+
+
+/% ====================================================== %/
+/% Sugars %/
+
+
+<<if $itemID is "collectionjar_honeybutter">><<set $itemSplits = 1>><<endif>>
+
+<<if $itemID is "collectionjar_gorgerjelly">><<set $itemSplits = 1>><<endif>>
+
+
+
+/% ====================================================== %/
+/% Miscellaneous %/
+
+
+
+/% ====================================================== %/
+

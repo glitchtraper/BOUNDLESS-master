@@ -1,0 +1,31 @@
+﻿	<<print "<<set $companion" + $companionSelected + " = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Nameable = 'false'>>">>
+	<<print "<<set $companion" + $companionSelected + "Species = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Subspec = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Subtype = 0>>">>
+
+	<<print "<<set $companion" + $companionSelected + "img = 0>>">>
+
+	<<print "<<set $companion" + $companionSelected + "Venom = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Milk = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "MilkYield = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Slime = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Blubber = 0>>">>
+
+	<<print "<<set $companion" + $companionSelected + "Girth = 0>>">>
+
+	<<print "<<set $companion" + $companionSelected + "Color = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Skin = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Ears = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Facet = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Eyes = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Face = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Head = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Body = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Back = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Legs = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Tail = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Breath = 0>>">>
+	<<print "<<set $companion" + $companionSelected + "Venom = 0>>">>
+
+<<if $companionSelected lt 4>><<set $companions -= 1>><<endif>>

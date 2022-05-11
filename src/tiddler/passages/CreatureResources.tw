@@ -1,0 +1,83 @@
+﻿<center>/% Adds resource drops from creatures into the player's inventory. %/
+
+/% first, clean up numbers %/
+
+<affirmative>
+
+
+/% Meats %/
+
+/% Filet knife gives a chance for appropriate Pristine Cuts of meat upon butchery %/
+
+<<if $leupaiResource gt 0>><<set $leupaiStock += $leupaiResource>>
+
+<<if $key_filetknife gt 0>>/% Filet Knife bonus %/
+<<set $filetBonus = ($leupaiResource * 0.1); $filetBonus = Math.round($filetBonus); $leupaiStock += $filetBonus>><<endif>>
+
+ ''[+<<print $leupaiResource>> Leupai Flesh<<if $key_filetknife gt 0>> ~~(+<<print $filetBonus>> bonus)~~<<endif>>]''
+
+<<elseif $dragonResource gt 0>><<set $dragonStock += $dragonResource>>
+
+<<if $key_filetknife gt 0>>/% Filet Knife bonus %/
+<<set $filetBonus = ($dragonResource * 0.1); $filetBonus = Math.round($filetBonus); $dragonStock += $filetBonus>><<endif>>
+
+ ''[+<<print $dragonResource>> Dragon Meat<<if $key_filetknife gt 0>> ~~(+<<print $filetBonus>> bonus)~~<<endif>>]''
+
+<<elseif $poultryResource gt 0>><<set $poultryStock += $poultryResource>>
+
+<<if $key_filetknife gt 0>>/% Filet Knife bonus %/
+<<set $filetBonus = ($poultryResource * 0.1); $filetBonus = Math.round($filetBonus); $poultryStock += $filetBonus>><<endif>>
+
+ ''[+<<print $poultryResource>> Poultry<<if $key_filetknife gt 0>> ~~(+<<print $filetBonus>> bonus)~~<<endif>>]''
+
+<<elseif $fishResource gt 0>><<set $fishStock += $fishResource>>
+
+<<if $key_filetknife gt 0>>/% Filet Knife bonus %/
+<<set $filetBonus = ($fishResource * 0.1); $filetBonus = Math.round($filetBonus); $fishStock += $filetBonus>><<endif>>
+
+ ''[+<<print $fishResource>> Fish<<if $key_filetknife gt 0>> ~~(+<<print $filetBonus>> bonus)~~<<endif>>]''
+
+<<elseif $meatResource gt 0>><<set $meatStock += $meatResource>>
+
+<<if $key_filetknife gt 0>>/% Filet Knife bonus %/
+<<set $filetBonus = ($meatResource * 0.1); $filetBonus = Math.round($filetBonus); $meatStock += $filetBonus>><<endif>>
+
+''[+<<print $meatResource>> Meat<<if $key_filetknife gt 0>> ~~(+<<print $filetBonus>> bonus)~~<<endif>>]''<<endif>>
+
+
+<<if $fatResource gt 0>><<set $fatStock += $fatResource>> ''[+<<print $fatResource>> Fat]''<<endif>>
+
+<<if $jellyResource gt 0>><<set $jellyStock += $jellyResource>> ''[+<<print $jellyResource>> Jelly]''<<endif>>
+
+
+<<if $waterResource gt 0>><<set $waterStock += $waterResource>>''[+<<print $fishResource>> Water]''<<endif>>
+
+<<if $milkResource gt 0>><<set $milkStock += $milkResource>> ''[+<<print $milkResource>> Milk]''<<endif>>
+
+
+<<if $eggResource gt 0>><<set $eggStock += $eggResource>> ''[+<<print $eggResource>> Egg]''<<endif>>
+
+<<if $grainResource gt 0>><<set $grainStock += $grainResource>> ''[+<<print $grainResource>> Grain]''<<endif>>
+
+<<if $rootResource gt 0>><<set $rootStock += $rootResource>> ''[+<<print $rootResource>> Root]''<<endif>>
+
+<<if $fruitResource gt 0>><<set $fruitStock += $fruitResource>> ''[+<<print $fruitResource>> Fruit]''<<endif>>
+
+<<if $vegResource gt 0>><<set $vegStock += $vegResource>> ''[+<<print $vegResource>> Vegetables]''<<endif>>
+
+<<if $sugarResource gt 0>><<set $sugarStock += $sugarResource>> ''[+<<print $sugarResource>> Sugar]''<<endif>>
+
+<<if $nutResource gt 0>><<set $nutStock += $nutResource>> ''[+<<print $nutResource>> Nuts]''<<endif>>
+
+<<if $herbResource gt 0>><<set $herbStock += $herbResource>> ''[+<<print $herbResource>> Herbs]''<<endif>>
+
+
+<<if $fatteniumResource gt 0>><<set $fatteniumStock += $fatteniumResource>> ''[+<<print $fatteniumResource>> Fattenium Powder]''<<endif>>
+
+<<if $miraResource gt 0>><<set $miraStock += $miraResource>> ''[+<<print $miraResource>> Miracrystal Dust]''<<endif>>
+
+</affirmative>
+
+/% Post-handout cleanup %/
+
+<<set $waterResource = 0; $milkResource = 0; $meatResource = 0; $fishResource = 0; $poultryResource = 0; $eggResource = 0; $grainResource = 0; $rootResource = 0; $fruitResource = 0; $vegResource = 0;  $sugarResource = 0; $nutResource = 0; $fatResource = 0; $herbResource = 0; $jellyResource = 0; $dragonResource = 0; $leupaiResource = 0; $fatteniumResource = 0; $miraResource = 0; $resourceLiquid = 0; $traceFattenium = 0; $traceMirajin = 0; $bacteria = 0; $resourceType = 0>></center>

@@ -1,0 +1,75 @@
+﻿/% ==================================== %/
+
+	<<set $randomizer = random(1,100) + $mineDecay>>
+
+<<if $zoneType is "placeholder">>
+
+	/% Random 'if' clause biome %/
+
+
+<<else>>
+/% ==================================== %/
+
+	/% Default mining pool %/
+
+	<<if $randomizer lt 10>>
+		<<set $forageQuantity = random(2,5); $material_rock += $forageQuantity; $forageResult = "You set to work mining... and obtain " + $forageQuantity + " rocks!">>
+
+	<<elseif ($randomizer gte 10) and ($randomizer lt 40)>>
+		<<set $forageQuantity = random(2,5); $material_metal += $forageQuantity; $forageResult = "You set to work mining... and obtain " + $forageQuantity + " metal!">>
+
+	<<elseif ($randomizer gte 40) and ($randomizer lt 50)>>
+		<<set $forageQuantity = random(2,5); $miraStock += $forageQuantity; $forageResult = "You set to work mining... and obtain " + $forageQuantity + " miracrystal dust!">>
+
+	<<elseif ($randomizer gte 50) and ($randomizer lt 60)>>
+		<<set $forageQuantity = random(2,5); $fatteniumStock += $forageQuantity; $forageResult = "You set to work mining... and obtain " + $forageQuantity + " fattenium powder!">>
+
+/% Fossils. %/
+
+	<<elseif ($randomizer gte 60) and ($randomizer lt 63)>>
+		<<set $forageQuantity = random(1,4); $bones_old += $forageQuantity; $forageResult = "You set to work mining... and obtain " + $forageQuantity + " old bones!">>
+
+	<<elseif ($randomizer gte 63) and ($randomizer lt 64)>>
+		<<set $forageQuantity = 1; $skull_old += $forageQuantity; $forageResult = "You set to work mining... and obtain an old skull!">>
+
+/% Crystals. %/
+
+	<<elseif ($randomizer gte 64) and ($randomizer lt 70)>>
+		<<set $forageQuantity = 1; $special_dreamshard += $forageQuantity; $forageResult = "You set to work mining... and obtain a dreamshard!">>
+
+	<<elseif ($randomizer gte 70) and ($randomizer lt 73)>>
+		<<set $forageQuantity = 1; $special_battery += $forageQuantity; $forageResult = "You set to work mining... and obtain a battery crystal!">>
+
+	<<elseif ($randomizer is 73) or ($randomizer is 74)>>
+		<<set $forageQuantity = 1; $special_miracrystal += $forageQuantity; $forageResult = "You set to work mining... and obtain a live miracrystal chunk!">>
+
+	<<elseif $randomizer is 75>>
+		<<set $forageQuantity = 1; $shard_recall += $forageQuantity; $forageResult = "You set to work mining... and obtain a recall shard!">>
+
+	<<elseif $randomizer is 76>>
+		<<set $forageQuantity = 1; $shard_stasis += $forageQuantity; $forageResult = "You set to work mining... and obtain a stasis shard!">>
+
+	<<elseif $randomizer is 77>>
+		<<set $forageQuantity = 1; $shard_egress += $forageQuantity; $forageResult = "You set to work mining... and obtain a egress shard!">>
+
+	<<elseif $randomizer is 78>>
+		<<set $forageQuantity = 1; $shard_shield += $forageQuantity; $forageResult = "You set to work mining... and obtain a shield shard!">>
+
+	<<elseif ($randomizer is 79) or ($randomizer is 80)>>
+		<<set $forageQuantity = random(2,10); $gem_tiny += $forageQuantity; $forageResult = "You set to work mining... and obtain " + $forageQuantity + " tiny gems!">>
+
+	<<elseif ($randomizer is 81) or ($randomizer is 82)>>
+		<<set $forageQuantity = random(2,8); $gem_sparkling += $forageQuantity; $forageResult = "You set to work mining... and obtain " + $forageQuantity + " sparkling gems!">>
+
+	<<elseif $randomizer is 83>>
+		<<set $forageQuantity = random(1,3); $gem_sparkling += $forageQuantity; $forageResult = "You set to work mining... and obtain " + $forageQuantity + " fist-sized gem!">>
+
+/% Cutoff; nothing but rocks. %/
+	<<elseif $randomizer gte 84>>
+		<<set $forageQuantity = random(2,5); $material_rock += $forageQuantity; $forageResult = "You set to work mining... and obtain " + $forageQuantity + " rocks!">>
+
+	<<endif>>
+
+
+/% ==================================== %/
+<<endif>>

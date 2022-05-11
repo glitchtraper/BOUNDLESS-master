@@ -1,0 +1,702 @@
+﻿/% Pre-setup; clear any residual encounter flags. %/
+
+<<set $encImg = 0; $combatant = 0; $creatureBreasts = 0; $creatureCalories = 0; $creatureGirth = 0; $submissionDesc = 0; $CreatureEffects = 0; $creatureNoBelly = 0; $GroveMonsters = 0>>
+
+<<set $useDesc = 0; $itemType = 0; $itemID = 0; $itemEncounter = 0; $itemGrammar = 0; $itemPool = 0>>
+
+<<set $waterResource = 0; $milkResource = 0; $meatResource = 0; $fishResource = 0; $poultryResource = 0; $eggResource = 0; $grainResource = 0; $rootResource = 0; $fruitResource = 0; $vegResource = 0;  $sugarResource = 0; $nutResource = 0; $fatResource = 0; $herbResource = 0; $jellyResource = 0; $dragonResource = 0; $leupaiResource = 0; $fatteniumResource = 0; $miraResource = 0>>
+
+<<set $randomizer = random(1,100); $clawMachine = random(1,100)>>
+
+/% ======================================================================== %/
+
+/% Special encounters by Zone %/
+
+
+/% ======================================================================== %/
+/% Dungeons %/
+
+<<if $indoorZone neq 0>>
+
+	/% ======================================================================== %/
+	/% Lab Dungeon %/
+
+	<<if $dungeonLocation is "Abandoned Laboratory Mound">>
+
+		/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+			/% 1 %/
+			<<if $clawMachine lte 30>>
+				<<set $specialEncounter = "treasure chest"; $itemPool = "treasureScienceLv1">>
+
+			/% 2 %/
+			<<elseif $clawMachine gt 30>>
+				<<set $specialEncounter = "monster grove"; $monsterGroveType = " hole in the wall"; $monsterGrovePop = random(4,12); $GroveMonsters = either("fyynlings","slimes","leupai","puddings")>>
+
+			<<endif>>
+		<<endif>>
+
+	/% Uncommon (30% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 90)>>
+
+			/% 1 %/
+			<<if $clawMachine lte 60>>
+				<<set $specialEncounter = "old hypo lab equipment">>
+
+			/% 2 %/
+			<<elseif $clawMachine gt 60>>
+				<<set $specialEncounter = "closet"; $itemPool = "closetLv1">>
+
+			<<endif>>
+		<<endif>>
+
+	/% Rare (10%) %/
+	<<if $randomizer gte 90>>
+
+				<<set $specialEncounter = "old hypo lab equipment">>
+
+		<<endif>>
+
+	/% ======================================================================== %/
+	/% Storage Dungeon %/
+
+	<<elseif $dungeonLocation is "Abandoned Storage Mound">>
+
+		/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+			/% 1 %/
+			<<if $clawMachine lte 50>>
+				<<set $specialEncounter = "treasure chest"; $itemPool = "treasureLv1">>
+
+			/% 2 %/
+			<<elseif $clawMachine gt 50>>
+				<<set $specialEncounter = "monster grove"; $monsterGroveType = " hole in the wall"; $monsterGrovePop = random(4,12); $GroveMonsters = either("slimes","leupai","puddings","miscleupai",0)>>
+
+			<<endif>>
+		<<endif>>
+
+	/% Uncommon (25% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 85)>>
+
+			/% 1 %/
+			<<if $clawMachine lte 40>>
+				<<set $specialEncounter = "closet"; $itemPool = "closetLv1">>
+
+			/% 2 %/
+			<<elseif $clawMachine gt 40>>
+				<<set $specialEncounter = "traveling trader">>
+
+			<<endif>>
+		<<endif>>
+
+	/% Rare (15%) %/
+	<<if $randomizer gte 85>>
+
+				<<set $specialEncounter = "closet"; $itemPool = "closetLv1">>
+	<<endif>>
+
+<<endif>>
+
+/% ======================================================================== %/
+/% Outdoors %/
+
+<<elseif $indoorZone is 0>>
+
+/% ======================================================================== %/
+/% Encounters by Planar Region. %/
+
+/% HEITEPRESSE %/
+/% =================================== %/
+
+<<if $planeRegion is "The Secret Gardens">>
+/% =================================== %/
+
+	/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+			/% 1 %/
+			<<if $clawMachine gte 1>>
+				<<set $specialEncounter = "region boundary"; $newRegion = either("Test Region 1","Test Region 2","Test Region 3"); $newRegionDesc = $newRegion + " glistening like a mirage before you!">>
+
+			<<endif>>
+		<<endif>>
+
+	/% Uncommon (25% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 85)>>
+
+			/% 1 %/
+			<<if $clawMachine gte 1>>
+				<<set $specialEncounter = "region boundary"; $newRegion = either("Test Region 1","Test Region 2","Test Region 3"); $newRegionDesc = $newRegion + " glistening like a mirage before you!">>
+
+			<<endif>>
+		<<endif>>
+
+	/% Rare (15%) %/
+	<<if $randomizer gte 85>>
+
+			/% 1 %/
+			<<if $clawMachine gte 1>>
+				<<set $specialEncounter = "region boundary"; $newRegion = either("Test Region 1","Test Region 2","Test Region 3"); $newRegionDesc = $newRegion + " glistening like a mirage before you!">>
+
+		<<endif>>
+	<<endif>>
+
+
+/% =================================== %/
+
+<<elseif $planeRegion is "placeholder">>
+/% =================================== %/
+
+
+
+/% ======================================================================== %/
+/% End plane-specific encounters %/
+
+
+/% ======================================================================== %/
+	/% Default Caverns %/
+
+	<<elseif $subterranean is 1>>
+
+	/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+			/% 1 %/
+			<<if $clawMachine lte 25>>
+				<<set $specialEncounter = "treasure chest"; $itemPool = "treasureLv1">>
+
+			/% 2 %/
+			<<elseif $clawMachine gt 25>>
+				<<set $specialEncounter = either("monster grove","monster grove","corpse curio")>>
+
+					<<if $specialEncounter is "monster grove">>
+					<<set $monsterGroveType = " large, dark cave"; $monsterGrovePop = random(4,12); $GroveMonsters = either("fyynlings","leupai","puddings","slimes","miscleupai",0)>>
+
+					<<elseif $specialEncounter is "corpse curio">>
+					<<set $encounter = either("poisoned","eaten","eaten","fat-drowned","burst-bellied","exploded","drained") + " corpse"; $curioSpecies = either("human","post-human","arka","adephagian")>>
+					<<if $zoneType is "fire">><<set $encounter = either("suffocated","eaten","slashed","incinerated","drained") + " corpse">>
+					<<elseif $zoneType is "ice">><<set $encounter = either("eaten","fat-drowned","burst-bellied","exploded","drained","frozen") + " corpse">><<endif>>
+<<endif>>
+
+			<<endif>>
+		<<endif>>
+
+	/% Uncommon (25% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 85)>>
+
+			/% 1 %/
+			<<if $clawMachine lte 45>>
+				<<set $specialEncounter = "leupai merchant">>
+
+			/% 2 %/
+			<<elseif $clawMachine gt 45>>
+				<<set $specialEncounter = "leupai dungeon lv1">>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 90>>
+				<<set $specialEncounter = "traveling trader">>
+
+
+
+			<<endif>>
+		<<endif>>
+
+	/% Rare (15%) %/
+	<<if $randomizer gte 85>>
+
+			/% 1 %/
+			<<if $clawMachine lte 40>>
+				<<set $specialEncounter = "crystal cave"; $itemPool = "crystalsLv1">>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 40) and ($clawMachine lte 70)>>
+				<<set $specialEncounter = "hypo genelab">>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 70>>
+				<<set $specialEncounter = "abitte">>
+
+		<<endif>>
+	<<endif>>
+
+	/% ======================================================================== %/
+	/% Woodlands %/
+
+	<<elseif $zoneType is "woodland">>
+
+	/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+			/% 1 %/
+			<<if $clawMachine lte 30>>
+				<<set $specialEncounter = "treasure chest"; $itemPool = "treasureLv1">>
+
+			/% 2 %/
+			<<elseif $clawMachine gt 30>>
+				<<set $specialEncounter = either("tree curio","tree curio","tree curio","tree curio","berry bush","berry bush","berry bush","berry bush","berry bush","fruit tree","fruit tree","vegetable patch")>>
+
+					<<if $specialEncounter is "berry bush">><<set $itemPool = "berrybush"; $itemClass = either("regionberry","magicberry","magicberry","magicberry","miraberry"); $regionBerry = either("starberry","effervescent grape","coffee berry"); $magicBerry = either("rainberries","bulkberries","bulkberries","bulgeberries","bulgeberries","roundberries","roundberries","burstberries","burstberries","cowberries","cowberries","plushberries","plushberries","bounceberries","bounceberries","butterberries","butterberries","butterberries")>>
+
+					<<elseif $specialEncounter is "fruit tree">><<set $itemPool = "fruitree"; $itemClass = "regionfruit"; $regionFruit = either("plump belcheri","plump plum","giant peach","voluptuous pear","imperial apple")>>
+
+					<<elseif $specialEncounter is "vegetable patch">><<set $itemPool = "vegpatch"; $itemClass = either("melon","milkmelon","pumpkin")>>
+
+					<<elseif $specialEncounter is "tree curio">>
+					<<set $encounter = either("woodtree","woodtree","woodtree","woodtree","woodtree","woodtree","antlertree","pottree","axetree","pickaxetree","shoveltree")>>
+					<<endif>>
+
+			<<endif>>
+		<<endif>>
+
+	/% Uncommon (25% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 85)>>
+
+			/% 1 %/
+			<<if $clawMachine lte 40>>
+				<<set $specialEncounter = either("corpse curio","monster grove","magical curio")>>
+
+					<<if $specialEncounter is "corpse curio">>
+					<<set $encounter = either("poisoned","eaten","eaten","eaten","slashed","pained") + " corpse"; $curioSpecies = either("human","post-human","arka","adephagian")>>
+
+					<<elseif $specialEncounter is "magical curio">>
+					<<set $encounter = "faefeast">>
+
+					<<elseif $specialEncounter is "monster grove">>
+					<<set $monsterGroveType = "n eerie grove"; $monsterGrovePop = random(4,12); $GroveMonsters = either("fyynlings","leupai","helene","puddings","miscleupai",0)>><<endif>>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 40) and ($clawMachine lte 80)>>
+				<<set $specialEncounter = "leupai dungeon lv1">>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 80>>
+				<<set $specialEncounter = "leupai merchant">>
+
+			<<endif>>
+		<<endif>>
+
+	/% Rare (15%) %/
+	<<if $randomizer gte 85>>
+
+			/% 1 %/
+			<<if $clawMachine lte 40>>
+				<<set $specialEncounter = either("traveling trader","abitte")>>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 40) and ($clawMachine lte 70)>>
+				<<set $specialEncounter = either("hypo genelab","billeporte")>>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 70>>
+				<<set $specialEncounter = either("transport aetherhole","magical curio")>>
+
+				<<if $specialEncounter is "magical curio">>
+				<<set $encounter = either("fattenmirror","slimmirror","funmirror","well-fed helene","egg-fattened daedlan","gluttonous daedlan","gluttonous adephagian","spherical leupai","milk-bloated adephagian","feeder nefirian","immobile aladri","billetroa arka","balloon fountain","greed fountain","gain fountain","bulk fountain","venomous fountain","fattenium fountain","milk fountain","berry fountain","metamorphous fountain")>><<endif>>
+
+		<<endif>>
+	<<endif>>
+
+
+	/% ======================================================================== %/
+	/% Faelands %/
+
+	<<elseif $zoneType is "faerie">>
+
+	/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+			/% 1 %/
+			<<if $clawMachine lte 20>>
+				<<set $specialEncounter = "treasure chest"; $itemPool = "treasureLv1">>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 20) and ($clawMachine lte 60)>>
+				<<set $specialEncounter = either("tree curio","decorative curio","traveling trader")>>
+
+					<<if $specialEncounter is "tree curio">>
+					<<set $encounter = either("woodtree","woodtree","woodtree","woodtree","woodtree","woodtree","antlertree","pottree","axetree","pickaxetree","shoveltree")>>
+
+					<<elseif $specialEncounter is "decorative curio">>/% Add crystals %/
+					<<set $encounter = either("statue","old altar")>>
+						<<if $encounter is "statue">>
+						<<set $curioMaterial = either("stone statue","wooden carving","crystal sculpture","rusted metal sculpture","marble statue","topiary"); $statueBiomeFlavor = either("overgrown with weeds and twisting vines.","caked with mud.","discolored and worn.","half-coated in thick, black ichor of some sort.") + " It depicts ">><<endif>>
+			<<endif>>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 60>>
+				<<set $specialEncounter = either("berry bush","berry bush","berry bush","berry bush","berry bush","fruit tree","fruit tree","vegetable patch")>>
+
+					<<if $specialEncounter is "berry bush">><<set $itemPool = "berrybush"; $itemClass = either("regionberry","magicberry","magicberry","magicberry","miraberry"); $regionBerry = either("starberry","effervescent grape","coffee berry"); $magicBerry = either("rainberries","bulkberries","bulgeberries","roundberries","burstberries","burstberries","cowberries","plushberries","bounceberries","butterberries","butterberries")>>
+
+					<<elseif $specialEncounter is "fruit tree">><<set $itemPool = "fruitree"; $itemClass = "regionfruit"; $regionFruit = either("plump belcheri","plump plum","giant peach","voluptuous pear","imperial apple")>>
+
+					<<elseif $specialEncounter is "vegetable patch">><<set $itemPool = "vegpatch"; $itemClass = either("melon","milkmelon","pumpkin")>><<endif>>
+
+			<<endif>>
+		<<endif>>
+
+
+	/% Uncommon (25% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 85)>>
+
+			/% 1 %/
+			<<if $clawMachine lte 50>>
+				<<set $specialEncounter = "monster grove"; $monsterGroveType = "n eerie grove"; $monsterGrovePop = random(4,12); $GroveMonsters = either("fyynlings","leupai","helene","puddings","miscleupai",0)>>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 50) and ($clawMachine lte 80)>>/% Add magical crystals & flowers %/
+				<<set $specialEncounter = either("leupai merchant","magical curio","corpse curio")>>
+
+					<<if $specialEncounter is "corpse curio">>
+					<<set $encounter = either("poisoned","pained","eaten","incinerated","frozen","bled","drowned","fat-drowned","smashed","slashed","suffocated","burst-bellied","exploded","irradiated","starved","atrophied","drained","vitalized","vitannihilated","mirajinized") + " corpse"; $curioSpecies = either("human","post-human","arka","adephagian")>>
+
+					<<elseif $specialEncounter is "magical curio">>
+					<<set $encounter = "faefeast">><<endif>>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 80>>
+				<<set $specialEncounter = either("abitte","bovieterie")>>
+
+			<<endif>>
+		<<endif>>
+
+
+	/% Rare (15%) %/
+	<<if $randomizer gte 85>>
+
+			/% 1 %/
+			<<if $clawMachine lte 40>>
+				<<set $specialEncounter = either("leupai dungeon lv1","magical curio")>>
+
+					<<if $specialEncounter is "magical curio">>
+					<<set $encounter = either("fattenmirror","slimmirror","funmirror","well-fed helene","egg-fattened daedlan","gluttonous daedlan","gluttonous adephagian","spherical leupai","milk-bloated adephagian","feeder nefirian","immobile aladri","billetroa arka","balloon fountain","greed fountain","gain fountain","bulk fountain","venomous fountain","fattenium fountain","milk fountain","berry fountain","metamorphous fountain")>><<endif>>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 40) and ($clawMachine lte 70)>>
+				<<set $specialEncounter = either("hypo genelab","billeporte")>>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 70>>
+				<<set $specialEncounter = "transport aetherhole">>
+
+		<<endif>>
+	<<endif>>
+
+
+
+	/% ======================================================================== %/
+	/% Farmlands %/
+
+	<<elseif $zoneType is "agriculture">>
+
+
+	/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+			/% 1 %/
+			<<if $clawMachine lte 20>>
+				<<set $specialEncounter = "treasure chest"; $itemPool = "treasureLv1">>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 20) and ($clawMachine lte 65)>>
+				<<set $specialEncounter = either("tree curio","tree curio","berry bush","berry bush","berry bush","fruit tree","fruit tree","grain field","vegetable patch")>>
+					<<if $specialEncounter is "berry bush">><<set $itemPool = "berrybush"; $itemClass = either("regionberry","magicberry","magicberry","magicberry","miraberry"); $regionBerry = either("starberry","effervescent grape","coffee berry"); $magicBerry = either("rainberries","bulkberries","bulkberries","roundberries","roundberries","burstberries","burstberries","cowberries","cowberries","bulgeberries","bulgeberries","plushberries","plushberries","bounceberries","bounceberries","butterberries","butterberries","butterberries")>>
+
+					<<elseif $specialEncounter is "fruit tree">><<set $itemPool = "fruitree"; $itemClass = "regionfruit"; $regionFruit = either("plump belcheri","plump plum","giant peach","voluptuous pear","imperial apple")>>
+
+					<<elseif $specialEncounter is "vegetable patch">><<set $itemPool = "vegpatch"; $itemClass = either("melon","milkmelon","pumpkin")>>
+
+					<<elseif $specialEncounter is "grain field">><<set $itemPool = "grain">>
+
+					<<elseif $specialEncounter is "tree curio">>
+					<<set $encounter = either("woodtree","woodtree","woodtree","woodtree","woodtree","woodtree","antlertree","pottree","axetree","pickaxetree","shoveltree")>>
+					<<endif>>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 65>>
+				<<set $specialEncounter = "bovieterie">>
+
+			<<endif>>
+		<<endif>>
+
+	/% Uncommon (25% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 85)>>
+
+			/% 1 %/
+			<<if $clawMachine lte 60>>
+				<<set $specialEncounter = either("monster grove","corpse curio")>>
+
+					<<if $specialEncounter is "monster grove">>
+					<<set $monsterGroveType = "n eerie grove"; $monsterGrovePop = random(4,12); $GroveMonsters = either("culinet","culinet","culinet","fyynlings","leupai","helene","puddings","miscleupai")>>
+
+					<<elseif $specialEncounter is "corpse curio">>
+					<<set $encounter = either("eaten","eaten","eaten","fat-drowned","burst-bellied","burst-bellied","burst-bellied","exploded") + " corpse"; $curioSpecies = either("human","post-human","arka","adephagian")>><<endif>>
+
+			/% 2 %/
+			<<elseif $clawMachine gt 60>>
+				<<set $specialEncounter = either("traveling trader","leupai merchant","abitte")>>
+
+			<<endif>>
+		<<endif>>
+
+	/% Rare (15%) %/
+	<<if $randomizer gte 85>>
+
+			/% 1 %/
+			<<if $clawMachine lte 50>>
+				<<set $specialEncounter = "leupai dungeon lv1">>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 50) and ($clawMachine lte 90)>>
+				<<set $specialEncounter = "hypo genelab">>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 90>>
+				<<set $specialEncounter = "transport aetherhole">>
+
+		<<endif>>
+	<<endif>>
+
+
+	/% ======================================================================== %/
+	/% Fire & Poison %/
+
+	<<elseif ($zoneType is "poison") or ($zoneType is "fire")>>
+
+	/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+			/% 1 %/
+			<<if $clawMachine lte 80>>
+				<<set $specialEncounter = either("stygian portal","corpse curio")>>
+
+					<<if $specialEncounter is "corpse curio">>
+					<<set $curioSpecies = either("human","post-human","arka","adephagian")>>
+						<<if $zoneType is "poison">><<set $encounter = either("poisoned","eaten","suffocated","slashed","starved") + " corpse">>
+						<<elseif $zoneType is "fire">><<set $encounter = either("suffocated","eaten","slashed","incinerated") + " corpse">><<endif>><<endif>>
+
+			/% 2 %/
+			<<elseif $clawMachine gt 80>>
+				<<set $specialEncounter = either("leupai merchant","traveling trader")>>
+
+
+			<<endif>>
+		<<endif>>
+
+	/% Uncommon (25% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 85)>>
+
+			/% 1 %/
+			<<if $clawMachine lte 40>>
+				<<set $specialEncounter = "leupai dungeon lv1">>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 40) and ($clawMachine lte 70)>>
+				<<set $specialEncounter = "billeporte">>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 70>>
+				<<set $specialEncounter = "transport aetherhole">>
+
+			<<endif>>
+		<<endif>>
+
+	/% Rare (15%) %/
+	<<if $randomizer gte 85>>
+
+			/% 1 %/
+			<<if $clawMachine lte 50>>
+				<<set $specialEncounter = "abitte">>
+
+			/% 2 %/
+			<<elseif $clawMachine gt 50>>
+				<<set $specialEncounter = "hypo genelab">>
+
+		<<endif>>
+	<<endif>>
+
+
+	/% ======================================================================== %/
+	/% Freshwater & Beach %/
+
+	<<elseif ($zoneType is "freshwater") or ($location is "Beach")>>
+
+
+	/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+			/% 1 %/
+			<<if $clawMachine lte 20>>
+				<<set $specialEncounter = "treasure chest"; $itemPool = "treasureLv1">>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 20) and ($clawMachine lte 60)>>
+				<<set $specialEncounter = either("corpse curio","corpse curio","berry bush","berry bush","berry bush","berry bush","berry bush","fruit tree","fruit tree","vegetable patch")>>
+
+					<<if $specialEncounter is "berry bush">><<set $itemPool = "berrybush"; $itemClass = either("regionberry","magicberry","magicberry","magicberry","miraberry"); $regionBerry = either("starberry","cramberry","cramberry"); $magicBerry = either("rainberries","bulkberries","bulkberries","roundberries","roundberries","burstberries","burstberries","bulgeberries","bulgeberries","cowberries","cowberries","plushberries","plushberries","bounceberries","bounceberries","butterberries","butterberries","butterberries")>>
+
+					<<elseif $specialEncounter is "fruit tree">><<set $itemPool = "fruitree"; $itemClass = "regionfruit"; $regionFruit = either("plump belcheri","plump plum","giant peach","voluptuous pear","imperial apple")>>
+
+					<<elseif $specialEncounter is "vegetable patch">><<set $itemPool = "vegpatch"; $itemClass = either("melon","milkmelon","pumpkin")>>
+
+					<<elseif $specialEncounter is "corpse curio">>
+					<<set $encounter = either("eaten","eaten","eaten","drowned","slashed") + " corpse"; $curioSpecies = either("human","post-human","arka","adephagian")>><<endif>>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 60>>
+				<<set $specialEncounter = "traveling trader">>
+
+
+			<<endif>>
+		<<endif>>
+
+	/% Uncommon (25% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 85)>>
+
+			/% 1 %/
+			<<if $clawMachine lte 60>>
+				<<set $specialEncounter = "monster grove"; $monsterGroveType = "n eerie grove"; $monsterGrovePop = random(4,12); $GroveMonsters = either("slimes","puddings","miscleupai",0)>>
+
+			/% 2 %/
+			<<elseif $clawMachine gt 60>>
+				<<set $specialEncounter = either("leupai dungeon lv1","leupai merchant")>>
+
+			<<endif>>
+		<<endif>>
+
+	/% Rare (15%) %/
+	<<if $randomizer gte 85>>
+
+			/% 1 %/
+			<<if $clawMachine lte 40>>
+				<<set $specialEncounter = either("abitte","billeporte")>>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 40) and ($clawMachine lte 70)>>
+				<<set $specialEncounter = "transport aetherhole">>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 70>>
+				<<set $specialEncounter = "hypo genelab">>
+
+		<<endif>>
+	<<endif>>
+
+
+	/% ======================================================================== %/
+	/% Undefined/Placeholder zone. %/
+
+	<<elseif $subterranean is 0>>
+
+	/% Common (60%) %/
+	<<if $randomizer lte 60>>
+
+				/% 1 %/
+			<<if $clawMachine lte 10>>
+				<<set $specialEncounter = "treasure chest"; $itemPool = "treasureLv1">>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 10) and ($clawMachine lte 40)>>
+				<<set $specialEncounter = either("berry bush","berry bush","berry bush","berry bush","berry bush","fruit tree","fruit tree","vegetable patch")>>
+					<<if $specialEncounter is "berry bush">>
+					<<set $itemPool = "berrybush"; $itemClass = either("regionberry","magicberry","magicberry","magicberry","miraberry"); $regionBerry = either("starberry","effervescent grape","coffee berry"); $magicBerry = either("rainberries","bulkberries","bulkberries","roundberries","roundberries","burstberries","burstberries","cowberries","cowberries","plushberries","plushberries","bounceberries","bounceberries","bulgeberries","bulgeberries","butterberries","butterberries","butterberries")>>
+
+					<<elseif $specialEncounter is "fruit tree">>
+					<<set $itemPool = "fruitree"; $itemClass = "regionfruit"; $regionFruit = either("plump belcheri","plump plum","giant peach","voluptuous pear","imperial apple")>>
+
+					<<elseif $specialEncounter is "vegetable patch">>
+					<<set $itemPool = "vegpatch"; $itemClass = either("melon","milkmelon","pumpkin")>><<endif>>
+
+
+			/% 3 %/
+			<<elseif ($clawMachine gt 40) and ($clawMachine lte 70)>>
+				<<set $specialEncounter = "magical curio"; $encounter = either("fattenmirror","slimmirror","funmirror","well-fed helene","blubbery daedlan","spherical leupai","milk-bloated cubus","feeder nefirian","immobile elf","balloon fountain","greed fountain","gain fountain","bulk fountain","venomous fountain","fattenium fountain","milk fountain","berry fountain","metamorphous fountain")>>
+
+			/% 4 %/
+			<<elseif $clawMachine gt 70>>
+				<<set $specialEncounter = either("traveling trader","leupai merchant")>>
+			<<endif>>
+
+		<<endif>>
+
+
+	/% Uncommon (25% chance) %/
+	<<if ($randomizer gt 60) and ($randomizer lt 85)>>
+
+			/% 1 %/
+			<<if $clawMachine lte 40>>
+				<<set $specialEncounter = "monster grove"; $monsterGroveType = "n eerie grove"; $monsterGrovePop = random(4,12); $GroveMonsters = either("slimes","fyynlings","leupai","helene","puddings","miscleupai",0)>>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 40) and ($clawMachine lte 80)>>
+				<<set $specialEncounter = "leupai dungeon lv1">>
+
+			/% 3 %/
+			<<elseif $clawMachine gt 80>>
+				<<set $specialEncounter = either("tree curio","tree curio","decorative curio")>>
+
+					<<if $specialEncounter is "tree curio">>
+					<<set $encounter = either("woodtree","woodtree","woodtree","woodtree","woodtree","woodtree","antlertree","pottree","axetree","pickaxetree","shoveltree")>>
+
+					<<elseif $specialEncounter is "decorative curio">>
+					<<set $encounter = either("statue","old altar"); $curioMaterial = either("stone statue","wooden carving","crystal sculpture","rusted metal sculpture","marble statue","topiary"); $statueBiomeFlavor = either("overgrown with weeds and twisting vines.","caked with mud.","discolored and worn.","half-coated in thick, black ichor of some sort.") + " It depicts ">><<endif>>
+
+			<<endif>>
+		<<endif>>
+
+	/% Rare (15%) %/
+	<<if $randomizer gte 85>>
+
+			/% 1 %/
+			<<if $clawMachine lte 30>>
+				<<set $specialEncounter = "abitte">>
+
+			/% 2 %/
+			<<elseif ($clawMachine gt 30) and ($clawMachine lte 50)>>
+				<<set $specialEncounter = either("transport aetherhole","billeporte","magical curio","corpse curio")>>
+
+					<<if $specialEncounter is "corpse curio">>
+					<<set $encounter = either("poisoned","eaten","bled","slashed") + " corpse"; $curioSpecies = either("human","post-human","arka","adephagian")>>
+
+					<<elseif $specialEncounter is "magical curio">>
+					<<set $encounter = "faefeast">><<endif>>
+
+			/% 3 %/
+			<<elseif ($clawMachine gt 50) and ($clawMachine lte 70)>>
+				<<set $specialEncounter = "hypo genelab">>
+
+			/% 4 %/
+			<<elseif $clawMachine gt 70>>
+				<<set $specialEncounter = "magical curio"; $encounter = either("fattenmirror","slimmirror","funmirror","well-fed helene","egg-fattened daedlan","gluttonous daedlan","gluttonous adephagian","spherical leupai","milk-bloated adephagian","feeder nefirian","immobile aladri","billetroa arka","balloon fountain","greed fountain","gain fountain","bulk fountain","venomous fountain","fattenium fountain","milk fountain","berry fountain","metamorphous fountain")>>
+
+
+		<<endif>>
+	<<endif>>
+
+/% ======================================================================== %/
+
+	<<endif>>
+<<endif>>
+
+/% ======================================================================== %/
+/% Aetherhole override. 1 in ??? chance of encountering an aetherhole instead, outside of dungeons.
+Maybe different chances depending on area %/
+
+<<if ($indoorZone neq 0) and ($dungeonLocation is 0)>>
+<<set $randomizer = random(1,3)>>
+<<if $randomizer is 1>><<set $specialEncounter = "aetherhole">><<endif>><<endif>>
+
+/% ======================================================================== %/
+/% Admin override. (don't forget to comment out when not in use) %/
+
+
+/% ======================================================================== %/
+/% Special - Site of Death event. %/
+
+<<if $storedCorpse is 1>>
+	<<if ($location eq $deathLoc) and ($planetID eq $deathWorldID)>><<set $randomizer = random(1,3)>>
+		<<if $randomizer is 1>>
+		<<set $specialEncounter = "player corpse">><<endif>><<endif>>
+			<<endif>>

@@ -1,0 +1,116 @@
+﻿<<nobr>>
+<<display Clocks>>
+<<display ClockDisplay>>
+<<display PersistentEffects>>
+<<if $planetGen is 1>><<display NPCNamer>><<set $planet = $planetName>><<display PlanetGen>><<set $planetGen = 0>><<endif>>
+
+/% Player name/species + Mode Select (For avbot control) %/
+
+<<display AvbotToggles>>
+<<display BiomeDatabase>><<display ZoneBackgrounds>>
+
+/% Unsets %/
+<<if $overrideExplore is 0>><<if $toggleDisplay is 1>><<set $toggleDisplay = 0>><<endif>><<endif>>
+
+
+/% ================================================= %/
+/% Initialization %/
+
+<<if $locName is 0>><<display LocationName>><<endif>>
+
+/% Store script %/
+<<if $storing is 1>><<display Store>><<set $storing = 0>><<endif>>
+
+/% Wear script %/
+<<if $puttingOn is 1>><<display wearItem>><<set $puttingOn = 0>><<endif>>
+
+/% Eat script %/
+<<if $eating is 1>><<display FoodEffects>><<set $eating = 0>><<endif>>
+
+<<endnobr>>
+<<display ZoneDisplay>><<if $locStatus neq 0>>
+//<<print $locStatus>>//<<endif>>\
+\
+<<if $ambientStatus neq 0>> //<<print $ambientStatus>>//<<endif>>\
+<<if $specStatus neq 0>>
+[img[icon_alert]]<alert><<print $specStatus>></alert><<endif>><<display AchievementTracker>><center><<nobr>>
+<<display ShutoffValve>><<endnobr>><<display BodySystems>><<display Immobility>>\
+\
+/% New game/incarnation intro %/
+\
+<<if $newBody is 1>>
+<cheery>You wake up in <<if $plane neq 0>> ''in <brightalert><<print $plane>></brightalert>''<<elseif $plane is 0>> in <brightalert>''The <<print $location>> of <<print $locName>>''</brightalert><<endif>> with ''<brightalert>a bit of a headache</brightalert>'' and ''no recollection of who you are or where you've been...''</cheery>
+
+It <deepalert>''might not be safe'' to stay here...</deepalert>\
+\
+<<elseif $avbotToggled is 1>>
+<cheery>Your Avbot's eyes flicker on as it rises to its feet, ''activating as you take control!''</cheery>\
+\
+<<elseif $avbotToggled is 2>>
+<cheery>Your Avbot's eyes flicker off as it powers down, your vision once again becoming your own!</cheery>\
+\
+<<elseif $newPlanet is 1>>
+<cheery>Your billetroa arrives in ''The <<print $location>> of <<print $locName>>'' on ''<brightalert>Planet <<print $planet>></brightalert>'', leaving you to explore!</cheery><<nobr>>
+
+/% Location resets for avbot owners %/
+
+<<if ($special_avbot is -1) or ($special_avbot is 1)>>
+<<set $avbotBiome = $location; $avbotBiomeName = $locName; $p1Biome = $location; $p1BiomeName = $locName>><<endif>><<endnobr>>
+\
+<<elseif $newPlanet is 3>>
+<cheery>You find yourself<<if $plane neq 0>> ''in <brightalert><<print $plane>></brightalert>''<<elseif $plane is 0>> in ''The <<print $location>> of <<print $locName>>'' on ''<brightalert>Planet <<print $planet>></brightalert><<endif>>''!</cheery><<nobr>>
+
+/% Location resets for avbot owners %/
+
+<<if ($special_avbot is -1) or ($special_avbot is 1)>>
+<<set $avbotBiome = $location; $avbotBiomeName = $locName; $p1Biome = $location; $p1BiomeName = $locName>><<endif>><<endnobr>><<endif>>\
+\
+<<if $overrideExplore is 0>>\
+\
+<<if $exploring is 3>><<set $encImg = 0>><<display EncounterImg>>\
+<<nobr>>
+
+<<if $autoRest is 1>> <<set $pain -= either(0,0,0,1,2)>><<timedgoto passage() 1.5s >><<endif>>
+
+<<endnobr>>
+<<if ($caffeinePoisoning neq 1) and ($pain lt 70) and ($newbody is 0)>>//You rest and enjoy the scenery.//<<elseif $caffeinePoisoning is 1>>You're nervous and jittery... ''you can't seem to relax!''
+\
+<<elseif $pain gte 70>>//...a-are you going to... <deepalert>''die?''</deepalert>//<<endif>>
+<<elseif ($exploring neq 3) and ($newBody is 0) and ($avbotToggled is 0)>>\
+\
+<<display Encounter>><<endif>><<endif>><<display Effects>>\
+\
+/% Override protection, hopefully...
+
+In theory, this will check if any of the override flags-- blackout, leupai egg immersion, and aggro-- are enabled.
+If at least one is, override will continue.
+
+If none are, this will turn override off and hopefully display the page normally.
+
+ %/\
+\
+\
+<<if $overrideExplore is 1>>\
+<<if ($blackout is 0) and ($eggBellyExplode is 0) and ($aggro is 0)>>\
+/% Something is broken. Unset override. %/\
+<<set $overrideExplore = 0>><<endif>><<endif>>\
+\
+\
+\
+<<if $overrideExplore is 1>>\
+<<if ($blackout is 1) or ($eggBellyExplode is 1)>>/% Knockout, death, and leupai eggs. %/\
+<<display CriticalAlerts>>\
+<<elseif $aggro is 1>>/% Hide everything %/<<endif>>\
+\
+\
+<<elseif $overrideExplore neq 1>>\
+<<display Alert>>
+\
+<framed><center><<display ExploreControls>>
+\
+\
+\
+<<display Meters>></center></framed><xtramini>\
+<<if $toggleDisplay is 0>><<display DEBUG>><<endif>><<display AdminTools>><hr></xtramini>\
+\
+<<endif>><<set $alertStatus = 0>><<if $newBody is 1>><<set $newBody = 0>><<endif>><<if $newPlanet neq 0>><<set $newPlanet = 0>><<endif>><<if $avbotToggled neq 0>><<set $avbotToggled = 0>><<endif>></center>

@@ -1,0 +1,80 @@
+﻿<<display ZoneBackgrounds>><<if $activateProcess is 1>><<nobr>>
+
+/% Find an empty companion slot and stick this donsair in it. %/
+
+<<if $companion1 is 0>>
+
+/% Stash some stats for quick reference, and increase the companion counter to match the new sum. %/
+<<set $companion1 = $donsairName; $companion1ID = $donsairID; $companion1Spec = $donsairSpecies; $companion1Subspec = $donsairSubspec; $companion1Subtype = $donsairSubtype; $companion1Fin = $donsairFinesse; $companion1Pwr = $donsairPower; $activeCompanions += 1; $donsairActive = 1>>
+<<if $donsairVenom neq 0>><<set $companion1Venom = $donsairVenom>><<endif>>
+
+/% update the active companion flag %/
+<<print "<<set $dons" + $donsairID + "Active = $donsair" + "Active>>">>
+
+<<elseif ($companion1 neq 0) and ($companion2 is 0)>>
+
+/% Fill slot 2. %/
+<<set $companion2 = $donsairName; $companion2ID = $donsairID; $companion2Spec = $donsairSpecies; $companion2Subspec = $donsairSubspec; $companion2Subtype = $donsairSubtype; $companion2Fin = $donsairFinesse; $companion2Pwr = $donsairPower; $activeCompanions += 1; $donsairActive = 1>>
+<<if $donsairVenom neq 0>><<set $companion2Venom = $donsairVenom>><<endif>>
+
+/% update the active companion flag %/
+<<print "<<set $dons" + $donsairID + "Active = $donsair" + "Active>>">>
+
+<<elseif ($companion2 neq 0) and ($companion3 is 0)>>
+
+/% Fill slot 3. %/
+<<set $companion3 = $donsairName; $companion3ID = $donsairID; $companion3Spec = $donsairSpecies; $companion3Subspec = $donsairSubspec; $companion3Subtype = $donsairSubtype; $companion3Fin = $donsairFinesse; $companion3Pwr = $donsairPower; $activeCompanions += 1; $donsairActive = 1>>
+<<if $donsairVenom neq 0>><<set $companion3Venom = $donsairVenom>><<endif>>
+
+/% update the active companion flag %/
+<<print "<<set $dons" + $donsairID + "Active = $donsair" + "Active>>">>
+
+<<else>>
+//''DEBUG:'' Companion count error! Did not add companion.//
+/% Something went wrong, yo. %/<<endif>>
+
+<<endnobr>>
+<framed><center><<print "[img[$dons" + $donsairID + "img]]">>
+''<<print $donsairName>> joins the party!''
+</center></framed>\
+
+<center><<button [[Continue.|DonsairView][$activateProcess = 0]]>></center>\
+
+<<elseif $activateProcess is 2>><<nobr>>
+
+/% Remove this active donsair and open its slot up for use. %/
+
+<<if $companion1ID is $donsairID>>
+<<set $companion1 = 0; $activeCompanions -= 1; $donsairActive = 0>>
+<<if $companion1Venom neq 0>><<set $companion1Venom = 0>><<endif>>
+
+/% update the active companion flag %/
+<<print "<<set $dons" + $donsairID + "Active = $donsair" + "Active>>">>
+
+<<elseif $companion2ID is $donsairID>>
+<<set $companion2 = 0; $activeCompanions -= 1; $donsairActive = 0>>
+<<if $companion2Venom neq 0>><<set $companion2Venom = 0>><<endif>>
+
+/% update the active companion flag %/
+<<print "<<set $dons" + $donsairID + "Active = $donsair" + "Active>>">>
+
+<<elseif $companion3ID is $donsairID>>
+<<set $companion3 = 0; $activeCompanions -= 1; $donsairActive = 0>>
+<<if $companion3Venom neq 0>><<set $companion3Venom = 0>><<endif>>
+
+/% update the active companion flag %/
+<<print "<<set $dons" + $donsairID + "Active = $donsair" + "Active>>">>
+
+<<else>>
+//''DEBUG:'' Companion ID not found! Did not remove from companions.//
+/% Something went wrong, yo. %/<<endif>>
+
+
+<<endnobr>>
+<framed><center><<print "[img[$dons" + $donsairID + "img]]">>
+''<<print $donsairName>> leaves the party!''
+</center></framed>\
+
+<center><<button [[Continue.|DonsairView][$activateProcess = 0]]>></center>\
+
+<<endif>>

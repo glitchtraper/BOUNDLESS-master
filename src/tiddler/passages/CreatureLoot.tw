@@ -1,0 +1,107 @@
+﻿<<nobr>>/% ====================  %/
+/% Check how much loot this creature rewards, and then rolls that up. %/
+
+
+
+<<endnobr>>\
+<<if $lootRolls neq 0>>\
+<<nobr>>
+
+<<endnobr>>\
+<<if $lootRolls is 1>>\
+<<nobr>>
+
+<<display LootDatabase>>
+
+<<endnobr>><<if $dropped neq 0>>
+<large>You find <<if ($itemQuantity lte 0) or ($itemQuantity is 1)>><<print $itemGrammar>>\
+<<else>><<print $itemQuantity>><<endif>> <affirmative>''<<print $itemEncounter>>!''</affirmative></large>\
+<<nobr>>
+
+<<if $itemQuantity lte 0>><<set $itemQuantity = 1>><<endif>><<print "<<set $" + $itemID + " += " + $itemQuantity + ">>">>
+<<if $showDebug is 1>>//DEBUG: loot table is <<print $lootTable>>; randomizer is <<print $randomizer>>; itemEncounter is <<print $itemEncounter>>//<<endif>>
+
+
+<<endnobr>><<endif>><<endif>><<nobr>>
+
+
+
+
+<<endnobr>>\
+<<if $lootRolls is 2>>\
+<<nobr>>
+
+<<display LootDatabase>>
+
+<<endnobr>><<if $dropped neq 0>>
+<large>You find <<if ($itemQuantity lte 0) or ($itemQuantity is 1)>><<print $itemGrammar>>\
+<<else>><<print $itemQuantity>><<endif>> <affirmative>''<<print $itemEncounter>>!''</affirmative></large>\
+<<nobr>>
+
+<<if $itemQuantity lte 0>><<set $itemQuantity = 1>><<endif>><<print "<<set $" + $itemID + " += " + $itemQuantity + ">>">>
+<<if $showDebug is 1>>//DEBUG: loot table is <<print $lootTable>>; randomizer is <<print $randomizer>>; itemEncounter is <<print $itemEncounter>>//<<endif>>
+
+
+<<endnobr>><<endif>><<endif>><<nobr>>
+
+
+
+
+<<endnobr>>\
+<<if $lootRolls is 3>>\
+<<nobr>>
+
+<<display LootDatabase>>
+
+<<endnobr>><<if $dropped neq 0>>
+<large>You find <<if ($itemQuantity lte 0) or ($itemQuantity is 1)>><<print $itemGrammar>>\
+<<else>><<print $itemQuantity>><<endif>> <affirmative>''<<print $itemEncounter>>!''</affirmative></large>\
+<<nobr>>
+
+<<if $itemQuantity lte 0>><<set $itemQuantity = 1>><<endif>><<print "<<set $" + $itemID + " += " + $itemQuantity + ">>">>
+
+
+<<endnobr>><<endif>><<endif>><<nobr>>
+
+
+
+
+<<endnobr>>\
+<<if $lootRolls is 4>>\
+<<nobr>>
+
+<<display LootDatabase>>
+
+<<endnobr>><<if $dropped neq 0>>
+<large>You find <<if ($itemQuantity lte 0) or ($itemQuantity is 1)>><<print $itemGrammar>>\
+<<else>><<print $itemQuantity>><<endif>> <affirmative>''<<print $itemEncounter>>!''</affirmative></large>\
+<<nobr>>
+
+<<if $itemQuantity lte 0>><<set $itemQuantity = 1>><<endif>><<print "<<set $" + $itemID + " += " + $itemQuantity + ">>">>
+<<if $showDebug is 1>>//DEBUG: loot table is <<print $lootTable>>; randomizer is <<print $randomizer>>; itemEncounter is <<print $itemEncounter>>//<<endif>>
+
+
+<<endnobr>><<endif>><<endif>><<nobr>>
+
+
+
+
+<<endnobr>>\
+<<if $lootRolls is 5>>\
+<<nobr>>
+
+<<display LootDatabase>>
+
+<<endnobr>><<if $dropped neq 0>>
+<large>You find <<if ($itemQuantity lte 0) or ($itemQuantity is 1)>><<print $itemGrammar>>\
+<<else>><<print $itemQuantity>><<endif>> <affirmative>''<<print $itemEncounter>>!''</affirmative></large>\
+<<nobr>>
+
+<<if $itemQuantity lte 0>><<set $itemQuantity = 1>><<endif>><<print "<<set $" + $itemID + " += " + $itemQuantity + ">>">>
+<<if $showDebug is 1>>//DEBUG: loot table is <<print $lootTable>>; randomizer is <<print $randomizer>>; itemEncounter is <<print $itemEncounter>>//<<endif>>
+
+
+<<endnobr>><<endif>><<endif>>
+
+
+<<endif>>

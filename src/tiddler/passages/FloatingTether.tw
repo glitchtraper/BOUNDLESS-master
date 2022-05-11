@@ -1,0 +1,12 @@
+﻿Anchored to the nearby space station by a tether attached to a facemask, you drift within a shimmering, iridescent bubble as whatever concoction the HYPOTHESIS scientists have developed is pumped steadily into your waiting mouth.
+
+You feel your belly slowly tightening as it fills-- although the stuff seems to contain some sort of stretching agent to ease the process.
+
+You feel groggy, sedate, and somewhat warm as you watch the stars sparkle around you...
+<<nobr>>
+
+<<if $finesse gt 3>><<set $finesse -= either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1)>><<endif>>
+
+<<set $ffCalories = either(30,40,50,60); $ffBloat = $maxBelly / 6; $ffLiquid = $ffBloat / 2; $ffBreastBloat = 0; $ffMilk = 0; $ffPain = 0; $pain = 20; $ffGreed = random(0,2); $maxBelly += either(0,0,0,0,0,0,0,10); $naturalMaxPain += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10); $lethalKO = 0; $noncon = 0; $ffeedingNoun = "hose"; $ffeedingVerb = "feed"; $ffeedingTarget = "belly"; $ffeedingEffect = "slowly filling"; $fatteniumPoisoning += either(10,10,20,30,40)>><<endnobr>>
+<framed><<display ForcefeedEngine>>
+<center><<button [[Return to the Station.|Floating Station][$floatingStationArriving = 0; $serviceOverride = 0]]>></center></framed>

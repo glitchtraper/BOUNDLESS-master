@@ -1,0 +1,55 @@
+﻿<center><xtralarge>''//<mutation>CLICK</mutation> on the body part to alter it.
+Press the <mutation>FINALIZE</mutation> button to complete your Avbot.//''</xtralarge>
+
+<midframe><<nobr>>
+
+<<set $avbotBodyType = 0; $avbotGirth = 2000; $avbotBreast = 20; $avbotBelly = 50; $avbotThigh = 30; $avbotThighFirmness = 800; $saveStateAvbotLocation = "Hypo Techlab">>
+
+<<set $avbotBellyStatus = "empty"; $avbotBreastStatus = "empty"; $avbotMaxBelly = ($belly + $belly); $avbotMaxBreast = $breast; $avbotMetaGain = 10; $avbotMetaBurn = 10; $avbotMilkFat = 0; $avbotMilkRate = 10>>
+
+/% ===========[ EARS ]=========== %/
+
+[<mutation><<cyclinglink $AvbotEarNo 2 4 6 0>>
+
+<<cyclinglink $AvbotEars "double" "equine" "fae" "finned" "long" "lop" "ribbon" "round" "spike" "split" "tendril" "triangular" "winged">> ears</mutation>]
+
+
+/% ===========[ HEAD ORNAMENT ]=========== %/
+
+/% No default head ornaments for avbots. %/
+<<set $AvbotHead = 0>>
+
+/% ===========[ EYES ]=========== %/
+
+[<mutation><<cyclinglink $AvbotEyeNo 2 3 4 5 6 7 8 9 0>> <<cyclinglink $AvbotEyeColor "white" "red" "orange" "yellow" "golden" "green" "teal" "blue" "indigo" "violet" "pink" "magenta" "black" "gray" "silver" "brown">> eyes</mutation>]
+
+
+/% ===========[ FACE ]=========== %/
+
+<<endnobr>>[<mutation><<cyclinglink $AvbotFace "flat" "avian" "blunt" "boid" "canine" "crocodilian" "crusher" "eel" "feline" "gecko" "humanoid" "leonine" "oneroiesque" "saurian" "seal" "sharklike" "vulpine">> face</mutation>]
+<<nobr>>
+
+/% ===========[ ARMS ]=========== %/
+
+[<mutation><<cyclinglink $AvbotArmNo 2 4 6>> <<set $AvbotArms = 0>> arms</mutation>]
+
+/% ===========[ SKIN ]=========== %/
+
+/% Avbot skin is always Jelly %/
+<<set $AvbotSkin = "jelly">>
+
+/% ===========[ BODY ]=========== %/
+
+[<mutation><<cyclinglink $AvbotBodyColor "blue" "red" "orange" "yellow" "golden" "green" "teal" "indigo" "violet" "pink" "magenta" "black" "gray" "silver" "white" "brown">> <<cyclinglink $AvbotBody "humanoid" "blimplike" "bloated" "blubber-stuffed" "blubbery" "bulging" "emaciated" "flabby" "gelatinous" "monstrous" "pot-bellied" "serpentine">> body</mutation>]
+
+
+/% ===========[ LEGS ]=========== %/
+
+<<endnobr>>
+<<nobr>>[<mutation><<cyclinglink $AvbotArmNo 2 4 6 0>> <<cyclinglink $AvbotLegs "default" "bloated" "bulging" "digitigrade" "hoofed digitigrade" "tentacle">> legs</mutation>]
+
+
+/% ===========[ TAIL ]=========== %/
+
+[<mutation><<cyclinglink $AvbotTail "long" "braided" "bushy" "cable" "canine" "carnosaur" "club" "crocodilian" "dragon" "equine" "fat" "feathered" "feline" "fox" "gecko" "leonine" "maw" "nub" "phoenix" "rat" "rooster" "sauropod" "serpentine" "slug" "spade" "split" "tentacle" "worm" 0>> tail</mutation>]<<endnobr>></midframe>
+<<button [[FINALIZE|passage()][$special_avbot = 1; $avbotToggle = 0; $avbotStrength = 20; $avbotFinesse = 12; $avbotMaxPain = 200; $service = 4; $avbotToggled = 1]]>><<button [[Choose a Walker Mech instead.|passage()][$service = 1]]>></center>

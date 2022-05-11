@@ -1,0 +1,74 @@
+﻿<<set $globalTime += 1; $minutes += 1>>
+
+/% Make readout time look nice. %/
+<<if $days is 0>><<set $days += 1>><<endif>>
+<<if $weeks is 0>><<set $weeks += 1>><<endif>>
+<<if $months is 0>><<set $months += 1>><<endif>>
+
+/% Sequential clock %/
+
+/%
+1 click = 1 minute
+10 minutes = 1 hour
+8 hours = 1 day
+5 days = 1 week
+3 weeks = 1 month
+6 months = 1 year %/
+
+<<if $minutes gte 10>><<set $hours += 1; $minutes = 0>><<endif>>
+<<if $hours gte 8>><<set $days += 1; $consecutiveDays += 1; $hours = 0>>
+
+/% For leupai - age timers (update for new code)%/
+	<<if $companion1Aging is 1>><<set $companion1Age += 1>><<display LeupaiLifeCycle>><<display QuaggyBirthday>><<endif>>
+	<<if $companion2Aging is 1>><<set $companion2Age += 1>><<display LeupaiLifeCycle>><<display QuaggyBirthday>><<endif>>
+	<<if $companion3Aging is 1>><<set $companion3Age += 1>><<display LeupaiLifeCycle>><<display QuaggyBirthday>><<endif>>
+
+<<endif>>
+<<if $days gte 5>><<set $weeks += 1; $days = 0>><<endif>>
+<<if $weeks gte 3>><<set $months += 1; $weeks = 0>><<endif>>
+<<if $months gte 6>><<set $years += 1; $months = 0>><<endif>>
+
+/% Daylight %/
+
+<<if $subterranean is 0>>
+<<if ($hours lte 2) or ($hours is 8)>><<set $darkArea = 1; $daytime = 0>>
+<<elseif ($hours gte 3) and ($hours lte 7)>><<set $darkArea = 0; $daytime = 1>><<endif>>
+<<elseif $subterranean is 1>><<if ($hours lte 2) or ($hours is 8)>><<set $daytime = 0>>
+<<elseif ($hours gte 3) and ($hours lte 7)>><<set $daytime = 1>><<endif>><<endif>>
+
+/% Seasonal? Just for fun now, might get used later for stuff like weather & rare spawns. %/
+
+<<if $months is 0>><<set $months = 1>><<endif>>
+
+<<if ($months is 1) or ($months is 2)>><<set $season = "spring">><<endif>>
+<<if ($months is 3) or ($months is 4)>><<set $season = "summer">><<endif>>
+<<if ($months is 5) or ($months is 6)>><<set $season = "autumn">><<endif>>
+<<if ($months is 7) or ($months is 0)>><<set $season = "winter">><<endif>>
+
+/% Use with the justLeft variables to track how far away the player has wandered from their last dungeon, building, or town. %/
+<<if $stepcounter is 1>><<set $stepsCounted += 1>><<endif>>
+
+/% How "far" away the player can travel before fast travel to the last area visited is disabled. %/
+<<if ($stepcounter is 1) and ($stepsCounted gte 30)>><<set $stepsCounted = 0; $stepcounter = 0>><<endif>>
+
+/% Egg timer. %/
+<<if ($eggTimer is 1) and ($leupaiEggTimer gt 0)>><<set $leupaiEggTimer -= 1>><<endif>>
+
+/% Weather timer. %/
+
+<<if $weatherTime gt 0>><<set $weatherTime -= 1>><<endif>>
+
+/% Moon phases %/
+
+<<if $weeks is 0>>
+<<if $days lte 3>><<set $moonPhase = "new">>
+<<elseif $days gt 3>><<set $moonPhase = "waxing crescent">><<endif>>
+<<elseif $weeks is 1>>
+<<if $days lte 3>><<set $moonPhase = "waxing gibbous">>
+<<elseif $days gt 3>><<set $moonPhase = "full">><<endif>>
+<<elseif $weeks is 2>>
+<<if $days lte 3>><<set $moonPhase = "full">>
+<<elseif $days gt 3>><<set $moonPhase = "waning gibbous">><<endif>>
+<<elseif $weeks is 3>>
+<<if $days lte 3>><<set $moonPhase = "waning crescent">>
+<<elseif $days gt 3>><<set $moonPhase = "new">><<endif>><<endif>>

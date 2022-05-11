@@ -1,0 +1,62 @@
+﻿<<nobr>>
+
+<<display DonsairInventory>>
+
+<<display DonsairHarvest>>
+
+<<if ($donsairActive is 0) and ($activeCompanions lt 3)>>
+<<if $miniDonsair is 0>>/% Minis are non-combatant. %/
+
+/% Immobile donsair cannot join the party. :'( %/
+<<if ($girthClass is "immobile") or ($girthClass is "billetroaesque")>><unframe>Immobilized!</unframe>
+<<elseif ($girthClass neq "immobile") and ($girthClass neq "billetroaesque")>>
+<<button [[Join as Companion.|DonsairActivation][$activateProcess = 1]]>><<endif>><<endif>>
+
+<<elseif $donsairActive is 1>>
+
+/% If a companion donsair becomes immobile, it gets 'benched'. %/
+<<if ($girthClass is "immobile") or ($girthClass is "billetroaesque")>>
+
+''<<print $donsairName>> has grown too fat to move, and returns to your abitte!''
+
+/% Companion removal code. %/
+
+/% Remove this active donsair and open its slot up for use. %/
+
+<<if $companion1ID is $donsairID>>
+<<set $companion1 = 0; $activeCompanions -= 1; $donsairActive = 0>>
+<<if $companion1Venom neq 0>><<set $companion1Venom = 0>><<endif>>
+
+/% update the active companion flag %/
+<<print "<<set $dons" + $donsairID + "Active = $donsair" + "Active>>">>
+
+<<elseif $companion2ID is $donsairID>>
+<<set $companion2 = 0; $activeCompanions -= 1; $donsairActive = 0>>
+<<if $companion2Venom neq 0>><<set $companion2Venom = 0>><<endif>>
+
+/% update the active companion flag %/
+<<print "<<set $dons" + $donsairID + "Active = $donsair" + "Active>>">>
+
+<<elseif $companion3ID is $donsairID>>
+<<set $companion3 = 0; $activeCompanions -= 1; $donsairActive = 0>>
+<<if $companion3Venom neq 0>><<set $companion3Venom = 0>><<endif>>
+
+/% update the active companion flag %/
+<<print "<<set $dons" + $donsairID + "Active = $donsair" + "Active>>">>
+
+<<else>>
+//''DEBUG:'' Companion ID not found! Did not remove from companions.//
+/% Something went wrong, yo. %/<<endif>>
+
+
+<<else>>
+<<button [[Remove Companion.|DonsairActivation][$activateProcess = 2]]>><<endif>>
+
+
+<<elseif ($activeCompanions is 3) and ($donsairActive is 0)>>
+<unframe>Companions Full!</unframe><<endif>>
+
+<<if $donsairRename is "true">><<button [[Rename.|DonsairName]]>><<endif>>
+
+<<endnobr>>
+<<if $donsairActive is 0>><<button [[Butcher.|DonsairButcher][$butcherConfirm = 0]]>><<elseif $donsairActive is 1>><unframe>Remove Companion to Butcher.</unframe><<endif>>

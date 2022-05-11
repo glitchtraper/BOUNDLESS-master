@@ -1,0 +1,214 @@
+﻿/% =============================================== %/
+/% Essentials - always available %/
+
+/% Adephagian milk - 20 consiee a pop, 5 for 80 %/
+<<if $food gte 20>><<button [[Adephagian Milk ~~x~~1: 20~~consiee~~|passage()][$drink_milk += 1; $food -= 20]]>><<else>><unframe>''Adephagian Milk ~~x~~1: 20~~consiee~~''</unframe><<endif>>
+<<if $food gte 80>><<button [[Adephagian Milk ~~x~~5: 80~~consiee~~|passage()][$drink_milk += 5; $food -= 80]]>><<endif>>
+
+/% Cream - 60 consiee a pop %/
+<<if $food gte 60>><<button [[Jar of Cream ~~x~~1: 60~~consiee~~|passage()][$collectionjar_cream += 1; $food -= 60]]>><<else>><unframe>''Jar of Cream ~~x~~1: 60~~consiee~~''</unframe><<endif>>
+
+/% Whipped Cream - 70 consiee a pop %/
+<<if $food gte 70>><<button [[Jar of Whipped Cream ~~x~~1: 70~~consiee~~|passage()][$collectionjar_cream_whipped += 1; $food -= 70]]>><<else>><unframe>''Jar of Whipped Cream ~~x~~1: 70~~consiee~~''</unframe><<endif>>
+
+/% Thick Cream - 90 consiee a pop %/
+<<if $food gte 90>><<button [[Jar of Thick Cream ~~x~~1: 90~~consiee~~|passage()][$collectionjar_cream_thick += 1; $food -= 90]]>><<else>><unframe>''Jar of Thick Cream ~~x~~1: 90~~consiee~~''</unframe><<endif>>
+
+/% Glass Jar - 50 consiee a pop %/
+<<if $food gte 50>><<button [[Glass Jar ~~x~~1: 50~~consiee~~|passage()][$special_jar += 1; $food -= 50]]>><<else>><unframe>''Glass Jar ~~x~~1: 50~~consiee~~''</unframe><<endif>>
+
+/% Slime - 10 consiee a pop, 5 for 35 %/
+<<if $food gte 10>><<button [[Jar of Slime ~~x~~1: 10~~consiee~~|passage()][$collectionjar_slime += 1; $food -= 10]]>><<else>><unframe>''Jar of Slime ~~x~~1: 10~~consiee~~''</unframe><<endif>>
+<<if $food gte 35>><<button [[Jar of Slime ~~x~~5: 35~~consiee~~|passage()][$collectionjar_slime += 5; $food -= 35]]>><<endif>>
+
+/% Wild Miratoxin - 3000 consiee a pop %/
+<<if $food gte 3000>><<button [[Jar of Wild Miratoxin ~~x~~1: 3000~~consiee~~|passage()][$collectionjar_miratoxin_wild += 1; $food -= 3000]]>><<else>><unframe>''Jar of Wild Miratoxin ~~x~~1: 3000~~consiee~~''</unframe><<endif>>
+
+
+/% =============================================== %/
+/% Randomized items %/
+
+<<if $sellPool is 1>>
+
+/% =============================================== %/
+/% Imperial Bovieterie - Rare milk specialist %/
+
+/% Milky Candy - 5 for 50 consiee %/
+<<if $food gte 50>><<button [[Milky Candy ~~x~~5: 50~~consiee~~|passage()][$candy_milky += 5; $food -= 50]]>><<else>><unframe>''Milky Candy ~~x~~5: 50~~consiee~~''</unframe><<endif>>
+
+/% Milky Coffee - 50 consiee a pop %/
+<<if $food gte 50>><<button [[Milky Coffee ~~x~~1: 50~~consiee~~|passage()][$drink_coffee_milky += 1; $food -= 50]]>><<else>><unframe>''Milky Coffee ~~x~~1: 50~~consiee~~''</unframe><<endif>>
+
+/% Fat Coffee - 125 consiee a pop %/
+<<if $food gte 125>><<button [[Fat Coffee ~~x~~1: 125~~consiee~~|passage()][$drink_coffee_fat += 1; $food -= 125]]>><<else>><unframe>''Fat Coffee ~~x~~1: 125~~consiee~~''</unframe><<endif>>
+
+/% Imperial Cream - 300 consiee a pop %/
+<<if $food gte 300>><<button [[Jar of Imperial Cream ~~x~~1: 300~~consiee~~|passage()][$collectionjar_cream_imperial += 1; $food -= 300]]>><<else>><unframe>''Jar of Imperial Cream ~~x~~1: 300~~consiee~~''</unframe><<endif>>
+
+/% Leupai Milk - 350 consiee a pop %/
+<<if $food gte 350>><<button [[Jar of Leupai Milk ~~x~~1: 350~~consiee~~|passage()][$collectionjar_milk_leupai += 1; $food -= 350]]>><<else>><unframe>''Jar of Leupai Milk ~~x~~1: 350~~consiee~~''</unframe><<endif>>
+
+/% Strange Milk - 1250 consiee a pop %/
+<<if $food gte 1250>><<button [[Strange Milk ~~x~~1: 1250~~consiee~~|passage()][$milk_strange += 1; $food -= 1250]]>><<else>><unframe>''Strange Milk ~~x~~1: 1250~~consiee~~''</unframe><<endif>>
+
+/% Superb Imperial Cream - 1500 consiee a pop %/
+<<if $food gte 1500>><<button [[Jar of Superb Imperial Cream ~~x~~1: 1500~~consiee~~|passage()][$collectionjar_cream_imperial += 1; $food -= 1500]]>><<else>><unframe>''Jar of Superb Imperial Cream ~~x~~1: 1500~~consiee~~''</unframe><<endif>>
+
+<<elseif $sellPool is 2>>
+
+/% =============================================== %/
+/% Venomous Bovieterie - Toxin specialist %/
+
+/% Leupai Milk - 350 consiee a pop %/
+<<if $food gte 350>><<button [[Jar of Leupai Milk ~~x~~1: 350~~consiee~~|passage()][$collectionjar_milk_leupai += 1; $food -= 350]]>><<else>><unframe>''Jar of Leupai Milk ~~x~~1: 350~~consiee~~''</unframe><<endif>>
+
+/% Soothing Milk - 800 consiee a pop %/
+<<if $food gte 800>><<button [[Jar of Soothing Milk ~~x~~1: 800~~consiee~~|passage()][$milk_soothing += 1; $food -= 800]]>><<else>><unframe>''Jar of Soothing Milk ~~x~~1: 800~~consiee~~''</unframe><<endif>>
+
+<<elseif $sellPool is 3>>
+
+/% =============================================== %/
+/% Miscellaneous Bovieterie - assorted milk & venom mix %/
+
+/% Milky Candy - 5 for 50 consiee %/
+<<if $food gte 50>><<button [[Milky Candy ~~x~~5: 50~~consiee~~|passage()][$candy_milky += 5; $food -= 50]]>><<else>><unframe>''Milky Candy ~~x~~5: 50~~consiee~~''</unframe><<endif>>
+
+/% Milky Coffee - 50 consiee a pop %/
+<<if $food gte 50>><<button [[Milky Coffee ~~x~~1: 50~~consiee~~|passage()][$drink_coffee_milky += 1; $food -= 50]]>><<else>><unframe>''Milky Coffee ~~x~~1: 50~~consiee~~''</unframe><<endif>>
+
+/% Fat Coffee - 125 consiee a pop %/
+<<if $food gte 125>><<button [[Fat Coffee ~~x~~1: 125~~consiee~~|passage()][$drink_coffee_fat += 1; $food -= 125]]>><<else>><unframe>''Fat Coffee ~~x~~1: 125~~consiee~~''</unframe><<endif>>
+
+/% Leupai Milk - 350 consiee a pop %/
+<<if $food gte 350>><<button [[Jar of Leupai Milk ~~x~~1: 350~~consiee~~|passage()][$collectionjar_milk_leupai += 1; $food -= 350]]>><<else>><unframe>''Jar of Leupai Milk ~~x~~1: 350~~consiee~~''</unframe><<endif>>
+
+/% Strange Milk - 1250 consiee a pop %/
+<<if $food gte 1250>><<button [[Strange Milk ~~x~~1: 1250~~consiee~~|passage()][$milk_strange += 1; $food -= 1250]]>><<else>><unframe>''Strange Milk ~~x~~1: 1250~~consiee~~''</unframe><<endif>>
+
+<<endif>>
+
+/% =============================================== %/
+/% Venom Sets %/
+
+<<if $sellSubset is 1>>
+
+/% =========================== %/
+/% Fatty Subset %/
+
+<<if $food gte 600>><<button [[Fattenium Dart ~~x~~3: 600~~consiee~~|passage()][$dart_fattenium += 3; $food -= 600]]>><<else>><unframe>''Fattenium Dart ~~x~~3: 600~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 800>><<button [[Jar of Voracity Venom ~~x~~1: 800~~consiee~~|passage()][$collectionjar_venom_glutton += 1; $food -= 800]]>><<else>><unframe>''Jar of Caloric Venom ~~x~~1: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1000>><<button [[Jar of Caloric Venom ~~x~~1: 1000~~consiee~~|passage()][$collectionjar_venom_caloric += 1; $food -= 1000]]>><<else>><unframe>''Jar of Caloric Venom ~~x~~1: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1200>><<button [[Jar of Fattening Venom ~~x~~1: 1200~~consiee~~|passage()][$collectionjar_venom_gain += 1; $food -= 1200]]>><<else>><unframe>''Jar of Fattening Venom ~~x~~1: 1200~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1500>><<button [[Jar of Belly-Fattening Venom ~~x~~1: 1500~~consiee~~|passage()][$collectionjar_venom_bellygain += 1; $food -= 1500]]>><<else>><unframe>''Jar of Belly-Fattening Venom ~~x~~1: 1200~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1500>><<button [[Jar of Breast-Fattening Venom ~~x~~1: 1500~~consiee~~|passage()][$collectionjar_venom_breastgain += 1; $food -= 1500]]>><<else>><unframe>''Jar of Breast-Fattening Venom ~~x~~1: 1500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1500>><<button [[Jar of Thigh-Fattening Venom ~~x~~1: 1500~~consiee~~|passage()][$collectionjar_venom_thighgain += 1; $food -= 1500]]>><<else>><unframe>''Jar of Breast-Fattening Venom ~~x~~1: 1500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 2500>><<button [[Jar of Super-Fattening Venom ~~x~~1: 2500~~consiee~~|passage()][$collectionjar_venom_supergain += 1; $food -= 2500]]>><<else>><unframe>''Jar of Super-Fattening Venom ~~x~~1: 2500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 3000>><<button [[Jar of Belly Super-Fattening Venom ~~x~~1: 3000~~consiee~~|passage()][$collectionjar_venom_bellysupergain += 1; $food -= 3000]]>><<else>><unframe>''Jar of Belly Super-Fattening Venom ~~x~~1: 3000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 3000>><<button [[Jar of Breast Super-Fattening Venom ~~x~~1: 3000~~consiee~~|passage()][$collectionjar_venom_breastsupergain += 1; $food -= 3000]]>><<else>><unframe>''Jar of Breast Super-Fattening Venom ~~x~~1: 3000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 3000>><<button [[Jar of Thigh Super-Fattening Venom ~~x~~1: 3000~~consiee~~|passage()][$collectionjar_venom_thighsupergain += 1; $food -= 3000]]>><<else>><unframe>''Jar of Thigh Super-Fattening Venom ~~x~~1: 3000~~consiee~~''</unframe><<endif>>
+
+
+<<elseif $sellSubset is 2>>
+
+/% =========================== %/
+/% Mirajinic Subset %/
+
+<<if $food gte 500>><<button [[Distensium Dart ~~x~~3: 500~~consiee~~|passage()][$dart_distensium += 3; $food -= 500]]>><<else>><unframe>''Distensium Dart ~~x~~3: 500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 600>><<button [[Fattenium Dart ~~x~~3: 600~~consiee~~|passage()][$dart_fattenium += 3; $food -= 600]]>><<else>><unframe>''Fattenium Dart ~~x~~3: 600~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 800>><<button [[Jar of Voracity Venom ~~x~~1: 800~~consiee~~|passage()][$collectionjar_venom_glutton += 1; $food -= 800]]>><<else>><unframe>''Jar of Caloric Venom ~~x~~1: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1000>><<button [[Jar of Caloric Venom ~~x~~1: 1000~~consiee~~|passage()][$collectionjar_venom_caloric += 1; $food -= 1000]]>><<else>><unframe>''Jar of Caloric Venom ~~x~~1: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1000>><<button [[Jar of Bloating Venom ~~x~~1: 1000~~consiee~~|passage()][$collectionjar_venom_bloat += 1; $food -= 1000]]>><<else>><unframe>''Jar of Bloating Venom ~~x~~1: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1000>><<button [[Jar of Breast-Bloating Venom ~~x~~1: 1000~~consiee~~|passage()][$collectionjar_venom_breastbloat += 1; $food -= 1000]]>><<else>><unframe>''Jar of Breast-Bloating Venom ~~x~~1: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1200>><<button [[Jar of Fattening Venom ~~x~~1: 1200~~consiee~~|passage()][$collectionjar_venom_gain += 1; $food -= 1200]]>><<else>><unframe>''Jar of Fattening Venom ~~x~~1: 1200~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1600>><<button [[Jar of Flabbifying Venom ~~x~~1: 1600~~consiee~~|passage()][$collectionjar_venom_flab += 1; $food -= 1600]]>><<else>><unframe>''Jar of Flabbifying Venom ~~x~~1: 1600~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1800>><<button [[Jar of Mutagenic Venom ~~x~~1: 1800~~consiee~~|passage()][$collectionjar_venom_mutagen += 1; $food -= 1800]]>><<else>><unframe>''Jar of Mutagenic Venom ~~x~~1: 1800~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 2500>><<button [[Jar of Super-Fattening Venom ~~x~~1: 2500~~consiee~~|passage()][$collectionjar_venom_supergain += 1; $food -= 2500]]>><<else>><unframe>''Jar of Super-Fattening Venom ~~x~~1: 2500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 3000>><<button [[Jar of Somnus ~~x~~1: 3000~~consiee~~|passage()][$collectionjar_somnus_weak += 1; $food -= 3000]]>><<else>><unframe>''Jar of Somnus ~~x~~1: 3000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 5000>><<button [[Jar of Miratoxin ~~x~~1: 5000~~consiee~~|passage()][$collectionjar_miratoxin += 1; $food -= 5000]]>><<else>><unframe>''Jar of Miratoxin ~~x~~1: 5000~~consiee~~''</unframe><<endif>>
+
+<<elseif $sellSubset is 3>>
+
+/% =========================== %/
+/% Offensive Subset %/
+
+<<if $food gte 500>><<button [[Distensium Dart ~~x~~3: 500~~consiee~~|passage()][$dart_distensium += 3; $food -= 500]]>><<else>><unframe>''Distensium Dart ~~x~~3: 500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 600>><<button [[Fattenium Dart ~~x~~3: 600~~consiee~~|passage()][$dart_fattenium += 3; $food -= 600]]>><<else>><unframe>''Fattenium Dart ~~x~~3: 600~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1200>><<button [[Toxic Dart ~~x~~3: 1200~~consiee~~|passage()][$dart_toxic += 3; $food -= 1200]]>><<else>><unframe>''Toxic Dart ~~x~~3: 1200~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1000>><<button [[Jar of Bloating Venom ~~x~~1: 1000~~consiee~~|passage()][$collectionjar_venom_bloat += 1; $food -= 1000]]>><<else>><unframe>''Jar of Bloating Venom ~~x~~1: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1200>><<button [[Jar of Fattening Venom ~~x~~1: 1200~~consiee~~|passage()][$collectionjar_venom_gain += 1; $food -= 1200]]>><<else>><unframe>''Jar of Fattening Venom ~~x~~1: 1200~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1600>><<button [[Jar of Flabbifying Venom ~~x~~1: 1600~~consiee~~|passage()][$collectionjar_venom_flab += 1; $food -= 1600]]>><<else>><unframe>''Jar of Flabbifying Venom ~~x~~1: 1600~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1600>><<button [[Jar of Toxic Venom ~~x~~1: 1600~~consiee~~|passage()][$collectionjar_venom_toxic += 1; $food -= 1600]]>><<else>><unframe>''Jar of Toxic Venom ~~x~~1: 1600~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1800>><<button [[Jar of Bursting Venom ~~x~~1: 1800~~consiee~~|passage()][$collectionjar_venom_burst += 1; $food -= 1800]]>><<else>><unframe>''Jar of Bursting Venom ~~x~~1: 1800~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1800>><<button [[Jar of Hallucenogenic Venom ~~x~~1: 1800~~consiee~~|passage()][$collectionjar_venom_hallucenogen += 1; $food -= 1800]]>><<else>><unframe>''Jar of Hallucenogenic Venom ~~x~~1: 1800~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1800>><<button [[Jar of Mutagenic Venom ~~x~~1: 1800~~consiee~~|passage()][$collectionjar_venom_mutagen += 1; $food -= 1800]]>><<else>><unframe>''Jar of Mutagenic Venom ~~x~~1: 1800~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 2000>><<button [[Jar of Lethal Venom ~~x~~1: 2000~~consiee~~|passage()][$collectionjar_venom_lethal += 1; $food -= 2000]]>><<else>><unframe>''Jar of Lethal Venom ~~x~~1: 2000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 2500>><<button [[Jar of Super-Fattening Venom ~~x~~1: 2500~~consiee~~|passage()][$collectionjar_venom_supergain += 1; $food -= 2500]]>><<else>><unframe>''Jar of Super-Fattening Venom ~~x~~1: 2500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 5000>><<button [[Jar of Vitae ~~x~~1: 5000~~consiee~~|passage()][$collectionjar_vitae += 1; $food -= 5000]]>><<else>><unframe>''Jar of Vitae ~~x~~1: 5000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 5000>><<button [[Jar of Dilute Miraplasm ~~x~~1: 5000~~consiee~~|passage()][$collectionjar_miraplasm_weak += 1; $food -= 5000]]>><<else>><unframe>''Jar of Dilute Miraplasm ~~x~~1: 5000~~consiee~~''</unframe><<endif>>
+
+<<elseif $sellSubset is 4>>
+
+/% =========================== %/
+/% Assorted Subset %/
+
+
+<<if $food gte 600>><<button [[Fattenium Dart ~~x~~3: 600~~consiee~~|passage()][$dart_fattenium += 3; $food -= 600]]>><<else>><unframe>''Fattenium Dart ~~x~~3: 600~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 800>><<button [[Tranquilizer Dart ~~x~~3: 800~~consiee~~|passage()][$dart_tranq += 3; $food -= 800]]>><<else>><unframe>''Tranquilizer Dart ~~x~~3: 800~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1200>><<button [[Toxic Dart ~~x~~3: 1200~~consiee~~|passage()][$dart_toxic += 3; $food -= 1200]]>><<else>><unframe>''Toxic Dart ~~x~~3: 1200~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 800>><<button [[Jar of Voracity Venom ~~x~~1: 800~~consiee~~|passage()][$collectionjar_venom_glutton += 1; $food -= 800]]>><<else>><unframe>''Jar of Caloric Venom ~~x~~1: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1000>><<button [[Jar of Caloric Venom ~~x~~1: 1000~~consiee~~|passage()][$collectionjar_venom_caloric += 1; $food -= 1000]]>><<else>><unframe>''Jar of Caloric Venom ~~x~~1: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1200>><<button [[Jar of Healing Venom ~~x~~1: 1200~~consiee~~|passage()][$collectionjar_venom_heal += 1; $food -= 1200]]>><<else>><unframe>''Jar of Healing Venom ~~x~~1: 1200~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1800>><<button [[Jar of Mutagenic Venom ~~x~~1: 1800~~consiee~~|passage()][$collectionjar_venom_mutagen += 1; $food -= 1800]]>><<else>><unframe>''Jar of Mutagenic Venom ~~x~~1: 1800~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 2500>><<button [[Jar of Super-Fattening Venom ~~x~~1: 2500~~consiee~~|passage()][$collectionjar_venom_supergain += 1; $food -= 2500]]>><<else>><unframe>''Jar of Super-Fattening Venom ~~x~~1: 2500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 5000>><<button [[Jar of Bulking Venom ~~x~~1: 5000~~consiee~~|passage()][$collectionjar_venom_bulk += 1; $food -= 5000]]>><<else>><unframe>''Jar of Bulking Venom ~~x~~1: 5000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 5000>><<button [[Jar of Miratoxin ~~x~~1: 5000~~consiee~~|passage()][$collectionjar_miratoxin += 1; $food -= 5000]]>><<else>><unframe>''Jar of Miratoxin ~~x~~1: 5000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 8000>><<button [[Jar of Leucanthropic Venom ~~x~~1: 8000~~consiee~~|passage()][$collectionjar_venom_leucanthropy += 1; $food -= 8000]]>><<else>><unframe>''Jar of Leucanthropic Venom ~~x~~1: 5000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 10000>><<button [[Jar of Muscle-Bloating Venom ~~x~~1: 10000~~consiee~~|passage()][$collectionjar_venom_musclebloat += 1; $food -= 10000]]>><<else>><unframe>''Jar of Muscle-Bloating Venom ~~x~~1: 10000~~consiee~~''</unframe><<endif>>
+
+
+<<endif>>

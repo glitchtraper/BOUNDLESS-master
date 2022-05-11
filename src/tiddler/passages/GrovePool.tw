@@ -1,0 +1,65 @@
+﻿/% Pre-setup; clear any residual creature flags. %/
+
+<<set $encImg = 0; $combatant = 0; $creatureBreasts = 0; $encFatten = 0; $encBloat = 0; $predDesc = 0; $creatureNoBelly = 0; $lootTable = 0; $encounterSpecial = 0; $encounterFlag = 0>>
+
+<<set $waterResource = 0; $milkResource = 0; $meatResource = 0; $fishResource = 0; $poultryResource = 0; $eggResource = 0; $grainResource = 0; $rootResource = 0; $fruitResource = 0; $vegResource = 0;  $sugarResource = 0; $nutResource = 0; $fatResource = 0; $herbResource = 0; $jellyResource = 0; $dragonResource = 0; $leupaiResource = 0; $fatteniumResource = 0; $miraResource = 0>>
+
+/% ======================================================================== %/
+
+<<if $GroveMonsters is "fyynlings">>
+	<<set $encounter = either("fyynling","fyynling","fyynling","fyynmorph","fyynmorph","fyynling-possessed horror")>>
+
+/% ======================================================================== %/
+
+<<elseif $GroveMonsters is "slimes">>
+	<<set $encounter = either("small slime","small slime","slime","slime","bloated anthroslime","enormous slime","anthroslime adventurer")>>
+
+/% ======================================================================== %/
+
+<<elseif $GroveMonsters is "puddings">>
+	<<set $encounter = either("small pudding","small pudding","pudding","pudding","enormous pudding","groaning blubberslime")>>
+
+
+/% ======================================================================== %/
+
+<<elseif $GroveMonsters is "fungal">>
+	<<set $encounter = "sporeslave">>
+
+/% ======================================================================== %/
+
+<<elseif $GroveMonsters is "arka">>
+	<<set $encounter = "arka">>
+
+/% NYI %/
+
+/% ======================================================================== %/
+
+<<elseif $GroveMonsters is "leupai">>
+	<<set $encounter = "leupai">>
+
+/% ======================================================================== %/
+
+<<elseif $GroveMonsters is "helene">>
+	<<set $encounter = "helene">>
+
+/% ======================================================================== %/
+
+<<elseif $GroveMonsters is "miscleupai">>
+	<<set $encounter = either("fyynling","fyynling","leupai","helene","fyynmorph","fyynling-possessed horror")>>
+
+/% ======================================================================== %/
+
+<<elseif $GroveMonsters is "culinet">>
+	<<set $encounter = "wild-eyed culinet">>
+
+/% ======================================================================== %/
+
+<<else>>
+	<<set $encounter = either("small slime","small slime","small pudding","small pudding","pudding","slime","enormous pudding","enormous slime","groaning blubberslime","bloated anthroslime","anthroslime adventurer")>><<endif>>
+
+
+/% ======================================================================== %/
+/% Call database. %/
+
+
+<<display CreatureDatabase>>

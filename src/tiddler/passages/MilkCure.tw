@@ -1,0 +1,41 @@
+﻿/% ====================================================== %/
+/% Milk (and charcoal?) halves the duration of non-mirajinic/non-radioactive poisons when consumed.
+Make sure it properly applies bloat in food stats so people can't spam milk drinks without turning into waterballoons. %/
+
+/% Overdose warning removals
+(will be a temporary reprieve unless the toxin is removed) %/
+
+<<if $toxicOverdoseWarning neq 0>><<set $toxicOverdoseWarning = 0>><<endif>>
+<<if $painfulOverdoseWarning neq 0>><<set $painfulOverdoseWarning = 0>><<endif>>
+<<if $bloatOverdoseWarning neq 0>><<set $bloatOverdoseWarning = 0>><<endif>>
+<<if $dizzyOverdoseWarning neq 0>><<set $dizzyOverdoseWarning = 0>><<endif>>
+
+/% Toxin flag removals %/
+
+<<if $mushroomPoisoning neq 0>><<set $mushroomPoisoning = 0>><<endif>>
+<<if $deflaPoisoning neq 0>><<set $deflaPoisoning = 0>><<endif>>
+<<if $inflaPoisoning neq 0>><<set $inflaPoisoning = 0>><<endif>>
+<<if $caffeinePoisoning neq 0>><<set $caffeinePoisoning = 0>><<endif>>
+<<if $indigestion neq 0>><<set $indigestion = 0>><<endif>>
+
+/% Take stock of each applicable toxin and adjust its duration accordingly. %/
+
+<<if $mushroomToxicity gt 0>><<set $mushroomToxicity = $mushroomToxicity / 2>>
+	<<if $mushroomToxicity lt 1>><<set $mushroomToxicity = 0>><<endif>><<endif>>
+<<if $deflaToxicity gt 0>><<set $deflaToxicity = $deflaToxicity / 2>>
+	<<if $deflaToxicity lt 1>><<set $deflaToxicity = 0>><<endif>><<endif>>
+<<if $inflaToxicity gt 0>><<set $inflaToxicity = $inflaToxicity / 2>>
+	<<if $inflaToxicity lt 1>><<set $inflaToxicity = 0>><<endif>><<endif>>
+<<if $caffeineToxicity gt 0>><<set $caffeineToxicity = $caffeineToxicity / 2>>
+	<<if $caffeineToxicity lt 1>><<set $caffeineToxicity = 0>><<endif>><<endif>>
+
+/% These are called 'venom' but the same flags are used for poisons. %/
+<<if $toxicVenom gt 0>><<set $toxicVenom = $toxicVenom / 2>>
+	<<if $toxicVenom lt 1>><<set $toxicVenom = 0>><<endif>><<endif>>
+<<if $lethalVenom gt 0>><<set $lethalVenom = $lethalVenom / 2>>
+	<<if $lethalVenom lt 1>><<set $lethalVenom = 0>><<endif>><<endif>>
+<<if $weakeningVenom gt 0>><<set $weakeningVenom = $weakeningVenom / 2>>
+	<<if $weakeningVenom lt 1>><<set $weakeningVenom = 0>><<endif>><<endif>>
+<<if $noxiousVenom gt 0>><<set $noxiousVenom = $noxiousVenom / 2>>
+	<<if $noxiousVenom lt 1>><<set $noxiousVenom = 0>><<endif>><<endif>>
+

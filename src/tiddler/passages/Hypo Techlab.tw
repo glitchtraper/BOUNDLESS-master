@@ -1,0 +1,63 @@
+﻿<<nobr>><<if $techLabDrGenerated is 0>><<display RevecroixRandomizer>><<display NPCNamer>><<set $techlabDrSpecies = $randomRevecroix; $techlabDr = $revName; $techLabDrGenerated = 1; $techLabUnlocked = 1>><<endif>><<endnobr>><<if $event_techlabCrumb is 1>>The null suddenly ''<mutation>tears open an aetherhole</mutation>-- leading directly to an unmarked mound, deep in the middle of nowhere in an alien plane!''
+You're feeling more than a little nervous as you descend into the earth and walk into the grand hall of a busy HYPOTHESIS laboratory-- but ''the scientists and engineers seem happy to see you,'' which calms you somewhat.
+
+The null asks you to wait for a moment, and drifts away to have a spirited conversation with several of the Hypothesi.
+After a few moments, the leupai returns with a <<print $techlabDrSpecies>> scientist in tow, who introduces themself and shakes your hand.
+
+"My friend here says you could use a bit of help in getting around. That's what I'm here for! I'm ''Doctor <<print $techlabDr>>'', the ''Lead Maneuverability Engineer'' here.
+Let me tell you about some of the devices we have available..."
+
+<framed>''Revecroit WALKER MECHS'' are multi-limbed vehicles made for facilitating ease of movement with the rider's primary body.
+Walker mechs can be designed general use, increased speed & agility, and even military purposes.
+''Each Walker has a different maximum weight allowance''-- beyond which the vehicle must be re-adjusted, lest it ''suffer from gradual dedgradation and eventual breakdown.''</framed>
+<framed>''Revecroit AVBOTS'' are bioengineered androids created through a combination of inert, jellied leupai blood, mirajin-based technology, and a sample of the driver's own blood.
+These robots function as a secondary body which can be piloted via thought, transmitting sense data back to the pilot in realtime. Avbot bodies respond to stimuli and are affected by anything a biological creature would-- thus allowing the pilot to move through and interact fully with the avbot's surroundings as though they themselves were present.
+As a consequence, avbots are also ''succeptible to the same hardships and dangers that a living creature are'', as well-- and sufficient damage will ultimately destroy the unit and short-circuit the core, cutting off the driver's psionic link.</framed>
+"''Which would you prefer?''" asks Doctor <<print $techlabDr>>.
+"You're more than welcome to ''try one, and then come back and switch later!''"
+
+<framed><center><<button [[Choose a Walker Mech.|passage()][$event_techlabCrumb = 0; $service = 1]]>><<button [[Customize an Avbot.|passage()][$event_techlabCrumb = 0; $service = 2]]>></center></framed><<endif>><<if ($event_techlabCrumb is 0) and ($service is 0)>>
+You make your way down into the ''HYPOTHESIS Technology Laboratory'', watching as the engineers and scientists busy themselves with drawing up blueprints, building new mechs, transporting tubes, tanks, and vials of various liquids back and forth across the floor, and preparing hardshell cores for insertion into avbot gel bodies.
+You spot ''Doctor <<print $techlabDr>>'' waving at you from across the room, setting down a piece of equipment on a nearby desk before coming to greet you.
+
+"Hello again, <<print $playerName>>! What can I do for you?"
+
+<center><framed><<if $avbot_status is "OFFLINE">><<display LiveStatusClear>><<button [[Regenerate Avbot from Previous Parameters.|passage()][$special_avbot = 1; $avbotToggle = 0; $service = 4]]>><<elseif $special_avbot is 0>><<button [[Customize an Avbot.|passage()][$service = 2; $special_walkermech = 0]]>><<endif>><<if ($special_walkermech is 1) or ($special_walkermech is -1)>><<button [[Perform Walker Mech Maintenance & Tune-Up.|passage()][$mechDamage = 0; $special_walkermech = 1]]>><<elseif $special_walkermech is 0>><<button [[Choose a Walker Mech.|passage()][$service = 1; $special_avbot = 0; $avbot_status = 0]]>><<endif>></framed>
+<<button [[Leave.|Explore][$itemPool = 0; $encounterPool = 0; $mannedShop = 0; $service = 0; $parasiteCheck = 0; $evaluated = 0; $explore = 3; $indoorZone = 0; $dungeonType = 0; $location = $saveBiome]]>></center>\
+<<endif>><<if $service is 1>>
+Doctor <<print $techlabDr>> leads you across the room, down a short hallway and into a hangar full of mechs and robots of various shapes and sizes.
+
+"Ah, here we are!" the <<print $techlabDrSpecies>> says proudly. "''Let's have a look at the models we have available for you!''"
+
+<framed><center><<button [[STALKER-Class Agile Walker|passage()][$special_walkermech = 1; $walkermech_Class = "STALKER"; $finesse += 5; $mechMaxCarry = $immobilityCeiling * 2.5; $mechDamage = 0; $service = 3]]>><<button [[ARACHNID-Class Walker|passage()][$special_walkermech = 1; $walkermech_Class = "ARACHNID"; $painBuffer += 10; $mechMaxCarry = $immobilityCeiling * 4; $mechDamage = 0; $service = 3]]>><<if $faction is "HYPOTHESIS">><<button [[PALADINE-Class Military Walker|passage()][$special_walkermech = 1; $walkermech_Class = "PALADINE"; $painBuffer += 15; $mechMaxCarry = $immobilityCeiling * 5; $mechDamage = 0; $service = 3]]>><<else>><unframe>''PALADINE-Class Military Walker''</unframe><<endif>><<if $faction is "HYPOTHESIS">><<button [[CORRECTOR-Class Military Walker|passage()][$special_walkermech = 1; $walkermech_Class = "CORRECTOR"; $painBuffer += 20; $mechMaxCarry = $immobilityCeiling * 5.5; $mechDamage = 0; $service = 3]]>><<else>><unframe>''CORRECTOR-Class Military Walker''</unframe><<endif>><<button [[Customize an Avbot instead.|passage()][$service = 2]]>></center></framed><<endif>><<if $service is 2>>
+Doctor <<print $techlabDr>> leads you to the back of the room, towards several specimen tanks-- each with a dormant avbot floating inside.
+
+"We'll take a small blood sample from you-- //painlessly//," the Doctor adds, "We don't use any of that //needle nonsense// around here-- and, once it's been injected into your avbot, you can adjust its features to your liking and take it out for a run!
+There's always the possibility that something may happen to it. ''Don't worry too much about that''; we'll fashion you a new one, or you can have a go at a Walker Mech afterwards, if you'd prefer."
+
+<center><midframe><<display AvbotBodygrid>></midframe></center><<endif>><<if $service is 3>>
+The Doctor helps you mount up into your new Walker Mech, demonstrating the basic controls.
+"Now, remember-- ''make certain to visit again from time to time to give your walker a tune-up''; that'll let us repair any damage and calibrate it so it can continue to carry you securely! If you go too hard on it, or go for too long without getting repairs, ''it'll eventually break!''
+Your walker is equipped with special technology that will allow you to ''pull open a rift and come straight back again!''"
+
+<center><<button [[Leave.|Explore][$itemPool = 0; $encounterPool = 0; $mannedShop = 0; $service = 0; $explore = 3; $indoorZone = 0; $dungeonType = 0; $immobile = 0; $immobileMode = 0; $location = $saveBiome]]>></center><<endif>><<if $service is 4>>
+The Doctor teaches you how to telepathically connect with your new Avbot, and takes a few minutes to help you get used to moving around //as// it.
+"Now, remember-- you'll feel everything it does to a degree, so be careful not to go too hard on it! ''If anything happens to the Avbot, you'll wake up in your own body, wherever you last left it.''
+''You'll be able to come back here again and regenerate the same one, or create a new one as you desire.''"
+
+<center><<button [[Leave.|Explore][$saveStateAvbotTerminal = passage(); $itemPool = 0; $encounterPool = 0; $mannedShop = 0; $service = 0; $explore = 3; $indoorZone = 0; $dungeonType = 0; $immobile = 0; $immobileMode = 0; $location = $saveBiome]]>></center><<endif>>/% PLANETARY MODE BREADCRUMB
+<<if $service is 5>><center>[img[wip-plate]]</center>
+<<print $planetaryNull>> hovers casually several feet above the floor, swishing its tail as they watch you approach.
+"I'm glad you've decided to come see me! This may come as a bit of a shock, but... ''you aren't resticted to life on this planet''. Or any other!
+It's something that comes naturally to us leupai, ''but did you know that you can become a world of your own?''
+
+There are a few things you need to do to prepare, but I can walk you through it!
+''Once you've finished, you can become a planet, host your own population, and even assume the body of one of your inhabitants if you miss terrestrial life or just want to see what things are like for yourself!''
+You won't be able to use your current body to explore worlds like you do now, but ''you're not restricted to just one of those, either''.
+If you've ever piloted an avbot, you'll have a good idea of what I mean, but it gets even more interesting than //that...
+
+<brightalert>''Anyone can achieve a life among the stars!''</brightalert>//"
+
+"Here!" says <<print $planetaryNull>>, slipping a small card out of thin air and handing it to you. "''Take this to any Billeporte'', and they'll let you hop one of the HYPOTHESIS flights out to a ''floating station''. The scientists there will know what to do!
+
+Good luck out there!"<<set $floatingStationsUnlocked = 1>><center><<button [[Leave.|Explore][$itemPool = 0; $encounterPool = 0; $mannedShop = 0; $service = 0; $explore = 3; $indoorZone = 0; $dungeonType = 0; $location = $saveBiome]]>></center><<endif>> %/

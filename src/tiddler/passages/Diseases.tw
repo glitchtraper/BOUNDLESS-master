@@ -1,0 +1,32 @@
+﻿/% ============================================================ %/
+/% DISEASES %/
+
+/% Diseases are similar to poisons in that they can be activated upon reaching a certain bodily threshold in the player and can have DOT effects, and similar to parasites in that they persist until cured.
+
+In BOUNDLESS, chances are that most diseases will not be outright devastating or even necessarily easily noticable; it's primarily another Fun method of wg/tf shit, although in the Asotir they may become more terrifying...
+
+Use the disease variable to set severity; "1" should be default, probably. For applicable diseases, multiply the effects by the disease variable for severity.
+
+Note - Lycanthropies have their own passage (Lycanthropy). %/
+/% ============================================================ %/
+
+/% ============= Moonbelly (working title?) %/
+<<if $diseaseMoonbelly neq 0>>
+/% Moonbelly causes the player's belly to expand and contract with the phases of the moon.
+The effect should be proportionate to the player's girth, and perhaps also depend upon the severity of the disease as an effect modifier. %/
+
+<<if $moonPhase is "new">>/% Dormant phase; no effect. %/
+<<elseif $moonPhase is "waxing crescent">>/% Slight gain. %/
+<<set $moonbellyProc = ($fatScore * 0.000025) * $diseaseMoonbelly; $moonbellyProc = Math.round($moonbellyProc); $belly += $moonbellyProc>>
+<<elseif $moonPhase is "waxing gibbous">>/% Increased gain. %/
+<<set $moonbellyProc = ($fatScore * 0.00015) * $diseaseMoonbelly; $moonbellyProc = Math.round($moonbellyProc); $belly += $moonbellyProc>>
+<<elseif $moonPhase is "full">>/% Slight gain; steady bloat. %/
+<<set $moonbellyProc = ($fatScore * 0.000025) * $diseaseMoonbelly; $moonbellyProc = Math.round($moonbellyProc); $belly += $moonbellyProc; $bellyBloat += ($maxBelly * 0.02)>>
+<<elseif $moonPhase is "waning gibbous">>/% Slight loss. %/
+<<set $moonbellyProc = ($fatScore * 0.00015) * $diseaseMoonbelly; $moonbellyProc = Math.round($moonbellyProc); $belly -= $moonbellyProc>>
+<<elseif $moonPhase is "waning crescent">>/% Increased loss. %/
+<<set $moonbellyProc = ($fatScore * 0.000025) * $diseaseMoonbelly; $moonbellyProc = Math.round($moonbellyProc); $belly -= $moonbellyProc>>
+<<endif>>
+
+
+<<endif>>

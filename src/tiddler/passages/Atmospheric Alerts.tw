@@ -1,0 +1,623 @@
+﻿<alert><<set $pause = 0>>
+/% ============================================================ %/
+/% Toxins, Bacteria, Virii, Atmospheric Effects, & player-centric non-combat-specific DOTs & ticks %/
+
+/% ============================================================ %/
+/% Atmospheric Effects %/
+
+/% No Atmosphere %/
+<<if $planetAtmosphere is "no">>
+<<if ($needsAir is 1) and ($lifeSupport is 0)>>
+[img[icon_alert]]<deepalert>There's no atmosphere here...</deepalert> <redalert>''you can't breathe!''</redalert><hr>
+<<set $pain += ($maxPain * 0.08); $lethalKO = 1; $deathCause = "asphyxiation">><<endif>><<endif>>
+
+/% Vaccuum %/
+<<if $vaccuum is 1>>
+<<if $pressureResistant is 0>>
+[img[icon_alert]]<brightalert>The vaccuum of space is<brightalert> <deepalert>''wreaking havoc on your body!''</deepalert><hr>
+<<set $bloat += ($maxBloat * either(0.06,0.07,0.08)); $lethalKO = 1; $deathCause = "explosion">><<endif>><<endif>>
+
+/% Toxic Atmosphere %/
+<<if $planetAtmosphere is "toxic">>
+<<if ($needsAir is 1) and ($toxinResistant is 0) and ($lifeSupport is 0)>>
+[img[icon_alert]]<deepalert>The atmosphere here is</deepalert> <redalert>''toxic! You're suffocating!''</redalert><hr>
+<<set $pain += ($maxPain * either(0.06,0.09,0.1)); $lethalKO = 1; $deathCause = "poison">><<endif>><<endif>>
+
+/% Underwater %/
+<<if $underwater is 1>>
+<<if ($needsAir is 1) and ($geneAmphibious is 0) and ($lifeSupport is 0)>>
+[img[icon_alert]]''<brightalert>You can't breathe underwater!</brightalert> <redalert>You're suffocating!''</redalert><hr>
+<<set $pain += ($maxPain * either(0.06,0.07,0.08)); $lethalKO = 1; $deathCause = "asphyxiation">><<endif>><<endif>>
+
+/% Unbreathable Biome %/
+<<if $unbreathable is 1>>
+<<if ($needsAir is 1) and ($lifeSupport is 0)>>
+[img[icon_alert]]<deepalert>''There's no air here!</deepalert> <redalert>You're suffocating!''</redalert><hr><<set $pain += ($maxPain * either(0.06,0.07,0.08)); $lethalKO = 1; $lethalKO = 1; $deathCause = "asphyxiation">><<endif>><<endif>>
+
+/% Toxic Fumes %/
+<<if $toxicFumes is 1>>
+<<if ($needsAir is 1) and ($toxinResistant is 0) and ($lifeSupport is 0)>>
+[img[icon_alert]]<deepalert>The toxic air is</deepalert> <redalert>''scalding your lungs and searing your throat!''</redalert><hr><<set $pain += ($maxPain * either(0.06,0.09,0.1)); $lethalKO = 1; $deathCause = "poison">><<endif>><<endif>>
+
+/% Lethal Heat %/
+<<if $lethalHeat is 1>>
+<<if $heatResistant is 0>>
+[img[icon_alert]]<deepalert>It's too hot...</deepalert> <redalert>You're ''cooking alive!''</redalert><hr><<set $pain += ($maxPain * either(0.08,0.10,0.12)); $lethalKO = 1; $deathCause = "incineration">><<endif>><<endif>>
+
+/% Lethal Cold %/
+<<if $lethalCold is 1>>
+<<if (($fatScore/10) lt 800) and ($coldResistant is 0) and ($warmClothes is 0)>>
+[img[icon_alert]]<deepalert>It's too cold...</deepalert> <redalert>You feel your ''blood turning to ice!''</redalert><hr><<set $pain += ($maxPain * either(0.08,0.10,0.12)); $lethalKO = 1; $deathCause = "freezing">><<endif>><<endif>>
+
+/% High Pressure %/
+<<if $highPressure is 1>>
+<<if $pressureResistant is 0>>
+[img[icon_alert]]<deepalert>The high pressure is </deepalert> <redalert>''slowly crushing you!''</redalert><hr><<set $pain += ($maxPain * either(0.08,0.10,0.12)); $lethalKO = 1; $deathCause = "agony">><<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Toxic Overdose Warning %/
+
+<<if $toxicOverdoseWarning is 1>>
+[img[icon_alert]]Trembling, <deepalert>you suddenly drop down to retch and heave painfully, your head spinning!<hr></deepalert><<set $toxicOverdoseWarning = 0; $calories = 0; $bellyBloat = 0; $bellyStatus = "empty"; $bonusEnergy = 0>><<endif>>
+
+/% Painful Overdose Warning %/
+
+<<if $painfulOverdoseWarning is 1>>
+[img[icon_alert]]<deepalert>You suddenly drop onto your hands and knees as your body wracks with pain!</deepalert><hr><<set $painfulOverdoseWarning = 0; $pain += random(2,4)>><<endif>>
+
+/% Bloating Overdose Warning %/
+
+<<if $bloatOverdoseWarning is 1>>
+[img[icon_alert]]Trembling, <deepalert>you cry out and grab your belly as it gurgles with painful force, bloating up as tight as a drum!<hr></deepalert><<set $bloatOverdoseWarning = 0; $bellyBloat = $maxBelly * 1.1; $lethalKO = 1; $deathCause = "burst belly"; $pain += random(3,6)>><<endif>>
+
+/% Breast Bloating Overdose Warning %/
+
+<<if $breastbloatOverdoseWarning is 1>>
+[img[icon_alert]]Trembling, <deepalert>you cry out as your breasts suddenly swell painfully tight, your head spinning!<hr></deepalert><<set $breastbloatOverdoseWarning = 0; $breastBloat += $maxBreast>><<endif>>
+
+/% Dizzy Overdose Warning %/
+
+<<if $dizzyOverdoseWarning is 1>>
+[img[icon_alert]]You cry out and stumble as <brightalert>you suddenly lose your balance, your head spinning!<hr></brightalert><<set $dizzyOverdoseWarning = 0>><<endif>>
+
+/% Jiggle Overdose Warning %/
+
+<<if $jiggleOverdoseWarning is 1>>
+[img[icon_alert]]You pause for a moment, <brightalert>''watching with alarm as your body jiggles and ripples liquidly! You feel oddly like a water balloon...''<hr></brightalert><<set $jiggleOverdoseWarning = 0>><<endif>>
+
+/% ============================================================ %/
+
+/% Curative Amalgatoxin %/
+
+<<if ($amalgaToxicity gte ($girth/200)) and ($pain gt 0) and ($amalgaToxicity lt ($girth/100))>>
+[img[icon_alert]]//<brightalert>The medicine you took is easing your pain!</brightalert>//<hr><<set $pain -= random(2,5)>><<endif>>
+
+
+/% ============================================================ %/
+
+/% Amalgatoxic Poisoning %/
+
+<<if $amalgaPoisoning is 1>><<set $pain += random(1,4); $vitaePPM += either(-3,-2,-1,0,1,2,3); $miraPoisoning += either(-3,-2,-1,0,1,2,3); $lethalKO = 1; $deathCause = "vitae">>
+[img[icon_alert_red]]<deepalert>''Vitae and mirajin are fighting for control of your body! <redalert>//You scream in pain!//<hr></redalert>''</deepalert><<endif>>
+
+
+/% ============================================================ %/
+
+/% Fattenium Poisoning %/
+
+<<if $fatteniumPoisoning gte 10>>
+[img[icon_gain]]Your body creaks, jiggles, and groans, <brightalert>''swelling fatter and fatter with each passing moment!<hr></brightalert>''<<set $milkfat += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1)>><<endif>>
+
+/% Fattenium Cascade %/
+
+<<if $fatteniumCascade is 1>>
+[img[icon_gain]]''You cry out in agony as your body quivers, bulges, and surges-- <deepalert>the massive amount of fattenium in your system inflating you rapidly with tons of fat!<hr></deepalert>''<<set $pain += random(1,3); $lethalKO = 1; $deathCause = either("explosion","belly burst","fat suffocation")>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<set $milkfat += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1)>><<endif>>
+
+/% ============================================================ %/
+
+/% Miraberry Poisoning %/
+
+<<if $miraberryPoisoning is 1>><<set $randomizer = random(1,8); $pain += random(0,15); $lethalKO = 1; $deathCause = "poison">><<if $randomizer is 1>>
+[img[icon_gain]]You feel...''//strange.// <brightalert>You suddenly plump up!<hr></brightalert>''<<set $girth += either(10,10,20); $belly += either(0,10,10); $breast += either(0,0,10); $bellyBloat += 10; $calories += either(10,20)>><<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Mushroom Poisoning %/
+
+<<if $mushroomPoisoning is 1>><<set $randomizer = random(1,16); $pain += random(0,15); $lethalKO = 1; $deathCause = "poison">><<if $randomizer is 1>>
+[img[icon_gain]]You feel...''//strange.// <brightalert>Your belly gurgles ominously!</brightalert>'' <<set $belly += either(-50,-40,-30,-20,20,30,40,50)>><hr><<elseif $randomizer is 2>>
+[img[icon_loss]]You feel...''//strange.// <brightalert>Your belly gurgles ominously!</brightalert>'' <<set $belly -= either(20,30,40,50,60,80,100)>><hr><<elseif $randomizer is 3>>
+[img[icon_alert]]You feel...''//strange.// <brightalert>Your belly gurgles ominously!</brightalert>'' <<set $calories += either(-200,-150,-100,-50,-30,30,50,100,150,200)>>[img[icon_alert]]<brightalert>You feel...'' unusually warm!'' <hr></brightalert><<set $metaBurn += either(0,0,10)>><<elseif $randomizer is 5>>
+[img[icon_alert]]<brightalert>You feel...'' lethargic...''</brightalert> <<set $metaGain += either(0,0,10)>><hr><<elseif $randomizer is 6>>
+[img[icon_alert]]You feel...''//strange.// <brightalert>Your belly suddenly bloats up tight!</brightalert>'' <hr><<set $bellyBloat = $maxBelly * 1.1; $pain += random(1,3); $lethalKO = 1; $deathCause = either("burst belly","explosion")>><<elseif $randomizer is 7>>
+[img[icon_gain]]You feel...''//strange.// <brightalert>Your belly suddenly billows outwards, jiggling like pudding!<hr></brightalert>'' <<set $belly += either(50,60,70,80,90,100)>><<elseif $randomizer is 8>>
+[img[icon_loss]]You feel...''//strange.// <brightalert>Your belly suddenly retracts painfully, your waist tightening!<hr></brightalert>'' <<set $belly -= either(50,60,70,80,90,100)>><<else>>
+[img[icon_alert]]//You feel dizzy and disoriented...//<hr><<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Calorie Powder Overdose %/
+
+<<if $calpowderPoisoning is 1>><<set $randomizer = random(1,8)>><<if $randomizer is 1>><<set $calories += either(20,30,40,50)>>
+[img[icon_alert]]''Your belly gurgles thunderously, your head spinning drunkenly for a moment...''<hr><<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Gainer Overdose %/
+
+<<if $gainPoisoning is 1>><<set $metaBurn = 0; $randomizer = random(1,8)>><<if $randomizer is 1>><<set $calStore = $calories; $metaGain += $calStore>><<display Bodytype>><<set $metaGain -= $calStore; $calories = 0>>
+[img[icon_alert]]''<brightalert>Your belly gurgles thunderously as it immediately absorbs and processes its contents!</brightalert>''<hr><<endif>>
+<<endif>>
+
+/% ============================================================ %/
+
+/% Leupai Oil Overdose %/
+
+<<if ($leupoilPoisoning is 1) and ($substatus neq "balloon") and ($species neq "balloon")>>
+[img[icon_alert_critical]]Your skin suddenly feels uncomfortably tight around you. <deepalert>Wincing, you curl up, grasping your sides in pain; your fingers drag slowly over your body, ''which creaks loudly in response!<hr></deepalert>
+<hr><mutation>You seem to have turned yourself into a balloon!</mutation>''<hr><<display ColorWheel>><<set $playerElement = "balloon"; $leupoilPoisoning = 0; $maxBelly = ($maxBelly * either(2,2.5,3)); $bellyBloat = $maxBelly; $maxBreast += ($maxBreast * either(2,2.5,3)); $bodyColor = $briteChroma; $pain += random(1,3); $playerSkin = "smooth"; $playerBody = "bloated"; $geneFlight = 1>><<if $species is "post-human">><<set $species = "balloon">><<else>><<set $substatus = "balloon">><<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Breast-Contact Fattenium Overdose %/
+
+<<if $breastfatteniumPoisoning is 1>><<set $randomizer = random(1,12)>><<if $randomizer is 1>><<set $breast += either(80,90,100,110,120,150)>><<set $milkfat += either(0,0,0,0,0,0,1)>>
+
+[img[icon_gain]]Your breasts grow uncomfortably warm...<brightalert>''Suddenly, they begin to rapidly expand, jiggling and bouncing as they blimp up with extra fat!''<hr></brightalert><<elseif $randomizer is 12>><<set $bodyType = "cubus">><<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Belly-Contact Fattenium Overdose %/
+
+<<if $bellyfatteniumPoisoning is 1>><<set $randomizer = random(1,12)>><<if $randomizer is 1>><<set $belly += either(100,110,120,150,180,200); $bellyBloat = $maxBelly * 1.1>>
+
+[img[icon_gain]]Your belly grows uncomfortably warm...<brightalert>''Suddenly, it begins to rapidly expand, jiggling and bouncing as it blimps up with extra fat!''<hr></brightalert><<elseif $randomizer is 12>><<set $bodyType = "guguetelle">><<endif>>
+<<endif>>
+
+/% ============================================================ %/
+
+/% Thigh-Contact Fattenium Overdose %/
+
+<<if $thighfatteniumPoisoning is 1>><<set $randomizer = random(1,12)>><<if $randomizer is 1>><<set $thigh += either(80,90,100,110,120,150)>>
+
+[img[icon_gain]]Your thighs grow uncomfortably warm...<brightalert>''Suddenly, they begin to rapidly expand, squishing and wobbling as they blimp up with extra fat!''<hr></brightalert><<elseif $randomizer is 12>><<set $bodyType = "blimpthigh">><<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Deflation Drug Overdose %/
+
+<<if $deflaPoisoning is 1>><<set $randomizer = random(1,3)>><<if $randomizer is 1>>
+[img[icon_alert]]<deepalert>''You cry out as your muscles spasm, your belly tightening and clenching painfully!''<hr></deepalert><<set $bellyBloat += 9000000; $belly -= either(10,10,20); $maxBelly -= either(10,10,20,30); $pain += random(1,3)>><<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Inflation Drug Overdose %/
+
+<<if $inflaPoisoning is 1>><<set $randomizer = random(1,3); $lethalKO = 1; $deathCause = "burst belly">><<if $randomizer is 1>><<set $bellyBloat = $maxBelly * 1.1; $pain += random(1,3); $health = "Sore"; $lethalKO = 1; $deathCause = either("burst belly","explosion")>>
+[img[icon_alert]]''<deepalert>Your belly creaks softly as it inflates, bloating up painfully tight!<hr></deepalert>''<<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Strange Milk Overdose %/
+
+<<if $helenoPoisoning is 1>><<set $randomizer = random(2,12)>>
+
+/% Defunct - use this in the lab where you can be transformed into a helene. %/
+
+<<if ($randomizer is 1) and ($species neq "helene") and ($leupaiFlag neq 1)>>
+[img[icon_alert_critical]]''<deepalert>You cry out in shock and pain as your entire body jiggles,</deepalert> <mutation>plumping and distorting as you transform into //something else...!//''<hr></mutation><<set $species = "helene"; $subspecies = 0;  $thighs += either(30,40,50); $thighFirmness -= $thigh;  $belly += either(10,10,10,20,30); $bellyBloat += ($maxBelly * 0.3); $milkType = 0; $pain += random(3,12); $playerWings = "bat wings"; $geneFlight = 1>>
+[img[icon_gain]]You writhe and moan aloud ''<brightalert>as your breasts <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> //considerably fatter,// creaking and jiggling as they rapidly inflate <<if $geneDry is 0>>with milk!<hr><<endif>></brightalert>''<<set $lactation = 1; $breast += either(30,40,50); $breastBloat = $maxBreast * 5; $storedMilk = $maxBreast; $milkFat += random(3,5); $milkRate += random(4,8); $pain += random(1,3)>>
+
+<<if $bodyType is 0>><<set $bodyType = either("boviete","cubus","cubus","bloatpear","blimpthigh")>><<elseif $bodyType is "busty">> <<set $bodyType = either("boviete","cubus")>><<elseif $bodyType is "hourglass">> <<set $bodyType = "cubus">><<elseif ($bodyType is "round") or ("belly") or ("pear")>> <<set $bodyType = either("bulging","bloatpear")>><<elseif $bodyType is "thigh">> <<set $bodyType = either("bloatpear","blimpthigh")>><<elseif $bodyType is "boviete">><<set $breast += either(30,40,50); $breastBloat = $maxBreast * 5>>
+<<elseif $bodyType is "cubus">>
+
+[img[icon_gain]]You writhe and moan aloud ''as your thighs<<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> <brightalert>//considerably fatter..!//<hr></brightalert>''<<set $breast += either(30,40,50); $breastBloat = $maxBreast * 5; $thighs += either(30,40,50); $thighFirmness -= $thigh; $pain += random(1,3)>><<elseif ($bodyType is "bulging") or ($bodyType is "bloatpear")>>
+
+[img[icon_gain]]You writhe and moan aloud ''as your thighs and belly<<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> <brightalert>//considerably fatter..!//<hr></brightalert>''<<set $thighs += either(30,40,50); $thighFirmness = $thigh; $pain += random(1,3)>>
+<<elseif $bodyType is "blimpthigh">> [img[icon_gain]]You writhe and moan aloud ''as your thighs <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> <brightalert>//considerably fatter..!//<hr></brightalert>''<<set $thighs += either(30,40,50); $thighFirmness -= $thigh; $belly += either(50,60,70,80,90,100); $girth += either(50,100,150); $bellyBloat = $maxBelly * 1.1; $pain += random(1,3); $lethalKO = 1; $deathCause = "burst belly">><<endif>>
+
+
+<<elseif $randomizer is 2>>
+<<if $bodyType is 0>><<set $bodyType = either("boviete","cubus","cubus","bloatpear","blimpthigh")>><<elseif $bodyType is "busty">> <<set $bodyType = either("boviete","cubus")>><<elseif $bodyType is "hourglass">> <<set $bodyType = "cubus">><<elseif ($bodyType is "round") or ("belly") or ("pear")>> <<set $bodyType = either("bulging","bloatpear")>><<elseif $bodyType is "thigh">> <<set $bodyType = either("bloatpear","blimpthigh")>><<elseif $bodyType is "boviete">>
+
+[img[icon_gain]]You writhe and moan aloud ''as your breasts <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> <brightalert>//considerably fatter..!//<hr></brightalert>''<<set $breast += either(30,40,50); $breastBloat = $maxBreast * 5; $pain += random(1,3)>><<elseif $bodyType is "cubus">>
+
+[img[icon_gain]]You writhe and moan aloud ''as your breasts and thighs<<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> <brightalert>//considerably fatter..!//<hr></brightalert>''<<set $breast += either(30,40,50); $breastBloat = $maxBreast * 5; $thighs += either(30,40,50); $thighFirmness -= $thigh; $pain += random(1,3)>><<elseif ($bodyType is "bulging") or ($bodyType is "bloatpear")>>
+
+[img[icon_gain]]You writhe and moan aloud ''as your thighs and belly<<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> <brightalert>//considerably fatter..!//<hr></brightalert>''<<set $thighs += either(30,40,50); $thighFirmness -= $thigh; $belly += either(50,60,70,80,90,100); $girth += either(50,100,150); $bellyBloat = $maxBelly * 1.1; $pain += random(1,3); $lethalKO = 1; $deathCause = "burst belly">><<elseif $bodyType is "blimpthigh">>
+
+[img[icon_gain]]You writhe and moan aloud ''as your thighs <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> <brightalert>//considerably fatter..!//</brightalert>''<hr><<set $thighs += either(30,40,50); $thighFirmness -= $thigh; $belly += either(50,60,70,80,90,100); $girth += either(50,100,150); $bellyBloat = $maxBelly * 2; $pain += random(1,3)>><<endif>>
+
+<<elseif $randomizer is 3>>
+
+[img[icon_gain]]You groan softly as your breasts ''<brightalert>swell a little bit <<print either("fatter","rounder","plumper","fuller","pudgier","squishier","softer")>>...</brightalert><hr>''<<set $breast += either(10,10,10,20,30); $breastBloat += ($maxBreast /2); $pain += random(1,2)>>
+
+<<elseif $randomizer is 4>>
+
+[img[icon_gain]]You groan softly as your thighs ''<brightalert>swell a little bit <<print either("fatter","rounder","plumper","fuller","pudgier","squishier","softer")>></brightalert>...<hr>''<<set $thigh += either(10,10,10,20); $thighFirmness -= either(10,10,10,20); $pain += random(1,2)>>
+
+<<elseif ($randomizer gte 5) and ($randomizer lte 6)>>
+
+[img[icon_alert]]You wince ''<deepalert>as your breasts suddenly bloat tight <<if $geneDry is 0>>with milk<<endif>>, jiggling and creaking!<hr></deepalert>''<<set $lactation = 1; $breast += either(30,40,50); $breastBloat = $maxBreast * 5; $storedMilk += $maxBreast * 0.5; $milkFat += random(1,5); $milkRate += 10; $pain += random(1,3)>><<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Slime Overdose %/
+
+<<if ($slimePoisoning is 1) and ($species neq "slime") and ($substatus neq "slime") and ($geneSlimeHarmony is 0)>>[img[icon_alert_critical]]Your body wobbles and ripples-- ''<brightalert>softening around you and bulging outwards as it becomes bright, soft and translucent!<hr></brightalert>
+<hr><mutation>You've become a slime!</mutation><hr>''<<display ColorWheel>><<set $playerElement = "liquid"; $speciesLock = 0; $slimePoisoning = 0; $girth += $girth; $belly += $belly; $breast += $breast; $thigh += $thigh; $bodyColor = $briteChroma; $pain += random(1,3); $milkFat = 0; $playerSkin = "jelly"; $playerBody = "gelatinous">><<if $species is "mythosi">><<set $substatus = "slime"; $belly += 500; $thigh += 200; $girth += 300>><<elseif ($species is "arka") or ($species is "arquesse") or ($species is "balloon")>><<set $substatus = "slime">><<else>><<set $species = "slime">><<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Caffeine Overdose %/
+
+<<if $caffeinePoisoning is 1>><<set $metaBurn += either(0,0,0,0,0,0,0,10)>><<set $randomizer = random(1,3); $pain += random(0,2)>><<if $randomizer is 1>>[img[icon_alert_critical]][img[icon_alert_critical]][img[icon_alert_red]][img[icon_alert_critical]][img[icon_trela]]<brightalert>''You feel jittery and uncomfortable!!!</brightalert> <redalert>AarGH!!!!<hr></redalert>''<<endif>><<endif>>
+
+/% ============================================================ %/
+
+/% Vitae Overdose (let's be honest, it's never NOT an overdose) %/
+
+<<if ($vitaePPM gte 1) and ($geneVitality is 0)>><<set $miraberryToxicity -= 10; $miraPoisoning -= random(4,8); $miratoxicOverdose = 0; $helenoToxicity -= random(8,16); $somniation = 0; $pain += random(8,16); $health = "Suffering"; $lethalKO = 1>>
+[img[icon_alert_red]]<deepalert>''The vitae blazing through your body sends you into fits of agony!''<hr></deepalert><<endif>>
+
+/% ============================================================ %/
+
+/% Mira-Vitae Reaction %/
+
+<<if ($vitaePPM gte 1) and ($miraPoisoning gt 0)>><<set $pain += random(9,16); $amalgaToxicity += ($vitaePPM + $miraPoisoning) /2; $vitaePPM -= ($vitaePPM / 2); $miraPoisoning -= ($miraPoisoning / 2); $health = "Suffering"; $lethalKO = 1; $deathCause = "vitae">>
+[img[icon_alert_red]]<deepalert>''Vitae and mirajin are fighting for control of your body! <redalert>//You scream in pain!//<hr></redalert>''</deepalert><<endif>>
+
+/% ============================================================ %/
+
+/% Vitae Agony (leupai) %/
+
+<<if ($vitaePPM gte 1) and ($leupaiFlag is 1)>><<set $pain += random(4,8); $health = "Agonized!"; $lethalKO = 1; $deathCause = "vitae">>
+[img[icon_alert_red]]<deepalert>Your body feels like it's trying to tear itself apart from the inside!<hr></deepalert>
+<hr><redalert>''//The vitae is going to kill you!!<hr>//''</redalert><<endif>></alert>
+
+/% ============================================================ %/
+
+/% Vitae Allergy %/
+
+<<if ($vitaePPM gte 1) and ($geneVitalAllergy is 1) and ($leupaiFlag is 0)>><<set $pain += random(4,8); $health = "Agonized!"; $lethalKO = 1; $deathCause = "vitae">>
+[img[icon_alert_red]]<deepalert>Your body feels like it's trying to tear itself apart from the inside!<hr></deepalert> <redalert>''//The vitae is going to kill you!!//''</redalert><hr><<endif>></alert>
+
+
+/% ============================================================ %/
+
+/% Leucanthropy Incubation %/
+
+<<if $leucanthropyCountdown gte 3>>
+[img[icon_alert]]<brightalert>You feel very odd. Very odd... and ''//very hungry...//''<hr></brightalert><<endif>>
+
+/% ============================================================ %/
+
+/% M. suculiet infection %/
+
+/% Initial phase %/
+<<if ($miracoSpores gte 100) and ($miracoInfection is 0)>><<set $miracoSetpoint = $fatness; $bloatOverdoseWarning = 1; $miracoInfection = 1>>
+[img[icon_alert]]<brightalert>A sudden shiver dances down your spine, and ''your belly gurgles loudly...<hr></brightalert>''<<endif>>
+
+/% Spontaneous spore generation, tier 1 %/
+<<if $miracoSpores gte 100>><<set $randomizer = random(1,6)>>
+<<if $randomizer is 1>><<set $miracoSpores += random(0,6)>><<endif>><<endif>>
+
+/% Transformation phase 1 %/
+<<if ($miracoSpores gte 200) and ($miracoInfection is 1)>><<set $playerEyes = "blank"; $playerEyeColor = "white"; $eyeMutation = 1; $bellyBloat = $maxBelly * 1.1; $bloatOverdoseWarning = 1; $miracoInfection = 2>>
+[img[icon_alert]]<brightalert>The area seems oddly ''bright. You feel a bit unwell...''<hr></brightalert><<endif>>
+
+/% Spontaneous belly gain, tier 1 %/
+<<if ($miracoSpores gte 200) and ($miracoInfection lt 3)>><<set $randomizer = random(1,8)>>
+<<if $randomizer is 1>><<set $bellyBloat = $maxBelly * 1.1; $bloatOverdoseWarning = 1; $belly += either(10,10,20)>>
+[img[icon_alert]]<brightalert>Your belly creaks and gurgles as it suddenly puffs up tight and round!<hr></brightalert><<endif>><<endif>>
+
+/% Transformation phase 2 %/
+<<if ($miracoSpores gte 300) and ($miracoInfection is 2)>><<set $playerEyes = "blank"; $playerEyeColor = "white"; $eyeMutation = 1; $belly += either(60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,220,250); $bellyBloat = $maxBelly * 1.1; $esurience += random(8,16); $bloatOverdoseWarning = 1; $miracoInfection = 3>><<display FatSurge>>
+[img[icon_gain]]<brightalert>You cry out in pain and shock as your body suddenly, slowly begins to expand and bloat-- ''your flesh growing softer and flabbier as it billows around you!'' You feel a growing hunger wash over you...<hr></brightalert><<endif>>
+
+/% Spontaneous spore generation, tier 2 %/
+<<if ($miracoSpores gte 300) and ($miracoSpores lt 500)>><<set $miracoSpores += random(0,3); $calories += either(0,0,0,0,0,0,0,0,0,10)>><<endif>>
+
+/% Transformation phase 3 %/
+<<if ($miracoSpores gte 500) and ($miracoInfection is 3)>><<set $playerEyes = "blank"; $playerEyeColor = "white"; $eyeMutation = 1; $eyeMutation = 1; $belly += either(60,70,80,90,100); $bellyBloat = $maxBelly * 1.1; $thigh += either(80,90,100,110,120,130,140,150); $thighFirmness += 500; $immobilityDisabled = 1; $geneThermalConversion = 1; $geneNourishingLight = 1; $esurience += random(8,16); $bloatOverdoseWarning = 1; $sanity -= 1; $miracoInfection = 4>><<display FatSurge>>
+[img[icon_gain]]<brightalert>You break out into a cold sweat, your body gently aching as ''your belly slowly, steadily bloats tighter and your thighs grow tense. You feel a bit dizzy, and more than a little strange...''<hr></brightalert><<endif>>
+
+/% Spontaneous spore generation, tier 3 %/
+<<if $miracoSpores gte 500>><<set $miracoSpores += random(2,12); $calories += random(0,8)>><<endif>>
+
+/% Transformation phase 4 %/
+<<if ($miracoSpores gte 800) and ($miracoInfection is 4)>><<set $playerElement = "fungal"; $playerHead = "fungal antlers"; $headMutation = 1; $playerBack = "fungal tendrils"; $playerEyes = "blank"; $playerEyeColor = "white"; $eyeMutation = 1; $belly += either(500,550,600); $bellyBloat = $maxBelly * 1.1; $thigh += either(80,90,100,110,120,130,140,150); $thighFirmness += 500; $immobilityDisabled = 1; $geneThermalConversion = 1; $geneNourishingLight = 1; $esurience += random(10,20); $bloatOverdoseWarning = 1; $sanity -= 10; $miracoInfection = 5>><<display ExpandBodytype>><<display FatSurge>><<display FatSurge>>
+
+<<if $playerTail is 0>><<set $randomizer = either(0,1)>>
+	<<if $randomizer is 1>><<set $playerTail = "fungal">><<endif>><<endif>>
+
+<<if ($immobile is 1) and ($immobilityCause is "girth")>><<set $immobile = 0; $immobilityCause = 0>><<endif>>
+
+[img[icon_alert_critical]]<brightalert>''You cry out in pain in confusion, clutching your head as it suddenly begins to sprout a pair of strange growths-- and your back follows suit! Your body jiggles and bloats as it begins to expand...''<hr></brightalert><<endif>>
+
+/% Final transformation %/
+<<if ($miracoSpores gte 1000) and ($miracoInfection is 5) and ($substatus neq "sporeslave")>><<set $playerElement = "fungal"; $playerEyes = "blank"; $playerEyeColor = "white"; $eyeMutation = 1; $eyeMutation = 1; $belly += 500; $bellyBloat = $maxBelly * 1.1; $thigh += 250; $thighFirmness += 250; $immobilityDisabled = 1; $geneThermalConversion = 1; $geneNourishingLight = 1; $esurience += 50; $bloatOverdoseWarning = 0; $strength += 5; $finesse += 3; $sanity = 30; $substatus = "sporeslave"; $speciesLock = 0>><<display FatSurge>><<display FatSurge>>
+[img[icon_alert_critical]]<brightalert>You feel a ''little //funny//''... but it's probably nothing of consequence...<hr></brightalert><<endif>>
+
+/% Sporeslave Lock %/
+<<if $miracoInfection is 5>><<set $substatus = "sporeslave">><<endif>>
+
+/% ============================================================ %/
+/% VENOMS %/
+/% 1 unit of venom = venom activity for roughly 1 round. %/
+
+<<if $toxicVenom gt 0>>
+[img[icon_alert_critical]]<deepalert>You cry out in pain as ''the venom burns through your veins!''</deepalert><hr>
+<<set $pain += ($maxPain * 0.01); $toxicVenom -= 1; $lethalKO = either(0,1); $deathCause = "poison">><<endif>>
+
+<<if $lethalVenom gt 0>>
+[img[icon_alert_red]]<redalert>You cry out in agony as ''the venom burns through your veins! //You feel deathly ill..!//''</redalert><hr>
+<<set $pain += ($maxPain * 0.07); $lethalVenom -= either(0,0,1); $lethalKO = 1; $deathCause = "poison">><<endif>>
+
+<<if $gainVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''Your body wobbles and inflates... You're getting fatter!''</mutation><hr>
+	<<set $combatTarget = either("body","belly","breasts","thighs")>>
+		<<if $combatTarget is "body">><<set $girth += either(10,10,10,20)>>
+		<<elseif $combatTarget is "belly">><<set $belly += either(5,5,5,10)>>
+		<<elseif $combatTarget is "breasts">><<set $breast += either(5,5,5,10)>>
+		<<elseif $combatTarget is "thighs">><<set $thigh += either(5,5,5,10)>><<endif>>
+<<set $bellyBloat += ($maxBelly * either(0.08,0.1,0.2,0.3)); $breastBloat += $gainVenom; $gainVenom -= 1; $lethalKO = either(0,1); $deathCause = "explosion"; $playerDefeat = "Your body blimps fatter and fatter around you, blotting out your view and creaking loudly...">><<endif>>
+
+<<if $supergainVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''You grit your teeth as your body rapidly bloats and widens, your skin tightening as your weight surges!''</mutation><hr>
+		<<set $combatTarget = either("body","belly","breasts","thighs")>>
+			<<if $combatTarget is "body">><<set $girth += either(20,20,30,30)>>
+			<<elseif $combatTarget is "belly">><<set $belly += either(10,10,20)>>
+			<<elseif $combatTarget is "breasts">><<set $breast += either(10,10,20)>>
+			<<elseif $combatTarget is "thighs">><<set $thigh += either(10,10,20)>><<endif>>
+	<<set $bellyBloat += ($maxBelly * either(0.2,0.3,0.5)); $breastBloat += $supergainVenom; $supergainVenom -= 1; $lethalKO = 1; $deathCause = either("explosion","fat suffocation"); $playerDefeat = "Your body blimps fatter and fatter around you, blotting out your view and creaking loudly...">><<endif>>
+
+<<if $bellygainVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''Your belly jiggles and wobbles as it swells fatter!''</mutation><hr>
+<<set $belly += either(5,5,10); $bellyBloat += ($maxBelly * either(0.08,0.1,0.2,0.3)); $bellygainVenom -= 1; $lethalKO = either(0,1); $deathCause = either("burst belly","fat suffocation"); $playerDefeat = "Your belly creaks and groans, surging fatter and fatter... the pain is unbearable...">><<endif>>
+
+<<if $bellySupergainVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''Your belly creaks softly, wobbling as it grows fatter and fatter!''</mutation><hr>
+<<set $belly += either(10,10,10,20); $bellyBloat += ($maxBelly * either(0.2,0.3,0.5)); $bellySupergainVenom -= 1; $lethalKO = 1; $deathCause = either("burst belly","fat suffocation"); $playerDefeat = "Your belly creaks and groans, surging fatter and fatter... the pain is unbearable...">><<endif>>
+
+<<if $breastgainVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''Your breasts jiggle, steadily growing plumper before your eyes!''</mutation><hr>
+<<set $pain += ($maxPain * 0.02); $breast += either(5,5,10); $breastBloat += $baseDamage; $breastgainVenom -= 1; $playerDefeat = "Your breasts creak and groan, surging fatter and fatter... the pain is unbearable...">><<endif>>
+
+<<if $breastSupergainVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''Your breasts creak softly as they rapidly expand, inflating like balloons!''</mutation><hr>
+<<set $pain += ($maxPain * 0.05); $breast += either(20,30,40,50); $breastBloat += $baseDamage * 2; $breastSupergainVenom -= 1; $lethalKO = either(0,1); $deathCause = "explosion"; $playerDefeat = "Your breasts creak and groan, surging fatter and fatter... the pain is unbearable...">><<endif>>
+
+<<if $thighgainVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''Your thighs jiggle as they swell fatter!''</mutation><hr>
+<<set $pain += ($maxPain * 0.02); $thigh += either(5,5,10); $thighFirmness += $baseDamage; $thighgainVenom -= 1; $playerDefeat = "Your thighs creak and groan, surging fatter and fatter... the pain is unbearable...">><<endif>>
+
+<<if $thighSupergainVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''Your thighs creak softly, rapidly ballooning fatter!''</mutation><hr>
+<<set $pain += ($maxPain * 0.05); $thigh += either(20,30,40,50); $thighFirmness += $baseDamage * 2; $thighSupergainVenom -= 1; $playerDefeat = "Your thighs creak and groan, surging fatter and fatter... the pain is unbearable...">><<endif>>
+
+<<if $fatteniumVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''Your entire body jiggles, wobbles and widens as your weight climbs!''</mutation><hr>
+<<set $pain += ($maxPain * 0.03); $girth += either(10,10,20); $belly += either(5,5,10); $breast += either(5,5,10); $thigh += either(5,5,10); $bellyBloat += ($maxBelly * 0.01); $breastBloat += ($maxBreast * 0.01); $thighFirmness += 10; $fatteniumVenom -= 1; $lethalKO = either(0,1); $deathCause = either("explosion","fat suffocation"); $playerDefeat = "Your body blimps fatter and fatter around you, blotting out your view and creaking loudly...">><<endif>>
+
+<<if $bulkVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''You tremble and groan as your body expands with fat and muscle!''</mutation><hr>
+<<set $pain += ($maxPain * 0.08); $girth += either(10,20,30,40,50); $belly += either(10,20,30); $breast += either(10,10,20); $thigh += either(10,20,30,40,50); $bellyBloat += $baseDamage; $thighFirmness += $baseDamage; $strength += either(0,0,0.1,0.2,0.3,1); $bulkVenom -= 1; $lethalKO = either(0,1); $deathCause = either("explosion","fat suffocation"); $playerDefeat = "Your body blimps bigger and bigger, creaking as it blots out your view...">><<endif>>
+
+<<if $musclebloatVenom gt 0>>
+<mutation>''You scream in pain as your muscles rapidly bloat!''</mutation><hr>
+<<set $pain += ($maxPain * 0.07); $bellyBloat += $baseDamage * 2; $breast -= either(10,10,20); $thighFirmness += $baseDamage * 2; $strength += 0.5; $musclebloatVenom -= 1; $lethalKO = 1; $deathCause = "explosion"; $playerDefeat = "Your muscles balloon bigger and bigger, your skin beginning to creak...">><<endif>>
+
+<<if $flabbyVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''You tremble and groan as the venom bloats and softens your body, your limbs struggling to carry your climbing weight!''</mutation><hr>
+<<set $pain += ($maxPain * 0.03); $girth += either(10,20,30,40,50); $belly += either(10,20,30); $breast += either(10,10,20); $thigh += either(10,20,30,40,50); $thighFirmness -= $baseDamage; $combatWeaken += 1; $flabbyVenom -= 2; $lethalKO = either(0,1); $deathCause = "fat suffocation"; $playerDefeat = "Your body blimps fatter and fatter around you, your flesh threatening to swallow you up as your knees buckle...">><<endif>>
+
+<<if $bloatVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''You cry out in pain and discomfort as the venom causes your body to bloat up tighter!''</mutation><hr>
+<<set $bellyBloat += ($maxBelly * 0.05); $breastBloat += ($maxBreast * 0.05); $bloatVenom -= 1; $lethalKO = either(0,1); $deathCause = "explosion"; $playerDefeat = "Your body blimps up enormously, your skin creaking louder and louder...">><<endif>>
+
+<<if $burstVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''You groan and writhe as your body blimps up rapidly, your skin creaking as the pressure increases!''</mutation><hr>
+<<set $bellyBloat += ($maxBelly * 0.15); $breastBloat += ($maxBreast * 0.12); $burstVenom -= 1; $lethalKO = 1; $deathCause = "explosion"; $playerDefeat = "Your body blimps up enormously, your skin creaking louder and louder...">><<endif>>
+
+<<if $breastbloatVenom gt 0>>
+[img[icon_alert_critical]]<mutation>''You cry out in pain and discomfort as your breasts bloat tight<<if $geneDry is 0>>, jiggling and sloshing<<endif>>!''</mutation><hr>
+<<set $pain += ($maxPain * 0.03)>>
+<<if $geneDry is 0>><<set $storedMilk += ($maxBreast * 0.05); $breastBloat += ($maxBreast * 0.01); $breastbloatVenom -= 1>>
+<<elseif $geneDry is 1>><<set $breastBloat += ($maxBreast * 0.05); $breastbloatVenom -= 1>>
+<<elseif $geneProductive is 1>><<set $storedMilk += ($maxBreast * 0.08); $breastBloat += ($maxBreast * 0.08); $breastbloatVenom -= 1>><<endif>><<endif>>
+
+<<if $healVenom gt 0>>
+<affirmative>''Your wounds begin to fade as the healing venom courses through your veins!''</affirmative><hr>
+<<set $pain -= ($maxPain * 0.03); $healVenom -= 1>><<endif>>
+
+<<if $weakeningVenom gt 0>>
+[img[icon_alert_critical]]<deepalert>''Your limbs tremble and knock as the venom saps your strength...!''</deepalert><hr>
+<<set $combatWeaken += 1; $weakeningVenom -= 2>><<endif>>
+
+<<if $gluttonVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>''You wince as your stomach growls loudly...''</brightalert><hr>
+<<set $esurience += either(0,0.2,0.3,0.5); $gluttonVenom -= 1>><<endif>>
+
+<<if $caloricVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>''You wince as your stomach gurgles loudly...''</brightalert><hr>
+<<set $calories += random(8,60); $caloricVenom -= 1>><<endif>>
+
+<<if $hallucenoVenom gt 0>>
+[img[icon_alert_critical]]<bleak>''You clutch your head and cry out in shock and fear as the world melts and distorts around you!''</bleak><hr>
+<<set $sanity -= either(0,1); $fear = either(0,0,1); $hallucenoVenom -= 1>><<endif>>
+
+<<if $mutagenVenom gt 0>>
+[img[icon_alert_critical]]<mutation>You grit your teeth as ''your body twitches, spasms, and squirms!''</mutation><hr>
+	<<set $mutationStrength = either("subtle","subtle","subtle","subtle","minor","minor","minor","major")>><<display MutationDatabase>>
+<<set $pain += ($maxPain * 0.04); $mutagenVenom -= 1; $lethalKO = 1; $deathCause = "catastrophic mutation">><<endif>>
+
+<<if ($leucanthropicVenom gt 0) and ($speciesLock is 0)>>
+[img[icon_alert_critical]]<deepalert>You feel ''a bit ill...''</deepalert><hr>
+<<set $pain += ($maxPain * 0.02); $lawornMiratoxin += random(2,12); $leucanthropicVenom -= 1>><<endif>>
+
+<<if $esqueVenom gt 0>>
+/% This venom deactivates stretch protection and bonuses while active. This code is complete. %/
+[img[icon_alert_critical]]<deepalert>Your skin feels ''oppressively tight and rigid...''</deepalert><hr>
+<<set $pain += ($maxPain * 0.01); $stretchMod = 0; $esqueVenom -= either(0,0,1); $lethalKO = 1; $deathCause = "belly burst">><<endif>>
+
+<<if $noxiousVenom gt 0>>
+[img[icon_alert_critical]]<deepalert>Your ''gut wrenches painfully..!''</deepalert><hr>
+<<set $toxicOverdoseWarning = either(0,1,1); $noxiousVenom -= either(0,0,1)>><<endif>>
+
+<<if $blubberVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>''Your body jiggles and quakes as it bloats fatter and fatter by the second!''</brightalert><hr>
+<<set $pain += ($maxPain * 0.02); $blubberVenom -= 1; $lethalKO = either(0,1); $deathCause = "fat suffocation"; $playerDefeat = "Your body blimps fatter and fatter around you, finally blotting out your view...">><<set $fatteningSurge = random(30,80)>><<display FatSurge>><<endif>>
+
+<<if $ampliVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>You feel ''sluggish, and oddly chilled...''</brightalert><hr>
+<<set $pain += ($maxPain * 0.01); $ampliVenom -= 1; $lethalKO = either(0,1,1,1); $deathCause = "poison"; $playerDefeat = "You writhe and gasp for breath as your bodily processes gradually shut down!"; $calories += random(3,11); $gainerBonus += either(0,0,0,0,0.1,0.1,0.2,0.3,0.5)>><<endif>>
+
+<<if $waterballoonVenom gt 0>>
+[img[icon_alert_critical]]<deepalert>Your belly jiggles and sloshes as it steadily fills with liquid!</deepalert><hr>
+<<set $belly += either(0,0,0,10,20,50); $bellyBloat += ($maxBelly * 0.2); $bellyLiquid += ($maxBelly * 0.2); $waterballoonVenom -= either(0,0,1); $lethalKO = 1; $deathCause = "burst belly">><<endif>>
+
+<<if $witherVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>''You feel faint as your body fat melts away by the second!''</brightalert><hr>
+<<set $pain += ($maxPain * 0.01); $witherVenom -= 1; $lethalKO = 1; $deathCause = "atrophy">><<set $fatteningSurge = random(30,80)>><<display Deflate>><<endif>>
+
+<<if $hourglassPressureVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>You squirm uncomfortably as ''your body fat redistributes itself into your breasts and thighs!''</brightalert><hr>
+<<set $pain += ($maxPain * 0.01); $pressure = random(10,50); $belly -= $pressure; $girth -= $pressure; $breast += $pressure / 2; $thigh += $pressure / 2; $hourglassPressureVenom -= 1; $deathCause = "explosion">><<endif>>
+
+<<if $bellyPressureVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>You squirm uncomfortably as ''your body fat redistributes itself into your belly!''</brightalert><hr>
+<<set $pain += ($maxPain * 0.01); $pressure = random(10,50); $belly += $pressure; $girth -= $pressure; $breast -= $pressure; $thigh -= $pressure; $bellyPressureVenom -= 1; $deathCause = "burst belly">><<endif>>
+
+<<if $breastPressureVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>You squirm uncomfortably as ''your body fat redistributes itself into your breasts!''</brightalert><hr>
+<<set $pain += ($maxPain * 0.01); $pressure = random(10,50); $belly -= $pressure; $girth -= $pressure; $breast += $pressure; $thigh -= $pressure; $breastPressureVenom -= 1; $deathCause = "explosion">><<endif>>
+
+<<if $thighPressureVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>You squirm uncomfortably as ''your body fat redistributes itself into your thighs!''</brightalert><hr>
+<<set $pain += ($maxPain * 0.01); $pressure = random(10,50); $belly -= $pressure; $girth -= $pressure; $breast -= $pressure; $thigh += $pressure; $thighPressureVenom -= 1; $deathCause = "explosion">><<endif>>
+
+<<if $bodyPressureVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>You squirm uncomfortably as ''your body fat redistributes itself into your trunk!''</brightalert><hr>
+<<set $pain += ($maxPain * 0.01); $pressure = random(10,50); $belly -= $pressure; $girth += $pressure; $breast -= $pressure; $thigh -= $pressure; $thighPressureVenom -= 1; $deathCause = "explosion">><<endif>>
+
+<<if $pearPressureVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>You squirm uncomfortably as ''your body fat redistributes itself into your belly and thighs!''</brightalert><hr>
+<<set $pain += ($maxPain * 0.01); $pressure = random(10,50); $belly += $pressure / 2; $girth -= $pressure; $breast -= $pressure; $thigh += $pressure / 2; $pearPressureVenom -= 1; $deathCause = "explosion">><<endif>>
+
+<<if $centralPressureVenom gt 0>>
+[img[icon_alert_critical]]<brightalert>You squirm uncomfortably as ''your body fat redistributes itself into your belly and breasts!''</brightalert><hr>
+<<set $pain += ($maxPain * 0.01); $pressure = random(10,50); $belly += $pressure / 2; $girth -= $pressure; $breast += $pressure / 2; $thigh -= $pressure; $centralPressureVenom -= 1; $deathCause = "explosion">><<endif>>
+
+
+
+
+
+/% ============================================================ %/
+/% Radiation Sickness %/
+
+/% For non-affinity %/
+
+<<if $radAffinity is 0>>
+
+/% Pain & Nausea %/
+
+<<if ($nuclearRads gte 100) and ($nuclearRads lt 250)>>[img[icon_alert_critical]]<brightalert>//Your body aches a bit...//</brightalert><hr>
+
+<<elseif ($nuclearRads gte 250) and ($nuclearRads lt 400)>>[img[icon_alert_critical]]<brightalert>You ache, and ''you feel a bit under the weather...''</brightalert><hr>
+
+<<elseif ($nuclearRads gte 400) and ($nuclearRads lt 500)>>[img[icon_alert_critical]]<brightalert>You're ''constantly sore.''</brightalert> <deepalert>''You don't feel well...''</deepalert><hr>
+
+<<elseif ($nuclearRads gte 500) and ($nuclearRads lt 800)>>[img[icon_alert_red]]<brightalert>You feel as though you're starting to waste away...<brightalert></hr>
+
+<<elseif ($nuclearRads gte 800) and ($nuclearRads lt 900)>>[img[icon_alert_red]]<brightalert>Your body is in </brightalert><deepalert>''constant, wracking pain-- inside and out!''</deepalert><hr>
+
+<<elseif $nuclearRads gte 900>>[img[icon_alert_red]]<deepalert>Your body is ''practically falling apart as you watch... //You have no doubt in your mind that you're dying!//''</deepalert><hr><<endif>>
+
+
+<<if $radMindLoss is 1>>[img[icon_alert_critical]]<brightalert>You feel your mind</brightalert> <deepalert>''deteriorating...''</deepalert><hr><<set $radVitalityLoss = 0>><<endif>>
+
+<<if $radPhysLoss is 1>>[img[icon_alert_critical]]<deepalert>Your body is growing ''weaker and more frail..!''</deepalert><hr><<set $radPhysLoss = 0>><<endif>>
+
+<<if $radVitalityLoss is 1>>[img[icon_alert_red]]<deepalert>''Your skin is flaking off...''</deepalert><hr><<set $radVitalityLoss = 0>><<endif>>
+
+<<endif>>
+
+/% ============================================================ %/
+/% SPECIAL %/
+
+/% ============================================================ %/
+/% Voracity Mode %/
+
+<<if $voreFrenzy gt 0>>[img[icon_alert_critical]]''You feel the overwhelming urge to //devour//...''<<set $voreFrenzy -= 1>><hr><<endif>>
+
+/% ============================================================ %/
+/% Fatiere Slurry %/
+
+<<if $fatiereFattened gt 0>>[img[icon_gain]]''Your body rapidly absorbs the slurry, growing rounder, wider, and softer by the moment as it swells with new fat!''<<set $fatteningSurge = random(30,80)>><<display FatSurge>><hr><<endif>>
+
+/% ============================================================ %/
+/% Realization Fattening %/
+
+<<if $realizationFattening gt 0>>[img[icon_gain]]''Your flesh jiggles and quakes as your weight soars!''<<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $realizationFattening -= 1>><hr><<endif>>
+
+/% ============================================================ %/
+/% Burstberry DOT %/
+
+<<if $burstberryBloat gt 0>>[img[icon_alert_critical]]You feel like a waterballoon as ''your belly inflates with liquid..!''<<set $belly += either(0,0,0,1,2,5); $bellyBloat += ($maxBelly * 0.25); $bellyLiquid = $bellyBloat; $burstberryBloat -= either(0,1,1); $lethalKO = 1; $deathCause = "explosion">>
+<<set $randomizer = random(1,12)>>
+<<if $randomizer is 1>><<set $bodyColor = either("blue","indigo","violet")>><<endif>><hr><<endif>>
+
+/% ============================================================ %/
+/% Cowberry DOT %/
+
+<<if $geneDry is 0>>
+<<if $cowberryBloat gt 0>>[img[icon_alert_critical]]Your breasts jiggle and slosh as they ''steadily fill with milk..!''<<set $storedMilk += ($milkRate * 2); $breastBloat += ($milkRate * 20); $cowberryBloat -= either(0,1,1)>>
+<<set $randomizer = random(1,12)>>
+<<if $randomizer is 1>><<set $milkFat += 0.5>><<endif>><hr><<endif>><<endif>>
+
+/% ============================================================ %/
+/% Helium %/
+
+<<if $heliumBallooned gt 0>>[img[icon_alert]]<affirmative>Your body ''drifts weightlessly!''</affirmative><<set $heliumBallooned -= 1; $immobilityDisabled = 1; $immobile = 0; $immobileMode = 0; $immobilityCause = 0; $bellyBloat = $maxBelly>><hr><<endif>>
+
+<<if $heliumBallooned is 1>>[img[icon_alert_critical]]<brightalert>You feel your body growing heavier as it begins to settle back onto solid ground...</brightalert><<set $heliumBallooned -= 1; $immobilityDisabled = 1; $immobile = 0; $immobileMode = 0; $immobilityCause = 0; $bellyBloat = $maxBelly>><hr><<endif>>
+
+/% ============================================================ %/
+/% Helium/Plushifier lethal interaction %/
+
+<<if $breastPlushsplosion gt 0>>[img[icon_alert_critical]]<brightalert>''Your breasts creak and tremble as they balloon ENORMOUSLY, the pressure increasing agonizingly within them by the second! Are they going to explode...?!''</brightalert><<set $breastPlushsplosion -= 1; $breast += ($breast / 3); $pain += ($maxPain * 0.12)>><hr><<endif>>
+
+<<if $bellyPlushsplosion gt 0>>[img[icon_alert_critical]]<brightalert>''You scream in shock as your belly rapidly, painfully bloats with fat, your skin groaning loudly as it struggles to contain the monstrous growth!''</brightalert><<set $bellyPlushsplosion -= 1; $belly += ($belly / 2); $pain += ($maxPain * 0.16)>><hr><<endif>>
+
+/% ============================================================ %/
+/% Billetroa Fattening %/
+
+<<if $billetroaExpand gt 0>>[img[icon_alert_critical]]<brightalert>''You squirm and groan as your breasts and belly bloat with fat, your skin bulging as it struggles to contain your rapidly expanding girth!''</brightalert><<set $belly += $belly * 0.15; $breast += $breast * 0.15; $bellyBloat = $maxBelly * 1.5; $breastBloat = $maxBreast * 1.5; $lethalKO = 1; $deathCause = "explosion">>
+
+<<set $belly = Math.round($belly); $breast = Math.round($breast)>>
+
+<<if $fatScore gte $billetroaMorphSize>><<set $billetroaExpand = 0>><<endif>>
+
+<hr><<endif>>
+
+/% ============================================================ %/
+/% Divine Fattening %/
+
+<<if ($divinePlumping gt 0) or ($divineFattening gt 0) or ($divineFatteningII gt 0)>>[img[icon_gain]]//You feel... ''rounder...''//<hr><<set $calories = 12>><<display Bodytype>><<set $divinePlumping -= 1>><hr><<endif>>
+
+<<if ($divineFattening gt 0) or ($divineFatteningII)>>[img[icon_gain]]<brightalert>You watch with silent fascination as your body ''slowly, steadily grows fatter before your eyes!''</brightalert><hr><<display FatSurge>><<set $divineFattening -= 1>><hr><<endif>>
+
+<<if $divineFatteningII gt 0>>[img[icon_gain]]You have the feeling that ''nothing will stop this process until it's run its course...''<hr><<display FatSurge>><<set $divineFatteningII -= 1>><hr><<endif>>
+
+/% ============================================================ %/
+/% Vitae Soul Sickness %/
+
+<<if $soulSick gt 0>>[img[icon_alert_critical]]<brightalert>Your body ''aches strangely...''</brightalert><hr><<set $soulSick -= random(0,0,1)>><<endif>>
+
+
+/% ============================================================ %/
+/% Phoenix's Incandescence %/
+
+<<if $incandescenceTick gt 0>>[img[icon_alert_critical]]Phoenix's radioactive aura burns your skin!<hr><<set $incandescenceTick = 1; $pain += ($maxPain * either(0.01,0.02,0.03)); $nuclearRads += random(25,45)>><<endif>>

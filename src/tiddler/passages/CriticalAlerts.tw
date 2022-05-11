@@ -1,0 +1,102 @@
+﻿<center><framed><large><<nobr>><<set $pause = 1>><<display Vitality>>
+/% False alarm. %/
+<<if ($blackout is 0) and ($eggBellyExplode is 0)>><<set $overrideExplore = 0>><<else>><<set $overrideExplore = 1>><<endif>>
+
+/% ======================================================== %/
+/% CRITICAL ALERTS %/
+
+/% For status & alert messages that pause & redirect the game. Use this in tandem with overrideExplore & ShutoffValve. %/
+
+/% =========== %/
+
+/% Chance of rescue/survival on knockout depends on population density (and later, if the population dislikes you or not...) %/
+
+<<set $randomizer = random(1,100)>>
+
+	<<if $lethalKO is 1>>
+		<<if $popDensity is "hi">>
+			/% 70% chance of being saved from death. %/
+			<<if $randomizer gt 70>>
+				/% Nope, you're fucked. %/
+				<<set $lethalKO = 1>>
+					<<else>> /% Someone finds you and takes you to safety. %/
+						<<set $lethalKO = 0>><<endif>>
+
+		<<elseif $popDensity is "mid">>
+			/% 50% chance of being saved from death. %/
+			<<if $randomizer gt 50>>
+				/% Nope, you're fucked. %/
+				<<set $lethalKO = 1>>
+					<<else>> /% Someone finds you and takes you to safety. %/
+						<<set $lethalKO = 0>><<endif>>
+
+		<<elseif $popDensity is "low">>
+			/% 5% chance of being saved from death. %/
+			<<if $randomizer gt 5>>
+				/% Nope, you're fucked. %/
+				<<set $lethalKO = 1>>
+					<<else>> /% Someone finds you and takes you to safety. %/
+						<<set $lethalKO = 0>><<endif>>
+	<<endif>>
+
+<<endif>>
+
+/% ===========  Leupai Egg Emergence %/
+
+<<endnobr>><<if ($leupaiEggTimer lte 0) and ($eggBellyExplode is 1)>><<set $quaggyRerolls = $leupaiEggLoad>>\
+<<set $autoRest = 0>><brightalert>[img[icon_alert_critical]]Your<<if $special_avbot is 1>> avbot's<<endif>> ''grotesquely-inflated gut creaks loudly, packed well beyond its limit...''
+with a final, desperate groan, it ''bursts open in a shower of gore and ichor'', leaving you stunned and reeling as ''<<if $leupaiEggLoad gt 1>><<print $leupaiEggLoad>><<elseif $leupaiEggLoad is 1>>a<<endif>> <<if $quaggyGirth lte 300>>chubby<<elseif ($quaggyGirth gte 31) and ($quaggyGirth lt 500)>>fat<<elseif $quaggyGirth gte 500>>jiggling, blubber-stuffed<<endif>> <<if $leupaiEggLoad is 1>>quaggy crawls<<elseif $leupaiEggLoad gt 1>>quaggies squirm<<endif>> out of the gaping wound!''<<set $overrideExplore = 1; >><<if ($leupaiFlag is 0) and ($slimeFlag is 0)>><<set $pain += $leupaiEggLoad * 3>><<endif>></brightalert><<if $blackout is 0>>
+<<button [[Examine.|QuaggyGenerator][$saveStateQuaggyGen = passage(); $overrideExplore = 0; $baseQuaggyGirth = $quaggyGirth; $eggTimer = 0; $eggBellyExplode = 0]]>><<button [[Leave them behind.|QuaggyDismissal][$saveStateQuaggyGen = passage(); $overrideExplore = 0; $baseQuaggyGirth = $quaggyGirth; $quaggyRerolls = $leupaiEggLoad; $eggTimer = 0]]>><<set $eggBellyExplode = 0; $quaggyGirth = 0; $leupaiEggLoad = 0; $leupaiEggParasite = 0; $eggBloat = 0>><<elseif $blackout is 1>><<if ($leupaiFlag is 0) and ($slimeFlag is 0)>><<set $lethalKO = either(0,0,1); $deathCause = "burst belly"; $pain = 0; $leupaiEggTimer = 0>><<endif>><<endif>><<endif>><<nobr>>
+
+/% ===========  Agony Blackout (Blackouts should always be last in this list %/
+
+/% Trying an extra condition-- pain-- to make sure it stops assuming you're dead just because lethalKO is on... %/
+
+<<if ($lethalKO is 1) and ($pain gte $maxPain)>><<endif>>
+
+<<endnobr>><<if $blackout is 1>><<display DeathSnapshot>>\
+<<set $autoRest = 0>>[img[icon_alert_red]]<redalert>Overcome with agony, you ''<<if $special_avbot is 1>>falter, wincing as your avbot's connection is severed!<<else>> black out!<<endif>>''</redalert>
+<<nobr>>
+
+/% Player 1/ Standard Mode Clauses %/
+
+	<<if $special_avbot neq 1>>
+
+		/% Survival clause %/
+		<<if $lethalKO is 0>><<display LiveStatusClear>><<button [[Continue..?|Mediquerie][$overrideExplore = 0; $pain = 0; $immobile = 0; $immobileMode = 0; $indoorZone = 0; $justLeft = $dungeonLocation; $dungeonLocation = 0; $justLeftType = "dungeon"; $dungeonType = 0; $blackout = 0; $mannedShop = 0; $quaggyGirth = 0; $service = "emergency"; $saveStateEncounter = "Explore"; $leupaiEggLoad = 0; $baseQuaggyGirth = $quaggyGirth; $quaggyRerolls = 0; $eggTimer = 0; $eggBellyExplode = 0; $abitteLocked = 0]]>>
+
+		/% Death clause %/
+
+
+/% =========== %/
+
+/% TODO - If you're going to die and Kaolan likes you, he will appear now and offer to heal you in exchange for a sizeable chunk of favor.
+He'll never charge you enough favor that you drop below Friendship with him for this; if the favor cost dips you that low, it'll set you back somewhere just over the Friendship threshold afterward.
+
+If you decline his aid, you'll be taken to the death screen as usual.%/
+
+/% =========== %/
+
+		<<elseif $lethalKO is 1>>
+
+<<if $kaolan>><<else>>
+		<<set $autoRest = 0>>
+		<<if ($indoorZone is 0) and ($plane is 0)>><<set $deathLoc = $location; $deathWorldID = $planetID>><<elseif $indoorZone is 1>><<set $deathLoc = $dungeonType>><<elseif $plane neq 0>><<set $deathLoc = $plane>><<endif>>
+
+		<<button [[Continue..?|Respawn][$overrideExplore = 0; $pain = 0; $immobile = 0; $immobileMode = 0; $indoorZone = 0; $dungeonType = 0; $dungeonLocation = 0; $blackout = 0; $lethalKO = 0; $guideSpawned = 0; $leupaiEggLoad = 0; $quaggyGirth = 0; $eggBellyExplode = 0; $abitteLocked = 0]]>><<endif>>
+
+<<endif>>
+
+
+/% Player 2/Avbot Mode Clauses %/
+
+	<<elseif $special_avbot is 1>><<display LiveStatusClear>>
+
+		/% Avbot lost; switch to Player 1/Standard Mode. %/
+		<<button [[Continue.|$saveStateAvbotTerminal][$special_avbot = 0; $avbot_status = "OFFLINE"; $overrideExplore = 0; $pain = 0; $immobile = 0; $immobileMode = 0; $indoorZone = 0; $justLeft = $dungeonLocation; $dungeonLocation = 0; $justLeftType = "dungeon"; $dungeonType = 0; $blackout = 0; $mannedShop = 0; $abitteLocked = 0]]>>
+
+	<<endif>>
+<<endnobr>><<endif>><<if ($adminMode is 1) and ($lethalKO is 1)>>
+<<button [[Admin Override?|$saveStateBattle][$overrideExplore = 0; $pain = 0; $abitteLocked = 0; $lethalKO = 0; $blackout = 0]]>><<endif>></large></framed></center>
+<<nobr>>
+<<endnobr>>

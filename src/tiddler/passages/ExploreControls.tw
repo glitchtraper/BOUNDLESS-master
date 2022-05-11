@@ -1,0 +1,134 @@
+﻿<<if $overrideExplore is 0>><<if $immobileMode is 0>><<nobr>><<if $indoorZone is 0>>
+
+/% Planetary navigation %/
+
+<<button [[Explore.|passage()][$exploring = 2; $resting = 0; $autoRest = 0; $thighFirmness += either(0,0,0,0,0,1); $forageDecay = 0; $mineDecay = 0; $trapArmed = 0]]>>
+
+/% Dungeon navigation %/
+
+<<elseif $indoorZone is 1>><<display DungeonExplore>><<button [[Explore.|passage()][$exploring = 2; $autoRest = 0; $thighFirmness += either(0,0,10); $trapArmed = 0]]>><<endif>>
+
+/% These are always enabled (save for helpless immo mode) %/
+
+<<if $trapArmed is 1>>
+<<button [[Lie in Wait...|passage()][$exploring = 2; $resting = 0; $autoRest = 0]]>><<endif>>
+
+<<button [[Rest.|passage()][$encImg = 0; $exploring = 3; $resting = 1; $pain -= either(0,0,0,1,2)]]>>
+<<if $autoRest is 0>><<button [[AutoRest.|passage()][$autoRest = 1; $exploring = 3; $resting = 1; $pain -= either(0,0,0,1,2)]]>><<elseif $autoRest is 1>><<button [[AutoRest (ON)|passage()][$autoRest = 0; $exploring = 3; $resting = 1; $pain -= either(0,0,0,1,2)]]>><<endif>>
+
+<<button [[Inventory.|Inventory][$saveState = passage(); $autoRest = 0]]>>
+
+/% ====================== %/
+
+<<if $indoorZone is 0>>
+<<if ($calories gte 6) or ($bonusEnergy gte 6)>><<button [[Forage.|Foraging][$saveState = passage(); $calories -= 6; $bonusEnergy -= 6]]>><<endif>>
+
+<<if ($calories gte 10) or ($calories gte 10)>><<if ($key_shovel gt 0) or ($key_shovel_metal gt 0) or ($playerArms is "digging")>>
+<<button [[Dig.|Digging][$saveState = passage(); $calories -= 10; $bonusEnergy -= 10]]>><<endif>>
+<<endif>>
+
+<<if ($calories gte 12) or ($calories gte 12)>><<if $subterranean is 1>><<if ($key_pickaxe gt 0) or ($key_pickaxe_metal gt 0) or ($playerArms is "digging")>>
+<<button [[Mine.|Mining][$saveState = passage(); $calories -= 12; $bonusEnergy -= 12]]>><<endif>>
+<<endif>><<endif>>
+
+<<endif>>
+
+/% ====================== %/
+
+<<if ($drinkableBiome is 1) and ($indoorZone is 0)>>
+<<button [[Drink.|BiomeConsume][$consumeType = "drink"; $saveState = passage(); $autoRest = 0; $bellyBloat += 20; $bellyLiquid += 50]]>><<endif>>
+
+<<if ($edibleBiome is 1) and ($indoorZone is 0)>>
+<<button [[Eat.|BiomeConsume][$consumeType = "eat"; $saveState = passage(); $autoRest = 0]]>><<endif>>
+
+/% ====================== %/
+
+<<button [[Craft.|Crafting][$saveState = passage(); $resting = 0; $autoRest = 0]]>>
+
+/% ====================== %/
+
+<<if $powers is 1>>
+<<button [[Powers.|SpecialPowers][$saveState = passage(); $autoRest = 0]]>><<endif>>
+
+/% ====================== %/
+
+/% Memories has been moved into DEBUG passage. %/
+
+/% ====================== %/
+
+/% Robotics Controls %/
+
+<<if ($techLabUnlocked is 1) and ($indoorZone is 0)>><<button [[HYPO Tech Lab.|Hypo Techlab][$saveState = passage(); $autoRest = 0; $service = 0;  $dungeonLocation = 0; $indoorZone = 0; $dungeonType = 0; $zoneType = 0]]>><<endif>>
+
+<<if $special_avbot is -1>><<button [[Activate Avbot.|$saveStateAvbotLocation][$saveStateAvbotTerminal = passage(); $special_avbot = 1; $avbotToggle = 0; $avbotToggled = 1; $immobile = 0; $immobileMode = 0]]>><<elseif $special_avbot is 1>><<button [[Place Avbot on Standby.|$saveStateAvbotTerminal][$saveStateAvbotLocation = passage(); $special_avbot = -1; $avbotToggle = 1; $avbotToggled = 2; $immobile = 0; $immobileMode = 0]]>><<button [[Retrieve Avbot.|Hypo Techlab][$special_avbot = 0; $avbot_status = "OFFLINE"; $overrideExplore = 0; $pain = 0; $immobile = 0; $immobileMode = 0; $indoorZone = 0; $justLeft = $dungeonLocation; $dungeonLocation = 0; $justLeftType = "dungeon"; $dungeonType = 0; $blackout = 0; $mannedShop = 0]]>><<endif>>
+
+
+/% ====================== %/
+/% Mounds %/
+
+<<if ($indoorZone is 0) and ($immobileMode is 0)>>
+
+/% ====================== %/
+/% Mound Creation %/
+
+	<<if $hasMound is 0>>
+
+/% ====================== %/
+/% Need digging tools to create a mound. (0.2.1)%/
+
+		<<if ($key_shovel gt 0) or ($key_shovel_metal gt 0) or ($playerArms is "digging")>>
+
+		<<button [[Build a mound.|Mound][$hasMound = 1; $moundPlane = $plane; $moundPlanet = $planet; $moundBiome = $location; $moundLocation = $locName; $newMound = 1; $hours += random(4,7)]]>><<endif>>
+
+/% ====================== %/
+/% Mound Access %/
+
+	<<elseif $hasMound is 1>>
+
+/% ====================== %/
+/% Recall Shard %/
+
+		<<if ($plane is $moundPlane) and ($planet is $moundPlanet) and ($location neq $moundBiome) and ($shard_recall gt 0)>>
+		<<button [[Teleport home! (1 Recall Shard)|Mound][$location = $moundBiome; $locName = $moundLocation; $subterranean = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $shard_recall -= 1]]>>
+
+/% ====================== %/
+/% In mound area %/
+
+		<<elseif ($plane is $moundPlane) and ($planet is $moundPlanet) and ($location is $moundBiome)>>
+		<<button [[Go home!|Mound][$locName = $moundLocation]]>>
+		<<endif>>
+	<<endif>>
+<<endif>>
+
+/% ====================== %/
+/% Stepcounter %/
+
+	<<if ($stepcounter is 1) and ($immobileMode is 0) and ($indoorZone is 0)>>
+
+		<<if $justLeftType is "dungeon">>
+
+<<button [[Last Dungeon|passage()][$exploring = 3; $indoorZone = 1; $dungeonLocation = $justLeft; $dungeonType = $dungeonLocation; $justLeft = 0; $justLeftType = 0; $autoRest = 0]]>>
+
+		<<elseif $justLeftType is "area">>
+/% change to 'last settlement' once those are in? %/
+<<button [[Last Building|$justLeft][$justLeft = 0; $justLeftType = 0; $mannedShop = 1; $autoRest = 0; $administreStatue = $justLeftStatue]]>><<endif>>
+		<<endif>>
+
+
+/% ====================== %/
+/% Dungeon Exits (Lockable/Keyable) - place after other nav buttons  %/
+
+<<if $indoorZone is 1>><<if ($hiddenExit is 0) or ($hiddenExitUnlocked is 1)>><<button [[Leave.|Explore][$exploring = 3; $justLeft = $dungeonLocation; $justLeftType = "dungeon"; $encounterKind = 0; $locStatus = 0; $specStatus = 0; $indoorZone = 0; $zoneType = 0; $dungeonType = 0; $stepcounter = 1; $stepsCounted = 0; $location = $saveBiome; $dungeonLocation = 0]]>><<endif>>
+
+<<endif>>
+
+/% ====================== %/
+/% Surrounding area for Planetary navigation %/
+<<if ($indoorZone is 0) and ($plane is 0)>><<display BiomeDPad>><<endif>>
+
+
+/% ====================== %/
+/% Immobility %/
+
+<<endnobr>><<elseif $immobileMode is 1>>[img[icon_alert_red]]<alert>''You can't move...''</alert>
+<<display ImmoControls>><<endif>><<endif>>

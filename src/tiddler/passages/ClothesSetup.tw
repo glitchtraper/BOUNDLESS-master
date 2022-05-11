@@ -1,0 +1,44 @@
+﻿/% =============================================== %/
+/% Freebie clothes %/
+
+
+<<if $newGame is 1>>
+
+/% =============== %/
+/% Top %/
+
+<<set $itemEncounter = either("flimsy hospital gown","flimsy hospital gown","flimsy hospital gown","flimsy hospital gown","flimsy hospital gown","bloody hospital gown")>>
+
+<<display ItemDatabase>><<display wearItem>>
+
+<<set $topStretched1 = 1>>
+
+/% =============== %/
+/% Arms %/
+
+<<set $itemEncounter = "hospital armband">>
+
+<<display ItemDatabase>><<display wearItem>>
+
+/% =============== %/
+/% Feet %/
+
+<<set $itemEncounter = "hospital slippers">>
+
+<<display ItemDatabase>><<display wearItem>>
+
+/% =============== %/
+/% Extra slots %/
+
+<<set $headWorn = "nothing">>
+
+<<set $faceWorn = "nothing">>
+
+<<set $backWorn = "nothing">>
+
+<<set $beltWorn = "nothing">>
+
+<<set $pantsWorn = "nothing">>
+
+
+<<endif>>

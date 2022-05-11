@@ -1,0 +1,104 @@
+﻿<<nobr>><<display NPCNamer>>
+
+<<if $pronounOne is 0>><<set $pronounOne = "they"; $pronounOneCont = "they're"; $pronounTwo = "their"; $pronounThree = "themself">><<endif>>
+
+<<if $newPlayerName neq 0>><<set $playerName = $newPlayerName>><<endif>>
+
+<<if $adjustSize is "even plumper">>
+<<if $bodyType is "busty">><<set $breast += 50; $girth += 50>>
+<<elseif $bodyType is "hourglass">><<set $breast += 50; $thigh += 50>>
+<<elseif $bodyType is "round">><<set $breast += 50; $belly += 50>>
+<<elseif $bodyType is "belly">><<set $belly += 50; $girth += 50>>
+<<elseif $bodyType is "pear">><<set $belly += 50; $thigh += 50>>
+<<elseif $bodyType is "thigh">><<set $thigh += 50; $girth += 50>>
+<<else if $bodyType is 0>><<set $belly += 50; $girth += 50>><<endif>><<endif>>
+
+<<if $adjustSize is "plumper">>
+<<if $bodyType is "busty">><<set $breast += 10>>
+<<elseif $bodyType is "hourglass">><<set $breast += 10; $thigh += 10>>
+<<elseif $bodyType is "round">><<set $breast += 10; $belly += 10>>
+<<elseif $bodyType is "belly">><<set $belly += 20>>
+<<elseif $bodyType is "pear">><<set $belly += 10; $thigh += 10>>
+<<elseif $bodyType is "thigh">><<set $thigh += 20>>
+<<else if $bodyType is 0>><<set $belly += 20>><<endif>><<endif>>
+
+<<if $adjustSize is "sleeker">>
+<<if $bodyType is "busty">><<set $breast -= 10>>
+<<elseif $bodyType is "hourglass">><<set $breast -= 10; $thigh -= 10>>
+<<elseif $bodyType is "round">><<set $breast -= 10; $belly -= 10>>
+<<elseif $bodyType is "belly">><<set $belly -= 20>>
+<<elseif $bodyType is "pear">><<set $belly -= 10; $thigh -= 10>>
+<<elseif $bodyType is "thigh">><<set $thigh -= 20>>
+<<else if $bodyType is 0>><<set $belly -= 20>><<endif>><<endif>>
+
+<<if $adjustSize is "even sleeker">>
+<<if $bodyType is "busty">><<set $breast -= 50; $girth += 50>>
+<<elseif $bodyType is "hourglass">><<set $breast -= 50; $thigh -= 50>>
+<<elseif $bodyType is "round">><<set $breast -= 50; $belly -= 50>>
+<<elseif $bodyType is "belly">><<set $belly -= 50; $girth -= 50>>
+<<elseif $bodyType is "pear">><<set $belly -= 50; $thigh -= 50>>
+<<elseif $bodyType is "thigh">><<set $thigh -= 50; $girth -= 50>>
+<<else if $bodyType is 0>><<set $belly -= 50; $girth -= 50>><<endif>><<endif>>
+
+<<set $adjustSize = 0>>
+
+<<set $pudgyBits = ($girth + $belly + $thigh + $breast)/10>>
+
+<<if $pudgyBits lt 220>><<set $girthDesc = "sleek">>
+<<elseif ($pudgyBits gte 220) and ($pudgyBits lt 240)>><<set $girthDesc = "plump">>
+<<elseif ($pudgyBits gte 240) and ($pudgyBits lt 270)>><<set $girthDesc = "round">>
+<<elseif $pudgyBits gte 270>><<set $girthDesc = "fat">><<endif>>
+
+<<if ($breast gte 70) and ($girthDesc neq "round") and ($girthDesc neq "fat")>><<set $girthDesc = "busty">><<endif>>
+
+<<if $pudgyBits gt 300>>
+<<if $bodyType is "busty">><<set $girth = 2300; $breast = 350; $belly = 200; $thigh = 150>>
+<<elseif $bodyType is "hourglass">><<set $girth = 2000; $breast = 30; $belly = 200; $thigh = 100>>
+<<elseif $bodyType is "round">><<set $girth = 2500; $breast = 30; $belly = 370; $thigh = 100>>
+<<elseif $bodyType is "belly">><<set $girth = 2000; $breast = 30; $belly = 420; $thigh = 100>>
+<<elseif $bodyType is "pear">><<set $girth = 2000; $breast = 30; $belly = 260; $thigh = 260>>
+<<elseif $bodyType is "thigh">><<set $girth = 2000; $breast = 30; $belly = 200; $thigh = 420>>
+<<else if $bodyType is 0>><<set $girth = 2500; $breast = 100; $belly = 250; $thigh = 150>><<endif>><<endif>>
+
+
+<<if $pudgyBits lt 170>>
+<<if $bodyType is "busty">><<set $girth = 1500; $breast = 100; $belly = 50; $thigh = 50>>
+<<elseif $bodyType is "hourglass">><<set $girth = 1500; $breast = 70; $belly = 10; $thigh = 70>>
+<<elseif $bodyType is "round">><<set $girth = 1550; $breast = 20; $belly = 100; $thigh = 30>>
+<<elseif $bodyType is "belly">><<set $girth = 1500; $breast = 30; $belly = 100; $thigh = 70>>
+<<elseif $bodyType is "pear">><<set $girth = 1500; $breast = 10; $belly = 90; $thigh = 100>>
+<<elseif $bodyType is "thigh">><<set $girth = 1500; $breast = 50; $belly = 50; $thigh = 100>>
+<<else if $bodyType is 0>><<set $girth = 1500; $breast = 50; $belly = 10; $thigh = 50>><<endif>><<endif>>
+
+<<endnobr>>You slip into <brightalert>''your new <<print $species>> body''</brightalert>, examining yourself and getting used to the feel of it.
+
+Your guide informs you that ''<cheery>you'll be able to make a few small adjustments before you go</cheery>'', if you feel so inclined.<hr>\
+\
+\
+\
+\
+\
+<center>
+''You are <<if $playerName neq 0>><cheery><<print $playerName>></cheery>;<<endif>> currently a <brightalert><<print $girthDesc>> <<if $bodyColor neq 0>><<print $bodyColor>><<endif>><<if $subspecies neq 0>> <<print $subspecies>><<endif>> <<print $species>></brightalert>. (<<print $pudgyBits>>)~~gi~~''
+<mini>(//"I heard <affirmative>''<<print $pronounOne>>''</affirmative> showed up a few weeks ago with nothing to <affirmative>''<<print $pronounTwo>>''</affirmative> name but dreams... <affirmative>''<<print $pronounOneCont>>''</affirmative> pretty cool, huh?
+I think <affirmative>''<<print $pronounOne>>'ll''</affirmative> do well for <affirmative>''<<print $pronounThree>>''</affirmative> here in time..!"//)</mini>
+\
+\
+<center><<display Bodygrid>></center>
+<xtramini>''Name:'' </xtramini><<textinput $newPlayerName>>
+<xtramini>''Pronouns''
+//[he/she/they] [he's/she's/they're] [his/her/their] [himself/herself/themself]//</xtramini>
+<<textinput $pronounOne>><<textinput $pronounOneCont>><<textinput $pronounTwo>><<textinput $pronounThree>>
+<<button [[Update|passage()]]>>
+\
+<<if ($species neq "post-human") and ($species neq "aladri") and ($species neq "somnian")>>\
+''Color:''
+<<radio $bodyColor "red">> <<radio $bodyColor "brown">> <<radio $bodyColor "orange">> <<radio $bodyColor "yellow">> <<radio $bodyColor "golden">>
+<<radio $bodyColor "green">> <<radio $bodyColor "teal">> <<radio $bodyColor "blue">> <<radio $bodyColor "indigo">> <<radio $bodyColor "violet">>
+<<radio $bodyColor "pink">> <<radio $bodyColor "magenta">> <<radio $bodyColor "black">> <<radio $bodyColor "gray">> <<radio $bodyColor "silver">>
+<<radio $bodyColor "white">><<endif>>
+
+<<if $pudgyBits lte 291>><<button [[++|passage()][$adjustSize = "even plumper"]]>> <<endif>><<if $pudgyBits lte 298>><<button [[+|passage()][$adjustSize = "plumper"]]>> <<endif>><<if $pudgyBits gte 172>> <<button [[-|passage()][$adjustSize = "sleeker"]]>><<endif>><<if $pudgyBits gte 180>> <<button [[- -|passage()][$adjustSize = "even sleeker"]]>><<endif>>
+<<if $geneDry is 0>><<button [[Free: Enable Dry Gene (disables lactation-related effects)|passage()][$geneDry = 1]]>><<else>><<button [[Free: Disable Dry Gene (enables lactation-related effects)|passage()][$geneDry = 0]]>><<endif>>
+
+<<if $newGame is 1>><<button [[Back|NewGame]]>><<else>><<button [[Back|Respawn]]>><<endif>><<button [[Generate Name|passage()][$newPlayerName = $revName; $playerName = $newPlayerName]]>><<button [[Finalize|GameEntry]]>><hr></center>

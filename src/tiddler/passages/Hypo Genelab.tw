@@ -1,0 +1,9 @@
+﻿You step into the mound to discover ''a sprawling, bustling laboratory''-- full of people of various species and sizes busy at work with various projects.
+
+An enormous banner hangs from the back wall-- silver fabric, printed with an emblem of a ''<hypo>single crying eye</hypo>''.
+
+Several leupai scientists pause to glance curiously up at you.
+No one seems threatened by your presence; <<if $rep_HYPOTHESIS lt 50>>it's more as though they're ''waiting for you to confirm why you're here...''<<elseif $rep_HYPOTHESIS gte 50>>in fact, they look ''pleased to see you!''<<endif>>
+
+<center><framed><<button [[Get a Gene Scan.|Gene Scanner][$saveStateEncounter = "Hypo Genelab"]]>><<button [[Get a Body Scan.|Body Scanner][$saveStateSpecial = "Hypo Genelab"; $machineBattery = 99999999; $machineBasePower = 100; $machineEfficiency = "flawless"; $carryBG = "moundshop"]]>><<button [[See a Medique.|Mediquerie][$saveStateEncounter = "Hypo Genelab"]]>><<button [[See the Genetics Specialist.|Genespec][$saveStateEncounter = "Hypo Genelab"]]>><<button [[Use the Absorption Accelerator.|Absorption Accelerator][$saveStateSpecial = "Hypo Genelab"; $machineBattery = 99999999; $machineBasePower = 100; $machineEfficiency = "flawless"; $carryBG = "moundshop"]]>><<button [[Trade.|TraderMiracrystal][$saveStateEncounter = "Hypo Genelab"]]>></framed>
+<<button [[Leave.|Explore][$itemPool = 0; $encounterPool = 0; $mannedShop = 0; $service = 0; $parasiteCheck = 0; $evaluated = 0; $explore = 3; $indoorZone = 0; $dungeonType = 0; $location = $saveBiome]]>></center>

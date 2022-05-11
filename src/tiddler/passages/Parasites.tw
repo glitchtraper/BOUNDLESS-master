@@ -1,0 +1,336 @@
+﻿/% A lot of this will need to be rehashed. Don't forget that we can safely use decimals now! %/
+
+/% ====================== %/
+/% Microstygi series - a reveric parasite that burrows into its host, multiplying rapidly inside the area of choice and causing bloating.
+
+They do not die off naturally, with populations occasionally cycling between eggs and active organisms.%/
+
+<<if $breastParasite is 1>>
+<<if $bodyType is 0>><<set $bodyType = either(0,0,0,"busty")>><<elseif $bodyType is "thigh">><<set $bodyType = either(0,0,0,"hourglass")>><<endif>>
+
+<<set $randomizer = random(1,5)>>
+<<if $randomizer is 1>><<set $paraEffect = ($breastParaLoad * either(0,1,2)); $breastBloat += $paraEffect>>
+<<if $geneOvivore is 1>><<set $breastParaLoad -= either(0,0,10,10)>><<else>><<set $breastParaLoad += either(-10,0,0,10,10)>><<endif>>
+
+<<endif>>
+
+<<if ($breastParaLoad lte 0) or ($breastParasite is 0)>><<set $breastParaLoad = 0>>
+<<if $geneOvivore is 1>><<set $breastParasite = 0>><<endif>><<endif>>
+<<endif>>
+
+<<if $bellyParasite is 1>><<set $randomizer = random(1,5)>>
+<<if $randomizer is 1>><<set $paraEffect = ($bellyParaLoad * either(0,1,2));$bellyBloat += $paraEffect>>
+<<if $geneOvivore is 1>><<set $bellyParaLoad -= either(0,0,10,10)>><<else>><<set $bellyParaLoad += either(-10,0,0,10,10)>><<endif>>
+<<endif>>
+<<if ($bellyParaLoad lte 0) or ($bellyParasite is 0)>><<set $bellyParaLoad = 0>>
+<<if $geneOvivore is 1>><<set $bellyParasite = 0>><<endif>><<endif>>
+<<endif>>
+
+/% ====================== %/
+/% Microleupii series - a reveric parasite that burrows into its host, emitting energetic waves that absorb into its body as calories. They can settle in the body, belly, or breasts, slowly causing steady weight gain to an eventually dramatic degree.
+
+They may sometimes die off naturally, should the population drop low enough that reproduction is insufficient. %/
+
+<<if $bodyPlumperParasite is 1>>
+<<if $bodyType is 0>><<set $bodyType = either(0,0,0,"round","belly","thigh","pear","hourglass")>><<elseif $bodyType is "thigh">><<set $bodyType = either(0,0,0,"pear")>><<endif>>
+<<set $randomizer = random(1,5)>>
+<<if $randomizer is 1>><<set $paraEffect = ($wgParaLoad * either(0,1,2)); $calories += $paraEffect>>
+<<if $geneOvivore is 1>><<set $wgParaLoad -= either(0,0,10,10)>><<else>><<set $wgParaLoad += either(-10,0,0,10,10)>><<endif>><<endif>>
+<<if ($wgParaLoad lte 0) or ($bodyPlumperParasite is 0)>><<set $wgParaLoad = 0; $bodyPlumperParasite = 0>><<endif>>
+
+
+
+<<endif>>
+
+<<if $bellyPlumperParasite is 1>>
+<<if $bodyType is 0>><<set $bodyType = either(0,0,0,"round","belly")>><<elseif $bodyType is "thigh">><<set $bodyType = either(0,0,0,"pear")>><<endif>>
+<<set $randomizer = random(1,5)>>
+
+<<if $randomizer is 1>><<set $paraEffect = ($bellywgParaLoad * either(0,1,2)); $belly += $paraEffect; $bellyBloat += $paraEffect; $calories += $paraEffect; $parasiteBellyGaining = either(0,0,1)>>
+<<if $geneOvivore is 1>><<set $bellywgParaLoad -= either(0,0,10,10)>><<else>><<set $bellywgParaLoad += either(-10,0,0,10,10)>><<endif>>
+<<endif>>
+
+<<if ($bellywgParaLoad lte 0) or ($bellyPlumperParasite is 0)>><<set $bellywgParaLoad = 0; $bellyPlumperParasite = 0>><<endif>>
+<<endif>>
+
+<<if $breastPlumperParasite is 1>>
+<<if $bodyType is 0>><<set $bodyType = either(0,0,0,"busty")>><<elseif $bodyType is "thigh">><<set $bodyType = either(0,0,0,"hourglass")>><<endif>>
+<<set $randomizer = random(1,5)>>
+<<if $randomizer is 1>><<set $paraEffect = ($breastwgParaLoad * either(0,1,2)); $breast += $paraEffect; $breastBloat += $paraEffect; $calories += $paraEffect; $parasiteBreastGaining = either(0,0,1)>>
+<<if $geneOvivore is 1>><<set $breastwgParaLoad -= either(0,0,10,10)>><<else>><<set $breastwgParaLoad += either(-10,0,0,10,10)>><<endif>><<endif>>
+<<if ($breastwgParaLoad lte 0) or ($breastPlumperParasite is 0)>><<set $breastwgParaLoad = 0; $breastPlumperParasite = 0>><<endif>>
+<<endif>>
+
+/% ====================== %/
+/% L. virii - a reveric parasite that burrows into its host, causing it to produce increasing quantities of milk.
+
+They may sometimes die off naturally, should the population drop low enough that reproduction is insufficient. %/
+
+<<if $lactationParasite is 1>><<set $randomizer = random(1,5)>>
+<<if $randomizer is 1>><<set $paraEffect = ($lacParaLoad * either(0,1,2)); $breastBloat += $paraEffect; $storedMilk += $paraEffect; $lactation = 1; $milkRate += either(0,0,0,0,0,0,0,0,0,10)>>
+<<if $geneOvivore is 1>><<set $lacParaLoad -= either(0,0,10,10)>><<else>><<set $lacParaLoad += either(-10,0,0,10,10)>><<endif>><<endif>>
+<<if ($lacParaLoad lte 0) or ($lactationParasite is 0)>><<set $lacParaLoad = 0; $lactationParasite = 0>><<endif>>
+<<endif>>
+
+/% ====================== %/
+/% M. belite - a reveric parasite that burrows into its host, causing its BodySystems to slow dramatically over time.
+
+They may sometimes die off naturally, should the population drop low enough that reproduction is insufficient. %/
+
+<<if $metaParasite is 1>><<set $randomizer = random(1,5)>>
+<<if $randomizer is 1>><<set $paraEffect = ($metaParaLoad * either(0,0,0,0,1)); $metaGain += $paraEffect; $metaBurn -= $paraEffect>>
+<<if $geneOvivore is 1>><<set $metaParaLoad -= either(0,0,10,10)>><<else>><<set $metaParaLoad += either(-10,0,0,10,10)>><<endif>><<endif>>
+<<if ($metaParaLoad lte 0) or ($metaParasite is 0)>><<set $metaParaLoad = 0; $metaParasite = 0>><<endif>>
+<<endif>>
+
+/% ====================== %/
+/% Dire worm - a reveric parasite that burrows into its host and reproduces exponentially, causing bloating. Once populations rise to a certain number, there is a chance that the worms will begin spontaneous mutation into intere quaggies.
+
+If the population dips too low, they may clear up on their own, although it is more likely that unhatched eggs remain. %/
+
+<<if ($direParaLoad gt 0) and ($direParasite is 0)>><<set $direParasite = 1>><<endif>>
+
+<<if $direParasite is 1>><<set $randomizer = random(1,5)>>
+<<if $randomizer is 1>><<set $paraEffect = ($direParaLoad * either(0,0.5,1,1.5,2));$bellyBloat += $paraEffect; ; $esurience += random(0,1)>><<endif>>
+
+
+/% Squirms occasionally. %/
+	<<set $randomizer = random(1,16)>>
+	<<if $randomizer is 1>><<set $parasiteBellySquirm = 1>><<endif>>
+
+/% Sanity effect %/
+
+<<if $sanity gte 50>><<set $sanity -= either(0,0,0,0,0,0,0,0,1)>><<endif>>
+
+<<if $geneOvivore is 1>><<set $direParaLoad -= either(0,0,10,10)>><<else>><<set $direParaLoad += either(-10,0,10,30,50)>><<endif>>
+
+<<set $randomizer = random(1,700)>>
+
+/% 1 in 700 chance of intere spawn per tick. %/
+<<if $direMetamorphosis is 1>><<set $leupaiEggParasite = 1; $leupaiEggLoad += 1; $direMetamorphosis = 0>>
+	<<if $leupaiEggTimer is 0>><<set $leupaiEggTimer = random(30,60)>><<endif>>
+	<<if $quaggyGirth is 0>><<set $quaggyGirth = either(10,20,30,40,50)>><<endif>>
+<<if $quaggySubspecies1 is 0>><<set $quaggySubspecies1 = "intere">><<elseif $quaggySubspecies1 neq 0>><<set $quaggySubspecies2 = "intere">><<endif>>
+<<set >>
+<<endif>>
+
+
+<<if ($direParaLoad lte 0) or ($direParasite is 0)>><<set $direParaLoad = 0; $randomizer = random(1,5)>><<if $randomizer is 1>><<set $direParasite = 0>><<endif>><<endif>>
+<<endif>>
+
+/% ====================== %/
+/% Slimes - sometimes survive being eaten or injected, after which they swell and/or divide upon contact with sufficient quantities of liquid.
+They remain in the body until removal, contributing to bloat even when not expanding or reproducing. %/
+
+/% Belly slime %/
+<<if $slimeBellyParasite is 1>>
+
+<<if $bodyType is 0>><<set $bodyType = either(0,0,0,"round","belly")>><<elseif $bodyType is "thigh">><<set $bodyType = either(0,0,0,"round","pear")>><<endif>>
+<<if $bellyBloat lt $slimeParaLoad>><<set $bellyBloat = $slimeBellyParaLoad>><<endif>>
+<<if $bellyLiquid gte 10>><<set $slimeBellyParaLoad += 10; $bellyLiquid -= 10>><<endif>>
+<<if ($slimeBellyParaLoad lte 0) or ($slimeBellyParasite is 0)>><<set $slimeBellyParaLoad = 0;$slimeBellyParasite = 0>><<endif>>
+<<endif>>
+
+/% Breast slime %/
+<<if $slimeBreastParasite is 1>>
+<<set $milkType = "slime"; $milkFat -= either(0,0,0,10,10,20)>>
+<<if $bodyType is 0>><<set $bodyType = either(0,0,0,"busty")>><<elseif $bodyType is "thigh">><<set $bodyType = either(0,0,0,"hourglass")>><<endif>>
+<<if $breastBloat lt $slimeBreastParaLoad>><<set $breastBloat = $slimeBreastParaLoad>><<endif>>
+<<if $storedMilk gte 10>><<set $slimeBreastParaLoad += 10; $storedMilk -= 10>><<endif>>
+<<if ($slimeBreastParaLoad lte 0) or ($slimeBreastParasite is 0)>><<set $slimeBreastParaLoad = 0; $slimeBreastParasite = 0>><<endif>>
+<<endif>>
+
+
+/% ====================== %/
+/% Amplibaene - a species of tiny reveric salamander that burrows into a host's belly, amplifying weight gain throughout its life span.
+
+They die off naturally over time, but may breed within hosts if several are active at once.
+
+These are too big to be injected. %/
+
+<<if $ampliParasite is 1>>
+
+/% New code; each round you have positive calories, there's a chance that you gain an extra .1 calorie per amplibaene currently inhabiting the body.
+Remember; 10 calories = 1 gi. So if you have 10 amplibaenes, each time this procs you gain 1/10th of a gi.
+
+Current ratio is a 1 in 3 chance of proccing. %/
+
+<<if $calories gt 0>>
+
+/% Mirajin exposure increases both rate and effect. %/
+<<if ($mirajinRads gte 100) and ($mirajinRads lt 250)>><<set $calories += $ampliParaLoad * either(0,0.02,0.03,0.05)>>
+<<elseif ($mirajinRads gte 250) and ($mirajinRads lt 400)>><<set $calories += $ampliParaLoad * either(0,0.02,0.02,0.03,0.05,0.07)>>
+<<elseif $mirajinRads gte 400>><<set $calories += $ampliParaLoad * either(0.03,0.05,0.07,0.1,0.15)>>
+
+<<else>><<set $calories += $ampliParaLoad * either(0,0,0.01)>><<endif>><<endif>>
+
+/% If you have a caloric surplus, amplis will force your body to convert them into fat. %/
+
+<<if $calories gte $metaGain>><<display Bodytype>><<endif>>
+
+/% Amplis will slowly nudge up your gain rate. %/
+
+<<set $gainerBonus += either(10,10,10,10,10,10,110,10,10,10,10,10,100000,1,1,2)>>
+
+/% Amplis are quite large. %/
+
+<<if $bellyBloat lt $ampliParaLoad * 10>><<set $bellyBloat = $ampliParaLoad * 10>><<endif>>
+
+/% Chance of an amplibaene dying off. Greater in hot weather. %/
+
+<<if $hotWeather is 0>><<set $randomizer = random(1,1)>>
+<<else>><<set $randomizer = random(1,1)>><<endif>>
+
+<<if $randomizer is 1>><<set $ampliParaLoad -= 1>><<endif>>
+
+/% Chance of amplibaene breeding if two or more are present. Greater in cool and/or wet weather. %/
+
+<<if $ampliParaLoad gte 2>>
+<<if ($hotWeather is 0) and ($wetWeather is 1)>><<set $randomizer = random(1,1200000)>>
+<<elseif ($hotWeather is 0) and ($wetWeather is 0)>><<set $randomizer = random(1,2400000000000)>>
+<<else>><<set $randomizer = random(1,32)>><<endif>>
+
+<<if $randomizer is 1>>
+/% Ampli egg clutch. %/
+
+<<set $ampliParaLoad += either(1,1,1,1,2)>><<endif>><<endif>>
+
+
+/% Squirms occasionally. %/
+	<<set $randomizer = random(1,16)>>
+	<<if $randomizer is 1>><<set $parasiteBellySquirm = 1>><<endif>>
+
+/% If amplibaene load reaches 0, the infestation naturally ends. %/
+<<if $ampliParaLoad lte 0>><<set $ampliParaLoad = 0; $ampliParasite = 0>><<endif>>
+<<endif>>
+
+
+/% ====================== %/
+/% Plant Seeds %/
+/% Some seeds have a small chance of germinating inside you when eaten. %/
+
+/% ============ %/
+/% Zeppelon %/
+/% Functionally similar to belly slime, but can't turn you into slime, obviously. %/
+
+<<if $zeppelonParasite is 1>>
+/% Grows slowly when exposed to liquid. %/
+	<<if $bellyLiquid gte 3>><<set $bellyZeppelonGirth += 0.3; $bellyLiquid -= 0.3>><<endif>>
+
+/% Slowly stretches belly as it grows. %/
+	<<if $bellyZeppelonGirth gte $belly>><<set $belly += either(0,0,0,0.1,0.1,0.2,0.3)>>
+
+/% Stretches body, affecting body type. %/
+		<<if $bodyType is 0>><<set $bodyType = either(0,0,0,"round","belly")>>
+		<<elseif $bodyType is "thigh">><<set $bodyType = either("thigh","thigh","thigh","round","pear")>>
+		<<elseif $bodyType is "round">><<set $bodyType = either("round","round","round","bulging")>>
+		<<elseif $bodyType is "belly">><<set $bodyType = either("belly","belly","belly","guguetelle")>>
+		<<elseif $bodyType is "pear">><<set $bodyType = either("pear","pear","pear","bulging")>><<endif>>
+
+<<endif>>
+
+/% Bloats belly, increasing bloat floor. %/
+	<<if $bellyBloat lt $bellyZeppelonGirth>><<set $bellyBloat = $bellyZeppelonGirth>><<endif>>
+<<endif>>
+
+/% ============ %/
+/% Milkmelon %/
+/% Like zeppelon parasitization, functionally similar to breast slime. %/
+
+<<if $milkmelonParasite is 1>>
+/% Grows slowly when exposed to liquid. %/
+	<<if $bellyLiquid gte 3>><<set $breastMelonGirth += 0.3; $bellyLiquid -= 0.3>>
+		<<if $breastMelonType is "creaking">><<set $breastMelonGirth += 0.2; $bellyLiquid -= 0.2>><<endif>><<endif>>
+	<<if $storedMilk gte 3>><<set $breastMelonGirth += 0.3; $storedMilk -= 0.3>>
+		<<if $breastMelonType is "creaking">><<set $breastMelonGirth += 0.2; $storedMilk -= 0.2>><<endif>><<endif>>
+
+/% Slowly stretches breasts as it grows. %/
+	<<if $breastMelonGirth gte $breast>><<set $breast += either(0,0,0,0.1,0.1,0.2,0.3)>>
+		<<if $breastMelonType is "creaking">><<set $breast += either(0,0,0,0.1,0.1,0.2)>><<endif>><<endif>>
+
+/% Stretches body, affecting body type. %/
+	<<if $bodyType is 0>><<set $bodyType = either(0,0,0,"busty")>>
+	<<elseif $bodyType is "thigh">><<set $bodyType = either("thigh","thigh","thigh","hourglass")>><<endif>>
+
+	<<if $breastMelonType is "creaking">>
+		<<if $bodyType is "busty">><<set $bodyType = either("busty","busty","busty","boviete")>>
+		<<elseif $bodyType is "hourglass">><<set $bodyType = either("hourglass","hourglass","hourglass","cubus")>><<endif>>
+
+<<endif>>
+
+/% Bloats breasts, increasing bloat floor. %/
+	<<if $breastBloat lt $breastMelonGirth>><<set $breastBloat = $breastMelonGirth>><<endif>>
+<<endif>>
+
+/% ============ %/
+/% Tendrilvines %/
+/% Like zeppelons and milkmelons combined, plus they grow rampantly when exposed to mirajin or moisture of any kind, pump you full of calories, and wriggle! %/
+
+<<if $tendrilvineParasite is 1>>
+
+/% Grows when exposed to liquid. %/
+	<<if $bellyLiquid neq 0>><<set $tendrilParasiteGirth += either(0,0.1,0.2); $bellyLiquid -= 0.1; $tendrilParasiteGrowth += 1>><<endif>>
+
+/% Accelerated growth in moist biomes. %/
+	<<if $wetWeather is 1>><<set $tendrilParasiteGirth += either(0,0.1,0.2); $tendrilParasiteGrowth += 0.25>><<endif>>
+
+/% Accelerated growth when exposed to mirajin. %/
+	<<if $mirajinRads gte 10>><<set $tendrilParasiteGirth += either(0,0.1,0.2); $mirajinRads -= random(6,14); $tendrilParasiteGrowth += 0.5>><<endif>>
+
+/% Stretches belly, breasts, and/or body as it grows. %/
+	<<if $tendrilParasiteGrowth gte 1>><<set $randomizer = either(1,1,2,2,3,4,5,6,7); $tendrilParasiteGrowth = 0>>
+
+		<<if $randomizer is 1>> /% Grow & bloat belly %/
+		<<set $belly += random(0.1,0.3) * $tendrilParasiteGrowth; $bellyBloat += $maxBelly * 0.1>>
+
+		<<elseif $randomizer is 2>> /% Grow & bloat breasts %/
+		<<set $breast += random(0.1,0.3) * $tendrilParasiteGrowth; $breastBloat += $maxBreast * 0.25>>
+
+		<<elseif $randomizer is 3>> /% Grow body & bloat belly %/
+		<<set $girth += random(0.3,1.8) * $tendrilParasiteGrowth; $bellyBloat += $maxBelly * 0.25>>
+
+		<<elseif $randomizer is 4>> /% Grow & bloat belly & breasts %/
+		<<set $belly += random(0.1,0.3) * $tendrilParasiteGrowth; $bellyBloat += $maxBelly * 0.1; $breast += random(0.1,0.3) * $tendrilParasiteGrowth; $breastBloat += $maxBreast * 0.25>>
+
+		<<elseif $randomizer is 5>> /% Grow breasts & body; bloat belly & breasts %/
+		<<set $girth += random(0.3,1.8) * $tendrilParasiteGrowth; $breast += random(0.1,0.3) * $tendrilParasiteGrowth; $breastBloat += $maxBreast * 0.25; $bellyBloat += $maxBelly * 0.25>>
+
+		<<elseif $randomizer is 6>> /% Grow belly & body; bloat belly %/
+		<<set $girth += random(0.3,1.8) * $tendrilParasiteGrowth; $belly += random(0.1,0.3) * $tendrilParasiteGrowth; $bellyBloat += $maxBelly * 0.5>>
+
+		<<elseif $randomizer is 7>> /% Grow body, belly, & breasts; bloat belly & breasts %/
+		<<set $girth += random(0.3,1.8) * $tendrilParasiteGrowth; $belly += random(0.1,0.3) * $tendrilParasiteGrowth; $breast += random(0.1,0.3) * $tendrilParasiteGrowth; $breastBloat += $maxBreast * 0.25; $bellyBloat += $maxBelly * 0.5>><<endif>>
+
+	<<endif>>
+
+/% Pumps player full of caloric nectar once mature. %/
+	<<if $tendrilParasiteGirth gte 100>><<set $calories += either(0,0,0,1,2,2,3,3,3,4,4,5,6); $bellyBloat += $maxBelly * either(0,0,0,0,0.01,0.02)>><<endif>>
+
+/% Bloats belly & breasts, increasing bloat floor. %/
+	<<if $bellyBloat lt $tendrilParasiteGirth>><<set $bellyBloat = $tendrilParasiteGirth>><<endif>>
+	<<if $breastBloat lt $tendrilParasiteGirth>><<set $breastBloat = $tendrilParasiteGirth>><<endif>>
+
+
+/% Squirms occasionally. %/
+	<<set $randomizer = random(1,16)>>
+	<<if $randomizer is 1>><<set $parasiteBellySquirm = 1>><<elseif $randomizer is 16>><<set $parasiteBreastSquirm = 1>><<endif>>
+
+<<endif>>
+
+
+/% ====================== %/
+/% SPECIAL - Leupai Eggs
+
+Leupai eggs bloat the belly, growing larger both over time and as the host eats. Eggs cause voracious hunger and BodySystems drop, although they also siphon away calories for themselves. As long as leupai eggs are active, there's a small chance every round that the belly will grow fatter and/or body type changes to a belly-emphasized one.
+
+Once the player's egg load grows too big for its belly to hold, it bursts open, releasing the quaggies.
+
+Exposure to fattenium causes the eggs to grow as well.
+
+ %/
+
+<<if $leupaiEggParasite is 1>>
+
+<<display LeupaiEggs>>
+
+<<endif>>

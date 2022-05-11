@@ -1,0 +1,55 @@
+﻿<<display ZoneBackgrounds>><<if $butcherConfirm is 0>><center><<print "[img[$dons" + $donsairID + "img]]">></center>
+<framed><center>
+''Girth:'' <<print "<<print $dons" + $donsairID + "Girth/10>>">>~~gi~~
+<<nobr>><<print "<<if $dons" + $donsairID + "Ears neq 0>>[<<print $dons" + $donsairID + "Ears>> ears] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Facet neq 0>>[<<print $dons" + $donsairID + "Facet>> facet] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Eyes neq 0>>[<<print $dons" + $donsairID + "Eyes>> eyes] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Face neq 0>>[<<print $dons" + $donsairID + "Face>> face] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Head neq 0>>[<<print $dons" + $donsairID + "Head>>] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Body neq 0>>[<<print $dons" + $donsairID + "Body>> body] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Back neq 0>>[<<print $dons" + $donsairID + "Back>>] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Legs neq 0>>[<<print $dons" + $donsairID + "Legs>> legs] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Tail neq 0>>[<<print $dons" + $donsairID + "Tail>> tail]<<endif>>">><<endnobr>>
+<narrowframe><<print "<<print $dons" + $donsairID + ">>">> <<print $donsairGirthDesc>></narrowframe></center></framed>
+<framed><center><redalert>Are you sure you want to butcher ''<<print "<<print $dons" + $donsairID + ">>">>''?</redalert>
+<<button [[NO|DonsairView]]>><<button [[YES|DonsairButcher][$butcherConfirm = 1]]>></center></framed><<elseif $butcherConfirm is 1>><center>[img[plate]]</center>
+<<nobr>>
+
+/% Preliminary residue cleanup. %/
+<<set $waterResource = 0; $milkResource = 0; $meatResource = 0; $fishResource = 0; $poultryResource = 0; $eggResource = 0; $grainResource = 0; $rootResource = 0; $fruitResource = 0; $vegResource = 0;  $sugarResource = 0; $nutResource = 0; $fatResource = 0; $herbResource = 0; $jellyResource = 0; $dragonResource = 0; $leupaiResource = 0; $fatteniumResource = 0; $miraResource = 0; $resourceLiquid = 0; $traceFattenium = 0; $traceMirajin = 0; $bacteria = 0; $resourceType = 0>>
+
+/% Meat yield %/
+
+<<if $donsairLeupai is 1>>
+<<set $leupaiResource = $donsMeat>>
+
+/% No meat, no fat; only slime. %/
+
+<<elseif $donsairSlime is 1>><<set $jellyResource = ($donsMeat + $donsFat); $donsFat = 0>>
+
+/% dreggon meat %/
+
+<<elseif $donsairDragon is 1>><<set $dragonResource = $donsMeat>>
+
+/% Poultry %/
+
+<<elseif $donsairPoultry is 1>><<set $poultryResource = $donsMeat>>
+
+/% everything %/
+
+<<else>><<set $meatResource = $donsMeat>><<endif>>
+
+/% Fat yield %/
+<<if $donsFat gt 0>><<set $fatResource = $donsFat>><<endif>>
+
+/% Misc yield %/
+<<if $donsairLeupai is 1>><<set $miraResource = random(2,8)>><<endif>>
+
+
+<<set $jellyResource = Math.round($jellyResource); $poultryResource = Math.round($meatResource); $meatResource = Math.round($meatResource); $leupaiResource = Math.round($leupaiResource); $dragonResource = Math.round($dragonResource); $fatResource = Math.round($fatResource)>>
+
+
+<<endnobr>>
+<framed><center><<if $donsairExplode is 0>>You butcher ''<<print "<<print $dons" + $donsairID + ">>">>'', and harvest<<elseif $donsairExplode is 1>>You salvage<<endif>>:
+<<display CreatureResources>><<display DonsairClearslot>></center></framed>
+<center><<button [[Continue.|Donsair][$butcherConfirm = 0; $donsairExplode = 0]]>></center><<endif>>

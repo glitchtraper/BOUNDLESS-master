@@ -1,0 +1,5 @@
+﻿<center><<display ZoneBackgrounds>><<display ForageDatabase>><<nobr>>
+
+<<endnobr>><<display EncounterImg>>
+<framed><<print $forageResult>></framed>
+<<if ($calories gte 6) or ($bonusEnergy gte 6)>><<button [[Keep Foraging.|passage()][$forageDecay += random(0,8); $calories -= 6; $bonusEnergy -= 6]]>><<endif>> <<button [[Continue.|Explore][$forageResult = 0]]>></center>

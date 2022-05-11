@@ -1,0 +1,107 @@
+﻿/% ========================================== %/
+/% MIRAJIN AMBIENCE METER %/
+
+/% 0(None)================500(HIGH)==================1000(CATASTROPHIC) %/
+
+/% Natural + "Clean" areas tend to be balanced so there is no or very little ambient mirajin, or a little ambient vitae (which sets the meter in the negative.)
+Other places may naturally have slightly higher ambient mirajin.
+
+Remember that the default ambience should only have a low chance (right now it's 1 in 3) of ticking even a single mirad a turn. Other biomes might add to/subtract from that number if they're more or less hazardous.
+
+Even catastrophic radiation shouldn't kill you instantly; you should get a sense of impending doom as the status effects and mutations ramp up on your screen (how amalgatoxic poisoning works is a good example of this!
+but subdued. miraplasmic cascade is NOT subtle. Compared to miraplasmic cascade, amalgatoxic/vitae poisoning is subtle.) %/
+
+/% ========================================== %/
+/% NUCLEAR AMBIENCE METER %/
+
+/% 0(None)================500(HIGH)==================1000(CATASTROPHIC) %/
+
+/% Although in real life, mild background radiation is a natural part of living, for our purposes here we're only going to have rads appear in areas of at least minor radioactive activity.
+
+Remember that the default ambience should only have a low chance of ticking even a single rad a turn. Other biomes might add to/subtract from that number if they're more or less hazardous.
+
+If a planet has a base ambience of 1 rad/turn, that means a player will contract high radiation in 500 clicks from any explore screen on that planet.
+
+Unlike fallout, high radiation will NOT be ignorable in boundless.
+It will suck gruesomely, in fact. :D
+
+For that reason, it should be considered a "hardcore" mechanic in most cases; only very minor radiation should appear in the standard game, save for rare encounters.
+
+Keep the heavy shit gated behind the Asotir and radiation hazard warnings. %/
+
+
+/% ========================================== %/
+
+/% Default natural background ambience. %/
+<<set $ambientMirajin += either(0,0,1)>>
+
+/% Default fluids. %/
+<<set $planetFluid = either("somnus","golden water","pink water","shining water"); $corruptionPercentage = either(20,50,80)>>
+
+/% Vital planet. Very green, densely packed with forest & jungle. Tainted pools are shining water or vitae. %/
+
+<<if $planetType is "vitalized">><<set $ambientMirajin -= either(1,1,2,3,5)>>
+<<set $planetFluid = either("shining water","shining water","glowing teal goo","glowing teal goo")>>
+
+/% Sub-Vital planet. Full of life. Tainted pools are shining water or vitae. %/
+
+<<elseif $planetType is "overgrown">><<set $ambientMirajin -= either(0,0,1,1,2)>>
+<<set $planetFluid = either("shining water","shining water","shining water","shining water","shining water","shining water","shining water","shining water","glowing teal goo")>>
+
+/% Sick planet. Tainted pools are dirty water, oil(NYI), or somnus. %/
+
+<<elseif $planetType is "industrialized">><<set $ambientMirajin -= either(0,0,0,0,1); $ambientRads += either(0,0,0,1)>>
+<<set $planetFluid = either("dirty water","dirty water","dirty water","dirty water","dirty water","somnus")>>
+
+/% Damaged planet. Tainted pools are dirty water, oil(NYI), somnus, or plutonium. %/
+
+<<elseif $planetType is "irradiated">><<set $ambientMirajin -= either(0,0,0,0,1); $ambientRads += either(0,1,1,2)>>
+<<set $planetFluid = either("dirty water","dirty water","dirty water","somnus","somnus","glowing green goo")>>
+
+/% Dying planet. Tainted pools are dirty water, oil(NYI), somnus, or plutonium. %/
+
+<<elseif $planetType is "dying">><<set $ambientMirajin -= either(0,0,0,0,1); $ambientRads += either(0,0,1)>>
+<<set $planetFluid = either("dirty water","dirty water","somnus","somnus","glowing green goo","glowing green goo","glowing green goo")>>
+
+/% Hot planet. Tainted pools are boiling water or boiling oil. %/
+
+<<elseif $planetType is "burning">><<set $ambientMirajin -= either(0,0,0,0,1); $ambientRads += either(0,0,1)>>
+<<set $planetFluid = either("boiling water","boiling water","boiling water","boiling oil")>>
+
+/% Molten planet. Tainted pools are boiling oil. %/
+
+<<elseif $planetType is "molten">><<set $ambientMirajin -= either(0,0,0,0,1)>>
+<<set $planetFluid = "boiling oil">>
+
+/% Sub-Mirajinic planet. Life is beginning to mutate. Tainted pools are somnus, fattenium-tainted water, or mirajinic water %/
+
+<<elseif $planetType is "distorted">><<set $ambientMirajin += either(0,0,1,1,2)>>
+<<set $planetFluid = either("somnus","golden water","pink water"); $corruptionPercentage = either(20,50,80)>>
+
+/% Mirajinic planet. Impregnated with miratoxin, nothing has been left untainted. Tainted pools are somnus, fattenium-tainted water, mirajinic water, or miraplasm. %/
+
+<<elseif $planetType is "realized">><<set $ambientMirajin += either(1,1,2,2,3)>>
+<<set $planetFluid = either("somnus","pink water","golden water","glowing magenta goo"); $corruptionPercentage = either(20,50,80)>>
+
+/% Mirajinic planet. Crystallized by high mirajinic radiation. Tainted pools are fattenium-tainted water, fattenium, mirajinic water, or miraplasm. %/
+
+<<elseif $planetType is "crystallized">><<set $ambientMirajin += either(1,2,2,3,5)>>
+<<set $planetFluid = either("golden water","golden oil","pink water","glowing magenta goo"); $corruptionPercentage = either(20,50,80)>>
+
+/% Mirajinic planet. Even the planet itself is transforming into something monstrous. Tainted pools are miraplasm, fattenium-tainted water, mirajinic water, or fattenium. %/
+
+<<elseif $planetType is "roiling">><<set $ambientMirajin += either(2,2,3,4,5)>>
+<<set $planetFluid = either("golden water","golden oil","pink water","glowing magenta goo"); $corruptionPercentage = either(50,80)>>
+
+/% Mirajinic planet. This planet is a living creature! Tainted pools are blood (red, blue, or starblood; one choice per planet), miraplasm, miratoxin (leupai planets only), fattenium-tainted water, fattenium, or mirajinic water. %/
+
+<<elseif $planetType is "bloated">><<set $ambientMirajin += random(0,10)>>
+<<if $livingPlanetType is "leupai">><<set $planetFluid = either("somnus","pink water","golden water","glowing magenta goo","ichor"); $corruptionPercentage = either(20,50,80)>>
+<<elseif $livingPlanetType is "non-leupai">><<set $planetFluid = either("golden water","golden oil","glowing magenta goo","ichor")>>
+
+<<if $planetFluid is "ichor">><<set $planetFluid = $livingPlanetBlood + " " + $planetFluid>><<endif>><<endif>>
+
+<<endif>>
+
+
+/% ========================================== %/

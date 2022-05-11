@@ -1,0 +1,43 @@
+﻿<<if $overrideExplore is 0>><<nobr>>
+
+/% Special events only show up if explore hasn't been overridden by a more "powerful" event. %/
+
+/% ======================================================================== %/
+
+
+<<print $specialIntro>>
+
+
+/% ======================================================================== %/
+/% Planar Boundary encounter %/
+
+/% Zone travel for planes. Remember these are 'planeRegion', not 'location'!
+It'll probably work to copy-paste this for dungeon level events, and just add in the 'locked' clause if they require a key. %/
+
+<<endnobr>><<if $specialEncounter is "region boundary">>
+[[<<print $executeDesc>>|Explore][$planeRegion = $newRegion; $exploring = 3]]<<nobr>>
+
+/% ======================================================================== %/
+/% Dungeon entrance encounter %/
+
+<<endnobr>><<elseif $dungeonEntrance neq 0>>
+<miraframed>[[<<print $executeDesc>>|$specialArea][$saveStateSpecial = "Explore"; $specStatus = 0; $exploring = 3; $indoorZone = 1; $dungeonLocation = $dungeonType; $saveBiome = $location]]</miraframed><<nobr>>
+
+
+/% ======================================================================== %/
+/% Default special encounter %/
+
+<<endnobr>><<elseif ($dungeonEntrance is 0) and ($specialLocked is 0)>>
+<miraframed>[[<<print $executeDesc>>|$specialArea][$saveStateSpecial = passage(); $saveStateEncounter = $saveStateSpecial; $specStatus = 0; $exploring = 3; $toggleDisplay = 1; $saveBiome = $location]]</miraframed><<nobr>>
+
+
+/% ======================================================================== %/
+/% Special encounter without interactive options %/
+
+/% locked doors, locked stygian portals, flavor encounters, etc; these just show you the encounter without buttons %/
+
+<<endnobr>><<elseif ($specialLocked is 1)>><<endif>><<nobr>>
+
+
+/% ======================================================================== %/
+<<endnobr>><<endif>>

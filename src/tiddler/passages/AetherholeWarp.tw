@@ -1,0 +1,13 @@
+﻿<<display ZoneBackgrounds>><center>[img[aetherhole]]</center>
+
+You tumble through the aether, aware of <mira>the fabrics of reality dancing and parting around you...</mira>
+
+With a final rush of air, you feel your body settling once more as the stars clear from your eyes.<<nobr>>
+
+
+<<display AetherholeLocation>>
+
+<<endnobr>>
+
+<center>
+<<button [[Explore.|Explore]]>></center>

@@ -1,0 +1,19 @@
+﻿<<display ZoneBackgrounds>><<set $seenIt_OilTub = 1>><<if ($inUse is 2) and ($poolSize lte 0)>><<set $lockDrink = 1>><<endif>>
+It's an enormous tub--<<if $lockDrink is 1>> completely empty, save for a few useless puddles at the bottom.<<endif>><<if $lockDrink neq 1>> a bit worse for wear, but filled with a generous amount of oil.<<if $tubGirth lt $fatScore>>
+Incredibly, it's ''too small to fit your impressive girth''<<if ($bellyStatus neq "bursting")>>, but perhaps it's not completely useless..<<endif>>.<<endif>><<endif>><<if $inUse is 1>>
+You sink into the tub, closing your eyes and submerging everything but your face.
+''You feel your <<if $liquidType is 1>>skin slowly tightening as the oil soaks in, rubberizing it gradually.<<set $stretchMod += random(1,3); $leupoilToxicity += random(3,6); $maxBelly += either(0,0,0,0,0,0,0,10); $maxBreast += either(0,0,0,0,0,10)>><<elseif $liquidType is 2>>body beginning to swell fatter as the oil soaks in, your weight climbing!<<display Fattenium>><<set $fatteniumPoisoning += either(0,10,10,20,30); $bellyBloat += 20; $breastBloat += 20; $lethalKO = 1; $deathCause = either("explosion","fat suffocation")>><<endif>>''
+<<elseif $inUse is 2>>
+
+You cup your hands and dip them into the tub, gulping down a generous mouthful of the stuff.
+''<<if $liquidType is 1>>Your belly feels a little bit more elastic!<<set $stretchMod += 10; $leupoilToxicity += random(3,12)>><<elseif $liquidType is 2>>You tremble, quake, and groan as your body suddenly swells and puffs outwards in a cascade of new, rippling fat!<<display Fattenium>><<display Fattenium>><<set $fatteniumPoisoning += either(0,10,10,20,30); $bellyBloat += 30; $breastBloat += 50; $lethalKO = 1; $deathCause = either("explosion","fat suffocation")>><<endif>>''
+<<if $lockDrink is 1>>
+You drain the last of the tub's contents, leaving it completely empty, save for a few useless puddles at the bottom.<<endif>><<endif>><<display BodySystems>><<display Effects>><center><framed>\
+\
+<<if $tubGirth gte $fatScore>><<if $lockDrink is 0>><<button [[Soak.|passage()][$inUse = 1; $repeatUse += 1]]>><<endif>><<endif>>\
+\
+<<if $lockDrink is 0>><<button [[Drink.|passage()][$inUse = 2; $repeatUse += 1; $poolSize -= 1]]>><<endif>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>>\
+\
+</framed>
+<<button [[Back.|$saveStateSpecial][$inUse = 0; $repeatUse = 0; $lockDrink = 0]]>></center>

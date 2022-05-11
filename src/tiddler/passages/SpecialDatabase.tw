@@ -1,0 +1,208 @@
+﻿/% ========== SPECIAL DATABASE ==========  %/
+
+<<set $dungeonEntrance = 0; $specialLocked = 0>>
+
+
+/% ======================================================================== %/
+/% Portals & Transport %/
+
+<<if $specialEncounter is "aetherhole">>
+<<set $specialArea = "Aetherhole"; $specialIntro = "You find a mysterious Aetherhole!"; $executeDesc = "Approach.";  $encImg = "aetherhole">><<endif>>
+
+<<if $specialEncounter is "transport aetherhole">>
+<<set $specialArea = "TransportAetherhole"; $specialIntro = "You find a mysterious Aetherhole!"; $executeDesc = "Approach.";  $encImg = "aetherhole">><<endif>>
+
+<<if $specialEncounter is "stygian portal">>
+<<set $specialLocked = 1; $specialIntro = "You find an unnerving sigil splattered onto the ground!"; $encImg = "sigil_stygian">><<endif>>
+
+<<if $specialEncounter is "billeporte">>
+<<set $specialArea = "Billeporte"; $specialIntro = "You find a Billeporte platform!"; $executeDesc = "Enter."; $mannedShop = 0>><<endif>>
+
+
+
+/% ======================================================================== %/
+/% Chests %/
+
+<<if $specialEncounter is "treasure chest">><<set $specialArea = "Treasure Chest"; $specialIntro = "You find a treasure chest!"; $executeDesc = "Open it!"; $encImg = "chest_hypo"; $saveStateSpecial = passage()>><<endif>>
+
+
+/% ======================================================================== %/
+/% Idols & Curios %/
+
+<<if $specialEncounter is "decorative curio">>
+/% A flavor event. %/
+<<display CurioDatabase>>
+<<set $specialLocked = 1; $specialIntro = $curioDesc; $executeDesc = $curioAction; $saveStateSpecial = passage()>><<endif>>
+
+<<if ($specialEncounter is "magical curio") or ($specialEncounter is "corpse curio")>>
+<<display CurioDatabase>>
+<<set $specialArea = "Curios"; $specialIntro = $curioDesc; $executeDesc = $curioAction; $saveStateSpecial = passage()>>
+
+<<if $specialEncounter is "corpse curio">><<set $curioSpecies = either("human","post-human","arka","adephagian")>><<endif>>
+<<endif>>
+
+<<if $specialEncounter is "tree curio">>
+<<display CurioDatabase>>
+<<set $specialArea = "Curios"; $specialIntro = $curioDesc; $executeDesc = $curioAction; $saveStateSpecial = passage()>>
+<<endif>>
+
+
+/% ======================================================================== %/
+/% Treasure/Utility Rooms %/
+
+/% ============= %/
+/% Rooms %/
+
+<<if $specialEncounter is "closet">>
+<<set $specialArea = "Treasure Room"; $specialIntro = "You find a storage closet!"; $openScript = "You find"; $executeDesc = "Open it!"; $treasureNew = 1; $dipLock = 0; $saveStateSpecial = passage(); $encImg = "closet">><<endif>>
+
+/% ============= %/
+/% Produce %/
+
+<<if $specialEncounter is "vegetable patch">>
+<<set $specialArea = "Treasure Room"; $specialIntro = "You find a vegetable patch!"; $openScript = "You find"; $executeDesc = "Check it out!"; $treasureNew = 1; $dipLock = 0; $saveStateSpecial = passage()>><<endif>>
+
+<<if $specialEncounter is "berry bush">>
+<<set $specialArea = "Treasure Room"; $specialIntro = "You find a berry bush!"; $openScript = "You find"; $executeDesc = "Check it out!"; $treasureNew = 1; $dipLock = 0; $saveStateSpecial = passage()>><<endif>>
+
+<<if $specialEncounter is "fruit tree">>
+<<set $specialArea = "Treasure Room"; $specialIntro = "You find a fruit tree!"; $openScript = "You find"; $executeDesc = "Check it out!"; $treasureNew = 1; $dipLock = 0; $saveStateSpecial = passage()>><<endif>>
+
+<<if $specialEncounter is "orchard">>
+<<set $specialArea = "Treasure Room"; $specialIntro = "You find an orchard!"; $openScript = "You find"; $executeDesc = "Check it out!"; $treasureNew = 1; $dipLock = 0; $saveStateSpecial = passage()>><<endif>>
+
+/% ============= %/
+/% Caves %/
+
+<<if $specialEncounter is "crystal cave">>
+<<set $specialArea = "Treasure Room"; $specialIntro = "You find a cavern full of shimmering crystals!"; $openScript = "You find"; $executeDesc = "Check it out!"; $treasureNew = 1; $dipLock = 0; $saveStateSpecial = passage()>><<endif>>
+
+
+/% ======================================================================== %/
+/% Monster Groves %/
+
+<<if $specialEncounter is "monster grove">>
+<<set $specialArea = "Monster Grove"; $specialIntro = "You discover a" + $monsterGroveType + "! Something about the place makes you feel wary..."; $executeDesc = "Approach anyway."; $saveStateSpecial = passage()>><<endif>>
+
+
+/% ======================================================================== %/
+/% Lab Equipment %/
+
+<<if $specialEncounter is "old hypo lab equipment">>
+<<set $specialArea = either("Fat Ray","Body Scanner","Pump","Compression Chamber","Absorption Accelerator","Console","Oil Tub")>>
+
+/% You can't tell what you're looking at until you've seen it before. %/
+
+	<<if ($seenIt_fatRay is 1) and ($specialArea is "Fat Ray")>><<set $labEquipmentDesc = " an old " + $specialArea + "!">><<elseif ($seenIt_fatRay is 0) and ($specialArea is "Fat Ray")>><<set $labEquipmentDesc = " some old lab equipment!">><<endif>>
+
+	<<if ($seenIt_bodyScan is 1) and ($specialArea is "Body Scanner")>><<set $labEquipmentDesc = " an old " + $specialArea + "!">><<elseif ($seenIt_bodyScan is 0) and ($specialArea is "Body Scanner")>><<set $labEquipmentDesc = " some old lab equipment!">><<endif>>
+
+	<<if ($seenIt_pump is 1) and ($specialArea is "Pump")>><<set $labEquipmentDesc = " an old " + $specialArea + "!">><<elseif ($seenIt_pump is 0) and ($specialArea is "Pump")>><<set $labEquipmentDesc = " some old lab equipment!">><<endif>>
+
+	<<if ($seenIt_Compression is 1) and ($specialArea is "Compression Chamber")>><<set $labEquipmentDesc = " an old " + $specialArea + "!">><<elseif ($seenIt_Compression is 0) and ($specialArea is "Compression Chamber")>><<set $labEquipmentDesc = " some old lab equipment!">><<endif>>
+
+	<<if ($seenIt_Absorption is 1) and ($specialArea is "Absorption Accelerator")>><<set $labEquipmentDesc = " an old " + $specialArea + "!">><<elseif ($seenIt_Absorption is 0) and ($specialArea is "Absorption Accelerator")>><<set $labEquipmentDesc = " some old lab equipment!">><<endif>>
+
+	<<if ($seenIt_Console is 1) and ($specialArea is "Console")>><<set $labEquipmentDesc = " an old " + $specialArea + "!">><<elseif ($seenIt_Console is 0) and ($specialArea is "Console")>><<set $labEquipmentDesc = " some old lab equipment!">><<endif>>
+
+	<<if ($seenIt_OilTub is 1) and ($specialArea is "Oil Tub")>><<set $labEquipmentDesc = " an old " + $specialArea + "!">><<elseif ($seenIt_OilTub is 0) and ($specialArea is "Oil Tub")>><<set $labEquipmentDesc = " some old lab equipment!">><<endif>>
+
+/% Final stats before usability %/
+
+	<<set $machineBattery = either(20,20,40,60,80,100); $machineBasePower = either(20,40,60,80,100); $machineEfficiency = either("poor","poor","poor","fair","fair","good")>>
+
+	<<set $specialIntro = "You find" + $labEquipmentDesc+ " It looks to be in " + $machineEfficiency + " condition."; $executeDesc = "Examine."; $newMachine = 1>>
+
+	<<if $specialArea is "Compression Chamber">><<set $machineBasePower = $machineBasePower * 10>><<endif>>
+
+	<<if $specialArea is "Console">><<set $machineBattery += $machineBasePower>><<endif>>
+
+	<<if $specialArea is "Pump">><<set $pumpType = either(1,2,3,4,5,6); $machineBattery += either(20,40,60)>><<endif>>
+
+	<<if $specialArea is "Oil Tub">><<set $tubGirth = either(4000,8000,12000,16000,20000); $liquidType = either(1,1,2); $poolSize = random(40,360)>><<endif>>
+
+	<<if $specialArea is "Body Scanner">><<set $machineBattery += either(40,60,80,100)>><<endif>>
+
+	/% You should get to use everything at least once. %/
+
+	<<if $machineBattery lt $machineBasePower>><<set $machineBattery += $machineBasePower>><<endif>>
+
+	<<endif>>
+
+
+/% ======================================================================== %/
+/% Traders %/
+
+<<if $specialEncounter is "traveling trader">>
+
+<<set $specialArea = "TravelingTrader"; $specialIntro = "You spot a " + either($majorDenizen,$majorDenizen,$majorDenizen,$minorDenizen1,$minorDenizen1,$minorDenizen2) + " wanderer with goods for trade!"; $executeDesc = "Talk.">>
+
+	<<if $presetEvent is 0>> /% Randomize wares. %/
+		<<set $sellPool = random(1,4); $buyPool = random(1,4); $tradePool = random(1,1); $rareItem = random(1,10)>>
+	<<else>> /% Let the preset choose the pools. %/
+		<<set $presetEvent = 0>><<endif>>
+
+<<endif>>
+
+
+/% ======================================================================== %/
+/% Buildings %/
+
+<<if $specialEncounter is "abitte">>
+<<set $specialArea = "Abitte"; $specialIntro = "You find a curious Revecroix shrine!"; $executeDesc = "Enter."; $mannedShop = 0>>
+<<if $subterranean is 0>><<set $encImg = "mound_overworld">><<elseif $subterranean is 1>><<set $encImg = "mound_subterranean">><<endif>><<endif>>
+
+<<if $specialEncounter is "leupai merchant">>
+<<set $specialArea = either("Fatiere","Bovieterie","Mediquerie"); $specialIntro = "You find a " + $specialArea + "!"; $executeDesc = "Enter."; $mannedShop = 0>>
+<<if $subterranean is 0>><<set $encImg = "mound_overworld">><<elseif $subterranean is 1>><<set $encImg = "mound_subterranean">><<endif>><<endif>>
+
+<<if $specialEncounter is "bovieterie">>
+<<set $specialArea = "Bovieterie"; $specialIntro = "You find a " + $specialArea + "!"; $executeDesc = "Enter."; $mannedShop = 0>>
+<<if $subterranean is 0>><<set $encImg = "mound_overworld">><<elseif $subterranean is 1>><<set $encImg = "mound_subterranean">><<endif>><<endif>>
+
+<<if $specialEncounter is "hypo genelab">>
+<<set $specialArea = "Hypo Genelab"; $specialIntro = "You find an unmarked mound!"; $executeDesc = "Enter."; $mannedShop = 0>>
+<<if $subterranean is 0>><<set $encImg = "mound_overworld">><<elseif $subterranean is 1>><<set $encImg = "mound_subterranean">><<endif>><<endif>>
+
+
+
+/% ======================================================================== %/
+/% Dungeons %/
+
+
+<<if $specialEncounter is "leupai dungeon lv1">>
+<<set $specialArea = "Explore"; $dungeonType = either("Abandoned Storage Mound","Abandoned Laboratory Mound"); $specialIntro = "You discover a mysterious abandoned mound..."; $executeDesc = "Enter!"; $dungeonEntrance = 1>>
+<<if $subterranean is 0>><<set $encImg = "mound_overworld">><<elseif $subterranean is 1>><<set $encImg = "mound_subterranean">><<endif>><<endif>>
+
+
+
+
+/% ======================================================================== %/
+/% Settlements %/
+
+
+
+
+/% ======================================================================== %/
+/% Planes %/
+
+
+/% Regional Boundaries %/
+
+<<if $specialEncounter is "region boundary">>
+<<set $specialIntro = "You've found the regional boundary. You see " + $newRegionDesc; $executeDesc = "Proceed.">><<endif>>
+
+
+
+/% ======================================================================== %/
+/% Special %/
+
+<<if $specialEncounter is "player corpse">>
+<<set $specialArea = "Corpse"; $specialIntro = "You discover the corpse of a " + $corpseSpecies + ". It looks unnervingly familiar, even though you know you've never seen this person before..."; $executeDesc = "Examine...">><<endif>>
+
+
+/% ======================================================================== %/
+/% Defunct %/
+
+<<if $specialEncounter is "kitchen">>
+<<set $specialArea = "Kitchen"; $specialIntro = "You find a kitchen!"; $executeDesc = "Enter."; $saveStateSpecial = passage(); $encImg = "door">><<endif>>

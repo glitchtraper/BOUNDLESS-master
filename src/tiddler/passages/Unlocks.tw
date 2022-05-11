@@ -1,0 +1,32 @@
+﻿/% ========================================== %/
+/% Key Unlock Scripts %/
+
+/% General announcement %/
+
+<affirmative>''<<print $specialUseDesc>> unlocked!''</affirmative>
+
+
+/% ========================================== %/
+/% Backstage %/
+
+
+<<if $itemID is "mound_greenhouse">>
+<<set $moundkey_Greenhouse = 1>>
+
+<<elseif $itemID is "mound_kitchen">>
+<<set $moundkey_Kitchen = 1>>
+
+<<elseif $itemID is "mound_workshop">>
+<<set $moundkey_Workshop = 1>>
+
+<<elseif $itemID is "mound_alchemy">>
+<<set $moundkey_Alchemy = 1>>
+
+<<elseif $itemID is "mound_laboratory">>
+<<set $moundkey_Laboratory = 1>>
+
+<<elseif $itemID is "mound_billeporte">>
+<<set $moundkey_Billeporte = 1>>
+
+
+<<endif>>

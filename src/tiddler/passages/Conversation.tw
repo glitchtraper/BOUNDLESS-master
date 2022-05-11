@@ -1,0 +1,55 @@
+﻿<<display ZoneBackgrounds>><center>\
+<<display EncounterImg>>
+
+<<if $newConvo is 1>>\
+\
+Begin conversation with <<if $encounterUnique is 0>>the <<endif>> <<print $encounter>>:
+/% Conversation start. Pick your initial action. %/\
+\
+<<else>>\
+/% Full conversation options & display. %/\
+\
+<<display ConversationDatabase>>\
+\
+<<endif>>
+
+<framed>\
+<<if $showDebug is 1>>
+//DEBUG: Creature speaks <<print $encLanguage>>.//<<endif>>\
+<<nobr>>
+<<if $newConvo is 1>>
+/% =============================================================== %/
+/% Conversation starters. %/
+
+/% Greet the creature. Establishes neutrality, typically. %/
+<<button [[Greet.|passage()][$convoType = "greeting"; $newConvo = 0]]>>
+
+/% Insult the creature. Likely to start a fight if the creature understands you. %/
+<<button [[Insult!|passage()][$convoType = "insult"; $newConvo = 0]]>>
+
+/% Threaten the creature. May make them nervous, initiate combat, scare them into offering a bribe, or make them flee. %/
+<<button [[Threaten!|passage()][$convoType = "threat"; $newConvo = 0]]>>
+
+
+<<else>>
+/% =============================================================== %/
+/% Continued conversation. %/
+
+<<display QuestionDatabase>>
+
+/% Same-language default options %/
+<<if ($encLanguage is $playerLanguage) or ($encLanguage is "empulse") or ($playerLanguage is "empulse")>>
+
+<<if $continueOverride is 0>><<button [[Say Goodbye.|$saveState]]>><<endif>>
+
+
+/% Can't Understand default options %/
+<<else>>
+
+<<if $continueOverride is 0>><<button [[Leave.|$saveState]]>><<endif>>
+
+<<endif>>
+
+<<endif>>
+
+<<endnobr>></framed></center>

@@ -1,0 +1,1090 @@
+﻿<center><<nobr>>
+
+<<if $poolSize is -33>><<set $poolSize = random(6,48)>><<endif>>
+
+/% ==================================== %/
+/% Mysterious Potion %/
+
+<<endnobr>><<if $itemEncounter is "mysterious potion">>/% Insert encounter names of valid types %/<<set $bellyBloat += random(8,25); $bellyLiquid += random(8,25); $itemEncounter = either("miraberries","roundberries","burstberries","cowberries","plushberries","bulgeberries","bounceberries","butterberries","strange mushroom","glowing mushroom","calorie powder","extra strength calorie powder","maximum strength calorie powder","experimental calorie powder","gainer pills","leupai oil","helium pills","bolstering vitamin slurry","bulk powder","limber tonic","belly booster","super belly booster","puffbelly ichor","bust billower shot","super bust billower shot","thigh plumper shot","super thigh plumper shot","bellybomb","mega bellybomb","fattenium shot","pure fattenium shot","unmarked injection","miradetoxin shot","dose of reality injection","deflator injection","antibiotic injection","antifungal injection","solvent injection","voracity shot","satiator shot","miratoxin shot","tiny fyynling specimen","soothers","strange milk","jar of soothing milk","jar of toxic venom","jar of lethal venom","jar of fattening venom","jar of super-fattening venom","jar of belly-fattening venom","jar of belly super-fattening venom","jar of breast-fattening venom","jar of breast super-fattening venom","jar of thigh-fattening venom","jar of thigh super-fattening venom","jar of fattenium venom","jar of bulking venom","jar of flabbifying venom","jar of bloating venom","jar of breast-bloating venom","jar of muscle-bloating venom","jar of bursting venom","jar of healing venom","jar of weakening venom","jar of voracity venom","jar of caloric venom","jar of hallucenogenic venom","jar of mutagenic venom","jar of leucanthropic venom","egg accelerator injection","venombloat injection","jar of somnus","jar of strong somnus","jar of miratoxin","jar of wild miratoxin","jar of dilute fattenium","jar of dilute miraplasm","jar of vital water","jar of dirty water","jar of blood","jar of leupai blood","jar of fattenium","jar of vitae"); $mysteryPotioned = 1>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Bloated Guts %/
+
+<<endnobr>><<if $itemEncounter is "bloated gut">><<set $randomizer = random(1,13)>>
+You slice open the bloated gut.... and find
+''<<if $randomizer is 1>> a half-digested haunch of meat!<<set $meat_haunch += 1>>
+<<elseif $randomizer is 2>> a half-digested fat haunch of meat!<<set $meat_fattyhaunch += 1>>
+<<elseif $randomizer is 3>> a sparkling gem!<<set $gem_sparkling += 1>>
+<<elseif $randomizer is 4>> a fist-sized gem!<<set $gem_fistsized += 1>>
+<<elseif $randomizer is 5>> a tuft of fur...<<set $fur_tuft += 1>>
+<<elseif $randomizer is 6>> some old bones...<<set $bones_old += random(2,5)>>
+<<elseif $randomizer is 7>> an old skull...<<set $skull_old += 1>>
+<<elseif $randomizer is 8>> a stasis shard!<<set $shard_stasis += 1>>
+<<elseif $randomizer is 9>> some thick-rimmed glasses!<<set $set_science_glasses += 1>>
+<<elseif $randomizer is 10>> a spectrum prisma shard!<<set $dye_rainbow += 1>>
+<<elseif $randomizer is 11>> a handful of tiny gems!<<set $gem_tiny += random(3,12)>>
+<<else>> a liquified mess...<<endif>>''
+<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "huge bloated gut">><<set $randomizer = random(1,7)>>
+You slice open the bloated gut.... and find
+''<<if $randomizer is 1>> some half-digested haunches of meat!<<set $meat_haunch += random(2,4)>>
+<<elseif $randomizer is 2>> some half-digested fat haunches of meat!<<set $meat_fattyhaunch += random(2,4)>>
+<<elseif $randomizer is 3>> a pile of sparkling gems!<<set $gem_sparkling += random(3,18)>>
+<<elseif $randomizer is 4>> a pile of fist-sized gems!<<set $gem_fistsized += random(3,12)>>
+<<elseif $randomizer is 5>> some scraps of hide...<<set $hide_scraps += random(3,8)>>
+<<elseif $randomizer is 6>> some old bones...<<set $bones_old += random(4,12)>>
+<<else>> a liquified mess...<<endif>>''
+<<endif>><<nobr>>
+
+/% ==================================== %/
+/% Natural items %/
+
+<<endnobr>><<if $itemEncounter is "miraberries">>''Your belly gurgles strangely...''<<nobr>><<set $fatteningSurge = random(1,20)>><<display FatSurge>><<set $calories += random(5,30); $bonusEnergy += random(5,30); $bellyBloat += 10; $miraberryToxicity += $fatteningSurge>><<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "rainberries">>''Your belly gurgles strangely...''<<nobr>>
+
+/% Effects to-do %/
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "roundberries">>''Your belly gurgles as it puffs up rounder!''<<nobr>>
+
+<<set $belly += random(5,15); $bellyBloat += ($maxBelly * 0.2); $calories += random(2,8)>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "burstberries">>''Your belly gurgles and sloshes as it begins to fill!''<<nobr>>
+
+<<set $bellyBloat += ($maxBelly * 0.5); $bellyLiquid = $bellyBloat; $calories += random(2,8); $burstberryBloat += random(2,5)>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "cowberries">>''Your chest suddenly plumps!''<<nobr>>
+
+<<set $breast += random(8,21); $calories += random(2,8)>>
+<<if $geneDry is 0>><<set $breastBloat += ($maxBreast * 0.5); $storedMilk = $breastBloat; $cowberryBloat += random(2,5)>><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "plushberries">>''Your thighs suddenly swell plumper!''<<nobr>>
+
+<<set $thigh += random(5,15); $calories += random(2,8)>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "bulgeberries">>''You gasp as your body swells a bit fatter!''<<nobr>>
+
+<<set $girth += random(5,25); $calories += random(2,8)>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "bounceberries">>''Your breasts wobble as they suddenly inflate!''<<nobr>>
+
+<<set $breast += random(6,18); $breastBloat += ($maxBreast * 0.5); $calories += random(2,8)>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "bulkberries">><<nobr>>
+
+<<if ($calories gte 100) and ($bonusEnergy gte 100)>>You gasp as ''you plump up, your muscles bulging slightly underneath!'' <<set $strength += random(0.1,1.3); $fatteningSurge = random(4,16)>><<display FatSurge>><<display FatSurge>>
+<<elseif ($calories gte 100) and ($bonusEnergy lt 100)>>You shiver a bit as ''you plump up!''<<set $fatteningSurge = random(4,12)>><<display FatSurge>><<display FatSurge>>
+<<elseif ($calories lt 100) and ($bonusEnergy gte 100)>>You wince as ''your muscles expand slightly!''<<set $strength += random(0.1,1.1)>>
+<<else>>You shiver as ''your body seems to shrink away a bit...''<<display WeightLoss>><<display WeightLoss>><<endif>>
+
+ Maybe it's what you've been eating lately...?
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "butterberries">>Ugh, these are gross...
+''Your belly gurgles strangely...''<<nobr>>
+
+<<set $calories += random(8,16); $bellyBloat += ($maxBelly * 0.1); $indigestion += ($girth / 400); $randomizer = random(1,10)>>
+<<if $randomizer is 1>><<set $indigestion += ($girth / random(180,300))>><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "egg plant">>Delicious!<<nobr>>
+
+<<set $calories += random(20,80); $randomizer = random(1,16)>>
+
+<<if $randomizer is 1>> /% Leupai eggs %/
+<<set $bellyBloat += ($maxBelly * 1.5)>><<display LeupaiEggGen>>
+
+<<elseif ($randomizer gte 8) and ($randomizer lte 10)>> /% Calorie dump %/
+<<set $calories += random(100,500); $bellyBloat += ($maxBelly * 1.5)>>
+
+<<elseif $randomizer is 11>> /% Dire worm eggs %/
+<<set $direParasite = 1; $direParaLoad += random(50,999); $bellyBloat += ($maxBelly * 1.5)>>
+
+<<elseif $randomizer is 12>> /% Amplibaenes %/
+<<set $ampliParasite = 1; $ampliParaLoad += either(1,1,1,2,3)>>
+
+<<elseif $randomizer is 15>> /% Daedlan gene %/
+<<set $geneDaedlan = 1>>
+
+<<elseif $randomizer is 16>> /% Ovivore gene %/
+<<set $geneOvivore = 1>>
+<<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "butterberry oil">>This is //disgusting!//
+''Your belly rumbles discontentedly...''<<nobr>>
+
+<<set $calories += random(26,70); $bellyBloat += ($maxBelly * 0.1); $indigestion += ($girth * either(0.1,0.2,0.5,1))>>
+
+<<endnobr>><<endif>><<nobr>>
+
+
+/% ==================================== %/
+
+
+<<endnobr>><<if $itemEncounter is "refined fattenium oil">>This isn't the most enjoyable thing you've ever drunk.
+''You feel //intensely// bloated...''<<nobr>>
+
+<<set $calories += random(360,1300); $bellyBloat += ($maxBelly * 1.2); $indigestion += ($girth / 400)>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+<<endnobr>><<if $itemEncounter is "strange mushroom">><<if $itemEffect is 0>><<set $itemEffect = random(1,16)>><<endif>><<set $bellyBloat += either(10,20,30); $calories += either(20,30,40,50); $mushroomToxicity += either(1,1,3,3,5,7,9,12)>><<if $itemEffect is 1>>You feel...''//strange.// Your belly gurgles as it puffs slightly outward!'' <<set $belly += either(0,10,20)>>\
+<<elseif $itemEffect is 2>>You feel...''//strange.// Your belly seems to retract...'' <<set $belly -= either(0,10,20)>>\
+<<elseif $itemEffect is 3>>You feel...''//strange.// Your belly gurgles....'' <<set $calories += either(0,10,30,50,100)>>\
+<<elseif $itemEffect is 4>>You feel...'' unusually warm!'' <<set $metaBurn += either(0,0,10)>>\
+<<elseif $itemEffect is 5>>You feel...'' lethargic...'' <<set $metaGain += either(0,0,10)>>\
+<<elseif $itemEffect is 6>>You feel...''//strange.// Your belly suddenly bloats up tight!'' <<set $bellyBloat = $maxBelly * 1.1; $pain += random(1,3)>>
+<<elseif $itemEffect is 7>>You feel...''//strange.// Your muscles suddenly bulge and tighten!'' <<set $strength += 1>>
+<<elseif $itemEffect is 8>>You feel...''//strange.// Your muscles feel warm and flexible!'' <<set $finesse += 1>>
+<<elseif $itemEffect is 9>>You feel...''//strange.// Your head feels oddly clear...'' <<set $imagination += 1>>
+<<elseif $itemEffect is 10>>You feel...''//more stable//!'' <<set $naturalMaxPain += 1>>
+<<elseif $itemEffect is 11>>You feel...''//clumsy//...'' <<set $finesse -= 1>>
+<<elseif $itemEffect is 12>>You feel...''//foggy...//'' <<set $imagination -= 1>>
+<<elseif $itemEffect is 13>>You feel...''//more stable//!'' <<set $naturalMaxPain += 3>>
+<<elseif $itemEffect gt 14>>You feel...''//hungry//...'' <<set $esurience += 0.5>>
+<<elseif $itemEffect gt 15>>You feel...''//sated//...'' <<set $esurience -= 0.5>>
+<<elseif $itemEffect gte 16>>You feel strange...<<endif>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "glowing mushroom">><<set $bellyBloat += either(10,20,30); $calories += either(10,10,20); $mushroomToxicity += either(1,1,3,3,5); $randomizer = either(1,2)>><<if $randomizer is 1>>You feel...'' unusually warm!''<<set $mirajinRads -= either(30,40,50); $nuclearRads -= either(5,10,15)>>\
+<<elseif $randomizer is 2>>You feel...'' unusually warm!''<<set $mirajinRads -= either(70,80,90,100,120,150); $nuclearRads -= either(15,20,25)>><<endif>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+<<endnobr>><<if $itemEncounter is "basic ointment">><affirmative>''The mash of herbs soothes your pain''!</affirmative><<set $pain -= $maxPain * 0.1>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Instant calories %/
+
+<<endnobr>><<if $itemEncounter is "calorie powder">>''Your belly gurgles oddly, and you rub it carefully.''<<set $calories += either(30,40,50,60); $calpowderToxicity += random(1,6)>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "extra strength calorie powder">>''Your belly gurgles oddly, and you rub it carefully.''<<set $calories += either(150,200,250,300); $calpowderToxicity += random(2,18)>><<display ExpandBodytype>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "maximum strength calorie powder">>''Your belly gurgles oddly, and you rub it carefully.''<<set $calories += either(300,350,400,450,500,550,600,650); $calpowderToxicity += random(6,30)>><<display ExpandBodytype>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "experimental calorie powder">>''Your belly gurgles oddly, and you rub it carefully.''<<set $calories += either(300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500); $calpowderToxicity += random(3,40); $esurience += either(0,0,0,0,0.1,0.1,0.5,1,2,3)>><<display ExpandBodytype>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Gain drugs %/
+
+<<endnobr>><<if $itemEncounter is "gainer pills">>Your belly gurgles oddly, and you rub it carefully.<<set $metaGain += either(10,10,20); $gainerToxicity += random(1,10); $esurience += either(0,0,0,0,0.1,0.2,0.5)>><<display ExpandBodytype>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Stretching aids %/
+
+<<endnobr>><<if $itemEncounter is "leupai oil">>''Your belly feels a little bit more elastic!''<<set $stretchMod += 5; $leupoilToxicity += random(1,6); $calories += either(20,30,40,50)>><<endif>><<nobr>>
+
+
+/% ==================================== %/
+/% Combat Statters %/
+
+<<endnobr>><<if $itemEncounter is "bolstering vitamin slurry">>''You breathe a deep sigh, feeling revitalized!''<<set $naturalMaxPain += either(5,5,5,5,5,5,5,5,5,5,5,10); $esurience += either(0,0,0,0,0.1); $calories += either(70,80,90,100,110); $pain = 0; $health = "Lively">><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "bulk powder">>''You gasp as your muscles clench and bulge!''<<set $strength += either(1,1,1,1,1,1,1,1,1,1,1,1,2); $esurience += either(0,0,0,0,0.1,0.2,0.5); $calories += either(20,30,40,50)>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "limber tonic">>''You stretch and bend your muscles, feeling more flexible!''<<set $finesse += either(1,1,1,1,1,1,1,1,1,1,1,1,2)>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Instant fattening %/
+
+/% Found items ============ %/
+
+<<endnobr>><<if $itemEncounter is "belly booster">><<set $bellyLiquid += 20>><<if $itemEffect is 0>><<set $itemEffect = random(1,3)>><<endif>><<if $itemEffect neq 1>>You groan softly as your belly ''puffs up a little bit <<print either("fatter","rounder","plumper","fuller","pudgier","squishier","softer")>>...''<<set $belly += either(10,10,10,20,30) + $bonusBelly; $bellyBloat += ($maxBelly * 0.3); $bellyfatteniumToxicity += random(3,16)>><<elseif $itemEffect is 1>>You writhe and moan aloud ''as your belly <<print either("swells","balloons","swells up","puffs up","plumps up","bulges")>> //considerably fatter..!//''<<set $belly += either(50,60,70,80,90,100) + $bonusBelly; $bellyBloat = $maxBelly; $bellyfatteniumToxicity += random(5,18); $pain += random(1,3)>><<endif>><<nobr>>
+<<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "super belly booster">><<set $bellyLiquid += 20>><<if $itemEffect is 0>><<set $itemEffect = random(1,3)>><<endif>><<if $itemEffect neq 1>>You writhe and moan aloud ''as your belly <<print either("swells","balloons","swells up","puffs up","plumps up","bulges")>> //considerably fatter..!//''<<set $belly += either(50,60,70,80,90,100) + $bonusBelly; $girth += either(50,100,150); $bellyBloat = $maxBelly; $bellyfatteniumToxicity += random(3,9); $pain += random(1,3)>><<elseif $itemEffect is 1>>You writhe and moan aloud ''as your belly <<print either("swells","balloons","swells up","puffs up","plumps up","bulges")>> //enormously..!//''<<set $belly += either(110,120,130,150,160,180,200) + $bonusBelly; $bellyBloat = $maxBelly * 1.1; $bellyfatteniumToxicity += random(5,16); $pain += random(1,3)>><<endif>><<nobr>>
+<<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "puffbelly ichor">><<set $itemEffect = either(1,1,1,1,2)>><<if $itemEffect is 1>>You gasp ''as your belly puffs up //much fatter..!//''<<set $belly += either(80,90,100,110,120,130,150) + $bonusBelly; $bellyBloat = $maxBelly * 1.1; $pain += random(1,3)>><<elseif $itemEffect is 2>>You gasp aloud ''as your belly wobbles and expands, blimping up //huge and round..!//''<<set $belly += either(200,300,400,500) + $bonusBelly; $bellyBloat = $maxBelly * 1.1; $pain += random(8,10)>><<endif>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "bust billower shot">>\
+<<if $itemEffect is 0>><<set $itemEffect = random(1,3)>><<endif>><<if $itemEffect neq 1>>You groan softly as your breasts ''swell a little bit <<print either("fatter","rounder","plumper","fuller","pudgier","squishier","softer")>>...''<<set $breast += either(10,10,10,20,30) + $bonusBreast; $breastBloat += ($maxBreast * 0.3); $breastfatteniumToxicity += random(1,11)>>\
+<<elseif $itemEffect is 1>>You writhe and moan aloud ''as your breasts <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> //considerably fatter..!//''<<set $breast += either(30,40,50) + $bonusBreast; $breastBloat = $maxBreast; $breastfatteniumToxicity += random(3,16); $pain += random(1,3)>><<endif>>
+
+<<nobr>><<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "super bust billower shot">>\
+<<if $itemEffect is 0>><<set $itemEffect = random(1,3)>><<endif>><<if $itemEffect neq 1>>You writhe and moan aloud ''as your breasts <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> //considerably fatter..!//''<<set $breast += either(60,70,80,90,100) + $bonusBreast; $breastBloat = $maxBreast; $breastfatteniumToxicity += random(3,9); $pain += random(1,3)>>\
+<<elseif $itemEffect is 1>>You writhe and moan aloud ''as your breasts <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> //enormously..!//''<<set $breast += either(90,100,110,120,130,140,150) + $bonusBreast; $breastBloat = $maxBreast; $breastfatteniumToxicity += random(5,16); $pain += random(1,3)>><<endif>>
+
+<<nobr>><<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "thigh plumper shot">>\
+<<if $itemEffect is 0>><<set $itemEffect = random(1,3)>><<endif>><<if $itemEffect neq 1>>You groan softly as your thighs ''swell a little bit <<print either("fatter","rounder","plumper","fuller","pudgier","squishier","softer")>>...''<<set $thigh += either(10,10,10,20,30) + $bonusThigh; $thighFirmness += either(10,10,10,20,30); $thighfatteniumToxicity += random(3,8)>>\
+<<elseif $itemEffect is 1>>You writhe and moan aloud ''as your thighs <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> //considerably fatter..!//''<<set $thighs += either(30,40,50) + $bonusThigh; $thighFirmness -= $thigh; $thighfatteniumToxicity += random(3,16); $pain += random(1,3)>><<endif>><<nobr>>
+
+<<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "super thigh plumper shot">>\
+<<if $itemEffect is 0>><<set $itemEffect = random(1,3)>><<endif>><<if $itemEffect neq 1>>You writhe and moan aloud ''as your thighs <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> //considerably fatter..!//''<<set $thigh += either(60,70,80,90,100) + $bonusThigh; $thighFirmness -= $thigh; $thighfatteniumToxicity += random(3,9); $pain += random(1,3)>>\
+<<elseif $itemEffect is 1>>You writhe and moan aloud ''as your thighs <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> //enormously..!//''<<set $thigh += either(90,100,110,120,130,150) + $bonusThigh; $thighFirmness -= $thigh; $thighfatteniumToxicity += random(5,16); $pain += random(1,3)>><<endif>><<nobr>>
+
+<<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Belly Bombs %/
+
+<<endnobr>><<if $itemEncounter is "bellybomb">><<if $itemEffect is 0>><<set $itemEffect = random(1,3)>><<endif>><<set $bellyLiquid += 10>><<if $itemEffect gte 3>>You groan softly as ''your belly tightens, swelling up rounder..!''<<set $bellyBloat += ($maxBelly /2); $inflaToxicity += random(1,5)>>\
+<<elseif $itemEffect is 2>>You groan and squirm as ''your belly blows up like a balloon, creaking softly as it expands...!''<<set $bellyBloat = $maxBelly * 1.1; $inflaToxicity += random(3,8)>>\
+<<elseif $itemEffect is 1>>You writhe and moan aloud ''as your belly suddenly blimps up //enormously//, creaking loudly as it stretches tight!''<<set $bellyBloat = $maxBelly * 1.2; $inflaToxicity += random(6,10); $pain += random(1,3)>><<endif>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "mega bellybomb">><<set $bellyLiquid += 1>>You writhe and moan aloud ''as your belly suddenly blimps up //enormously//, creaking loudly as it stretches to its limit!''<<set $bellyBloat = $maxBelly * 1.5; $bellyStatus = "bursting"; $inflaToxicity += random(8,24); $pain += random(1,10); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">><<endif>><<nobr>>
+
+
+/% ==================================== %/
+/% Helium %/
+
+<<endnobr>><<if $itemEncounter is "helium pills">><<if $heliumBallooned lte 0>>You cry out in surprise as ''your belly rapidly expands, bloating up full and round! You begin to float!''<<else>>\
+''Your belly creaks loudly as it blows up even bigger and rounder!''<<endif>><<set $heliumBallooned += random(12,24); $bellyBloat = $maxBelly * 2; $breastBloat = $maxBreast * 2>><<endif>><<nobr>>
+
+
+/% ==================================== %/
+/% Plushifiers %/
+
+<<endnobr>><<if $itemEncounter is "plushifier">><<if ($bellyBloat gt 0) or ($breastBloat gt 0)>>Your belly and breasts deflate, your body ''rapidly growing softer'' as their contents are absorbed and converted into fat!<<set $belly += $bellyBloat / 10; $bellyBloat -= $bellyBloat / 10; $breast += $breastBloat / 10; $breastBloat -= $breastBloat / 10>><<else>>But nothing happens...<<endif>>\
+<<if $heliumBallooned gt 0>>
+Your belly and breasts ''suddenly bloat and swell rapidly, expanding with frightening speed!''<<set $bellyPlushsplosion = $heliumBallooned; $breastPlushsplosion = $heliumBallooned>><<endif>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "belly plushifier">><<if $bellyBloat gt 0>>Your belly deflates, ''rapidly growing softer'' as its contents are absorbed and converted into fat!<<set $belly += $bellyBloat / 10; $bellyBloat -= $bellyBloat / 10>><<else>>But nothing happens...<<endif>>\
+<<if $heliumBallooned gt 0>>
+Your belly suddenly ''bulges into a perfectly round, bloated sphere, your skin creaking as it begins to expand explosively...!''<<set $bellyPlushsplosion = $heliumBallooned>><<endif>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "breast plushifier">><<if $breastBloat gt 0>>Your breasts rapidly soften as their contents are absorbed and converted into fat!<<set $breast += $breastBloat / 10; $breastBloat -= $breastBloat / 10>><<else>>But nothing happens...<<endif>>\
+<<if $heliumBallooned gt 0>>
+Your breasts suddenly ''expand rapidly, bloating into a pair of fat, round globes... and continuing to inflate, growing tighter and tighter as you watch!''<<set $breastPlushsplosion = $heliumBallooned>><<endif>><<endif>><<nobr>>
+
+
+/% ==================================== %/
+/% Mutation %/
+
+<<endnobr>><<if $itemEncounter is "test mutator">><<set $randomizer = random(1,8)>>\
+<<nobr>>
+
+	<<if $randomizer is 1>>
+		<<set $species = "leupai"; $leupaiFlag = 0>>
+	<<elseif $randomizer is 2>>
+		<<set $species = "somnian"; $leupaiFlag = 0>>
+	<<elseif $randomizer is 3>>
+		<<set $species = "helene"; $leupaiFlag = 0>>
+	<<elseif $randomizer is 4>>
+		<<set $species = "fyynling"; $leupaiFlag = 0>>
+	<<elseif $randomizer is 5>>
+		<<set $species = "blubberslime"; $leupaiFlag = 0>>
+	<<elseif $randomizer is 6>>
+		<<set $species = "adephagian"; $leupaiFlag = 0>>
+	<<elseif $randomizer is 7>>
+		<<set $species = "mythosi"; $leupaiFlag = 0>>
+	<<elseif $randomizer is 8>>
+		<<set $species = "slime"; $leupaiFlag = 0>>
+
+	<<endif>>
+
+<<endnobr>>\
+\
+You cry out halfheartedly as you blandly turn into a <<print  $species>>, as per the parameters of this debug item.
+//Allegedly//.<<endif>><<nobr>>
+
+
+
+/% ==================================== %/
+/% Fattenium %/
+
+<<endnobr>><<if $itemEncounter is "fattenium shot">>\
+[img[icon_alert_critical]]<brightalert>You tremble, quake, and groan as ''your body suddenly swells and puffs outwards in a cascade of new, rippling fat!
+You feel like a water balloon... oh god was that even a good idea,,''</brightalert>
+
+You feel dazed, heavy, and sluggish...<<nobr>><<set $girth += either(50,60,70,80,90,100,110,120,130,140,150); $calories += either(100,110,120,130,140,150,160,170,180,190,200); $belly += either(20,30,40,50) + $bonusBelly; $bellyBloat = $maxBelly * 1.1; $breast += either(0,10,20,30) + $bonusBreast; $breastBloat += $breast; $thigh += either(20,30,40,50) + $bonusThigh; $thighFirmness -= random(20,50); $metaGain += either(0,0,0,10,20); $metaBurn -= either(0,1); $fatteniumPoisoning += either(10,20,20,30,40,50); $pain += random(1,6)>><<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+
+<<endnobr>><<if $itemEncounter is "pure fattenium shot">>\
+[img[icon_alert_red]]<deepalert>Immediately, you crumple onto your knees, screaming in agony as ''your body quivers, bulges, and blimps rapidly, creaking as your weight skyrockets and your skin threatens to rip apart!''</deepalert><<nobr>><<set $girth += either(100,110,120,130,140,150,180,300); $calories += either(500,550,600,650,700,750,800,850,900,950,1000); $belly += either(50,60,70,80,90,100) + $bonusBelly; $bellyBloat = $maxBelly * 1.3; $breast += either(40,50,60,70,80,90,100) + $bonusBreast; $breastBloat += $breast; $thigh += either(40,50,60,70,80,90,100) + $bonusThigh; $thighFirmness -= $thigh; $metaGain += either(10,10,20,30); $metaBurn -= either(10,10,20,30); $fatteniumPoisoning += either(30,40,50,60,70,80,90,100); $pain += random(9,16); $health = "Sore"; $lethalKO = 1; $deathCause = "explosion">><<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+
+/% ==================================== %/
+/% Parasite injections %/
+
+/% Randomized %/
+<<endnobr>><<if $itemEncounter is "unmarked injection">><<if $itemEffect is 0>><<set $itemEffect = random(1,7)>><<endif>>\
+''Nothing obvious seems to happen right away...''<<nobr>>
+
+<<if $itemEffect is 1>><<set $breastParasite = 1; $breastParaLoad += 10>>
+<<elseif $itemEffect is 2>><<set $bellyParasite = 1; $bellyParaLoad += 10>>
+<<elseif $itemEffect is 3>><<set $bodyPlumperParasite = 1; $wgParaLoad += 10>>
+<<elseif $itemEffect is 4>><<set $bellyPlumperParasite = 1; $bellywgParaLoad += 10>>
+<<elseif $itemEffect is 5>><<set $breastPlumperParasite = 1; $breastwgParaLoad += 10>>
+<<elseif $itemEffect is 6>><<set $lactationParasite = 1; $lacParaLoad += 10>>
+<<elseif $itemEffect is 7>><<set $metaParasite = 1; $metaParaLoad += 10>><<endif>><<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Microleupii (weight gain/BodySystems) %/
+
+<<endnobr>><<if $itemEncounter is "M. belesse injection">>
+''Nothing obvious seems to happen right away...'' <<set $bodyPlumperParasite = 1; $wgParaLoad += 10>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "M. miriete injection">>
+''Nothing obvious seems to happen right away...''<<set $bellyPlumperParasite = 1; $bellywgParaLoad += 10>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "M. belebaret injection">>
+''Nothing obvious seems to happen right away...''<<set $breastPlumperParasite = 1; $breastwgParaLoad += 10>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "M. belite injection">>
+''Nothing obvious seems to happen right away...''<<set $metaParasite = 1; $metaParaLoad += 10>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Microstygi (bloating) %/
+
+<<endnobr>><<if $itemEncounter is "M. moreauii injection">>\
+''Nothing obvious seems to happen right away...''<<set $bellyParasite = 1; $bellyParaLoad += 10>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "M. heleni injection">>\
+''Nothing obvious seems to happen right away...''<<set $breastParasite = 1; $breastParaLoad += 10>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Lactosa (lactation) %/
+
+<<endnobr>><<if $itemEncounter is "L. virii injection">>\
+''Nothing obvious seems to happen right away...''<<set $lactationParasite = 1; $lacParaLoad += 10>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Non-micro-organisms %/
+
+<<endnobr>><<if $itemEncounter is "slime injection">>\
+''Nothing obvious seems to happen right away...''<<nobr>><<if $injectLoc is "breast">><<set $slimeBreastParasite = 1; $slimeBreastParaLoad += 50>><<if $bodyType is 0>><<set $bodyType = either(0,0,0,"busty")>><<endif>><<else $injectLoc is "belly">><<set $slimeBellyParasite = 1; $slimeBellyParaLoad += 50>><<nobr>>
+
+<<if $bodyType is 0>><<set $bodyType = either(0,0,0,"round","belly")>><<endif>><<endnobr>><<endif>><<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "dire worm injection">>\
+''Nothing obvious seems to happen right away...''<<set $direParasite = 1; $direParaLoad += either(50,60,70,80,90,100,110,120,130,140,150)>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Curative Injections %/
+
+<<endnobr>><<if $itemEncounter is "miradetoxin shot">><<set $miraPoisoning -= random(16,32); $miratoxicOverdose = 0; $miraberryToxicity = 0; $miraberryPoisoning = 0; $helenoToxicity = 0; $helenoPoisoning = 0; $vitaePPM += either(8,9,10,11,12); $breastParasite = 0; $bellyParasite = 0; $bodyPlumperParasite = 0; $bellyPlumperParasite = 0; $breastPlumperParasite = 0; $lactationParasite = 0; $metaParasite = 0; $direParasite = 0; $slimeBellyParasite = 0; $slimeBreastParasite = 0; $ampliParasite = 0; $lawornMiratoxin = 0; $leucanthropicVenom = 0; $leucanthropyCountdown = 0; $miracoSpores = 0; $miracoInfection = 0; $somniation = 0; $health = "Suffering"; $pain += $maxPain/2; $lethalKO = 1; $fatteniumPoisoning = 0; $fatteniumCascade = 0; $deathCause = "vitae">>\
+<deepalert>''The potent serum burns agonizingly though your system!''</deepalert><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "dose of reality injection">>\
+<deepalert>''You hiss and grit your teeth as the meds flow into your system!''</deepalert> <<set $mirajinRads -= random(50,85); $miraPoisoning -= random(8,12); $miraberryToxicity -= random(20,40); $miraberryPoisoning = 0; $helenoToxicity -= random(20,30); $helenoPoisoning = 0; $calories += either(10,10,20); $pain += random(2,3); $lethalKO = 0>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "deflator injection">><<if $itemEffect is 0>><<set $itemEffect = random(1,3)>><<endif>><<set $inflaToxicity -= random(20,40); $inflaPoisoning = 0>><<if ($bellyStatus is "full") or ($bellyStatus is "bloated") or ($bellyStatus is "bursting")>><<if $itemEffect neq 1>>You grit your teeth as ''your bloated belly grows a little softer.'' <<set $bellyBloat -= ($maxBelly /3); $deflaToxicity += random(1,5)>><<elseif $itemEffect is 1>>You grit your teeth as ''your bloated belly relaxes!'' <<set $bellyBloat = 0; $bellyStatus = "empty"; $deflaToxicity += random(3,7)>><<endif>>\
+\
+<<else>>Your belly gurgles and groans strangely-- ''then tightens around you as your muscles spasm painfully!''<<set $belly -= either(0,10,20,30); $deflaToxicity += random(3,7); $pain += random(2,5)>><<endif>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "antibiotic injection">>\
+<deepalert>''You hiss and grit your teeth as the meds flow into your system!''</deepalert> <<set $slimeBellyParaLoad -= random(40,90); $slimeBreastParaLoad -= random(40,90); $stomachBug -= random(20,60); $miracoSpores -= random(10,30); $breastParaLoad -= either(20,30,40,50); $bellyParaLoad -= either(20,30,40,50); $wgParaLoad -= either(20,30,40,50); $bellywgParaLoad -= either(20,30,40,50); $breastwgParaLoad -= either(20,30,40,50); $lacParaLoad -= either(20,30,40,50); $metaParaLoad -= either(20,30); $direParaLoad -= either(30,60,90); $ampliParaLoad -= random(2,5); $pain += random(8,12); $lethalKO = 0>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "antifungal injection">>\
+<deepalert>''You hiss and grit your teeth as the meds flow into your system!''</deepalert> <<set $miracoSpores -= random(30,60); $mushroomToxicity -= random(40,80); $pain += random(2,3); $lethalKO = 0>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "solvent injection">>\
+<deepalert>''You hiss and grit your teeth as the meds flow into your system!''</deepalert> <<set $leupoilToxicity -= random(20,40); $calpowderToxicity -= random(30,60); $calpowderPoisoning = 0; $deflaToxicity -= random(30,60); $deflaPoisoning = 0; $fatteniumPoisoning -= random(20,30); $fatteniumCascade = 0; $bellyfatteniumToxicity -= random(20,40); $bellyfatteniumPoisoning = 0; $breastfatteniumToxicity -= random(20,40); $breastfatteniumPoisoning = 0; $thighfatteniumToxicity -= random(20,40); $thighfatteniumPoisoning = 0; $gainerToxicity -= random(30,60); $gainerToxicity = 0; $pain += random(6,12); $lethalKO = 0>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "voracity shot">>\
+<deepalert>''Your stomach growls and gurgles ominously...'' You feel the urge to <redalert>''consume''</redalert> rise up in you like a great wave!</deepalert> <<set $esurience += random(4,8); $voreFrenzy += random(12,36); $pain += random(2,3); $lethalKO = 0>><<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "satiator shot">>\
+<deepalert>''Your stomach puffs, your hunger easing...''</deepalert> <<set $esurience -= random(3,9); $bellyBloat = $maxBelly; $calories += either(10,10,20); $pain += random(2,3); $lethalKO = 0>><<if $voreFrenzy gt 0>><<set $voreFrenzy = 0>><<endif>><<endif>><<nobr>>
+
+
+/% ==================================== %/
+/% Misc Injections %/
+
+<<endnobr>><<if $itemEncounter is "miratoxin shot">>\
+<deepalert>''Your flesh seems to crawl as your entire body spasms!''</deepalert> <<set $miraPoisoning += random(8,25); $pain += random(2,7)>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Lab Specimens %/
+
+<<endnobr>><<if $itemEncounter is "tiny fyynling specimen">>\
+<deepalert>''The little fyynling crawls from the jar, throwing itself at you and merging with your flesh!''</deepalert> <<set $fyynlingMorph += random(4,8); $bellyBloat += $maxBelly; $pain += random(2,5); $lethalKO = 0; $calories += either(10,20,30,40,50,50)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+
+/% ==================================== %/
+/% Usable Crystals %/
+
+<<endnobr>><<if $itemEncounter is "vital shard">>
+<affirmative>You breathe a sigh of relief as ''your wounds begin to fade away!''</affirmative>\
+<<set $pain -= $maxPain * 0.5>>
+<<endif>><<nobr>>
+
+/% ==================================== %/
+
+<<endnobr>><<if $itemEncounter is "expansion shard">>
+You gasp in shock as your body ''suddenly inflates with fat'', jiggling and quaking as the explosive growth slows to a stop!<<nobr>>
+
+			<<if $bodyType is "busty">>
+<<set $girth = $girth * 1.1; $belly = $belly * 1.1; $breast = $breast * 1.5; $thigh = $thigh * 1.1; $breastBloat += $maxBreast * 1.5>>
+
+			<<elseif $bodyType is "hourglass">>
+<<set $girth = $girth * 1.1; $belly = $belly * 1.1; $breast = $breast * 1.3; $thigh = $thigh * 1.3; $breastBloat += $maxBreast * 1.5>>
+
+			<<elseif $bodyType is "boviete">>
+<<set $breast = $breast * 1.8; $breastBloat += $maxBreast * 1.5>>
+
+			<<elseif $bodyType is "cubus">>
+<<set $breast = $breast * 1.5; $thigh = $thigh * 1.5; $breastBloat += $maxBreast * 1.5>>
+
+			<<elseif $bodyType is "round">>
+<<set $belly = $belly * 1.3; $thigh = $thigh * 1.3; $bellyBloat += $maxBelly * 1.5>>
+
+			<<elseif $bodyType is "bulging">>
+<<set $belly = $belly * 1.5; $thigh = $thigh * 1.5; $bellyBloat += $maxBelly * 1.5>>
+
+			<<elseif $bodyType is "belly">>
+<<set $girth = $girth * 1.1; $belly = $belly * 1.5; $breast = $breast * 1.1; $thigh = $thigh * 1.1; $bellyBloat += $maxBelly * 1.5>>
+
+			<<elseif $bodyType is "guguetelle">>
+<<set $belly = $belly * 1.8; $bellyBloat += $maxBelly * 1.5>>
+
+			<<elseif $bodyType is "pear">>
+<<set $girth = $girth * 1.1; $belly = $belly * 1.3; $breast = $breast * 1.1; $thigh = $thigh * 1.3; $bellyBloat += $maxBelly * 1.5>>
+
+			<<elseif $bodyType is "bloatpear">>
+<<set $breast = $breast * 1.5; $thigh = $thigh * 1.5; $bellyBloat += $maxBelly * 1.5>>
+
+			<<elseif $bodyType is "thigh">>
+<<set $girth = $girth * 1.1; $belly = $belly * 1.1; $breast = $breast * 1.1; $thigh = $thigh * 1.5>>
+
+			<<elseif $bodyType is "blimpthigh">>
+<<set $thigh = $thigh * 1.8>>
+
+			<<else>>/% Default %/
+<<set $girth = $girth * 1.2; $belly = $belly * 1.2; $breast = $breast * 1.2; $thigh = $thigh * 1.2>><<endif>>
+
+
+/% Cleanup %/
+<<set $girth = Math.round($girth); $breast = Math.round($breast); $belly = Math.round($belly); $thigh = Math.round($thigh)>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Painkillers %/
+
+<<endnobr>><<if $itemEncounter is "soothers">><brightalert>Hopefully, ''you'll start to feel better soon..!''</brightalert><<set $amalgaToxicity += random(8,14)>><<endif>><<nobr>>
+
+
+/% ==================================== %/
+/% Tainted & special-effect foods %/
+
+<<endnobr>><<if $itemEncounter is "strange milk">>\
+''A chill ices down your spine...'' what the hell was //that?!//
+<<nobr>><<set $calories += either(200,250,300,350); $bellyBloat += ($maxBelly/3); $bellyLiquid += 50; $milkRate += random(0,3); $helenoToxicity += random(1,6); $breastfatteniumToxicity += random(1,3); $miraPoisoning += random(1,6); $esurience += either(0,0,0,0,0.1,0.2,0.5,1,2,3)>>
+
+<<if $bodyType is 0>><<set $bodyType = either(0,0,0,0,0,"round","belly","pear")>><<elseif $bodyType is "busty">><<set $bodyType = either("busty","hourglass")>><<elseif $bodyType is "thigh">><<set $bodyType = either("thigh","pear")>><<endif>><<endnobr>><<nobr>>
+
+<<set $randomizer = either(0,0,1,2,3)>><<endnobr>><<if $randomizer is 1>>\
+You groan softly as your breasts ''swell a little bit <<print either("fatter","rounder","plumper","fuller","pudgier","squishier","softer")>>...''<<set $breast += either(10,10,10,20,30) + $bonusBreast; $breastBloat += ($maxBreast /3); $helenoToxicity += random(1,3)>><<nobr>>
+
+<<endnobr>><<elseif $randomizer is 2>>\
+You writhe and moan aloud ''as your breasts <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> //considerably fatter..!//''<<set $breast += either(30,40,50) + $bonusBreast; $breastBloat = $maxbreast * 2; $helenoToxicity += random(2,5); $pain += random(1,3)>><<nobr>>
+
+<<endnobr>><<elseif $randomizer is 3>>\
+You writhe and moan aloud ''as your breasts <<print either("swell","balloon","swell up","puff up","plump up","bulge", "bloat")>> //considerably fatter,// creaking and jiggling as they rapidly inflate<<if $geneDry is 0>> with milk!<<endif>>''<<set $lactation = 1; $breast += either(30,40,50) + $bonusBreast; $breastBloat = $maxBreast * 5; $storedMilk = ($maxBreast * 0.5); $milkFat += random(1,3); $milkRate += 10; $helenoToxicity += random(2,8); $pain += random(1,3)>><<endif>><<nobr>>
+
+<<endnobr>><<endif>><<nobr>>
+
+/% ==================================== %/
+
+/% Jarred Liquids (non-Pool) %/
+
+<<endnobr>><<if $itemEncounter is "jar of soothing milk">><<set $toxicVenom = 0; $lethalVenom = 0; $gainVenom = 0; $supergainVenom = 0; $bellygainVenom = 0; $bellySupergainVenom = 0; $breastgainVenom = 0; $breastSupergainVenom = 0; $thighgainVenom = 0; $thighSupergainVenom = 0; $fatteniumVenom = 0; $bulkVenom = 0; $flabbyVenom = 0; $bloatVenom = 0; $breastbloatVenom = 0; $burstVenom = 0; $healVenom = 0; $weakeningVenom = 0; $gluttonVenom = 0; $caloricVenom = 0; $hallucenoVenom = 0; $mutagenVenom = 0; $noxiousVenom = 0; $calories += 50; $bellyBloat += 20; $bellyLiquid += 50; $bonusEnergy += 50>><affirmative>''You feel undeniably refreshed!''</affirmative>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of toxic venom">><deepalert>''You feel off...''</deepalert><<set $toxicVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of lethal venom">><deepalert>''You feel off...''</deepalert><<set $lethalVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of fattening venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $gainVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of super-fattening venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $supergainVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of belly-fattening venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $bellygainVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of belly super-fattening venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $bellySupergainVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of breast-fattening venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $breastgainVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of breast super-fattening venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $breastSupergainVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of thigh-fattening venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $thighgainVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of thigh super-fattening venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $thighSupergainVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of fattenium venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $fatteniumVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of bulking venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $bulkVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of flabbifying venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $flabbyVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of bloating venom">><brightalert>''Your skin begins to tighten...''</brightalert><<set $bloatVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of breast-bloating venom">><brightalert>''Your skin begins to tighten...''</brightalert><<set $breastbloatVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of muscle-bloating venom">><brightalert>''Your skin begins to tighten...''</brightalert><<set $musclebloatVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of bursting venom">><brightalert>''Your skin begins to tighten...''</brightalert><<set $burstVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of healing venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $healVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of weakening venom">><deepalert>''You feel faint...''</deepalert><<set $weakeningVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of voracity venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $gluttonVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of caloric venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $caloricVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of hallucenogenic venom">><deepalert>''You feel faint...''</deepalert><<set $hallucenoVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of mutagenic venom">><deepalert>''You feel faint...''</deepalert><<set $mutagenVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+<<endnobr>><<if $itemEncounter is "jar of leucanthropic venom">><brightalert>''Your belly gurgles ominously...''</brightalert><<set $leucanthropicVenom += random(6,12)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+
+
+/% ==================================== %/
+/% Modifiers %/
+
+<<endnobr>><<if $itemEncounter is "egg accelerator injection">><<if $leupaiEggTimer is 0>>...but nothing happens.<<set $miraPoisoning += random(2,8)>><<elseif $leupaiEggTimer gt 0>>''Your belly expands as the eggs inside it grow bigger and heavier!''<<if $geneDaedlan is 1>><<set $quaggyGirth += either(10,10,20)>><<endif>><<set $leupaiEggTimer -= random(2,3); $quaggyGirth += either(10,10,20); $randomizer = either(0,0,0,1); $miraPoisoning += random(2,8); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly"; $esurience += either(0,0,0,0,0.1,0.2,0.5,1,2)>><<if $randomizer is 1>><<set $quaggySuperfattened = 1>><<endif>><<endif>><<endif>><<nobr>>
+
+
+<<endnobr>><<if $itemEncounter is "venombloat injection">><<if $venomGland is 0>>''Your belly protrudes as it bloats up tight!''<<set $miraPoisoning += random(1,3); $bellyBloat += ($maxBelly * 0.5)>>\
+\
+\
+<<elseif $venomGland is 1>>''Your belly protrudes and wobbles as your venom glands suddenly inflate!''<<set $storedVenom += ($venomProd * random(2,3)); $miraPoisoning += random(1,3); $bellyBloat += ($maxBelly * 0.5); $randomizer = random(1,64)>>
+
+	<<if $randomizer is 1>><<set $geneVenomBloated = 1>><<endif>><<endif>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Liquids %/
+
+/% Somnus %/
+
+<<endnobr>><<if ($itemEncounter is "pool of red-tinted water") or ($itemEncounter is "pool of orange-tinted water") or ($itemEncounter is "pool of yellow-tinted water") or ($itemEncounter is "pool of green-tinted water") or ($itemEncounter is "pool of blue-tinted water") or ($itemEncounter is "pool of indigo-tinted water") or ($itemEncounter is "pool of violet-tinted water") or ($itemEncounter is "pool of magenta-tinted water") or ($itemEncounter is "pool of white-tinted water") or ($itemEncounter is "pool of black-tinted water")>>You feel <<set $mirajinRads += random(3,12)>><<nobr>><<if $itemEffect is 1>><<set $miraPoisoning += random(0,3); $bellyBloat += ($maxBelly * 0.5); $calories += either(30,40,50,60,70,80,90,100); $bellyLiquid += 50; $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//bloated...//''<<endif>><<if $itemEffect is 2>><<set $miraPoisoning += random(1,6); $bellyBloat += ($maxBelly * 0.8); $calories += either(50,60,70,80,90,100,110,120,130,140,150); $bellyLiquid += 50; $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//strange...//''<<endif>><<if $itemEffect is 3>><<set $miraPoisoning += random(3,8); $bellyBloat = $maxBelly * 1.2; $calories += either(100,110,120,130,140,150,200,250); $bellyLiquid += 50; $pain += random(1,3); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//unwell...//''<<endif>><<endnobr>>
+<<display Alertbox>>
+<<if $poolSize gte 1>><<button [[Drink more.|passage()][$repeatUse += 1; $poolSize -= 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<else>>The pool finally runs dry...<<endif>><<endif>><<nobr>>
+
+/% Somnus Jars (need differentiation) %/
+
+
+<<endnobr>><<if $itemEncounter is "jar of somnus">>You feel <<set $itemEffect = random(1,3); $mirajinRads += random(3,12)>><<nobr>><<if $itemEffect is 1>><<set $miraPoisoning += random(0,3); $bellyBloat += ($maxBelly * 0.5); $calories += either(30,40,50,60,70,80,90,100); $bellyLiquid += 50; $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//bloated...//''<<endif>><<if $itemEffect is 2>><<set $miraPoisoning += random(1,6); $bellyBloat += ($maxBelly * 0.8); $calories += either(50,60,70,80,90,100,110,120,130,140,150); $bellyLiquid += 50; $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//strange...//''<<endif>><<if $itemEffect is 3>><<set $miraPoisoning += random(3,8); $bellyBloat = $maxBelly * 1.1; $calories += either(100,110,120,130,140,150,200,250); $bellyLiquid += 50; $pain += random(1,3); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//unwell...//''<<endif>><<endnobr>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+
+<<endnobr>><<if $itemEncounter is "jar of strong somnus">>You feel <<set $itemEffect = random(1,3); $mirajinRads += random(3,12)>><<nobr>><<if $itemEffect is 1>><<set $miraPoisoning += random(0,3); $bellyBloat += ($maxBelly * 0.5); $calories += either(30,40,50,60,70,80,90,100); $bellyLiquid += 50; $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//bloated...//''<<endif>><<if $itemEffect is 2>><<set $miraPoisoning += random(1,6); $bellyBloat += ($maxBelly * 0.8); $calories += either(50,60,70,80,90,100,110,120,130,140,150); $bellyLiquid += 50; $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//strange...//''<<endif>><<if $itemEffect is 3>><<set $miraPoisoning += random(3,8); $bellyBloat = $maxBelly * 1.1; $calories += either(100,110,120,130,140,150,200,250); $bellyLiquid += 50; $pain += random(1,3); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//unwell...//''<<endif>><<endnobr>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+
+<<endnobr>><<if $itemEncounter is "jar of miratoxin">>You feel <<set $itemEffect = random(1,3); $mirajinRads += random(3,12)>><<nobr>><<if $itemEffect is 1>><<set $miraPoisoning += random(4,12); $bellyBloat += ($maxBelly * 0.5); $calories += either(30,40,50,60,70,80,90,100); $bellyLiquid += 50; $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//bloated...//''<<endif>><<if $itemEffect is 2>><<set $miraPoisoning += random(6,18); $bellyBloat += ($maxBelly * 0.8); $calories += either(50,60,70,80,90,100,110,120,130,140,150); $bellyLiquid += 50; $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//strange...//''<<endif>><<if $itemEffect is 3>><<set $miraPoisoning += random(12,36); $bellyBloat = $maxBelly * 1.1; $calories += either(100,110,120,130,140,150,200,250); $bellyLiquid += 50; $pain += random(1,3); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//unwell...//''<<endif>><<endnobr>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+
+<<endnobr>><<if $itemEncounter is "jar of wild miratoxin">>You feel <<set $itemEffect = random(1,3); $mirajinRads += random(3,12)>><<nobr>><<if $itemEffect is 1>><<set $miraPoisoning += random(4,12); $bellyBloat += ($maxBelly * 0.5); $calories += either(30,40,50,60,70,80,90,100); $bellyLiquid += 50; $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//bloated...//''<<endif>><<if $itemEffect is 2>><<set $miraPoisoning += random(6,18); $bellyBloat += ($maxBelly * 0.8); $calories += either(50,60,70,80,90,100,110,120,130,140,150); $bellyLiquid += 50; $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//strange...//''<<endif>><<if $itemEffect is 3>><<set $miraPoisoning += random(12,36); $bellyBloat = $maxBelly * 1.1; $calories += either(100,110,120,130,140,150,200,250); $bellyLiquid += 50; $pain += random(1,3); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly">>''//unwell...//''<<endif>>
+
+	/% Side effects %/
+
+	<<set $randomizer = random(1,26)>>
+
+	/% High-mirajin venom %/
+	<<if $randomizer is 1>><<set $mirajinRads += random(60,300)>>
+
+	/% Extra potency venom %/
+	<<elseif $randomizer is 2>><<set $miraPoisoning += random(20,150)>>
+
+	/% High-calorie venom %/
+	<<elseif $randomizer is 3>><<set $calories += random(50,200)>>
+
+	/% Bloat venom %/
+	<<elseif $randomizer is 4>><<set $bellyBloat += ($maxBelly * random(0,5))>>
+
+	/% Fattenium venom %/
+	<<elseif $randomizer is 5>><<set $fatteniumPoisoning += either(10,20,30,40,50)>>
+
+	/% Oily venom %/
+	<<elseif $randomizer is 6>><<set $stretchMod += random(5,25); $leupoilToxicity += random(3,24); $calories += random(20,30,40,150)>>
+
+	/% Living venom %/
+	<<elseif $randomizer is 7>><<set $slimeBreastParasite = 1; $slimeBreastParaLoad += random(0,100); $slimeBellyParasite = 1; $slimeBellyParaLoad += random(0,200)>>
+
+	/% Healing venom %/
+	<<elseif $randomizer is 8>><<set $healVenom += random(0,64)>>
+
+	/% Caffeine venom %/
+	<<elseif $randomizer is 9>><<set $caffeinePoisoning = 1; $bonusEnergy += random(100,800)>>
+
+	/% Greed venom %/
+	<<elseif $randomizer is 10>><<set $esurience += either(0.1,0.2,0.5,1,2,3,5,10)>>
+
+	/% Were venom %/
+	<<elseif $randomizer is 11>><<set $leucanthropicVenom += random(0,64)>>
+
+	/% Weakening venom %/
+	<<elseif $randomizer is 12>><<set $weakeningVenom += random(0,64)>>
+
+	/% Breast Bloat venom %/
+	<<elseif $randomizer is 13>><<set $breastbloatVenom += random(0,64)>>
+
+	/% Burst venom %/
+	<<elseif $randomizer is 14>><<set $burstVenom += random(0,64)>>
+
+	/% Bulk venom %/
+	<<elseif $randomizer is 15>><<set $bulkVenom += random(0,12)>>
+
+	/% Musclebloat venom %/
+	<<elseif $randomizer is 16>><<set $musclebloatVenom += random(0,12)>>
+
+	/% Fattening venom %/
+	<<elseif $randomizer is 17>><<set $gainVenom += random(0,64)>>
+
+	/% Belly venom %/
+	<<elseif $randomizer is 18>><<set $bellygainVenom += random(0,64)>>
+
+	/% Breast venom %/
+	<<elseif $randomizer is 19>><<set $breastgainVenom += random(0,64)>>
+
+	/% Thigh venom %/
+	<<elseif $randomizer is 20>><<set $thighgainVenom += random(0,64)>>
+
+	/% Super-Fattening venom %/
+	<<elseif $randomizer is 21>><<set $supergainVenom += random(0,64)>>
+
+	/% Super-Belly venom %/
+	<<elseif $randomizer is 22>><<set $bellySupergainVenom += random(0,64)>>
+
+	/% Super-Breast venom %/
+	<<elseif $randomizer is 23>><<set $breastSupergainVenom += random(0,64)>>
+
+	/% Super-Thigh venom %/
+	<<elseif $randomizer is 24>><<set $thighSupergainVenom += random(0,64)>>
+
+	/% Overdose venom %/
+	<<elseif $randomizer is 25>><<set $miraPoisoning += $girth * random(1,5)>>
+
+	/% Worm venom %/
+	<<elseif $randomizer is 26>><<set $direParasite = 1; $direParaLoad += random(50,500)>>
+
+	<<endif>>
+<<endnobr>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+/% Fattenium-tainted water %/
+
+<<endnobr>><<if $itemEncounter is "pool of golden water">><<if $itemEffect is 0>><<set $itemEffect = random(1,3)>><<endif>>\
+You feel <<if $itemEffect is 1>><<set $bellyBloat += ($maxBelly * 0.6); $calories += either(200,250,300,350,400,450,500,550); $bellyLiquid += 50; $lethalKO = 1; $deathCause = "explosion">>''//bloated...//''<<endif>><<if $itemEffect is 2>><<set $fatteniumPoisoning += either(10,20,30,40,50); $bellyBloat += ($maxBelly * 0.8); $calories += either(500,550,600,650,700,750,800,850,900,950,1000); $bellyLiquid += 50; $lethalKO = 1; $deathCause = "explosion">>''//like a balloon...//''<<endif>><<if $itemEffect is 3>><<set $fatteniumPoisoning += either(50,60,70,80); $bellyBloat = $maxBelly * 1.1; $breastBloat += $breast; $bellyLiquid += 50; $pain += random(2,7); $lethalKO = 1; $deathCause = "explosion">>''//your skin tightening rapidly around your body...//''<<endif>><<display ExpandBodytype>>
+<<display Alertbox>>
+<<if $poolSize gte 1>><<button [[Drink more.|passage()][$repeatUse += 1; $poolSize -= 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<else>>The pool finally runs dry...<<endif>><<endif>><<nobr>>
+
+/% Dilute Fattenium Jar %/
+
+<<endnobr>><<if $itemEncounter is "jar of dilute fattenium">>\
+You feel <<set $itemEffect = random(1,3)>><<if $itemEffect is 1>><<set $bellyBloat += ($maxBelly * 0.6); $calories += either(200,250,300,350,400,450,500,550); $bellyLiquid += 50; $lethalKO = 1; $deathCause = "explosion">>''//bloated...//''<<endif>><<if $itemEffect is 2>><<set $fatteniumPoisoning += either(10,20,30,40,50); $bellyBloat += ($maxBelly * 0.8); $calories += either(500,550,600,650,700,750,800,850,900,950,1000); $bellyLiquid += 50; $lethalKO = 1; $deathCause = "explosion">>''//like a balloon...//''<<endif>><<if $itemEffect is 3>><<set $fatteniumPoisoning += either(50,60,70,80); $bellyBloat = $maxBelly * 1.1; $breastBloat += $breast; $bellyLiquid += 50; $pain += random(2,7); $lethalKO = 1; $deathCause = "explosion">>''//your skin tightening rapidly around your body...//''<<endif>><<display ExpandBodytype>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+/% Mirajinic Water %/
+
+<<endnobr>><<if $itemEncounter is "pool of pink water">>You grit your teeth as a chill dances down your spine...<<if $corruptionPercentage is 0>><<set $corruptionPercentage = either(20,50,80)>><<endif>>
+<<nobr>><<if $corruptionPercentage is 20>>
+''You feel a bit odd...''<<set $mutationStrength = either("subtle","subtle","subtle","none","minor"); $mirajinRads += random(1,24)>><<display MutationDatabase>><<elseif $corruptionPercentage is 50>>
+''You feel //very// odd..!''<<set $mutationStrength = either("subtle","minor","minor","major"); $mirajinRads += random(18,160)>><<display MutationDatabase>><<elseif $corruptionPercentage is 80>>
+''You feel intensely nervous..!''<<set $mutationStrength = either("minor","minor","major","major","severe"); $mirajinRads += random(80,350)>><<display MutationDatabase>><<endif>>
+<<endnobr>>
+<<display Alertbox>>
+<<if $poolSize gte 1>><<button [[Drink more.|passage()][$repeatUse += 1; $poolSize -= 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<elseif $poolSize lt 1>>The pool finally runs dry...<<endif>><<endif>><<nobr>>
+
+/% Dilute Miraplasm Jar %/
+
+<<endnobr>><<if $itemEncounter is "jar of dilute miraplasm">>You grit your teeth as a chill dances down your spine...<<if $corruptionPercentage is 0>><<set $corruptionPercentage = either(20,50,80)>><<endif>>
+<<nobr>><<if $corruptionPercentage is 20>>
+''You feel a bit odd...''<<set $mutationStrength = either("subtle","subtle","subtle","none","minor"); $mirajinRads += random(1,24)>><<display MutationDatabase>><<elseif $corruptionPercentage is 50>>
+''You feel //very// odd..!''<<set $mutationStrength = either("subtle","minor","minor","major"); $mirajinRads += random(18,160)>><<display MutationDatabase>><<elseif $corruptionPercentage is 80>>
+''You feel intensely nervous..!''<<set $mutationStrength = either("minor","minor","major","major","severe"); $mirajinRads += random(80,350)>><<display MutationDatabase>><<endif>><<endnobr>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+/% Shining Water %/
+
+<<endnobr>><<if $itemEncounter is "pool of shining water">>
+You feel soothed by the crystalline, gently-glowing waters! <<set $miraPoisoning -= random(1,6); $mirajinRads -= random(2,4); $pain -= random(10,30)>>
+<<if $poolSize gte 1>><<button [[Drink more.|passage()][$repeatUse += 1; $poolSize -= 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<elseif $poolSize lt 1>>The pool finally runs dry...<<endif>><<endif>><<nobr>>
+
+/% Vital Water Jar %/
+
+<<endnobr>><<if $itemEncounter is "jar of vital water">>
+You feel soothed by the crystalline, gently-glowing waters! <<set $miraPoisoning -= random(1,6); $mirajinRads -= random(2,4); $pain -= random(10,30)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+/% Dirty Water %/
+
+<<endnobr>><<if $itemEncounter is "pool of dirty water">>
+You feel uneasy drinking this tainted-tasting water... <<set $stomachBug = either(0,1); $pain -= random(0,3); $nuclearRads += random(2,8)>>/%(TODO: parasite call passage)%/
+<<if $poolSize gte 1>><<button [[Drink more.|passage()][$repeatUse += 1; $poolSize -= 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<elseif $poolSize lt 1>>The pool finally runs dry...<<endif>><<endif>><<nobr>>
+
+/% Dirty Water Jar %/
+
+<<endnobr>><<if $itemEncounter is "jar of dirty water">>
+You feel uneasy drinking this tainted-tasting water... <<set $stomachBug = either(0,1); $pain -= random(0,3); $nuclearRads += random(1,12)>>/%(TODO: parasite call passage)%/
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+/% Boiling Pools %/
+
+<<endnobr>><<if ($itemEncounter is "pool of boiling oil") or ($itemEncounter is "pool of boiling water")>>
+<redalert>''The moment your flesh touches the boiling liquid, you grasp the severity of your error! You cry out in pain as you burn your hand!''</redalert><<set $pain += random(15,35); $lethalKO = 0>><<endif>><<nobr>>
+
+/%  Blood %/
+
+<<endnobr>><<if $itemEncounter is "pool of dark red ichor">>
+Your mouth feels odd as you drink the strange, coppery-tasting liquid...<<set $stomachBug = either(0,1); $calories += either(10,20,30)>>/%(TODO: benefits for leupai & vampires, disease for humanoids)%/
+<<display Alertbox>>
+<<if $poolSize gte 1>><<button [[Drink more.|passage()][$repeatUse += 1; $poolSize -= 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<elseif $poolSize lt 1>>The pool finally runs dry...<<endif>><<endif>><<nobr>>
+
+/% Blood Jar %/
+
+<<endnobr>><<if $itemEncounter is "jar of blood">>
+Your mouth feels odd as you drink the strange, coppery-tasting liquid...<<set $stomachBug = either(0,1); $calories += either(10,20,30)>>/%(TODO: benefits for leupai & vampires, disease for humanoids)%/
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+/% Leupai Blood %/
+
+<<endnobr>><<if $itemEncounter is "pool of shimmering blue ichor">>
+Your mouth feels odd as you drink the strange, thick liquid...''Your belly feels a little bit more elastic!''<<set $stretchMod += 5; $leupoilToxicity += random(1,6); $calories += either(30,40,50,60,70,80,90); $miraPoisoning += random(1,8)>>
+<<display Alertbox>>
+<<if $poolSize gte 1>><<button [[Drink more.|passage()][$repeatUse += 1; $poolSize -= 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<elseif $poolSize lt 1>>The pool finally runs dry...<<endif>><<endif>><<nobr>>
+
+/% Leupai Blood Jar %/
+
+<<endnobr>><<if $itemEncounter is "jar of leupai blood">>
+Your mouth feels odd as you drink the strange, thick liquid...''Your belly feels a little bit more elastic!''<<set $miraPoisoning += random(1,6); $stretchMod += 5; $leupoilToxicity += random(1,6); $calories += either(30,40,50,60,70,80,90); $miraPoisoning += random(1,8)>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+/% Liquid Fattenium %/
+
+<<endnobr>><<if $itemEncounter is "pool of golden oil">>\
+You cry out, ''trembling as you feel your skin instantly beginning to bulge! <<set $fatteniumCascade = 1>>You feel ''<<if $itemEffect is 1>><<set $fatteniumPoisoning += random(80,150); $bellyBloat = $maxBelly * 1.5; $breastBloat += $maxBreast * 1.5; $bellyLiquid += 50; $pain += random(5,10); $lethalKO = 1; $deathCause = "explosion">><<display FatSurge>><<display FatSurge>><<display FatSurge>>''//like a balloon...//''<<endif>><<if $itemEffect is 2>><<set $fatteniumPoisoning += random(100,220); $bellyBloat = $maxBelly * 2; $breastBloat += $maxBreast * 5; $bellyLiquid += 50; $pain += random(8,12); $lethalKO = 1; $deathCause = "explosion">><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>''//like a blimp...//''<<endif>><<if $itemEffect is 3>><<set $fatteniumPoisoning += random(200,300); $bellyBloat = $maxBelly * 5; $breastBloat += $maxBreast * 5; $bellyLiquid += 50; $pain += random(12,18); $lethalKO = 1; $deathCause = "explosion">><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>''//like you're going to explode!//''<<endif>><<display ExpandBodytype>>
+<<display Alertbox>>
+<<if $poolSize gte 1>><<button [[Drink more.|passage()][$repeatUse += 1; $poolSize -= 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<elseif $poolSize lt 1>>The pool finally runs dry...<<endif>><<endif>><<nobr>>
+
+/% Liquid Fattenium Jar %/
+
+<<endnobr>><<if $itemEncounter is "jar of fattenium">>\
+You cry out, ''trembling as you feel your skin instantly beginning to bulge! <<set $itemEffect = random(1,3); $fatteniumCascade = 1>>You feel ''<<if $itemEffect is 1>><<set $fatteniumPoisoning += random(80,150); $bellyBloat = $maxBelly * 1.5; $breastBloat += $maxBreast * 2; $bellyLiquid += 50; $pain += random(5,10); $lethalKO = 1; $deathCause = "explosion">><<display FatSurge>><<display FatSurge>><<display FatSurge>>''//like a balloon...//''<<endif>><<if $itemEffect is 2>><<set $fatteniumPoisoning += random(100,220); $bellyBloat = $maxBelly * 2; $breastBloat += $maxBreast * 5; $bellyLiquid += 50; $pain += random(8,12); $lethalKO = 1; $deathCause = "explosion">><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>''//like a blimp...//''<<endif>><<if $itemEffect is 3>><<set $fatteniumPoisoning += random(200,300); $bellyBloat = $maxBelly * 2.5; $breastBloat += $maxBreast * 5; $bellyLiquid += 50; $pain += random(12,18); $lethalKO = 1; $deathCause = "explosion">><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>''//like you're going to explode!//''<<endif>><<display ExpandBodytype>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+/% Nuclear goo %/
+
+<<endnobr>><<if $itemEncounter is "pool of glowing green goo">>
+<redalert>''The moment your flesh touches the glowing liquid, you grasp the severity of your error! You cry out in pain as you burn your hand badly! //You suddenly feel INCREDIBLY ill!//''/%(TODO: rad sickness)%/</redalert><<set $pain += random(30,110); $nuclearRads += random(300,1100); $lethalKO = 1; $deathCause = "radiation">><<endif>><<nobr>>
+
+/% Null Starblood / Lava %/
+
+<<endnobr>><<if ($itemEncounter is "pool of glowing teal ichor") or ($itemEncounter is "pool of glowing blue ichor") or ($itemEncounter is "pool of molten orange goo") or ($itemEncounter is "pool of molten red goo") or ($itemEncounter is "pool of molten blue goo")>>
+<redalert>''The moment your flesh touches the glowing liquid, you grasp the severity of your error! You cry out in pain as you burn your hand badly!''</redalert><<set $pain += random(40,65); $lethalKO = 1; $deathCause = "agony">><<endif>><<nobr>>
+
+/% Miraplasm %/
+
+<<endnobr>><<if $itemEncounter is "pool of glowing magenta goo">><redalert>''The moment your flesh touches the glowing liquid, you grasp the severity of your error!''</redalert><<set $mutationStrength = "severe"; $mirajinRads += random(950,1250)>>
+<<display MutationDatabase>><<endif>><<nobr>>
+
+/% Vitae %/
+
+<<endnobr>><<if ($itemEncounter is "pool of glowing teal goo")  or ($itemEncounter is "pool of molten teal goo")>><redalert>''The moment your flesh touches the glowing liquid, you grasp the severity of your error!
+You scream in unimaginable agony as the vitae courses through your bloodstream, dissolving you into little more than a puddle of sizzling ichor and a distant memory...''</redalert>/%(TODO: vitae soulsickness)%/<<set $blackout = 1; $lethalKO = 1; $deathCause = "vitae annihilation"; $pain += $maxPain * 10>><<endif>><<nobr>>
+
+/% Vitae Jar %/
+
+<<endnobr>><<if $itemEncounter is "jar of vitae">><redalert>''The moment your flesh touches the glowing liquid, you grasp the severity of your error!
+You scream in unimaginable agony as the vitae courses through your bloodstream, dissolving you into little more than a puddle of sizzling ichor and a distant memory...''</redalert>/%(TODO: vitae soulsickness)%/<<set $blackout = 1; $lethalKO = 1; $deathCause = "vitae annihilation"; $pain += $maxPain * 10>>
+<<set $special_jar += 1>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>><<nobr>>
+
+
+/% ==================================== %/
+/% Living & Static Items %/
+
+
+/% Honeygorger & Fairyhawk trees %/
+
+<<endnobr>><<if $itemEncounter is "hollow tree">>
+<<if $itemEffect is 1>>''It's positively //dripping// with honeybutter!''
+
+You gather what you can for later, quickly enjoying a few handfuls before continuing on your way.
+There's no telling when the occupants will return, after all...<<set $calories += random(40,80); $bellyBloat = either(20,30,40,50); $bellyLiquid = 50; $collectionjar_honeybutter += 1; $bonusEnergy += 60; $esurience += random(0.5,1); $randomizer = random(0,5)>><<if $randomizer is 1>>
+
+Before you leave, ''you spot a blob of glittering, translucent goo in the heart of the tree. Royal jelly!''
+You carefully gather your prize and head along on your way before the hive returns.<<set $collectionjar_gorgerjelly += 1>>
+<<endif>><<nobr>>
+
+<<endnobr>>\
+<<elseif $itemEffect is 2>>''It's full of honeygorgers!''
+
+You jump backwards, startled by the mass of insects busily making, storing, and transporting honeybutter throughout the tree. They don't seem angry-- but, they //are// curious, several taking flight in order to buzz appraising circles around you.
+
+Before you can react, ''they land on you, climbing onto your face and happily beginning to pump your mouth full of as much honeybutter as it can hold.''
+You're afraid to swat them away or move too sharply, and so you stand there, drinking as quickly as you can as the little creatures feed you, deflating and flying away to fetch more in shifts.
+''Your belly swells rounder, heavier, and tighter as the moments pass'', your knees aching as you hold as still as you can.
+
+Mercifully, the honeygorgers finally seem to lose interest in you, returning to their work and leaving you stuffed with honey.<<set $calories += random(200,500); $bellyBloat = ($maxBelly * 1.2); $bellyLiquid = $bellyBloat; $bonusEnergy += 150; $pain += random(1,3); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly"; $esurience += random(1,3)>><<nobr>>
+
+<<endnobr>>\
+<<elseif $itemEffect is 3>>It's quite dark; you lean in closer for a better look... ''leaping back with a startled yell as a cloud of fairyhawks come buzzing out at you!''
+They're not happy about your intrusion, and they let you know in short order-- ''clinging to your belly and sides and injecting you with a generous amount of venom!''
+
+Trembling, you shoo them away as quickly as you can before fleeing, your heart pounding as the stings go numb.
+They don't seem to be in pursuit, but ''there's no telling what's going to happen to you now...''<<nobr>>
+
+<<set $randomizer = random(1,41); $pain += random(20,40)>>
+
+/% Fairyhawk venom effects %/
+
+/% Fattenium Venom %/
+<<if $randomizer is 1>><<set $fatteniumPoisoning += either(500,600,700,800,900,1000,1200,1300,1500,2000)>>
+
+/% Somnus Venom %/
+<<elseif $randomizer is 2>><<set $miraPoisoning += random(5,14); $somniation += random(3,8)>>
+
+/% Miratoxic Venom %/
+<<elseif $randomizer is 3>><<set $miraPoisoning += random(8,65)>>
+
+/% Miraberry Venom %/
+<<elseif $randomizer is 4>><<set $miraberryToxicity += random(12,64)>>
+
+/% Mushroom Venom %/
+<<elseif $randomizer is 5>><<set $mushroomToxicity += random(12,64)>>
+
+/% Calorie Venom %/
+<<elseif $randomizer is 6>><<set $calpowderToxicity += random(12,64)>>
+
+/% Gainer Venom %/
+<<elseif $randomizer is 7>><<set $gainerToxicity += random(12,64)>>
+
+/% Leupai Oil Venom %/
+<<elseif $randomizer is 8>><<set $leupoilToxicity += random(12,64)>>
+
+/% Instant Fattener Venom %/
+<<elseif $randomizer is 9>><<set $breastfatteniumToxicity += random(12,64)>>
+
+<<elseif $randomizer is 10>><<set $bellyfatteniumToxicity += random(12,64)>>
+
+<<elseif $randomizer is 11>><<set $thighfatteniumToxicity += random(12,64)>>
+
+/% Deflation Venom %/
+<<elseif $randomizer is 12>>
+<<set $deflaToxicity += random(12,64)>>
+
+/% Inflation Venom %/
+<<elseif $randomizer is 13>><<set $inflaToxicity += random(12,64)>>
+
+/% Helenic Venom %/
+<<elseif $randomizer is 14>><<set $helenoToxicity += random(12,64)>>
+
+/% Slime Venom %/
+<<elseif $randomizer is 15>><<set $slimeBellyParaLoad += either(50,100,150,200,250); $bellyLiquid += either(50,100,150,200,250)>>
+
+<<elseif $randomizer is 16>><<set $slimeBreastParaLoad += either(50,100,150,200,250); $breastBloat += either(50,100,150,200,250)>>
+
+/% Caffeine Venom %/
+<<elseif $randomizer is 17>><<set $caffeineToxicity += random(30,64)>>
+
+/% Toxic Venom %/
+<<elseif $randomizer is 18>><<set $toxicVenom += random(5,80)>>
+
+/% Lethal Venom %/
+<<elseif $randomizer is 19>><<set $lethalVenom += random(5,80)>>
+
+/% Gain Venom %/
+<<elseif $randomizer is 20>><<set $gainVenom += random(5,80)>>
+
+/% Supergain Venom %/
+<<elseif $randomizer is 21>><<set $supergainVenom += random(5,80)>>
+
+/% Belly Gain Venom %/
+<<elseif $randomizer is 22>><<set $bellygainVenom += random(5,80)>>
+
+/% Belly Supergain Venom %/
+<<elseif $randomizer is 23>><<set $bellySupergainVenom += random(5,80)>>
+
+/% Breast Gain Venom %/
+<<elseif $randomizer is 24>><<set $breastgainVenom += random(5,80)>>
+
+/% Breast Supergain Venom %/
+<<elseif $randomizer is 25>><<set $breastSupergainVenom += random(5,80)>>
+
+/% Thigh Gain Venom %/
+<<elseif $randomizer is 26>><<set $thighgainVenom += random(5,80)>>
+
+/% Thigh Supergain Venom %/
+<<elseif $randomizer is 27>><<set $thighSupergainVenom += random(5,80)>>
+
+/% Fattenium Venom %/
+<<elseif $randomizer is 28>><<set $fatteniumVenom += random(5,80)>>
+
+/% Bulk Venom %/
+<<elseif $randomizer is 29>><<set $bulkVenom += random(5,80)>>
+
+/% Musclebloat Venom %/
+<<elseif $randomizer is 30>><<set $musclebloatVenom += random(5,80)>>
+
+/% Flabbifying Venom %/
+<<elseif $randomizer is 31>><<set $flabbyVenom += random(5,80)>>
+
+/% Bloat Venom %/
+<<elseif $randomizer is 32>><<set $bloatVenom += random(5,80)>>
+
+/% Breast Bloat Venom %/
+<<elseif $randomizer is 33>><<set $breastbloatVenom += random(5,80)>>
+
+/% Bursting Venom %/
+<<elseif $randomizer is 34>><<set $burstVenom += random(5,80)>>
+
+/% Healing Venom %/
+<<elseif $randomizer is 35>><<set $healVenom += random(5,80)>>
+
+/% Weakening Venom %/
+<<elseif $randomizer is 36>><<set $weakeningVenom += random(5,80)>>
+
+/% Voracity Venom %/
+<<elseif $randomizer is 37>><<set $gluttonVenom += random(5,80)>>
+
+/% Caloric Venom %/
+<<elseif $randomizer is 38>><<set $caloricVenom += random(5,80)>>
+
+/% Hallucenogenic Venom %/
+<<elseif $randomizer is 39>><<set $hallucenoVenom += random(5,80)>>
+
+/% Mutagenic Venom %/
+<<elseif $randomizer is 40>><<set $mutagenVenom += random(5,80)>>
+
+/% Leucanthropic Venom %/
+<<elseif $randomizer is 41>><<set $leucanthropicVenom += random(5,80)>>
+
+/% Esque Venom %/
+<<elseif $randomizer is 42>><<set $esqueVenom += random(5,80)>>
+
+/% Noxious Venom %/
+<<elseif $randomizer is 42>><<set $noxiousVenom += random(5,80)>>
+
+
+/% Add other types of venom based on various drugs and chemicals. Fairyhawks are immune to all of them, but consume them and use them as venom. %/
+
+<<endif>><<endnobr>>\
+<<elseif $itemEffect is 4>>You creep closer, giving the tree a cursory glance. Nothing seems particularly spec--
+
+The moment you drop your guard, ''a frighteningly large tangle of thick vines shoot out from the hollow trunk'', grabbing hold of your limbs and coiling tightly beneath your belly as several ends press themselves firmly into your mouth.
+The tree is teeming with ''tendrilvines''-- and now that they have you tightly bound, the cluster sets to work pumping your mouth full of their thick, sweet sap, your gut bulging as it rapidly inflates!
+
+You squirm in desperation to break free, but it's to no avail.
+The dense, powerful tendrils force ''gallon after gallon of sugary syrup down your throat, leaving you struggling as your midsection expands into a grotesquely-distended, perfectly round sphere.'' You feel somewhat drowsy, even as you try in vain to spit out the vines...
+
+But at last, they suddenly begin to unravel, loosening their hold as your blimplike stomach finally grows too immense for the vines to cling to.
+Unceremoniously, the tendrilvines ''drop you'', leaving you sprawled on the ground, wobbling and sore as they retreat back into the darkness of the hollow tree.
+<<set $bellyBloat = ($maxBelly * 3); $bellyLiquid = $bellyBloat; $calories += random(300,1500); $bonusEnergy += random(300,1500); $belly += random(0,100); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly"; $esurience += either(0,0,0.2,0.5,1,3)>><<nobr>>
+
+<<endnobr>><<endif>><<endif>><<nobr>>
+
+
+/% ==================================== %/
+/% Puffbelly Mushroom %/
+
+<<endnobr>><<if $itemEncounter is "puffbelly mushroom">><<set $randomizer = random(1,6); $belly += either(0,0,0,0,0.5,1)>>
+You kneel to remove the mushroom from the soil-- ''and it releases a cloud of sweet-smelling spores right into your face!''
+Coughing, you pause to wave them away into the air, then carefully put the mushroom away.<<set $produce_puffshroom += 1>><<if $randomizer is 1>>
+
+''You find a squishy, unripe puffbelly full of weird goop nearby and decide to take it with you, too.'' It might be good for something...<<set $special_puffbelly_ichor += 1>><<endif>><<endif>><<nobr>>
+
+/% ==================================== %/
+/% Black Ichor Potion %/
+
+
+<<endnobr>><<if $itemEncounter is "black ichor potion">><<set $belly += random(20,60); $bellyBloat += $maxBelly * 2; $miracoSpores += 200>>
+You gag and choke as the sickly-sweet fungal goo slicks down your throat.
+''As your belly begins to bloat and pulse and your mind slowly fogs, you realize you've made a terrible mistake....''<<endif>><<nobr>>
+
+
+/% ==================================== %/
+
+/% ==================================== %/
+/% Mystery potion end code %/
+
+<<if $mysteryPotioned is 1>><<set $itemEncounter = "mysterious potion"; $mysteryPotioned = 0>><<endif>>
+
+<<endnobr>></center>

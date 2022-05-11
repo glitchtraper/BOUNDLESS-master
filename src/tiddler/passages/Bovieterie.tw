@@ -1,0 +1,132 @@
+﻿You walk into the building to find an array of pens-- many occupied by a variety of different humanoid creatures, all with breasts swollen into ludricrous size and some in the process of being milked by machines made for the purpose.
+Some bloat-bellied leupai have settled into pens of their own as well, their brightly-colored venom being collected by similar machines.
+<<nobr>>
+
+<<if $mannedShop is 0>>
+
+<<display RevecroixRandomizer>>
+
+<<set $boviet = $randomRevecroix; $mannedShop = 1; $bovietDesc = either("sleek","plump","round","fat","blubbery","busty","blubber-stuffed","blimplike","gelatinous"); $bovietVoice = either("singsong","cheery","chirpy","gruff","warbling","shrill","deep","rich","melodic","honeyed","smooth","silky"); $bovieterieOffering = either(20,25,30,35,40,45,50); $bovieterieAsking = either(50,60,70,80,90,100,110,120,130,140,150)>>
+
+
+/% Do shop item setup. Probably have to make a set of curated shop pools, and assign each one a number. %/
+
+<<set $sellPool = random(1,3)>>
+<<if $sellPool gte 2>><<set $sellSubset = random(1,4)>><<endif>><<endif>>
+
+
+<<endnobr>><<if $service is 0>>
+A <<print $bovietDesc>> <<print $boviet>> waddles up to greet you with a smile.
+<<if $storedMilk gt 10>>"Need those taken care of?" It gestures pointedly at your chest.<<elseif $storedVenom gt 10>>"Need that taken care of?" It gestures pointedly at your protruding belly.<<else>>"What can I do for you-- in the market for some milk or venom, or just having a look around?"<<endif>><<endif>>
+<<nobr>>
+
+<<endnobr>><<if $service is 1>>"Alright-- follow me, please!"
+The //boviet// takes you to an empty stall, equipped with a milking machine, as well as the fattest <<print either("red","blue","purple","black","white","orange")>> bellychair you've ever seen, which the <<print $boviet>> invites you to take a seat upon before hooking you up to the machinery and turning it on.
+
+It pumps your full breasts firmly and rather pleasantly, and before long the rhythmic massage has you nodding off to sleep.
+
+"All done," says the <<print $boviet>>, gently nudging you awake with an offered bottle of your own fresh milk, along with a complimentary buttercake. "Thank you!"
+<<set $calories += $milkFat + 30; $bonusEnergy += 50; $service = 0; $randomizer = random(1,36)>><<nobr>>
+
+<<if $randomizer is 1>><<set $milkRate += 1>><<endif>>
+
+<<endnobr>><<elseif $service is 2>>"Alright-- follow me, please!"
+The //boviet// takes you to an empty stall, equipped with a milking machine, as well as the fattest <<print either("red","blue","purple","black","white","orange")>> bellychair you've ever seen, which the <<print $boviet>> invites you to take a seat upon before hooking you up to the machinery and turning it on.
+
+Your insides feel //strange// as the machine gently, rhythmically pumps your venom out and into a collection chamber.
+<<nobr>>
+
+/% Venom type bonuses %/
+
+/% Gain venoms; +10 %/
+<<if ($playerVenom is "fattening") or ($playerVenom is "bellyfattening") or ($playerVenom is "breastfattening") or ($playerVenom is "thighfattening") or ($playerVenom is "bulking")>>
+	<<if $bovPortion is 1>><<set $food += 10>>
+	<<elseif $bovPortion is 10>><<set $food += 100>>
+	<<else>><<set $food += ($bovPortion * 10)>><<endif>>
+
+/% Super Gain venoms; +15 %/
+<<elseif ($playerVenom is "superfattening") or ($playerVenom is "superbellyfattening") or ($playerVenom is "superbreastfattening") or ($playerVenom is "superthighfattening") or ($playerVenom is "fattenium") or ($playerVenom is "flabbifying")>>
+	<<if $bovPortion is 1>><<set $food += 15>>
+	<<elseif $bovPortion is 10>><<set $food += 150>>
+	<<else>><<set $food += ($bovPortion * 15)>><<endif>>
+
+/% Bloat & Voracity venoms; +5 %/
+<<elseif ($playerVenom is "bloating") or ($playerVenom is "breastbloating") or ($playerVenom is "bursting") or ($playerVenom is "gluttonous")>>
+	<<if $bovPortion is 1>><<set $food += 5>>
+	<<elseif $bovPortion is 10>><<set $food += 50>>
+	<<else>><<set $food += ($bovPortion * 5)>><<endif>>
+
+/% Lethal & Healing venoms; +20 %/
+<<elseif ($playerVenom is "toxic") or ($playerVenom is "lethal") or ($playerVenom is "healing")>>
+	<<if $bovPortion is 1>><<set $food += 20>>
+	<<elseif $bovPortion is 10>><<set $food += 200>>
+	<<else>><<set $food += ($bovPortion * 20)>><<endif>>
+
+<<endif>>
+
+/% Universal Miratoxin bonus; +3 %/
+
+<<if $leupaiFlag is 1>>
+	<<if $bovPortion is 1>><<set $food += 3>>
+	<<elseif $bovPortion is 10>><<set $food += 30>>
+	<<else>><<set $food += ($bovPortion * 3)>><<endif>>
+
+
+<<endif>>
+
+/% Setup venom names, if they haven't been set before now %/
+
+<<if $playerVenomDesc is 0>>
+
+<<if $playerVenom is "bellyfattening">><<set $playerVenomDesc = "belly-fattening">>
+<<elseif $playerVenom is "breastfattening">><<set $playerVenomDesc = "breast-fattening">>
+<<elseif $playerVenom is "thighfattening">><<set $playerVenomDesc = "thigh-fattening">>
+<<elseif $playerVenom is "superfattening">><<set $playerVenomDesc = "super-fattening">>
+<<elseif $playerVenom is "superbellyfattening">><<set $playerVenomDesc = "super belly-fattening">>
+<<elseif $playerVenom is "superbreastfattening">><<set $playerVenomDesc = "super breast-fattening">>
+<<elseif $playerVenom is "superthighfattening">><<set $playerVenomDesc = "super thigh-fattening">>
+<<elseif $playerVenom is "breastbloating">><<set $playerVenomDesc = "breast-bloating">>
+<<elseif $playerVenom is "gluttonous">><<set $playerVenomDesc = "voracity">>
+<<else>><<set $playerVenomDesc = $playerVenom>><<endif>>
+
+<<endif>>
+
+
+<<endnobr>>
+"All done, dear," says the <<print $boviet>> finally, offing a complimentary bottle of fresh milk and a buttercake. "Ah, ''<<print $playerVenomDesc>> <<if $leupaiFlag is 1>>miratoxin<<else>>venom<<endif>>''. Excellent. Thank you!"
+<<set $calories += 50; $bonusEnergy += 50; $service = 0; $randomizer = random(1,36)>><<nobr>>
+
+<<if $randomizer is 1>><<set $venomProd += 1>><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+
+<<endnobr>><center><framed>__''<<print $location>> of <<print $locName>> Bovieterie''__
+
+<framed>__''RATES''__
+__''BUYING MILK:''__ <<print $bovieterieOffering>>~~consiee~~ / serving ~~(+ bonus for extra fat)~~
+__''BUYING VENOM:''__ <<print $bovieterieOffering * 1.5>>~~consiee~~ / portion
+''__Venom Bonuses__ ~~(Per Portion)~~''
+''All Miratoxins:'' +3~~consiee~~
+''Gain Venoms:'' +10~~consiee~~
+''Super Gain Venoms:'' +15~~consiee~~
+''Bloat & Voracity Venoms: '' +5~~consiee~~
+''Lethal & Healing Venoms:'' +20~~consiee~~
+<mini>
+//We offer a Complimentary venom-identification service//</mini></framed>
+<<nobr>>
+<<if $storedMilk gte 10>><<button [[Sell milk.|passage()][$service = 1; $food += $bovieterieOffering + (($milkFat - 10) / 10)]]>><<endif>>
+<<if $storedMilk gte 100>><<button [[Sell milk. (x10)|passage()][$service = 1; $food += ($bovieterieOffering * 10) + ($milkFat - 10)]]>><<endif>>
+<<if $storedMilk gte 10>><<button [[Sell milk. (All)|passage()][$service = 1; $food += ($bovieterieOffering * ($storedMilk / 10)) + (($milkFat - 10) * ($storedMilk / 10)); $food = Math.round($food); $storedMilk = 0]]>><<endif>>
+
+<<if $storedVenom gte 10>><<button [[Sell venom.|passage()][$service = 2; $food += ($bovieterieOffering * 1.5); $bovPortion = 1; $storedVenom -= 10]]>><<endif>>
+<<if $storedVenom gte 100>><<button [[Sell venom. (x10)|passage()][$service = 2; $food += (($bovieterieOffering * 1.5) * 10); $bovPortion = 10; $storedVenom -= 100]]>><<endif>>
+<<if $storedVenom gte 10>><<button [[Sell venom. (All)|passage()][$service = 2; $food += (($bovieterieOffering * 1.5) * ($storedVenom / 10)); $bovPortion = ($storedVenom / 10); $bovPortion = Math.round($bovPortion); $storedVenom = 0]]>><<endif>>
+
+/% =============================================================== %/
+/% Item sale pool; randomly chosen at entry %/
+
+<<display BovieteShop>>
+
+<<endnobr>></framed>
+<<button [[Leave.|$saveStateEncounter][$sellPool = 0; $sellSubset = 0; $itemPool = 0; $bovPortion = 0; $encounterPool = 0; $mannedShop = 0; $service = 0; $bulk = 0; $explore = 3; $indoorZone = 0; $dungeonType = 0; $justLeftType = "area"; $justLeft = "Bovieterie"; $stepcounter = 1; $stepsCounted = 0; $location = $saveBiome]]>></center>

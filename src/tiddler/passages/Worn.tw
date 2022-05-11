@@ -1,0 +1,113 @@
+﻿/%
+
+A body grid that displays and allows removal of worn clothing.
+
+%/<center><midframe>__''WEARING''__
+<<nobr>>
+
+/% ===========[ HEAD ]=========== %/
+
+[''Head:'' <<if $headColor neq 0>><<print $headColor>> <<endif>>
+
+<<print $headWorn>>
+
+<<if $headWorn neq "nothing">> ''[[x|passage()][$storing = 1; $itemEncounter = $headWorn; $headColor = 0; $headWorn = "nothing"]]'' <<endif>>
+
+]
+
+/% ===========[ FACE ]=========== %/
+
+[''Face:'' <<if $faceColor neq 0>><<print $faceColor>> <<endif>>
+
+<<print $faceWorn>>
+
+<<if $faceWorn neq "nothing">> ''[[x|passage()][$storing = 1; $itemEncounter = $faceWorn; $faceColor = 0; $faceWorn = "nothing"]]'' <<endif>>
+
+]
+<<endnobr>>
+<<nobr>>
+
+/% ===========[ BODY ]=========== %/
+
+/% Stretchable garment
+	Affected by: Breast & Belly %/
+
+[''Top:'' <<if $topColor neq 0>><<print $topColor>> <<endif>>
+
+
+<<print $topWorn>>
+
+
+<<if $topWorn neq "nothing">> (<<print $topStatus>>)
+
+
+<<if $topCursed is 0>> ''[[x|passage()][$storing = 1; $itemEncounter = $topWorn; $topColor = 0; $topBurst = 0; $topElasticityStatus = 0; $topWorn = "nothing"; $topElasticity = 0; $topElasticityMax = 0]]'' <<endif>><<endif>>
+
+
+]
+<<endnobr>>
+<<nobr>>
+
+/% ===========[ ARMS ]=========== %/
+
+[''Arms:'' <<if $armColor neq 0>><<print $armColor>> <<endif>><<print $armWorn>>
+
+<<if $armWorn neq "nothing">> ''[[x|passage()][$storing = 1; $itemEncounter = $armWorn; $armColor = 0; $armWorn = "nothing"]]'' <<endif>>
+
+]
+
+
+/% ===========[ BACK ]=========== %/
+
+[''Back:'' <<if $backColor neq 0>><<print $backColor>> <<endif>><<print $backWorn>>
+
+<<if $backWorn neq "nothing">> ''[[x|passage()][$storing = 1; $itemEncounter = $backWorn; $backColor = 0; $backWorn = "nothing"]]'' <<endif>>
+
+]
+<<endnobr>>
+<<nobr>>
+
+/% ===========[ BELT ]=========== %/
+
+/% Stretchable garment
+	Affected by: Belly %/
+
+[''Belt:''
+
+<<if $beltColor neq 0>><<print $beltColor>> <<endif>><<print $beltWorn>>
+
+<<if $beltWorn neq "nothing">> (<<print $beltStatus>>)
+
+<<if $beltCursed is 0>> ''[[x|passage()][$storing = 1; $itemEncounter = $beltWorn; $beltColor = 0; $beltBurst = 0; $beltElasticityStatus = 0; $beltWorn = "nothing"; $beltElasticity = 0; $beltElasticityMax = 0]]'' <<endif>><<endif>>
+
+]
+
+
+/% ===========[ LEGS ]=========== %/
+
+/% Stretchable garment
+	Affected by: Thighs %/
+
+[''Bottoms:''
+
+<<if $pantsColor neq 0>><<print $pantsColor>> <<endif>><<print $pantsWorn>>
+
+<<if $pantsWorn neq "nothing">> (<<print $pantsStatus>>)
+
+
+<<if $pantsCursed is 0>>''[[x|passage()][$storing = 1; $itemEncounter = $pantsWorn; $pantsColor = 0; $pantsBurst = 0; $pantsElasticityStatus = 0; $pantsWorn = "nothing"; $pantsElasticity = 0; $pantsElasticityMax = 0]]'' <<endif>><<endif>>
+
+]
+<<endnobr>>
+<<nobr>>
+
+/% ===========[ FEET ]=========== %/
+
+[''Feet:'' <<if $feetColor neq 0>><<print $feetColor>> <<endif>><<print $feetWorn>>
+
+<<if $feetWorn neq "nothing">> ''[[x|passage()][$storing = 1; $itemEncounter = $feetWorn; $feetColor = 0; $feetWorn = "nothing"]]'' <<endif>>
+
+]
+
+
+<<endnobr>><<display SetBonuses>></midframe></center>

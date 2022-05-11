@@ -1,0 +1,364 @@
+﻿/% ========== BIOME COLOR DATABASE ==========  %/
+
+
+/% naturalColorpool (in CreatureDatabase) turned to 1 designates that a creature has a chance to generate its color based on the biome instead of that species' innate set. Randomizing this (either 0,1) can set a likelihood of using biome-set colors or species default colors.
+
+A variable for color pools by biome still needs to be set up to determine that and send it where needed. %/
+
+
+/% Here, each biome is assigned a set of colors here to choose for use on creatures who can take up biome-specific colors. %/
+
+/% ========================================== %/
+
+/% ====================[ Overworld %/
+
+<<if $location is "Meadow">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","red","brown","brown","brown","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Field">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","golden","brown","brown","brown","brown","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Highlands">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","golden","orange","orange","red","red","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Clearing">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","red","brown","brown","brown","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Forest">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","red","brown","brown","brown","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Woods">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","red","brown","brown","brown","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Deep Forest">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","red","brown","brown","brown","gray","gray","gray","white","indigo","black","black")>>
+
+<<elseif $location is "Deep Woods">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","red","brown","brown","brown","gray","gray","gray","white","indigo","black","black")>>
+
+<<elseif $location is "Jungle">>
+
+<<set $biomeCreatureColor = either("pink","yellow","yellow","golden","golden","golden","golden","golden","brown","brown","gray","gray","gray","white","indigo","black")>>
+
+<<elseif $location is "Rainforest">>
+
+<<set $biomeCreatureColor = either("pink","yellow","yellow","golden","golden","golden","golden","golden","brown","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Farms">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","red","brown","brown","brown","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Pasture">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","golden","orange","orange","red","red","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Plains">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","golden","orange","orange","red","red","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Valley">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","golden","orange","orange","red","red","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Scrublands">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","golden","orange","orange","red","red","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Canyon">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","golden","orange","orange","red","red","brown","brown","gray","gray","gray","white","black")>>
+
+<<elseif $location is "Cliffs">>
+	<<if ($tempSelect is "cold") or ($tempSelect is "vcold")>>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","orange","brown","gray","gray","gray","silver","silver","silver","teal","white","white","white","blue")>>
+
+	<<elseif ($tempSelect is "temp") or ($planetTemp is "hot") or ($planetTemp is "very hot")>>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","golden","orange","orange","red","red","brown","brown","gray","gray","gray","white","black")>>
+
+<<endif>>
+
+<<elseif $location is "Mountain">>
+	<<if ($tempSelect is "cold") or ($tempSelect is "vcold") or ($tempSelect is "temp")>>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","orange","brown","gray","gray","gray","silver","silver","silver","teal","white","white","white","blue")>>
+
+	<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","golden","orange","orange","red","red","brown","brown","gray","gray","gray","white","black")>>
+
+<<endif>>
+
+<<elseif $location is "Rocky Desert">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","orange","red","red","red","brown","brown","brown","gray","white","black","black")>>
+
+<<elseif $location is "Red Sands">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","orange","red","red","red","brown","brown","brown","gray","white","black","black")>>
+
+<<elseif $location is "Volcano">>
+
+<<set $biomeCreatureColor = either("yellow","yellow","golden","golden","orange","orange","orange","red","red","red","brown","brown","gray","white","black","black")>>
+
+<<elseif $location is "Obsidian Wastes">>
+
+<<set $biomeCreatureColor = either("yellow","golden","orange","red","red","brown","brown","gray","gray","blue","indigo","violet","black","black","black","white")>>
+
+<<elseif $location is "Molten Fields">>
+
+<<set $biomeCreatureColor = either("yellow","yellow","golden","golden","orange","orange","orange","red","red","red","brown","brown","gray","white","black","black")>>
+
+<<elseif $location is "Molten Sea">>
+
+<<set $biomeCreatureColor = either("yellow","yellow","golden","golden","orange","orange","orange","red","red","red","brown","brown","gray","white","black","black")>>
+
+<<elseif $location is "Boiling Ocean">>
+
+<<set $biomeCreatureColor = either("yellow","yellow","golden","golden","orange","orange","orange","red","red","red","brown","brown","gray","white","black","black")>>
+
+<<elseif $location is "Ash Cave">>
+
+<<set $biomeCreatureColor = either("yellow","golden","orange","red","red","brown","brown","gray","gray","blue","indigo","violet","black","black","black","white")>>
+
+<<elseif $location is "Obsidian Tunnel">>
+
+<<set $biomeCreatureColor = either("yellow","golden","orange","red","red","brown","brown","gray","gray","blue","indigo","violet","black","black","black","white")>>
+
+<<elseif $location is "Vents">>
+
+<<set $biomeCreatureColor = either("yellow","golden","orange","red","red","brown","brown","gray","gray","blue","indigo","violet","black","black","black","white")>>
+
+<<elseif $location is "Magma Pit">>
+
+<<set $biomeCreatureColor = either("yellow","yellow","golden","golden","orange","orange","orange","red","red","red","brown","brown","gray","white","black","black")>>
+
+<<elseif $location is "Boiling Dark">>
+
+<<set $biomeCreatureColor = either("yellow","yellow","golden","golden","orange","orange","orange","red","red","red","brown","brown","gray","white","black","black")>>
+
+<<elseif $location is "Hellmouth Depths">>
+
+<<set $biomeCreatureColor = either("yellow","golden","orange","red","red","brown","brown","gray","gray","blue","indigo","violet","black","black","black","white")>>
+
+<<elseif $location is "Molten Void">>
+
+<<set $biomeCreatureColor = either("yellow","golden","orange","red","red","brown","brown","gray","gray","blue","indigo","violet","black","black","black","white")>>
+
+<<elseif $location is "Riverside">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","orange","orange","red","red","brown","brown","brown","gray","green","teal","silver","white","black")>>
+
+<<elseif $location is "River">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","orange","red","brown","brown","green","teal","blue","blue","indigo","gray","silver","white","black")>>
+
+<<elseif $location is "Lake">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","orange","red","brown","brown","green","teal","blue","blue","indigo","gray","silver","white","black")>>
+
+<<elseif $location is "Marsh">>
+
+<<set $biomeCreatureColor = either("pink","yellow","yellow","golden","golden","orange","red","red","brown","brown","gray","green","green","teal","white","black")>>
+
+<<elseif $location is "Reeds">>
+
+<<set $biomeCreatureColor = either("pink","yellow","yellow","golden","golden","orange","red","red","brown","brown","gray","green","green","teal","white","black")>>
+
+<<elseif $location is "Bog">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","orange","red","brown","brown","brown","gray","gray","green","green","teal","teal","silver","black")>>
+
+<<elseif $location is "Swamp">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","orange","red","brown","brown","brown","gray","gray","green","green","teal","teal","silver","black")>>
+
+<<elseif $location is "Underground Spring">>
+
+<<set $biomeCreatureColor = either("brown","brown","brown","brown","gray","gray","gray","silver","silver","teal","blue","indigo","violet","white","golden","black")>>
+
+<<elseif $location is "Beach">>
+
+<<set $biomeCreatureColor = either("pink","yellow","yellow","golden","golden","orange","orange","red","red","brown","gray","silver","silver","white","indigo","violet")>>
+
+<<elseif $location is "Ocean">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","orange","red","brown","brown","green","teal","blue","blue","indigo","gray","silver","white","black")>>
+
+<<elseif $location is "Reef">>
+
+<<set $biomeCreatureColor = either("red","orange","yellow","golden","green","teal","blue","indigo","violet","pink","magenta","black","gray","silver","white","brown")>>
+
+<<elseif $location is "Brackish Depths">>
+
+<<set $biomeCreatureColor = either("golden","orange","red","brown","green","green","green","teal","teal","teal","blue","blue","indigo","indigo","white","black")>>
+
+<<elseif $location is "Tundra">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","brown","gray","gray","silver","silver","silver","teal","teal","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Icewood">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","brown","gray","gray","silver","silver","silver","teal","teal","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Snowdrifts">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","brown","gray","gray","silver","silver","silver","teal","teal","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Frost Wastes">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","brown","gray","gray","silver","silver","silver","teal","teal","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Frozen Riverside">>
+
+<<set $biomeCreatureColor = either("golden","brown","gray","gray","silver","silver","silver","teal","teal","teal","blue","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Frozen River">>
+
+<<set $biomeCreatureColor = either("golden","brown","gray","gray","silver","silver","silver","teal","teal","teal","blue","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Frozen Lake">>
+
+<<set $biomeCreatureColor = either("golden","brown","gray","gray","silver","silver","silver","teal","teal","teal","blue","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Frozen Beach">>
+
+<<set $biomeCreatureColor = either("yellow","golden","brown","gray","gray","silver","silver","silver","teal","teal","blue","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Ice">>
+
+<<set $biomeCreatureColor = either("golden","brown","gray","gray","silver","silver","silver","teal","teal","teal","blue","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Frigid Ocean">>
+
+<<set $biomeCreatureColor = either("golden","brown","gray","gray","silver","silver","silver","teal","teal","teal","blue","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Peak">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","brown","gray","gray","silver","silver","silver","teal","teal","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Frozen Cavern">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","brown","gray","gray","silver","silver","silver","teal","teal","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Ice Cave">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","brown","gray","gray","silver","silver","silver","teal","teal","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Deep Frost">>
+
+<<set $biomeCreatureColor = either("golden","brown","gray","gray","silver","silver","silver","teal","teal","teal","blue","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Frozen Heart">>
+
+<<set $biomeCreatureColor = either("golden","brown","gray","gray","silver","silver","silver","teal","teal","teal","blue","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Icy Void">>
+
+<<set $biomeCreatureColor = either("golden","brown","gray","gray","silver","silver","silver","teal","teal","teal","blue","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Frigid Depths">>
+
+<<set $biomeCreatureColor = either("golden","brown","gray","gray","silver","silver","silver","teal","teal","teal","blue","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Garden">>
+
+<<set $biomeCreatureColor = either("magenta","pink","pink","yellow","yellow","golden","golden","orange","orange","red","red","brown","brown","silver","white","black")>>
+
+<<elseif $location is "Crystal Spires">>
+
+<<set $biomeCreatureColor = either("golden","brown","gray","gray","silver","silver","silver","teal","teal","teal","blue","blue","white","white","white","indigo")>>
+
+<<elseif $location is "Crystalforest">>
+
+<<set $biomeCreatureColor = either("magenta","pink","pink","yellow","yellow","golden","golden","orange","orange","red","red","brown","brown","silver","white","black")>>
+
+<<elseif $location is "Crystal Caverns">>
+
+<<set $biomeCreatureColor = either("magenta","pink","pink","yellow","yellow","golden","golden","orange","orange","red","red","brown","brown","silver","white","black")>>
+
+<<elseif $location is "Underglade">>
+
+<<set $biomeCreatureColor = either("magenta","pink","pink","yellow","yellow","golden","golden","orange","orange","red","red","brown","brown","silver","white","black")>>
+
+<<elseif $location is "Deadwood">>
+
+<<set $biomeCreatureColor = either("yellow","yellow","brown","brown","gray","gray","gray","gray","silver","silver","silver","white","white","black","black","indigo")>>
+
+<<elseif $location is "Cave">>
+
+<<set $biomeCreatureColor = either("brown","brown","brown","brown","gray","gray","gray","silver","silver","teal","blue","indigo","violet","white","golden","black")>>
+
+<<elseif $location is "Tunnel">>
+
+<<set $biomeCreatureColor = either("brown","brown","brown","brown","gray","gray","gray","silver","silver","teal","blue","indigo","violet","white","golden","black")>>
+
+<<elseif $location is "Mine">>
+
+<<set $biomeCreatureColor = either("brown","brown","brown","red","gray","gray","gray","silver","silver","teal","blue","indigo","violet","white","golden","black")>>
+
+<<elseif $location is "Crater">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","orange","red","red","red","brown","brown","brown","gray","white","black","black")>>
+
+<<elseif $location is "Slagheap">>
+
+<<set $biomeCreatureColor = either("yellow","golden","orange","red","red","brown","brown","gray","gray","blue","indigo","violet","black","black","black","white")>>
+
+<<elseif $location is "Wastelands">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","orange","red","red","red","brown","brown","brown","gray","white","black","black")>>
+
+<<elseif $location is "Ruins">>
+
+<<set $biomeCreatureColor = either("pink","yellow","golden","golden","orange","orange","red","red","red","brown","brown","brown","gray","white","black","black")>>
+
+<<elseif $location is "Nest">>
+
+<<set $biomeCreatureColor = either("pink","golden","brown","gray","gray","silver","silver","teal","teal","blue","blue","indigo","violet","white","black","black")>>
+
+<<elseif $location is "Labyrinth">>
+
+<<set $biomeCreatureColor = either("pink","golden","brown","gray","gray","silver","silver","teal","teal","blue","blue","indigo","violet","white","black","black")>>
+
+<<elseif $location is "Pit">>
+
+<<set $biomeCreatureColor = either("pink","golden","brown","gray","gray","silver","silver","teal","teal","blue","blue","indigo","violet","white","black","black")>>
+
+<<elseif $location is "The Slithering Dark">>
+
+<<set $biomeCreatureColor = either("pink","golden","brown","gray","gray","silver","silver","teal","teal","blue","blue","indigo","violet","white","black","black")>>
+
+<<elseif $location is "The Endless Echoes">>
+
+<<set $biomeCreatureColor = either("pink","golden","brown","gray","gray","gray","silver","silver","silver","teal","blue","indigo","violet","white","black","black")>>
+
+<<elseif $location is "Planet's Heart">>
+
+<<set $biomeCreatureColor = either("pink","golden","orange","brown","red","gray","gray","silver","silver","teal","blue","indigo","violet","white","black","black")>>
+
+<<elseif $location is "Shattered Void">>
+
+<<set $biomeCreatureColor = either("golden","brown","gray","gray","silver","silver","teal","teal","blue","blue","indigo","indigo","violet","white","black","black")>>
+
+<<elseif $location is "Writhing Void">>
+
+<<set $biomeCreatureColor = either("golden","gray","gray","silver","silver","teal","teal","blue","blue","indigo","indigo","violet","magenta","white","white","black")>>
+
+<<else>>
+
+/% Failsafe colors - keep last entry %/
+
+<<set $biomeCreatureColor = either("pink","golden","brown","brown","brown","brown","brown","brown","brown","brown","brown","brown","brown","gray","white","black")>>
+
+
+<<endif>>

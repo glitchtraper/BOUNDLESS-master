@@ -1,0 +1,98 @@
+﻿<center><xtralarge>''//<mutation>CLICK</mutation> on the body part to alter it.
+<mutation>Select UNALTERED</mutation> for any body part you don't want to change. Press the <mutation>CONFIRM</mutation> button to send changes.
+Press <mutation>END</mutation> to exit the MiraNet Virtual-to-Reality Sculptor.//''</xtralarge>
+
+<midframe><<nobr>>
+
+/% ====================== %/
+/% Commit changes. %/
+
+<<if $commitSculpting is 1>>
+<<if ($modEars neq 0) and ($modEars neq "unaltered")>><<set $playerEars = $modEars; $earMutation = 1>><<endif>>
+<<if ($modHead neq 0) and ($modHead neq "unaltered")>><<set $playerHead = $modHead; $headMutation = 1>><<endif>>
+<<if ($modFacet neq 0) and ($modFacet neq "unaltered")>><<set $playerFacet = $modFacet>><<endif>>
+<<if ($modEyeColor neq 0) and ($modEyeColor neq "unaltered")>><<set $playerEyeColor = $modEyeColor; $eyeMutation = 1>><<endif>>
+<<if ($modFace neq 0) and ($modFace neq "unaltered")>><<set $playerFace = $modFace; $faceMutation = 1>><<endif>>
+<<if ($modArms neq 0) and ($modArms neq "unaltered")>><<set $playerArms = $modArms; $armMutation = 1>><<endif>>
+<<if $modSkin neq "unaltered">><<set $playerSkin = $modSkin; $skinMutation = 1>><<endif>>
+<<if $modBodyColor neq "unaltered">><<set $bodyColor = $modBodyColor; $bodyMutation = 1>><<endif>>
+<<if ($modBack neq 0) and ($modBack neq "unaltered")>><<set $playerBack = $modBack>><<endif>>
+<<if ($modWings neq 0) and ($modWings neq "unaltered")>><<set $playerWings = $modWings>><<endif>>
+<<if ($modLegs neq 0) and ($modLegs neq "unaltered")>><<set $playerLegs = $modLegs; $legMutation = 1>><<endif>>
+<<if ($modTail neq 0) and ($modTail neq "unaltered")>><<set $playerTail = $modTail>><<endif>>
+
+/% Removals/Resets %/
+
+<<if $modHead is "remove">><<set $playerHead = 0; $headMutation = 0>><<endif>>
+<<if $modFace is "default">><<set $playerFace = 0; $faceMutation = 0>><<endif>>
+<<if $modArms is "default">><<set $playerArms = 0; $armMutation = 0>><<endif>>
+<<if $modSkin is "default">><<set $playerSkin = 0; $skinMutation = 0>><<endif>>
+<<if $modBodyColor is "default">><<set $bodyColor = 0>><<endif>>
+<<if $modBack is "remove">><<set $playerBack = 0>><<endif>>
+<<if $modWings is "remove">><<set $playerWings = 0; $geneFlight = 0; $flight = 0>><<endif>>
+<<if $modLegs is "default">><<set $playerLegs = 0; $legMutation = 0>><<endif>>
+<<if $modTail is "remove">><<set $playerTail = 0>><<endif>>
+
+<<endif>>
+
+/% ===========[ EARS ]=========== %/
+
+<<if $playerEarNumber neq 0>> [<mutation><<print $playerEarNumber>>
+
+
+<<if $playerEars neq 0>> <<cyclinglink $modEars "unaltered" "double" "equine" "fae" "finned" "long" "lop" "ribbon" "round" "spike" "split" "tendril" "triangular" "winged" "remove">><<endif>> ears</mutation>] <<endif>>
+
+
+/% ===========[ HEAD ORNAMENT ]=========== %/
+
+<<if $playerHead neq 0>> [<mutation><<cyclinglink $modHead "unaltered" "angler lantern" "antennae" "antlers" "armor" "bull horns" "crystal points" "curly horns" "feather crest" "finned crest" "fins" "hair" "horn" "horns" "horse mane" "lion mane" "mane" "nose horn" "quills" "rhino horns" "smooth head" "snake hair" "spike horns" "spikes" "spines" "spiral horns" "straight horns" "tentacles" "tiny bat headwings" "tiny feathered headwings" "two-headed" "unicorn horn" "winged head" "remove">></mutation>]<<endif>>
+
+
+/% ===========[ FACET ]=========== %/
+
+
+<<if $playerFacet neq 0>> [<mutation><<cyclinglink $modFacet "unaltered" "round" "heart" "diamond" "cabochon" "square" "rectangular" "star" "horn" "maw" "eye" "fleur" "angler" "spike" "hidden">> facet</mutation>] <<endif>>
+
+
+/% ===========[ EYES ]=========== %/
+
+ <<if $playerEyeNumber neq 0>>[<mutation><<print $playerEyeNumber>> <<cyclinglink $modEyeColor "unaltered" "red" "orange" "yellow" "golden" "green" "teal" "blue" "indigo" "violet" "pink" "magenta" "black" "gray" "silver" "white" "brown">> eyes</mutation>]<<endif>>
+
+
+/% ===========[ FACE ]=========== %/
+
+<<endnobr>><<if $playerFace neq 0>> [<mutation><<cyclinglink $modFace "unaltered" "default" "avian" "blunt" "boid" "canine" "crocodilian" "crusher" "eel" "feline" "flat" "gecko" "humanoid" "leonine" "oneroiesque" "saurian" "seal" "sharklike" "vulpine">> face</mutation>] <<endif>>
+<<nobr>>
+
+/% ===========[ ARMS ]=========== %/
+
+<<if $playerArmNumber gt 0>>[<mutation><<print $playerArmNumber>><<if $playerArms neq 0>> <<cyclinglink $modArms "unaltered" "default" "bloated" "bulging" "digging" "tentacle">><<endif>> arms</mutation>] <<endif>>
+
+/% ===========[ SKIN ]=========== %/
+
+ [<mutation><<cyclinglink $modBodyColor "unaltered" "default" "red" "orange" "yellow" "golden" "green" "teal" "blue" "indigo" "violet" "pink" "magenta" "black" "gray" "silver" "white" "brown">>  <<cyclinglink $modSkin "unaltered" "armored" "bumpy" "cake" "candy" "carapaced" "crystalline" "doughy" "feathered" "fish-scaled" "furry" "glass" "jelly" "plush" "porcelain" "pulsing" "robotic" "scaled" "slick" "smooth" "squishy" "stitched" "studded" "toy" "velvet" "vial" "wispy">> skin</mutation>]
+
+/% ===========[ BACK ORNAMENT ]=========== %/
+
+<<if $playerBack neq 0>> [<mutation><<cyclinglink $modBack "unaltered" "armor" "back armor" "back foliage" "bioluminescent mushrooms" "bioluminescent spots" "crystal points" "feather crest" "fins" "horns" "hunched back" "mane" "mountainous back" "plates" "quills" "spikes" "spines" "stitched spine" "stitches" "teeth" "tentacles" "toothy spine" "wings" "zipper" "zippered spine" "spiked back" "spiny back" "crested back" "finned back" "feathered spine" "furry spine" "remove">></mutation>]<<endif>>
+
+
+/% ===========[ WINGS ]=========== %/
+
+<<if $playerWings neq 0>> [<mutation><<cyclinglink $modWings "unaltered" "bat wings" "insect wings" "mini feather wings" "mini insect wings" "wings" "remove">></mutation>]<<endif>><<endnobr>>
+<<nobr>>
+
+
+/% ===========[ LEGS ]=========== %/
+
+<<if $playerLegNumber gt 0>>[<mutation><<print $playerLegNumber>>
+
+
+<<if $playerLegs neq 0>> <<cyclinglink $modLegs "unaltered" "default" "bloated" "bulging" "digitigrade" "hoofed digitigrade" "tentacle">><<endif>> legs</mutation>]<<endif>>
+
+
+
+/% ===========[ TAIL ]=========== %/
+
+<<if $playerTail neq 0>> [<mutation><<cyclinglink $modTail "unaltered" "braided" "bushy" "cable" "canine" "carnosaur" "club" "crocodilian" "dragon" "equine" "fat" "feathered" "feline" "fox" "gecko" "leonine" "long" "maw" "nub" "phoenix" "rat" "rooster" "sauropod" "serpentine" "slug" "spade" "split" "tentacle" "worm" "remove">> tail</mutation>]<<endif>><<endnobr>></midframe>
+<<button [[END|passage()][$commitSculpting = 0; $service = 0; $modEars = 0; $modHead = 0; $modFacet = 0; $modEyeColor = 0; $modFace = 0; $modArms = 0; $modSkin = 0; $modBody = 0; $modBodyColor = 0; $modBack = 0; $modWings = 0; $modLegs = 0; $modTail = 0]]>><<button [[CONFIRM|passage()][$commitSculpting = 1]]>></center>

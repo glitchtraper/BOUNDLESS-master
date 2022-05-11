@@ -1,0 +1,32 @@
+﻿<<set $casualties = ($weakHunters + $planetWilderes + $planetScientists + $weakExplorers + $planetCavieres + $planetCivilians + $planetCulinets + $planetProfessors) - $playerPlanetPopulation>>
+
+	<<if $casualties gt 0>>
+	/% most to least dangerous occupation %/
+
+		<<if $weakHunters gt $casualties>><<set $weakHunters -= $casualties>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+		<<if $planetWilderes gt $casualties>><<set $planetWilderes -= 1>><<else>>
+			<<set $casualties -= $planetWilderes; $planetWilderes = 0>><<endif>>
+
+		<<if $planetScientists gt $casualties>><<set $planetScientists -= 1>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+		<<if $planetScientists gt $casualties>><<set $planetScientists -= 1>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+		<<if $planetCavieres gt $casualties>><<set $planetCavieres -= 1>><<else>>
+			<<set $casualties -= $planetCavieres; $planetCavieres = 0>><<endif>>
+
+		<<if $planetCivilians gt $casualties>><<set $planetCivilians -= 1>><<else>>
+			<<set $casualties -= $planetCivilians; $planetCivilians = 0>><<endif>>
+
+		<<if $planetCulinets gt $casualties>><<set $planetCulinets -= 1>><<else>>
+			<<set $casualties -= $planetCulinets; $planetCulinets = 0>><<endif>>
+
+		<<if $planetProfessors gt $casualties>><<set $planetProfessors -= 1>><<else>>
+			<<set $casualties -= $planetProfessors; $planetProfessors = 0>><<endif>>
+
+	<<set $casualties = 0>>
+
+<<endif>>

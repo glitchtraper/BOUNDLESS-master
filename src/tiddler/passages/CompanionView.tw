@@ -1,0 +1,129 @@
+﻿<center><<nobr>>
+
+__''<<print "<<print $companion" + $viewingCompanion + ">>">>''__ ♦ //
+
+<<print "<<if $companion" + $viewingCompanion + "Color neq 0>><<print $companion" + $viewingCompanion + "Color>> <<endif>>">>
+
+<<print "<<if $companion" + $viewingCompanion + "Skin neq 0>><<print $companion" + $viewingCompanion + "Skin>> <<endif>>">>
+
+<<print "<<if $companion" + $viewingCompanion + "Subtype neq 0>><<print $companion" + $viewingCompanion + "Subtype>> <<endif>>">>
+
+<<print "<<if $companion" + $viewingCompanion + "Subspec neq 0>><<print $companion" + $viewingCompanion + "Subspec>> <<endif>>">>
+
+<<print "<<print $companion" + $viewingCompanion + "Species>>">>
+
+<<print "<<if $companion" + $viewingCompanion + "Occupation neq 0>><<print $companion" + $viewingCompanion + "Occupation>><<endif>>">>//
+
+<<endnobr>>
+<<print "[img[$companion" + $viewingCompanion + "img]]">></center><<nobr>><center>
+
+</center><<endnobr>><<nobr>><center>
+
+<mini>''Strength:'' <<print "<<print $companion" + $viewingCompanion + "Strength>>">>
+
+ ♦ ''Stamina:'' <<print "<<print $companion" + $viewingCompanion + "Stamina>>">>
+
+ ♦ ''Finesse:'' <<print "<<print $companion" + $viewingCompanion + "Finesse>>">>''
+</mini></center><<endnobr>><<nobr>><center>
+
+''Overall:'' <<print "<<print ($companion" + $viewingCompanion + "Girth + $companion" + $viewingCompanion + "Breast + $companion" + $viewingCompanion + "Belly + $companion" + $viewingCompanion + "Thigh) / 10>>">>~~gi~~
+
+<mini> ♦ ''Body:'' <<print "<<print $companion" + $viewingCompanion + "Girth/10>>">>
+
+ ♦ <<print "<<if $companion" + $viewingCompanion + "AgeStatus is 'adult'>><<if $companion" + $viewingCompanion + "Breast neq 0>>''Breasts:'' <<print $companion" + $viewingCompanion + "Breast/10>> ♦ <<endif>><<endif>>">>
+
+''Belly:'' <<print "<<if $companion" + $viewingCompanion + "Belly neq 0>>''<<print $companion" + $viewingCompanion + "Belly/10>><<endif>>">>
+
+ ♦ ''Thighs:'' <<print "<<if $companion" + $viewingCompanion + "Thigh neq 0>>''<<print $companion" + $viewingCompanion + "Thigh/10>><<endif>>">>
+
+</mini></center><<endnobr>>
+<center><narrowframe>\
+\
+\
+<<print "<<if $companion" + $viewingCompanion + "Ears neq 0>>[<<print $companion" + $viewingCompanion + "Ears>> ears] <<endif>>">>\
+\
+\
+<<print "<<if $companion" + $viewingCompanion + "Facet neq 0>>[<<print $companion" + $viewingCompanion + "Facet>> facet] <<endif>>">>\
+\
+\
+<<print "<<if $companion" + $viewingCompanion + "Eyes neq 0>>[<<print $companion" + $viewingCompanion + "Eyes>> eyes] <<endif>>">>\
+\
+\
+<<print "<<if $companion" + $viewingCompanion + "Face neq 0>>[<<print $companion" + $viewingCompanion + "Face>> face] <<endif>>">>\
+\
+\
+<<print "<<if $companion" + $viewingCompanion + "Head neq 0>>[<<print $companion" + $viewingCompanion + "Head>>] <<endif>>">>\
+\
+\
+<<print "<<if $companion" + $viewingCompanion + "Skin neq 0>>[<<print $companion" + $viewingCompanion + "Skin>> <<endif>>">>\
+\
+\
+<<print "<<if $companion" + $viewingCompanion + "Body neq 0>>[<<print $companion" + $viewingCompanion + "Body>> body]<<endif>>">>\
+\
+\
+\
+<<print "<<if $companion" + $viewingCompanion + "Back neq 0>> [<<print $companion" + $viewingCompanion + "Back>>] <<endif>>">>\
+\
+\
+<<print "<<if $companion" + $viewingCompanion + "Legs neq 0>>[<<print $companion" + $viewingCompanion + "Legs>> legs] <<endif>>">>\
+\
+\
+<<print "<<if $companion" + $viewingCompanion + "Tail neq 0>>[<<print $companion" + $viewingCompanion + "Tail>> tail]<<endif>>">>\
+\
+\
+\
+</narrowframe></center><<nobr>>
+/% Companion Status - This is based on your companion's personality, current health, mood, current occupation progress, etc.
+If something catches its eye, it'll throw out an alert message on the main screen (NYI), and also show a special status for that here.
+
+If you give a companion an item it's interested in, it'll emote happily about that for a few rounds unless something of higher priority comes up.(NYI) %/
+
+<<set $randomizer = either(1,2,3)>> /% Temporary; organize this better later once the other triggers are in. %/
+
+/% neutral default %/
+
+<<print "<<if $randomizer is 1>><<set $companion" + $compSlot + "Status = either('looks bored.','yawns.','gazes up at the sky...')>><<endif>>" >>
+
+/% defaults by personality %/
+
+<<if $randomizer is 2>>
+
+/% catchall option %/
+
+<<print "<<set $companion" + $compSlot + "Status = either('looks bored.','yawns.','gazes up at the sky...')>>" >>
+
+<<print "<<if ($companion" + $compSlot + "Pers is 'anarchist') or ($companion" + $compSlot + "Pers is 'misfit') or ($companion" + $compSlot + "Pers is 'corruptor') or ($companion" + $compSlot + "Pers is 'expansionist')>><<set $companion" + $compSlot + "Status = 'is scheming!'>><<endif>>" >>
+
+<<print "<<if ($companion" + $compSlot + "Pers is 'dramatic') or ($companion" + $compSlot + "Pers is 'touchy')>><<set $companion" + $compSlot + "Status = 'sighs loudly...'>><<endif>>" >>
+
+<<print "<<if $companion" + $compSlot + "Pers is 'observant'>><<set $companion" + $compSlot + "Status = 'looks around with wide eyes.'>><<endif>>" >>
+
+<<print "<<if $companion" + $compSlot + "Pers is 'parent'>><<set $companion" + $compSlot + "Status = 'looks calm.'>><<endif>>" >>
+
+<<print "<<if ($companion" + $compSlot + "Pers is 'wildling') or ($companion" + $compSlot + "Pers is 'guardian') or ($companion" + $compSlot + "Pers is 'calculator')>><<set $companion" + $compSlot + "Status = 'watches carefully, missing nothing!'>><<endif>>" >>
+
+<<print "<<if ($companion" + $compSlot + "Pers is 'cool') or ($companion" + $compSlot + "Pers is 'suave')>><<set $companion" + $compSlot + "Status = 'glances around nonchalantly...'>><<endif>>" >>
+
+<<print "<<if $companion" + $compSlot + "Pers is 'brooding'>><<set $companion" + $compSlot + "Status = 'is quiet...'>><<endif>>" >>
+
+<<print "<<if $companion" + $compSlot + "Status is '0'>><<set $companion" + $compSlot + "Status = either('looks bored.','yawns.','gazes up at the sky...')>><<endif>>" >>
+
+<<endif>>
+
+/% defaults by aspecte %/
+
+<<if $randomizer is 3>>
+
+<<print "<<if $companion" + $compSlot + "Pers is 'expansionist'>><<set $companion" + $compSlot + "Status = 'grins unsettlingly!'>><<endif>>" >>
+
+<<endif>>
+
+/% catchall option %/
+
+<<print "<<if $companion" + $viewingCompanion + "Status is 0>><<set $companion" + $compSlot + "Status = either('looks bored.','yawns.','gazes up at the sky...')>><<endif>>" >>
+
+
+/% Readout %/<<endnobr>><center><invisiframen><<print "<<print $companion" + $viewingCompanion + ">>">> ''<<print "<<print $companion" + $viewingCompanion + "Status>>">>''
+
+''__<<print "<<print $companion" + $viewingCompanion + ">>">>'s Abilities__''
+</center></invisiframen>

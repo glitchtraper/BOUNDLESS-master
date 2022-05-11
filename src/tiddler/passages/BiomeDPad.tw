@@ -1,0 +1,47 @@
+﻿<<nobr>>
+/% Hard resets for overland/subterranean transitions %/
+
+<<if ($subterranean is 1) and ($subSwitched is 0)>><<set $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $subSwitched = 1>>
+<<set $weatherTime = 0; $forecast = 0; $cycleWeather = 1; $weatherBiome = $location>>
+<<display BiomeDatabase>>
+<<elseif ($subterranean is 0) and ($subSwitched is 1)>><<set $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $subSwitched = 0>>
+<<set $weatherTime = 0; $forecast = 0; $cycleWeather = 1; $weatherBiome = $location>>
+<<display BiomeDatabase>><<endif>>
+
+
+/% Controls %/
+
+<<endnobr>><narrowframe><center><large><redalert><<if $location is 0>><<display BiomeDatabase>><<endif>>''North:''</redalert> [[<<print $biomeNorth>>|passage()][$location = $biomeNorth; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0]]<<if ($westToggle is 0) or ($eastToggle is 0)>>
+<<if ($westToggle is 0) and ($biomeWest neq 0)>>''West:'' [[<<print $biomeWest>>|passage()][$location = $biomeWest; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0]]<<endif>><<if ($westToggle is 0) and ($eastToggle is 0)>> ♦ <<endif>><<if ($eastToggle is 0) and ($biomeEast neq 0)>>''East:'' [[<<print $biomeEast>>|passage()][$location = $biomeEast; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0]]<<endif>><<endif>><<if ($southToggle is 0) and ($biomeSouth neq 0)>>
+''South:'' [[<<print $biomeSouth>>|passage()][$location = $biomeSouth; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0]]<<endif>><<if ($subterranean is 1) and ($depthMeter lte 0)>>
+[[Exit|passage()][$location = 0; $subterranean = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0]]<<endif>>\
+\
+\
+\
+<<if $special_depthmeter gt 0>><<if $subterranean is 1>>
+<<button [[Ascend|passage()][$depthMeter -= random(1,6); $forageDecay = 0; $mineDecay = 0; $trapArmed = 0]]>><<button [[Descend|passage()][$depthMeter += random(1,6); $forageDecay = 0; $mineDecay = 0; $trapArmed = 0]]>><<endif>><<endif>></large><<nobr>>
+
+<<if $exploring neq 3>><<set $randomizer = random(1,4)>>
+<<if $randomizer is 1>><<set $randomizer = random(1,5)>>
+<<if $randomizer is 1>><<set $biomeNorth = 0>>
+<<elseif $randomizer is 2>><<set $biomeSouth = 0>>
+<<elseif $randomizer is 3>><<set $biomeEast = 0>>
+<<elseif $randomizer is 4>><<set $biomeWest = 0>>
+<<elseif $randomizer is 5>><<set $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0>><<endif>>
+
+<<if $trapArmed is 0>><<set $randomizer = random(1,16)>>
+<<if $randomizer is 1>><<display LocationName>><<set $locStatus = 0; $specStatus = 0>><<endif>><<endif>><<endif>>
+
+/% Routes %/
+
+<<set $randomizer = random(1,6)>>
+<<if $randomizer is 1>><<set $westToggle = 1>><<else>><<set $westToggle = 0>><<endif>>
+<<set $randomizer = random(1,6)>>
+<<if $randomizer is 1>><<set $eastToggle = 1>><<else>><<set $eastToggle = 0>><<endif>>
+<<set $randomizer = random(1,6)>>
+<<if $randomizer is 1>><<set $southToggle = 1>><<else>><<set $southToggle = 0>><<endif>>
+
+/% Depth %/
+
+<<if $subterranean is 1>><<set $depthMeter += either(-12,-9,-6,-3,-3,0,0,0,3,3,6,9,12)>>
+<<if $depthMeter lte 0>><<set $depthMeter = 0>><<endif>><<endif>><<endif>><<endnobr>></center></narrowframe>

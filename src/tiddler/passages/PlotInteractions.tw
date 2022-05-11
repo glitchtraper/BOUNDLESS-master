@@ -1,0 +1,8 @@
+﻿<<button [[Relax.|passage()][$pain -= ($pain * either(0.20,0.22,0.25)); $plotCaption = "You relax and enjoy the company of your " + $planted + ", feeling at ease."]]>>
+
+
+/% Harvesting %/
+
+<<if $plantAge is "Mature">>
+<<if ($plantHarvestRegen is 0) or ($globalTime gte $plantHarvestRegen)>>
+<<button [[Harvest Products.|PlantHarvest]]>><<endif>><<endif>>

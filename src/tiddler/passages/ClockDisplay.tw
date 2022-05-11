@@ -1,0 +1,19 @@
+﻿//<mini><<nobr>>
+[img[icon_clock]]
+
+''<<print $season>>:''<<if $months gt 0>> month <<print $months>>,<<endif>>
+
+<<if $weeks gt 0>> week <<print $weeks>>,<<endif>>
+
+<<if $days gt 0>> day <<print $days>>
+
+<<endif>>0<<print $hours>>:0<<print $minutes>>
+</mini>
+<<if $moonPhase is "new">>[img[icon_moon_new]]
+<<elseif $moonPhase is "waxing crescent">>[img[icon_moon_c1]]
+<<elseif $moonPhase is "waxing gibbous">>[img[icon_moon_h1]]
+<<elseif $moonPhase is "full">>[img[icon_moon_full]]
+<<elseif $moonPhase is "waning gibbous">>[img[icon_moon_c2]]
+<<elseif $moonPhase is "waning crescent">>[img[icon_moon_h2]]<<endif>>
+
+<<endnobr>>//

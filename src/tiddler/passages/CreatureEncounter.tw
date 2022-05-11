@@ -1,0 +1,300 @@
+﻿<<if ($overrideExplore is 0) and ($overrideEncounter is 0)>><<nobr>>
+
+A ''
+
+<<if $creatureRarity is "rare">>[img[icon_rarestar]]<<endif>>
+
+<<if $encounterPower lte $strength>><<set $encounterDifficulty = "easy">>
+<affirmative>
+<<if $noFatMod is 0>><<if $creatureFatness neq 0>><<print $creatureFatness>> <<endif>><<endif>>
+<<if $creatureColor neq 0>><<print $creatureColor>> <<endif>>
+<<if $creaturePrefix neq 0>><<print $creaturePrefix>> <<endif>>
+<<if $encounterRace neq 0>><<print $encounterRace>> <<endif>>
+
+<<if $encounter is "predatory leupai">><<print $randomEggLeupai>> leupai
+<<else>><<print $encounter>><<endif>>
+
+</affirmative>
+
+<<elseif ($encounterPower gte $strength) and ($encounterPower lt $strength * 2)>><<set $encounterDifficulty = "normal">>
+<brightalert>
+<<if $noFatMod is 0>><<if $creatureFatness neq 0>><<print $creatureFatness>> <<endif>><<endif>>
+<<if $creatureColor neq 0>><<print $creatureColor>> <<endif>>
+<<if $creaturePrefix neq 0>><<print $creaturePrefix>> <<endif>>
+<<if $encounterRace neq 0>><<print $encounterRace>> <<endif>>
+
+<<if $encounter is "predatory leupai">><<print $randomEggLeupai>> leupai
+<<else>><<print $encounter>><<endif>>
+
+</brightalert>
+
+<<elseif ($encounterPower gte $strength * 2) and ($encounterPower lt $strength * 3)>><<set $encounterDifficulty = "hard">>
+<deepalert>
+<<if $noFatMod is 0>><<if $creatureFatness neq 0>><<print $creatureFatness>> <<endif>><<endif>>
+<<if $creatureColor neq 0>><<print $creatureColor>> <<endif>>
+<<if $creaturePrefix neq 0>><<print $creaturePrefix>> <<endif>>
+<<if $encounterRace neq 0>><<print $encounterRace>> <<endif>>
+
+<<if $encounter is "predatory leupai">><<print $randomEggLeupai>> leupai
+<<else>><<print $encounter>><<endif>>
+
+</deepalert>
+
+<<elseif $encounterPower gte $strength * 3>><<set $encounterDifficulty = "deadly">>
+<redalert>
+<<if $noFatMod is 0>><<if $creatureFatness neq 0>><<print $creatureFatness>> <<endif>><<endif>>
+<<if $creatureColor neq 0>><<print $creatureColor>> <<endif>>
+<<if $creaturePrefix neq 0>><<print $creaturePrefix>> <<endif>>
+<<if $encounterRace neq 0>><<print $encounterRace>> <<endif>>
+
+<<if $encounter is "predatory leupai">><<print $randomEggLeupai>> leupai
+<<else>><<print $encounter>><<endif>>
+
+</redalert><<endif>>''
+
+/% ============================ %/
+/% TRAPS %/
+
+/% Traps catch small creatures.
+If a trap is active, check if $trapCapture is 1.
+
+If it is, run this script to see if the creature is successfully caught. %/
+
+<<if ($trapArmed is 1) and ($trapCapture is 1)>>
+
+<<if $encounterSpecial is "fleeing">>
+/% Unset this flee check. %/
+<<set $encounterSpecial = 0>>
+<<endif>>
+
+/% A trappable creature's chance of avoiding the trap. %/
+<<set $trapEvade = random(1,$encounterFinesse)>>
+
+/% Trap efficacy (by type) %/
+<<if $trapType is "snare trap">>
+/% Basic trap. Can't catch some creatures (flying, swimming, swarms). %/
+
+<<if $noSnare is 1>><<set $trapEfficacy = 0>>
+<<else>><<set $trapEfficacy = random(1,25)>><<endif>>
+
+<<elseif $trapType is "cage trap">>
+/% Can catch things that aren't super-fast fairly efficiently. %/
+<<set $trapEfficacy = random(1,25)>>
+
+<<elseif $trapType is "stasis trap">>
+/% The masterball of traps. It can't fail, but whatever shows up first is what you get. %/
+<<set $trapEfficacy = $trapEvade * 10>>
+<<endif>>
+
+<<if $trapEfficacy gte $trapEvade>>
+/% GOT 'EM %/
+<<set $trapCatch = 1>>
+<<else>>
+/% Nope. %/
+<<set $trapCatch = 0>><<endif>>
+
+
+<<endif>>
+
+/% ============================ %/
+
+<<if ($encounterSpecial neq "fleeing") and ($aggro is 0)>>
+<<if ($immobileMode is 0) and ($trapCatch is 1)>>
+/% ============================ %/
+/% Trapped encounter %/
+
+ gets ''<affirmative>caught</affirmative>'' in your trap!
+
+<<elseif $immobileMode is 0>>
+/% ============================ %/
+/% Default encounter %/
+
+ appears nearby<<if $creatureIntro neq 0>>''<<print $creatureIntro>>''<<endif>>!<<if $creatureDesc neq 0>> <<print $creatureDesc>><<endif>>
+
+<<if ($trapArmed is 1) and ($trapCapture is 1) and ($trapCatch is 0)>> It <brightalert>avoided your trap!</brightalert><<endif>>
+
+<<elseif ($immobileMode is 1) and ($exploring is 2)>>
+
+/% ============================ %/
+/% Immobilized encounters %/
+
+<<if $combatant is 0>> appears nearby... ''but you're helpless to do anything but watch from a distance!''<<set $exploring = 3; $helpless = 0; $encounterKind = 0>>
+
+<<elseif $combatant is 1>> approaches, ''attracted by your vulnerability!''<<if $creatureDesc neq 0>> <<print $creatureDesc>><<endif>><<set $helpless = 1>>
+<<endif>><<endif>>
+
+
+<<elseif $encounterSpecial is "fleeing">>
+
+/% ============================ %/
+/% Escaped encounter %/
+
+ appears nearby... ''but it takes one look at you and flees!''<<set $exploring = 3; $helpless = 0; $encounterKind = 0>>
+
+
+<<elseif $aggro is 1>><<set $overrideExplore = 1>>
+
+/% ============================ %/
+/% Hostile encounter %/
+
+ appears, <deepalert>''ready to strike!''</deepalert><<if $creatureDesc neq 0>> <<print $creatureDesc>><<endif>><<endif>>
+
+
+<<endnobr>>
+\
+<<if $trapCatch is 1>><<set $trapCatch = 0; $trapArmed = 0>><<nobr>>
+
+<<if $hasMound is 1>><<button [[Capture!|DonsairStore][$saveState = passage(); $befriendable = 0; $overrideExplore = 0]]>><<endif>>
+<<button [[Kill!|Autokill][$saveState = passage()]]>>
+
+<<endnobr>>
+<<elseif ($encounterSpecial neq "fleeing") and ($trapCatch is 0)>>\
+<<if ($immobileMode is 0) and ($combatant is 0)>><<nobr>>
+
+/% ============================ %/
+/% Non-combatant %/
+
+/% Non-combatants panic and generally try to flee during combat (unless the $brave flag is checked, which gives normal readouts), and display the "hunt" button rather than the "attacK" button.
+I don't 100% remember what this setup was for, but I think it was intended for generally-passive prey creatures as opposed to 'monsters'... %/
+
+<<if $sapientEncounter is 1>>
+<<if ($aggro is 0) and ($substatus neq "sporeslave")>>
+<<button [[Talk|Conversation][$saveState = passage(); $newConvo = 1; $overrideExplore = 0]]>><<endif>><<endif>>
+
+/% ============================ %/
+
+<<if ($substatus neq "sporeslave") or ($creatureGirth lte ($fatScore / 2))>>
+
+<<button [[Hunt!|Combat][$saveStateBattle = passage(); $combat = 1; $deathCause = 0; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $overrideExplore = 0]]>>
+
+<<if ($belly gte ($girth * 2)) and ($fatness gte ($creatureGirth * 3))>>
+<<button [[Absorb!|passage()][$bellyBloat += $creatureGirth; $calories += $creatureCalories; $overrideExplore = 0]]>><<endif>>
+
+<<elseif ($substatus is "sporeslave") and ($creatureGirth gt ($fatScore / 2))>>
+
+<<set $overrideExplore = 1>>
+
+<<button [[Must... get... CLOSER!!|Combat][$saveStateBattle = passage(); $combat = 1; $deathCause = 0; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $overrideExplore = 0]]>>
+
+<<endif>>
+
+<<endnobr>>\
+<<elseif ($immobileMode is 0) and ($combatant is 1)>><<nobr>>
+
+/% ============================ %/
+/% Combatant %/
+
+/% ======= %/
+<<if $sapientEncounter is 1>>
+
+<<if ($aggro is 0) and ($substatus neq "sporeslave")>>
+
+<<button [[Talk|Conversation][$saveState = passage(); $newConvo = 1; $overrideExplore = 0]]>><<endif>><<endif>>
+
+/% ============================ %/
+
+<<if ($substatus is "sporeslave") and ($creatureGirth gt ($fatScore / 2))>>
+
+<<set $overrideExplore = 1>>
+
+<<button [[Must... get... CLOSER!!|Combat][$saveStateBattle = passage(); $combat = 1; $deathCause = 0; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $overrideExplore = 0]]>>
+
+<<elseif $aggro is 1>>
+
+<<button [[Defend!|Combat][$saveStateBattle = passage(); $combat = 1; $deathCause = 0; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $overrideExplore = 0]]>>
+
+/% Throw stuff in its eyes to escape! %/
+<<if $material_dirt gt 0>><<button [[Throw Dirt!|passage()][$overrideExplore = 0; $material_dirt -= 1]]>>
+<<elseif $material_sand gt 0>><<button [[Throw Sand!|passage()][$overrideExplore = 0; $material_sand -= 1]]>>
+<<elseif $material_mud gt 0>><<button [[Throw Mud!|passage()][$overrideExplore = 0; $material_mud -= 1]]>>
+<<elseif $material_ash gt 0>><<button [[Throw Ash!|passage()][$overrideExplore = 0; $material_ash -= 1]]>><<endif>>
+
+<<else>>
+
+<<button [[Attack!!|Combat][$saveStateBattle = passage(); $combat = 1; $deathCause = 0; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $overrideExplore = 0]]>><<endif>>
+
+<<if $canSubmit is 1>>
+
+/% ======= %/
+<<button [[Submit...|CreatureEffects][$calories += $creatureCalories; $bellyBloat += $creatureGirth; $saveState = passage(); $exploring = 3; $pause = 0; $ffEncouraged = 0; $toggleDisplay = 1; $combatResult = 0; $overrideExplore = 0]]>><<endif>>
+
+<<if $hasMound is 1>>
+
+/% ======= %/
+<<button [[Bribe...|Bribe][$saveState = passage(); $overrideExplore = 0]]>>
+
+<<if $befriendable is 1>>
+
+/% ======= %/
+<<button [[Befriend!|DonsairStore][$saveState = passage(); $befriendable = 0; $overrideExplore = 0]]>><<endif>>
+
+<<endif>>
+
+<<if ($belly gte ($girth * 2)) and ($fatScore gte ($creatureGirth * 3))>>
+/% ======= %/
+<<button [[Absorb!|passage()][$bellyBloat += $creatureGirth; $calories += $creatureCalories; $overrideExplore = 0]]>><<endif>>
+
+<<endnobr>>\
+<<elseif ($immobileMode is 1) and ($combatant is 1)>><<nobr>>
+/% ============================ %/
+/% Immobile Combatant %/
+
+<<if $sapientEncounter is 1>>
+
+/% ======= %/
+<<if ($aggro is 0) and ($substatus neq "sporeslave")>><<button [[Talk|Conversation][$saveState = passage(); $newConvo = 1; $exploring = 3; $helpless = 0; $encounterKind = 0; $pause = 0; $ffEncouraged = 0; $toggleDisplay = 1; $overrideExplore = 0]]>><<endif>><<endif>>
+
+/% ======= %/
+<<button [[Defend!|Combat][$saveStateBattle = passage(); $combat = 1; $deathCause = 0; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $overrideExplore = 0]]>>
+
+<<if $canSubmit is 1>>
+
+/% ======= %/
+<<button [[Submit...|CreatureEffects][$calories += $creatureCalories; $bellyBloat += $creatureGirth; $saveState = passage(); $exploring = 3; $helpless = 0; $encounterKind = 0; $pause = 0; $ffEncouraged = 0; $toggleDisplay = 1; $overrideExplore = 0]]>><<endif>>
+
+<<if $hasMound is 1>>
+
+/% ======= %/
+<<button [[Bribe...|Bribe][$saveState = passage(); $overrideExplore = 0]]>>
+
+<<if $befriendable is 1>>
+
+/% ======= %/
+<<button [[Befriend!|DonsairStore][$saveState = passage(); $befriendable = 0; $overrideExplore = 0]]>><<endif>>
+
+<<endif>>
+
+<<if $noAbsorb is 0>><<if $belly gte ($creatureGirth * 3)>>
+
+/% ======= %/
+<<button [[Absorb!|passage()][$bellyBloat += $creatureGirth; $calories += $creatureCalories; $overrideExplore = 0]]>><<endif>><<endif>>
+
+<<endnobr>><<endif>><<endif>>\
+\
+\
+/% ============================ %/\
+/% Special events %/\
+<<elseif $overrideEncounter is 1>>\
+<xtralarge><affirmation>''A <<print $encounter>> descends from above!''</affirmation></xtralarge><<set $overrideEncounter = 0>>
+<<button [[Talk|CreatureEffects][$saveState = passage()]]>> <<button [[Refuse Assistance.|passage()][$event_planetaryNullCrumb = 1; $continueOverride = 0; $overrideEncounter = 0]]>>\
+\
+\
+<<elseif $overrideEncounter is 2>>/% ============================ %/\
+/% No creature result %/\
+<<print $nullEncounter>><<set $overrideEncounter = 0>>\
+\
+\
+<<elseif $overrideEncounter is 9>>/% ============================ %/\
+/% Immobility 'call for help' with no response %/\
+You cried out for help!
+''...but no one came.''<<set $overrideEncounter = 0>>\
+\
+\
+<<elseif $overrideEncounter is 999>>/% ============================ %/\
+/% Unfinished encounter pool result. %/\
+//''DEBUG:'' This encounter pool is either unfinished, or unset. //<<set $overrideEncounter = 0>>\
+\
+\
+<<elseif $overrideEncounter is 99>>/% ============================ %/\
+/% Error readout! There's a problem setting a final encounter in CreaturePool and/or CreatureCategories. %/\
+//''DEBUG:'' Something is wrong/missing in the creature randomization scripts! //<<set $overrideEncounter = 0>><<endif>>

@@ -1,0 +1,60 @@
+﻿/% ========== RESOURCE DATABASE ========== %/
+
+/% $foodFat and $foodBloat are the resource analogues to creatures' $encFat and $creatureGirth. Stats work the exact same way, provided a resource is eaten on the spot rather than harvested. %/
+
+/% Pre-setup; clear any residual resource flags. %/
+
+<<set $waterResource = 0; $milkResource = 0; $meatResource = 0; $fishResource = 0; $poultryResource = 0; $eggResource = 0; $grainResource = 0; $rootResource = 0; $fruitResource = 0; $vegResource = 0;  $sugarResource = 0; $nutResource = 0; $fatResource = 0; $herbResource = 0; $jellyResource = 0; $dragonResource = 0; $leupaiResource = 0; $fatteniumResource = 0; $miraResource = 0; $resourceLiquid = 0; $traceFattenium = 0; $traceMirajin = 0; $bacteria = 0; $resourceType = 0>>
+
+
+/% I. Liquid Resources %/
+
+
+<<if $resourceEncounter is "clean water">><<set $resourceEncounter = either("fresh water","spring water","pure water"); $resourceGrammar = "a pool of"; $resourceType = "edible"; $resourceLiquid = 1; $foodFat = 0; $foodBloat = 50; $foodLiquid = 50; $waterResource = 5; $energy = 20; $encImg = "pool_clearwater">><<endif>>
+
+<<if $resourceEncounter is "unclean water">><<set $resourceEncounter = either("murky water","cloudy water","questionable water","contaminated water"); $resourceGrammar = "a pool of"; $resourceType = "edible"; $resourceLiquid = 1; $foodFat = either(0,0,0,0,0,0,0,20,30,50,60,70,80,90,100,150,200,250,300,350,400,450,500); $foodBloat = either(0,0,0,0,0,0,0,20,30,50,60,70,80,90,100,150,200,250,300,350,400,450,500); $foodLiquid = 50; $waterResource = 5; $fatteniumResource = random(1,10); $miraResource = random(0,10); $encImg = "pool_dirtywater">><<endif>>
+
+
+/% II. Food Resources %/
+
+
+<<if $resourceEncounter is "fattenium ore">><<set $resourceGrammar = "a vein of"; $resourceType = "edible"; $foodFat = either(10,20,30); $foodBloat = $foodFat; $fatteniumResource = ($foodFat / 10); $encImg = "ore_fattenium">><<endif>>
+
+<<if $resourceEncounter is "slime">><<set $resourceGrammar = "a blob of"; $resourceType = "edible"; $foodFat = either(0,0,0,0,10,20,30,40,50); $foodBloat = either(30,40,50,60,70,80,90,100,110,120,130,140,150); $foodLiquid = ($foodBloat / 10); $waterResource = ($foodBloat / 10); $jellyResource = ($foodBloat / 10)>><<endif>>
+
+<<if $resourceEncounter is "rain-plumped tendrilgrass">><<set $resourceGrammar = "a patch of"; $resourceType = "edible"; $foodFat = either(30,40,50); $foodBloat = 30; $vegResource = random(3,5); $waterResource = ($foodBloat / 10); $energy = 30>><<endif>>
+
+<<if $resourceEncounter is "plump tendrilvines">><<set $resourceGrammar = "a clump of"; $resourceType = "edible"; $foodFat = either(30,40,50,60,70,80,90,100); $foodBloat = either(30,40,50,60,70,80); $vegResource = ($foodFat / 10); $waterResource = ($foodBloat / 10); $energy = 20>><<endif>>
+
+<<if $resourceEncounter is "sugarcanes">><<set $resourceGrammar = "a patch of"; $resourceType = "edible"; $foodFat = either(20,30,40,50); $foodBloat = 30; $sugarResource = random(5,15); $energy = 50>><<endif>>
+
+<<if $resourceEncounter is "eggs">><<set $resourceGrammar = "a nest full of"; $resourceType = "edible"; $foodFat = either(50,60,70,80,90,100,110,120,130,140,150); $foodBloat = either(20,30,40,50,60,70,80,90,100,110,120,130,140,150); $eggResource = ($foodFat / 10); $energy = 50>><<endif>>
+
+<<if $resourceEncounter is "berry bunch">><<set $resourceEncounter = either("berries","grapes","tomatoes"); $resourceGrammar = "a bunch of"; $resourceType = "edible"; $foodFat = either(20,30,40,50); $foodBloat = either(20,30,40,50); $foodLiquid = either(20,30,40,50); $fruitResource = ($foodFat / 10); $energy = 20>><<endif>>
+
+<<if $resourceEncounter is "fruit tree">><<set $resourceEncounter = "ripe " + either("apples","oranges","pears","plums","peaches","cherries"); $resourceGrammar = "a tree full of"; $resourceType = "edible"; $foodFat = either(80,90,100,150,200,250); $foodBloat = either(50,60,70,80,90,100,150,200,250,300,350,400,450,500); $foodLiquid = ($foodBloat / 20); $fruitResource = ($foodFat / 10); $energy = 30>><<endif>>
+
+<<if $resourceEncounter is "swollen pumpkins">><<set $resourceGrammar = "a patch of"; $resourceType = "edible"; $foodFat = either(0,10,20,30,40,50); $foodBloat = either(70,80,90,100,110,120,130,140,150,160,170,180,190,200); $foodLiquid = ($foodBloat / 20); $vegResource = ($foodBloat / 10); $waterResource = ($foodBloat / 20); $energy = 30>><<endif>>
+
+<<if $resourceEncounter is "root veg">><<set $resourceEncounter = either("potatoes","carrots","turnips","beets","parsnips","roots"); $resourceGrammar = "some"; $resourceType = "edible"; $foodFat = either(30,40,50,60,70,80); $foodBloat = either(50,60,70,80,90,100); $rootResource = random(3,8); $energy = 20>><<endif>>
+
+<<if $resourceEncounter is "melon patch">><<set $resourceEncounter = either("bloated milkmelons","creaking milkmelons"); $resourceGrammar = "a patch of"; $resourceType = "edible"; $foodFat = either(40,50,60,70,80,90,100); $foodBloat = either(70,80,90,100,110,120,130,140,150,160,170,180,190,200); $foodLiquid = ($foodBloat / 10); $fruitResource = ($foodBloat / 10); $fatResource = ($foodFat / 20); $milkResource = ($foodBloat / 10); $energy = 20>><<endif>>
+
+<<if $resourceEncounter is "milkmelon patch">><<set $resourceEncounter = either("bloated milkmelons","creaking milkmelons"); $resourceGrammar = "a patch of"; $resourceType = "edible"; $foodFat = either(40,50,60,70,80,90,100); $foodBloat = either(70,80,90,100,110,120,130,140,150,160,170,180,190,200); $foodLiquid = ($foodBloat / 10); $fruitResource = ($foodBloat / 10); $fatResource = ($foodFat / 20); $milkResource = ($foodBloat / 10); $energy = 20>><<endif>>
+
+<<if $resourceEncounter is "succulents">><<set $resourceGrammar = "a patch of"; $resourceType = "edible"; $foodFat = random(0,20); $foodBloat = random(10,50); $vegResource = ($foodBloat / 20); $waterResource = ($foodBloat / 10); $energy = 20>><<endif>>
+
+<<if $resourceEncounter is "cactus">><<set $resourceGrammar = "a sturdy"; $resourceType = "edible"; $foodFat = random(0,30); $foodBloat = random(10,90); $vegResource = ($foodBloat / 10); $waterResource = ($foodBloat / 10); $energy = 20>><<endif>>
+
+/% III. Inedible Resources %/
+
+
+<<if $resourceEncounter is "fragrant herbs">><<set $resourceGrammar = "a bunch of"; $resourceType = "ingredient"; $herbResource = random(2,5)>><<endif>>
+
+<<if $resourceEncounter is "coffee powder">><<set $resourceGrammar = "a pouch of"; $resourceType = "ingredient"; $nutResource = random(2,5)>><<endif>>
+
+<<if $resourceEncounter is "grain field">><<set $resourceEncounter = either("corn","oats","wheat","barley","rice"); $resourceGrammar = "a field of"; $resourceType = "ingredient"; $grainResource = 10; $energy = 30>><<if $resourceEncounter is "rice">><<set $resourceGrammar = "a paddy of">><<endif>><<endif>>
+
+<<if $resourceEncounter is "miracrystal">><<set $resourceGrammar = "a vein of"; $resourceType = "ingredient"; $miraResource = random(2,6); $encImg = "ore_miracrystal">><<endif>>
+
+<<if $resourceEncounter is "miracrystal dust">><<set $resourceGrammar = "a tiny bottle of "; $resourceType = "ingredient"; $miraResource = random(1,3); $encImg = "powderjar">><<endif>>

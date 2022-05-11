@@ -1,0 +1,25 @@
+﻿/% Revecroix (no rares) %/
+<<set $randomRevecroix = either("aenimus","adephagian","aladri","arka","astar","axxi","belmere","celesse","daedlan","devinn","erinyi","ein","esque","fragmentari","helene","heitene","hyaen","intere","isri","Kaolani","kitsch","laworn","milletan","moreaui","noun","null","ouinsel","rachnai","piliete","rexaur","rosso","saarpoid","somnian")>>
+
+/% Revecroix + rares %/
+<<set $randomRareRevecroix = either("aenimus","adephagian","aladri","arka","astar","axxolan","belmere","celesse","daedlan","devinn","erinyi","ein","esque","fragmentari","helene","heitene","hyaen","intere","isri","Kaolani","kitsch","laworn","milletan","moreaui","mythosi","noun","null","ouinsel","piliete","rexaur","rosso","saarpoid","somnian","arrakai")>>
+
+/% Leupai (no rares) %/
+<<set $randomLeupai = either("belmere","celesse","daedlan","devinn","erinyi","ein","esque","helene","heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","noun","null","ouinsel","rexaur","rosso","saarpoid","somnian")>>
+
+/% Leupai (no styxi) %/
+<<set $randomNonstyxLeupai = either("belmere","celesse","daedlan","devinn","ein","helene","heitene","intere","isri","Kaolani","kitsch","laworn","noun","null","ouinsel","rachnai","rexaur","rosso","saarpoid","somnian")>>
+
+/% Leupai + rares (no seroi trai) %/
+<<set $randomRareLeupai = either("alchemite","astar","rachnai","belmere","celesse","celestine","daedlan","devinn","erinyi","ein","esque","fragmentari","helene","heitene","iicarn","intere","isri","Kaolani","kitsch","laworn","moreaui","noun","null","ouinsel","rexaur","rosso","saarpoid","somnian","arrakai")>>
+
+/% Egg-Bearing Leupai %/
+<<set $randomEggLeupai = either("belmere","belmere","belmere","belmere","belmere","celesse","devinn","ein","heitene","intere","kitsch","ouinsel","rexaur")>>
+
+/% Arka pool %/
+<<set $randomArka = either("aardvark","alligator","alligator","armadillo","badger","baku","bandicoot","bat","bat","bear","bearded dragon","bee","beetle","bellbird","bilby","bluetongue lizard","bowerbird","brush-turkey","boar","carnosaur","cat","cat","ceratopsian","chimaera","cicada","cichlid","cockatoo","crab","crane","crocodile","crocodile","crow","crow","cow","deer","deer","dingo","dog","dragon","dugong","dunnart","echidna","emu","feathertail glider","ferret","fish","fox","fox","frillneck lizard","fringehead","frog","galah","gecko","goanna","goat","goby","greater glider","sea turtle","hakutaku","hawk","honeyeater","hedgehog","horse","hyena","iguana","kangaroo","koala","kultarr","lammergeier","leopard","leupai","lion","lizard","loggerhead turtle","lorikeet","lyrebird","malleefowl","marten","mantis","marsupial mole","moth","nue","nudibranch","opossum","orca","otter","owl","pig","pangolin","parasaur","pegasus","peryton","phasogale","phoenix","platypus","quokka","quoll","raptor","rat","raven","sable","sandworm","salamander","seal","serpent","shark","sheep","sloth","slug","songbird","spider","squid","squirrel","sugar glider","taipan","tanuki","tasmanian devil","thorny devil","thylacine","tiger","tree kangaroo","unicorn","wallaby","wasp","wombat","worm")>>
+
+/% Arka for NPCs %/
+<<if $randomRevecroix is "arka">><<set $randomRevecroix = $randomArka + " arka">><<endif>>
+
+<<if $randomRareRevecroix is "arka">><<set $randomRareRevecroix = $randomArka + " arka">><<endif>>

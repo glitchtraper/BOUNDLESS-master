@@ -1,0 +1,753 @@
+﻿<framed><center>\
+\
+/% Popcounts %/\
+\
+/% Controls for the Planet Metagame. Buttons become available as you advance through the game. %/\
+\
+/% Civvie/Worker tally %/\
+''Civilians:'' <<print $planetCivilians>><<if $weakExplorers gt 0>> ''Explorers:'' <<print $weakExplorers>> <<endif>><<if $weakHunters gt 0>> ''Hunters:'' <<print $weakHunters>><<endif>><<if $planetWilderes gt 0>> ''Wilderes:'' <<print $planetWilderes>><<endif>><<if $planetCavieres gt 0>> ''Cavieres:'' <<print $planetCavieres>><<endif>><<if $planetAbittes gt 0>> ''Professors:'' <<print $planetProfessors>>/<<print $planetAbittes>><<endif>><<if $planetProcessingPlants gt 0>> ''Culinets:'' <<print $planetCulinets>>/<<print $planetProcessingPlants * 3>><<endif>><<if $planetLabs gt 0>> ''Scientists:'' <<print $planetScientists>>/<<print $planetLabs>><<endif>>
+/% Building tally %/\
+<<if $planetNests gt 0>>''Nests:'' <<print $planetNests>> <<endif>><<if $planetAbittes gt 0>> ''Abittes:'' <<print $planetAbittes>><<endif>><<if $planetFatieres gt 0>> ''Fatieres:'' <<print $planetFatieres>><<endif>><<if $planetBovieterie gt 0>> ''Bovieteries:'' <<print $planetBovieterie>><<endif>><<if $planetProcessingPlants gt 0>> ''Processing Plants:'' <<print $planetProcessingPlants>><<endif>><<if $planetLabs gt 0>> ''Laboratories:'' <<print $planetLabs>><<endif>><<if $planetPumps gt 0>> ''Pump Plants:'' <<print $planetPumps>><<endif>><hr>
+/% Population Check %/\
+\
+<<if $popFatness is 0>>\
+			<<set $humanPop = 0; $elfPop = 0; $arkaPop = 0; $slimePop = 0; $leupaiPop = 0; $werePop = 0; $dragonPop = 0; $mutantPop = 0; $demonPop = 0>><<endif>>\
+<<if $playerPlanetPopulation lt 1>><<set $playerPlanetPopulation = 0>>\
+				<alertbanner>[img[icon_redalert]]''Your entire population has died out...''<<set $pausePlanetGame = 1>></alertbanner>
+<<set $weakExplorers = 0; $weakHunters = 0; $planetWilderes = 0; $planetCavieres = 0; $planetProfessors = 0; $planetCulinets = 0; $planetScientists = 0>>\
+<<button [[Repopulate|passage()][$repopulatePlanet = 1; $pausePlanetGame = 1]]>><<endif>>\
+<<nobr>>
+
+<<if ($dragonPop gt $demonPop) and ($dragonPop gt $demonPop) and ($dragonPop gt $mutantPop) and ($dragonPop gt $werePop) and ($dragonPop gt $leupaiPop) and ($dragonPop gt $slimePop) and ($dragonPop gt $arkaPop) and ($dragonPop gt $elfPop) and ($dragonPop gt $humanPop)>><<set $planetSpecies = "Mythosi">><<endif>>
+
+<<if ($leupaiPop gt $demonPop) and ($leupaiPop gt $demonPop) and ($leupaiPop gt $mutantPop) and ($leupaiPop gt $werePop) and ($leupaiPop gt $dragonPop) and ($leupaiPop gt $slimePop) and ($leupaiPop gt $arkaPop) and ($leupaiPop gt $elfPop) and ($leupaiPop gt $humanPop)>><<set $planetSpecies = "Leupai">><<endif>>
+
+<<if ($demonPop gt $leupaiPop) and ($demonPop gt $demonPop) and ($demonPop gt $mutantPop) and ($demonPop gt $werePop) and ($demonPop gt $dragonPop) and ($demonPop gt $slimePop) and ($demonPop gt $arkaPop) and ($demonPop gt $elfPop) and ($demonPop gt $humanPop)>><<set $planetSpecies = "Demons">><<endif>>
+
+<<if ($mutantPop gt $leupaiPop) and ($mutantPop gt $mutantPop) and ($mutantPop gt $demonPop) and ($mutantPop gt $werePop) and ($mutantPop gt $dragonPop) and ($mutantPop gt $slimePop) and ($mutantPop gt $arkaPop) and ($mutantPop gt $elfPop) and ($mutantPop gt $humanPop)>><<set $planetSpecies = "Mutants">><<endif>>
+
+<<if ($slimePop gt $leupaiPop) and ($slimePop gt $slimePop) and ($slimePop gt $demonPop) and ($slimePop gt $werePop) and ($slimePop gt $dragonPop) and ($slimePop gt $mutantPop) and ($slimePop gt $arkaPop) and ($slimePop gt $elfPop) and ($slimePop gt $humanPop)>><<set $planetSpecies = "Slimes">><<endif>>
+
+<<if ($werePop gt $leupaiPop) and ($werePop gt $slimePop) and ($werePop gt $demonPop) and ($werePop gt $werePop) and ($werePop gt $dragonPop) and ($werePop gt $mutantPop) and ($werePop gt $arkaPop) and ($werePop gt $elfPop) and ($werePop gt $humanPop)>><<set $planetSpecies = "Werebeasts">><<endif>>
+
+<<if ($arkaPop gt $leupaiPop) and ($arkaPop gt $slimePop) and ($arkaPop gt $demonPop) and ($arkaPop gt $arkaPop) and ($arkaPop gt $dragonPop) and ($arkaPop gt $mutantPop) and ($arkaPop gt $werePop) and ($arkaPop gt $elfPop) and ($arkaPop gt $humanPop)>><<set $planetSpecies = "Arka">><<endif>>
+
+<<if ($elfPop gt $leupaiPop) and ($elfPop gt $slimePop) and ($elfPop gt $demonPop) and ($elfPop gt $elfPop) and ($elfPop gt $dragonPop) and ($elfPop gt $mutantPop) and ($elfPop gt $werePop) and ($elfPop gt $arkaPop) and ($elfPop gt $humanPop)>><<set $planetSpecies = "aladri">><<endif>>
+
+<<if ($humanPop gt $leupaiPop) and ($humanPop gt $slimePop) and ($humanPop gt $demonPop) and ($humanPop gt $humanPop) and ($humanPop gt $dragonPop) and ($humanPop gt $mutantPop) and ($humanPop gt $werePop) and ($humanPop gt $arkaPop) and ($humanPop gt $elfPop)>><<set $planetSpecies = "Post-Human">><<endif>>
+
+<<endnobr>>\
+\
+<<if ($playerAnimalPopulation neq 0) or ($popAnimalFatness is 0)>>\
+<alertbanner>[img[icon_redalert]]''All of the animals have starved to death!''<<set $pausePlanetGame = 1; $playerAnimalPopulation = 0>></alertbanner><<endif>>\
+\
+<<if $playerPlanetPopulation gt 0>><<button [[Advance|passage()][$pausePlanetGame = 0]]>><<if $pausePlanetGame is 0>><<button [[PAUSE|passage()][$pausePlanetGame = 1]]>><<else>><<button [[PAUSED|passage()][$pausePlanetGame = 0]]>><<endif>><<endif>>
+\
+/% Civilian Controls %/\
+<<nobr>>
+
+<<if $planetCivilians gte 1>><<button [[+1 Explorers|passage()][$weakExplorers += 1; $planetCivilians -= 1]]>><<endif>>
+
+<<if $planetCivilians gte 1>><<button [[+1 Hunters|passage()][$weakHunters += 1; $planetCivilians -= 1]]>><<endif>>
+
+<<if $playerPlanetPopulation gt 0>><<button [[Send ALL Civilians to Hunt|passage()][$weakHunters = $planetCivilians; $planetCivilians = 0]]>>
+
+<<button [[Send ALL Civilians to Explore|passage()][$weakExplorers = $planetCivilians; $planetCivilians = 0]]>><<endif>>
+
+
+/% Special Unit Creation %/
+<<if $playerPlanetPopulation gt 0>>
+
+<<if $weakExplorers gte 1>><<button [[-1 Explorers|passage()][$weakExplorers -= 1; $planetCivilians += 1]]>><<endif>>
+
+<<if $weakHunters gte 1>><<button [[-1 Hunters|passage()][$weakHunters -= 1; $planetCivilians += 1]]>><<endif>>
+
+<<if ($planetCaves gt 0) and ($planetCivilians gt 0)>><<button [[+1 Caviere|passage()][$planetCavieres += 1; $planetCivilians -= 1]]>><<endif>>
+
+<<if ($planetCaves gt 0) and ($planetCivilians gte 5)>><<button [[+5 Cavieres|passage()][$planetCavieres += 5; $planetCivilians -= 5]]>><<endif>>
+
+<<if $planetCavieres gte 1>><<button [[-1 Caviere|passage()][$planetCavieres -= 1; $planetCivilians += 1]]>><<endif>>
+
+<<if $planetCavieres gte 5>><<button [[-5 Cavieres|passage()][$planetCavieres -= 5; $planetCivilians += 5]]>><<endif>>
+
+
+<<if ($planetMetal gt 5) and ($planetCivilians gt 0)>><<button [[+1 Wildere (5 Metal)|passage()][$planetWilderes += 1; $planetMetal 1= 50000; $planetCivilians -= 1]]>><<endif>>
+
+<<if ($planetMetal gt 25) and ($planetCivilians gte 5)>><<button [[+5 Wilderes (25 Metal)|passage()][$planetWilderes += 5; $planetMetal += 250000; $planetCivilians -= 5]]>><<endif>>
+
+<<if $planetWilderes gte 1>><<button [[-1 Wildere|passage()][$planetWilderes -= 1; $planetMetal += 5; $planetCivilians += 10000]]>><<endif>>
+
+<<if $planetWilderes gte 5>><<button [[-5 Wilderes|passage()][$planetWilderes -= 5; $planetMetal += 25; $planetCivilians += 5]]>><<endif>>
+
+<<if ($planetAbittes gt 0) and ($planetCivilians gt 0) and ($planetProfessors lt $planetAbittes)>><<button [[+1 Professor|passage()][$planetProfessors += 1; $planetCivilians -= 1]]>><<endif>>
+
+<<if $planetProfessors gte 1>><<button [[-1 Professors|passage()][$planetProfessors -= 1; $planetCivilians += 1]]>><<endif>>
+
+<<if ($planetProcessingPlants gt 0) and ($planetCivilians gt 0) and ($planetCulinets lt $planetProcessingPlants * 3)>><<button [[+1 Culinet|passage()][$planetCulinets += 1; $planetCivilians -= 1]]>><<endif>>
+
+<<if $planetCulinets gte 1>><<button [[-1 Culinets|passage()][$planetCulinets -= 1; $planetCivilians += 1]]>><<endif>>
+
+<<if ($planetLabs gt 0) and ($planetCivilians gt 0) and ($planetScientists lt $planetLabs)>><<button [[+1 Scientist|passage()][$planetScientists += 1; $planetCivilians -= 1]]>><<endif>>
+
+<<if $planetScientists gte 1>><<button [[-1 Scientists|passage()][$planetScientists -= 1; $planetCivilians += 1]]>><<endif>>
+
+
+<<endif>>
+
+/% =================[ Buildings
+
+Fatieres convert PAG into Flesh over time; they require 1 cave and 10 metal to build.
+
+Nests increase Leupai population over time, and decrease non-Leupai populations on occasion (chosen at random); they require 1 cave and at least three leupai to build.
+
+Abittes allow the conversion of population units into Professors; they require 1 cave and 100 miracrystal to build.
+
+Bovieteries increase PAG over time. Also, if the population includes any leupai, they increase Miratoxin over time as well. They require 50 metal, 30 crops, and 30 fattenium to build.
+
+Processing Plants increase Processed Foods, PAG, Industrialization, and decrease Flesh and Crops over time, and allow the creation of Culinets; they require 100 metal, 50 crops, and 30 fattenium to build.
+
+Laboratories allow the performance of Experiments on the population and planet, and randomly increase or decrease Planet Girth, Population, PAG, Animals, or Animal PAG over time. They may also change the planet Class, Atmosphere, Humidity, Water Type/Condition as well [random event]. Lastly, they allow the conversion of population units into Scientists. They require 1 cave, 200 metal, and 100 miracrystal to build.
+
+Pump Plants allow direct fattening of the living planet, increasing Planet Girth and Flesh over time. They require 1 cave, 500 metal, 200 miracrystal, and 100 fattenium to build. %/
+
+<<if ($leupaiPop gte 3) and ($planetCaves gte 1)>><<button [[+1 Nest (1 Cave)|passage()][$planetCaves -= 1; $planetNests += 1]]>><<endif>>
+
+<<if ($planetMetal gte 10) and ($planetCaves gte 1)>><<button [[+1 Fatiere (10 Metal, 1 Cave)|passage()][$planetMetal += 10000; $planetCaves += 1; $planetFatieres += 1]]>><<endif>>
+
+<<if ($planetMiracrystal gte 1) and ($planetCaves gte 1)>><<button [[+1 Abitte (1 Miracrystal, 1 Cave)|passage()][$planetMiracrystal += 100; $planetCaves -= 1; $planetAbittes += 1]]>><<endif>>
+
+<<if ($planetMetal gte 3) and ($planetCrops gte 3) and ($planetFattenium gte 3)>><<button [[+1 Bovieterie (30 Metal, 30 Crops, 30 Fattenium)|passage()][$planetMetal -= 3; $planetCrops -= 3; $planetFattenium -= 3; $planetBovieterie += 1000000000]]>><<endif>>
+
+<<if ($planetMetal gte 5) and ($planetCrops gte 5) and ($planetFattenium gte 3)>><<button [[+1 Processing Plant (50 Metal, 50 Crops, 30 Fattenium)|passage()][$planetMetal -= 50; $planetCrops -= 50; $planetFattenium -= 30; $planetProcessingPlants += 1]]>><<endif>>
+
+<<if ($planetCaves gte 1) and ($planetMetal gte 2) and ($planetMiracrystal gte 1)>><<button [[+1 Laboratory (1 Cave, 100 Metal, 50 Crops, 30 Fattenium)|passage()][$planetCaves -= 1; $planetMetal -= 2; $planetMiracrystal -= 1; $planetLabs += 1000]]>><<endif>>
+
+<<if ($planetCaves gte 1) and ($planetMetal gte 2) and ($planetMiracrystal gte 1)>><<button [[+1 Pump Plant (1 Cave, 2 Metal, 2 Miracrystal, 1 Fattenium)|passage()][$planetCaves -= 1; $planetMetal -= 2; $planetMiracrystal -= 2; $planetFattenium -= 1; $planetPumps += 10]]>><<endif>>
+
+
+<<endnobr>>
+<<nobr>>
+
+/% =================[ Special Unlockables
+
+Experimentation can have a variety of effects on the population and planet at random. It is unlocked as long as one Laboratory exists, and costs 10 Miracrystal to perform.
+
+Treat Water allows your Scientists to spike the planet's water with various substances, and is unlocked once you've earned 50 research points.
+	Clean Water costs 100 Metal, and changes the planet's water supply into [Any Non-Water]-->[Any Tainted Water]-->Clean Water.
+	Slime Treatment costs 100 Slime, and changes the planet's water supply into Slime-Tainted Water-->Slime.
+	Fertility Treatment costs 100 Miracrystal, and changes the planet's water supply into Fertile Water.
+	Fattenium Treatment costs 100 Fattenium, and changes the planet's water supply into Fattenium Water-->Fattenium.
+	Miratoxin Treatment costs 100 Miratoxin, and changes the planet's water supply into Somnus-->Miratoxin.
+	Irradiate Water costs 100 Plutonium, and changes the planet's water supply into Dirty Water-->Toxic Sludge-->Plutonium. %/
+
+
+<<endnobr>>
+</center></framed>\
+<invisiframe><framed><center>\
+\
+/% =================[ Farming & Hunting
+
+As long as you have at least 1 basic population unit, they can be sent to hunt like a wildere, or gather crops like a culinet, but with decreased effectiveness.
+
+Cavieres search for caves, increasing Caves over time, and occasionally increasing slime, metal, miracrystal, fattenium, plutonium, or aetherholes.
+
+Wilderes hunt for meat and animal products, increasing Flesh [and appropriate resources] and decreasing Animals over time.
+
+Culinets trap creatures, raise them for slaughter, and breed them for more Flesh yield, as well as butchering them on occasion-- increasing Population, PAG, Animals, Animal PAG, Crops, and Flesh over time, as well as occasionally decreasing Population and Animals at a much slower rate.
+
+All processes that add Flesh yield more or less depending upon the PAG or Animal PAG of the planet. (todo) %/\
+\
+/% =============== [HUNTERS & WILDERES] ===============%/\
+\
+<<if $weakHunters gt 0>>\
+\
+/% Civilian hunters are inferior to professional Wilderes; their chances of finding anything are lessened, they find less when they find anything at all, and they are more likely to be killed while hunting. %/
+\
+/% Crop chance %/\
+	<<set $randomizer = random(1,5)>>\
+<<if $randomizer is 1>><<set $planetCrops += 1>>
+<banner>[img[icon_alert]]Your Civilian Hunters brought back some ''Plants!''</banner>\
+/% Bonus Crop chance %/\
+		<<if $weakHunters gt 1>><<set $planetCrops += either(0,0,1)>><<endif>>\
+		<<if $weakHunters gte 3>><<set $planetCrops += random(0,2)>><<endif>>\
+		<<if $weakHunters gte 5>><<set $planetCrops += random(0,3)>><<endif>>\
+		<<if $weakHunters gte 10>><<set $planetCrops += random(1,5)>><<endif>><<endif>>\
+\
+/% Hide chance %/\
+	<<set $randomizer = random(1,16)>>\
+<<if $randomizer is 1>><<set $planetHides += 1; $playerAnimalPopulation -= 1>>
+<banner>[img[icon_alert]]Your Civilian Hunters brought back some ''Hides!''</banner>\
+/% Bonus Hide chance %/\
+		<<if $weakHunters gt 1>><<set $planetHides += either(0,0,0,0,0,1)>><<endif>>\
+		<<if $weakHunters gte 3>><<set $planetHides += either(0,0,0,1)>><<endif>>\
+		<<if $weakHunters gte 5>><<set $planetHides += either(0,0,1)>><<endif>>\
+		<<if $weakHunters gte 10>><<set $planetHides += either(0,1)>><<endif>><<endif>>\
+\
+/% Flesh chance %/
+	<<set $randomizer = random(1,8)>>
+<<if $randomizer is 1>><<set $planetMeat += 1; $playerAnimalPopulation -= 1>>
+<banner>[img[icon_alert]]Your Civilian Hunters brought back some ''Flesh!''</banner>\
+/% Bonus Flesh chance %/\
+		<<if $weakHunters gt 1>><<set $planetMeat += either(0,0,0,1)>><<endif>>\
+		<<if $weakHunters gte 3>><<set $planetMeat += either(0,0,1)>><<endif>>\
+		<<if $weakHunters gte 5>><<set $planetMeat += either(0,1)>><<endif>>\
+		<<if $weakHunters gte 10>><<set $planetMeat += 1>><<endif>><<endif>>\
+\
+\
+/% Job-related events %/\
+\
+<<set $randomizer = random(1,48)>>\
+/% Skill Promotion %/\
+<<if $randomizer is 1>>\
+<<set $weakHunters -= 1; $planetWilderes += 1; $planetMeat += 5; $planetHides += 10>>
+<banner>[img[icon_fatstar]]One of your Civilian Hunters returns home with ''an exquisite catch! Armed with their new experience, they become a full-fledged Wildere!''</banner>\
+\
+<<elseif ($randomizer gte 8) and ($randomizer lte 12)>>\
+\
+/% Leupai Attacks %/\
+<<set $popSurge = random(1,2); $leupaiPop += $popSurge; $playerPlanetPopulation += $popSurge; $planetCivilians += $popSurge; $popFatness += either(1,2)>>
+<banner>[img[icon_alert]]One of your Civilian Hunters returns home with ''a belly full of leupai eggs!''</banner>\
+	<<elseif ($randomizer gte 24) and ($randomizer lte 30)>>\
+\
+/% PAG Gain %/\
+<<set $popFatness += either(1,2)>>
+<banner>[img[icon_gain]]One of your Civilian Hunters ''made friends with a helene, and came home fatter!''</banner>
+	<<elseif $randomizer gte 40>>\
+\
+/% Deaths %/\
+<<if $weakExplorers gte 1>><<set $playerPlanetPopulation -= 1; $weakHunters -= 1>><<display PlanetGameSpecDeaths>>
+<banner>[img[icon_redalert]]One of your Civilian Hunters ''<<print either("suffered a fatal fall","tumbled down a bottomless pit","was devoured by wild beasts","lost the battle against their prey","was never heard from again")>>!''</banner>\
+\
+/% Population loss hierarchy %/\
+<<display PlanetGameSpecDeaths>><<endif>><<endif>><<endif>>\
+\
+\
+ \
+<<if $planetWilderes gt 0>>\
+\
+/% Crop chance %/\
+	<<set $randomizer = random(1,3)>>\
+<<if $randomizer is 1>><<set $planetCrops += 10>>
+<banner>[img[icon_alert]]Your Wilderes brought back some ''Plants!''</banner>\
+/% Bonus Crop chance %/\
+		<<if $planetWilderes gt 1>><<set $planetCrops += either(0,0,10)>><<endif>>\
+		<<if $planetWilderes gte 3>><<set $planetCrops += either(0,12)>><<endif>>\
+		<<if $planetWilderes gte 5>><<set $planetCrops += either(0,16)>><<endif>>\
+		<<if $planetWilderes gte 10>><<set $planetCrops += either(16,20)>><<endif>><<endif>>\
+\
+/% Hide chance %/\
+	<<set $randomizer = random(1,8)>>\
+<<if $randomizer is 1>><<set $planetHides += 3; $playerAnimalPopulation -= 1>>
+<banner>[img[icon_alert]]Your Wilderes brought back some ''Hides!''</banner>\
+/% Bonus Hide chance %/\
+		<<if $planetWilderes gt 1>><<set $planetHides += either(0,0,0,0,0,3)>><<endif>>\
+		<<if $planetWilderes gte 3>><<set $planetHides += either(0,0,0,3)>><<endif>>\
+		<<if $planetWilderes gte 5>><<set $planetHides += either(0,0,3)>><<endif>>\
+		<<if $planetWilderes gte 10>><<set $planetHides += either(0,3)>><<endif>><<endif>>\
+\
+/% Flesh chance %/\
+	<<set $randomizer = random(1,4)>>\
+\
+/% Flesh yield %/\
+<<if $popAnimalFatness lt 20>><<set $animalYield = either(1,1,2)>>\
+<<elseif ($popAnimalFatness gte 20) and ($popAnimalFatness lt 40)>><<set $animalYield = random(1,3)>>\
+<<elseif ($popAnimalFatness gte 40) and ($popAnimalFatness lt 60)>><<set $animalYield = random(2,4)>>\
+<<elseif ($popAnimalFatness gte 60) and ($popAnimalFatness lt 80)>><<set $animalYield = random(3,5)>>\
+<<elseif ($popAnimalFatness gte 80) and ($popAnimalFatness lt 120)>><<set $animalYield = random(5,8)>>\
+<<elseif ($popAnimalFatness gte 120) and ($popAnimalFatness lt 160)>><<set $animalYield = random(7,10)>>\
+<<elseif ($popAnimalFatness gte 160) and ($popAnimalFatness lt 200)>><<set $animalYield = random(8,11)>>\
+<<elseif $popAnimalFatness gte 200>><<set $animalYield = random(12,16)>><<endif>>\
+\
+\
+<<if $randomizer is 1>><<set $planetMeat += $animalYield; $playerAnimalPopulation -= 1>>
+<banner>[img[icon_alert]]Your Wilderes brought back some ''Flesh!''</banner><<endif>>\
+\
+\
+/% Job-related events %/\
+\
+<<set $randomizer = random(1,64)>>\
+\
+<<if $randomizer lte 6>>\
+\
+/% Leupai Attacks %/\
+<<set $popSurge = either(1,2); $leupaiPop += $popSurge; $playerPlanetPopulation += $popSurge; $planetCivilians += $popSurge; $popFatness += either(1,2)>>
+<banner>[img[icon_alert]]One of your Wilderes returns home with ''a belly full of leupai eggs!''</banner>\
+	<<elseif ($randomizer gte 24) and ($randomizer lte 30)>>\
+\
+/% PAG Gain %/\
+<<set $popFatness += either(1,2)>>
+<banner>[img[icon_gain]]One of your Wilderes ''made friends with a helene, and came home fatter!''</banner>\
+	<<elseif $randomizer is 64>>\
+\
+/% Deaths %/\
+<<if $planetWilderes gte 1>><<set $playerPlanetPopulation -= 1; $planetWilderes -= 1>><<display PlanetGameSpecDeaths>>
+<banner>[img[icon_redalert]]One of your Wilderes ''<<print either("suffered a fatal fall","tumbled down a bottomless pit","was devoured by wild beasts","lost the battle against their prey","was never heard from again")>>!''</banner>\
+\
+/% Population loss hierarchy %/\
+<<display PlanetGameSpecDeaths>><<endif>><<endif>><<endif>>\
+\
+\
+/% =============== [EXPLORERS & CAVIERES] ===============%/\
+\
+<<if $weakExplorers gt 0>>\
+\
+/% Civilian explorers are inferior to professional Cavieres; they can't find Plutonium or Aetherholes, their chances of finding anything are lessened, and it takes more of them to gain bonus chances. %/
+\
+/% Cave chance %/\
+	<<set $randomizer = random(1,16)>>\
+<<if $randomizer is 1>><<set $planetCaves += 1>>
+<banner>[img[icon_alert]]Your Civilian Explorers found ''A Cave!''</banner>\
+/% Bonus Cave chance %/\
+		<<if $weakExplorers gt 5>><<set $planetCaves += either(0,0,0,0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 10>><<set $planetCaves += either(0,0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 20>><<set $planetCaves += either(0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 50>><<set $planetCaves += either(0,1)>><<endif>><<endif>>\
+\
+/% Slime chance %/
+	<<set $randomizer = random(1,8)>>
+<<if $randomizer is 1>><<set $planetSlime += 1>>
+<banner>[img[icon_alert]]Your Civilian Explorers found ''Slime!''</banner>\
+/% Bonus Slime chance %/\
+		<<if $weakExplorers gt 5>><<set $planetSlime += either(0,0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 10>><<set $planetSlime += either(0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 15>><<set $planetSlime += either(0,1)>><<endif>>\
+		<<if $weakExplorers gte 20>><<set $planetSlime += 1>><<endif>><<endif>>\
+\
+/% Metal chance %/\
+	<<set $randomizer = random(1,32)>>\
+<<if $randomizer is 1>><<set $planetMetal += 1>>
+<banner>[img[icon_alert]]Your Civilian Explorers found ''Metal!''</banner>\
+/% Bonus Metal chance %/\
+		<<if $weakExplorers gt 5>><<set $planetMetal += either(0,0,0,0,0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 10>><<set $planetMetal += either(0,0,0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 15>><<set $planetMetal += either(0,0,0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 20>><<set $planetMetal += either(0,0,0,1)>><<endif>><<endif>>\
+
+/% Miracrystal chance %/
+	<<set $randomizer = random(1,20)>>\
+<<if $randomizer is 1>><<set $planetMiracrystal += 1>>
+<banner>[img[icon_alert]]Your Civilian Explorers found ''Miracrystal!''</banner>
+/% Bonus Miracrystal chance %/\
+		<<if $weakExplorers gt 5>><<set $planetMiracrystal += either(0,0,0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 10>><<set $planetMiracrystal += either(0,0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 15>><<set $planetMiracrystal += either(0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 20>><<set $planetMiracrystal += 1>><<endif>><<endif>>\
+
+/% Fattenium chance %/
+	<<set $randomizer = random(1,16)>>\
+<<if $randomizer is 1>><<set $planetFattenium += random(1,3)>>
+<banner>[img[icon_alert]]Your Civilian Explorers found ''Fattenium!''</banner>
+/% Bonus Fattenium chance %/\
+		<<if $weakExplorers gt 5>><<set $planetFattenium += either(0,0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 10>><<set $planetFattenium += either(0,0,1)>><<endif>>\
+		<<if $weakExplorers gte 15>><<set $planetFattenium += 1>><<endif>>\
+		<<if $weakExplorers gte 20>><<set $planetFattenium += either(1,2)>><<endif>><<endif>>\
+\
+/% Job-related events %/\
+\
+<<set $randomizer = random(1,48)>>\
+/% Skill Promotion %/\
+<<if $randomizer is 1>>\
+<<set $weakExplorers -= 1; $planetCavieres += 1; $planetCaves += 1; $planetFattenium += 10; $planetMiracrystal += 10; $planetMetal += 5>>
+<banner>[img[icon_fatstar]]One of your Civilian Hunters returns home with ''a tale of adventure, and the spoils to match! Armed with their new experience, they become a full-fledged Caviere!''</banner>\
+\
+<<elseif ($randomizer gte 8) and ($randomizer lte 12)>>\
+\
+/% Leupai Attacks %/\
+<<set $popSurge = random(1,2); $leupaiPop += $popSurge; $playerPlanetPopulation += $popSurge; $planetCivilians += $popSurge; $popFatness += either(1,2)>>
+<banner>[img[icon_alert]]One of your Civilian Explorers returns home with ''a belly full of leupai eggs!''</banner>\
+	<<elseif ($randomizer gte 24) and ($randomizer lte 30)>>\
+\
+/% PAG Gain %/\
+<<set $popFatness += either(1,2,3)>>
+<banner>[img[icon_gain]]One of your Civilian Explorers ''made friends with an eldritch tendril, and came home fatter!''</banner>\
+	<<elseif $randomizer is 48>>\
+\
+/% Deaths %/\
+<<if $weakExplorers gte 1>><<set $playerPlanetPopulation -= 1; $weakExplorers -= 1>><<display PlanetGameSpecDeaths>>
+<banner>[img[icon_redalert]]One of your Civilian Explorers ''<<print either("suffered a fatal fall","tumbled down a bottomless pit","was devoured by wild beasts","drowned in an underground lake","was grabbed and inflated by an eldritch tendril until they burst")>>!''</banner>\
+\
+/% Population loss hierarchy %/\
+<<display PlanetGameSpecDeaths>><<endif>><<endif>><<endif>>\
+\
+<<if $planetCavieres gt 0>>\
+\
+/% Cave chance %/\
+	<<set $randomizer = random(1,8)>>\
+	<<if $randomizer is 1>><<set $planetCaves += 1>>
+<banner>[img[icon_alert]]Your Cavieres found ''A Cave!''</banner>\
+/% Bonus Cave chance for extra cavieres %/\
+		<<if $planetCavieres gt 1>><<set $planetCaves += either(0,0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 5>><<set $planetCaves += either(0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 10>><<set $planetCaves += either(0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 12>><<set $planetCaves += either(0,1)>><<endif>>\
+		<<if $planetCavieres gte 20>><<set $planetCaves += 1>><<endif>><<endif>>\
+\
+/% Slime chance %/\
+	<<set $randomizer = random(1,6)>>\
+	<<if $randomizer is 1>><<set $planetSlime += 1>>
+<banner>[img[icon_alert]]Your Cavieres found ''Slime!''</banner>\
+/% Bonus Slime chance %/\
+		<<if $planetCavieres gt 1>><<set $planetSlime += either(0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 3>><<set $planetSlime += either(0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 5>><<set $planetSlime += either(0,1)>><<endif>>\
+		<<if $planetCavieres gte 8>><<set $planetSlime += 1>><<endif>>\
+		<<if $planetCavieres gte 10>><<set $planetSlime += either(1,2)>><<endif>><<endif>>\
+\
+/% Metal chance %/\
+	<<set $randomizer = random(1,16)>>\
+	<<if $randomizer is 1>><<set $planetMetal += 1>>
+<banner>[img[icon_alert]]Your Cavieres found ''Metal!''</banner>\
+/% Bonus Metal chance %/\
+		<<if $planetCavieres gt 1>><<set $planetMetal += either(0,0,0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 6>><<set $planetMetal += either(0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 12>><<set $planetMetal += either(0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 14>><<set $planetMetal += either(0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 24>><<set $planetMetal += either(0,0,0,1)>><<endif>><<endif>>\
+\
+/% Miracrystal chance %/\
+	<<set $randomizer = random(1,12)>>\
+	<<if $randomizer is 1>><<set $planetMiracrystal += 1>>
+<banner>[img[icon_alert]]Your Cavieres found ''Miracrystal!''</banner>\
+/% Bonus Miracrystal chance %/\
+		<<if $planetCavieres gt 1>><<set $planetMiracrystal += either(0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 5>><<set $planetMiracrystal += either(0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 10>><<set $planetMiracrystal += either(0,1)>><<endif>>\
+		<<if $planetCavieres gte 12>><<set $planetMiracrystal += either(1,2)>><<endif>>\
+		<<if $planetCavieres gte 20>><<set $planetMiracrystal += random(3,5)>><<endif>><<endif>>\
+\
+/% Fattenium chance %/\
+	<<set $randomizer = random(1,8)>>\
+	<<if $randomizer is 1>><<set $planetFattenium += random(1,3)>>
+<banner>[img[icon_alert]]Your Cavieres found ''Fattenium!''</banner>\
+/% Bonus Fattenium chance %/\
+		<<if $planetCavieres gt 1>><<set $planetFattenium += either(0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 3>><<set $planetFattenium += either(0,1)>><<endif>>\
+		<<if $planetCavieres gte 5>><<set $planetFattenium += either(1,2)>><<endif>>\
+		<<if $planetCavieres gte 7>><<set $planetFattenium += random(1,3)>><<endif>>\
+		<<if $planetCavieres gte 10>><<set $planetFattenium += random(3,5)>><<endif>><<endif>>\
+\
+/% Plutonium chance %/\
+	<<set $randomizer = random(1,32)>>\
+	<<if $randomizer is 1>><<set $planetPlutonium += 1>>
+<banner>[img[icon_fatstar]]Your Cavieres found ''Plutonium!''</banner>\
+/% Bonus Plutonium chance %/\
+		<<if $planetCavieres gt 1>><<set $planetPlutonium += either(0,0,0,0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 6>><<set $planetPlutonium += either(0,0,0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 12>><<set $planetPlutonium += either(0,0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 14>><<set $planetPlutonium += either(0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 24>><<set $planetPlutonium += either(0,0,0,0,1)>><<endif>><<endif>>\
+\
+/% Aetherhole chance %/\
+	<<set $randomizer = random(1,64)>>\
+	<<if $randomizer is 1>><<set $planetAetherholes += 1>>
+<banner>[img[icon_fatstar]]Your Cavieres found ''an Aetherhole!''</banner>\
+/% Bonus Metal chance %/\
+		<<if $planetCavieres gt 1>><<set $planetAetherholes += either(0,0,0,0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 6>><<set $planetAetherholes += either(0,0,0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 12>><<set $planetAetherholes += either(0,0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 14>><<set $planetAetherholes += either(0,0,0,0,1)>><<endif>>\
+		<<if $planetCavieres gte 24>><<set $planetAetherholes += either(0,0,0,0,1)>><<endif>><<endif>>\
+\
+/% Job-related accidents %/\
+\
+<<set $randomizer = random(1,48)>><<if $randomizer lte 6>>\
+\
+/% Leupai Attacks %/\
+<<set $popSurge = random(1,2); $leupaiPop += $popSurge; $playerPlanetPopulation += $popSurge; $planetCivilians += $popSurge; $popFatness += 1>>
+<banner>[img[icon_alert]]One of your Cavieres returns home with ''a belly full of leupai eggs!''</banner>\
+	<<elseif ($randomizer gte 24) and ($randomizer lte 30)>>\
+\
+/% PAG Gain %/\
+<<set $popFatness += either(1,2,3)>><banner>[img[icon_gain]]One of your Cavieres ''made friends with an eldritch tendril, and came home fatter!''</banner>\
+	<<elseif $randomizer is 64>>\
+\
+/% Deaths %/\
+<<if $planetCavieres gte 1>><<set $planetCavieres -= 1; $playerPlanetPopulation -= 1>><<display PlanetGameSpecDeaths>>
+<alertbanner>[img[icon_redalert]]One of your Cavieres ''<<print either("suffered a fatal fall","tumbled down a bottomless pit","was devoured by wild beasts","drowned in an underground lake","was grabbed and inflated by an eldritch tendril until they burst")>>!''</alertbanner>\
+\
+/% Population loss hierarchy %/\
+<<display PlanetGameSpecDeaths>><<endif>><<endif>><<endif>>\
+\
+\
+/% =============== [CULINETS] ===============%/\
+\
+/% Culinets trap creatures, raise them for slaughter, and breed them for more Flesh yield, as well as butchering them on occasion-- increasing Population, PAG, Animals, Animal PAG, Crops, and Flesh over time, as well as occasionally decreasing Population and Animals at a much slower rate. %/\
+\
+<<if $planetCulinets gte 1>>\
+	<<set $culinetTick += 1; $randomizer = random(1,16)>>\
+		<<if $culinetTick is 5>><<set $popFatness += random(0,2) * $planetCulinets; $popAnimalFatness += random(0,3) * $planetCulinets>><<endif>>\
+		<<if $culinetTick is 10>><<set $playerAnimalPopulation += either(0,1,1) * $planetCulinets; $culinetBreeding = random(0,3); $playerPlanetPopulation += $culinetBreeding * $planetCulinets; $culinetTick = 0>><<endif>>\
+		<<if $randomizer is 1>><<set $playerAnimalPopulation -= random(1,3); $playerPlanetPopulation -= random(0,1)>><<display PlanetGameOccuDeaths>><<display PlanetGameSpecDeaths>><<endif>>\
+<<endif>>\
+\
+/% =================[ Buildings]================= %/\
+\
+/% If you have at least 2 Caves, sometimes your mythosi population will increase by 1 (but no greater than half as many caves as you have available). %/\
+\
+<<if ($planetCaves gt 0) and ($dragonPop lt $planetCaves/2)>><<set $randomizer = random(1,32)>>\
+	<<if $randomizer is 1>><<set $dragonPop += 1; $playerPlanetPopulation += 1; $planetCivilians += 1; $popFatness += random(2,5)>>
+<banner>[img[icon_fatstar]]A ''mythosi'' emerges from the caves!</banner>\
+<<endif>><<endif>>\
+\
+\
+/% If you have at least 1 Aetherhole, your aladri and Leupai populations will gradually increase over time. %/\
+\
+<<if $planetAetherholes>><<set $randomizer = random(1,32)>>\
+	<<if $randomizer is 1>><<set $leupaiPop += 1; $playerPlanetPopulation += 1; $planetCivilians += 1; $popFatness += random(3,5)>>
+<banner>[img[icon_alert]]A ''leupai'' emerges from an aetherhole!</banner>\
+	<<elseif ($randomizer gte 2) and ($randomizer lt 6)>><<set $elfPop += 1; $playerPlanetPopulation += 1; $planetCivilians += 1; $popFatness += either(0,1)>>
+<banner>[img[icon_alert]]An ''aladri'' emerges from an aetherhole!</banner>\
+<<endif>><<endif>>\
+\
+\
+/% Nests increase Leupai population over time, and decrease non-Leupai populations on occasion (NYI); they require 1 cave and at least three leupai to build. %/\
+\
+<<if $planetNests gte 1>><<set $randomizer = random(1,32)>>\
+	<<if $randomizer is 1>><<set $leupaiPop += 1 * $planetNests; $playerPlanetPopulation += 1 * $planetNests; $planetCivilians += 1 * $planetNests; $popFatness += random(3,5)>>
+<banner>[img[icon_alert]]A ''leupai'' emerges from a nest!</banner>\
+<<endif>><<endif>>\
+\
+\
+/% Fatieres convert PAG into Flesh over time; they require 1 cave and 10 metal to build. %/\
+\
+<<if $planetFatieres gte 1>>\
+	<<if $popFatness gte 300>><<set $randomizer = random(1,8)>>\
+		<<if $randomizer is 1>><<set $popFatness -= 2 * $planetFatieres; $planetMeat += 10 * $planetFatieres>>\
+<<endif>><<endif>><<endif>>\
+\
+\
+/% Bovieteries increase PAG over time. Also, if the population includes any leupai, they increase Miratoxin over time as well. They require 50 metal, 30 crops, and 30 fattenium to build. %/\
+\
+<<if $planetBovieteries gte 1>>\
+	<<set $randomizer = random(1,8)>>\
+		<<if $randomizer is 1>><<set $popFatness += 2 * $planetFatieres>>\
+			<<if $leupaiPop gte 1>><<set $planetMiratoxin += 1 * $leupaiPop>><<endif>>\
+<<endif>><<endif>>\
+\
+\
+/% Processing Plants increase Processed Foods, PAG, Industrialization, and decrease Flesh and Crops over time; they require 100 metal, 50 crops, and 30 fattenium to build. %/\
+\
+<<if $planetProcessingPlants gte 1>>\
+	<<set $plantTick += 1; $randomizer = random(1,32)>>\
+		<<if $plantTick is 2>><<set $planetCalfood += 3 * $planetProcessingPlant; $planetMeat -= 1 * $planetFatieres; $planetCrops -= 1 * $planetFatieres; $plantTick = 0>><<endif>>\
+		<<if $randomizer is 1>><<set $planetIndustrialization += 1 * $planetFatieres>><<endif>>\
+<<endif>>\
+\
+\
+/% Laboratories allow the performance of Experiments on the population and planet, and randomly increase or decrease Planet Girth, Population, PAG, Animals, or Animal PAG over time. They may also change the planet Class, Atmosphere, Humidity, Water Type/Condition as well [random event]. Lastly, they allow the conversion of population units into Scientists. They require 1 cave, 200 metal, and 100 miracrystal to build. %/\
+\
+<<if $planetLabs gte 1>>\
+	<<set $randomizer = random(1,64)>>\
+		<<if $randomizer is 1>>/% NYI %/<<endif>>\
+<<endif>>\
+\
+\
+/% Pump Plants allow direct fattening of the living planet, increasing Planet Girth and Flesh over time. They require 1 cave, 500 metal, 200 miracrystal, and 100 fattenium to build. %/\
+\
+<<if $planetPumps gte 1>>\
+	<<set $pumpTick += 1>>\
+		<<if $pumpTick is 2>><<set $planetGirth += 10 * $planetPumps; $planetMeat += 2 * $planetPumps; $pumpTick = 0>><<endif>>\
+<<endif>>\
+\
+\
+/% =================[ Special Units
+
+Culinets increase PAG over time, but more slowly than Professors, and only require Flesh and Crops to actively do so (which they themselves produce).
+
+Professors increase PAG over time as long as there are processed foods to fatten up the populace with.
+
+Scientists increase Research points over time. %/\
+\
+<<if $planetCulinets gte 1>>\
+		<<if ($planetMeat gte $planetCulinets) and ($planetCrops gte $planetCulinets)>><<set $popFatness += $planetCulinets; $popAnimalFatness += $planetCulinets; $planetMeat -= $planetCulinets; $planetCrops -= $planetCulinets>><<endif>>\
+<<endif>>\
+\
+\
+<<if $planetProfessors gte 1>>\
+	<<if $planetCalfood gte $planetProfessors>><<set $popFatness += $planetProfessors; $planetCalfood -= $planetProfessors>><<endif>>\
+<<endif>>\
+\
+\
+<<if $planetScientists gte 1>>\
+	<<set $scienceTick += 1>>
+	<<if $scienceTick is 5>><<set $planetResearch += 1 * $planetScientists; $scienceTick = 0>><<endif>>\
+<<endif>>\
+\
+\
+/% =================[ Corruption & Realization
+
+As Industrialization increases, Animals and Population decrease and Water quality worsens over time.
+
+As Realization increases, Planet Girth, PAG and Animal PAG increase and Water becomes more tainted with miratoxin over time. Non-leupai populations decrease; leupai populations increase proportionally.
+
+As Fatteniazation increases, Planet Girth, PAG and Animal PAG increase and Water becomes more tainted with fattenium over time. %/\
+\
+\
+\
+/% =================[ Water Effects
+
+Clean Water is the default, with no special effects.
+
+Fertile Water increases Population and Animals over time.
+
+Oily Water slowly decreases non-Leupai populations and Animals over time.
+
+Slime-Tainted Water slowly converts all creatures but Leupai, Mythosi, and Demons into slimes and increases PAG and Slime over time.
+
+Fattenium Water increases PAG, Animal PAG, and Fatteniazation over time.
+
+Somnus increases PAG, Animal PAG, and Realization over time, and slowly converts non-Leupai into Leupai.
+
+Dirty Water rapidly decreases non-Leupai/Mythosi/Mutant/Demon populations, Animals, PAG, and Animal PAG over time, and increases Mutants and Demons. %/\
+\
+\
+\
+/% =================[ Population Food & Girth
+
+Different species prefer different types of food; they will eat their preference first, and possibly a second choice if that preference is not there. All species will eat processed food.
+
+If nothing they can eat is available on a hunger tick, there's a chance the population will drop, taking your workers with it at random.
+
+If there is a surplus of a species' favorite food on the next hunger tick, there's a chance the PAG (average girth) will increase.
+
+If you have fatieres, some PAG will be gradually converted into Flesh points over time.
+If you have culinets or professors, PAG will slowly increase over time as long as there are processed foods available. %/\
+\
+\
+/% Dinner Bell - Every 10 Rounds %/\
+<<set $dinnerBell += 1>><<if $dinnerBell is 10>>\
+\
+/% Mythosi (Who are fuckers and insist on eating first) %/\
+<<if $dragonPop gt 0>><<if $planetCalfood gte $dragonPop>><<set $planetCalfood -= $dragonPop>><<elseif $playerAnimalPopulation gte $dragonPop>><<set $playerAnimalPopulation -= $dragonPop>><<elseif $planetMeat gte $dragonPop>><<set $planetMeat -= $dragonPop>><<elseif $planetMeat lt $dragonPop>><<set $casualties = ($dragonPop - $planetMeat); $planetMeat = 0>>/% If there's no other food, mythosi will start eating your population! %/<<if $playerPlanetPopulation gte $casualties>><<set $playerPlanetPopulation -= $casualties; $casualties = 0>><<else>>/% Somebody starves. %/
+ <<set $dragonPop -= $casualties; $playerPlanetPopulation -= $casualties>><<display PlanetGameOccuDeaths>>
+<alertbanner>[img[icon_redalert]]The ''dragon population is starving!''</alertbanner><<set $casualties = 0>><<if $popFatness gt 10>><<set $popFatness - random(2,5)>><<endif>><<endif>><<endif>><<endif>>\
+\
+/% Demons %/\
+<<if $demonPop gt 0>>/% Demons will eat your population FIRST. %/\
+<<if $playerPlanetPopulation gte $demonPop>><<set $playerPlanetPopulation -= $demonPop>><<elseif $playerAnimalPopulation gte $demonPop>><<set $playerAnimalPopulation -= $demonPop>><<elseif $planetMeat gte $demonPop>><<set $planetMeat -= $demonPop>><<elseif $planetMeat lt $demonPop>><<set $casualties = ($demonPop - $planetMeat); $planetMeat = 0>>/% Demons will only eat processed food if they can't eat anything else. %/<<if $planetCalfood gte $casualties>><<set $planetCalfood -= $casualties; $casualties = 0>><<else>>/% Somebody starves. %/
+<<set $demonPop -= $casualties; $playerPlanetPopulation -= $casualties>><<display PlanetGameOccuDeaths>>
+<alertbanner>[img[icon_redalert]]The ''demon population is starving!''</alertbanner><<set $casualties = 0>><<if $popFatness gt 10>><<set $popFatness - random(1,5)>><<endif>><<endif>><<endif>><<endif>>\
+\
+/% Leupai %/
+<<if $leupaiPop gt 0>>\
+<<if $planetCalfood gte $leupaiPop>><<set $planetCalfood -= $leupaiPop>><<elseif $planetMeat gte $leupaiPop>><<set $planetMeat -= $leupaiPop>><<elseif $planetMeat lt $leupaiPop>><<set $casualties = ($leupaiPop - $planetMeat); $planetMeat = 0>><<if $planetFattenium gte $casualties>><<set $planetFattenium -= $casualties; $casualties = 0>><<elseif $playerAnimalPopulation gte $casualties>><<set $playerAnimalPopulation -= $casualties; $casualties = 0>>/% If there's no other food, leupai will start eating your population! %/<<elseif $playerPlanetPopulation gte $casualties>><<set $playerPlanetPopulation -= $casualties; $casualties = 0>><<else>>/% Somebody starves. %/
+ <<set $leupaiPop -= $casualties; $playerPlanetPopulation -= $casualties>><<display PlanetGameOccuDeaths>>
+<alertbanner>[img[icon_redalert]]The ''leupai population is starving!''</alertbanner><<set $casualties = 0>><<if $popFatness gt 10>><<set $popFatness - random(3,5)>><<endif>><<endif>><<endif>><<endif>>\
+\
+/% Werebeasts %/\
+<<if $werePop gt 0>>\
+<<if $planetCalfood gte $werePop>><<set $planetCalfood -= $werePop>><<elseif $planetMeat gte $werePop>><<set $planetMeat -= $werePop>><<elseif $planetMeat lt $werePop>><<set $casualties = ($werePop - $planetMeat); $planetMeat = 0>>/% If there's no other food, werebeasts will start eating your population! %/<<if $playerPlanetPopulation gte $casualties>><<set $playerPlanetPopulation -= $casualties; $casualties = 0>><<else>>/% Somebody starves. %/
+ <<set $werePop -= $casualties; $playerPlanetPopulation -= $casualties>><<display PlanetGameOccuDeaths>>
+<alertbanner>[img[icon_redalert]]The ''werebeast population is starving!''</alertbanner><<set $casualties = 0>><<if $popFatness gt 10>><<set $popFatness - random(1,3)>><<endif>><<endif>><<endif>><<endif>>\
+\
+/% Mutants %/\
+<<if $mutantPop gt 0>>\
+<<if $planetCalfood gte $mutantPop>><<set $planetCalfood -= $mutantPop>><<elseif $playerAnimalPopulation gte $mutantPop>><<set $playerAnimalPopulation -= $mutantPop>><<elseif $planetMeat gte $mutantPop>><<set $planetMeat -= $mutantPop>><<elseif $planetMeat lt $mutantPop>><<set $casualties = ($mutantPop - $planetMeat); $planetMeat = 0>>/% If there's no other food, mutants will start eating your population! %/<<if $playerPlanetPopulation gte $casualties>><<set $playerPlanetPopulation -= $casualties; $casualties = 0>><<else>>/% Somebody starves. %/
+<<set $mutantPop -= $casualties; $playerPlanetPopulation -= $casualties>><<display PlanetGameOccuDeaths>>
+<alertbanner>[img[icon_redalert]]The ''mutant population is starving!''</alertbanner><<set $casualties = 0>><<if $popFatness gt 10>><<set $popFatness - random(1,3)>><<endif>><<endif>><<endif>><<endif>>\
+\
+/% Post-humans %/\
+<<if $humanPop gt 0>>\
+<<if $planetCalfood gte $humanPop>><<set $planetCalfood -= $humanPop>><<elseif $planetMeat gte $humanPop>><<set $planetMeat -= $humanPop>><<elseif $planetMeat lt $humanPop>><<set $casualties = ($humanPop - $planetMeat); $planetMeat = 0>><<if $planetCrops gte $casualties>><<set $planetCrops -= $casualties; $casualties = 0>><<else>>/% Somebody starves. %/
+<<set $humanPop -= $casualties; $playerPlanetPopulation -= $casualties>><<display PlanetGameOccuDeaths>>
+<alertbanner>[img[icon_redalert]]The ''post-human population is starving!''</alertbanner><<set $casualties = 0>><<if $popFatness gt 10>><<set $popFatness - random(1,2)>><<endif>><<endif>><<endif>><<endif>>\
+\
+/% Aladri %/\
+<<if $elfPop gt 0>>\
+<<if $planetCalfood gte $elfPop>><<set $planetCalfood -= $elfPop>><<elseif $planetMeat gte $elfPop>><<set $planetMeat -= $elfPop>><<elseif $planetMeat lt $elfPop>><<set $casualties = ($elfPop - $planetMeat); $planetMeat = 0>><<if $planetCrops gte $casualties>><<set $planetCrops -= $casualties; $casualties = 0>><<else>>/% Somebody starves. %/
+<<set $elfPop -= $casualties; $playerPlanetPopulation -= $casualties>><<display PlanetGameOccuDeaths>>
+<alertbanner>[img[icon_redalert]]The ''aladri population is starving!''</alertbanner><<set $casualties = 0>><<if $popFatness gt 10>><<set $popFatness - random(1,2)>><<endif>><<endif>><<endif>><<endif>>\
+\
+/% Arka %/\
+<<if $arkaPop gt 0>>\
+<<if $planetCalfood gte $arkaPop>><<set $planetCalfood -= $arkaPop>><<elseif $planetMeat gte $arkaPop>><<set $planetMeat -= $arkaPop>><<elseif $planetMeat lt $arkaPop>><<set $casualties = ($arkaPop - $planetMeat); $planetMeat = 0>><<if $planetCrops gte $casualties>><<set $planetCrops -= $casualties; $casualties = 0>><<else>>/% Somebody starves. %/
+ <<set $arkaPop -= $casualties; $playerPlanetPopulation -= $casualties>><<display PlanetGameOccuDeaths>>
+<alertbanner>[img[icon_redalert]]The ''arka population is starving!''</alertbanner><<set $casualties = 0>><<if $popFatness gt 10>><<set $popFatness - random(1,2)>><<endif>><<endif>><<endif>><<endif>>\
+\
+/% Slimes %/\
+<<if $slimePop gt 0>>\
+<<if $planetCalfood gte $slimePop>><<set $planetCalfood -= $slimePop>><<elseif $planetSlime gte $slimePop>><<set $planetSlime -= $slimePop>><<elseif $planetSlime lt $slimePop>><<set $casualties = ($slimePop - $planetSlime); $planetSlime = 0>><<elseif $playerPlanetFluid is "Dirty Water">>/% Somebody starves. %/
+<<set $slimePop -= $casualties; $playerPlanetPopulation -= $casualties>><<display PlanetGameOccuDeaths>>
+<alertbanner>[img[icon_redalert]]The ''slime population is drying up!''</alertbanner><<set $casualties = 0>><<if $popFatness gt 10>><<set $popFatness - random(1,3)>><<endif>><<endif>><<endif>>\
+\
+\
+/% Incidental Population Weight Loss %/\
+<<set $popFatness -= either(0,0,0,1); $popAnimalFatness -= either(0,0,0,0,1)>>\
+\
+\
+/% Incidental Animal breeding %/\
+<<set $playerAnimalPopulation += either(0,0,0,0,0,1)>>\
+\
+\
+/% Population Weight Gain %/\
+<<if $planetCalfood gte (($playerPlanetPopulation - $demonPop) * 2)>><<set $popFatness += 1>>
+<banner>[img[icon_alert]]Your population is ''putting on weight!''</banner><<endif>>\
+<<if $planetCrops gte ($playerAnimalPopulation * 1.5)>><<set $popAnimalFatness += 1>>
+<banner>[img[icon_alert]]The animal population is ''looking plumper!''</banner><<endif>>\
+\
+\
+<<if $planetFattenium gt 0>><<set $randomizer = random(1,24)>>\
+	<<if $randomizer is 1>><<set $popFatness += random(2,5)>>
+<banner>[img[icon_alert]]Exposure to ''fattenium'' is causing the population to gain weight!</banner>\
+<<endif>><<endif>>\
+\
+\
+<<if $planetMiracrystal gt 0>><<set $randomizer = random(1,32)>>\
+	<<if $randomizer is 1>><<set $popFatness += random(1,3)>>
+<banner>[img[icon_alert]]Exposure to ''miracrystal'' is causing the population to gain weight!</banner>\
+<<endif>><<endif>>\
+\
+\
+<<if $planetPlutonium gt 0>><<set $randomizer = random(1,32)>>\
+	<<if $randomizer is 1>><<set $popFatness -= random(1,3)>>
+<banner>[img[icon_alert_critical]]The population is looking a little sickly due to ''plutonium'' exposure...</banner>\
+<<endif>><<endif>>\
+\
+\
+/% Population Girth Check %/\
+<<if $popFatness lt 200>>
+<banner>[img[icon_redalert]]Your population is ''withering away!''</banner>
+<<elseif ($popFatness gte 200) and ($popFatness lt 300)>>
+<banner>[img[icon_alert]]Your population is ''looking rather scrawny...''</banner>
+<<elseif ($popFatness gte 300) and ($popFatness lt 500)>>
+<banner>[img[icon_alert]]Your population is ''looking quite plump!''</banner>
+<<elseif ($popFatness gte 500) and ($popFatness lt 600)>>
+<banner>[img[icon_alert]]Your population is ''nice and fat!''</banner>
+<<elseif ($popFatness gte 600) and ($popFatness lt 800)>>
+<banner>[img[icon_alert]]Your population is ''VERY fat!''</banner>
+<<elseif ($popFatness gte 800) and ($popFatness lt 1000)>>
+<banner>[img[icon_alert]]Your population is ''growing fatter and fatter!''</banner>
+<<elseif ($popFatness gte 1000) and ($popFatness lt 1500)>>
+<banner>[img[icon_alert]]Your population is ''EXTREMELY fat!''</banner>
+<<elseif $popFatness gte 1500>>
+<banner>[img[icon_alert]]Your population is ''growing too fat to move around without help!''</banner><<endif>>\
+\
+\
+/% Animal Population Girth Check %/\
+<<if $playerAnimalPopulation gt 0>>\
+	<<if $popAnimalFatness lt 20>><banner>[img[icon_redalert]]The animals are ''withering away!''</banner>
+	<<elseif ($popAnimalFatness gte 20) and ($popAnimalFatness lt 40)>>
+	<banner>[img[icon_alert]]The animals are ''looking rather scrawny...''</banner>
+	<<elseif ($popAnimalFatness gte 40) and ($popAnimalFatness lt 60)>>
+	<banner>[img[icon_alert]]The animals are ''looking quite plump!''</banner>
+	<<elseif ($popAnimalFatness gte 60) and ($popAnimalFatness lt 80)>>
+	<banner>[img[icon_alert]]The animals are ''flourishing!''</banner>
+	<<elseif ($popAnimalFatness gte 80) and ($popAnimalFatness lt 120)>>
+	<banner>[img[icon_alert]]The animals are ''getting fat!''</banner>
+	<<elseif ($popAnimalFatness gte 120) and ($popAnimalFatness lt 160)>>
+	<banner>[img[icon_alert]]The animals are ''getting VERY fat!''</banner>
+	<<elseif ($popAnimalFatness gte 160) and ($popAnimalFatness lt 200)>>
+	<banner>[img[icon_alert]]The animals are ''growing HUGE!''</banner>
+	<<elseif $popAnimalFatness gte 200>>
+	<banner>[img[icon_alert]]The animals are ''growing too fat to move!''</banner><<endif>><<endif>>\
+\
+<<set $dinnerBell = 0>><<endif>>\
+\
+\
+/% Planet Size Classes %/\
+<<if $planetGirth / 10 lte 100000>><<set $playerPlanetSize = "Satellite">>
+<<elseif ($planetGirth / 10 gte 1000000) and ($planetGirth / 10 lt 50000000)>><<set $playerPlanetSize = "Moon">>
+<<elseif ($planetGirth / 10 gte 50000000) and ($planetGirth / 10 lt 100000000)>><<set $playerPlanetSize = "Dwarf Planet">>
+<<elseif ($planetGirth / 10 gte 100000000) and ($planetGirth / 10 lt 1000000000)>><<set $playerPlanetSize = "Planet">>
+<<elseif $planetGirth / 10 gte 1000000000>><<set $playerPlanetSize = "Titan Planet">><<endif>></framed></invisiframe></center>

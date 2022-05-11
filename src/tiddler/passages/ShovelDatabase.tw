@@ -1,0 +1,279 @@
+﻿/% ==================================== %/
+
+	<<set $randomizer = random(1,100)>>
+
+<<if ($location is "Ocean") or ($location is "Reef") or ($location is "Brackish Depths") or ($location is "Molten Sea") or ($location is "Boiling Ocean")>>
+
+	/% Don't use your bloody shovel in the ocean/when you're on fire, nerd. %/
+
+	<<set $forageResult = $playerName + "! Now's not the time to use that!">>
+
+/% ==================================== %/
+
+<<elseif $zoneType is "agriculture">>
+/% ==================================== %/
+
+	<<if ($key_shovel gt 0) and ($key_shovel_metal is 0)>>
+	<<set $shovelWear += either(0,0,0,1,1,1,1,2)>>
+	<<endif>>
+
+
+	<<if $randomizer lt 35>>
+		<<set $forageQuantity = random(4,8); $material_dirt += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " dirt!">>
+
+	<<elseif ($randomizer gte 35) and ($randomizer lt 75)>>
+		<<set $forageQuantity = random(4,8); $material_soil += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " fertile soil!">>
+
+	<<elseif ($randomizer gte 75) and ($randomizer lt 84)>>
+		<<set $forageQuantity = random(4,8); $material_sand += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " sand!">>
+
+/% Cutoff; nothing but rocks. %/
+	<<elseif $randomizer gte 84>>
+		<<set $forageQuantity = random(2,3); $material_gravel += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " gravel!">>
+
+	<<endif>>
+
+/% ==================================== %/
+
+<<elseif $location is "Beach">>
+/% ==================================== %/
+
+	<<if ($key_shovel gt 0) and ($key_shovel_metal is 0)>>
+	<<set $shovelWear += either(0,0,0,1,1,1,1,2)>>
+	<<endif>>
+
+
+	<<if $randomizer lt 70>>
+		<<set $forageQuantity = random(4,8); $material_sand += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " sand!">>
+
+	<<elseif ($randomizer gte 70) and ($randomizer lt 80)>>
+		<<set $forageQuantity = random(4,8); $material_grass += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " grass!">>
+
+	<<elseif ($randomizer gte 80) and ($randomizer lt 84)>>
+		<<set $forageQuantity = random(4,8); $material_dirt += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " dirt!">>
+
+/% Cutoff; nothing but rocks. %/
+	<<elseif $randomizer gte 84>>
+		<<set $forageQuantity = random(2,3); $material_rock += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " rocks!">>
+
+	<<endif>>
+
+/% ==================================== %/
+
+<<elseif $zoneType is "ice">>
+/% ==================================== %/
+
+	<<if ($key_shovel gt 0) and ($key_shovel_metal is 0)>>
+	<<set $shovelWear += either(0,0,0,1,1,1,1,2)>>
+	<<endif>>
+
+
+	<<if $randomizer lt 55>>
+		<<set $forageQuantity = random(4,8); $material_snow += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " snow!">>
+
+	<<elseif ($randomizer gte 55) and ($randomizer lt 70)>>
+		<<set $forageQuantity = random(4,8); $material_dirt += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " dirt!">>
+
+	<<elseif ($randomizer gte 70) and ($randomizer lt 84)>>
+		<<set $forageQuantity = random(4,8); $material_gravel += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " gravel!">>
+
+/% Cutoff; nothing but rocks. %/
+	<<elseif $randomizer gte 84>>
+		<<set $forageQuantity = random(2,3); $material_rock += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " rocks!">>
+
+	<<endif>>
+
+/% ==================================== %/
+
+<<elseif $zoneType is "faerie">>
+/% ==================================== %/
+
+	<<if ($key_shovel gt 0) and ($key_shovel_metal is 0)>>
+	<<set $shovelWear += either(0,0,0,1,1,1,1,2)>>
+	<<endif>>
+
+
+	<<if $randomizer lt 35>>
+		<<set $forageQuantity = random(4,8); $material_dirt += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " dirt!">>
+
+	<<elseif ($randomizer gte 35) and ($randomizer lt 45)>>
+		<<set $forageQuantity = random(2,6); $produce_tendrilgrass += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " plump tendrilgrass!">>
+
+	<<elseif ($randomizer gte 45) and ($randomizer lt 55)>>
+		<<set $forageQuantity = random(2,6); $material_soil += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " fertile soil!">>
+
+	<<elseif ($randomizer gte 55) and ($randomizer lt 70)>>
+		<<set $forageQuantity = random(4,8); $material_petals += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " dry petals!">>
+
+	<<elseif ($randomizer gte 70) and ($randomizer lt 78)>>
+		<<set $forageQuantity = random(4,8); $miraStock += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " miracrystal dust!">>
+
+	<<elseif ($randomizer gte 78) and ($randomizer lt 85)>>
+		<<set $foraged = either("fattenium powder","distensium powder"); $forageQuantity = random(3,6)>>
+
+			/% Results %/
+			<<if $foraged is "fattenium powder">><<set $fatteniumStock += $forageQuantity>>
+			<<elseif $foraged is "distensium powder">><<set $distensiumStock += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You start digging... and find " + $forageQuantity + " " + $foraged + "!">>
+
+/% Cutoff; rock/crystal. %/
+	<<elseif $randomizer gte 84>>
+		<<set $foraged = either("rocks","rocks","rocks","rocks","rocks","rocks","rocks","rocks","rocks","tiny gem","tiny gem","tiny gem","sparkling gem","fist-sized gem"); $forageQuantity = random(1,3)>>
+
+			/% Results %/
+			<<if $foraged is "rocks">><<set $material_rock += $forageQuantity>>
+			<<elseif $foraged is "tiny gem">><<set $forageQuantity = random(1,3); $gem_tiny += $forageQuantity>>
+			<<elseif $foraged is "sparkling gem">><<set $forageQuantity = random(1,2); $gem_sparkling += $forageQuantity>>
+			<<elseif $foraged is "fist-sized gem">><<set $forageQuantity = 1; $gem_fistsized += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You start digging... and find " + $forageQuantity + " " + $foraged + "!">>
+
+	<<endif>>
+
+/% ==================================== %/
+
+<<elseif $zoneType is "freshwater">>
+/% ==================================== %/
+
+	<<if ($key_shovel gt 0) and ($key_shovel_metal is 0)>>
+	<<set $shovelWear += either(0,0,0,1,1,1,1,2)>>
+	<<endif>>
+
+
+	<<if $randomizer lt 65>>
+		<<set $forageQuantity = random(4,8); $material_mud += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " mud!">>
+
+	<<elseif ($randomizer gte 65) and ($randomizer lt 75)>>
+		<<set $forageQuantity = random(4,8); $material_soil += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " fertile soil!">>
+
+	<<elseif ($randomizer gte 75) and ($randomizer lt 84)>>
+		<<set $forageQuantity = random(4,8); $material_sand += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " sand!">>
+
+/% Cutoff; nothing but rocks. %/
+	<<elseif $randomizer gte 84>>
+		<<set $forageQuantity = random(2,3); $material_gravel += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " gravel!">>
+
+	<<endif>>
+
+/% ==================================== %/
+
+<<elseif $zoneType is "fire">>
+/% ==================================== %/
+
+	<<if ($key_shovel gt 0) and ($key_shovel_metal is 0)>>
+	<<set $shovelWear += either(0,0,0,1,1,1,1,2)>>
+	<<endif>>
+
+
+	<<if $randomizer lt 65>>
+		<<set $forageQuantity = random(4,8); $material_gravel += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " gravel!">>
+
+	<<elseif ($randomizer gte 75) and ($randomizer lt 84)>>
+		<<set $forageQuantity = random(4,8); $material_obsidian += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " obsidian!">>
+
+/% Cutoff; nothing but rocks. %/
+	<<elseif $randomizer gte 84>>
+		<<set $forageQuantity = random(2,3); $material_rock += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " rocks!">>
+
+	<<endif>>
+
+
+/% ==================================== %/
+
+<<elseif $zoneType is "poison">>
+/% ==================================== %/
+
+	<<if ($key_shovel gt 0) and ($key_shovel_metal is 0)>>
+	<<set $shovelWear += either(0,0,0,1,1,1,1,2)>>
+	<<endif>>
+
+
+	<<if $randomizer lt 55>>
+		<<set $forageQuantity = random(4,8); $material_sand += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " sand!">>
+
+	<<elseif ($randomizer gte 55) and ($randomizer lt 65)>>
+		<<set $forageQuantity = random(4,8); $material_gravel += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " gravel!">>
+
+	<<elseif ($randomizer gte 65) and ($randomizer lt 84)>>
+		<<set $forageQuantity = 1; $skull_distorted += $forageQuantity; $forageResult = "You start digging... and find a distorted skull!">>
+
+/% Cutoff; nothing but rocks. %/
+	<<elseif $randomizer gte 84>>
+		<<set $forageQuantity = random(2,3); $material_rock += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " rocks!">>
+
+	<<endif>>
+
+
+
+/% ==================================== %/
+
+<<elseif $zoneType is "eldritch">>
+/% ==================================== %/
+
+	<<if ($key_shovel gt 0) and ($key_shovel_metal is 0)>>
+	<<set $shovelWear += either(0,0,0,1,1,1,1,2)>>
+	<<endif>>
+
+
+	<<if $randomizer lt 45>>
+		<<set $forageQuantity = random(4,8); $material_gravel += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " gravel!">>
+
+
+	<<elseif ($randomizer gte 45) and ($randomizer lt 84)>>
+		<<set $foraged = either("flesh","plump tentacle","distorted skull")>>
+
+			/% Results %/
+			<<if $foraged is "flesh">><<set $forageQuantity = random(4,8); $fleshStock += $forageQuantity>>
+			<<elseif $foraged is "plump tentacle">><<set $forageQuantity = random(1,3); $tentacle_plump += $forageQuantity>>
+			<<elseif $foraged is "distorted skull">><<set $forageQuantity = 1; $skull_distorted += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You start digging... and find " + $forageQuantity + " " + $foraged + "!">>
+
+/% Cutoff; rock/crystal. %/
+	<<elseif $randomizer gte 84>>
+		<<set $foraged = either("rocks","rocks","rocks","rocks","rocks","rocks","rocks","rocks","rocks","tiny gem","tiny gem","tiny gem","sparkling gem","fist-sized gem"); $forageQuantity = random(1,3)>>
+
+			/% Results %/
+			<<if $foraged is "rocks">><<set $material_rock += $forageQuantity>>
+			<<elseif $foraged is "tiny gem">><<set $forageQuantity = random(1,3); $gem_tiny += $forageQuantity>>
+			<<elseif $foraged is "sparkling gem">><<set $forageQuantity = random(1,2); $gem_sparkling += $forageQuantity>>
+			<<elseif $foraged is "fist-sized gem">><<set $forageQuantity = 1; $gem_fistsized += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You start digging... and find " + $forageQuantity + " " + $foraged + "!">>
+
+	<<endif>>
+
+/% ==================================== %/
+
+<<else>>
+/% ==================================== %/
+
+	/% Default digging pool %/
+
+	<<if ($key_shovel gt 0) and ($key_pickaxe_shovel is 0)>>
+	<<set $shovelWear += either(0,0,0,1,1,1,1,2)>>
+	<<endif>>
+
+
+	<<if $randomizer lt 55>>
+		<<set $forageQuantity = random(4,8); $material_dirt += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " dirt!">>
+
+	<<elseif ($randomizer gte 55) and ($randomizer lt 70)>>
+		<<set $forageQuantity = random(4,8); $material_grass += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " grass!">>
+
+	<<elseif ($randomizer gte 70) and ($randomizer lt 75)>>
+		<<set $forageQuantity = random(4,8); $material_sand += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " sand!">>
+
+	<<elseif ($randomizer gte 75) and ($randomizer lt 84)>>
+		<<set $forageQuantity = random(4,8); $material_gravel += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " gravel!">>
+
+/% Cutoff; nothing but rocks. %/
+	<<elseif $randomizer gte 84>>
+		<<set $forageQuantity = random(2,3); $material_rock += $forageQuantity; $forageResult = "You start digging... and find " + $forageQuantity + " rocks!">>
+
+	<<endif>>
+
+
+/% ==================================== %/
+<<endif>>

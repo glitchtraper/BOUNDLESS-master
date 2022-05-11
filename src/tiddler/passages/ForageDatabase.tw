@@ -1,0 +1,173 @@
+﻿/% ==================================== %/
+
+	<<set $randomizer = random(1,100) + $forageDecay>>
+
+<<if $zoneType is "placeholder">>
+
+	/% Random 'if' clause biome %/
+
+<<elseif $zoneType is "freshwater">>
+/% ==================================== %/
+
+	<<if $randomizer lt 25>>
+		<<set $forageQuantity = random(1,2); $material_rock += $forageQuantity; $forageResult = "You forage around the area... and find " + $forageQuantity + " rock!">>
+
+	<<elseif ($randomizer gte 25) and ($randomizer lt 45)>>
+		<<set $foraged = either("grass","grass","grass","plump tendrilgrass"); $forageQuantity = random(1,6)>>
+
+			/% Results %/
+			<<if $foraged is "grass">><<set $material_grass += $forageQuantity>>
+			<<elseif $foraged is "plump tendrilgrass">><<set $produce_tendrilgrass += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You forage around the area... and find " + $forageQuantity + " " + $foraged + "!">>
+
+	<<elseif ($randomizer gte 45) and ($randomizer lt 58)>> /% Veg %/
+		<<set $foraged = either("rockroot","rockroot","rockroot","honeycarrot","honeycarrot","golden starchroot","golden starchroot","fat pumpkin"); $forageQuantity = random(1,3)>>
+
+			/% Results %/
+			<<if $foraged is "rockroot">><<set $produce_rockroot += $forageQuantity>>
+			<<elseif $foraged is "honeycarrot">><<set $produce_honeycarrot += $forageQuantity>>
+			<<elseif $foraged is "golden starchroot">><<set $produce_starchroot += $forageQuantity>>
+			<<elseif $foraged is "fat pumpkin">><<set $produce_fatpumpkin += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You forage around the area... and find " + $forageQuantity + " " + $foraged + "!">>
+
+	<<elseif ($randomizer gte 58) and ($randomizer lt 65)>> /% Fruits %/
+		<<set $foraged = either("cramberry","plump plum","giant peach","imperial apple","bloated milkmelon","creaking milkmelon","zeppelon"); $forageQuantity = random(1,3)>>
+
+			/% Results %/
+			<<if $foraged is "effervescent grape">><<set $produce_grape += $forageQuantity>>
+			<<elseif $foraged is "starberry">><<set $produce_starberry += $forageQuantity>>
+			<<elseif $foraged is "cramberry">><<set $produce_cramberry += $forageQuantity>>
+			<<elseif $foraged is "coffee berry">><<set $produce_coffee += $forageQuantity>>
+			<<elseif $foraged is "plump belcheri">><<set $produce_belcheri += $forageQuantity>>
+			<<elseif $foraged is "plump plum">><<set $produce_plum += $forageQuantity>>
+			<<elseif $foraged is "ripe tomato">><<set $produce_tomato += $forageQuantity>>
+			<<elseif $foraged is "giant peach">><<set $produce_peach += $forageQuantity>>
+			<<elseif $foraged is "voluptuous pear">><<set $produce_pear += $forageQuantity>>
+			<<elseif $foraged is "imperial apple">><<set $produce_apple += $forageQuantity>>
+			<<elseif $foraged is "bloated milkmelon">><<set $produce_milkmelon += $forageQuantity>>
+			<<elseif $foraged is "creaking milkmelon">><<set $produce_milkmelon_creaking += $forageQuantity>>
+			<<elseif $foraged is "zeppelon">><<set $produce_zeppelon += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You forage around the area... and find " + $forageQuantity + " " + $foraged + "!">>
+
+
+	<<elseif ($randomizer gte 66) and ($randomizer lt 80)>> /% Magical Berries & Mushrooms %/
+		<<set $foraged = either("miraberry","miraberry","miraberry","rainberries","bulkberries","bulkberries","roundberries","roundberries","burstberries","burstberries","cowberries","cowberries","plushberries","plushberries","bounceberries","bounceberries","bulgeberries","bulgeberries","butterberries","butterberries","butterberries","butterberries","strange mushroom","strange mushroom","glowing mushroom","egg plant"); $forageQuantity = random(1,4)>>
+
+			/% Results %/
+			<<if $foraged is "miraberry">><<set $berry_mira += $forageQuantity>>
+			<<elseif $foraged is "rainberries">><<set $berry_rain += $forageQuantity>>
+			<<elseif $foraged is "roundberries">><<set $berry_round += $forageQuantity>>
+			<<elseif $foraged is "bulkberries">><<set $berry_bulk += $forageQuantity>>
+			<<elseif $foraged is "burstberries">><<set $berry_burst += $forageQuantity>>
+			<<elseif $foraged is "cowberries">><<set $berry_cow += $forageQuantity>>
+			<<elseif $foraged is "plushberries">><<set $berry_plush += $forageQuantity>>
+			<<elseif $foraged is "bounceberries">><<set $berry_bounce += $forageQuantity>>
+			<<elseif $foraged is "butterberries">><<set $berry_butter += $forageQuantity>>
+			<<elseif $foraged is "bulgeberries">><<set $berry_bulge += $forageQuantity>>
+			<<elseif $foraged is "egg plant">><<set $plant_egg += $forageQuantity>>
+			<<elseif $foraged is "strange mushroom">><<set $forageQuantity = either(1,1,2); $mush_strange += $forageQuantity>>
+			<<elseif $foraged is "glowing mushroom">><<set $forageQuantity = either(1,1,2); $mush_glowing += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You forage around the area... and find " + $forageQuantity + " " + $foraged + "!">>
+
+	<<elseif ($randomizer gt 80) and ($randomizer lt 90)>>
+<<set $forageQuantity = either(1,1,1,2); $key_firewood += $forageQuantity; $forageResult = "You forage around the area... and find " + $forageQuantity + " firewood!">>
+
+/% Cutoff; rocks or nothing. %/
+	<<elseif $randomizer gte 90>>
+		<<set $foraged = either("nothing","rock")>>
+
+			/% Results %/
+			<<if $foraged is "rock">><<set $forageQuantity = random(1,2); $material_rock += $forageQuantity; $forageResult = "You forage around the area... and find " + $forageQuantity + " " + $foraged + "!">>
+			<<else>><<set $forageQuantity = 0; $forageResult = "You forage around the area... but turn up nothing of interest.">><<endif>>
+
+	<<endif>>
+
+<<else>>
+/% ==================================== %/
+
+	/% Default forage pool %/
+
+	<<if $randomizer lt 25>>
+		<<set $forageQuantity = random(1,2); $material_rock += $forageQuantity; $forageResult = "You forage around the area... and find " + $forageQuantity + " rock!">>
+
+	<<elseif ($randomizer gte 25) and ($randomizer lt 45)>>
+		<<set $foraged = either("grass","grass","grass","plump tendrilgrass"); $forageQuantity = random(1,6)>>
+
+			/% Results %/
+			<<if $foraged is "grass">><<set $material_grass += $forageQuantity>>
+			<<elseif $foraged is "plump tendrilgrass">><<set $produce_tendrilgrass += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You forage around the area... and find " + $forageQuantity + " " + $foraged + "!">>
+
+	<<elseif ($randomizer gte 45) and ($randomizer lt 58)>> /% Veg %/
+		<<set $foraged = either("rockroot","rockroot","rockroot","honeycarrot","honeycarrot","golden starchroot","golden starchroot","fat pumpkin"); $forageQuantity = random(1,3)>>
+
+			/% Results %/
+			<<if $foraged is "rockroot">><<set $produce_rockroot += $forageQuantity>>
+			<<elseif $foraged is "honeycarrot">><<set $produce_honeycarrot += $forageQuantity>>
+			<<elseif $foraged is "golden starchroot">><<set $produce_starchroot += $forageQuantity>>
+			<<elseif $foraged is "fat pumpkin">><<set $produce_fatpumpkin += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You forage around the area... and find " + $forageQuantity + " " + $foraged + "!">>
+
+	<<elseif ($randomizer gte 58) and ($randomizer lt 65)>> /% Fruits %/
+		<<set $foraged = either("effervescent grape","starberry","cramberry","coffee berry","plump belcheri","plump plum","giant peach","voluptuous pear","imperial apple","bloated milkmelon","creaking milkmelon","zeppelon"); $forageQuantity = random(1,3)>>
+
+			/% Results %/
+			<<if $foraged is "effervescent grape">><<set $produce_grape += $forageQuantity>>
+			<<elseif $foraged is "starberry">><<set $produce_starberry += $forageQuantity>>
+			<<elseif $foraged is "cramberry">><<set $produce_cramberry += $forageQuantity>>
+			<<elseif $foraged is "coffee berry">><<set $produce_coffee += $forageQuantity>>
+			<<elseif $foraged is "plump belcheri">><<set $produce_belcheri += $forageQuantity>>
+			<<elseif $foraged is "plump plum">><<set $produce_plum += $forageQuantity>>
+			<<elseif $foraged is "ripe tomato">><<set $produce_tomato += $forageQuantity>>
+			<<elseif $foraged is "giant peach">><<set $produce_peach += $forageQuantity>>
+			<<elseif $foraged is "voluptuous pear">><<set $produce_pear += $forageQuantity>>
+			<<elseif $foraged is "imperial apple">><<set $produce_apple += $forageQuantity>>
+			<<elseif $foraged is "bloated milkmelon">><<set $produce_milkmelon += $forageQuantity>>
+			<<elseif $foraged is "creaking milkmelon">><<set $produce_milkmelon_creaking += $forageQuantity>>
+			<<elseif $foraged is "zeppelon">><<set $produce_zeppelon += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You forage around the area... and find " + $forageQuantity + " " + $foraged + "!">>
+
+
+	<<elseif ($randomizer gte 66) and ($randomizer lt 80)>> /% Magical Berries & Mushrooms %/
+		<<set $foraged = either("miraberry","miraberry","miraberry","rainberries","bulkberries","bulkberries","roundberries","roundberries","burstberries","burstberries","cowberries","cowberries","plushberries","plushberries","bounceberries","bounceberries","bulgeberries","bulgeberries","butterberries","butterberries","butterberries","butterberries","strange mushroom","strange mushroom","glowing mushroom","egg plant"); $forageQuantity = random(1,4)>>
+
+			/% Results %/
+			<<if $foraged is "miraberry">><<set $berry_mira += $forageQuantity>>
+			<<elseif $foraged is "rainberries">><<set $berry_rain += $forageQuantity>>
+			<<elseif $foraged is "roundberries">><<set $berry_round += $forageQuantity>>
+			<<elseif $foraged is "bulkberries">><<set $berry_bulk += $forageQuantity>>
+			<<elseif $foraged is "burstberries">><<set $berry_burst += $forageQuantity>>
+			<<elseif $foraged is "cowberries">><<set $berry_cow += $forageQuantity>>
+			<<elseif $foraged is "plushberries">><<set $berry_plush += $forageQuantity>>
+			<<elseif $foraged is "bounceberries">><<set $berry_bounce += $forageQuantity>>
+			<<elseif $foraged is "butterberries">><<set $berry_butter += $forageQuantity>>
+			<<elseif $foraged is "bulgeberries">><<set $berry_bulge += $forageQuantity>>
+			<<elseif $foraged is "egg plant">><<set $plant_egg += $forageQuantity>>
+			<<elseif $foraged is "strange mushroom">><<set $forageQuantity = either(1,1,2); $mush_strange += $forageQuantity>>
+			<<elseif $foraged is "glowing mushroom">><<set $forageQuantity = either(1,1,2); $mush_glowing += $forageQuantity>><<endif>>
+
+		<<set $forageResult = "You forage around the area... and find " + $forageQuantity + " " + $foraged + "!">>
+
+	<<elseif ($randomizer gt 80) and ($randomizer lt 90)>>
+<<set $forageQuantity = either(1,1,1,2); $key_firewood += $forageQuantity; $forageResult = "You forage around the area... and find " + $forageQuantity + " firewood!">>
+
+/% Cutoff; rocks or nothing. %/
+	<<elseif $randomizer gte 90>>
+		<<set $foraged = either("nothing","rock")>>
+
+			/% Results %/
+			<<if $foraged is "rock">><<set $forageQuantity = random(1,2); $material_rock += $forageQuantity; $forageResult = "You forage around the area... and find " + $forageQuantity + " " + $foraged + "!">>
+			<<else>><<set $forageQuantity = 0; $forageResult = "You forage around the area... but turn up nothing of interest.">><<endif>>
+
+	<<endif>>
+
+
+/% ==================================== %/
+<<endif>>

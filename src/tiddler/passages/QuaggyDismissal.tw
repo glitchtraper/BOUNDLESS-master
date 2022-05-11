@@ -1,0 +1,3 @@
+﻿<<display ZoneBackgrounds>><center>
+''Are you sure you want to leave the quaggies behind?''
+<framed><<button [[NO.|QuaggyGenerator][$pauseGeneration = 1]]>> <<button [[YES.|$saveStateQuaggyGen]]>></framed></center>

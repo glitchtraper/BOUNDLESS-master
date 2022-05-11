@@ -1,0 +1,3 @@
+﻿<center>[img[boundless_text-sm_eng]]
+<<if $hiddenSidebar is 0>><<display PlayerImg>><<endif>>
+<<nobr>><invisible>BOUNDLESS 0.2.1 INDEV</invisible><<endnobr>></center>

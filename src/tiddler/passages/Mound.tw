@@ -1,0 +1,85 @@
+﻿<<nobr>><<display ZoneBackgrounds>><<display Clocks>>
+<<display ClockDisplay>>
+<<display PersistentEffects>>
+
+/% Your home; you can have one at a time, and move whenever you want. This is where your extra companions & donsair are kept.
+
+To visit your home, you have to go to the same planet/biome combination to make the 'go home' option show up. From your home, you can view and interact with your donsair, or pack up to move.
+
+If you've packed up your stuff, you can select a new home anywhere in the randomized game world.
+
+If you can fly or have a flying companion, you can fly to your home from anywhere on your home planet.
+
+
+Maybe you can install different addon rooms (kitchens, labs, fatieres, gardens, farmland, dungeons, billeporte, etc) when you get the tools/materials/abilities/companions/occupations required... %/
+
+<<endnobr>>
+''__<brightalert>Your Mound!</brightalert>
+ <<display ZoneDisplay>>__''\
+<center>
+<<if $newMound is 1>>
+
+After a long day of work digging and building, you finally finish <brightalert>''your new mound''</brightalert> and move in!<<set $newMound = 0>>
+<<endif>><<nobr>>
+
+
+<<if $exploring is 3>>
+
+<<if $autoRest is 1>><<set $pain -= either(0,0,0,1,2); $bonusEnergy += random(2,6)>><<if $pain lt 0>><<set $pain = 0>><<endif>><<timedgoto passage() 1.5s >><<endif>>
+
+<<if ($caffeinePoisoning neq 1) and ($pain lt 70)>>
+//You rest and enjoy the comfort of your home.//<<elseif $caffeinePoisoning is 1>>You're nervous and jittery... ''you can't seem to relax!''
+<<elseif $pain gte 70>>
+//...a-are you going to... <deepalert>''die?''</deepalert>//<<endif>><<endif>><<endnobr>><<display Alert>><<display Effects>><<if $alertStatus neq 0>><<print $alertStatus>><<endif>>
+<center><framed><<nobr>>
+
+<<button [[Inventory.|Inventory][$saveState = passage(); $autoRest = 0]]>>
+
+<<button [[Rest.|passage()][$exploring = 3]]>>
+
+<<if $autoRest is 0>><<button [[AutoRest.|passage()][$autoRest = 1; $exploring = 3; $resting = 1; $pain -= either(0,0,0,1,2); $bonusEnergy += random(2,6)]]>>
+
+<<elseif $autoRest is 1>><<button [[AutoRest (ON)|passage()][$autoRest = 0; $exploring = 3; $resting = 1; $pain -= random(2,4)]]>><<endif>>
+
+<<button [[Donsair.|Donsair]]>>
+
+/% =============================================== %/
+/% Mound Extensions %/
+
+/% ===================== %/
+/% Greenhouse %/
+
+<<if $moundkey_Greenhouse is 1>><<button [[Greenhouse.|Greenhouse]]>><<endif>>
+
+/% ===================== %/
+/% Kitchen %/
+
+<<if $moundkey_Kitchen is 1>>/% Kitchen goes here %/<<endif>>
+
+/% ===================== %/
+/% Workshop %/
+
+<<if $moundkey_Workshop is 1>>/% Workshop goes here %/<<endif>>
+
+/% ===================== %/
+/% Alchemy Lab %/
+
+<<if $moundkey_Alchemy is 1>>/% Alch Lab goes here %/<<endif>>
+
+/% ===================== %/
+/% Laboratory %/
+
+<<if $moundkey_Laboratory is 1>>/% Lab goes here %/<<endif>>
+
+/% ===================== %/
+/% Billeporte %/
+
+<<if $moundkey_Billeporte is 1>>/% Billeporte goes here %/<<endif>>
+
+/% =============================================== %/
+
+<<button [[Leave.|Explore][$exploring = 3; $autoRest = 0]]>>
+
+<<button [[Pack up.|Explore][$hasMound = 0; $exploring = 3; $autoRest = 0; $hours += random(4,7); $moundPlanetStored = 0]]>>
+
+<<endnobr>></framed></center>

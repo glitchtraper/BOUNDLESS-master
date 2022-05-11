@@ -1,0 +1,185 @@
+﻿<<nobr>>
+/% Damage over time and special multi-round effects! These take effect at the end of each combat round, as long as combat continues. %/
+
+/% =================================================================== %/
+/% Enemy-to-Player DOT setup %/
+
+<<set $baseDamage = $encounterPower / 2>>
+
+/% Unset holding %/
+<<if $heldDOT lte 1>><<set $combatLocked = 0; $fleeDisabled = 0>><<endif>>
+
+<<endnobr>><<nobr>>
+
+<<endnobr>><<if $smotherDOT gt 0>>
+<deepalert>You ''struggle to crawl out from under your opponent's smothering bulk!''</deepalert>\
+<<set $smotherBonus += ($baseDamage / 3); $pain += ($baseDamage / 3) + $smotherBonus; $combatLocked = 2; $fleeDisabled = 1; $smotherDOT -= either(0,1,1,1,2); $lethalKO = 1; $deathCause = "asphyxiation">>\
+<<if $smotherDOT lte 0>><<set $smotherBonus = 0>><<endif>><<endif>><<nobr>>
+
+<<endnobr>><<if $heldDOT gt 0>>
+<deepalert>You ''squirm and struggle within your opponent's grasp!''</deepalert>\
+<<set $combatLocked = 2; $fleeDisabled = 1; $heldDOT -= either(1,1,1,1,2,3)>>\
+<<endif>><<nobr>>
+
+<<endnobr>><<if $stranglationDOT gt 0>>
+<deepalert>You ''squirm and struggle within your opponent's crushing grasp!''</deepalert>\
+<<set $strangleBonus += ($baseDamage / 2); $pain += ($baseDamage / 2) + $strangleBonus; $stranglationDOT -= either(1,1,1,1,2,3); $lethalKO = 1; $deathCause = "asphyxiation">>\
+<<if $stranglationDOT lte 0>><<set $strangleBonus = 0>><<endif>><<endif>><<nobr>>
+
+
+
+<<endnobr>><<if $feedingDOT gt 0>>
+<deepalert>You ''gasp and gag as your opponent continues to stuff you full, your belly bulging!''</deepalert>\
+<<set $pain += $baseDamage / 2; $calories += either(10,10,20,30); $bellyBloat += $baseDamage * 10; $feedingDOT -= either(1,1,1,1,2,3); $lethalKO = either(0,0,1); $deathCause = "burst belly">><<endif>><<nobr>>
+
+<<endnobr>><<if $hoseDOT gt 0>>
+<deepalert>You ''gasp and gag as your opponent continues to pump you full, your belly bulging!''</deepalert>\
+<<set $pain += $baseDamage / 2; $bellyBloat += $baseDamage * 10; $bellyLiquid += $baseDamage * 10; $hoseDOT -= either(1,1,1,1,2,3); $lethalKO = either(0,0,1); $deathCause = either("burst belly","explosion")>><<endif>><<nobr>>
+
+<<endnobr>><<if $swallowDOT gt 0>>
+<deepalert>You ''struggle to free yourself from your opponent's engulfing maw!''</deepalert>\
+<<set $consumeBonus += ($baseDamage * 1.2); $pain += ($baseDamage / 2) + $consumeBonus; $swallowDOT -= either(1,1,1,1,2,3); $lethalKO = either(0,0,1); $deathCause = "eaten">>\
+<<if $swallowDOT lte 0>><<set $consumeBonus = 0>><<endif>><<endif>><<nobr>>
+
+<<endnobr>><<if $bleedDOT gt 0>>
+<deepalert>You're ''bleeding out...!''</deepalert>\
+<<set $pain += ($maxPain * either(0.01,0.02)); $bleedDOT -= either(0,0,0,1); $lethalKO = 1; $deathCause = "bleeding">><<endif>><<nobr>>
+
+/% =================================================================== %/
+/% Player-to-Enemy DOT setup %/
+
+<<endnobr>><<if $enemy_eggDOT gt 0>>
+<deepalert>The eggs are ''slowly expanding within <<print $encounter>>, its belly stretching... it looks anxious and uncomfortable!''</deepalert>\
+<<set $enemyPain += ($encounterMaxPain * 0.01); $creatureGirth += random(8,16); $enemy_eggDOT -= either(0,0,1)>>\
+<<elseif $enemy_eggDOT is 1>><deepalert>The <<print $encounter>> ''cries out in shock as its bloated belly bursts open, the quaggies emerging and scampering away to safety!''</deepalert>\
+<<set $enemyPain += ($encounterMaxPain * 0.3); $enemy_eggDOT = 0>>\<<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_stranglationDOT gt 0>>
+<deepalert>The <<print $encounter>> ''squirms and struggles within your crushing grasp!''</deepalert>\
+<<set $enemyPain += $baseDamage / 2; $enemy_stranglationDOT -= either(1,1,1,1,2,3)>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_feedingDOT gt 0>>
+<deepalert>The <<print $encounter>> ''gasps and gags as you continue to stuff it full, its belly bulging!''</deepalert>\
+<<set $enemyPain += $baseDamage / 2; $creatureCalories += either(10,10,20,30); $creatureGirth += $baseDamage; $enemy_feedingDOT -= either(1,1,1,1,2,3)>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_hoseDOT gt 0>>
+<deepalert>The <<print $encounter>> ''gasps and gags as you continue to pump it full, its belly bulging!''</deepalert>\
+<<set $enemyPain += $baseDamage / 2; $creatureGirth += $baseDamage; $enemy_hoseDOT -= either(1,1,1,1,2,3)>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_toxicVenom gt 0>>
+The <<print $encounter>> ''is visibly suffering!''\
+<<set $enemyPain += ($encounterMaxPain * 0.01); $enemy_toxicVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_lethalVenom gt 0>>
+The <<print $encounter>> ''thrashes and writhes in pain!''\
+<<set $enemyPain += ($encounterMaxPain * 0.07); $enemy_lethalVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_gainVenom gt 0>>
+The <<print $encounter>> ''jiggles and wobbles, steadily growing fatter!''\
+<<set $creatureCalories += random(10,30); $creatureGirth += random(2,10); $enemy_gainVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_supergainVenom gt 0>>
+The <<print $encounter>> ''cries out, clutching its sides as its body rapidly inflates with fat!''\
+<<set $creatureCalories += random(30,50); $creatureGirth += random(5,15); $enemy_supergainVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_bellygainVenom gt 0>>
+The <<print $encounter>>'s belly ''jiggles and wobbles, steadily growing fatter!''\
+<<set $creatureCalories += random(10,30); $creatureGirth += random(2,10); $enemy_bellygainVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_bellySupergainVenom gt 0>>
+The <<print $encounter>> ''cries out, clutching its belly as it rapidly balloons!''\
+<<set $creatureCalories += random(30,50); $creatureGirth += random(5,15); $enemy_bellySupergainVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_fatteniumVenom gt 0>>
+The <<print $encounter>> ''cries out, clutching its sides as its body rapidly inflates with fat!''\
+<<set $enemyPain += ($encounterMaxPain * 0.03); $creatureCalories += random(30,50); $creatureGirth += random(10,20); $enemy_fatteniumVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_bulkVenom gt 0>>
+The <<print $encounter>> ''cries out, clutching its sides as its body rapidly inflates with fat and muscle!''\
+<<set $enemyPain += ($encounterMaxPain * 0.08); $creatureCalories += random(30,50); $creatureGirth += random(10,20); $encounterPower += random(0,3); $enemy_bulkVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_flabbyVenom gt 0>>
+The <<print $encounter>> ''cries out, its body ballooning fatter as it quakes and falters!''\
+<<set $enemyPain += ($encounterMaxPain * 0.03); $creatureCalories += random(30,80); $creatureGirth += random(10,15); $enemyCombatWeaken -= random(0,2); $enemy_flabbyVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_bloatVenom gt 0>>
+The <<print $encounter>> ''cries out, its body swelling up!''\
+<<set $enemyPain += ($encounterMaxPain * 0.02); $creatureGirth += random(10,30); $enemy_bloatVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_burstVenom gt 0>>
+The <<print $encounter>> ''cries out, its skin creaking as it rapidly inflates!''\
+<<set $enemyPain += ($encounterMaxPain * 0.05); $creatureGirth += random(30,60); $enemy_burstVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_healVenom gt 0>>
+The <<print $encounter>>'s ''wounds are fading away!''\
+<<set $enemyPain -= ($encounterMaxPain * 0.03); $enemy_healVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_weakeningVenom gt 0>>
+The <<print $encounter>> ''trembles..!''\
+<<set $enemyCombatWeaken -= random(0,2); $enemy_weakeningVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_gluttonVenom gt 0>>
+The <<print $encounter>> ''looks hungry..!''\
+<<set $movesetOverride = 10; $enemy_gluttonVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_caloricVenom gt 0>>
+The <<print $encounter>> ''seems to be plumping up..!''\
+<<set $creatureCalories += 10; $enemy_caloricVenom -= 1>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_mutagenVenom gt 0>>
+The <<print $encounter>> ''cries out in pain as its body distorts and bulges..!''
+<<nobr>>
+<<set $enemy_mutagenVenom -= 1; $randomizer = random(1,100)>>
+
+<<if $randomizer is 1>>It suddenly ''blimps up //ENORMOUSLY//, its body bulging with fat and muscle!''<<set $encounterMaxPain = ($encounterMaxPain * 2); $creatureGirth += random(100,300); $creatureCalories += random(100,300)>>
+
+<<elseif ($randomizer gte 2) and ($randomizer lt 10)>>/% But nothing happened. %/
+
+<<elseif ($randomizer gte 10) and ($randomizer lt 15)>>Its belly ''bloats up tight!''<<set $enemyPain += ($encounterMaxPain * 0.03); $creatureGirth += random(20,70)>>
+
+<<elseif ($randomizer gte 15) and ($randomizer lt 20)>>It suddenly ''blows up like a balloon!''<<set $enemyPain += ($encounterMaxPain * 0.03); $creatureGirth += random(50,150)>>
+
+<<elseif ($randomizer gte 20) and ($randomizer lt 25)>>It suddenly ''surges fatter!''<<set $enemyPain += ($encounterMaxPain * 0.02); $creatureCalories += random(30,100)>>
+
+<<elseif ($randomizer gte 25) and ($randomizer lt 30)>>It suddenly ''deflates!''<<set $creatureGirth -= random(20,50)>>
+
+<<elseif ($randomizer gte 30) and ($randomizer lt 35)>>Its body suddenly ''bloats with muscle!''<<set $creatureGirth += random(20,50); $baseDamage += random(1,5)>>
+
+<<elseif ($randomizer gte 40) and ($randomizer lt 45)>>Its body ''shrinks visibly!''<<set $creatureGirth -= random(20,50); $creatureCalories -= random(20,50); $baseDamage -= random(1,5)>>
+
+<<elseif ($randomizer gte 45) and ($randomizer lt 50)>>It begins to ''wither away!''<<set $encounterMaxPain = ($encounterMaxPain * 0.7)>>
+
+<<elseif ($randomizer gte 50) and ($randomizer lt 55)>>Its body suddenly ''expands, looking tougher!''<<set $encounterMaxPain = ($encounterMaxPain * 1.2); $creatureGirth += random(30,100); $creatureCalories += random(30,100)>>
+
+<<elseif ($randomizer gte 55) and ($randomizer lt 60)>>It begins to ''swell up fatter..!''<<set $enemyPain += ($encounterMaxPain * 0.02); $creatureCalories += random(30,100); $enemy_gainVenom += random(5,20)>>
+
+<<elseif ($randomizer gte 60) and ($randomizer lt 65)>>It begins to ''swell up rounder..!''<<set $enemyPain += ($encounterMaxPain * 0.02); $creatureGirth += random(30,100); $enemy_bloatVenom += random(5,20)>>
+
+<<elseif ($randomizer gte 65) and ($randomizer lt 70)>>It ''suddenly grows a tongueclaw!'' <<set $venomType = either("fattening","bellyfattening","breastfattening","thighfattening","bloating","breastbloating","bursting","healing","superfattening","superbreastfattening","superthighfattening","flabbifying","weakening","toxic","lethal","mutagenic","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric"); $moveset = either(20,23,30,31,32,33)>>
+
+<<elseif ($randomizer gte 70) and ($randomizer lt 72)>>It ''suddenly grows a stinger!'' <<set $injectType = "sting"; $venomType = either("fattening","bellyfattening","breastfattening","thighfattening","bloating","breastbloating","bursting","healing","superfattening","superbreastfattening","superthighfattening","flabbifying","weakening","toxic","lethal","mutagenic","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric"); $moveset = 29>>
+
+<<elseif ($randomizer gte 72) and ($randomizer lt 75)>>It ''suddenly grows fangs!'' <<set $injectType = "bite"; $venomType = either("fattening","bellyfattening","breastfattening","thighfattening","bloating","breastbloating","bursting","healing","superfattening","superbreastfattening","superthighfattening","flabbifying","weakening","toxic","lethal","mutagenic","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric"); $moveset = 29>>
+
+<<elseif ($randomizer gte 75) and ($randomizer lt 80)>>Its flesh ''sizzles and boils!''<<set $enemyPain += ($encounterMaxPain * 0.05)>>
+
+<<elseif ($randomizer gte 80) and ($randomizer lt 85)>>Its belly ''suddenly bulges and bloats with eggs!''<<set $enemyPain += ($encounterMaxPain * 0.2); $creatureGirth += random(100,300)>>
+
+<<elseif ($randomizer gte 85) and ($randomizer lt 99)>>/% Quiet moveset swap %/<<set $moveset = random(1,33)>>
+
+<<elseif $randomizer is 99>>It suddenly ''blows up like a balloon... and then //EXPLODES!//''<<set $enemyPain = ($encounterMaxPain * 5)>><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_hallucenoVenom gt 0>><<set $randomizer = random(1,6)>>
+<<if $randomizer is 1>>The <<print $encounter>> is ''trembling with fear!''\
+<<set $movesetOverride = 34; $enemy_hallucenoVenom -= 1>><<else>><<set $enemy_hallucenoVenom -= 1>>\
+<<else>>The <<print $encounter>> is ''hallucenating wildly!''<<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_swallowDOT gt 0>>
+<deepalert>Your opponent ''struggles to free itself from your engulfing maw!''</deepalert>\
+<<set $enemyPain += $baseDamage; $enemy_swallowDOT -= 1>><<endif>><<endif>><<nobr>>
+
+<<endnobr>><<if $enemy_bleedDOT gt 0>>
+<deepalert>Your opponent is ''bleeding profusely!''</deepalert>\
+<<set $enemyPain += ($encounterMaxPain * either(0.01,0.02)); $enemy_bleedDOT -= either(0,0,0,1)>><<endif>>

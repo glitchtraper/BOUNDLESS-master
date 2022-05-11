@@ -1,0 +1,156 @@
+﻿/% ====================================================== %/
+/% These items can be split into resources, for crafting, donsair feeding & abitte offerings.
+Make sure to add their entries to SplittableItems, too (Inventory Systems).%/
+
+<affirmative>
+
+/% ====================================================== %/
+/% Remove the item now, for the new system -- so the counter number will update accurately. %/
+
+<<print "<<set $" + $itemID + " -= 1>>">>
+
+/% If none are left, clear the selection. %/
+<<print "<<if $" + $itemID + " lte 0>><<set $" + "selectedItem" + "= 0>><<endif>>">>
+
+
+/% ==================================== %/
+/% Eggs %/
+
+<<if $itemEncounter is "small eggs">><<set $resourceYield = random(2,4); $eggStock += $resourceYield>>
+''[+<<print $resourceYield>> Egg]''<<endif>>
+
+<<if $itemEncounter is "eggs">><<set $resourceYield = random(3,6); $eggStock += $resourceYield>>
+''[+<<print $resourceYield>> Egg]''<<endif>>
+
+<<if $itemEncounter is "large eggs">><<set $resourceYield = random(5,8); $eggStock += $resourceYield>>
+''[+<<print $resourceYield>> Egg]''<<endif>>
+
+/% ====================================================== %/
+/% Produce %/
+
+<<if $itemID is "produce_tendrilgrass">><<set $resourceYield = random(5,8); $vegStock += $resourceYield>>
+''[+<<print $resourceYield>> Vegetables]''<<endif>>
+
+<<if $itemID is "produce_tendrilvine">><<set $resourceYield = random(10,16); $vegStock += $resourceYield; $waterStock += ($resourceYield * 3)>>
+''[+<<print $resourceYield>> Vegetables +<<print $resourceYield * 3>> Water]''<<endif>>
+
+<<if $itemID is "produce_succulent">><<set $resourceYield = random(1,3); $vegStock += $resourceYield>>
+''[+<<print $resourceYield>> Vegetables]''<<endif>>
+
+<<if $itemID is "produce_cactus">><<set $resourceYield = random(2,5); $vegStock += $resourceYield>>
+''[+<<print $resourceYield>> Vegetables]''<<endif>>
+
+<<if $itemID is "produce_pricklepear">><<set $resourceYield = random(1,6); $fruitStock += $resourceYield>>
+''[+<<print $resourceYield>> Fruit]''<<endif>>
+
+<<if $itemID is "produce_rockroot">><<set $resourceYield = random(2,4); $rootStock += $resourceYield>>
+''[+<<print $resourceYield>> Root]''<<endif>>
+
+<<if $itemID is "produce_starchroot">><<set $resourceYield = random(2,6); $rootStock += $resourceYield>>
+''[+<<print $resourceYield>> Root]''<<endif>>
+
+<<if $itemID is "produce_honeycarrot">><<set $resourceYield = random(1,3); $rootStock += $resourceYield>>
+''[+<<print $resourceYield>> Root]''<<endif>>
+
+<<if $itemID is "produce_puffshroom">><<set $resourceYield = random(3,5); $vegStock += $resourceYield>>
+''[+<<print $resourceYield>> Vegetables]''<<endif>>
+
+<<if $itemID is "produce_starberry">><<set $resourceYield = either(1,1,1,1,2,3); $fruitStock += $resourceYield>>
+''[+<<print $resourceYield>> Fruit]''<<endif>>
+
+<<if $itemID is "produce_coffee">><<set $resourceYield = either(1,1,1,1,2,3); $nutStock += $resourceYield>>
+''[+<<print $resourceYield>> Nuts]''<<endif>>
+
+<<if $itemID is "produce_grape">><<set $resourceYield = either(1,2,2,3); $fruitStock += $resourceYield; $waterStock += ($resourceYield * 2)>>
+''[+<<print $resourceYield>> Fruit +<<print $resourceYield * 2>> Water]''<<endif>>
+
+<<if $itemID is "produce_sugarcane">><<set $resourceYield = random(3,6); $sugarStock += $resourceYield>>
+''[+<<print $resourceYield>> Sugar]''<<endif>>
+
+<<if $itemID is "produce_rosehip_glass">><<set $resourceYield = random(1,2); $seedYield = random(1,2); $fruitStock += $resourceYield; $seed_rose_glass += $seedYield>>
+''[+<<print $resourceYield>> Fruit +<<print $seedYield>> Glass Rose Seed]''<<endif>>
+
+<<if $itemID is "produce_tomato">><<set $resourceYield = random(2,5); $vegStock += $resourceYield>>
+''[+<<print $resourceYield>> Vegetables]''<<endif>>
+
+<<if $itemID is "produce_belcheri">><<set $resourceYield = random(3,5); $fruitStock += $resourceYield>>
+''[+<<print $resourceYield>> Fruit]''<<endif>>
+
+<<if $itemID is "produce_plum">><<set $resourceYield = random(4,8); $fruitStock += $resourceYield>>
+''[+<<print $resourceYield>> Fruit]''<<endif>>
+
+<<if $itemID is "produce_peach">><<set $resourceYield = random(5,12); $fruitStock += $resourceYield>>
+''[+<<print $resourceYield>> Fruit]''<<endif>>
+
+<<if $itemID is "produce_pear">><<set $resourceYield = random(6,14); $fruitStock += $resourceYield>>
+''[+<<print $resourceYield>> Fruit]''<<endif>>
+
+<<if $itemID is "produce_apple">><<set $resourceYield = random(8,16); $fruitStock += $resourceYield>>
+''[+<<print $resourceYield>> Fruit]''<<endif>>
+
+<<if $itemID is "produce_milkmelon">>
+<<set $seedFruit = 1; $seedID = "seed_milkmelon"; $seedQuantity = random(0,6)>>
+<<if $seedQuantity gt 0>><<set $seed_milkmelon += $seedQuantity>><<endif>>
+
+<<set $resourceYield = random(1,3); $fruitStock += $resourceYield; $milkStock += ($resourceYield * 3)>>
+''[+<<print $resourceYield>> Fruit +<<print $resourceYield * 3>> Milk<<if $seedQuantity gt 0>> +<<print $seedQuantity>> Seeds<<endif>>]''<<endif>>
+
+<<if $itemID is "produce_milkmelon_creaking">>
+<<set $seedFruit = 1; $seedID = "seed_milkmelon"; $seedQuantity = random(0,8)>>
+<<if $seedQuantity gt 0>><<set $seed_milkmelon += $seedQuantity>><<endif>>
+
+<<set $resourceYield = random(2,6); $fruitStock += $resourceYield; $milkStock += ($resourceYield * 5)>>
+''[+<<print $resourceYield>> Fruit +<<print $resourceYield * 5>> Milk<<if $seedQuantity gt 0>> +<<print $seedQuantity>> Seeds<<endif>>]''<<endif>>
+
+<<if $itemID is "produce_fatpumpkin">>
+<<set $seedFruit = 1; $seedID = "seed_fatpumpkin"; $seedQuantity = random(6,16)>>
+<<if $seedQuantity gt 0>><<set $seed_fatpumpkin += $seedQuantity>><<endif>>
+
+<<set $resourceYield = random(8,24); $vegStock += $resourceYield>>
+''[+<<print $resourceYield>> Vegetables<<if $seedQuantity gt 0>> +<<print $seedQuantity>> Seeds<<endif>>]''<<endif>>
+
+<<if $itemID is "produce_zeppelon">>
+<<set $seedFruit = 1; $seedID = "seed_zeppelon"; $seedQuantity = random(4,12)>>
+<<if $seedQuantity gt 0>><<set $seed_zeppelon += $seedQuantity>><<endif>>
+
+<<set $resourceYield = random(8,32); $fruitStock += $resourceYield; $waterStock += ($resourceYield * 10)>>
+''[+<<print $resourceYield>> Fruit +<<print $resourceYield * 10>> Water<<if $seedQuantity gt 0>> +<<print $seedQuantity>> Seeds<<endif>>]''<<endif>>
+
+
+/% ====================================================== %/
+/% Liquids %/
+
+
+<<if $itemID is "drink_milk">><<set $resourceYield = 3; $milkStock += $resourceYield>>
+''[+<<print $resourceYield>> Milk]''<<endif>>
+
+<<if $itemID is "collectionjar_milk">><<set $resourceYield = 5; $milkStock += $resourceYield>>
+''[+<<print $resourceYield>> Milk]''<<endif>>
+
+<<if $itemID is "collectionjar_milk_adephagian">><<set $resourceYield = 8; $milkStock += $resourceYield>>
+''[+<<print $resourceYield>> Milk]''<<endif>>
+
+<<if $itemID is "collectionjar_cream">><<set $resourceYield = 6; $milkStock += $resourceYield>>
+''[+<<print $resourceYield>> Milk]''<<endif>>
+
+
+/% ====================================================== %/
+/% Sugars %/
+
+
+<<if $itemID is "collectionjar_honeybutter">><<set $resourceYield = random(6,8); $sugarStock += $resourceYield; $fatteniumStock += $resourceYield / 2>>
+''[+<<print $resourceYield>> Sugar +<<print $resourceYield / 2>> Fattenium Powder]''<<endif>>
+
+<<if $itemID is "collectionjar_gorgerjelly">><<set $resourceYield = random(16,24); $sugarStock += $resourceYield; $fatteniumStock += $resourceYield / 2>>
+''[+<<print $resourceYield>> Sugar +<<print $resourceYield / 2>> Fattenium Powder]''<<endif>>
+
+
+
+/% ====================================================== %/
+/% Miscellaneous %/
+
+
+
+/% ====================================================== %/
+
+</affirmative>

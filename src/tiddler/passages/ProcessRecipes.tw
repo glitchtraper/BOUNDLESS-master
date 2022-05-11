@@ -1,0 +1,34 @@
+﻿<center>[img[consiee]]
+''__Consiee Processing__''</center>
+<<if $food gte $maxFood>>
+''You can't carry any more consiee...''<<else>>''<<if ($fatteniumStock gte 5) and ($waterStock gte 5)>>[[~~Consiee~~(x50)|passage()][$food += 50; $fatteniumStock -= 5; $waterStock -= 5; $cooked = 2]]<<else>>//~~Consiee~~(x50)//<<endif>>'' ♦ <<print $fatteniumStock>>/5 ''Fattenium Powder'' ♦ <<print $waterStock>>/5 ''Water''
+<<nobr>>
+<<endnobr>>''<<if $fatStock gte 4>>[[~~Consiee~~(x20)|passage()][$food += 20; $fatStock -= 4; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $fatStock>>/4 ''Fat''
+<<nobr>>
+<<endnobr>>''<<if $leupaiStock gte 3>>[[~~Consiee~~(x20)|passage()][$food += 20; $leupaiStock -= 3; $cooked = 2]]<<else>>//~~Consiee~~(x20)//<<endif>>'' ♦ <<print $leupaiStock>>/3 ''Leupai Flesh''
+<<nobr>>
+<<endnobr>>''<<if $dragonStock gte 5>>[[~~Consiee~~(x15)|passage()][$food += 15; $dragonStock -= 5; $cooked = 2]]<<else>>//~~Consiee~~(x15)//<<endif>>'' ♦ <<print $dragonStock>>/5 ''Dragon Meat''
+<<nobr>>
+<<endnobr>>''<<if $meatStock gte 5>>[[~~Consiee~~(x10)|passage()][$food += 10; $meatStock -= 5; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $meatStock>>/5 ''Meat''
+<<nobr>>
+<<endnobr>>''<<if $poultryStock gte 8>>[[~~Consiee~~(x10)|passage()][$food += 10; $poultryStock -= 8; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $poultryStock>>/8 ''Poultry''
+<<nobr>>
+<<endnobr>>''<<if $fishStock gte 8>>[[~~Consiee~~(x10)|passage()][$food += 10; $fishStock -= 8; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $fishStock>>/8 ''Fish''
+<<nobr>>
+<<endnobr>>''<<if ($rootStock gte 8) and ($waterStock gte 5)>>[[~~Consiee~~(x10)|passage()][$food += 10; $rootStock -= 8; $waterStock -= 5; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $rootStock>>/8 ''Roots'' ♦ <<print $waterStock>>/5 ''Water''
+<<nobr>>
+<<endnobr>>''<<if $nutStock gte 10>>[[~~Consiee~~(x10)|passage()][$food += 10; $nutStock -= 10; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $nutStock>>/10 ''Nut''
+<<nobr>>
+<<endnobr>>''<<if $eggStock gte 10>>[[~~Consiee~~(x10)|passage()][$food += 10; $eggStock -= 10; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $eggStock>>/10 ''Egg''
+<<nobr>>
+<<endnobr>>''<<if $vegStock gte 10>>[[~~Consiee~~(x10)|passage()][$food += 10; $vegStock -= 10; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $vegStock>>/10 ''Vegetable''
+<<nobr>>
+<<endnobr>>''<<if $fruitStock gte 15>>[[~~Consiee~~(x10)|passage()][$food += 10; $fruitStock -= 15; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $fruitStock>>/10 ''Fruit''
+<<nobr>>
+<<endnobr>>''<<if ($grainStock gte 20) and ($waterStock gte 5)>>[[~~Consiee~~(x10)|passage()][$food += 10; $grainStock -= 20; $waterStock -= 5; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $grainStock>>/20 ''Grain'' ♦ <<print $waterStock>>/5 ''Water''
+<<nobr>>
+<<endnobr>>''<<if ($sugarStock gte 20) and ($waterStock gte 5)>>[[~~Consiee~~(x10)|passage()][$food += 10; $sugarStock -= 20; $waterStock -= 5; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $sugarStock>>/20 ''Sugar'' ♦ <<print $waterStock>>/5 ''Water''
+<<nobr>>
+<<endnobr>>''<<if $jellyStock gte 25>>[[~~Consiee~~(x10)|passage()][$food += 10; $jellyStock -= 25; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $jellyStock>>/25 ''Jelly''
+<<nobr>>
+<<endnobr>>''<<if $milkStock gte 25>>[[~~Consiee~~(x10)|passage()][$food += 10; $milkStock -= 25; $cooked = 2]]<<else>>//~~Consiee~~(x10)//<<endif>>'' ♦ <<print $milkStock>>/25 ''Milk''<<endif>>

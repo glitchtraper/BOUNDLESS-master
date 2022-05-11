@@ -1,0 +1,10 @@
+title: BOUNDLESS-0.2.1
+story-settings:
+  blankcss: false
+  bookmark: false
+  exitprompt: true
+  hash: false
+  jquery: true
+  modernizr: false
+  obfuscate: false
+  undo: false

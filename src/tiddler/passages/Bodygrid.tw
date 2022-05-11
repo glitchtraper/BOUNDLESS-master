@@ -1,0 +1,109 @@
+﻿/%
+
+This works like the body grids for companions.
+Remember; "head" and "back" are for head and back ornaments!
+
+Try to use matching parts across body grids whenever possible, to make it easier to link up genes cross-species later, especially if we make it so you can breed more than leupai.
+
+%/<center><midframe><<nobr>>
+
+/% ===========[ EARS ]=========== %/
+
+<<if $earMutation is 1>><<if $playerEarNumber neq 0>>[<mutation><<print $playerEarNumber>>
+
+
+<<if $playerEars neq 0>> <<print $playerEars>><<endif>> ears</mutation>] <<endif>>
+
+
+<<elseif $earMutation is 0>><<if $playerEarNumber neq 0>>[<<print $playerEarNumber>>
+
+
+<<if $playerEars neq 0>> <<print $playerEars>><<endif>> ears] <<endif>><<endif>>
+
+
+/% ===========[ HEAD ORNAMENT ]=========== %/
+
+<<if $headMutation is 1>><<if $playerHead neq 0>>[<mutation><<print $playerHead>></mutation>] <<endif>><<elseif $headMutation is 0>><<if $playerHead neq 0>>[<<print $playerHead>>] <<endif>><<endif>>
+
+
+/% ===========[ FACET ]=========== %/
+
+
+<<if $playerFacet neq 0>>[<mutation><<print $playerFacet>></mutation> facet] <<endif>>
+
+
+/% ===========[ EYES ]=========== %/
+
+[<<if $eyeMutation is 1>><mutation><<print $playerEyeNumber>> <<if $playerEyeNumber neq 0>><<print $playerEyeColor>><<endif>> <<if $playerEyes neq 0>><<print $playerEyes>><<endif>> eyes</mutation>
+
+
+<<elseif $eyeMutation is 0>><<print $playerEyeNumber>> <<if $playerEyeNumber neq 0>><<print $playerEyeColor>><<endif>> <<if $playerEyes neq 0>><<print $playerEyes>><<endif>> eyes<<endif>>]
+
+
+/% ===========[ FACE ]=========== %/
+
+<<endnobr>><<if $playerFace neq 0>><<if $faceMutation is 1>>[<mutation><<print $playerFace>> face</mutation>] <<endif>><<elseif $faceMutation is 0>><<if $playerFace neq 0>> [<<print $playerFace>> face] <<endif>>
+<<endif>><<nobr>>
+
+/% ===========[ ARMS ]=========== %/
+
+<<if $playerArmNumber gt 0>><<if $armMutation is 1>>[<mutation><<print $playerArmNumber>><<if $playerArms neq 0>> <<print $playerArms>><<endif>><<if $armMod neq 0>><<print $armMod>> <<endif>> arms</mutation>]
+
+<<elseif $armMutation is 0>>[<<print $playerArmNumber>><<if $playerArms neq 0>> <<print $playerArms>><<endif>><<if $armMod neq 0>><<print $armMod>> <<endif>> arms] <<endif>><<endif>>
+
+/% ===========[ SKIN ]=========== %/
+
+<<if $skinMutation is 1>><<if $playerSkin neq 0>>[<mutation><<print $playerSkin>> skin</mutation>] <<endif>>
+
+<<elseif $skinMutation is 0>><<if $playerSkin neq 0>>[<<print $playerSkin>> skin] <<endif>><<endif>>
+
+
+/% ===========[ BREASTS (gi/bloat sensitive) ]=========== %/
+
+<<if $breastDesc neq 0>>[<<print $breastDesc>> <<if $breastMod neq 0>><<print $breastMod>><<endif>> <<print $chestType>>] <<endif>><<endnobr>>
+<<nobr>>
+
+
+/% ===========[ BODY ]=========== %/
+
+<<if $bodyDesc neq 0>>[<<print $bodyDesc>>  body] <<endif>>
+
+
+/% ===========[ BELLY (gi/bloat sensitive) ]=========== %/
+
+[<<if $bellyDesc neq 0>><<print $bellyDesc>> <<endif>><<if $bellyMod neq 0>><<print $bellyMod>> <<endif>>belly]
+
+
+/% ===========[ BACK ORNAMENT ]=========== %/
+
+<<if $playerBack neq 0>> [<mutation><<print $playerBack>></mutation>] <<endif>>
+
+
+/% ===========[ WINGS ]=========== %/
+
+<<if $playerWings neq 0>> [<mutation><<print $playerWings>></mutation>] <<endif>><<endnobr>>
+<<nobr>>
+
+
+/% ===========[ LEGS ]=========== %/
+
+<<if $playerLegNumber gt 0>><<if $legMutation is 1>> [<mutation><<print $playerLegNumber>>
+
+
+<<if $playerLegs neq 0>><<print $playerLegs>><<endif>><<if $legMod neq 0>><<print $legMod>> <<endif>> legs</mutation>]
+
+
+<<elseif $legMutation is 0>> [<<print $playerLegNumber>>
+
+
+<<if $playerLegs neq 0>> <<print $playerLegs>><<endif>><<if $legMod neq 0>><<print $legMod>> <<endif>> legs] <<endif>><<endif>>
+
+/% ===========[ THIGHS (gi sensitive) ]=========== %/
+
+[<<if $thighDesc neq 0>><<print $thighDesc>> <<endif>>thighs]
+
+
+/% ===========[ TAIL ]=========== %/
+
+<<if $tailMutation is 1>><<if $playerTail neq 0>> [<mutation><<print $playerTail>> tail</mutation>] <<endif>>
+<<elseif $tailMutation is 0>><<if $playerTail neq 0>> [<<print $playerTail>> tail] <<endif>><<endif>><<endnobr>></midframe></center>

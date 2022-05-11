@@ -1,0 +1,67 @@
+﻿<<display ZoneBackgrounds>><center>[img[aetherhole]]</center>
+You tumble down into the aetherhole, a chill wind whipping around your skin as you fall through time and space.<<nobr>>
+
+/% Aetherhole Travel -  Phys Side %/
+
+<<endnobr>><<if $plane is 0>><<nobr>>
+
+/% Where did you come from, where did you go? %/
+
+<<if ($location is "Forest") or ($location is "Woods") or ($location is "Deep Forest") or ($location is "Deep Woods")>>
+
+/% Heartwood, Merrevet, or Cherboret %/
+<<set $plane = either("The Heartwood","Merrevet","Cherboret")>>
+<<if $plane is "The Heartwood">>
+<<set $planeIntro = "an enormous and ancient forest, with a canopy that extends beyond the clouds, shrouding the light of the sun. Bioluminescent flora and glowing water light the area, and hundreds of creatures can be heard calling through the leafy shadows"; $zoneType = "vital"; $itemPool = "planetest">>
+
+<<elseif $plane is "Merrevet">>
+<<set $planeIntro = "a dark and murky forest, shrouded by an eerie black mist; a gleaming, red crescent moon glares down from overhead"; $zoneType = "shadow">>
+
+<<elseif $plane is "Cherboret">>
+<<set $planeIntro = "a forest full of shimmering, pure white cherry trees, loaded down with enormous fruit"; $zoneType = "dream"; $itemPool = "planetest">><<endif>>
+
+<<elseif ($location is "Deadwood") or ($location is "Bog") or ($location is "Swamp") or ($location is "Reeds")>>
+
+/% Merrevet %/
+<<set $plane = "Merrevet"; $planeIntro = "a dark and murky forest, shrouded by an eerie black mist; a gleaming, red crescent moon glares down from overhead"; $zoneType = "shadow"; $itemPool = "planetest">>
+
+
+<<elseif ($location is "Highlands") or ($location is "Mountain")>>
+
+/% Celestine %/
+<<set $plane = "Celestine"; $planeIntro = "an iridescent land of crystal and snow, surrounded by billowing clouds and aurora-painted, starry skies"; $zoneType = "expansion"; $itemPool = "planetest">>
+
+
+<<elseif ($location is "Meadow") or ($location is "Garden")>>
+
+/% Sugarstomp %/
+<<set $plane = "Sugarstomp"; $planeIntro = "a brilliant land made of sweets and chocolate as far as the eye can see"; $zoneType = "gluttony"; $itemPool = "planetest">>
+
+<<elseif ($location is "Icewood") or ($location is "Crystalforest")>>
+
+/% Cherboret %/
+<<set $plane = "Cherboret"; $planeIntro = "a forest full of shimmering, pure white cherry trees, loaded down with enormous fruit"; $zoneType = "dream"; $itemPool = "planetest">>
+
+<<elseif ($location is "River") or ($location is "Lake")>>
+
+/% Apothecary %/
+<<set $plane = "Apothecary"; $planeIntro = "a vast and rippling ocean of thick, iridescent goo"; $zoneType = "slime"; $itemPool = "planetest">>
+
+<<else>>
+
+/% Aetherspace %/
+<<set $plane = "Aetherspace"; $planeIntro = "an endless sea of dark space, stars and nebulae glittering in the background"; $zoneType = "void"; $aetherbloatTick = 10; $itemPool = "planetest">>
+
+<<endif>>
+
+<<endnobr>>
+
+Finally, you land bottom-down in <<print $planeIntro>>... ''you've been teleported to <<print $plane>>!''<<elseif $plane neq 0>><<nobr>>
+
+/% Aetherhole Travel - Altplanar Side %/
+
+<<endnobr>>
+
+''Finally, you land bottom-down in the <<print $location>> of <<print $locName>>!''<<set $plane = 0; $aetherbloatTick = 0; $zoneType = 0; $itemPool = 0; $locStatus = 0; $encounterKind = 0>><<endif>>
+<<display BodySystems>><<display Alert>><<display Effects>>
+<hr>[[Explore.|Explore]]

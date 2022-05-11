@@ -1,0 +1,88 @@
+﻿<<if $administreStatue is "Nefirian">>
+<hr>''__Nefirian, <<print either("the Engulfing Chaos","the Silent Rose","the Catalyst of Evolution","the Dreamwaker","the God of Flesh")>>__''
+The flesh-statue of ''Nefirian'' stands proudly before you, its plush, overstuffed body draped in soft, white velvet robes adorned with golden embroidery and tiny dreamshards in rainbow hues. Its exaggerated, mischevious grin reveals a mouth full of shark-sharp teeth-- but it's something //behind// the ghastly smile that truly fills you with dread... perhaps the subtle hint of terror behind the statue's forced expression..?
+
+The statue-//Administre// grasps a radiant crystalline rapier in one clawed hand, held gracefully aloft in a frozen gesture that you have little doubt would sever your head from your shoulders with little effort. The edge of the blade glitters with what first appears to be dew... but on closer inspection is actually ''a thin line of tiny magenta drops''.
+The legends say that Nefirian's sacred miracrystal rapier, //Mentalie//, has the ability to slice through space, time, and reality... and it appears even this replica is keen enough to draw miraplasm from the aether.
+
+An unnerving thought.
+
+<<elseif $administreStatue is "Phoenix">>
+<hr>''__Phoenix, <<print either("the Apocalypse Bird","Prince of the Wastes")>>__''
+The flesh-statue of ''Phoenix'' stands confidently before you-- its arms folded over its chest as it smirks defiantly down, its brilliant ruby wings spread upwards and back into a graceful arc.
+Surprisingly human in appearance, the replica //Administre// seems to emit an aura of swagger and threat, as well as a curious scent rather like oranges, smoke, and cinnamon.
+
+Clad in a long, violet robe decorated with flames, and a black unitard embroidered with magical runes and alchemical charts in shining silver thread, you get the impression that this entity is a formidable-- if cocky-- magician.
+
+<<elseif $administreStatue is "Nameless">>
+<hr>''__The Nameless Dark__''
+The flesh-statue of ''the Nameless Dark'' stands before you, paws clutching one another and crocodilian head tilted away in a gesture of vague anxiety.
+A dark-scaled leupai with enormous front claws, tiny crow's feet, a pair of feathered wings and a long, thick tail striped in blue, the gargoylesque creature gives off an air of being overwhelmed by the world despite its impressive stature.
+
+Its single ruby eye seems to focus on you only with extreme effort, and a tangible longing to be possibly anywhere but where it is.
+
+<<elseif $administreStatue is "Kaolan">>
+<hr>''__Kaolan, the Ethereal Hart__''
+The statue of ''Kaolan'' stands serenely before you-- a striking peryton carved from rich, well-polished wood.
+Three winking orbs of magical flame hover gracefully over its blackened antlers-- red, blazing jade green, and a pulsing orb of vital fire that seems to suck the breath from your lungs.
+The wooden beast's eyes are golden and green gemstones, pressed firmly into the dark-stained and heavily-shadowed sockets.
+
+The statue is undeniably imposing, but something about it leaves you feeling at peace, just the same.
+
+<<elseif $administreStatue is "Giovan">>
+<hr>''__Giovan, the Soft Singularity__''
+The flesh-statue of ''Giovan'' drifts lazily above you, its virtually-spherical form hovering in midair in a gesture of casual reclination.
+Dressed in a sharp black suit, the statue is dotted with tiny, pulsing blue lights that glimmer like stars-- the color and effect matched by the lenses of its black, square-rimmed glasses.
+
+The statue's expression is one of calm relaxation to mirror its pose; one arm draped over its impossibly round belly, the other dangling down below, fingers slightly splayed.
+
+Something about it almost makes you feel as though you could drift away without a care, too...
+
+<<elseif $administreStatue is "Ander">>
+<hr>''__Ander, the Gilded Thorn__''
+The flesh-statue of ''Ander'' stands casually before you-- a naked, humanoid leupai with a single golden horn and a head full of angelic, curly blonde hair-- tilted slightly downward as if about to begin a conversation with you.
+Pot-bellied and covered in golden thorns and tiny, pearlescent scales, the fey statue seems oddly plain compared to those of the other //Administre//-- but there's something inviting about its simplicity.
+
+Its subtle, calm expression makes you feel as though you could talk to it about anything, and it would understand.
+
+<<elseif $administreStatue is "Lyric'Ai">>
+<hr>''__Lyric'Ai, the Crystalline Melody__''
+The flesh-statue of ''Lyric'Ai'' stands proudly before you-- shockingly tiny, sleek, and faelike for a leupai-turned-humanoid, its delicate features are offset by a black corset and leather jeans studded with iridescent crystals, and a beautiful guitar seemingly shaped from glass.
+A pair of enormous dragon's wings with scales like hundreds of winking black diamonds complete the look with a sense of unexpected ethereal mystery.
+
+The diminutive statue pulses with an imposing aura, as though the little elf is a thinly-veiled mask for a creature of immense power and grandiose stature-- an impression  reflected in the sculpture's confident, cocky smirk.
+
+<<elseif $administreStatue is "Reks">>
+<hr>''__Reks, the Tyrant Taxidermist__''
+The flesh-statue of ''Reks'' stands defiantly before you-- wrapped in bandages and battered scraps of teal cloth, and grinning so ferociously its head seems ready to split in two. The fire in the sleek-muscled faerie-creature's eyes is almost overwhelming, and you're more than a little convinced that the manic-looking statue will leap down from its pedastal to accost you... or the swarm of tiny, rainbow-hued toy dinosaurs at its feet will.
+
+You can't decide whether or not you'd actually like to meet this entity in the flesh.
+Or, well, in its //''own''// flesh...
+
+<<elseif $administreStatue is "Na'than & Eva">>
+<hr>''__Na'than, the Shining Moon & Eva, the Midnight Eclipse__''
+The flesh-statues of ''Na'than'' and ''Eva'' stand powerfully before you-- a tall, burly elf with a surprisingly friendly face and a head of long, fluffy silver hair, accompanied by an enormous, black-furred wolf-//thing//; not quite humanoid and not quite canine, its bulky form seems more like some eldritch creature crammed into a werewolf's ill-fitting skin.
+
+The pair looks direly mismatched, yet comfortable; the blue-eyed elf snuggled in close against the wolfbeast's bristling fur, its too-long bushy tail coiled around him in turn in a subtle gesture of reciprocated affection.
+
+Despite appearances, you have the impression that the friendly-looking humanoid fellow is not so unlike its nightmarish companion-- and vice versa.
+
+<<elseif $administreStatue is "Andreu">>
+<hr>''__Andreu, the Clockwork Corruptor__''
+The flesh-statue of ''Andreu'' stands proudly before you, a self-sure smirk plastered onto its plump face, one fist tucked firmly against its great, round belly, the other propping an enormous copper hammer up against one shoulder. The statue is clad in solid-looking, coppery plate armor decorated with rivets and loops of black rubber wire. The look is completed by a black robe and white flag in golden trim much like that worn by the nearby //Professor//-- giving it the appearance of an anachronistic robot knight of some kind.
+
+As you contemplate the curious entity depicted by the flesh-sculpture, it suddenly releases a long-suffering sigh...
+
+<<elseif $administreStatue is "Eliot">>
+<hr>''__Eliot, the Astral Archivist__''
+The statue of ''Eliot'' flickers and buzzes before you-- a combination of sleek, space-age white metal, black rubber, and glowing magenta hologram in the form of what seems to be a plump human woman with short-cropped hair and round-lens glasses. She watches you with gentle eyes and a subtle smile, her human̵oi҉d v҉is͡a̵ge̷ ͏oc͗c̛̋ͦ̄̋ͪ͂̿a̽̑ͭ̌͟s̡ͪi̔ͧͫ̿ͥon̓ͥ̋aͣͩ̇ͪ̚█͑ͭ͋͢y̅̔ͨ ͊͆̿̐ͦͤ̀f̈͆lìͦ̽͋̐ͦͤc̛̅͆ͦͣ̂̂̑kͭ͂ͩ͋̋̐̏ë̸́̿̃̅̊̊̇r͘i͋ͨ͂̄͐ͧͯ͞n͋̓́ͦ̆͠ģ̏̒̂ ̽̓̒̓̓ͫ̍ť̉̋̒o̒̾̾ͪ͢ ̢̇ͥͦs͛ͫ͋̾͑om̶ͯ͌͛̿̒e̶ͧt͞hͮi̷̐n̶̈̈́g̛̎ ̢͆̆ͮ͑h̀a͋͗͐͐ř́͢d͏er̡ t̸o pl͠ace for a moment or tw█ before revvv̡͇̙̼͓̱e̵̪̺ͅr͡t̨i͈͚̗n̝̯g̨̩̝ again.̧̜̙̤͎̺͈̞̯̩͘͝
+
+Something about the piece is simultaneously comforting and unnͤ̀̇ͪ̔͏e̓̆͋͞r̀ͪ̏ͥͦ͒vͯ̌͂͒̀ĩn͌͐̕g; it's beautiful and elegant, ''but hard to l̴ͮ̈́̎̈́͋ͩ̃o͠█͗k̄͞ ã́͛̑ͫ͞t'' and oddly vague, as though your mind is attempting to reje͢ct t̵hé v͞er̡y ͜e̛██ten҉█e͞ óf ̷i██͘.
+
+<<elseif $administreStatue is "a bear">>
+<hr>
+The statue of ''a mysterious bear'' stands proudly before you. Its fur is golden, decorated with feathers of blue, green, and gold-- and it seems to be wearing an ornate matching kilt.
+
+The plaque beneath the statue bears no name, and the nearby //Professor// glances up at you with a knowing smile.
+
+What is this doing here? //''Who is this bear?''//<<endif>>

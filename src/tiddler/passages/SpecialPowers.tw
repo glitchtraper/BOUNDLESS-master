@@ -1,0 +1,18 @@
+﻿<<display ZoneBackgrounds>><center>''__POWERS__''
+
+<framed><<if $miscPowers is 1>><<display MiscPowers>>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $aladriPowers is 1>><<display AladriPowers>>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $leupaiPowers is 1>><<display LeupaiPowers>>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $dragonPowers is 1>><<display DragonPowers>>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $slimePowers is 1>><<display SlimePowers>><<endif>><<nobr>>
+
+<<endnobr>></framed>
+<<button [[Continue.|$saveState]]>></center>

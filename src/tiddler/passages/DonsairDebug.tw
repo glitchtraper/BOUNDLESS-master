@@ -1,0 +1,5 @@
+﻿//''DEBUG:''
+$donsairMilk is <<print $donsairMilk>> (<<print $donsairMilkYield>>)
+$donsairVenom is <<print $donsairVenom>> (<<print $donsairVenom>>)
+$donsairHarvestRegen is <<print $donsairHarvestRegen>>
+$donsairFatteniumDose is <<print $donsairFatteniumDose>>/5//

@@ -1,0 +1,54 @@
+﻿<<display ZoneBackgrounds>><center><<set $toggleDisplay = 1>><<nobr>>
+
+/% Names %/
+
+<<if $playerVenom is "bellyfattening">><<set $playerVenomDesc = "belly-fattening">>
+<<elseif $playerVenom is "breastfattening">><<set $playerVenomDesc = "breast-fattening">>
+<<elseif $playerVenom is "thighfattening">><<set $playerVenomDesc = "thigh-fattening">>
+<<elseif $playerVenom is "superfattening">><<set $playerVenomDesc = "super-fattening">>
+<<elseif $playerVenom is "superbellyfattening">><<set $playerVenomDesc = "super belly-fattening">>
+<<elseif $playerVenom is "superbreastfattening">><<set $playerVenomDesc = "super breast-fattening">>
+<<elseif $playerVenom is "superthighfattening">><<set $playerVenomDesc = "super thigh-fattening">>
+<<elseif $playerVenom is "breastbloating">><<set $playerVenomDesc = "breast-bloating">>
+<<elseif $playerVenom is "gluttonous">><<set $playerVenomDesc = "voracity">>
+<<else>><<set $playerVenomDesc = $playerVenom>><<endif>>
+
+/% Recieve item %/
+
+
+<<if $playerVenom is "fattening">><<set $collectionjar_venom_gain += 1>>
+<<elseif $playerVenom is "bellyfattening">><<set $collectionjar_venom_bellygain += 1>>
+<<elseif $playerVenom is "breastfattening">><<set $collectionjar_venom_breastgain += 1>>
+<<elseif $playerVenom is "thighfattening">><<set $collectionjar_venom_thighgain += 1>>
+<<elseif $playerVenom is "superfattening">><<set $collectionjar_venom_supergain += 1>>
+<<elseif $playerVenom is "superbellyfattening">><<set $collectionjar_venom_superbellygain += 1>>
+<<elseif $playerVenom is "superbreastfattening">><<set $collectionjar_venom_superbreastgain += 1>>
+<<elseif $playerVenom is "superthighfattening">><<set $collectionjar_venom_superthighgain += 1>>
+<<elseif $playerVenom is "bloating">><<set $collectionjar_venom_bloat += 1>>
+<<elseif $playerVenom is "breastbloating">><<set $collectionjar_venom_breastbloat += 1>>
+<<elseif $playerVenom is "bursting">><<set $collectionjar_venom_burst += 1>>
+<<elseif $playerVenom is "healing">><<set $collectionjar_venom_heal += 1>>
+<<elseif $playerVenom is "flabbifying">><<set $collectionjar_venom_flab += 1>>
+<<elseif $playerVenom is "weakening">><<set $collectionjar_venom_weakening += 1>>
+<<elseif $playerVenom is "toxic">><<set $collectionjar_venom_toxic += 1>>
+<<elseif $playerVenom is "lethal">><<set $collectionjar_venom_lethal += 1>>
+<<elseif $playerVenom is "mutagenic">><<set $collectionjar_venom_mutagen += 1>>
+<<elseif $playerVenom is "gluttonous">><<set $collectionjar_venom_glutton += 1>>
+<<elseif $playerVenom is "fattenium">><<set $collectionjar_venom_fattenium += 1>>
+<<elseif $playerVenom is "bulking">><<set $collectionjar_venom_bulk += 1>>
+<<elseif $playerVenom is "hallucenogenic">><<set $collectionjar_venom_hallucenogen += 1>>
+<<elseif $playerVenom is "caloric">><<set $collectionjar_venom_caloric += 1>>
+
+<<endif>>
+
+<<set $randomizer = random(1,36)>>
+<<if $randomizer is 1>><<set $venomProd += 1>><<endif>>
+
+
+
+<<endnobr>>
+You knead your belly, coaxing a portion of ''<<print $playerVenomDesc>> venom'' into an empty jar.
+
+<framed><<if ($storedVenom gte 10) and ($special_jar gt 0)>><<button [[Keep milking.|Venom][$special_jar -= 1; $storedVenom -= 10; $repeatUse += 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<endif>></framed>
+<<button [[Continue.|$saveStateLac][$toggleDisplay = 0; $repeatUse = 0; $function = 0]]>></center>

@@ -1,0 +1,87 @@
+﻿<center><<nobr>>/% ========== Achievement Tracker ==========  %/
+
+/% For overhead alerts. %/
+
+/% ================================================ %/
+/% Escaped from battle. %/
+
+<<endnobr>><<if $escapedBattle is 1>><<set $autoRest = 0; $escapedBattle = 0>><battlebanner>[img[icon_alert]]//You successfully escape from ''<<print $encounter>>!''//</battlebanner>
+<<endif>><<nobr>>
+
+/% ================================================ %/
+/% Combat Cleanup. %/
+
+<<if $didCombat is 1>><<display CombatCleanup>><<set $didCombat = 0>><<endif>>
+
+/% ================================================ %/
+/% Stat increases. %/
+
+<<endnobr>><<if $gotStronger is 1>><<set $autoRest = 0; $gotStronger = 0>><brightbanner>[img[icon_gain]]You feel ''stronger'' after your last battle...!</brightbanner>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $gotNimbler is 1>><<set $autoRest = 0; $gotNimbler = 0>><brightbanner>[img[icon_gain]]You feel ''more nimble'' after your last battle...!</brightbanner>
+<<endif>><<nobr>>
+
+<<endnobr>><<if $gotResilient is 1>><<set $autoRest = 0; $gotResilient = 0>><brightbanner>[img[icon_gain]]You feel ''more resilent'' after your last battle...!</brightbanner>
+<<endif>><<nobr>>
+
+/% ================================================ %/
+/% Favor changes. %/
+
+<<endnobr>><<if ($nefirianFavored neq 0) and ($combatResult is "victory")>><<set $autoRest = 0; $nefirianFavored = 0>><plainbanner>[img[icon_eye]]//You feel as though you're being watched...//<<set $favorNefirian -= $nefirianFavored; $nefirianFavored = 0>></plainbanner><<nobr>>
+<<if $playfulLeupai is 1>>
+/% Nef doesn't like it when you're cruel to friendly leupai... %/
+<<set $favorNefirian -= 10; $playfulLeupai = 0>><<endif>>
+<<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if ($phoenixFavored neq 0) and ($combatResult is "victory")>><<set $autoRest = 0; $phoenixFavored = 0>><plainbanner>[img[icon_sigil]]//You suddenly feel keenly aware of your own fragile mortality...//<<set $favorPhoenix -= $phoenixFavored; $phoenixFavored = 0>></plainbanner><<endif>><<nobr>>
+
+<<endnobr>><<if ($namelessFavored neq 0) and ($combatResult is "victory")>><<set $autoRest = 0; $namelessFavored = 0>><plainbanner>[img[icon_crescent]]//You feel a wave of sudden sadness wash over you...//<<set $favorNameless -= $namelessFavored; $namelessFavored = 0>></plainbanner><<endif>><<nobr>>
+
+<<endnobr>><<if ($kaolanFavored neq 0) and ($combatResult is "victory")>><<set $autoRest = 0; $kaolanFavored = 0>><plainbanner>[img[icon_eagle]]//For a moment, the wilderness falls silent...//<<set $favorKaolan -= $kaolanFavored; $kaolanFavored = 0>></plainbanner><<endif>><<nobr>>
+
+
+/% ================================================ %/
+/% Occupation unlocks. %/
+
+
+<<endnobr>><<if ($leupaiEggLoad gte 30) and ($pain lt $maxPain) and ($health neq "Comatose") and ($unlOccupation_Beltedier is 0)>><<set $autoRest = 0>><banner>[img[icon_fatstar]]You unlocked the <deep>''Beltedier''</deep> occupation!</banner><<set $unlOccupation_Beltedier = 1; $activeOcc = "Beltedier">><<endif>><<nobr>>
+
+
+<<endnobr>><<if ($fatieeProgress gte 2000) and ($unlOccupation_Fatiee is 0)>><<set $autoRest = 0>><banner>[img[icon_fatstar]]You unlocked the <deep>''Fatiee''</deep> occupation!</banner><<set $unlOccupation_Fatiee = 1; $activeOcc = "Fatiee">><<endif>><<nobr>>
+
+
+<<endnobr>><<if ($culinetProgress gte 50) and ($unlOccupation_Culinet is 0)>><<set $autoRest = 0>><banner>[img[icon_fatstar]]You unlocked the <deep>''Culinet''</deep> occupation!</banner><<set $unlOccupation_Culinet = 1; $activeOcc = "Culinet">><<endif>><<nobr>>
+
+
+/% ================================================ %/
+/% Quaggy growth progression. (probably needs recode) %/
+
+<<endnobr>><<if $companion1GrowthAlert is 1>><<if $companion1Growth is 1>><agebanner>[img[icon_alert]]<<print $companion1>> has grown into a ''quaggy!''</agebanner>
+<<elseif $companion1Growth is 2>><agebanner>[img[icon_alert]]<<print $companion1>> has grown into a ''gecko!''</agebanner>
+<<elseif $companion1Growth is 3>><agebanner>[img[icon_alert]]<<print $companion1>> has reached ''adulthood!''</agebanner><<endif>><<set $companion1GrowthAlert = 0>><<endif>><<nobr>>
+
+
+<<endnobr>><<if $companion2GrowthAlert is 1>><<if $companion2Growth is 1>><agebanner>[img[icon_alert]]<<print $companion2>> has grown into a ''quaggy!''</agebanner>
+<<elseif $companion2Growth is 2>><agebanner>[img[icon_alert]]<<print $companion2>> has grown into a ''gecko!''</agebanner>
+<<elseif $companion2Growth is 3>><agebanner>[img[icon_alert]]<<print $companion2>> has reached ''adulthood!''</agebanner><<endif>><<set $companion2GrowthAlert = 0>><<endif>><<nobr>>
+
+
+<<endnobr>><<if $companion3GrowthAlert is 1>><<if $companion3Growth is 1>><agebanner>[img[icon_alert]]<<print $companion3>> has grown into a ''quaggy!''</agebanner>
+<<elseif $companion3Growth is 2>><agebanner>[img[icon_alert]]<<print $companion3>> has grown into a ''gecko!''</agebanner>
+<<elseif $companion3Growth is 3>><agebanner>[img[icon_alert]]<<print $companion3>> has reached ''adulthood!''</agebanner><<endif>><<set $companion3GrowthAlert = 0>><<endif>><<nobr>>
+
+
+/% ================================================ %/
+/% Quaggy name announcements. %/
+
+
+<<endnobr>><<if $companion1Named is 1>><agebanner>[img[icon_alert]]Your companion announces its new name as ''<<print $companion1>>!''</agebanner><<set $companion1Named = 0>><<endif>><<nobr>>
+
+<<endnobr>><<if $companion2Named is 1>><agebanner>[img[icon_alert]]Your companion announces its new name as ''<<print $companion2>>!''</agebanner><<set $companion2Named = 0>><<endif>><<nobr>>
+
+<<endnobr>><<if $companion3Named is 1>><agebanner>[img[icon_alert]]Your companion announces its new name as ''<<print $companion3>>!''</agebanner><<set $companion3Named = 0>><<endif>></center>
+
+/% ================================================ %/
+
+<<if $combatResult neq 0>><<set $combatResult = 0>><<endif>>

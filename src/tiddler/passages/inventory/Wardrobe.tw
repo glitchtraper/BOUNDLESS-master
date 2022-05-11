@@ -1,0 +1,96 @@
+﻿/% ======================================================== %/
+/% Hospital Inpatient Set %/
+
+<<if $set_hospital_top gt 0>>
+<<button [[Flimsy Hospital Gown|passage()][$selectedItem = 1; $itemID = "set_hospital_top"; $itemName = "flimsy hospital gown"; $itemType = "wearable"; $itemDesc = "Drafty. These things never cover anyone up..."; $itemEncounter = "flimsy hospital gown"]]>><<endif>>
+
+<<if $set_hospital_top_bloody gt 0>>
+<<button [[Bloody Hospital Gown|passage()][$selectedItem = 1; $itemID = "set_hospital_top_bloody"; $itemName = "bloody hospital gown"; $itemType = "wearable"; $itemDesc = "You're more than a little concerned about the bloodstains and gashes decorating this predictably sparse garment..."; $itemEncounter = "bloody hospital gown"]]>><<endif>>
+
+<<if $set_hospital_arms gt 0>>
+<<button [[Hospital Armband|passage()][$selectedItem = 1; $itemID = "set_hospital_arms"; $itemName = "hospital armband"; $itemType = "wearable"; $itemDesc = "Printed with something in a strange, squiggly language you can't read."; $itemEncounter = "hospital armband"]]>><<endif>>
+
+<<if $set_hospital_feet gt 0>>
+<<button [[Hospital Slippers|passage()][$selectedItem = 1; $itemID = "set_hospital_feet"; $itemName = "hospital slippers"; $itemType = "wearable"; $itemDesc = "Surprisingly comfortable, and decorated with little embroidery leupai faces on top. Aww."; $itemEncounter = "hospital slippers"]]>><<endif>>
+
+/% ======================================================== %/
+/% Threadbare Set %/
+
+<<if $set_threadbare_cape gt 0>>
+<<button [[Threadbare Cape|passage()][$selectedItem = 1; $itemID = "set_threadbare_cape"; $itemName = "threadbare cape"; $itemType = "wearable"; $itemDesc = "The height of patchwork fashion, assuredly."; $itemEncounter = "threadbare cape"]]>><<endif>>
+
+<<if $set_threadbare_top gt 0>>
+<<button [[Threadbare Top|passage()][$selectedItem = 1; $itemID = "set_threadbare_top"; $itemName = "threadbare top"; $itemType = "wearable"; $itemDesc = "Workable for temporary clothing, but this ratty thing won't last for long..."; $itemEncounter = "threadbare top"]]>><<endif>>
+
+<<if $set_threadbare_pants gt 0>>
+<<button [[Threadbare Pants|passage()][$selectedItem = 1; $itemID = "set_threadbare_pants"; $itemName = "threadbare pants"; $itemType = "wearable"; $itemDesc = "These pants are holy in all the wrong ways."; $itemEncounter = "threadbare pants"]]>><<endif>>
+
+<<if $set_threadbare_skirt gt 0>>
+<<button [[Threadbare Skirt|passage()][$selectedItem = 1; $itemID = "set_threadbare_skirt"; $itemName = "threadbare skirt"; $itemType = "wearable"; $itemDesc = "This old skirt doesn't have much life left in it."; $itemEncounter = "threadbare skirt"]]>><<endif>>
+
+<<if $set_threadbare_feet gt 0>>
+<<button [[Worn Leather Sandals|passage()][$selectedItem = 1; $itemID = "set_threadbare_feet"; $itemName = "worn leather sandals"; $itemType = "wearable"; $itemDesc = "Soft leather sandals, well-worn and a bit chewed-on."; $itemEncounter = "worn leather sandals"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% Scientist Set %/
+
+<<if $set_science_glasses gt 0>>
+<<button [[Thick-Rimmed Glasses|passage()][$selectedItem = 1; $itemID = "set_science_glasses"; $itemName = "thick-rimmed glasses"; $itemType = "wearable"; $itemDesc = "A classic staple of science nerds everywhere."; $itemEncounter = "thick-rimmed glasses"]]>><<endif>>
+
+<<if $set_science_goggles gt 0>>
+<<button [[Laboratory Goggles|passage()][$selectedItem = 1; $itemID = "set_science_goggles"; $itemName = "laboratory goggles"; $itemType = "wearable"; $itemDesc = "Protect your eyes while you do science!"; $itemEncounter = "laboratory goggles"]]>><<endif>>
+
+<<if $set_science_mask gt 0>>
+<<button [[Paper Medical Mask|passage()][$selectedItem = 1; $itemID = "set_science_mask"; $itemName = "paper medical mask"; $itemType = "wearable"; $itemDesc = "Don't cough on the patients, please."; $itemEncounter = "paper medical mask"]]>><<endif>>
+
+<<if $set_science_top gt 0>>
+<<button [[Classic Labcoat|passage()][$selectedItem = 1; $itemID = "set_science_top"; $itemName = "classic labcoat"; $itemType = "wearable"; $itemDesc = "A must-have for medical and scientific personel."; $itemEncounter = "classic labcoat"]]>><<endif>>
+
+<<if $set_science_top_stained gt 0>>
+<<button [[Stained Labcoat|passage()][$selectedItem = 1; $itemID = "set_science_top_stained"; $itemName = "stained labcoat"; $itemType = "wearable"; $itemDesc = "Spattered with dried, alarmingly-colored goo..."; $itemEncounter = "stained labcoat"]]>><<endif>>
+
+/% ======================================================== %/
+/% Expanding Set %/
+
+<<if $set_magicgain_belt gt 0>>
+<<button [[Expanding Belt|passage()][$selectedItem = 1; $itemID = "set_magicgain_belt"; $itemName = "Expanding Belt"; $itemType = "wearable"; $itemDesc = "No matter what you do, this elastic belt always makes your belly seem fatter..."; $itemEncounter = "expanding belt"]]>><<endif>>
+
+/% ======================================================== %/
+/% Cursed Fat Demon Set %/
+
+<<if $set_fatdemon_belt gt 0>>
+<<button [[Fat Demon Belt|passage()][$selectedItem = 1; $itemID = "set_fatdemon_belt"; $itemName = "Fat Demon Belt"; $itemType = "wearable"; $itemDesc = "A grinning, huge-bellied demon adorns the oversized buckle of this belt. Wearing it makes it look as though the demon is kneading its claws into your stomach."; $itemEncounter = "fat demon belt"]]>><<endif>>
+
+/% ======================================================== %/
+/% Plague Set %/
+
+<<if $set_plague_head gt 0>>
+<<button [[Plague Doctor Hood|passage()][$selectedItem = 1; $itemID = "set_plague_head"; $itemName = "plague doctor hood"; $itemType = "wearable"; $itemDesc = "A heavy hood made for protecting hair and skin from chemical and biological hazards alike."; $itemEncounter = "plague doctor hood"]]>><<endif>>
+
+<<if $set_plague_mask gt 0>>
+<<button [[Plague Doctor Mask|passage()][$selectedItem = 1; $itemID = "set_plague_mask"; $itemName = "plague doctor mask"; $itemType = "wearable"; $itemDesc = "An eerie, birdlike mask with special filters to prevent the wearer from breathing in anything... undesirable."; $itemEncounter = "plague doctor mask"]]>><<endif>>
+
+/% ======================================================== %/
+/% HYPOTHESIS Mega-Armor %/
+
+<<if $set_hypo_head gt 0>>
+<<button [[HYPOTHESIS Power Helmet|passage()][$selectedItem = 1; $itemID = "set_hypo_top"; $itemName = "HYPOTHESIS power helmet"; $itemType = "wearable"; $itemDesc = "A tough rubber and mirasteel helmet worn by HYPOTHESIS guards. Fashionable and protective."; $itemEncounter = "HYPOTHESIS power helmet"]]>><<endif>>
+
+<<if $set_hypo_top gt 0>>
+<<button [[HYPOTHESIS Kite|passage()][$selectedItem = 1; $itemID = "set_hypo_top"; $itemName = "HYPOTHESIS kite"; $itemType = "wearable"; $itemDesc = "A traditional Revecroix chestpiece. This one is made of tough, hardened rubber with soft, black fabric sleeves-- HYPOTHESIS-issued armor."; $itemEncounter = "HYPOTHESIS kite"]]>><<endif>>
+
+<<if $set_hypo_belt gt 0>>
+<<button [[HYPOTHESIS Cesile|passage()][$selectedItem = 1; $itemID = "set_hypo_belt"; $itemName = "HYPOTHESIS cesile"; $itemType = "wearable"; $itemDesc = "A traditional Revecroix belt, made to support the belly. This one is made of tough, hardened rubber with black straps-- HYPOTHESIS-issued armor."; $itemEncounter = "HYPOTHESIS cesile"]]>><<endif>>
+
+<<if $set_hypo_pants gt 0>>
+<<button [[HYPOTHESIS Coroles|passage()][$selectedItem = 1; $itemID = "set_hypo_pants"; $itemName = "HYPOTHESIS coroles"; $itemType = "wearable"; $itemDesc = "Traditional Revecroix pants in a flower-petal shape. These are made of soft, comfortable fabric. HYPOTHESIS-issued armor."; $itemEncounter = "HYPOTHESIS coroles"]]>><<endif>>
+
+<<if $set_hypo_skirt gt 0>>
+<<button [[HYPOTHESIS Kilt|passage()][$selectedItem = 1; $itemID = "set_hypo_skirt"; $itemName = "HYPOTHESIS kilt"; $itemType = "wearable"; $itemDesc = "This kilt is made to hang beneath a sturdy cesile. HYPOTHESIS-issued armor."; $itemEncounter = "HYPOTHESIS kilt"]]>><<endif>>
+
+/% ======================================================== %/
+/% Night on the Town Set %/
+
+<<if $set_town_head gt 0>>
+<<button [[Top Hat|passage()][$selectedItem = 1; $itemID = "set_town_head"; $itemName = "top hat"; $itemType = "wearable"; $itemDesc = "The most classic of all hats; looks good on anyone!"; $itemEncounter = "top hat"]]>><<endif>>

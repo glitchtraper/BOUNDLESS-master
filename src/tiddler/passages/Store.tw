@@ -1,0 +1,8 @@
+﻿/% New approach-- seeing if we can call this silently from within other pages and skip the runaround... %/
+
+<<if $itemQuantity lte 0>><<set $itemQuantity = 1>><<endif>>
+
+<<print "<<set $" + $itemID + " += " + $itemQuantity + ">>">>
+
+
+<<set $itemQuantity = 0>>

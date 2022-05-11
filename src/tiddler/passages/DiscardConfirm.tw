@@ -1,0 +1,2 @@
+﻿<center><<display ZoneBackgrounds>>Discarding <<print "<<print $" + $itemID + ">>">> <<print $itemName>>... ''are you sure?''
+<hr><<button [[No!|Inventory]]>><<button [[Yes|Discard]]>></center>

@@ -1,0 +1,725 @@
+﻿/% canSplit = for items that can be 'shattered' into other items via the inventory. %/
+
+/% ======================================================== %/
+/%  STAT BOOSTERS %/
+
+
+<<if $statboost_stamina gt 0>>
+<<button [[Bolstering Vitamin Slurry|passage()][$selectedItem = 1; $itemID = "statboost_stamina"; $itemName = "Bolstering Vitamin Slurry"; $itemType = "status"; $itemTag = "rare"; $itemDesc = "A thick, flavorful concoction full of calories and body-strengthening ingredients."; $itemEncounter = "bolstering vitamin slurry"]]>><<endif>>
+
+<<if $statboost_strength gt 0>>
+<<button [[Bulk Powder|passage()][$selectedItem = 1; $itemID = "statboost_strength"; $itemName = "Bulk Powder"; $itemType = "status"; $itemTag = "rare"; $itemDesc = "A special powdered mix for building muscle and putting on weight."; $itemEncounter = "bulk powder"]]>><<endif>>
+
+<<if $statboost_finesse gt 0>>
+<<button [[Limber Tonic|passage()][$selectedItem = 1; $itemID = "statboost_finesse"; $itemName = "Limber Tonic"; $itemType = "status"; $itemTag = "rare"; $itemDesc = "A curious alchemical mixture that promotes ease of movement."; $itemEncounter = "limber tonic"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% MEDS %/
+
+<<if $med_ointment gt 0>>
+<<button [[Basic Ointment|passage()][$selectedItem = 1; $itemID = "med_ointment"; $itemName = "Basic Ointment"; $itemType = "status"; $itemDesc = "This pulverized blend of herbs will soothe pain somewhat."; $itemEncounter = "basic ointment"]]>><<endif>>
+
+<<if $pill_soother gt 0>>
+<<button [[Soothers|passage()][$selectedItem = 1; $itemID = "pill_soother"; $itemName = "Soothers"; $itemType = "status"; $itemDesc = "A potent pain medicine manufactured by HYPOTHESIS for general use, commonly available throughout Revix territories."; $itemEncounter = "soothers"]]>><<endif>>
+
+<<if $oil_leupai gt 0>>
+<<button [[Leupai Oil|passage()][$selectedItem = 1; $itemID = "oil_leupai"; $itemName = "Leupai Oil"; $itemType = "status"; $itemDesc = "A bottle of liquid leupai fat. Makes for an effective elasticiser of both living and inorganic materials. Also, predictably fattening."; $itemEncounter = "leupai oil"]]>><<endif>>
+
+<<if $pill_gainer gt 0>>
+<<button [[Gainer Pills|passage()][$selectedItem = 1; $itemID = "pill_gainer"; $itemName = "Gainer Pills"; $itemType = "status"; $itemDesc = "Simple herbal pills specially devised to make the body more prone to accumulating fat."; $itemEncounter = "gainer pills"]]>><<endif>>
+
+<<if $powder_calorie gt 0>>
+<<button [[Calorie Powder|passage()][$selectedItem = 1; $itemID = "powder_calorie"; $itemName = "Calorie Powder"; $itemType = "status"; $itemDesc = "A powdered formula that becomes a delicious milkshake when mixed with liquid. Handy for bulking up quickly."; $itemEncounter = "calorie powder"]]>><<endif>>
+
+<<if $powder_calorie_extra gt 0>>
+<<button [[Extra Strength Calorie Powder|passage()][$selectedItem = 1; $itemID = "powder_calorie_extra"; $itemName = "Extra Strength Calorie Powder"; $itemType = "status"; $itemDesc = "A potent blend of weight gain shake powder, good for easily and quickly absorbing extra calories."; $itemEncounter = "extra strength calorie powder"]]>><<endif>>
+
+<<if $powder_calorie_max gt 0>>
+<<button [[Maximum Strength Calorie Powder|passage()][$selectedItem = 1; $itemID = "powder_calorie_max"; $itemName = "Maximum Strength Calorie Powder"; $itemType = "status"; $itemDesc = "The strongest calorie powder you can trade for, this blend will help you pile on extra girth!"; $itemEncounter = "maximum strength calorie powder"]]>><<endif>>
+
+<<if $powder_calorie_xp gt 0>>
+<<button [[Experimental Calorie Powder|passage()][$selectedItem = 1; $itemID = "powder_calorie_xp"; $itemName = "Experimental Calorie Powder"; $itemType = "status"; $itemDesc = "A secret blend found in HYPOTHESIS test labs. This’ll probably do the trick if you want to fatten up quickly, but who knows what else it’ll do..."; $itemEncounter = "experimental calorie powder"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% USABLE CRYSTALS %/
+
+<<if $shard_vital gt 0>>
+<<button [[Vital Shard|passage()][$selectedItem = 1; $itemID = "shard_vital"; $itemName = "Vital Shard"; $itemType = "status"; $itemDesc = "Just holding this beautiful crystal makes your pain seem to fade away."; $itemEncounter = "vital shard"]]>><<endif>>
+
+<<if $shard_expansion gt 0>>
+<<button [[Expansion Shard|passage()][$selectedItem = 1; $itemID = "shard_expansion"; $itemName = "Expansion Shard"; $itemType = "status"; $itemDesc = "You feel strange and bloated, just looking at this..."; $itemEncounter = "expansion shard"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% EXPANDERS %/
+
+
+<<if $shot_bustbillow gt 0>>
+<<button [[Bust Billower Shot|passage()][$selectedItem = 1; $itemID = "shot_bustbillow"; $itemName = "Bust Billower Shot"; $itemType = "status"; $itemDesc = "A popular cosmetic medicine that fills out the breast."; $itemEncounter = "bust billower shot"]]>><<endif>>
+
+<<if $shot_bustbillow_super gt 0>>
+<<button [[Super Bust Billower Shot|passage()][$selectedItem = 1; $itemID = "shot_bustbillow_super"; $itemName = "Super Bust Billower Shot"; $itemType = "status"; $itemDesc = "Big, round, wobbly breasts are a single shot away, thanks to the wonders of Revix science!"; $itemEncounter = "super bust billower shot"]]>><<endif>>
+
+<<if $shot_thighplump gt 0>>
+<<button [[Thigh Plumper Shot|passage()][$selectedItem = 1; $itemID = "shot_thighplump"; $itemName = "Thigh Plumper Shot"; $itemType = "status"; $itemDesc = "A popular cosmetic medicine that instantly thickens the thighs."; $itemEncounter = "thigh plumper shot"]]>><<endif>>
+
+<<if $shot_thighplump_super gt 0>>
+<<button [[Super Thigh Plumper Shot|passage()][$selectedItem = 1; $itemID = "shot_thighplump_super"; $itemName = "Super Thigh Plumper Shot"; $itemType = "status"; $itemDesc = "Use for big, fat, squishy thighs!"; $itemEncounter = "super thigh plumper shot"]]>><<endif>>
+
+<<if $pill_bellyboost gt 0>>
+<<button [[Belly Booster|passage()][$selectedItem = 1; $itemID = "pill_bellyboost"; $itemName = "Belly Booster"; $itemType = "status"; $itemDesc = "A popular cosmetic medicine that instantly adds a bit of extra padding to the midsection."; $itemEncounter = "belly booster"]]>><<endif>>
+
+<<if $pill_bellyboost_super gt 0>>
+<<button [[Super Belly Booster|passage()][$selectedItem = 1; $itemID = "pill_bellyboost_super"; $itemName = "Super Belly Booster"; $itemType = "status"; $itemDesc = "This potent cosmetic drug will help you develop the squishy gut you’ve always wanted!"; $itemEncounter = "super belly booster"]]>><<endif>>
+
+<<if $special_puffbelly_ichor gt 0>>
+<<button [[Puffbelly Ichor|passage()][$selectedItem = 1; $itemID = "special_puffbelly_ichor"; $itemName = "Puffbelly Ichor"; $itemType = "status"; $itemDesc = "A handful of thick, slimy goo excreted from a puffbelly mushroom."; $itemEncounter = "puffbelly ichor"]]>><<endif>>
+
+<<if $shot_fattenium gt 0>>
+<<button [[Fattenium Shot|passage()][$selectedItem = 1; $itemID = "shot_fattenium"; $itemName = "Fattenium Shot"; $itemType = "status"; $itemDesc = "A syringe full of somewhat dilute liquid fattenium. Filling!"; $itemEncounter = "fattenium shot"]]>><<endif>>
+
+<<if $shot_fattenium_pure gt 0>>
+<<button [[Pure Fattenium Shot|passage()][$selectedItem = 1; $itemID = "shot_fattenium_pure"; $itemName = "Pure Fattenium Shot"; $itemType = "status"; $itemDesc = "This is probably dangerous..."; $itemEncounter = "pure fattenium shot"]]>><<endif>>
+
+<<if $shot_miratoxin gt 0>>
+<<button [[Miratoxin Shot|passage()][$selectedItem = 1; $itemID = "shot_miratoxin"; $itemName = "Miratoxin Shot"; $itemType = "status"; $itemDesc = "An injector full of leupai venom. The mutagenic kind."; $itemEncounter = "miratoxin shot"]]>><<endif>>
+
+<<if $pill_bellybomb gt 0>>
+<<button [[Bellybomb|passage()][$selectedItem = 1; $itemID = "pill_bellybomb"; $itemName = "Bellybomb"; $itemType = "status"; $itemDesc = "A drug that instantly bloats the belly up, frequently used for recreation among the Revix."; $itemEncounter = "bellybomb"]]>><<endif>>
+
+<<if $pill_bellybomb_mega gt 0>>
+<<button [[Mega Bellybomb|passage()][$selectedItem = 1; $itemID = "pill_bellybomb_mega"; $itemName = "Mega Bellybomb"; $itemType = "status"; $itemDesc = "Sounds violent. Let's try it!"; $itemEncounter = "mega bellybomb"]]>><<endif>>
+
+<<if $pill_helium gt 0>>
+<<button [[Helium Pills|passage()][$selectedItem = 1; $itemID = "pill_helium"; $itemName = "Helium Pills"; $itemType = "status"; $itemDesc = "These pills will bloat you up with super-light gas for a while, making it easier to lift your body."; $itemEncounter = "helium pills"]]>><<endif>>
+
+<<if $potion_puffbelly gt 0>>
+<<button [[Black Ichor Potion|passage()][$selectedItem = 1; $itemID = "potion_puffbelly"; $itemName = "Black Ichor Potion"; $itemType = "status"; $itemDesc = "A bottle full of thick black goo that smells of mushrooms..."; $itemEncounter = "black ichor potion"]]>><<endif>>
+
+/% ======================================================== %/
+/% SPECIAL FOODS %/
+
+<<if $potion_mutest gt 0>>
+<<button [[Test Mutator|passage()][$selectedItem = 1; $itemID = "potion_mutest"; $itemName = "Test Mutator"; $itemType = "status"; $itemDesc = "Nefirian still loves you, even though you obviously cheated to get this. Or Pai broke something, in which case mbad. This is a boring item, though."; $itemEncounter = "test mutator"]]>><<endif>>
+
+<<if $potion_mystery gt 0>>
+<<button [[Mysterious Potion|passage()][$selectedItem = 1; $itemID = "potion_mystery"; $itemName = "Mysterious Potion"; $itemType = "status"; $itemDesc = "This bottle of unidentified liquid could be or do anything..."; $itemEncounter = "mysterious potion"]]>><<endif>>
+
+<<if $drink_science gt 0>>
+<<button [[Science Soda|passage()][$selectedItem = 1; $itemID = "drink_science"; $itemName = "Science Soda"; $itemType = "drink"; $itemDesc = "A vial full of brightly-colored foamy, fizzy liquid, presumably extremely scientific. That's all you can really say."]]>><<endif>>
+
+<<if $milk_strange gt 0>>
+<<button [[Strange Milk|passage()][$selectedItem = 1; $itemID = "milk_strange"; $itemName = "Strange Milk"; $itemType = "status"; $itemTag = "rare"; $itemDesc = "It's definitely milk. There's no telling what it's milk FROM, though..."; $itemEncounter = "strange milk"]]>><<endif>>
+
+<<if $collectionjar_milk_leupai gt 0>>
+<<button [[Jar of Leupai Milk|passage()][$selectedItem = 1; $itemID = "collectionjar_milk_leupai"; $itemName = "Jar of Leupai Milk"; $itemType = "drink"; $itemDesc = "A jar of milk from a... leupai. Um..."]]>><<endif>>
+
+<<if $cake_enormous gt 0>>
+<<button [[Enormous Cake|passage()][$selectedItem = 1; $itemID = "cake_enormous"; $itemName = "Enormous Cake"; $itemType = "food"; $itemDesc = "A back-breakingly huge chocolate cake, slathered with rich icing and decorated with a handful of cherries and a dollop of whipped cream. You, uh, gonna eat all of that?"]]>><<endif>>
+
+<<if $milk_soothing gt 0>>
+<<button [[Jar of Soothing Milk|passage()][$selectedItem = 1; $itemID = "milk_soothing"; $itemName = "Jar of Soothing Milk"; $itemType = "status"; $itemTag = "rare"; $itemDesc = "A jar of pure, creamy milk. Good for you!"; $itemEncounter = "jar of soothing milk"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% INFLICTIVE SHOTS %/
+
+
+<<if $shot_unmarked gt 0>>
+<<button [[Unmarked Injection|passage()][$selectedItem = 1; $itemID = "shot_unmarked"; $itemName = "Unmarked Injection"; $itemType = "status"; $itemDesc = "A syringe full of *something*. Are you feeling lucky AND brave..?"; $itemEncounter = either("deflator injection","M. belesse injection","M. miriete injection","M. belebaret injection","M. belite injection","M. belite injection","M. moreauii injection","M. heleni injection","L. virii injection","slime injection","dire worm injection","egg accelerator injection","bust billower shot","thigh plumper shot","fattenium shot","pure fattenium shot","miratoxin shot","miradetoxin shot","venombloat injection")]]>><<endif>>
+
+<<if $shot_parasite_belesse gt 0>>
+<<button [[M. belesse Injection|passage()][$selectedItem = 1; $itemID = "shot_parasite_belesse"; $itemName = "M. belesse Injection"; $itemType = "status"; $itemDesc = "A syringe full of Microleupii belesse micro-organisms, which cause gradual, spontaneous weight gain."; $itemEncounter = "M. belesse injection"]]>><<endif>>
+
+<<if $shot_parasite_miriete gt 0>>
+<<button [[M. miriete Injection|passage()][$selectedItem = 1; $itemID = "shot_parasite_miriete"; $itemName = "M. miriete Injection"; $itemType = "status"; $itemDesc = "A syringe full of Microleupii miriete micro-organisms, which cause gradual, spontaneous belly weight gain."; $itemEncounter = "M. miriete injection"]]>><<endif>>
+
+<<if $shot_parasite_belebaret gt 0>>
+<<button [[M. belebaret Injection|passage()][$selectedItem = 1; $itemID = "shot_parasite_belebaret"; $itemName = "M. belebaret Injection"; $itemType = "status"; $itemDesc = "A syringe full of Microleupii belebaret micro-organisms, which cause gradual, spontaneous breast weight gain."; $itemEncounter = "M. belebaret injection"]]>><<endif>>
+
+<<if $shot_parasite_belite gt 0>>
+<<button [[M. belite Injection|passage()][$selectedItem = 1; $itemID = "shot_parasite_belite"; $itemName = "M. belite Injection"; $itemType = "status"; $itemDesc = "A syringe full of Microleupii belite micro-organisms, which cause gradual slowing of metabolic functions."; $itemEncounter = "M. belite injection"]]>><<endif>>
+
+<<if $shot_parasite_moreauii gt 0>>
+<<button [[M. moreauii Injection|passage()][$selectedItem = 1; $itemID = "shot_parasite_moreauii"; $itemName = "M. moreauii Injection"; $itemType = "status"; $itemDesc = "A syringe full of Microasotirii moreauii micro-organisms, which cause and gradually increase belly bloat."; $itemEncounter = "M. moreauii injection"]]>><<endif>>
+
+<<if $shot_parasite_heleni gt 0>>
+<<button [[M. heleni Injection|passage()][$selectedItem = 1; $itemID = "shot_parasite_heleni"; $itemName = "M. heleni Injection"; $itemType = "status"; $itemDesc = "A syringe full of Microasotirii heleni micro-organisms, which cause and gradually increase breast bloat."; $itemEncounter = "M. heleni injection"]]>><<endif>>
+
+<<if $shot_parasite_virii gt 0>>
+<<button [[L. virii Injection|passage()][$selectedItem = 1; $itemID = "shot_parasite_virii"; $itemName = "L. virii Injection"; $itemType = "status"; $itemDesc = "A syringe full of Lactosa virii micro-organisms, which cause and gradually increase lactation."; $itemEncounter = "M. virii injection"]]>><<endif>>
+
+<<if $shot_slime gt 0>>
+<<button [[Slime Injection|passage()][$selectedItem = 1; $itemID = "shot_slime"; $itemName = "Slime Injection"; $itemType = "status"; $itemDesc = "A syringe full of living parasitic slime."; $itemEncounter = "slime injection"]]>><<endif>>
+
+<<if $shot_worm gt 0>>
+<<button [[Dire Worm Injection|passage()][$selectedItem = 1; $itemID = "shot_worm"; $itemName = "Dire Worm Injection"; $itemType = "status"; $itemDesc = "A syringe full of dire worm eggs..."; $itemEncounter = "dire worm injection"]]>><<endif>>
+
+<<if $shot_eggGrowth gt 0>>
+<<button [[Egg Accelerator Injection|passage()][$selectedItem = 1; $itemID = "shot_eggGrowth"; $itemName = "Egg Accelerator Injection"; $itemType = "status"; $itemDesc = "An injection used by leupai and hosts to increase the rate at which eggs develop. Can have side-effects on hatchlings..."; $itemEncounter = "egg accelerator injection"]]>><<endif>>
+
+<<if $shot_venombloat gt 0>>
+<<button [[Venombloat Injection|passage()][$selectedItem = 1; $itemID = "shot_venombloat"; $itemName = "Venombloat Injection"; $itemType = "status"; $itemDesc = "Stimulates venom production in creatures with glands. Just kind of makes everything else feel weird and swollen."; $itemEncounter = "venombloat injection"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% CURATIVE SHOTS %/
+
+
+<<if $shot_miratoxin_detox gt 0>>
+<<button [[Mira-Detoxin Shot|passage()][$selectedItem = 1; $itemID = "shot_miratoxin_detox"; $itemName = "Mira-Detoxin Shot"; $itemType = "status"; $itemDesc = "A potent injection capable of curing most mirajin-based ailments. Of course, it hurts like hell, and if you're leupai..."; $itemEncounter = "miradetoxin shot"]]>><<endif>>
+
+<<if $shot_deflator gt 0>>
+<<button [[Deflator Injection|passage()][$selectedItem = 1; $itemID = "shot_deflator"; $itemName = "Deflator Injection"; $itemType = "status"; $itemDesc = "A curative shot that reduces bloat."; $itemEncounter = "deflator injection"]]>><<endif>>
+
+<<if $shot_plushifier gt 0>>
+<<button [[Plushifier|passage()][$selectedItem = 1; $itemID = "shot_plushifier"; $itemName = "Plushifier"; $itemType = "status"; $itemDesc = "A medicine that relieves bloat, instantly converting it into a proportionate amount of fat. There's a warning on the bottle: SEVERE DRUG REACTION-- DO NOT USE with Helium Pills!!"; $itemEncounter = "plushifier"]]>><<endif>>
+
+<<if $shot_plushifier_belly gt 0>>
+<<button [[Belly Plushifier|passage()][$selectedItem = 1; $itemID = "shot_plushifier_belly"; $itemName = "Belly Plushifier"; $itemType = "status"; $itemDesc = "Quickly turns a bloated belly into a squishy one. There's a warning on the bottle: SEVERE DRUG REACTION-- DO NOT USE with Helium Pills!!"; $itemEncounter = "belly plushifier"]]>><<endif>>
+
+<<if $shot_plushifier_breast gt 0>>
+<<button [[Breast Plushifier|passage()][$selectedItem = 1; $itemID = "shot_plushifier_breast"; $itemName = "Breast Plushifier"; $itemType = "status"; $itemDesc = "Rapidly softens bloated breasts. There's a warning on the bottle: SEVERE DRUG REACTION-- DO NOT USE with Helium Pills!!"; $itemEncounter = "breast plushifier"]]>><<endif>>
+
+<<if $shot_reality gt 0>>
+<<button [[Dose of Reality Injection|passage()][$selectedItem = 1; $itemID = "shot_reality"; $itemName = "Dose of Reality Injection"; $itemType = "status"; $itemDesc = "Reduces mirajin radiation and miratoxins absorbed by the body. Essential for survival in high-mirajin areas."; $itemEncounter = "dose of reality injection"]]>><<endif>>
+
+<<if $shot_antibio gt 0>>
+<<button [[Antibiotic Injection|passage()][$selectedItem = 1; $itemID = "shot_antibio"; $itemName = "Antibiotic Injection"; $itemType = "status"; $itemDesc = "Helps kill off microorganisms in the body."; $itemEncounter = "antibiotic injection"]]>><<endif>>
+
+<<if $shot_antifungal gt 0>>
+<<button [[Antifungal Injection|passage()][$selectedItem = 1; $itemID = "shot_antifungal"; $itemName = "Antifungal Injection"; $itemType = "status"; $itemDesc = "Use this to purge fungal bodies from your system before they get up to any sinister business."; $itemEncounter = "antifungal injection"]]>><<endif>>
+
+<<if $shot_solvent gt 0>>
+<<button [[Solvent Injection|passage()][$selectedItem = 1; $itemID = "shot_solvent"; $itemName = "Solvent Injection"; $itemType = "status"; $itemDesc = "Breaks up oil-based toxins in the body. Especially useful as a fattenium antidote."; $itemEncounter = "solvent injection"]]>><<endif>>
+
+<<if $shot_voracity gt 0>>
+<<button [[Voracity Shot|passage()][$selectedItem = 1; $itemID = "shot_voracity"; $itemName = "Voracity Shot"; $itemType = "status"; $itemDesc = "A curious serum capable of inducing ravening hunger. Useful for fattening creatures up, or for help handling big meals..."; $itemEncounter = "voracity shot"]]>><<endif>>
+
+<<if $shot_satiatior gt 0>>
+<<button [[Satiator Shot|passage()][$selectedItem = 1; $itemID = "shot_satiatior"; $itemName = "Satiator Shot"; $itemType = "status"; $itemDesc = "An injection that soothes unnatural voracity."; $itemEncounter = "satiator shot"]]>><<endif>>
+
+
+
+/% ======================================================== %/
+/% SPECIMENS & COLLECTION JARS %/
+
+
+<<if $specimen_fyynling gt 0>>
+<<button [[Tiny Fyynling Specimen|passage()][$selectedItem = 1; $itemID = "specimen_fyynling"; $itemName = "Tiny Fyynling Specimen"; $itemType = "status"; $itemDesc = "A tiny fyynling caught in a jar. It looks happy to see you!"; $itemEncounter = "tiny fyynling specimen"]]>><<endif>>
+
+<<if $collectionjar_somnus_weak gt 0>>
+<<button [[Jar of Somnus|passage()][$selectedItem = 1; $itemID = "collectionjar_somnus_weak"; $itemName = "Jar of Somnus"; $itemType = "status"; $itemDesc = "A jar of well-diluted miratoxin. Probably won't kill you to drink, but..."; $itemEncounter = "jar of somnus"]]>><<endif>>
+
+<<if $collectionjar_somnus gt 0>>
+<<button [[Jar of Strong Somnus|passage()][$selectedItem = 1; $itemID = "collectionjar_somnus"; $itemName = "Jar of Strong Somnus"; $itemType = "status"; $itemDesc = "A jar of watery miratoxin. Probably won't kill you to drink, but..."; $itemEncounter = "jar of strong somnus"]]>><<endif>>
+
+<<if $collectionjar_miratoxin gt 0>>
+<<button [[Jar of Miratoxin|passage()][$selectedItem = 1; $itemID = "collectionjar_miratoxin"; $itemName = "Jar of Miratoxin"; $itemType = "status"; $itemDesc = "A jar full of mutagenic leupai venom!"; $itemEncounter = "jar of miratoxin"]]>><<endif>>
+
+<<if $collectionjar_miratoxin_wild gt 0>>
+<<button [[Jar of Wild Miratoxin|passage()][$selectedItem = 1; $itemID = "collectionjar_miratoxin_wild"; $itemName = "Jar of Wild Miratoxin"; $itemType = "status"; $itemDesc = "This leupai venom is mutagenic, but it may also have strange side effects..."; $itemEncounter = "jar of wild miratoxin"]]>><<endif>>
+
+<<if $collectionjar_fattenium_weak gt 0>>
+<<button [[Jar of Dilute Fattenium|passage()][$selectedItem = 1; $itemID = "collectionjar_fattenium_weak"; $itemName = "Jar of Dilute Fattenium"; $itemType = "status"; $itemDesc = "A jar of diluted fattenium. It's still probably not a great idea to drink..."; $itemEncounter = "jar of dilute fattenium"]]>><<endif>>
+
+<<if $collectionjar_fattenium gt 0>>
+<<button [[Jar of Fattenium|passage()][$selectedItem = 1; $itemID = "collectionjar_fattenium"; $itemName = "Jar of Fattenium"; $itemType = "status"; $itemDesc = "A jar full of liquid fattenium. Don't spill it on yourself!"; $itemEncounter = "jar of fattenium"]]>><<endif>>
+
+<<if $collectionjar_miraplasm_weak gt 0>>
+<<button [[Jar of Dilute Miraplasm|passage()][$selectedItem = 1; $itemID = "collectionjar_miraplasm_weak"; $itemName = "Jar of Dilute Miraplasm"; $itemType = "status"; $itemDesc = "A jar full of watered-down miraplasm..."; $itemEncounter = "jar of dilute miraplasm"]]>><<endif>>
+
+<<if $collectionjar_water_vital gt 0>>
+<<button [[Jar of Vital Water|passage()][$selectedItem = 1; $itemID = "collectionjar_water_vital"; $itemName = "Jar of Vital Water"; $itemType = "status"; $itemDesc = "A jar full of pristine water. It almost seems to glow..."; $itemEncounter = "jar of vital water"]]>><<endif>>
+
+<<if $collectionjar_water_dirty gt 0>>
+<<button [[Jar of Dirty Water|passage()][$selectedItem = 1; $itemID = "collectionjar_water_dirty"; $itemName = "Jar of Dirty Water"; $itemType = "status"; $itemDesc = "This water looks unpalatable, and is probably dangerous, too..."; $itemEncounter = "jar of dirty water"]]>><<endif>>
+
+<<if $collectionjar_blood gt 0>>
+<<button [[Jar of Blood|passage()][$selectedItem = 1; $itemID = "collectionjar_blood"; $itemName = "Jar of Blood"; $itemType = "status"; $itemDesc = "It's blood from a humanoid. Yum."; $itemEncounter = "jar of blood"]]>><<endif>>
+
+<<if $collectionjar_leupaiblood gt 0>>
+<<button [[Jar of Leupai Blood|passage()][$selectedItem = 1; $itemID = "collectionjar_leupaiblood"; $itemName = "Jar of Leupai Blood"; $itemType = "status"; $itemDesc = "Full of sparkling, thick blue leupai's blood. But why?"; $itemEncounter = "jar of leupai blood"]]>><<endif>>
+
+<<if $collectionjar_vitae gt 0>>
+<<button [[Jar of Vitae|passage()][$selectedItem = 1; $itemID = "collectionjar_vitae"; $itemName = "Jar of Vitae"; $itemType = "status"; $itemDesc = "GET RID OF IT. WHAT IS WRONG WITH YOU?!"; $itemEncounter = "jar of vitae"]]>><<endif>>
+
+<<if $collectionjar_venom_toxic gt 0>>
+<<button [[Jar of Toxic Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_toxic"; $itemName = "Jar of Toxic Venom"; $itemType = "status"; $itemDesc = "A jar full of unassuming-looking liquid. But actually..."; $itemEncounter = "jar of toxic venom"]]>><<endif>>
+
+<<if $collectionjar_venom_lethal gt 0>>
+<<button [[Jar of Lethal Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_lethal"; $itemName = "Jar of Lethal Venom"; $itemType = "status"; $itemDesc = "Unarguably deadly. Not quite vitae deadly, but pretty deadly."; $itemEncounter = "jar of lethal venom"]]>><<endif>>
+
+<<if $collectionjar_venom_gain gt 0>>
+<<button [[Jar of Fattening Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_gain"; $itemName = "Jar of Fattening Venom"; $itemType = "status"; $itemDesc = "A strange sort of venom that causes steady weight gain. The result of mirajin mutation?"; $itemEncounter = "jar of fattening venom"]]>><<endif>>
+
+<<if $collectionjar_venom_supergain gt 0>>
+<<button [[Jar of Super-Fattening Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_supergain"; $itemName = "Jar of Super-Fattening Venom"; $itemType = "status"; $itemDesc = "This gunk will help you rapidly pack on the pounds, but at what cost?"; $itemEncounter = "jar of super-fattening venom"]]>><<endif>>
+
+<<if $collectionjar_venom_bellygain gt 0>>
+<<button [[Jar of Belly-Fattening Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_bellygain"; $itemName = "Jar of Belly-Fattening Venom"; $itemType = "status"; $itemDesc = "An unusual toxin that will widen your midsection."; $itemEncounter = "jar of belly-fattening venom"]]>><<endif>>
+
+<<if $collectionjar_venom_bellysupergain gt 0>>
+<<button [[Jar of Belly Super-Fattening Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_bellysupergain"; $itemName = "Jar of Belly Super-Fattening Venom"; $itemType = "status"; $itemDesc = "This venom causes dangerously rapid accumulation of belly fat."; $itemEncounter = "jar of belly super-fattening venom"]]>><<endif>>
+
+<<if $collectionjar_venom_breastgain gt 0>>
+<<button [[Jar of Breast-Fattening Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_breastgain"; $itemName = "Jar of Breast-Fattening Venom"; $itemType = "status"; $itemDesc = "A mirajin-tainted toxin that causes rapid breast growth."; $itemEncounter = "jar of breast-fattening venom"]]>><<endif>>
+
+<<if $collectionjar_venom_breastsupergain gt 0>>
+<<button [[Jar of Breast Super-Fattening Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_breastsupergain"; $itemName = "Jar of Breast Super-Fattening Venom"; $itemType = "status"; $itemDesc = "Useful for quickly growing an enormous chest, if you can keep it from killing you in the process!"; $itemEncounter = "jar of breast super-fattening venom"]]>><<endif>>
+
+<<if $collectionjar_venom_thighgain gt 0>>
+<<button [[Jar of Thigh-Fattening Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_thighgain"; $itemName = "Jar of Thigh-Fattening Venom"; $itemType = "status"; $itemDesc = "This stuff will make short work of your pants."; $itemEncounter = "jar of thigh-fattening venom"]]>><<endif>>
+
+<<if $collectionjar_venom_thighsupergain gt 0>>
+<<button [[Jar of Thigh Super-Fattening Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_thighsupergain"; $itemName = "Jar of Thigh Super-Fattening Venom"; $itemType = "status"; $itemDesc = "Are you willing to risk death to use this potent weight-gain toxin?"; $itemEncounter = "jar of thigh super-fattening venom"]]>><<endif>>
+
+<<if $collectionjar_venom_fattenium gt 0>>
+<<button [[Jar of Fattenium Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_fattenium"; $itemName = "Jar of Fattenium Venom"; $itemType = "status"; $itemDesc = "Incredibly, whatever creature this came from has evolved to use fattenium as a weapon. Scary stuff."; $itemEncounter = "jar of fattenium venom"]]>><<endif>>
+
+<<if $collectionjar_venom_bulk gt 0>>
+<<button [[Jar of Bulking Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_bulk"; $itemName = "Jar of Bulking Venom"; $itemType = "status"; $itemDesc = "It's hard to say whether this will get you ripped, or just rip you open."; $itemEncounter = "jar of bulking venom"]]>><<endif>>
+
+<<if $collectionjar_venom_flab gt 0>>
+<<button [[Jar of Flabbifying Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_flab"; $itemName = "Jar of Flabbifying Venom"; $itemType = "status"; $itemDesc = "A strange and dangerous venom capable of causing a blubbery fate."; $itemEncounter = "jar of flabbifying venom"]]>><<endif>>
+
+<<if $collectionjar_venom_bloat gt 0>>
+<<button [[Jar of Bloating Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_bloat"; $itemName = "Jar of Bloating Venom"; $itemType = "status"; $itemDesc = "What happens when pufferfish learn to puff you?"; $itemEncounter = "jar of bloating venom"]]>><<endif>>
+
+<<if $collectionjar_venom_breastbloat gt 0>>
+<<button [[Jar of Breast-Bloating Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_breastbloat"; $itemName = "Jar of Breast-Bloating Venom"; $itemType = "status"; $itemDesc = "A startling, showy, and painful way to go..."; $itemEncounter = "jar of breast-bloating venom"]]>><<endif>>
+
+<<if $collectionjar_venom_burst gt 0>>
+<<button [[Jar of Bursting Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_burst"; $itemName = "Jar of Bursting Venom"; $itemType = "status"; $itemDesc = "A particularly frightening venom, this can turn most creatures into a blimp in seconds. It tends to keep going from there."; $itemEncounter = "jar of bursting venom"]]>><<endif>>
+
+<<if $collectionjar_venom_musclebloat gt 0>>
+<<button [[Jar of Muscle-Bloating Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_musclebloat"; $itemName = "Jar of Muscle-Bloating Venom"; $itemType = "status"; $itemDesc = "Sounds like a good way to bulk up fast, but..."; $itemEncounter = "jar of muscle-bloating venom"]]>><<endif>>
+
+<<if $collectionjar_venom_heal gt 0>>
+<<button [[Jar of Healing Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_heal"; $itemName = "Jar of Healing Venom"; $itemType = "status"; $itemDesc = "Perhaps the most unusual of all venoms, this liquid can actually promote healing."; $itemEncounter = "jar of healing venom"]]>><<endif>>
+
+<<if $collectionjar_venom_weakening gt 0>>
+<<button [[Jar of Weakening Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_weakening"; $itemName = "Jar of Weakening Venom"; $itemType = "status"; $itemDesc = "Less dangerous than most, this toxin rarely kills outright-- potentially leaving that honor to the creature administering it."; $itemEncounter = "jar of weakening venom"]]>><<endif>>
+
+<<if $collectionjar_venom_glutton gt 0>>
+<<button [[Jar of Voracity Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_glutton"; $itemName = "Jar of Voracity Venom"; $itemType = "status"; $itemDesc = "A relatively harmless venom that causes increasing and ravenous hunger..."; $itemEncounter = "jar of voracity venom"]]>><<endif>>
+
+<<if $collectionjar_venom_caloric gt 0>>
+<<button [[Jar of Caloric Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_caloric"; $itemName = "Jar of Caloric Venom"; $itemType = "status"; $itemDesc = "The only thing this mirajin-spawned toxin will threaten is your wardrobe."; $itemEncounter = "jar of caloric venom"]]>><<endif>>
+
+<<if $collectionjar_venom_hallucenogen gt 0>>
+<<button [[Jar of Hallucenogenic Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_hallucenogen"; $itemName = "Jar of Hallucenogenic Venom"; $itemType = "status"; $itemDesc = "Although this toxin likely won't hurt its victims, rest assured that they will still suffer horribly!"; $itemEncounter = "jar of hallucenogenic venom"]]>><<endif>>
+
+<<if $collectionjar_venom_mutagen gt 0>>
+<<button [[Jar of Mutagenic Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_mutagen"; $itemName = "Jar of Mutagenic Venom"; $itemType = "status"; $itemDesc = "An enigma in venom form. This could be helpful for an assailant, their victim, or no one at all..."; $itemEncounter = "jar of mutagenic venom"]]>><<endif>>
+
+<<if $collectionjar_venom_leucanthropy gt 0>>
+<<button [[Jar of Leucanthropic Venom|passage()][$selectedItem = 1; $itemID = "collectionjar_venom_leucanthropy"; $itemName = "Jar of Leucanthropic Venom"; $itemType = "status"; $itemDesc = "A slow-acting toxin..."; $itemEncounter = "jar of leucanthropic venom"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% EDIBLES %/
+
+
+/% ==================================== %/
+/% Eggs %/
+
+<<if $egg_small gt 0>>
+<<button [[Small Eggs|passage()][$selectedItem = 1; $itemID = "egg_small"; $itemName = "Small Eggs"; $itemType = "food"; $itemDesc = "A handful of tiny eggs. Adorable."; $itemEncounter = "small eggs"]]>><<endif>>
+
+<<if $egg_med gt 0>>
+<<button [[Eggs|passage()][$selectedItem = 1; $itemID = "egg_med"; $itemName = "Eggs"; $itemType = "food"; $itemDesc = "Eggs, a perfect compact food."; $itemEncounter = "eggs"]]>><<endif>>
+
+<<if $egg_large gt 0>>
+<<button [[Large Eggs|passage()][$selectedItem = 1; $itemID = "egg_large"; $itemName = "Eggs"; $itemType = "food"; $itemDesc = "A couple generously-sized eggs. They'd make for a nice meal."; $itemEncounter = "large eggs"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% Produce %/
+
+<<if $berry_mira gt 0>>
+<<button [[Miraberry|passage()][$selectedItem = 1; $itemID = "berry_mira"; $itemName = "Miraberry"; $itemType = "status"; $itemDesc = "A handful of strange, crystalline berries."; $itemEncounter = "miraberries"]]>><<endif>>
+
+<<if $berry_rain gt 0>>
+<<button [[Rainberry|passage()][$selectedItem = 1; $itemID = "berry_rain"; $itemName = "Rainberry"; $itemType = "status"; $itemDesc = "A handful of colorful, magical berries; there's no telling what they'll do..."; $itemEncounter = "rainberries"]]>><<endif>>
+
+<<if $berry_round gt 0>>
+<<button [[Roundberry|passage()][$selectedItem = 1; $itemID = "berry_round"; $itemName = "Roundberry"; $itemType = "status"; $itemDesc = "These berries look ready to burst at any instant!"; $itemEncounter = "roundberries"]]>><<endif>>
+
+<<if $berry_burst gt 0>>
+<<button [[Burstberry|passage()][$selectedItem = 1; $itemID = "berry_burst"; $itemName = "Burstberry"; $itemType = "status"; $itemDesc = "These soft berries are full of juice."; $itemEncounter = "burstberries"]]>><<endif>>
+
+<<if $berry_bulk gt 0>>
+<<button [[Bulkberry|passage()][$selectedItem = 1; $itemID = "berry_bulk"; $itemName = "Bulkberry"; $itemType = "status"; $itemDesc = "These bumpy little fruits can do interesting things to one's physique, depending on the circumstances."; $itemEncounter = "bulkberries"]]>><<endif>>
+
+<<if $berry_cow gt 0>>
+<<button [[Cowberry|passage()][$selectedItem = 1; $itemID = "berry_cow"; $itemName = "Cowberry"; $itemType = "status"; $itemDesc = "Milky and sweet."; $itemEncounter = "cowberries"]]>><<endif>>
+
+<<if $berry_plush gt 0>>
+<<button [[Plushberry|passage()][$selectedItem = 1; $itemID = "berry_plush"; $itemName = "Plushberry"; $itemType = "status"; $itemDesc = "Fuzzy, slightly sour little berries."; $itemEncounter = "plushberries"]]>><<endif>>
+
+<<if $berry_bounce gt 0>>
+<<button [[Bounceberry|passage()][$selectedItem = 1; $itemID = "berry_bounce"; $itemName = "Bounceberry"; $itemType = "status"; $itemDesc = "These firm berries are quite rubbery, and tend to squirt when bitten into."; $itemEncounter = "bounceberries"]]>><<endif>>
+
+<<if $berry_bulge gt 0>>
+<<button [[Bulgeberry|passage()][$selectedItem = 1; $itemID = "berry_bulge"; $itemName = "Bulgeberry"; $itemType = "status"; $itemDesc = "These oddly-shaped berries are surprisingly hefty."; $itemEncounter = "bulgeberries"]]>><<endif>>
+
+<<if $berry_butter gt 0>>
+<<button [[Butterberry|passage()][$selectedItem = 1; $itemID = "berry_butter"; $itemName = "Butterberry"; $itemType = "status"; $itemDesc = "These odd, pale little berries taste like grease, but they're a great source of oil, and quick calories in a pinch."; $itemEncounter = "butterberries"]]>><<endif>>
+
+<<if $mush_strange gt 0>>
+<<button [[Strange Mushroom|passage()][$selectedItem = 1; $itemID = "mush_strange"; $itemName = "Strange Mushroom"; $itemType = "status"; $itemDesc = "It might not be the best idea to eat random unidentified mushrooms."; $itemEncounter = "strange mushroom"]]>><<endif>>
+
+<<if $mush_glowing gt 0>>
+<<button [[Glowing Mushroom|passage()][$selectedItem = 1; $itemID = "mush_glowing"; $itemName = "Glowing Mushroom"; $itemType = "status"; $itemDesc = "This mushroom seems to glow softly with a light of its own."; $itemEncounter = "glowing mushroom"]]>><<endif>>
+
+<<if $produce_puffshroom gt 0>>
+<<button [[Puffbelly Mushroom Flesh|passage()][$selectedItem = 1; $itemID = "produce_puffshroom"; $itemName = "Puffbelly Mushroom Flesh"; $itemType = "food"; $itemDesc = "A round, belly-like mushroom which expels a cloud of spores when upset. This one is inert now... probably."; $itemEncounter = "puffbelly mushroom flesh"]]>><<endif>>
+
+<<if $produce_tendrilgrass gt 0>>
+<<button [[Plump Tendrilgrass|passage()][$selectedItem = 1; $itemID = "produce_tendrilgrass"; $itemName = "Plump Tendrilgrass"; $itemType = "food"; $itemDesc = "A grass-like succulent commonly found in Reveric areas. Crunchy and refreshing."; $itemEncounter = "plump tendrilgrass"]]>><<endif>>
+
+<<if $produce_coffee gt 0>>
+<<button [[Coffee Berry|passage()][$selectedItem = 1; $itemID = "produce_coffee"; $itemName = "Coffee Berry"; $itemType = "food"; $itemDesc = "A round, deep red berry. An excellent pick-me-up, but..."; $itemEncounter = "coffee berry"]]>><<endif>>
+
+<<if $produce_starberry gt 0>>
+<<button [[Starberry|passage()][$selectedItem = 1; $itemID = "produce_starberry"; $itemName = "Starberry"; $itemType = "food"; $itemDesc = "A tiny, star-shaped berry that glows with its own soft light. Aww! Tastes like lemonade."; $itemEncounter = "starberry"]]>><<endif>>
+
+<<if $produce_cramberry gt 0>>
+<<button [[Cramberry|passage()][$selectedItem = 1; $itemID = "produce_cramberry"; $itemName = "Cramberry"; $itemType = "food"; $itemDesc = "A round, tart red berry. Lip-puckering when fresh, but aids digestion, soothes bloat, and stimulates the appetite."; $itemEncounter = "cramberry"]]>><<endif>>
+
+<<if $produce_grape gt 0>>
+<<button [[Effervescent Grape|passage()][$selectedItem = 1; $itemID = "produce_grape"; $itemName = "Effervescent Grape"; $itemType = "food"; $itemDesc = "Tart, delicious grapes with a bit of a sparkle on the tongue. Surprisingly filling."; $itemEncounter = "effervescent grape"]]>><<endif>>
+
+<<if $produce_tendrilvine gt 0>>
+<<button [[Inert Tendrilvines|passage()][$selectedItem = 1; $itemID = "produce_tendrilvine"; $itemName = "Inert Tendrilvines"; $itemType = "food"; $itemDesc = "A bunch of mercifully lifeless tendrilvines, still fat with nectar."; $itemEncounter = "inert tendrilvines"]]>><<endif>>
+
+<<if $produce_succulent gt 0>>
+<<button [[Succulent Rose|passage()][$selectedItem = 1; $itemID = "produce_succulent"; $itemName = "Succulent Rose"; $itemType = "food"; $itemDesc = "A small, plump, rose-shaped succulent. Tender and light."; $itemEncounter = "succulent rose"]]>><<endif>>
+
+<<if $produce_cactus gt 0>>
+<<button [[Cactus Pad|passage()][$selectedItem = 1; $itemID = "produce_cactus"; $itemName = "Cactus Pad"; $itemType = "food"; $itemDesc = "An deprickled bit of edible cactus."; $itemEncounter = "cactus pad"]]>><<endif>>
+
+<<if $produce_pricklepear gt 0>>
+<<button [[Pricklepear|passage()][$selectedItem = 1; $itemID = "produce_pricklepear"; $itemName = "Pricklepear"; $itemType = "food"; $itemDesc = "A brightly-colored cactusfruit. Has a taste reminiscent of watermelon."; $itemEncounter = "pricklepear"]]>><<endif>>
+
+<<if $produce_sugarcane gt 0>>
+<<button [[Sugarcane|passage()][$selectedItem = 1; $itemID = "produce_sugarcane"; $itemName = "Sugarcane"; $itemType = "food"; $itemDesc = "Delicious to chew on, and useful for sweetening other foods."; $itemEncounter = "sugarcane"]]>><<endif>>
+
+<<if $produce_rockroot gt 0>>
+<<button [[Rockroot|passage()][$selectedItem = 1; $itemID = "produce_rockroot"; $itemName = "Rockroot"; $itemType = "food"; $itemDesc = "A root commonly used in Revix cooking. Incredibly hard and crunchy when raw, but grinds into an excellent flour."; $itemEncounter = "rockroot"]]>><<endif>>
+
+<<if $produce_starchroot gt 0>>
+<<button [[Golden Starchroot|passage()][$selectedItem = 1; $itemID = "produce_starchroot"; $itemName = "Golden Starchroot"; $itemType = "food"; $itemDesc = "A root commonly used in Revix cooking. Soft and buttery when cooked."; $itemEncounter = "golden starchroot"]]>><<endif>>
+
+<<if $produce_honeycarrot gt 0>>
+<<button [[Honeycarrot|passage()][$selectedItem = 1; $itemID = "produce_honeycarrot"; $itemName = "Honeycarrot"; $itemType = "food"; $itemDesc = "A long, sweet root vegetable, delicious raw or roasted."; $itemEncounter = "honeycarrot"]]>><<endif>>
+
+<<if $produce_tomato gt 0>>
+<<button [[Ripe Tomato|passage()][$selectedItem = 1; $itemID = "produce_tomato"; $itemName = "Ripe Tomato"; $itemType = "food"; $itemDesc = "A beautiful, fragrant tomato, just waiting to be eaten."; $itemEncounter = "ripe tomato"]]>><<endif>>
+
+<<if $produce_belcheri gt 0>>
+<<button [[Plump Belcheri|passage()][$selectedItem = 1; $itemID = "produce_belcheri"; $itemName = "Plump Belcheri"; $itemType = "food"; $itemDesc = "A huge Revix cherry, first cultivated in Nefirian's own groves. Whether that makes you want to eat it more or less, is the question."; $canSplit = 1; $itemEncounter = "plump belcheri"]]>><<endif>>
+
+<<if $produce_plum gt 0>>
+<<button [[Plump Plum|passage()][$selectedItem = 1; $itemID = "produce_plum"; $itemName = "Plump Plum"; $itemType = "food"; $itemDesc = "A plum grown by Revix farmers. The giveaway? It's roughly the size of a human head."; $itemEncounter = "plump plum"]]>><<endif>>
+
+<<if $produce_peach gt 0>>
+<<button [[Giant Peach|passage()][$selectedItem = 1; $itemID = "produce_peach"; $itemName = "Giant Peach"; $itemType = "food"; $itemDesc = "You'll need two hands to hold onto this one. And a big mouth to bite it."; $itemEncounter = "giant peach"]]>><<endif>>
+
+<<if $produce_pear gt 0>>
+<<button [[Voluptuous Pear|passage()][$selectedItem = 1; $itemID = "produce_pear"; $itemName = "Voluptuous Pear"; $itemType = "food"; $itemDesc = "Huge, and so fat you could almost mistake it for an apple."; $itemEncounter = "voluptuous pear"]]>><<endif>>
+
+<<if $produce_apple gt 0>>
+<<button [[Imperial Apple|passage()][$selectedItem = 1; $itemID = "produce_apple"; $itemName = "Imperial Apple"; $itemType = "food"; $itemDesc = "A monster of an apple, fit for a king."; $itemEncounter = "imperial apple"]]>><<endif>>
+
+<<if $produce_pudding gt 0>>
+<<button [[Puddingfruit|passage()][$selectedItem = 1; $itemID = "produce_pudding"; $itemName = "Puddingfruit"; $itemType = "food"; $itemDesc = "A curious, thin-skinned fruit full of sweet, creamy custard."; $itemEncounter = "puddingfruit"]]>><<endif>>
+
+<<if $produce_fatpumpkin gt 0>>
+<<button [[Fat Pumpkin|passage()][$selectedItem = 1; $itemID = "produce_fatpumpkin"; $itemName = "Fat Pumpkin"; $itemType = "food"; $itemDesc = "This pumpkin is ENORMOUS!"; $itemEncounter = "fat pumpkin"]]>><<endif>>
+
+<<if $produce_zeppelon gt 0>>
+<<button [[Zeppelon|passage()][$selectedItem = 1; $itemID = "produce_zeppelon"; $itemName = "Zeppelon"; $itemType = "food"; $itemDesc = "A mutant melon big enough to ride on. If it was, you know, animate."; $itemEncounter = "zeppelon"]]>><<endif>>
+
+<<if $produce_milkmelon gt 0>>
+<<button [[Bloated Milkmelon|passage()][$selectedItem = 1; $itemID = "produce_milkmelon"; $itemName = "Bloated Milkmelon"; $itemType = "food"; $itemDesc = "A weird, fleshy fruit with a liquid interior. Refreshing and sweet, but can be unnerving to bite into..."; $itemEncounter = "bloated milkmelon"]]>><<endif>>
+
+<<if $produce_milkmelon_creaking gt 0>>
+<<button [[Creaking Milkmelon|passage()][$selectedItem = 1; $itemID = "produce_milkmelon_creaking"; $itemName = "Creaking Milkmelon"; $itemType = "food"; $itemDesc = "This milkmelon is overripe, and looks ready to burst."; $itemEncounter = "creaking milkmelon"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% Candy %/
+
+
+<<if $candy_colorfulfruit gt 0>>
+<<button [[Colorful Fruit Candy|passage()][$selectedItem = 1; $itemID = "candy_colorfulfruit"; $itemName = "Colorful Fruit Candy"; $itemType = "food"; $itemDesc = "Bright and cheerful fruit-flavored candies in assorted monster shapes."]]>><<endif>>
+
+<<if $candy_milky gt 0>>
+<<button [[Milky Candy|passage()][$selectedItem = 1; $itemID = "candy_milky"; $itemName = "Milky Candy"; $itemType = "food"; $itemDesc = "A handful of soft, caramel-like chewy candies with a delicate, milky sweetness."]]>><<endif>>
+
+<<if $candy_slimebait gt 0>>
+<<button [[Bubble Candy|passage()][$selectedItem = 1; $itemID = "candy_slimebait"; $itemName = "Bubble Candy"; $itemType = "food"; $itemDesc = "Brightly colored, fragile little sugar-bubbles full of some kind of liquid goo. Slimes seem particularly interested in these..."]]>><<endif>>
+
+<<if $candy_buttercandy gt 0>>
+<<button [[Buttercandy Bar|passage()][$selectedItem = 1; $itemID = "candy_buttercandy"; $itemName = "Buttercandy Bar"; $itemType = "food"; $itemDesc = "A thick bar of sweet, flavored buttercream coated in chocolate; a common Revix treat."]]>><<endif>>
+
+<<if $candy_honeybuttercomb gt 0>>
+<<button [[Honeybutter Comb|passage()][$selectedItem = 1; $itemID = "candy_honeybuttercomb"; $itemName = "Honeybutter Comb"; $itemType = "food"; $itemDesc = "Chewy wax full of fresh, sweet honeybutter."]]>><<endif>>
+
+
+/% ======================================================== %/
+/% Pastry %/
+
+
+<<if $donut_fattenium gt 0>>
+<<button [[Fattenium Donut|passage()][$selectedItem = 1; $itemID = "donut_fattenium"; $itemName = "Fattenium Donut"; $itemType = "food"; $itemDesc = "A soft, sweet pastry fried in hot fattenium-- a Revix favorite."]]>><<endif>>
+
+<<if $pastry_indulgence gt 0>>
+<<button [[Indulgence Biscuits|passage()][$selectedItem = 1; $itemID = "pastry_indulgence"; $itemName = "Indulgence Biscuits"; $itemType = "food"; $itemDesc = "A small package of nondescript cookies."]]>><<endif>>
+
+<<if $pastry_buttercake gt 0>>
+<<button [[Buttercake|passage()][$selectedItem = 1; $itemID = "pastry_buttercake"; $itemName = "Buttercake"; $itemType = "food"; $itemDesc = "A small, sticky, buttery cake often served at abittes."]]>><<endif>>
+
+<<if $pastry_croissant gt 0>>
+<<button [[Huge Croissant Sandwich|passage()][$selectedItem = 1; $itemID = "pastry_croissant"; $itemName = "Huge Croissant Sandwich"; $itemType = "food"; $itemDesc = "A soft, sweet pastry fried in hot fattenium-- a Revix favorite."]]>><<endif>>
+
+<<if $pastry_belsuite gt 0>>
+<<button [[Plump Suai Belsuite|passage()][$selectedItem = 1; $itemID = "pastry_belsuite"; $itemName = "Plump Suai Belsuite"; $itemType = "food"; $itemDesc = "A pastry in the shape of a leupai, stuffed full of something delicious."]]>><<endif>>
+
+<<if $pastry_belsuite_fat gt 0>>
+<<button [[Overstuffed Suai Belsuite|passage()][$selectedItem = 1; $itemID = "pastry_belsuite_fat"; $itemName = "Overstuffed Suai Belsuite"; $itemType = "food"; $itemDesc = "A pastry in the shape of a leupai, stuffed full of something delicious. This one looks fit to burst!"]]>><<endif>>
+
+<<if $pastry_buttercake_spiked gt 0>>
+<<button [[Experimental Buttercake|passage()][$selectedItem = 1; $itemID = "pastry_buttercake_spiked"; $itemName = "Experimental Buttercake"; $itemType = "food"; $itemDesc = "Something about this buttercake seems off. Not in the gross way, just the... suspicious way."]]>><<endif>>
+
+
+/% ======================================================== %/
+/% Meats %/
+
+
+<<if $meat_haunch gt 0>>
+<<button [[Haunch of Meat|passage()][$selectedItem = 1; $itemID = "meat_haunch"; $itemName = "Haunch of Meat"; $itemType = "food"; $itemDesc = "A great big meaty bone."]]>><<endif>>
+
+<<if $meat_fattyhaunch gt 0>>
+<<button [[Fat Haunch of Meat|passage()][$selectedItem = 1; $itemID = "meat_fattyhaunch"; $itemName = "Fat Haunch of Meat"; $itemType = "food"; $itemDesc = "Whatever this came off of was eating well."]]>><<endif>>
+
+<<if $meat_fattyleuphaunch gt 0>>
+<<button [[Fat Haunch of Leupai Meat|passage()][$selectedItem = 1; $itemID = "meat_fattyleuphaunch"; $itemName = "Fat Haunch of Leupai Meat"; $itemType = "food"; $itemDesc = "A gut-busting feast on a stick."]]>><<endif>>
+
+<<if $tentacle_plump gt 0>>
+<<button [[Plump Tentacle|passage()][$selectedItem = 1; $itemID = "tentacle_plump"; $itemName = "Plump Tentacle"; $itemType = "food"; $itemDesc = "A soft, flabby tendril."]]>><<endif>>
+
+<<if $cooked_fish gt 0>>
+<<button [[Barbecued Fish|passage()][$selectedItem = 1; $itemID = "cooked_fish"; $itemName = "Barbecued Fish"; $itemType = "food"; $itemDesc = "Fresh fish, roasted over a campfire-- a simple and sweet way to dine like a king."]]>><<endif>>
+
+<<if $cooked_poult gt 0>>
+<<button [[Barbecued Poult|passage()][$selectedItem = 1; $itemID = "cooked_poult"; $itemName = "Barbecued Poult"; $itemType = "food"; $itemDesc = "Fresh birdflesh, roasted over a campfire-- a simple and sweet way to dine like a king."]]>><<endif>>
+
+<<if $cooked_fat gt 0>>
+<<button [[Barbecued Fat|passage()][$selectedItem = 1; $itemID = "cooked_fat"; $itemName = "Barbecued Fat"; $itemType = "food"; $itemDesc = "Full of flavor, if you can get past the texture..."]]>><<endif>>
+
+<<if $cooked_meat gt 0>>
+<<button [[Spit Roast|passage()][$selectedItem = 1; $itemID = "cooked_meat"; $itemName = "Spit Roast"; $itemType = "food"; $itemDesc = "Campfire-roasted meat. Delicious."]]>><<endif>>
+
+<<if $cooked_dragon gt 0>>
+<<button [[Roast Dragon|passage()][$selectedItem = 1; $itemID = "cooked_dragon"; $itemName = "Roast Dragon"; $itemType = "food"; $itemDesc = "The snack that bites back. Don't cook this one too rare!"]]>><<endif>>
+
+<<if $cooked_leupai gt 0>>
+<<button [[Roast Leupai|passage()][$selectedItem = 1; $itemID = "cooked_leupai"; $itemName = "Roast Leupai"; $itemType = "food"; $itemDesc = "Chubby crystalizardslugfae make for good eating. Who knew? Well, just ask the leupai..."]]>><<endif>>
+
+
+/% ====================================================== %/
+/% Cooked Produce %/
+
+
+<<if $cooked_starchroot gt 0>>
+<<button [[Roast Starchroot|passage()][$selectedItem = 1; $itemID = "cooked_starchroot"; $itemName = "Roast Starchroot"; $itemType = "food"; $itemDesc = "A delicious barbecued root vegetable."]]>><<endif>>
+
+<<if $cooked_honeycarrot gt 0>>
+<<button [[Roast Honeycarrot|passage()][$selectedItem = 1; $itemID = "cooked_honeycarrot"; $itemName = "Roast Honeycarrot"; $itemType = "food"; $itemDesc = "A delicious barbecued root vegetable."]]>><<endif>>
+
+
+/% ======================================================== %/
+/% Drinks %/
+
+
+<<if $drink_milk gt 0>>
+<<button [[Adephagian Milk|passage()][$selectedItem = 1; $itemID = "drink_milk"; $itemName = "Adephagian Milk"; $itemType = "drink"; $itemDesc = "A bottle of fresh adephagian milk, straight from the source."]]>><<endif>>
+
+<<if $collectionjar_slime gt 0>>
+<<button [[Jar of Slime|passage()][$selectedItem = 1; $itemID = "collectionjar_slime"; $itemName = "Jar of Slime"; $itemType = "drink"; $itemDesc = "This is slime. It's... probably not very refreshing..?"]]>><<endif>>
+
+<<if $collectionjar_milk gt 0>>
+<<button [[Jar of Milk|passage()][$selectedItem = 1; $itemID = "collectionjar_milk"; $itemName = "Jar of Milk"; $itemType = "drink"; $itemDesc = "Fresh milk by the jarful."]]>><<endif>>
+
+<<if $collectionjar_milk_adephagian gt 0>>
+<<button [[Jar of Adephagian Milk|passage()][$selectedItem = 1; $itemID = "collectionjar_milk_adephagian"; $itemName = "Jar of Adephagian Milk"; $itemType = "drink"; $itemDesc = "A jar of fresh adephagian milk, straight from the source."]]>>
+<<endif>>
+
+<<if $collectionjar_cream gt 0>>
+<<button [[Jar of Cream|passage()][$selectedItem = 1; $itemID = "collectionjar_cream"; $itemName = "Jar of Cream"; $itemType = "drink"; $itemDesc = "A jar full of fresh cream, for cooking... or drinking outright if you're feeling brave or thirsty."]]>><<endif>>
+
+<<if $collectionjar_cream_thick gt 0>>
+<<button [[Jar of Thick Cream|passage()][$selectedItem = 1; $itemID = "collectionjar_cream_thick"; $itemName = "Jar of Thick Cream"; $itemType = "drink"; $itemDesc = "A jar full of fresh heavy cream."]]>><<endif>>
+
+<<if $collectionjar_cream_whipped gt 0>>
+<<button [[Jar of Whipped Cream|passage()][$selectedItem = 1; $itemID = "collectionjar_cream_whipped"; $itemName = "Jar of Whipped Cream"; $itemType = "food"; $itemDesc = "A soft, sweet pastry fried in hot fattenium-- a Revix favorite."]]>><<endif>>
+
+<<if $collectionjar_cream_imperial gt 0>>
+<<button [[Jar of Imperial Cream|passage()][$selectedItem = 1; $itemID = "collectionjar_cream_imperial"; $itemName = "Jar of Imperial Cream"; $itemType = "drink"; $itemDesc = "A jar of sweet, super-thick cream."]]>><<endif>>
+
+<<if $collectionjar_cream_superimperial gt 0>>
+<<button [[Jar of Superb Imperial Cream|passage()][$selectedItem = 1; $itemID = "collectionjar_cream_superimperial"; $itemName = "Jar of Superb Imperial Cream"; $itemType = "drink"; $itemTag = "rare"; $itemDesc = "Fatty, incredibly thick cream milked from specially-bred dairy creatures. Prized as a delicacy by the Revix."]]>><<endif>>
+
+<<if $collectionjar_mousse_imperial gt 0>>
+<<button [[Jar of Imperial Mousse|passage()][$selectedItem = 1; $itemID = "collectionjar_mousse_imperial"; $itemName = "Jar of Imperial Mousse"; $itemType = "food"; $itemTag = "rare"; $itemDesc = "A thick, sweet, swooningly rich dairy cream suitable for eating with a spoon. Intensely fattening!"]]>><<endif>>
+
+<<if $collectionjar_honeybutter gt 0>>
+<<button [[Jar of Honeybutter|passage()][$selectedItem = 1; $itemID = "collectionjar_honeybutter"; $itemName = "Jar of Honeybutter"; $itemType = "drink"; $itemDesc = "A rich, sweet, and delicious product collected from honeygorgers. Used as a source of high-calorie sugar in many Revix recipes."]]>><<endif>>
+
+<<if $collectionjar_gorgerjelly gt 0>>
+<<button [[Jar of Royal Gorger Jelly|passage()][$selectedItem = 1; $itemID = "collectionjar_gorgerjelly"; $itemName = "Jar of Royal Gorger Jelly"; $itemType = "drink"; $itemDesc = "A special, rare substance collected from queen honeygorgers. Prized by Revecroix as a delicious, incredibly potent fattening agent."]]>><<endif>>
+
+<<if $drink_espresso gt 0>>
+<<button [[Espresso|passage()][$selectedItem = 1; $itemID = "drink_espresso"; $itemName = "Espresso"; $itemType = "food"; $itemDesc = "Even the Revix can appreciate the benefits of a nice bit of caffeine."]]>><<endif>>
+
+<<if $drink_coffee gt 0>>
+<<button [[Black Coffee|passage()][$selectedItem = 1; $itemID = "drink_coffee"; $itemName = "Black Coffee"; $itemType = "food"; $itemDesc = "Oh, I'll have mine black!"]]>><<endif>>
+
+<<if $drink_coffee_milky gt 0>>
+<<button [[Milky Coffee|passage()][$selectedItem = 1; $itemID = "drink_coffee_milky"; $itemName = "Milky Coffee"; $itemType = "drink"; $itemDesc = "A mug of simple, sweet milky coffee. Delicious!"]]>><<endif>>
+
+<<if $drink_coffee_fat gt 0>>
+<<button [[Fat Coffee|passage()][$selectedItem = 1; $itemID = "drink_coffee_fat"; $itemName = "Fat Coffee"; $itemType = "drink"; $itemDesc = "Coffee blended with milk and a generous splash of imperial cream, an extra indulgent pick-me-up."]]>><<endif>>
+
+<<if $drink_fragrant gt 0>>
+<<button [[Bottle of Fragrant|passage()][$selectedItem = 1; $itemID = "drink_fragrant"; $itemName = "Bottle of Fragrant"; $itemType = "drink"; $itemDesc = "A bubbly, lightly-sweetened drink. Fruit and floral flavors are common."]]>><<endif>>
+
+
+
+/% ======================================================== %/
+/% Oils %/
+
+
+<<if $oil_butterberry gt 0>>
+<<button [[Butterberry Oil|passage()][$selectedItem = 1; $itemID = "oil_butterberry"; $itemName = "Butterberry Oil"; $itemType = "status"; $itemDesc = "A lovely cooking oil. A substantially less enjoyable beverage."; $itemEncounter = "butterberry oil"]]>><<endif>>
+
+<<if $oil_fattenium_refined gt 0>>
+<<button [[Refined Fattenium Oil|passage()][$selectedItem = 1; $itemID = "oil_fattenium_refined"; $itemName = "Refined Fattenium Oil"; $itemType = "status"; $itemDesc = "A potent fattening agent, far less dangerous to use than raw liquid fattenium. Can be used as a cooking oil by the truly adventurous."; $itemEncounter = "refined fattenium oil"]]>><<endif>>
+
+/% ======================================================== %/
+/% GREENHOUSE %/
+
+/% ======================================================== %/
+/% Seeds %/
+/% (Technically food, but nutritionally worthless) %/
+
+<<if $seed_fatpumpkin gt 0>>
+<<button [[Fat Pumpkin Seed|passage()][$selectedItem = 1; $itemID = "seed_fatpumpkin"; $itemName = "Fat Pumpkin Seed"; $itemType = "food"; $itemDesc = "I've seen fatter seeds, honestly."]]>><<endif>>
+
+<<if $seed_zeppelon gt 0>>
+<<button [[Zeppelon Seed|passage()][$selectedItem = 1; $itemID = "seed_zeppelon"; $itemName = "Zeppelon Seed"; $itemType = "food"; $itemDesc = "Rumor has it that if you swallow too many of these, a zeppelon might grow inside you. Rumors are silly."]]>><<endif>>
+
+<<if $seed_milkmelon gt 0>>
+<<button [[Milkmelon Seed|passage()][$selectedItem = 1; $itemID = "seed_milkmelon"; $itemName = "Milkmelon Seed"; $itemType = "food"; $itemDesc = "So, if a zeppelon seed would grow inside your belly...?"]]>><<endif>>
+
+<<if $seed_rose_glass gt 0>>
+<<button [[Glass Rose Seed|passage()][$selectedItem = 1; $itemID = "seed_rose_glass"; $itemName = "Glass Rose Seed"; $itemType = "food"; $itemDesc = "These tiny seeds sparkle in the light like diamonds..."]]>><<endif>>
+
+<<if $seed_tendrilvine gt 0>>
+<<button [[Tendrilvine Seed|passage()][$selectedItem = 1; $itemID = "seed_tendrilvine"; $itemName = "Tendrilvine Seed"; $itemType = "food"; $itemDesc = "Are these safe to grow...?"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% Flowers %/
+/% Found wild, or grown in a greenhouse. %/
+
+<<if $flower_rose_glass gt 0>>
+<<button [[Glass Rose|passage()][$selectedItem = 1; $itemID = "flower_rose_glass"; $itemName = "Glass Rose"; $itemType = "food"; $itemDesc = "A rose with petals seemingly shaped from opalescent glass... A jewel from the dreamlands."]]>><<endif>>
+
+<<if $produce_rosehip_glass gt 0>>
+<<button [[Glass Rosehip|passage()][$selectedItem = 1; $itemID = "produce_rosehip_glass"; $itemName = "Glass Rosehip"; $itemType = "food"; $itemDesc = "A sparkling fruit picked from a glass rose plant. Makes excellent tea."; $itemEncounter = "glass rosehip"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% DYES %/
+
+<<if $dye_rainbow gt 0>>
+<<button [[Spectrum Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_rainbow"; $itemName = "Spectrum Prisma Shard"; $itemType = "dye"; $dyeColor = either("white","silver","magenta","pink","red","brown","orange","golden","yellow","green","teal","blue","indigo","violet","black","gray"); $itemDesc = "An odd crystal with the power to change the color of all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "spectrum prisma shard"]]>><<endif>>
+
+<<if $dye_white gt 0>>
+<<button [[White Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_white"; $itemName = "White Prisma Shard"; $itemType = "dye"; $dyeColor = "white"; $itemDesc = "An odd crystal with the power to change the color all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "white prisma shard"]]>><<endif>>
+
+<<if $dye_silver gt 0>>
+<<button [[Silver Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_silver"; $itemName = "Silver Prisma Shard"; $itemType = "dye"; $dyeColor = "silver"; $itemDesc = "An odd crystal with the power to change the color all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "silver prisma shard"]]>><<endif>>
+
+<<if $dye_magenta gt 0>>
+<<button [[Magenta Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_magenta"; $itemName = "Magenta Prisma Shard"; $itemType = "dye"; $dyeColor = "magenta"; $itemDesc = "An odd crystal with the power to change the color of all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "magenta prisma shard"]]>><<endif>>
+
+<<if $dye_pink gt 0>>
+<<button [[Pink Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_pink"; $itemName = "Pink Prisma Shard"; $itemType = "dye"; $dyeColor = "pink"; $itemDesc = "An odd crystal with the power to change the color of all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "pink prisma shard"]]>><<endif>>
+
+<<if $dye_red gt 0>>
+<<button [[Red Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_red"; $itemName = "Red Prisma Shard"; $itemType = "dye"; $dyeColor = "red"; $itemDesc = "An odd crystal with the power to change the color all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "red prisma shard"]]>><<endif>>
+
+<<if $dye_brown gt 0>>
+<<button [[Brown Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_brown"; $itemName = "Brown Prisma Shard"; $itemType = "dye"; $dyeColor = "brown"; $itemDesc = "An odd crystal with the power to change the color of all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "brown prisma shard"]]>><<endif>>
+
+<<if $dye_orange gt 0>>
+<<button [[Orange Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_orange"; $itemName = "Orange Prisma Shard"; $itemType = "dye"; $dyeColor = "orange"; $itemDesc = "An odd crystal with the power to change the color all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "orange prisma shard"]]>><<endif>>
+
+<<if $dye_yellow gt 0>>
+<<button [[Yellow Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_yellow"; $itemName = "Yellow Prisma Shard"; $itemType = "dye"; $dyeColor = "yellow"; $itemDesc = "An odd crystal with the power to change the color all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "yellow prisma shard"]]>><<endif>>
+
+<<if $dye_golden gt 0>>
+<<button [[Golden Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_golden"; $itemName = "Golden Prisma Shard"; $itemType = "dye"; $dyeColor = "golden"; $itemDesc = "An odd crystal with the power to change the color of all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "golden prisma shard"]]>><<endif>>
+
+<<if $dye_green gt 0>>
+<<button [[Green Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_green"; $itemName = "Green Prisma Shard"; $itemType = "dye"; $dyeColor = "green"; $itemDesc = "An odd crystal with the power to change the color of all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "green prisma shard"]]>><<endif>>
+
+<<if $dye_teal gt 0>>
+<<button [[Teal Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_teal"; $itemName = "Teal Prisma Shard"; $itemType = "dye"; $dyeColor = "teal"; $itemDesc = "An odd crystal with the power to change the color all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "teal prisma shard"]]>><<endif>>
+
+<<if $dye_blue gt 0>>
+<<button [[Blue Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_blue"; $itemName = "Blue Prisma Shard"; $itemType = "dye"; $dyeColor = "blue"; $itemDesc = "An odd crystal with the power to change the color all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "blue prisma shard"]]>><<endif>>
+
+<<if $dye_indigo gt 0>>
+<<button [[Indigo Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_indigo"; $itemName = "Indigo Prisma Shard"; $itemType = "dye"; $dyeColor = "indigo"; $itemDesc = "An odd crystal with the power to change the color of all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "indigo prisma shard"]]>><<endif>>
+
+<<if $dye_violet gt 0>>
+<<button [[Violet Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_violet"; $itemName = "Violet Prisma Shard"; $itemType = "dye"; $dyeColor = "violet"; $itemDesc = "An odd crystal with the power to change the color of all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "violet prisma shard"]]>><<endif>>
+
+<<if $dye_black gt 0>>
+<<button [[Black Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_black"; $itemName = "Black Prisma Shard"; $itemType = "dye"; $dyeColor = "black"; $itemDesc = "An odd crystal with the power to change the color all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "black prisma shard"]]>><<endif>>
+
+<<if $dye_gray gt 0>>
+<<button [[Gray Prisma Shard|passage()][$selectedItem = 1; $itemID = "dye_gray"; $itemName = "Gray Prisma Shard"; $itemType = "dye"; $dyeColor = "gray"; $itemDesc = "An odd crystal with the power to change the color all sorts of things. Lasts on clothing until you take it off."; $itemEncounter = "gray prisma shard"]]>><<endif>>
+
+
+/% ======================================================== %/
+/% TRAPS %/
+
+<<if $trap_snare gt 0>>
+<<button [[Snare Trap|passage()][$selectedItem = 1; $itemID = "trap_snare"; $itemName = "Snare Trap"; $itemType = "trap"; $itemDesc = "A basic rope trap. Good for capturing creatures too small to be tranquilized, but can't catch flying or aquatic creatures. Leaving the area before it activates will abandon the trap!"; $itemEncounter = "snare trap"]]>><<endif>>
+
+<<if $trap_cage gt 0>>
+<<button [[Cage Trap|passage()][$selectedItem = 1; $itemID = "trap_cage"; $itemName = "Cage Trap"; $itemType = "trap"; $itemDesc = "A cage trap, good for capturing creatures too small to be tranquilized, as well as flying and swimming things. Leaving the area before it activates will abandon the trap!"; $itemEncounter = "cage trap"]]>><<endif>>
+
+<<if $trap_stasis gt 0>>
+<<button [[Stasis Trap|passage()][$selectedItem = 1; $itemID = "trap_stasis"; $itemName = "Stasis Trap"; $itemType = "trap"; $itemDesc = "An inescapable trap, made to capture small creatures too weak to be tranquilized. Leaving the area before it activates will abandon the trap!"; $itemEncounter = "stasis trap"]]>><<endif>>
+
+/% ======================================================== %/
+/% SPECIAL %/
+
+<<if $special_bloatgut gt 0>>
+<<button [[Bloated Gut|passage()][$selectedItem = 1; $itemID = "special_bloatgut"; $itemName = "Bloated Gut"; $itemType = "status"; $itemDesc = "...there's something inside."; $itemEncounter = "bloated gut"]]>><<endif>>
+
+<<if $special_bloatgut_huge gt 0>>
+<<button [[Huge Bloated Gut|passage()][$selectedItem = 1; $itemID = "special_bloatgut_huge"; $itemName = "Huge Bloated Gut"; $itemType = "status"; $itemDesc = "The owner of this grotesque organ was either massive, or had a relentless appetite..."; $itemEncounter = "huge bloated gut"]]>><<endif>>
+
+<<if $mound_greenhouse gt 0>>
+<<button [[Greenhouse Mound Addon|passage()][$selectedItem = 1; $itemID = "mound_greenhouse"; $itemName = "Greenhouse Mound Addon"; $itemType = "key"; $itemDesc = "Use this kit to install a fully-functional Greenhouse in your mound!"; $specialUseDesc = "Mound Greenhouse"]]>><<endif>>

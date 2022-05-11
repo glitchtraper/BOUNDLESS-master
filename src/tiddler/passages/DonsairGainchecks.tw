@@ -1,0 +1,319 @@
+﻿/% This checks the donsair's current girth against the girth of its base species to determine how fat it is, for readouts & butchery purposes. %/
+
+/% ================================================================= %/
+/% Base Girths by Species %/
+
+/% Bestial Leupai %/
+<<if ($donsairSpecies is "leupai") or ($donsairSpecies is "esque") or ($donsairSpecies is "erinyi") or ($donsairSpecies is "alchemite")>>
+
+	<<if $donsairGirth lt 6000>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 6000) and ($donsairGirth lt 7000)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 7000) and ($donsairGirth lte 9000)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 9000) and ($donsairGirth lt 12000)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 12000) and ($donsairGirth lt 13000)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 13000) and ($donsairGirth lt 15000)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 15000) and ($donsairGirth lt 20000)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 20000) and ($donsairGirth lt 25000)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 25000) and ($donsairGirth lt 50000)>><<set $girthClass = "blubbery">>
+	<<elseif ($donsairGirth gte 50000) and ($donsairGirth lt 150000)>><<set $girthClass = "immobile">>
+	<<elseif $donsairGirth gte 150000>><<set $girthClass = "billetroaesque">><<endif>>
+
+
+/% ================================ %/
+/% Humanoid Leupai & Adephagians %/
+<<elseif ($donsairSpecies is "daedlan") or ($donsairSpecies is "helene") or ($donsairSpecies is "iicarn") or ($donsairSpecies is "somnian") or ($donsairSpecies is "adephagian")>>
+
+	<<if $donsairGirth lt 1000>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 1000) and ($donsairGirth lt 2000)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 2000) and ($donsairGirth lte 3000)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 3000) and ($donsairGirth lt 4000)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 4000) and ($donsairGirth lt 5000)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 5000) and ($donsairGirth lt 6000)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 6000) and ($donsairGirth lt 8000)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 8000) and ($donsairGirth lt 10000)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 10000) and ($donsairGirth lt 50000)>><<set $girthClass = "blubbery">>
+	<<elseif ($donsairGirth gte 50000) and ($donsairGirth lt 100000)>><<set $girthClass = "immobile">>
+	<<elseif $donsairGirth gte 100000>><<set $girthClass = "billetroaesque">><<endif>>
+
+/% ================================ %/
+/% Small Humanoids %/
+<<elseif ($donsairSpecies is "imp") or ($donsairSpecies is "placeholder1")>>
+
+	<<if $donsairGirth lt 20>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 20) and ($donsairGirth lt 50)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 50) and ($donsairGirth lte 100)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 100) and ($donsairGirth lt 120)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 120) and ($donsairGirth lt 150)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 150) and ($donsairGirth lt 200)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 200) and ($donsairGirth lt 250)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 250) and ($donsairGirth lt 400)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 400) and ($donsairGirth lt 750)>><<set $girthClass = "blubbery">>
+	<<elseif $donsairGirth gte 750>><<set $girthClass = "immobile">><<endif>>
+
+
+/% ================================ %/
+/% Standard Humanoids %/
+<<elseif ($donsairSpecies is "post-human") or ($donsairSpecies is "arka") or ($donsairSpecies is "aladri") or ($donsairSpecies is "human") or ($donsairSpecies is "fyynmorph") or ($donsairSpecies is "fyynling horror") or ($donsairSpecies is "milletan") or ($donsairSpecies is "anthroslime") or ($donsairSpecies is "sporeslave")>>
+
+	<<if $donsairGirth lt 900>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 900) and ($donsairGirth lt 1200)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 1200) and ($donsairGirth lte 1500)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 1500) and ($donsairGirth lt 2000)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 2000) and ($donsairGirth lt 2500)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 2500) and ($donsairGirth lt 3000)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 3000) and ($donsairGirth lt 5000)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 5000) and ($donsairGirth lt 8000)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 8000) and ($donsairGirth lt 10000)>><<set $girthClass = "blubbery">>
+	<<elseif ($donsairGirth gte 10000) and ($donsairGirth lt 100000)>><<set $girthClass = "immobile">>
+	<<elseif $donsairGirth gte 100000>><<set $girthClass = "billetroaesque">><<endif>>
+
+/% ================================ %/
+/% Muscular Humanoids %/
+<<elseif $donsairSpecies is "arquesse">>
+
+	<<if $donsairGirth lt 1500>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 1500) and ($donsairGirth lt 2500)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 2500) and ($donsairGirth lte 4000)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 4000) and ($donsairGirth lt 5000)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 5000) and ($donsairGirth lt 5500)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 5500) and ($donsairGirth lt 6500)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 6500) and ($donsairGirth lt 8000)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 8000) and ($donsairGirth lt 10000)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 10000) and ($donsairGirth lt 15000)>><<set $girthClass = "blubbery">>
+	<<elseif ($donsairGirth gte 15000) and ($donsairGirth lt 100000)>><<set $girthClass = "immobile">>
+	<<elseif $donsairGirth gte 100000>><<set $girthClass = "billetroaesque">><<endif>>
+
+/% ================================ %/
+/% Tiny Beasts %/
+<<elseif ($donsairSpecies is "seraphim slug") or ($donsairSpecies is "tiny")>>
+
+	<<if $donsairGirth lt 10>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 10) and ($donsairGirth lt 20)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 20) and ($donsairGirth lte 30)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 30) and ($donsairGirth lt 40)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 40) and ($donsairGirth lt 50)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 50) and ($donsairGirth lt 80)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 80) and ($donsairGirth lt 100)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 100) and ($donsairGirth lt 150)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 150) and ($donsairGirth lt 300)>><<set $girthClass = "blubbery">>
+	<<elseif $donsairGirth gte 300>><<set $girthClass = "immobile">><<endif>>
+
+
+/% ================================ %/
+/% Small Beasts %/
+<<elseif ($donsairSpecies is "hawk") or ($donsairSpecies is "raccoon") or ($donsairSpecies is "opossum") or ($donsairSpecies is "snake") or ($donsairSpecies is "scrub-darter") or ($donsairSpecies is "scorpion") or ($donsairSpecies is "spekko")>>
+
+	<<if $donsairGirth lt 200>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 200) and ($donsairGirth lt 250)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 250) and ($donsairGirth lte 300)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 300) and ($donsairGirth lt 350)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 350) and ($donsairGirth lt 400)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 400) and ($donsairGirth lt 450)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 450) and ($donsairGirth lt 500)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 500) and ($donsairGirth lt 600)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 600) and ($donsairGirth lt 800)>><<set $girthClass = "blubbery">>
+	<<elseif $donsairGirth gte 800>><<set $girthClass = "immobile">><<endif>>
+
+/% ================================ %/
+/% Medismall Beasts %/
+<<elseif ($donsairSpecies is "crow") or ($donsairSpecies is "raven") or ($donsairSpecies is "firefox") or ($donsairSpecies is "beach basker") or ($donsairSpecies is "mirelock") or ($donsairSpecies is "voxi") or ($donsairSpecies is "screemer") or ($donsairSpecies is "drudgemol")>>
+
+	<<if $donsairGirth lt 200>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 200) and ($donsairGirth lt 250)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 250) and ($donsairGirth lte 300)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 300) and ($donsairGirth lt 350)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 350) and ($donsairGirth lt 400)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 400) and ($donsairGirth lt 500)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 500) and ($donsairGirth lt 700)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 700) and ($donsairGirth lt 1000)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 1000) and ($donsairGirth lt 2000)>><<set $girthClass = "blubbery">>
+	<<elseif ($donsairGirth gte 2000) and ($donsairGirth lt 100000)>><<set $girthClass = "immobile">>
+	<<elseif $donsairGirth gte 100000>><<set $girthClass = "billetroaesque">><<endif>>
+
+
+/% ================================ %/
+/% Medium Beasts %/
+<<elseif ($donsairSpecies is "boar") or ($donsairSpecies is "eagle") or ($donsairSpecies is "wolf") or ($donsairSpecies is "coyote") or ($donsairSpecies is "hyena") or ($donsairSpecies is "hellpup") or ($donsairSpecies is "razormouth")>>
+
+	<<if $donsairGirth lt 600>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 600) and ($donsairGirth lt 800)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 800) and ($donsairGirth lte 1200)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 1200) and ($donsairGirth lt 1500)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 1500) and ($donsairGirth lt 2000)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 2000) and ($donsairGirth lt 2500)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 2500) and ($donsairGirth lt 3500)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 3500) and ($donsairGirth lt 5000)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 5000) and ($donsairGirth lt 8000)>><<set $girthClass = "blubbery">>
+	<<elseif ($donsairGirth gte 8000) and ($donsairGirth lt 100000)>><<set $girthClass = "immobile">>
+	<<elseif $donsairGirth gte 100000>><<set $girthClass = "billetroaesque">><<endif>>
+
+
+/% ================================ %/
+/% Medilarge Beasts %/
+<<elseif ($donsairSpecies is "deer") or ($donsairSpecies is "stag") or ($donsairSpecies is "unicorn") or ($donsairSpecies is "leo") or ($donsairSpecies is "serpent") or ($donsairSpecies is "eubaryon")>>
+
+	<<if $donsairGirth lt 1500>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 1500) and ($donsairGirth lt 2000)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 2000) and ($donsairGirth lte 3000)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 3000) and ($donsairGirth lt 4000)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 4000) and ($donsairGirth lt 5000)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 5000) and ($donsairGirth lt 6000)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 6000) and ($donsairGirth lt 7000)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 7000) and ($donsairGirth lt 9000)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 9000) and ($donsairGirth lt 15000)>><<set $girthClass = "blubbery">>
+	<<elseif ($donsairGirth gte 15000) and ($donsairGirth lt 100000)>><<set $girthClass = "immobile">>
+	<<elseif $donsairGirth gte 100000>><<set $girthClass = "billetroaesque">><<endif>>
+
+
+/% ================================ %/
+/% Large Beasts %/
+<<elseif ($donsairSpecies is "crocogator") or ($donsairSpecies is "bear") or ($donsairSpecies is "breaching tusker") or ($donsairSpecies is "rockcharger") or ($donsairSpecies is "chevret") or ($donsairSpecies is "bondhorse") or ($donsairSpecies is "asotirix dragon") or ($donsairSpecies is "streamserpent") or ($donsairSpecies is "reefwyrm") or ($donsairSpecies is "flametongue") or ($donsairSpecies is "cragonn") or ($donsairSpecies is "terrogator") or ($donsairSpecies is "teratops")>>
+
+	<<if $donsairGirth lt 2500>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 2500) and ($donsairGirth lt 3500)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 3500) and ($donsairGirth lte 5000)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 5000) and ($donsairGirth lt 6000)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 6000) and ($donsairGirth lt 7000)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 7000) and ($donsairGirth lt 8000)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 8000) and ($donsairGirth lt 10000)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 10000) and ($donsairGirth lt 12000)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 12000) and ($donsairGirth lt 30000)>><<set $girthClass = "blubbery">>
+	<<elseif ($donsairGirth gte 30000) and ($donsairGirth lt 200000)>><<set $girthClass = "immobile">>
+	<<elseif $donsairGirth gte 200000>><<set $girthClass = "billetroaesque">><<endif>>
+
+
+/% ================================ %/
+/% Huge Beasts %/
+<<elseif $donsairSpecies is "mythosi">>
+
+	<<if $donsairGirth lt 5000>><<set $girthClass = "spindly">>
+	<<elseif ($donsairGirth gte 5000) and ($donsairGirth lt 8000)>><<set $girthClass = "underfed">>
+	<<elseif ($donsairGirth gte 8000) and ($donsairGirth lte 10000)>><<set $girthClass = "sleek">>
+	<<elseif ($donsairGirth gte 10000) and ($donsairGirth lt 20000)>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 20000) and ($donsairGirth lt 30000)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 30000) and ($donsairGirth lt 50000)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 50000) and ($donsairGirth lt 70000)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 70000) and ($donsairGirth lt 90000)>><<set $girthClass = "very fat">>
+	<<elseif ($donsairGirth gte 100000) and ($donsairGirth lt 200000)>><<set $girthClass = "blubbery">>
+	<<elseif ($donsairGirth gte 200000) and ($donsairGirth lt 500000)>><<set $girthClass = "immobile">>
+	<<elseif $donsairGirth gte 500000>><<set $girthClass = "billetroaesque">><<endif>>
+
+
+/% ================================ %/
+/% Immobile-Immune Amorphous %/
+<<elseif ($donsairSpecies is "slime") or ($donsairSpecies is "fyynling") or ($donsairSpecies is "crawler")>>
+
+	<<if $donsairGirth lte 200>><<set $girthClass = "average">>
+	<<elseif ($donsairGirth gte 200) and ($donsairGirth lt 350)>><<set $girthClass = "plump">>
+	<<elseif ($donsairGirth gte 350) and ($donsairGirth lt 500)>><<set $girthClass = "round">>
+	<<elseif ($donsairGirth gte 500) and ($donsairGirth lt 1000)>><<set $girthClass = "fat">>
+	<<elseif ($donsairGirth gte 1000) and ($donsairGirth lt 5000)>><<set $girthClass = "very fat">>
+	<<elseif $donsairGirth gte 5000>><<set $girthClass = "blubbery">><<endif>>
+
+<<endif>>
+
+
+/% ================================================================= %/
+/% Readouts by girth class %/
+
+/% Standard %/
+
+<<if $donsairSpecies neq "slime">>
+
+	<<if $girthClass is "spindly">>
+		<<set $donsairGirthDesc = either("is looking rather bony...","looks hungry!","could stand to eat a bit more...","looks starved!","is very thin...")>>
+	<<elseif $girthClass is "underfed">>
+		<<set $donsairGirthDesc = either("looks a bit thin.","looks rather hungry...","is a bit small...")>>
+	<<elseif $girthClass is "sleek">>
+		<<set $donsairGirthDesc = either("is a bit on the slim side.","looks quite sleek.","is somewhat smaller than average.")>>
+	<<elseif $girthClass is "average">>
+		<<set $donsairGirthDesc = either("is about average size for their species.","isn't anything out of the ordinary.")>>
+	<<elseif $girthClass is "plump">>
+		<<set $donsairGirthDesc = either("is looking plump.","seems to be eating well.","is getting rounder.")>>
+	<<elseif $girthClass is "round">>
+		<<set $donsairGirthDesc = either("is very round!","is quite the pudgy specimen.","is looking a little bit fat.")>>
+	<<elseif $girthClass is "fat">>
+		<<set $donsairGirthDesc = either("is rather fat.","is getting fatter!","is wide and squishy.","is incredibly plump.")>>
+	<<elseif $girthClass is "very fat">>
+		<<set $donsairGirthDesc = either("is VERY fat!","is big, soft, and round.","is fleshing out nicely.","is getting even fatter...","is deliciously fat.")>>
+	<<elseif $girthClass is "blubbery">>
+		<<set $donsairGirthDesc = either("is growing into a ball of blubber.","has fattened up impressively.","is huge and incredibly round!","is blowing up with lots of soft fat!")>>
+	<<elseif $girthClass is "immobile">>
+		<<set $donsairGirthDesc = either("is so fat they can hardly move!","is incredibly fat and squishy.","jiggles when they breathe.","is a huge ball of soft, blubbery flesh.")>>
+	<<elseif $girthClass is "billetroaesque">>
+		<<set $donsairGirthDesc = either("has grown mind-bogglingly fat.","looks like a huge, fleshy blimp.","is virtually spherical!","quivers with every movement.")>><<endif>>
+
+
+/% Slimes & Elementals %/
+
+<<elseif $donsairSpecies is "slime">>
+
+	<<if $girthClass is "spindly">>
+		<<set $donsairGirthDesc = either("doesn't have much substance at all...","looks depleted...")>>
+	<<elseif $girthClass is "underfed">>
+		<<set $donsairGirthDesc = "is looking rather underwhelming...">>
+	<<elseif $girthClass is "sleek">>
+		<<set $donsairGirthDesc = either("is a bit on the small side.","is somewhat smaller than average.")>>
+	<<elseif $girthClass is "average">>
+		<<set $donsairGirthDesc = either("is about average size for their species.","isn't anything out of the ordinary.")>>
+	<<elseif $girthClass is "plump">>
+		<<set $donsairGirthDesc = either("is looking plump.","seems to be eating well.","is getting rounder.")>>
+	<<elseif $girthClass is "round">>
+		<<set $donsairGirthDesc = either("is very round!","is quite the pudgy specimen.","is looking a little bit fat.")>>
+	<<elseif $girthClass is "fat">>
+		<<set $donsairGirthDesc = either("is rather fat.","is getting fatter!","is wide and squishy.","is incredibly plump.")>>
+	<<elseif $girthClass is "very fat">>
+		<<set $donsairGirthDesc = either("is VERY fat!","is big and round.","is fleshing out nicely.","is getting even fatter...","is delightfully fat.")>>
+	<<elseif $girthClass is "blubbery">>
+		<<set $donsairGirthDesc = either("is growing into a ball!","has fattened up impressively.","is huge and incredibly round!")>>
+	<<elseif $girthClass is "immobile">>
+		<<set $donsairGirthDesc = either("is so fat they can hardly move!","is incredibly fat and squishy.","jiggles when they breathe.","is a huge ball of soft, blubbery goo.")>>
+	<<elseif $girthClass is "billetroaesque">>
+		<<set $donsairGirthDesc = either("has grown mind-bogglingly fat.","looks like a blimp.","is virtually spherical!","quivers with every movement.")>><<endif>>
+
+
+<<endif>>
+
+/% ================================================================= %/
+/% Butchery yields by girth class %/
+
+	<<if $girthClass is "spindly">> /% No body fat; muscle penalty. %/
+		<<set $donsMeat = $donsairGirth/20; $donsFat = 0>>
+
+	<<elseif $girthClass is "underfed">> /% No body fat. %/
+		<<set $donsMeat = $donsairGirth/10; $donsFat = 0>>
+
+	<<elseif $girthClass is "sleek">> /% 5% body fat. %/
+		<<set $donsMeat = $donsairGirth/10; $donsFat = $donsMeat * 0.05>>
+
+	<<elseif $girthClass is "average">> /% 10% body fat. %/
+		<<set $donsMeat = $donsairGirth/10; $donsFat = $donsMeat * 0.1>>
+
+	<<elseif $girthClass is "plump">> /% 30% body fat. %/
+		<<set $donsMeat = $donsairGirth/10; $donsFat = $donsMeat/3>>
+
+	<<elseif $girthClass is "round">> /% 50% body fat. %/
+		<<set $donsMeat = $donsairGirth/20; $donsFat = $donsMeat>>
+
+	<<elseif ($girthClass is "fat") or ($girthClass is "very fat") or ($girthClass is "blubbery") or ($girthClass is "immobile") or ($girthClass is "billetroaesque")>>
+		/% Body fat = girth - 10%. %/
+		<<set $donsFat = ($donsairGirth - ($donsairGirth/10))/10; $donsMeat = ($donsairGirth/10)/10>><<endif>>
+
+/% ================================================================= %/
+/% Fattenium warnings %/
+
+<<if $donsairFatteniumDose is 2>><<set $randomizer = random(1,3)>>
+	<<if $randomizer is 1>><<set $donsairGirthDesc += " It squirms in minor discomfort, its body bloated up tight and round from the fattenium...">><<endif>>
+<<elseif $donsairFatteniumDose is 3>><<set $randomizer = random(1,3)>>
+	<<if $randomizer is 1>><<set $donsairGirthDesc += " It looks bloated and uncomfortable!">><<endif>>
+<<elseif $donsairFatteniumDose gte 4>>
+	<<set $donsairGirthDesc += " It's bloated up huge, round, and tight, an expression of pain and anxiety on its face!">><<endif>>
+
+/% ================================================================= %/
+/% Fattenium fatality check %/
+
+<<if $donsairFatteniumDose gte 5>>
+/% Too much fattenium! This donsair will explode, being auto-butchered. %/
+<<set $donsairExplode = 1>>
+<<elseif ($donsairFatteniumDose gt 0) and ($donsairFatteniumDose lt 5)>><<set $donsairFatteniumDose -= random(0,0,0,0,0,0,0,0,0,0,0,0,1)>><<endif>>
+

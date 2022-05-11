@@ -1,0 +1,82 @@
+﻿The <<print $deathGuide>> leads you-- now <cheery>''donning your new body''</cheery>-- down a foggy path that your mind <bleak>c̮͡a̘̲̫̗͇͕̣͜n'͎͉̠̹̻̤̤t̟͢ ̼͎̺͕͎̯̮q͈u̹͉̯i̷̲̭͓t̼͉̱̺́e̬̜͎̱ ̯̖̬͘g̺̞̯r̭̘̰a̢̝̹̼̬̼s͔͙͚̙̫̯̪p̫̝ ͈́tẖ̝̯͕̖̟͈e҉ su͘r͓r͈̪͖̝̜o̰͎̘͝ͅu̗̲n̲̰̗̻͇̕d͚̲̩i͔ń͇g̹͇̱̱͘s͚̘ ͔̙̪ͅo̻̤f̙̻̼</bleak>, the details sliding away from you like melting wax the moment you take stock of them.
+
+After a few minutes' travel, your guide finally presents you with what appears to be a hole in the ground-- leading out into what appears to be shining, open sky and an unfathomable drop through the clouds.
+
+For a moment, it strikes you that //this shouldn't be a good idea//, but you jump in anyway.
+
+<brightalert>Naturally, you forget the entire thing, and a lot of what came before-- ''as one tends to do when waking from a dream without giving it much thought...''</brightalert><<nobr>>
+
+<<set $submissionDesc = "Eat it!"; $creatureStatus = 0; $creatureNoBelly = 0; $creatureBreasts = 0>>
+
+<<set $fatScore = ($girth + $belly + $breast + $thigh)>>
+
+<<set $immobilityCeiling = $strength * 1000>>
+
+/% =============================================== %/
+/% Species stat bonuses %/
+
+<<if $species is "arka">>
+<<set $playerElement = "bestial"; $playerLanguage = either("English","Logos","common")>>
+<<set $strength += 1; $finesse += 1>><<endif>>
+
+
+<<if $species is "post-human">>
+<<set $playerElement = "bestial"; $playerLanguage = either("English","Logos","common")>>
+<<set $strength += 1; $naturalMaxPain += 10; $imagination -= 5>><<endif>>
+
+
+<<if $species is "aladri">>
+<<set $playerElement = "bestial"; $playerLanguage = "Revet">>
+<<set $finesse += 2; $naturalMaxPain -= 10; $imagination += 5; $randomizer = random(1,6)>>
+/% Aladri belly bonus %/
+	<<if $randomizer is 1>><<set $belly += 50>><<endif>><<endif>>
+
+
+<<if $species is "leupai">>
+<<set $playerElement = "mirajin"; $playerLanguage = "empulse">>
+<<set $strength += 3; $finesse += 1; $naturalMaxPain += 50; $imagination += 10; $girth += 500; $belly += 100; $breast += 30; $thigh += 50>><<endif>>
+
+
+/% =============================================== %/
+/% Metabolism bonuses %/
+
+<<if $girthDesc is "plump">><<set $gainerBonus = either(0,0,0,5)>>
+<<elseif $girthDesc is "round">><<set $gainerBonus = either(0,5)>>
+<<elseif $girthDesc is "fat">><<set $gainerBonus = 5>><<endif>>
+
+/% =============================================== %/
+/% Sneaky admin bonuses %/
+
+<<if $favorNefirian gte 50>><<set $gainerBonus += 5; $belly += either(30,40,50)>><<endif>>
+
+/% =============================================== %/
+/% Clothing setup %/
+
+<<display ClothesSetup>>
+
+
+/% =============================================== %/
+
+<<set $showToon = 0>>
+
+
+<<endnobr>>
+
+<framed><center><<nobr>>
+
+<<if $newGame is 1>>
+
+<<button [[enter the boundless dr e  a   m|Explore][$location = 0; $toggleDisplay = 0; $newBody = 1; $health = "Sore"; $pain = 22; $hiddenSidebar = 0; $newGame = 0; $location = $startBiome; $location = $startBiome; $starterPlanet = 1;  $planet = 0; $planetGen = 1]]>>
+
+<<elseif $newGame neq 1>>
+
+<<if $deathCause is 0>><<button [[enter the boundless dr e  a   m|Explore][$location = 0; $toggleDisplay = 0; $newBody = 1; $health = "Sore"; $pain = 22; $hiddenSidebar = 0; $newGame = 0; $location = $startBiome]]>>
+
+
+<<elseif $deathCause neq 0>><<button [[enter the boundless dr e  a   m... again|Explore][$newBody = 1; $health = "Sore"; $pain = 22; $hiddenSidebar = 0; $location = $startBiome]]>><<endif>>
+
+
+<<button [[Start on a New Planet|Explore][$newBody = 1; $health = "Sore"; $pain = 22; $hiddenSidebar = 0; $location = $startBiome; $starterPlanet = 1;  $planet = 0; $planetGen = 1]]>><<endif>>
+
+
+<<endnobr>></center></framed><<if $newPlayerName neq 0>><<set $playerName = $newPlayerName>><<endif>><<if $playerName is 0>><<display NPCNamer>><<set $playerName = $revName>><<endif>>

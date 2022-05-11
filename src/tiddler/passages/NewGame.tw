@@ -1,0 +1,31 @@
+﻿<<nobr>>
+
+<<display RevecroixRandomizer>><<display NPCNamer>><<display ColorWheel>>
+
+<<set $pronounOne = "they"; $pronounOneCont = "they're"; $pronounTwo = "their"; $pronounThree = "themself">>
+
+<<if $lockGuide is 0>><<set $deathGuideName = $revName; $deathGuide = $randomRevecroix; $deathGuideDesc = either("sleek","plump","round","fat","blubbery","busty","blubber-stuffed","blimplike","gelatinous","blimp-bellied","moon-bellied","blimp-breasted","blimp-thighed"); $deathGuideVoice = either("singsong","cheery","chirpy","gruff","warbling","shrill","deep","rich","melodic","honeyed","smooth","silky","bright","suggestive","flirty","sweet","kindly"); $deathGuideColor = $fullChroma; $lockGuide = 1>><<endif>>
+
+/% Set up initial admin favor. %/
+
+/% 3V %/
+<<set $favorNefirian = 0; $favorPhoenix = -100; $favorNameless = -50>>
+
+/% Primes %/
+<<set $favorKaolan = 0; $favorGiovan = 70; $favorRemy = 100>>
+
+/% Ascenti %/
+<<set $favorAnder = 50; $favorLyric = 0; $favorReks = 0>>
+<<set $favorNath = 50; $favorEva = 0; $favorEliot = 0; $favorAndreu = 0>>
+<<set $favorCello = 0; $favorTristan = -50; $favorTroie = -100>>
+
+/% Shards %/
+<<set $favorArches = 0; $favorSilent = -100>>
+
+<<set $starterPlanet = 1>><<display NPCNamer>><<set $planet = $planetName>><<display PlanetGen>><<display BiomeDatabase>>
+<<display NPCNamer>>
+
+<<endnobr>>
+A <<print $deathGuideDesc + " " + $deathGuideColor + " " + $deathGuide>> in a comfortable-looking black velvet robe with golden trim ''and a long white flag marked with a single crying eye'' leads you in from <bleak>a͕͓͓͜ ̷̟̠̼̟p̜͡l͖̦̗̞̹a͚͚͙̞͙̫̕c͓̰̰͝ͅe̯͢ ̳ỳ̘̠ou̶̩̝͔̦̦̞̯ ̫͖͎ͅd̶̹̘̩͉̭͎̣o̩n͍̠̩̠͈͈͓'͍̞́t̨̗̞̹̻̻͇͔ ͕͖̭͕́ͅr̨̗̻e͝m̷̝e̝̜͉̝̩͓͢ͅm̰͍͝be̮̪̞r </bleak>̨with a gentle smile.
+
+"Well, ''here we are''," they say in a <<print $deathGuideVoice>> voice. "It's <cheery>''time for you to choose who you'd like to be!''</cheery>"<hr><<display PlayerGen>>

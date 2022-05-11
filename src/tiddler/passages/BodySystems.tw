@@ -1,0 +1,845 @@
+﻿<<set $autoEat = 0>>
+
+
+/% ========================================================= %/
+/% Caloric efficiency & metabolic caps by species. %/
+
+
+/% Leupai family %/
+<<if ($leupaiFlag is 1) and ($slimeFlag is 0)>>
+
+/% Caloric efficiency: 100% %/
+<<set $calEfficiency = 1>>
+
+<<set $speciesGaincap = 200>>
+
+/% Slime family %/
+<<elseif $slimeFlag is 1>>
+
+/% Caloric efficiency: 95% %/
+<<set $calEfficiency = 0.95>>
+
+<<set $speciesGaincap = 150>>
+
+/% Mythosi, Adephagian, Arquesse, Mutants %/
+<<elseif ($species is "mythosi") or ($species is "adephagian") or ($species is "arquesse") or ($species is "mutant")>>
+
+/% Caloric efficiency: 80% %/
+<<set $calEfficiency = 0.8>>
+
+<<set $speciesGaincap = 100>>
+
+
+/% Everything else (Post-human, Arka, aladri, etc) %/
+<<else>>
+
+/% Caloric efficiency: 70% %/
+<<set $calEfficiency = 0.7>>
+
+<<set $speciesGaincap = 50>>
+
+<<endif>>
+
+/% Metabolism cap setup
+
+$speciesMeta is the species' base gain cap
+$gainerBonus is the individual player's bodily conditioning for gaining extra weight, which can slowly rise if the player manages to push beyond the species gaincap enough %/
+
+<<set $metaCap = $speciesGaincap + $gainerBonus>>
+
+/% ========================================= %/
+/% Metabolism Overrides. %/
+
+<<if $divineMetagain neq 0>><<set $metaCap = $divineMetagain>><<endif>>
+
+<<if $divineMetaburn neq 0>><<set $metaBurn = $divineMetaburn>><<endif>>
+
+/% ========================================= %/
+
+/% 1 in 8 chance of -1 gain reduction per round once gain exceeds metaCap %/
+<<if $metaGain gt $metaCap>><<set $metaGain -= either(0,0,0,0,0,0,0,10); $randomizer = random(1,48)>>
+
+/% 1 in 48 chance of +1 gainer bonus if gain exceeds metaCap %/
+<<if $randomizer is 1>><<set $gainerBonus += 5>><<endif>><<endif>>
+
+/% ====================================================== %/
+/% Resting & Activity %/
+
+/% Resting temporarily disables calorie burn, and has a small chance of making your body turn calories into fat more efficiently. %/
+
+/% ====================================================== %/
+/% Default energy consumption %/
+
+/% bonusEnergy represents non-caloric energy (energy that won't/can't be converted into fat).
+Metabolic checks burn bonus energy first, providing a buffer from weight loss.
+If no bonus energy is available, the loss check goes through and the player loses girth.
+
+Bonus energy has no effect on weight gain usually.
+It might be interesting to make effects that convert bonus energy into calories or vice versa. %/
+
+<<if $resting is 0>>
+
+/% Energy (consumed before calories) %/
+
+<<if $bonusEnergy gte $metaBurn>><<set $bonusEnergy -= $metaBurn>><<endif>>
+
+/% Weight loss %/
+
+<<if ($calories is 0) and ($bonusEnergy is 0)>>
+<<set $calories = 0; $randomizer = either(1,2,3)>>
+
+<<if $randomizer is 1>>
+<<display WeightLoss>><<endif>><<endif>>
+
+/% Weight gain %/
+
+<<set $randomizer = random(1,3)>>
+<<if ($randomizer is 1) and ($calories gte $metaGain)>>
+
+<<display Bodytype>><<endif>>
+
+
+/% ====================================================== %/
+/% Resting energy consumption %/
+
+<<elseif ($resting is 1) and ($caffeinePoisoning neq 1)>>
+
+/% Weight loss and energy consumption are temporarily halted while resting. %/
+
+/% Resting may give you extra energy. %/
+
+<<set $bonusEnergy += either(0,0,10)>>
+
+/% Weight gain %/
+
+<<set $randomizer = random(1,2)>>
+<<if ($randomizer is 1) and ($calories gte $metaGain)>>
+
+<<display Bodytype>><<endif>>
+
+
+/% Resting can soften up your thighs. %/
+
+<<set $thighFirmness -= either(0,0,10)>>
+
+
+/% Resting has a chance of nudging your BodySystems downwards. %/
+
+<<set $randomizer = random(1,24)>>
+<<if $randomizer is 1>><<set $metaBurn += 10>>
+
+/% If you burn more calories than you absorb, metaburn is reduced. %/
+
+<<if $metaBurn gte $metaGain>><<set $metaBurn -= either(0,0,0,0,0,10)>><<endif>><<endif>>
+
+
+
+/% ====================================================== %/
+/% Active energy consumption (hunting) %/
+
+<<elseif ($resting is -1) or ($caffeinePoisoning is 1)>>
+
+/% Energy (consumed before calories) %/
+
+<<if $bonusEnergy gte $metaBurn>><<set $bonusEnergy -= $metaBurn>><<endif>>
+
+/% Weight loss %/
+
+<<if ($calories lte $metaBurn) and ($bonusEnergy lt $metaBurn)>>
+<<set $calories = 0; $randomizer = either(1,2,3)>>
+
+<<if $randomizer is 1>>
+<<display WeightLoss>><<endif>><<endif>>
+
+/% Weight gain %/
+
+<<set $randomizer = random(1,3)>>
+<<if ($randomizer is 1) and ($calories gte $metaGain)>>
+
+<<display Bodytype>><<endif>>
+
+/% Being active has a chance of nudging your BodySystems upwards. %/
+
+<<set $randomizer = random(1,12)>>
+<<if $randomizer is 1>><<set $metaBurn += 10>>
+
+/% Activity can firm up your thighs or increase your strength. %/
+
+<<set $thighFirmness += either(0,10)>>
+
+<<set $strength += either(0,0,0,0,0,0,0,1)>>
+
+/% Incidental calorie burn. TEST %/
+
+<<if $geneGainer is 0>>
+<<set $randomizer = random(1,2)>>
+<<if ($randomizer is 1) and ($calories gte $metaBurn)>>
+<<set $calories -= $metaBurn>><<endif>><<endif>>
+
+/% If you absorb more calories than you burn, metagain is reduced. %/
+
+<<if $metaGain gte $metaBurn>><<set $metaGain -= either(0,0,0,0,0,10)>><<endif>><<endif>>
+
+<<endif>>
+
+<<set $resting = 0>>
+
+/% ====================================================== %/
+
+/% Liquid absorption %/
+
+<<if $bellyLiquid gte 10>>
+
+<<set $bellyLiquid -= either(0,0,10)>><<endif>>
+
+/% ====================================================== %/
+
+/% Stretching %/
+
+/% Temporary stretching and tightness gradually decay over time. (to 0) %/
+
+<<if $stretchMod gt 0>>
+
+<<set $randomizer = random(1,3)>>
+<<if $randomizer is 1>><<set $stretchMod -= 1>><<endif>><<endif>>
+
+<<if $stretchMod lt 0>>
+
+<<set $randomizer = random(1,3)>>
+<<if $randomizer is 1>><<set $stretchMod += 1>><<endif>><<endif>>
+
+
+/% If you push temporary stretching too far, it gradually becomes permanent. %/
+
+<<if $stretchMod gte ($maxBelly * 0.5)>>
+
+<<set $randomizer = random(1,3)>>
+<<if $randomizer is 1>><<set $maxBelly += 1>><<endif>><<endif>>
+
+/% ====================================================== %/
+/% Bloat %/
+
+/% ===================== %/
+/% Decimal cleanup %/
+
+<<set $bellyBloat = Math.round($bellyBloat); $maxBelly = Math.round($maxBelly)>>
+<<set $breastBloat = Math.round($breastBloat); $maxBreast = Math.round($maxBreast)>>
+
+/% ===================== %/
+
+/% Belly bloating %/
+
+/% Gradual deflation. %/
+
+<<if $bellyBloat neq 0>><<set $randomizer = either(0,0,1)>>
+<<if $randomizer is 1>><<set $bellyBloat -= ($maxBelly * (0.02))>><<endif>>
+
+/% Inflation stages. %/
+
+<<if $bellyBloat lte ($maxBelly * 0.1)>><<set $bellyStatus = "empty">>
+
+<<elseif ($bellyBloat gt ($maxBelly * 0.1)) and ($bellyBloat lt ($maxBelly * 0.4))>><<set $bellyStatus = "round">>
+
+<<elseif ($bellyBloat gte ($maxBelly * 0.4)) and ($bellyBloat lt ($maxBelly * 0.7))>><<set $bellyStatus = "full">>
+
+<<elseif ($bellyBloat gte ($maxBelly * 0.7)) and ($bellyBloat lt $maxBelly)>><<set $bellyStatus = "bloated">>
+
+<<elseif $bellyBloat gte $maxBelly>><<set $bellyStatus = "bursting">><<if ($leupaiFlag neq 1) or ($slimeFlag neq 1)>><<set $pain += random(0,3); $lethalKO = either(0,1); $deathCause = "burst belly">><<endif>><<endif>><<endif>>
+
+
+/% ===================== %/
+/% Gorging %/
+
+<<if $bellyStatus is "bursting">><<display Gorging>><<endif>>
+
+
+/% ===================== %/
+/% Gradual belly expansion %/
+
+<<if $bellyStatus is "bursting">>
+
+<<set $randomizer = random(1,12)>>
+<<if $randomizer is 1>><<set $maxBelly += 1; $belly += either(1,2)>><<endif>><<endif>>
+
+/% ===================== %/
+/% Venom Production %/
+
+<<if $venomGland is 1>>
+	<<if ($hunger is "Engorged") or ($hunger is "Overengorged")>>
+		<<set $storedVenom += $venomProd; $bellyBloat += $venomProd>>
+
+/% Extra production for venom-bloat %/
+				<<if $geneVenomBloated is 1>><<set $storedVenom += $venomProd; $bellyBloat += $venomProd>><<endif>>
+		<<endif>>
+<<endif>>
+
+
+/% ===================== %/
+/% Breast bloat %/
+
+
+/% ===================== %/
+/% Gradual deflation. %/
+
+<<if $breastBloat gt 0>><<set $randomizer = either(0,1)>>
+<<if $randomizer is 1>><<set $breastBloat -= $maxBreast /10>><<endif>>
+
+
+/% ===================== %/
+/% Inflation stages. %/
+
+<<if $breastBloat lt ($maxBreast / 2)>><<set $breastStatus = "empty"; $bloatedBreasts = 0; $blimpBreasts = 0>>
+
+<<elseif ($breastBloat gte ($maxBreast / 2)) and ($breastBloat lt ($maxBreast * 0.8))>><<set $breastStatus = "full"; $bloatedBreasts = 0; $blimpBreasts = 0>>
+
+<<elseif ($breastBloat gte ($maxBreast * 0.8)) and ($breastBloat lt $maxBreast)>><<set $breastStatus = "engorged">>
+
+<<elseif $breastBloat gte $maxBreast>><<set $breastStatus = "creaking">><<if ($leupaiFlag neq 1) or ($slimeFlag neq 1)>><<set $pain += random(0,1)>><<endif>><<endif>><<endif>>
+
+
+/% ===================== %/
+/% Gradual breast expansion %/
+
+<<if $breastStatus is "engorged">>
+
+<<set $randomizer = random(1,12)>>
+<<if $randomizer is 1>><<set $maxBreast += 1; $breast += either(1,2)>><<endif>>
+
+<<elseif $breastStatus is "creaking">>
+
+<<set $randomizer = random(1,8)>>
+<<if $randomizer is 1>><<set $maxBreast += 1; $breast += either(1,2)>><<endif>><<endif>>
+
+
+/% ===================== %/
+/% Decimal cleanup %/
+
+<<set $bellyBloat = Math.round($bellyBloat); $maxBelly = Math.round($maxBelly)>>
+<<set $breastBloat = Math.round($breastBloat); $maxBreast = Math.round($maxBreast)>>
+
+/% ====================================================== %/
+/% Breast functions %/
+
+/% ===================== %/
+/% Massive breast inflation %/
+
+<<if ($breastBloat gte $breast) and ($blimpBreasts is 0) and ($breast gte 300)>><<set $blimpBreasts = 1; $alerted = 1>><<endif>>
+
+/% ===================== %/
+/% Breast fattening %/
+
+/% Alerts the player when their breasts weigh 10gi (5gi each). %/
+
+<<if ($breast gte 100) and ($breastGrowth is 0)>><<set $breastGrowth = 1; $alerted = 1>>
+<<elseif ($breast lt 100) and ($breastGrowth is 2)>><<set $breastGrowth = 0>><<endif>>
+
+/% ===================== %/
+/% Alerts the player when their breasts weigh 30gi (15gi each). %/
+
+<<if ($breast gte 300) and ($breastGrowth is 3)>><<set $breastGrowth = 4; $alerted = 1>>
+<<elseif ($breast lt ($girth * 0.5)) and ($breastGrowth is 4)>><<set $breastGrowth = 3>><<endif>>
+
+/% ===================== %/
+/% Alerts the player when their breasts weigh half as much as they do. (Only if girth > 150) %/
+
+<<if $girth gte 1500>><<if ($breast gte ($girth * 0.5)) and ($breastGrowth is 4)>><<set $breastGrowth = 5; $alerted = 1>>
+<<elseif ($breast lt ($girth * 0.5)) and ($breastGrowth is 5)>><<set $breastGrowth = 4>><<endif>><<endif>>
+
+/% ===================== %/
+/% lactation %/
+
+<<if $geneDry is 0>>
+	<<if $lactation is 1>>
+		<<if ($hunger neq "Peckish") and ($hunger neq "Growling") and ($hunger neq "Starving!")>>
+			<<set $storedMilk += $milkRate>>
+			<<if $geneProductive is 1>><<set $storedMilk += $milkRate>><<endif>>
+		<<endif>>
+	<<endif>>
+<<endif>>
+
+/% ===================== %/
+/% Caps/floors/corrections %/
+
+<<if $milkRate lte 0>><<set $milkRate = 1>><<endif>>
+<<if $milkFat lte 0>><<set $milkFat = 3>><<endif>>
+<<if $storedMilk lt 0>><<set $storedMilk = 0>><<endif>>
+<<if $storedMilk gt ($breast * 0.7)>><<set $storedMilk = ($breast * 0.7)>><<endif>>
+<<if $breast lte 10>><<set $breast = 10>><<endif>>
+<<if $breastBloat lt 0>><<set $breastBloat = 0>><<endif>>
+<<if $breastBloat gt ($maxBreast * 1.2)>><<set $breastBloat = ($maxBreast * 1.2)>><<endif>>
+<<if $maxBreast lt ($breast / 2)>><<set $maxBreast = ($breast / 2)>><<endif>>
+
+
+/% ====================================================== %/
+/% Thigh Functions %/
+
+<<if $thighFirmness lte 200>><<set $thighStatus = "gelatinous">><<endif>>
+<<if ($thighFirmness gt 200) and ($thighFirmness lt 400)>><<set $thighStatus = "blubbery">><<endif>>
+<<if ($thighFirmness gte 400) and ($thighFirmness lt 600)>><<set $thighStatus = "pillowy">><<endif>>
+<<if ($thighFirmness gte 600) and ($thighFirmness lt 800)>><<set $thighStatus = "plush">><<endif>>
+<<if ($thighFirmness gte 800) and ($thighFirmness lt 1000)>><<set $thighStatus = "soft">><<endif>>
+<<if ($thighFirmness gte 1000) and ($thighFirmness lt 1400)>><<set $thighStatus = "firm">><<endif>>
+<<if ($thighFirmness gte 1400) and ($thighFirmness lt 1800)>><<set $thighStatus = "tight">><<endif>>
+<<if $thighFirmness gte 1800>><<set $thighStatus = "solid">><<endif>>
+
+/% ===================== %/
+/% Alerts %/
+
+<<if $thighFirmness gte 600>><<set $thighFatness = 0>><<endif>>
+<<if ($thighFirmness lt 600) and ($thighFirmness gte 400) and ($thighFatness is 0)>><<set $thighFatness = 1; $alerted = 1>><<endif>>
+<<if ($thighFirmness lt 400) and ($thighFirmness gte 200) and ($thighFatness is 2)>><<set $thighFatness = 3; $alerted = 1>><<endif>>
+<<if ($thighFirmness lte 200) and ($thighFatness is 4)>><<set $thighFatness = 5; $alerted = 1>><<endif>>
+
+/% ===================== %/
+/% Caps/floors/corrections %/
+
+<<if $thigh lte 60>><<set $thigh = 70>><<endif>>
+<<if $thighFirmness lt 0>><<set $thighFirmness = 0>><<endif>>
+<<if $thighFirmness gt 2000>><<set $thighFirmness = 2000>><<endif>>
+
+
+/% ====================================================== %/
+/% Hunger %/
+
+	<<if $starvation is 1>><<set $hunger = "Starving!">>
+
+	<<elseif $calories gte (($metaGain + $metaBurn) * 50)>>
+<<set $hunger = "Overengorged"; $esurience += either(0,0,0,0,0,0,0,0.05); $calorieDumping = 1>><<if $pain gt 0>><<set $pain -= 3>><<endif>>
+
+	<<elseif ($calories gte (($metaGain + $metaBurn) * 20)) and ($calories lt (($metaGain + $metaBurn) * 50))>>
+<<set $hunger = "Engorged"; $esurience += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05)>><<if $pain gt 0>><<set $pain -= 2>><<endif>>
+
+	<<elseif ($calories gte (($metaGain + $metaBurn) * 3)) and ($calories lt (($metaGain + $metaBurn) * 20))>>
+<<set $hunger = "Sated"; $esurience -= either(0,0,0,0,0,0.01)>><<if $pain gt 0>><<set $pain -= 1>><<endif>>
+
+	<<elseif ($calories gte (($metaGain + $metaBurn) * 2)) and ($calories lt (($metaGain + $metaBurn) * 3))>>
+<<set $hunger = "Satisfied"; $esurience -= either(0,0,0,0,0,0,0,0.01)>>
+
+	<<elseif ($calories gte ($metaGain + $metaBurn)) and ($calories lt (($metaGain + $metaBurn) * 2))>>
+<<set $hunger = "Peckish">>
+
+	<<elseif $calories lte ($metaGain + $metaBurn)>>
+<<set $hunger = "Growling"; $esurience += either(0,0,0,0,0,0.1)>><<endif>>
+
+<<if $hunger is "Engorged">><<set $metaGain += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5)>>
+<<elseif $hunger is "Overengorged">><<set $metaGain += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5)>><<endif>>
+
+/% bonusEnergy can provide a last-ditch defense against starvation. %/
+
+<<if ($girth lte $starveFloor) and ($bonusEnergy lt $metaBurn)>>
+	<<set $hunger = "Starving!"; $calories = 0>>
+		<<display WeightLoss>><<endif>>
+
+<<if $hunger is "Growling">>
+<<set $metaBurn -= either(0,0,0,0,0,0,0,0,0,0,5)>>
+
+<<elseif $hunger is "Starving!">>
+<<set $metaBurn -= either(0,0,0,0,0,0,0,0,0,5); $metaGain += either(0,0,0,0,0,0,0,0,0,0,0,0,5); $esurience += 0.01; $pain += random(0,4); $lethalKO = either(0,1); $deathCause = "starvation">><<endif>>
+
+/% ====================================================== %/
+
+/% Fat score %/
+
+<<set $fatScore = ($girth + $belly + $breast + $thigh)>>
+
+/% ====================================================== %/
+
+/% Fatness checks %/
+
+/% Post-immobility (500%) %/
+<<if $fatScore gte $immobilityCeiling * 5>><<set $fatness = "impossibly fat">><<endif>>
+
+/% Post-immobility (300%) %/
+<<if $fatScore gte $immobilityCeiling * 3>><<set $fatness = "horrifically fat">><<endif>>
+
+/% Post-immobility (200%) %/
+<<if $fatScore gte $immobilityCeiling * 2>><<set $fatness = "unbelievably fat">><<endif>>
+
+/% Post-immobility (150%) %/
+<<if ($fatScore gte $immobilityCeiling * 1.5) and ($fatScore lt $immobilityCeiling * 1)>><<set $fatness = "ludicrously fat">><<endif>>
+
+/% Post-immobility (100%) %/
+<<if ($fatScore gte $immobilityCeiling) and ($fatScore lt $immobilityCeiling * 1.5)>><<set $fatness = "incredibly fat">><<endif>>
+
+/% Sub-immobility (90%) %/
+<<if ($fatScore gte $immobilityCeiling * 0.9) and ($gain90 is 0)>><<set $gain90 = 1; $fatness = "even fatter">>
+<<elseif $fatScore lt $immobilityCeiling * 0.9>><<set $gain90 = 0>><<endif>>
+
+/% 75% to immobility %/
+<<if $fatScore gte $immobilityCeiling * 0.75 and ($gain75 is 0)>><<set $gain75 = 1; $fatness = "fatter">>
+<<elseif $fatScore lt $immobilityCeiling * 0.75>><<set $gain75 = 0>><<endif>>
+
+/% 50% to immobility %/
+<<if ($fatScore gte $immobilityCeiling * 0.5) and ($gain50 is 0)>><<set $gain50 = 1; $fatness = "fat">>
+<<elseif $fatScore lt $immobilityCeiling * 0.5>><<set $gain50 = 0>><<endif>>
+
+/% 35% to immobility %/
+<<if ($fatScore gte $immobilityCeiling * 0.35) and ($gain35 is 0)>><<set $gain35 = 1; $fatness = "round">>
+<<elseif $fatScore lt $immobilityCeiling * 0.35>><<set $gain35 = 0>><<endif>>
+
+/% 20% to immobility %/
+<<if ($fatScore gte $immobilityCeiling * 0.2) and ($gain20 is 0)>><<set $gain20 = 1; $fatness = "plump">>
+<<elseif $fatScore lt $immobilityCeiling * 0.2>><<set $gain20 = 0; $fatness = "slender">><<endif>>
+
+/% ====================================================== %/
+
+/% Muscle checks %/
+
+
+<<if $strength gte 120>><<set $muscle = "muscle-blimped">><<endif>>
+
+<<if ($strength gte 80) and ($strength lt 120)>><<set $muscle = "muscle-bloated">><<endif>>
+
+<<if ($strength gte 60) and ($strength lt 80)>><<set $muscle = "bulging">><<endif>>
+
+<<if ($strength gte 40) and ($strength lt 60)>><<set $muscle = "ripped">><<endif>>
+
+<<if ($strength gte 20) and ($strength lt 40)>><<set $muscle = "muscular">><<endif>>
+
+<<if ($strength gte 15) and ($strength lt 20)>><<set $muscle = "average">><<endif>>
+
+<<if $strength lt 15>><<set $muscle = "untoned">><<endif>>
+
+
+/% ====================================================== %/
+/% Body Build %/
+
+/% Compare fatness to muscle tone to figure out base body build. %/
+
+<<if $muscle is "untoned">>
+	<<if $fatness is "slender">><<set $bodyDesc = "wiry">>
+	<<elseif $fatness is "plump">><<set $bodyDesc = "plump">>
+	<<elseif $fatness is "round">><<set $bodyDesc = "round">>
+	<<elseif $fatness is "fat">><<set $bodyDesc = "fat">>
+	<<elseif $fatness is "fatter">><<set $bodyDesc = "pillowy">>
+	<<elseif $fatness is "even fatter">><<set $bodyDesc = "blubbery">>
+	<<elseif $fatness is "incredibly fat">><<set $bodyDesc = "rippling">>
+	<<elseif $fatness is "ludicrously fat">><<set $bodyDesc = "gelatinous">>
+	<<elseif $fatness is "unbelievably fat">><<set $bodyDesc = "blubber-stuffed">>
+	<<elseif $fatness is "horrifically fat">><<set $bodyDesc = "surging">>
+	<<elseif $fatness is "impossibly fat">><<set $bodyDesc = "moonlike">>
+	<<endif>>
+<<endif>>
+
+<<if $muscle is "average">>
+	<<if $fatness is "slender">><<set $bodyDesc = "solid">>
+	<<elseif $fatness is "plump">><<set $bodyDesc = "plump">>
+	<<elseif $fatness is "round">><<set $bodyDesc = "round">>
+	<<elseif $fatness is "fat">><<set $bodyDesc = "fat">>
+	<<elseif $fatness is "fatter">><<set $bodyDesc = "pillowy">>
+	<<elseif $fatness is "even fatter">><<set $bodyDesc = "blubbery">>
+	<<elseif $fatness is "incredibly fat">><<set $bodyDesc = "rippling">>
+	<<elseif $fatness is "ludicrously fat">><<set $bodyDesc = "gelatinous">>
+	<<elseif $fatness is "unbelievably fat">><<set $bodyDesc = "blubber-stuffed">>
+	<<elseif $fatness is "horrifically fat">><<set $bodyDesc = "surging">>
+	<<elseif $fatness is "impossibly fat">><<set $bodyDesc = "moonlike">>
+	<<endif>>
+<<endif>>
+
+<<if $muscle is "muscular">>
+	<<if $fatness is "slender">><<set $bodyDesc = "muscular">>
+	<<elseif $fatness is "plump">><<set $bodyDesc = "solid">>
+	<<elseif $fatness is "round">><<set $bodyDesc = "thick">>
+	<<elseif $fatness is "fat">><<set $bodyDesc = "burly">>
+	<<elseif $fatness is "fatter">><<set $bodyDesc = "bulging">>
+	<<elseif $fatness is "even fatter">><<set $bodyDesc = "pillowy">>
+	<<elseif $fatness is "incredibly fat">><<set $bodyDesc = "blubbery">>
+	<<elseif $fatness is "ludicrously fat">><<set $bodyDesc = "rippling">>
+	<<elseif $fatness is "unbelievably fat">><<set $bodyDesc = "gelatinous">>
+	<<elseif $fatness is "horrifically fat">><<set $bodyDesc = "blubber-stuffed">>
+	<<elseif $fatness is "impossibly fat">><<set $bodyDesc = "moonlike">>
+	<<endif>>
+<<endif>>
+
+<<if $muscle is "ripped">>
+	<<if $fatness is "slender">><<set $bodyDesc = "ripped">>
+	<<elseif $fatness is "plump">><<set $bodyDesc = "muscular">>
+	<<elseif $fatness is "round">><<set $bodyDesc = "solid">>
+	<<elseif $fatness is "fat">><<set $bodyDesc = "thick">>
+	<<elseif $fatness is "fatter">><<set $bodyDesc = "burly">>
+	<<elseif $fatness is "even fatter">><<set $bodyDesc = "bulging">>
+	<<elseif $fatness is "incredibly fat">><<set $bodyDesc = "blubbery">>
+	<<elseif $fatness is "ludicrously fat">><<set $bodyDesc = "rippling">>
+	<<elseif $fatness is "unbelievably fat">><<set $bodyDesc = "gelatinous">>
+	<<elseif $fatness is "horrifically fat">><<set $bodyDesc = "blubber-stuffed">>
+	<<elseif $fatness is "impossibly fat">><<set $bodyDesc = "moonlike">>
+	<<endif>>
+<<endif>>
+
+<<if $muscle is "bulging">>
+	<<if $fatness is "slender">><<set $bodyDesc = "bulging">>
+	<<elseif $fatness is "plump">><<set $bodyDesc = "ripped">>
+	<<elseif $fatness is "round">><<set $bodyDesc = "muscular">>
+	<<elseif $fatness is "fat">><<set $bodyDesc = "solid">>
+	<<elseif $fatness is "fatter">><<set $bodyDesc = "thick">>
+	<<elseif $fatness is "even fatter">><<set $bodyDesc = "burly">>
+	<<elseif $fatness is "incredibly fat">><<set $bodyDesc = "bulging">>
+	<<elseif $fatness is "ludicrously fat">><<set $bodyDesc = "rippling">>
+	<<elseif $fatness is "unbelievably fat">><<set $bodyDesc = "gelatinous">>
+	<<elseif $fatness is "horrifically fat">><<set $bodyDesc = "blubber-stuffed">>
+	<<elseif $fatness is "impossibly fat">><<set $bodyDesc = "moonlike">>
+	<<endif>>
+<<endif>>
+
+<<if $muscle is "muscle-bloated">>
+	<<if $fatness is "slender">><<set $bodyDesc = "muscle-bloated">>
+	<<elseif $fatness is "plump">><<set $bodyDesc = "hulking">>
+	<<elseif $fatness is "round">><<set $bodyDesc = "solid">>
+	<<elseif $fatness is "fat">><<set $bodyDesc = "bulging">>
+	<<elseif $fatness is "fatter">><<set $bodyDesc = "thick">>
+	<<elseif $fatness is "even fatter">><<set $bodyDesc = "burly">>
+	<<elseif $fatness is "incredibly fat">><<set $bodyDesc = "bulging">>
+	<<elseif $fatness is "ludicrously fat">><<set $bodyDesc = "rippling">>
+	<<elseif $fatness is "unbelievably fat">><<set $bodyDesc = "gelatinous">>
+	<<elseif $fatness is "horrifically fat">><<set $bodyDesc = "blubber-stuffed">>
+	<<elseif $fatness is "impossibly fat">><<set $bodyDesc = "moonlike">>
+	<<endif>>
+<<endif>>
+
+<<if $muscle is "muscle-bloated">>
+	<<if $fatness is "slender">><<set $bodyDesc = "muscle-blimped">>
+	<<elseif $fatness is "plump">><<set $bodyDesc = "muscle-bloated">>
+	<<elseif $fatness is "round">><<set $bodyDesc = "hulking">>
+	<<elseif $fatness is "fat">><<set $bodyDesc = "solid">>
+	<<elseif $fatness is "fatter">><<set $bodyDesc = "burly">>
+	<<elseif $fatness is "even fatter">><<set $bodyDesc = "thick">>
+	<<elseif $fatness is "incredibly fat">><<set $bodyDesc = "bulging">>
+	<<elseif $fatness is "ludicrously fat">><<set $bodyDesc = "rippling">>
+	<<elseif $fatness is "unbelievably fat">><<set $bodyDesc = "gelatinous">>
+	<<elseif $fatness is "horrifically fat">><<set $bodyDesc = "blubber-stuffed">>
+	<<elseif $fatness is "impossibly fat">><<set $bodyDesc = "moonlike">>
+	<<endif>>
+<<endif>>
+
+/% Compare body part girth to body girth to figure out part fatness. %/
+
+/% Breast %/
+
+	<<if $breast lt ($girth * 0.1)>><<set $breastDesc = "small">>
+	<<elseif ($breast gte ($girth * 0.1)) and ($breast lt ($girth * 0.20))>><<set $breastDesc = "plump">>
+	<<elseif ($breast gte ($girth * 0.20)) and ($breast lt ($girth * 0.25))>><<set $breastDesc = "round">>
+	<<elseif ($breast gte ($girth * 0.25)) and ($breast lt ($girth * 0.3))>><<set $breastDesc = "big">>
+	<<elseif ($breast gte ($girth * 0.3)) and ($breast lt ($girth * 0.4))>><<set $breastDesc = "fat">>
+	<<elseif ($breast gte ($girth * 0.4)) and ($breast lt ($girth * 0.5))>><<set $breastDesc = "pillowy">>
+	<<elseif ($breast gte ($girth * 0.5)) and ($breast lt ($girth * 0.8))>><<set $breastDesc = "overstuffed">>
+	<<elseif ($breast gte ($girth * 0.8)) and ($breast lt ($girth))>><<set $breastDesc = "huge">>
+	<<elseif ($breast gte ($girth)) and ($breast lt ($girth * 1.5))>><<set $breastDesc = "gargantuan">>
+	<<elseif ($breast gte ($girth * 1.5)) and ($breast lt ($girth * 2))>><<set $breastDesc = "blubbery">>
+	<<elseif ($breast gte ($girth * 2)) and ($breast lt ($girth * 3))>><<set $breastDesc = "gelatinous">>
+	<<elseif ($breast gte ($girth * 3)) and ($breast lt ($girth * 4))>><<set $breastDesc = "engulfing">>
+	<<elseif ($breast gte ($girth * 4)) and ($breast lt ($girth * 5))>><<set $breastDesc = "blimplike">>
+	<<elseif ($breast gte ($girth * 5)) and ($breast lt ($girth * 7))>><<set $breastDesc = "mountainous">>
+	<<elseif ($breast gte ($girth * 7)) and ($breast lt ($girth * 9))>><<set $breastDesc = "oceanic">>
+	<<elseif ($breast gte ($girth * 9)) and ($breast lt ($girth * 10))>><<set $breastDesc = "moonlike">>
+	<<elseif $breast gte $girth * 10>><<set $breastDesc = "planetary"; $chestType = "breasts">><<endif>>
+
+	<<if $breast lte 30>><<set $chestType = "chest">><<else>><<set $chestType = "breasts">><<endif>>
+
+	/% Bloat overrides %/
+
+		<<if ($breastBloat gte $maxBreast * 0.6) and ($breastBloat lt $maxBreast * 0.8)>><<set $breastDesc = "bulging">>
+		<<elseif ($breastBloat gte $maxBreast * 0.8) and ($breastBloat lt $maxBreast)>><<set $breastDesc = "bloated">>
+		<<elseif ($breastBloat gte $maxBreast) and ($breastBloat lt $maxBreast * 1.5)>><<set $breastDesc = "overinflated">>
+		<<elseif ($breastBloat gte $maxBreast * 1.5) and ($breastBloat lt $maxBreast * 3)>><<set $breastDesc = "balloon">>
+		<<elseif $breastBloat gte $maxBreast * 3>><<set $breastDesc = "blimp">><<endif>>
+
+/% Belly %/
+
+	<<if $belly lt ($girth * 0.1)>><<set $bellyDesc = "flat">>
+	<<elseif ($belly gte ($girth * 0.1)) and ($belly lt ($girth * 0.2))>><<set $bellyDesc = "plump">>
+	<<elseif ($belly gte ($girth * 0.2)) and ($belly lt ($girth * 0.25))>><<set $bellyDesc = "round">>
+	<<elseif ($belly gte ($girth * 0.25)) and ($belly lt ($girth * 0.3))>><<set $bellyDesc = "big">>
+	<<elseif ($belly gte ($girth * 0.3)) and ($belly lt ($girth * 0.4))>><<set $bellyDesc = "fat">>
+	<<elseif ($belly gte ($girth * 0.4)) and ($belly lt ($girth * 0.5))>><<set $bellyDesc = "pillowy">>
+	<<elseif ($belly gte ($girth * 0.5)) and ($belly lt ($girth * 0.8))>><<set $bellyDesc = "overstuffed">>
+	<<elseif ($belly gte ($girth * 0.8)) and ($belly lt $girth)>><<set $bellyDesc = "huge">>
+	<<elseif ($belly gte $girth) and ($belly lt ($girth * 1.5))>><<set $bellyDesc = "gargantuan">>
+	<<elseif ($belly gte ($girth * 1.5)) and ($belly lt ($girth * 2))>><<set $bellyDesc = "blubbery">>
+	<<elseif ($belly gte ($girth * 2)) and ($belly lt ($girth * 3))>><<set $bellyDesc = "gelatinous">>
+	<<elseif ($belly gte ($girth * 3)) and ($belly lt ($girth * 4))>><<set $bellyDesc = "engulfing">>
+	<<elseif ($belly gte ($girth * 4)) and ($belly lt ($girth * 5))>><<set $bellyDesc = "blimplike">>
+	<<elseif ($belly gte ($girth * 5)) and ($belly lt ($girth * 7))>><<set $bellyDesc = "mountainous">>
+	<<elseif ($belly gte ($girth * 7)) and ($belly lt ($girth * 9))>><<set $bellyDesc = "oceanic">>
+	<<elseif ($belly gte ($girth * 9)) and ($belly lt ($girth * 10))>><<set $bellyDesc = "moonlike">>
+	<<elseif $belly gte $girth * 10>><<set $bellyDesc = "planetary">><<endif>>
+
+	/% Bloat overrides %/
+
+		<<if ($bellyBloat gte $maxBelly * 0.6) and ($bellyBloat lt $maxBelly * 0.8)>><<set $bellyDesc = "stuffed">>
+		<<elseif ($bellyBloat gte $maxBelly * 0.8) and ($bellyBloat lt $maxBelly)>><<set $bellyDesc = "bloated">>
+		<<elseif ($bellyBloat gte $maxBelly) and ($bellyBloat lt $maxBelly * 1.5)>><<set $bellyDesc = "distended">>
+		<<elseif ($bellyBloat gte $maxBelly * 1.5) and ($bellyBloat lt $maxBelly * 2)>><<set $bellyDesc = "balloon">>
+		<<elseif ($bellyBloat gte $maxBelly * 2) and ($bellyBloat lt $maxBelly * 2.5)>><<set $bellyDesc = "blimp">>
+		<<elseif $bellyBloat gte $maxBelly * 2.5>><<set $bellyDesc = "creaking">><<endif>>
+
+/% Thigh %/
+
+	<<if $thigh lt ($girth * 0.1)>><<set $thighDesc = "firm">>
+	<<elseif ($thigh gte ($girth * 0.1)) and ($thigh lt ($girth * 0.2))>><<set $thighDesc = "thick">>
+	<<elseif ($thigh gte ($girth * 0.2)) and ($thigh lt ($girth * 0.25))>><<set $thighDesc = "plump">>
+	<<elseif ($thigh gte ($girth * 0.25)) and ($thigh lt ($girth * 0.3))>><<set $thighDesc = "squishy">>
+	<<elseif ($thigh gte ($girth * 0.3)) and ($thigh lt ($girth * 0.4))>><<set $thighDesc = "flabby">>
+	<<elseif ($thigh gte ($girth * 0.4)) and ($thigh lt ($girth * 0.5))>><<set $thighDesc = "fat">>
+	<<elseif ($thigh gte ($girth * 0.5)) and ($thigh lt ($girth * 0.8))>><<set $thighDesc = "pillowy">>
+	<<elseif ($thigh gte ($girth * 0.8)) and ($thigh lt $girth)>><<set $thighDesc = "blubbery">>
+	<<elseif ($thigh gte $girth) and ($thigh lt ($girth * 1.5))>><<set $thighDesc = "bulging">>
+	<<elseif ($thigh gte ($girth * 1.5)) and ($thigh lt ($girth * 2))>><<set $thighDesc = "rippling">>
+	<<elseif ($thigh gte ($girth * 2)) and ($thigh lt ($girth * 3))>><<set $thighDesc = "gelatinous">>
+	<<elseif ($thigh gte ($girth * 3)) and ($thigh lt ($girth * 4))>><<set $thighDesc = "engulfing">>
+	<<elseif ($thigh gte ($girth * 4)) and ($thigh lt ($girth * 5))>><<set $thighDesc = "blimplike">>
+	<<elseif ($thigh gte ($girth * 5)) and ($thigh lt ($girth * 7))>><<set $thighDesc = "oceanic">>
+	<<elseif ($thigh gte ($girth * 7)) and ($thigh lt ($girth * 9))>><<set $thighDesc = "mountainous">>
+	<<elseif ($thigh gte ($girth * 9)) and ($thigh lt ($girth * 10))>><<set $thighDesc = "moonlike">>
+	<<elseif $thigh gte $girth * 10>><<set $thighDesc = "planetary">><<endif>>
+
+
+/% ====================================================== %/
+/% Belly alerts %/
+
+/% Alerts the player when their belly is hugely bloated %/
+<<if ($bellyBloat gte ($girth * 0.5)) and ($blimpBelly is 0)>><<set $blimpBelly = 1; $alerted = 1>>
+<<elseif ($bellyBloat lt ($girth * 0.5)) and ($blimpBelly is 2)>><<set $blimpBelly = 0>><<endif>>
+
+/% Alerts the player when their belly weighs half as much as they do (Only if girth > 300). %/
+<<if $girth gte 3000>><<if ($belly gte ($girth * 0.5)) and ($bellyGrowth is 0)>><<set $bellyGrowth = 1; $alerted = 1>>
+<<elseif ($belly lt ($girth * 0.5)) and ($bellyGrowth is 2)>><<set $bellyGrowth = 0>><<endif>>
+
+/% Alerts the player when their belly weighs as much as they do. %/
+<<if ($belly gte $girth) and ($bellyGrowth is 2)>><<set $bellyGrowth = 3; $alerted = 1>>
+<<elseif ($belly lt $girth) and ($bellyGrowth is 4)>><<set $bellyGrowth = 2>><<endif>><<endif>>
+
+
+/% ====================================================== %/
+/% Misc alerts %/
+
+/% Alerts the player when their gain rate is very high. %/
+<<if ($metaGain gte 200) and ($rapidGain is 2)>><<set $rapidGain = 3; $alerted = 1>>
+<<elseif ($metaGain lt 200) and ($rapidGain is 4)>><<set $rapidGain = 2>><<endif>>
+
+/% Alerts the player when their gain rate is high. %/
+<<if ($metaGain gte 100) and ($rapidGain is 0)>><<set $rapidGain = 1; $alerted = 1>>
+<<elseif ($metaGain lt 100) and ($rapidGain is 2)>><<set $rapidGain = 0>><<endif>>
+
+
+/% Alerts the player when bonus gain is active. %/
+<<if ($consecutiveGain gt 0) and ($plumpingUp is 0)>><<set $plumpingUp = 1>>
+<<elseif ($consecutiveGain is 0) and ($plumpingUp is 2)>><<set $plumpingUp = 0>><<endif>>
+
+/% Alerts the player when bonus drain is active. %/
+<<if ($consecutiveDrain gt 0) and ($witheringAway is 0)>><<set $witheringAway = 1; $alerted = 1>>
+<<elseif ($consecutiveDrain is 0) and ($witheringAway is 2)>><<set $witheringAway = 0>><<endif>>
+
+/% ====================================================== %/
+
+/% Bonus energy decay %/
+
+<<if $bonusEnergy gt 0>><<set $bonusEnergy -= 1>><<endif>>
+
+
+/% ====================================================== %/
+
+/% Esurience %/
+
+/% If you keep your engorgement high, your esurience will go up, which makes it more likely you'll be unable to resist stuffing your face.
+Staying below engorgement will level it out to a base floor. %/
+
+<<set $randomizer = random(1,64)>>
+<<if $randomizer lte $esurience>><<set $autoEat = 1>><<endif>>
+<<if $esurience gt 64>><<set $esurience = 64>><<endif>>
+<<if $esurience lt 0>><<set $esurience = 0>><<endif>>
+
+
+/% ====================================================== %/
+
+/% Energy (Defunct) %/
+
+/% <<if $calories + $bonusEnergy gte 50>><<set $energyStatus = "Energetic!">>
+<<elseif ($calories + $bonusEnergy gte 30) and ($calories + $bonusEnergy lt 50)>><<set $energyStatus = "Alert">>
+<<elseif ($calories + $bonusEnergy gte 20) and ($calories + $bonusEnergy lt 30)>><<set $energyStatus = "Sluggish">>
+<<elseif ($calories + $bonusEnergy gt 10) and ($calories + $bonusEnergy lt 20)>><<set $energyStatus = "Lethargic...">>
+<<elseif $calories + $bonusEnergy lt 0>><<set $energyStatus = "Drained">><<endif>> %/
+
+/% ====================================================== %/
+
+/% Corrections (caps & floors) %/
+
+
+/% ====================================================== %/
+/% Body caps %/
+
+<<if $belly lte 10>><<set $belly = 10>><<endif>>
+
+<<if $bellyBloat lt 0>><<set $bellyBloat = 0>><<endif>>
+
+<<if $maxBelly lt ($belly / 2)>><<set $maxBelly = ($belly / 2)>><<endif>>
+
+<<if $metaGain lt 10>><<set $metaGain = 10>><<endif>>
+<<if ($metaBurn lt 10) and ($gainPoisoning neq 1)>><<set $metaBurn = 10>><<endif>>
+<<if $bellyLiquid lt 0>><<set $bellyLiquid = 0>><<endif>>
+
+<<if $consecutiveDrain lte 0>><<set $consecutiveDrain = 0>><<endif>>
+<<if $consecutiveGain lte 0>><<set $consecutiveGain = 0>><<endif>>
+
+<<if ($girth lte $starveFloor) and ($calories lte 0)>><<set $starvation = 1>><<elseif ($girth gte $starveFloor) and ($calories gte 10)>><<set $starvation = 0>><<endif>>
+
+<<if $girth lte 740>><<set $girth = 750>><<endif>>
+
+<<if $food lt 0>><<set $food = 0>><<endif>>
+
+<<if $calories lt 0>><<set $calories = 0>><<endif>>
+
+<<set $mouthful = $maxBelly/10>>
+
+<<if $imagination lt 0>><<set $imagination = 0>><<endif>>
+<<if $strength lte 0>><<set $overrideExplore = 1; $blackout = 1; $lethalKO = 1; $deathCause = "atrophy">><<endif>>
+<<if $finesse lt 1>><<set $finesse = 1>><<endif>>
+
+
+/% ========================================================= %/
+/% Clothing checks %/
+
+<<if $topWorn neq "nothing">><<set $topElasticity = $breast + $belly>><<endif>>
+
+<<if $beltWorn neq "nothing">><<set $beltElasticity = $belly>><<endif>>
+
+<<if $pantsWorn neq "nothing">><<set $pantsElasticity = $thigh; $pantsGrammar = $pantsPlural>><<endif>>
+
+
+/% Snug %/
+
+<<if $topElasticity gte $topSnugCap and $topWorn neq "nothing">><<set $topSnug = 1; $topStatus = "tight">><<endif>>
+<<if $beltElasticity gte $beltSnugCap and $beltWorn neq "nothing">><<set $beltSnug = 1; $beltStatus = "tight">><<endif>>
+<<if $pantsElasticity gte $pantsSnugCap and $pantsWorn neq "nothing">><<set $pantsSnug = 1; $pantsStatus = "tight">><<endif>>
+
+
+/%  Tight %/
+
+<<if $topElasticity gte $topTightCap and $topWorn neq "nothing">><<set $topTight = 1; $topStatus = "creaking">><<endif>>
+<<if $beltElasticity gte $beltTightCap and $beltWorn neq "nothing">><<set $beltTight = 1; $beltStatus = "creaking">><<endif>>
+<<if $pantsElasticity gte $pantsTightCap and $pantsWorn neq "nothing">><<set $pantsTight = 1; $pantsStatus = "creaking">><<endif>>
+
+
+/% Burst checks %/
+
+<<if $topCursed is 0>>
+<<if $topElasticity gte $topElasticityMax and $topWorn neq "nothing">><<set $topBurst = 1>><<endif>><<endif>>
+
+<<if $beltCursed is 0>>
+<<if $beltElasticity gte $beltElasticityMax and $beltWorn neq "nothing">><<set $beltBurst = 1>><<endif>><<endif>>
+
+<<if $pantsCursed is 0>>
+<<if $pantsElasticity gte $pantsElasticityMax and $pantsWorn neq "nothing">><<set $pantsBurst = 1>><<endif>><<endif>>
+
+
+/% ========================================================= %/
+/% Passive abilities. %/
+
+<<display SpeciesPassives>>
+
+
+/% Decimal cleanup %/
+
+
+<<set $girth = Math.round($girth); $breast = Math.round($breast); $belly = Math.round($belly); $thigh = Math.round($thigh)>>
+
+<<set $strength = Math.round($strength)>>

@@ -1,0 +1,26 @@
+﻿/% Name %/
+	<<print "<<set $dons" + $donsairID + " = 0>>">>
+
+/% Image, species, subspecies, subtype. %/
+	<<print "<<set $dons" + $donsairID + "img = 0; $dons" + $donsairID + "Spec = 0; $dons" + $donsairID + "Subspec = 0; $dons" + $donsairID + "Subtype = 0>>">>
+
+	<<print "<<set $dons" + $donsairID + "Breath = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Venom = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Milk = 0>>">>
+	<<print "<<set $dons" + $donsairID + "MilkYield = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Slime = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Blubber = 0>>">>
+
+/% Stats. %/
+	<<print "<<set $dons" + $donsairID + "Girth = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Color = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Facet = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Skin = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Ears = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Eyes = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Face = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Head = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Body = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Back = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Legs = 0>>">>
+	<<print "<<set $dons" + $donsairID + "Tail = 0>>">>

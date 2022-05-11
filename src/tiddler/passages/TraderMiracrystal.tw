@@ -1,0 +1,47 @@
+﻿''<hypo>The HYPOTHESIS Conglomerate</hypo>'' is interested in trading for any <redalert>''Live Miracrystal Chunks''</redalert> you have!<<if $rep_HYPOTHESIS gte 50>>
+The representative ''looks excited!''<<endif>>
+
+You have <<print $food>> ~~consiee~~, and <<if $special_miracrystal gt 0>> <<print $special_miracrystal>><<else>>no more <<endif>> <redalert>''Live Miracrystal Chunks''</redalert> to offer.
+
+<center><framed><huge>''Buy: ''</huge>
+<<if $food gte 125>><<button [[Dreamshard x1 for 125~~consiee~~|passage()][$special_dreamshard += 1; $food -= 125; $rep_HYPOTHESIS += 2]]>><<else>><unframe>''Dreamshard x1 for 125~~consiee~~''</unframe><<endif>>\
+\
+<<if $food gte 1200>><<button [[Dreamshard x10 for 1200~~consiee~~|passage()][$special_dreamshard += 10; $food -= 1200; $rep_HYPOTHESIS += 10]]>><<else>><unframe>''Dreamshard x10 for 1200~~consiee~~''</unframe><<endif>>\
+\
+<<if $food gte 2500>><<button [[Dreamshard x25 for 2500~~consiee~~|passage()][$special_dreamshard += 25; $food -= 2500; $rep_HYPOTHESIS += 25]]>><<else>><unframe>''Dreamshard x25 for 2500~~consiee~~''</unframe><<endif>>\
+\
+<<if $food gte 10000>><<button [[Dreamshard x100 for 10000~~consiee~~|passage()][$special_dreamshard += 100; $food -= 10000; $rep_HYPOTHESIS += 50]]>><<else>><unframe>''Dreamshard x100 for 10000~~consiee~~''</unframe><<endif>>\
+
+<<nobr>>
+
+<<if $food gte 1000>><<button [[Tranquilizer Dart ~~x~~5: 1000~~consiee~~|passage()][$dart_tranq += 5; $food -= 1000; $rep_HYPOTHESIS += 10]]>><<else>><unframe>''Tranquilizer Dart ~~x~~5: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 900>><<button [[Fattenium Dart ~~x~~5: 900~~consiee~~|passage()][$dart_fattenium += 5; $food -= 900; $rep_HYPOTHESIS += 10]]>><<else>><unframe>''Fattenium Dart ~~x~~5: 900~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 2500>><<button [[Jar of Somnus ~~x~~1: 2500~~consiee~~|passage()][$collectionjar_somnus_weak += 1; $food -= 2500; $rep_HYPOTHESIS += 25]]>><<else>><unframe>''Jar of Somnus ~~x~~1: 2500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 3000>><<button [[Dartgun ~~x~~1: 3000~~consiee~~|passage()][$gun_dart += 1; $food -= 3000; $rep_HYPOTHESIS += 25]]>><<else>><unframe>''Dartgun ~~x~~1: 3000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 3500>><<button [[Jar of Miratoxin ~~x~~1: 3500~~consiee~~|passage()][$collectionjar_miratoxin += 1; $food -= 3500; $rep_HYPOTHESIS += 25]]>><<else>><unframe>''Jar of Miratoxin ~~x~~1: 3500~~consiee~~''</unframe><<endif>>
+
+<<endnobr>>
+\
+<hr><huge>''Sell: ''</huge>
+<<if $special_miracrystal gt 0>><<button [[Live Miracrystal Chunk x1 for 100~~consiee~~|TraderMiracrystal][$special_miracrystal -= 1; $rep_HYPOTHESIS += 2; $food += 100]]>><<else>><unframe>''Live Miracrystal Chunk x1 for 100~~consiee~~''</unframe><<endif>>\
+\
+<<if $special_miracrystal gte 5>><<button [[Live Miracrystal Chunk x5 for 600~~consiee~~|TraderMiracrystal][$special_miracrystal -= 1; $rep_HYPOTHESIS += 10; $food += 600]]>><<else>><unframe>''Live Miracrystal Chunk x5 for 600~~consiee~~consiee~~''</unframe><<endif>>\
+\
+<<if $special_miracrystal gte 10>><<button [[Live Miracrystal Chunk x10 for 1500~~consiee~~|TraderMiracrystal][$special_miracrystal -= 1; $rep_HYPOTHESIS += 25; $food += 1500]]>><<else>><unframe>''Live Miracrystal Chunk x10 for 1500~~consiee~~consiee~~''</unframe><<endif>>\
+\
+<<if ($set_hypo_top gt 0) and ($set_hypo_belt gt 0)>>\
+\
+<<if $set_hypo_skirt gt 0>><<button [[HYPOTHESIS Power Armor (w/Kilt) ~~x~~1: 4500~~consiee~~|passage()][$set_hypo_top -= 1; $set_hypo_belt -= 1; $set_hypo_skirt -= 1; $food += 4500; $rep_HYPOTHESIS += 25]]>><<endif>>\
+\
+<<if $set_hypo_pants gt 0>><<button [[HYPOTHESIS Power Armor (w/Coroles) ~~x~~1: 4500~~consiee~~|passage()][$set_hypo_top -= 1; $set_hypo_belt -= 1;$set_hypo_pants -= 1; $food += 4500; $rep_HYPOTHESIS += 25]]>><<endif>>\
+\
+<<endif>>\
+\
+<<if $special_miracrystal gte 50>><<button [[Live Miracrystal Chunk x50 for 8000~~consiee~~|TraderMiracrystal][$special_miracrystal -= 50; $rep_HYPOTHESIS += 50; $food += 8000]]>><<endif>>\
+\
+<<if $special_miracrystal gte 100>><<button [[Live Miracrystal Chunk x100 for 20000~~consiee~~|TraderMiracrystal][$special_miracrystal -= 100; $rep_HYPOTHESIS += 50; $food += 20000]]>><<endif>></framed>
+<<button [[Finish Trading.|$saveStateEncounter]]>></center>

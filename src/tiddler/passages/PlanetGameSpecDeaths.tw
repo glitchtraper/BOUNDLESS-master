@@ -1,0 +1,33 @@
+﻿<<set $casualties = ($humanPop + $elfPop + $arkaPop + $slimePop + $mutantPop + $werePop + $leupaiPop + $demonPop + $dragonPop) - $playerPlanetPopulation>>
+
+	<<if $casualties gt 0>>
+		/% weakest to most resilient species %/
+
+		<<if $humanPop gt 0>><<set $humanPop -= $casualties>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+		<<if $elfPop gt 0>><<set $elfPop -= $casualties>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+		<<if $arkaPop gt 0>><<set $arkaPop -= $casualties>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+		<<if $slimePop gt 0>><<set $slimePop -= $casualties>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+		<<if $mutantPop gt 0>><<set $mutantPop -= $casualties>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+		<<if $werePop gt 0>><<set $werePop -= $casualties>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+		<<if $leupaiPop gt 0>><<set $leupaiPop -= $casualties>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+		<<if $demonPop gt 0>><<set $demonPop -= $casualties>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+		<<if $dragonPop gt 0>><<set $dragonPop -= $casualties>><<else>>
+			<<set $casualties -= $weakHunters; $weakHunters = 0>><<endif>>
+
+<<endif>>

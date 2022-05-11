@@ -1,0 +1,16 @@
+﻿<<if $species is "post-human">>\
+\
+<cheery>''<large>Post-humans</large>''</cheery> are a species of bipedal sapient creature with flat faces and rounded ears. They are a relatively frequent discovery throughout time and space, as they tend to get themselves into all sorts of trouble and mess about with everything. <affirmative>''That's what makes them so endearing.''</affirmative>
+\
+\
+<<elseif $species is "arka">>\
+\
+<cheery>''<large>Arka</large>''</cheery> are bipedal beast-people created in <hypo>HYPOTHESIS</hypo> laboratories from other bipeds. They can have virtually any combination of physical traits, and ''<affirmative>are quite hardy in the wilds.</affirmative>''
+\
+\
+<<elseif $species is "aladri">>\
+\
+<cheery>''<large>aladri</large>''</cheery> are bipedal long-eared fey folk who stalk and protect the wildlands wherever they can be found. They can be quite fierce, but some say it's only ''<affirmative>to ensure the survival of the things they love.</affirmative>''
+\
+\
+<<endif>>

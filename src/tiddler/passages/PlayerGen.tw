@@ -1,0 +1,118 @@
+﻿<<nobr>>
+
+/% Static stats. these never change. %/
+<<set $bellyStatus = "empty"; $breastStatus = "empty"; $thighFirmness = 900; $thighStatus = "firm"; $metaGain = 10; $metaBurn = 10; $milkFat = 3; $milkRate = 1; $starveFloor = 1500; $hunger = "Growling"; $bodyColor = 0; $energyStatus = "Alert"; $bonusEnergy = 50; $esurience = 0; $withTeeth = 0; $needsAir = 1>>
+
+<<set $naturalMaxPain = 100; $painBuffer = 0; $painAmp = 0; $strength = 15; $finesse = 15; $imagination = 15; $health = "Sore"; $pain = 22>>
+
+/% Dynamic stats. these are randomized. %/
+
+<<display ColorWheel>><<set $playerEyeColor = $fullChroma>>
+
+/% Toongen by category %/
+
+<<if $showToon neq -1>>
+<<if $showToon is "humanoid">>
+	<<set $species = $humanoidArray[random(0,$humanoidArray.length - 1)]>>
+
+	<<elseif $showToon is "leupai">>
+		<<set $species = $leupaiArray[random(0,$leupaiArray.length - 1)]>>
+
+	<<elseif $showToon is "monster">>
+		<<set $species = $monsterArray[random(0,$monsterArray.length - 1)]>>
+
+	<<elseif $showToon is 0>>
+		<<if $monsterArray is 0>>
+			<<set $species = $humanoidArray[random(0,$humanoidArray.length - 1)]>>
+		<<elseif $monsterArray neq 0>>
+			<<set $randomArray = $humanoidArray.concat($monsterArray); $species = $randomArray[random(0,$randomArray.length - 1)]>><<endif>>
+
+<<endif>><<endif>>
+
+
+
+
+
+<<if $species is "arka">><<display RevecroixRandomizer>><<set $subspecies = $randomArka>>
+
+<<display ColorWheel>><<set $bodyColor = $fullChroma>>
+
+<<else>><<set $subspecies = 0>><<endif>>
+
+<<display BodyDatabase>>
+
+<<set $bodyType = either(0,0,0,0,"busty","hourglass","round","belly","pear","thigh")>>
+
+<<set $girth = either(1800,1900,2000,2100,2200,2300,2400,2500); $belly = either(120,130,140,150,160,170,180,190,200,210,220,230,240,250); $breast = either(20,30,40,50,60,70,80,90,100); $thigh = either(50,60,70,80,90,100); $maxBelly = ($belly / 2);  $maxBreast = ($breast / 2)>>
+
+<<if $bodyType is "busty">><<set $breast += 10>><<elseif $bodyType is "hourglass">><<set $breast += 10; $thigh += 10>><<elseif $bodyType is "round">><<set $breast += 10; $belly += 10>><<elseif $bodyType is "belly">><<set $belly += 20>><<elseif $bodyType is "pear">><<set $belly += 10; $thigh += 10>><<elseif $bodyType is "thigh">><<set $belly += 20>><<endif>>
+
+<<set $pudgyBits = ($girth + $belly + $thigh + $breast)/10>>
+
+<<if $pudgyBits lt 220>><<set $girthDesc = "sleek">>
+<<elseif ($pudgyBits gte 220) and ($pudgyBits lt 240)>><<set $girthDesc = "plump">>
+<<elseif ($pudgyBits gte 240) and ($pudgyBits lt 270)>><<set $girthDesc = "round">>
+<<elseif $pudgyBits gte 270>><<set $girthDesc = "fat">><<endif>>
+
+<<if ($breast gte 70) and ($girthDesc neq "round") and ($girthDesc neq "fat")>><<set $girthDesc = "busty">><<endif>>
+
+<<endnobr>>\
+
+The <<print $deathGuide>> shows you a ''<brightalert><<print $girthDesc>> <<if $bodyColor neq 0>><<print $bodyColor>><<endif>><<if $subspecies neq 0>> <<print $subspecies>><<endif>> <<print $species>></brightalert>''-- its eyes glassy and expression blank, almost as though it has <bleak>n͕̯͖͔͔̜̦̈́͜o̮͊̓̎͌͋̍ ̖̤ͨͯ͟m̟͈̼̭͉̞̀ͬͭ̉͋̀ͧͅi̛̽ͧͩͥ̚n̙̺̳ͩͩͯͧ̅d̓̊ͥ͊̃̓͏̭̲̹̫̣̠̮ ͍̩̘̙̙̈́͘o̲̲̰̜ͮ̚ͅr̪̩̪̍̎ͫ̂͆ͥͮ́ ̹s͕͔͞o̢͎̜̣̯̽̿̊̏u̐̃͋̌l̵̘͇̼̰͚̞̘ͣ̈́̾̄̿ͮͮ</bleak>..!
+
+<framed><center>//\
+\
+\
+/% Poppets. %/
+<<display PlayerSpecies>>\
+<<if $newGame is 1>><div style="position: absolute; top:260px; right:83%; z-index: 1">[img[poppet_test]]</div>
+<<else>><div style="position: absolute; top:535px; right:83%; z-index: 1">[img[poppet_test]]</div><<endif>>\
+\
+\
+//</center></framed>
+<center><narrowframe>\
+\
+\
+/% TOON GENERATION %/\
+/% By default, you get the "RANDOM" (rolls from all available species) and "Random Humanoid" (all available humanoids) buttons.
+As you play the game, you unlock new species by transforming into them, which lets you potentially select from them when you roll a new toon.%/\
+\
+\
+<<if $monsterArray neq 0>>\
+<<button [[RANDOM|passage()][$showToon = 0]]>>
+<<endif>>\
+<<nobr>>
+
+/% ========================= %/
+/% By Species Class %/
+
+/% Humanoids %/
+<<button [[humanoids|passage()][$showToon = "humanoid"]]>>
+
+/% Monsters %/
+<<if $monsterArray neq 0>>
+ <<button [[monsters|passage()][$showToon = "monster"]]>><<endif>>
+
+/% Leupai %/
+<<if $leupaiArray neq 0>>
+ <<button [[leupai|passage()][$showToon = "leupai"]]>><<endif>>
+
+<<endnobr>><<nobr>>
+
+/% ========================= %/
+/% By Species %/
+
+<<button [[post-human|passage()][$showToon = -1; $species = "post-human"]]>>
+
+<<button [[aladri|passage()][$showToon = -1; $species = "aladri"]]>>
+
+<<button [[arka|passage()][$showToon = -1; $species = "arka"]]>>
+
+/% TODO: a button for each unlockable species %/
+
+
+<<endnobr>>
+<<button [[customize|PlayerCustomize][$adjustSize = 0]]>>
+<xtramini>''Name:''</xtramini>
+<<textinput $newPlayerName>><<set $pronounOne = "they"; $pronounOneCont = "they're"; $pronounTwo = "their"; $pronounThree = "themself">>
+<<button [[QUICK PLAY|GameEntry]]>></narrowframe></center>

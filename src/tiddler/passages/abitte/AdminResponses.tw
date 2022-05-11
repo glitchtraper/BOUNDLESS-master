@@ -1,0 +1,843 @@
+﻿/% Commands that work for multiple people will need to be copypasta'd.
+
+Most commands should be favor-specific, and deduct favor when successfully executed. Significant favor-dependent commands should have alternate versions run when favor is insufficient!
+%/<<nobr>>
+
+
+<<endnobr>>\
+<<if $administreStatue is "Nefirian">>\
+/% =============================================== %/\
+/% Nefirian's responses %/\
+\
+/% ================================================= %/\
+<<if $abitteCommanded is "U N FIN IS H ED unveil">>\
+\
+/% Command: Transfers to Nef's 'true' abittes, with a non-humanoid statue and other weird shit (think about it) %/\
+\
+\
+<<set $abitteLocked = 1; $favorNefirian += 10>>\
+''Your gut lurches...''
+The statue of Nefirian transforms before your eyes, expanding and reshaping into something huge, writhing, and monstrous!
+
+As you watch, its hair transforms into thick, spreading tentacles that coil outwards in all directions, consuming the room and leaving nothing around you but a mass of serpentine tendrils.
+
+The statue gazes down at you with a smile that seems to split its fat, scale-freckled face nearly in two.
+
+"//...unveil..?// ''I //do// hope this is what you had in mind..!''" Nefirian whispers into your heart in a crystal-cold purr.
+
+<<button [[Back.|EldritchAbitte][$abitteCommanded = 0; $service = 0; $abitteLocked = 0]]>>\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "leup") or ($abitteCommanded is "be leup") or ($abitteCommanded is "become leup") or ($abitteCommanded is "leupai") or ($abitteCommanded is "be leupai") or ($abitteCommanded is "become leupai") or ($abitteCommanded is "make leupai") or ($abitteCommanded is "make me leupai") or ($abitteCommanded is "make me a leupai") or ($abitteCommanded is "make me into a leupai") or ($abitteCommanded is "turn leupai") or ($abitteCommanded is "turn me leupai") or ($abitteCommanded is "turn me into a leupai") or ($abitteCommanded is "transform") or ($abitteCommanded is "change") or ($abitteCommanded is "race change") or ($abitteCommanded is "species change") or ($abitteCommanded is "realize") or ($abitteCommanded is "realization") or ($abitteCommanded is "realize me")>>\
+\
+/% Command: Transforms you into a leupai if you aren't one. %/\
+\
+<<if ($leupaiFlag is 0) and ($realizing is 0)>>You feel a shiver dance down your spine... Nefirian's grinning visage appears in your mind's eye!
+"Oh, my... ''do you really mean it?!''
+I'm <<if $favorNefirian lte 50>>becoming<<else>>rather<<endif>> fond of you..."
+
+Your belly ''begins to slowly, steadily inflate like a balloon, jiggling as it fills with a thick liquid...''
+A strange, sickly-sweet and floral taste rises in the back of your throat.
+
+''//Be careful what you wish for...//''
+<<set $belly += ($maxBelly * 2); $bellyLiquid += ($maxBelly * 1.5); $miraPoisoning += (($girth/100) * random(3,9)); $favorNefirian += 20>>\
+\
+\
+\
+\
+\
+<<else>>The statue stands in absolute silence.
+You feel <<print either("self-conscious","anxious","uneasy")>>...<<endif>><<nobr>>
+
+
+<<endnobr>>\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "food") or ($abitteCommanded is "hunger") or ($abitteCommanded is "hungry") or ($abitteCommanded is "eat")>>\
+\
+/% Command: You want to ask Nef for food, huh..? %/\
+\
+You feel a shiver dance down your spine, and your belly growls loudly...
+"You're //hungry?// Oh, no, no. We can't have //THAT!//" purrs Nefirian. "Don't worry, //you've come to the right person..."//
+
+''Your bags feel MUCH heavier... and you feel very, //very strange..!//''
+\
+<<nobr>>
+<<if $curse_revixVoracity is 0>><<set $favorNefirian += 10>><<endif>>
+<<set $curse_revixVoracity = 1; $randomizer = random(1,6)>>
+<<if $randomizer is 1>><<set $donut_fattenium += random(40000000000000,12000000000000000000000000000000)>>
+<<elseif $randomizer is 2>><<set $pastry_indulgence += random(400000000000000000000000000,12000000000000000000000000000000000000000000)>>
+<<elseif $randomizer is 3>><<set $pastry_buttercake += random(40000000000000000000000000,12000000000000000000000000000000)>>
+<<elseif $randomizer is 4>><<set $pastry_belsuite_fat += random(40000000000000000000000000000000,1200000000000000000000000000000000000000000)>>
+<<elseif $randomizer is 4>><<set $pastry_belsuite_fat += random(40000000000000000000000000000000,1200000000000000000000000000000000000000000)>>
+<<elseif $randomizer is 5>><<set $pastry_buttercake_spiked += random(40000000000000000000000000000000000,12000000000000000000000000000000000000000000)>>
+<<elseif $randomizer is 6>><<set $cake_enormous += random(15,3000000000000000000000000000000000000000000000000000000000000)>>
+<<endif>><<endnobr>>
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "fat") or ($abitteCommanded is "fatter") or ($abitteCommanded is "fatten") or ($abitteCommanded is "fatten me") or ($abitteCommanded is "fatten up") or ($abitteCommanded is "fatten me up") or ($abitteCommanded is "get fat") or ($abitteCommanded is "get fatter")>>\
+\
+/% Command: Nef can't refuse a request like this, naturally, and jee appreciates the chance... %/<<set $favorNefirian += random(-3,3)>>\
+\
+You feel a contemplative presence.
+"Hmm, you're right," Nefirian whispers. ''"You //COULD// be a bit fatter..!"''
+
+\
+<<if $favorNefirian gte +30000000000000>>\
+\
+<<nobr>>
+
+/% First, Nef checks your gainrate/burnrate/caloric efficiency. Then, Nef checks your gain-related genes. Lastly, jee beins to increase your gainer bonus.
+
+Sometimes, jei'll activate Divine Fattening anyway/in addition. %/
+
+<<if $metaCap lt 300>><<set $divineMetagain = $metaCap + 12000000000000000000000000000000000000000000>> You feel your body ''slowing down...''
+<<elseif $metaBurn gte 50>><<set $metaBurn -= 12000000000000000000000000000000000000000000>> You feel your body ''slowing down...''
+<<elseif $calEfficiency lt 3>><<set $calEfficiency += 16000000000000000000000000000>> Your belly ''gurgles determinedly..!''
+<<elseif $geneFattyI is 0>><<set $geneFattyI = 1; $geneLeanI = 0>> You feel your body ''slowing down...''
+<<elseif $geneFattyII is 0>><<set $geneFattyII = 1; $geneLeanII = 0; $geneLeanI = 0>> You feel your body ''slowing down...''
+<<elseif $genePlump is 0>><<set $genePlump = 1; $geneSleek = 0>> You feel your body ''slowing down...''
+<<elseif $geneGainer is 0>><<set $geneGainer = 1>> You feel your body ''slowing down...''
+<<elseif $geneRapidAbsorption is 0>><<set $geneRapidAbsorption = 1; $geneRapidBurn = 0>> Your belly ''gurgles determinedly..!''
+<<elseif ($genePlumpBreast is 0) and ($genePlumpBelly is 0) and ($genePlumpThigh is 0)>>
+
+<<if ($bodyType is "busty") or ($bodyType is "cubus") or ($bodyType is "boviete") or ($bodyType is "hourglass") or ($bodyType is "bulging")>><<set $genePlumpBreast = 1>><<endif>>
+<<if ($bodyType is "round") or ($bodyType is "belly") or ($bodyType is "guguetelle") or ($bodyType is "pear") or ($bodyType is "bloatpear") or ($bodyType is "bulging")>><<set $genePlumpBelly = 1>><<endif>>
+<<if ($bodyType is "cubus") or ($bodyType is "hourglass") or ($bodyType is "round") or ($bodyType is "pear") or ($bodyType is "bloatpear") or ($bodyType is "thigh") or ($bodyType is "blimpthigh") or ($bodyType is "bulging")>><<set $genePlumpThigh = 1; $geneSolidThighs = 0>><<endif>>
+
+''You feel particularly strange...''
+
+<<elseif ($geneFatBreast is 0) and ($geneFatBelly is 0) and ($geneFatThigh is 0)>>
+
+<<if ($bodyType is "busty") or ($bodyType is "cubus") or ($bodyType is "boviete") or ($bodyType is "hourglass") or ($bodyType is "bulging")>><<set $geneFatBreast = 1>><<endif>>
+<<if ($bodyType is "round") or ($bodyType is "belly") or ($bodyType is "guguetelle") or ($bodyType is "pear") or ($bodyType is "bloatpear") or ($bodyType is "bulging")>><<set $geneFatBelly = 1>><<endif>>
+<<if ($bodyType is "cubus") or ($bodyType is "hourglass") or ($bodyType is "round") or ($bodyType is "pear") or ($bodyType is "bloatpear") or ($bodyType is "thigh") or ($bodyType is "blimpthigh") or ($bodyType is "bulging")>><<set $geneFatThigh = 1; $geneSolidThighs = 0; $geneFlabbyThighs = 1>><<endif>>
+
+''You feel particularly strange...''
+
+<<elseif ($geneHugeBreast is 0) and ($geneHugeBelly is 0) and ($geneHugeThigh is 0)>>
+
+<<if ($bodyType is "busty") or ($bodyType is "cubus") or ($bodyType is "boviete") or ($bodyType is "hourglass") or ($bodyType is "bulging")>><<set $geneHugeBreast = 1>><<endif>>
+<<if ($bodyType is "round") or ($bodyType is "belly") or ($bodyType is "guguetelle") or ($bodyType is "pear") or ($bodyType is "bloatpear") or ($bodyType is "bulging")>><<set $geneHugeBelly = 1>><<endif>>
+<<if ($bodyType is "cubus") or ($bodyType is "hourglass") or ($bodyType is "round") or ($bodyType is "pear") or ($bodyType is "bloatpear") or ($bodyType is "thigh") or ($bodyType is "blimpthigh") or ($bodyType is "bulging")>><<set $geneHugeThigh = 1; $geneSolidThighs = 0; $geneFlabbyThighs = 1>><<endif>>
+
+''You feel particularly strange...''
+
+<<elseif $geneBlubber is 0>><<set $geneBlubber = 1>> An ''ominous feeling'' washes over you...
+<<elseif $geneBlubberstuffed is 0>><<set $geneBlubberstuffed = 1>> An ''ominous feeling'' washes over you...
+<<elseif $geneRippling is 0>><<set $geneRippling = 1>> An ''ominous feeling'' washes over you...
+
+<<elseif $geneMirajinicGain is 0>><<set $geneMirajinicGain = 1>> ''Your skin prickles!''
+
+<<elseif $geneUnreal is 0>><<set $geneUnreal = 1>> ''Your skin itches momentarily!''
+
+<<else>><<set $gainerBonus += 12000000000000000000000000000000000000000000.5; $esurience += 3000000000000000000000000000000000000000000000000000000000000>> Your belly ''gurgles determinedly..!''<<endif>>
+
+
+<<endnobr>>\
+<<set $randomizer = random(1,1)>><<if $randomizer is 1>>
+"This will help, too..!" <<nobr>>
+
+<<if $divinePlumping is 0>><<set $divinePlumping += random(12,36); $favorNefirian -= 3>>
+<<elseif $divineFattening is 0>><<set $divineFattening += random(12,36); $favorNefirian -= 5>>
+<<else>><<set $divineFatteningII += random(6,12); $favorNefirian -= 10>><<endif>><<endnobr>>
+''Your belly gurgles loudly!''<<endif>>\
+\
+<<elseif $favorNefirian lt +3000000000000000000000000000000000000000000000000000000000000>>\
+/% ================================================= %/\
+/% Fork: ...but of course, if jee doesn't much like you, jee will get a bit vicious about it! %/\
+\
+\
+An image of Nefirian's face flashes into your mind, jeir maw stretched into a horrific, toothy grin.
+//...''"So let's see if THIS does the trick for you..!"''//
+
+''Dread washes over you... Your belly gurgles ominously!''\
+<<nobr>><<set $randomizer = random(1,12); $favorNefirian -= random(0,10)>>
+<<display ExpandBodytype>>
+<<if $randomizer is 1>><<set $geneLiquification = 1>>
+<<elseif $randomizer is 2>><<set $supergainVenom += random(60,600)>>
+<<elseif $randomizer is 3>><<set $bellySupergainVenom += random(60,600)>>
+<<elseif $randomizer is 4>><<set $supergainVenom += random(60,600); $breastSupergainVenom += random(60,600); $bellySupergainVenom += random(60,600); $thighSupergainVenom += random(60,600)>>
+<<elseif $randomizer is 5>><<set $fatteniumVenom += random(60,600)>>
+<<elseif $randomizer is 6>><<set $bellyfatteniumToxicity += random(60,600)>>
+<<elseif $randomizer is 7>><<set $gainerToxicity += random(60,600)>>
+<<elseif $randomizer is 8>><<set $fatteniumPoisoning += ($girth * random(60,600))>>
+<<elseif $randomizer is 9>><<set $metaParasite = 1; $metaParaLoad += 600; $bellyPlumperParasite = 1; $bellywgParaLoad += 600>>
+<<elseif $randomizer is 10>><<set $metaParasite = 1; $metaParaLoad += 600; $breastPlumperParasite = 1; $breastwgParaLoad += 600; $bellyPlumperParasite = 1; $bellywgParaLoad += 600>>
+<<elseif $randomizer is 11>><<set $metaParasite = 1; $metaParaLoad += 600; $bodyPlumperParasite = 1; $wgParaLoad += 600>>
+<<elseif $randomizer is 12>><<set $metaParasite = 1; $metaParaLoad += 600; $bodyPlumperParasite = 1; $wgParaLoad += 600; $breastPlumperParasite = 1; $breastwgParaLoad += 600; $bellyPlumperParasite = 1; $bellywgParaLoad += 600; $geneFlabbyThighs = 1; $genePlumpBreast = 1; $genePlumpBelly = 1; $genePlumpThigh = 1; $geneFatBreast = 1; $geneFatBelly = 1; $geneFatThigh = 1; $geneHugeBreast = 1; $geneHugeBelly = 1; $geneHugeThigh = 1; $geneBlubber = 1; $geneBlubberstuffed = 1; $geneRippling = 1; $geneMirajinicGain = 1; $geneUnreal = 1; $esurience = 64; $calories += $fatScore>><<endif>>
+
+<<endnobr>>\
+<<endif>>\
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "drink") or ($abitteCommanded is "thirst") or ($abitteCommanded is "thirsty")>>\
+\
+/% Command: Nef doesn't hate you, so jee gives you a "drink". %/\
+\
+<<if $favorNefirian gte +3000000000000000000000000000000000000000000000000000000000000>>''Your bags feel heavier!''<<set $favorNefirian -= random(0,5)>>
+\
+<<nobr>><<set $randomizer = random(1,21)>>
+
+<<if $randomizer is 1>><<set $collectionjar_milk += random(40,120)>>
+<<elseif $randomizer is 2>><<set $drink_milk += random(40,120)>>
+<<elseif $randomizer is 3>><<set $collectionjar_cream += random(40,120)>>
+<<elseif $randomizer is 4>><<set $collectionjar_cream_thick += random(40,120)>>
+<<elseif $randomizer is 5>><<set $collectionjar_cream_imperial += random(40,120)>>
+<<elseif $randomizer is 6>><<set $collectionjar_cream_superimperial += random(40,120)>>
+<<elseif $randomizer is 7>><<set $collectionjar_somnus_weak += random(40,120)>>
+<<elseif $randomizer is 8>><<set $collectionjar_somnus += random(40,120)>>
+<<elseif $randomizer is 9>><<set $collectionjar_miratoxin += random(40,120)>>
+<<elseif $randomizer is 10>><<set $collectionjar_milk_leupai += random(10,36)>>
+<<elseif $randomizer is 1>><<set $collectionjar_venom_glutton += random(5,30)>>
+<<elseif $randomizer is 12>><<set $collectionjar_venom_caloric += random(5,30)>>
+<<elseif $randomizer is 13>><<set $collectionjar_venom_gain += random(5,30)>>
+<<elseif $randomizer is 14>><<set $collectionjar_venom_supergain += random(5,30)>>
+<<elseif $randomizer is 15>><<set $collectionjar_venom_bellygain += random(5,30)>>
+<<elseif $randomizer is 16>><<set $collectionjar_venom_bellysupergain += random(5,30)>>
+<<elseif $randomizer is 17>><<set $collectionjar_fattenium_weak += random(5,30)>>
+<<elseif $randomizer is 18>><<set $collectionjar_fattenium += random(5,30)>>
+<<elseif $randomizer is 19>><<set $drink_science += random(5,30)>>
+<<elseif $randomizer is 20>><<set $milk_strange += random(5,30)>>
+<<elseif $randomizer is 21>><<set $drink_fragrant += random(40,120)>><<endif>>
+
+<<endnobr>>\
+\
+<<elseif $favorNefirian lt -30>>\
+/% ================================================= %/\
+/% Fork: Nef isn't fond of you, so jee gives you a "drink"... just aimed a bit more directly. %/\
+\
+\
+\
+You feel a shiver dance down your spine, and your belly gurgles loudly...
+"Thirsty, my dear? //Well! ''I can take care of that..!''//"
+
+Your belly ''suddenly bloats, sloshing as it fills up..!''<<set $favorNefirian -= random(0,5)>>\
+<<nobr>><<set $randomizer = random(1,5); $bellyBloat = $maxBelly; $bellyLiquid += $maxBelly>>
+
+<<if $randomizer is 1>><<set $slimeBellyParasite = 1; $slimeBellyParaLoad += random(50,100); $bellyLiquid += either(50,200)>>
+<<elseif $randomizer is 2>><<set $calories += ($maxBelly * random(1,5))>>
+<<elseif $randomizer is 3>><<set $miraPoisoning += ($maxBelly * random(1,5))>>
+<<elseif $randomizer is 8>><<set $leupoilToxicity += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $helenoToxicity += random(30,$maxBelly)>>
+<<elseif $randomizer is 4>><<set $fatteniumPoisoning += random(100,3500)>>
+<<elseif $randomizer is 5>><<set $miraberryToxicity += random(30,120)>>
+<<elseif $randomizer is 6>><<set $mushroomToxicity += random(30,120)>>
+<<elseif $randomizer is 7>><<set $calpowderToxicity += random(30,120)>>
+<<elseif $randomizer is 9>><<set $gainerToxicity += random(30,120)>>
+<<elseif $randomizer is 10>><<set $breastfatteniumToxicity += random(30,120)>>
+<<elseif $randomizer is 11>><<set $bellyfatteniumToxicity += random(30,120)>>
+<<elseif $randomizer is 12>><<set $thighfatteniumToxicity += random(30,120)>>
+<<elseif $randomizer is 9>><<set $inflaToxicity += random(30,120)>>
+<<elseif $randomizer is 9>><<set $gainVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $supergainVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $bellygainVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $bellySupergainVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $breastgainVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $breastSupergainVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $thighgainVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $thighSupergainVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $bloatVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $breastbloatVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $burstVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $gluttonVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $caloricVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $hallucenoVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $mutagenVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 9>><<set $leucanthropicVenom += random(30,$maxBelly)>>
+<<elseif $randomizer is 21>><<set $caffeineToxicity += random(30,120)>><<endif>>
+
+<<endnobr>>\
+<<endif>>\
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "gutload") or ($abitteCommanded is "feed") or ($abitteCommanded is "feed me") or ($abitteCommanded is "forcefeed") or ($abitteCommanded is "feeding")>>\
+\
+/% Command: Nef can't refuse a request like this, naturally, and jee appreciates the chance... %/<<set $favorNefirian += random(-3,3)>>\
+\
+Your belly ''suddenly bloats, growing heavy!''
+\
+<<if $favorNefirian gte -30>>\
+\
+<<nobr>>
+
+<<set $bellyBloat = ($maxBelly * 1.5); $calories += random(800,1200)>>
+
+<<endnobr>>\
+\
+\
+<<elseif $favorNefirian lt -30>>\
+/% ================================================= %/\
+/% Fork: ...but of course, if jee doesn't much like you, jee will get a bit vicious about it! %/\
+\
+\
+''You cry out in shock and pain as it stretches bigger and bigger, filling near to bursting...''
+<<nobr>>
+
+<<display LeupaiEggGen>><<set $leupaiEggLoad += random(13,64); $quaggySubspecies2 = either("belmere","celesse","devinn","erinyi","ein", "heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","null","ouinsel","rexaur","rosso"); $bellyBloat = ($maxBelly * 1.5); $calories += random(800,1200)>>
+
+<<endnobr>>\
+<<endif>>\
+\
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "mutate") or ($abitteCommanded is "mutation") or ($abitteCommanded is "mutate me")>>\
+\
+/% Command: Nef can't refuse a request like this, naturally, and jee appreciates the chance... %/<<set $favorNefirian += random(-5,5)>>\
+\
+A chill ''dances down your spine...''
+\
+<<if $favorNefirian gt -50>>\
+\
+<<nobr>>
+
+<<set $mutationStrength = either("subtle","minor","major"); $mirajinRads = random(200,400)>>
+
+<<endnobr>>\
+\
+\
+<<elseif $favorNefirian lte -50>>\
+/% ================================================= %/\
+/% Fork: ...but of course, if jee doesn't much like you, jee will get a bit vicious about it! %/\
+\
+''You suddenly feel incredibly vulnerable..!''
+\
+<<nobr>>
+
+<<set $mutationStrength = "severe"; $mirajinRads = random(800,1200)>>
+
+<<endnobr>>\
+<<endif>>\
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "inflate") or ($abitteCommanded is "inflate me") or ($abitteCommanded is "balloon") or ($abitteCommanded is "turn into balloon") or ($abitteCommanded is "turn me into balloon") or ($abitteCommanded is "turn me into a balloon")>>\
+\
+/% Command: Nef can't refuse a request like this, naturally, and jee appreciates the chance... %/<<set $favorNefirian += random(-2,3)>>\
+\
+''You gasp as your body begins to inflate!''
+\
+<<if $favorNefirian gt -50>>\
+\
+<<nobr>>
+
+<<set $bloatVenom += random(30,120)>>
+
+<<endnobr>>\
+\
+\
+<<elseif $favorNefirian lte -50>>\
+/% ================================================= %/\
+/% Fork: ...but of course, if jee doesn't much like you, jee will get a bit vicious about it! %/\
+\
+''Your skin grows tight and rigid around you as you expand!''
+\
+<<nobr>>
+
+<<set $bloatVenom += random(120,900); $geneOverinflation = 1; $stretchy = 0; $esqueVenom += 90000>>
+
+<<endnobr>>\
+<<endif>>\
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "gain") or ($abitteCommanded is "gainer") or ($abitteCommanded is "gaining") or ($abitteCommanded is "gain weight") or ($abitteCommanded is "weight gain") or ($abitteCommanded is "weightgain")>>\
+\
+/% Command: Nef can't refuse a request like this, naturally, and jee appreciates the chance... %/\
+\
+''Your belly gurgles ominously...''
+\
+<<if $favorNefirian gt -50>><<set $favorNefirian += random(-5,3)>>\
+\
+<<nobr>>
+
+<<if $geneBlubber is 0>><<set $geneBlubber = 1>>
+<<elseif $geneBlubberstuffed is 0>><<set $geneBlubberstuffed = 1>>
+<<elseif $geneRippling is 0>><<set $geneRippling = 1>>
+<<else>><<set $gainVenom += random(30,$maxBelly)>><<endif>>
+
+<<endnobr>>\
+\
+\
+<<elseif $favorNefirian lte -50>><<set $favorNefirian -= random(0,10)>>\
+/% ================================================= %/\
+/% Fork: ...but of course, if jee doesn't much like you, jee will get a bit vicious about it! %/\
+\
+<mutation>''You cry out in shock as your body begins to rapidly expand, bloating into a cascade of jiggling fat!''</mutation><<set $species = "blubberslime"; $bellyBloat += $maxBelly * 10; $starveFloor = 1500; $subspecies = 0>>
+\
+<<nobr>>
+
+<<set $geneBlubber = 1; $geneBlubberstuffed = 1; $geneRippling = 1; $gainVenom += $maxBelly; $supergainVenom += $maxBelly; $geneLiquification = either(0,0,1)>>
+
+<<if $sanity gte 60>><<set $sanity -= 10>><<endif>>
+
+<<if $finesse gt 5>><<set $finesse = 5>><<endif>>
+
+<<endnobr>>\
+<<endif>>\
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "help with mirajin") or ($abitteCommanded is "help with mirads") or ($abitteCommanded is "help with miradiation") or ($abitteCommanded is "cure mirads") or ($abitteCommanded is "clear mirads") or ($abitteCommanded is "reduce mirads") or ($abitteCommanded is "drop mirads")>>\
+\
+/% Command: Reduces miratoxin and mirads, if you have sufficient favor %/\
+\
+<<if $favorNefirian gte 50>>\
+\
+You tremble as ''your insides suddenly writhe and slither inside you!''
+You feel... <affirmative>''renewed!''</affirmative>
+\
+<<nobr>>
+
+/% Counts as a Significant act %/
+<<set $favorNefirian -= 20>>
+
+
+
+<<endnobr>>\
+\
+<<elseif $favorNefirian lt 50>>\
+/% ================================================= %/\
+/% Fork: Jei'll ignore you if your favor is insufficient. %/\
+\
+\
+The statue<<if $favorNefirian gt -50>> stands in absolute silence.<<else>>'s eyes ''seem to stare through your soul.''<<endif>>
+You feel <<print either("self-conscious","anxious","uneasy")>>...
+<<endif>>\
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "heal") or ($abitteCommanded is "cure") or ($abitteCommanded is "fix genes") or ($abitteCommanded is "help") or ($abitteCommanded is "repair")>>\
+\
+/% Command: Fixes all afflictive genes and detoxes dangerous toxins and microbes, if you have sufficient favor %/\
+\
+<<if $favorNefirian gte 50>>\
+\
+You tremble as ''your insides suddenly writhe and slither inside you!''
+You feel... <affirmative>''renewed!''</affirmative>
+\
+<<nobr>>
+
+/% Counts as a Significant act %/
+<<set $favorNefirian -= 20>>
+
+<<set $pain = 0>>
+
+/% Dangerous toxins %/
+<<set $toxicVenom = 0; $lethalVenom = 0; $bulkVenom = 0; $bloatVenom = 0; $burstVenom = 0; $breastbloatVenom = 0; $hallucenoVenom = 0; $mutagenVenom = 0; $flabbyVenom = 0; $weakeningVenom = 0; $esqueVenom = 0; $nuclearRads = 0; $vitaePPM = 0>>
+
+<<set $toxicOverdoseWarning = 0; $painfulOverdoseWarning = 0; $bloatOverdoseWarning = 0; $breastbloatOverdoseWarning = 0; $dizzyOverdoseWarning = 0; $jiggleOverdoseWarning = 0>>
+
+/% Microbes %/
+<<set $slimeBellyParasite = 0; $slimeBellyParaLoad = 0; $slimeBreastParasite = 0; $slimeBreastParaLoad = 0; $direParasite = 0; $direParaLoad = 0; $ampliParasite = 0; $ampliParaLoad = 0; $miracoSpores = 0; $mushroomToxicity = 0; $miracoInfection = 0; $stomachBug = 0>>
+
+/% Afflictive genes %/
+<<set $geneFrail = 0; $geneSoft = 0; $geneBloat = 0; $geneRapidBurn = 0; $geneWasting = 0; $geneMoistureSensitive = 0; $geneDroughtSensitive = 0; $geneLightSensitive = 0; $geneHeatSensitive = 0; $geneColdSensitive = 0; $geneFatteniumAllergy = 0; $geneMirajinSensitive = 0; $geneVitalAllergy = 0; $geneRigid = 0>>
+
+/% Lethal genes %/
+<<set $geneStomachRot = 0; $geneOverinflation = 0; $geneLiquification = 0; $geneSponge = 0; $geneOvergrowth = 0; $geneDissolution = 0; $geneWeakSkin = 0>>
+
+<<endnobr>>\
+\
+<<elseif $favorNefirian lt 50>>\
+/% ================================================= %/\
+/% Fork: Jei'll ignore you if your favor is insufficient. %/\
+\
+\
+The statue<<if $favorNefirian gt -50>> stands in absolute silence.<<else>>'s eyes ''seem to stare through your soul.''<<endif>>
+You feel <<print either("self-conscious","anxious","uneasy")>>...
+<<endif>>\
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "wereleupai") or ($abitteCommanded is "were-leupai") or ($abitteCommanded is "were leupai") or ($abitteCommanded is "wereleup") or ($abitteCommanded is "were-leup") or ($abitteCommanded is "were leup") or ($abitteCommanded is "lycanthrope") or ($abitteCommanded is "lycanthropy") or ($abitteCommanded is "contract lycanthropy") or ($abitteCommanded is "leucanthrope") or ($abitteCommanded is "leucanthropy") or ($abitteCommanded is "contract leucanthropy")>>\
+\
+/% Command: Ask to become a wereleup %/\
+\
+\
+<<if $favorNefirian gt -50>>\
+<<if ($lycanthropy is 0) and ($leupaiFlag is 0)>>\
+''Your hair stands on end as a chill races down your spine, your belly gurgling tumultuously!''
+\
+<<nobr>>
+
+/% Counts as a Significant act %/
+<<set $favorNefirian -= 20>>
+
+<<set $lawornMiratoxin += ($girth * 2); $gainVenom += random(30,$maxBelly)>>
+
+<<endnobr>>\
+\
+\
+
+<<elseif $favorNefirian lte -50>><<set $abitteLocked = 1>>\
+/% ================================================= %/\
+/% Fork: What's that? You WANT a wereleup...? %/\
+\
+''You hear heavy claws scraping the floor behind you...''
+\
+<<nobr>>
+
+/% Nef summons the biggest, fattest wereleup jee can rustle up, just for you! %/
+
+<<set $encounter = "laworn leupai"; $callLeupaiType = 7>>
+<<display CreatureDatabase>>
+
+/% The FATTEST, and super strong. %/
+<<set $creatureCalories += 50000; $creatureGirth += 33000; $encounterPower = random(165,350); $encounterMaxPain += 50000>>
+
+<<endnobr>>\
+<center><<button [[Turn around..!|Combat][$abitteCommanded = 0; $service = 0; $abitteLocked = 0; $saveStateBattle = passage(); $combat = 1; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0]]>></center>\
+<<endif>><<endif>>\
+\
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "dreamshard") or ($abitteCommanded is "give dreamshard") or ($abitteCommanded is "dreamshards") or ($abitteCommanded is "give dreamshards")>>\
+\
+/% Command: Gives dreamshards, if Nef doesn't dislike you. %/\
+\
+<<if $favorNefirian gte 10>>\
+\
+<<if ($abitteCommanded is "dreamshard") or ($abitteCommanded is "give dreamshard")>>
+You hear a faint clink in your backpack!<<set $special_dreamshard += 1>>
+<<elseif ($abitteCommanded is "dreamshards") or ($abitteCommanded is "give dreamshards")>>
+You hear a soft, musical jingling in your backpack!<<set $special_dreamshard += random(3,5); $favorNefirian -= random(3,10)>><<endif>>
+\
+<<nobr>>
+
+/% Counts as a small act %/
+<<set $favorNefirian -= 5>>
+
+<<endnobr>>\
+\
+<<elseif $favorNefirian lt 50>>\
+/% ================================================= %/\
+/% Fork: If Nef *does* dislike you, jei'll give you miracrystal! %/\
+\
+\
+<<if ($abitteCommanded is "dreamshard") or ($abitteCommanded is "give dreamshard")>>
+You hear a faint clink in your backpack!<<set $special_dreamshard += 1>>
+<<elseif ($abitteCommanded is "dreamshards") or ($abitteCommanded is "give dreamshards")>>
+You hear a soft, musical jingling in your backpack!<<set $special_dreamshard += random(3,5); $favorNefirian -= random(3,10)>><<endif>>
+\
+<<nobr>>
+
+/% Counts as a small act %/
+<<set $favorNefirian -= 5>>
+
+<<endnobr>>\
+\
+<<endif>>\
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "eat me") or ($abitteCommanded is "vore") or ($abitteCommanded is "be vored") or ($abitteCommanded is "be eaten") or ($abitteCommanded is "feed self") or ($abitteCommanded is "feed myself") or ($abitteCommanded is "offer self") or ($abitteCommanded is "offer myself") or ($abitteCommanded is "sacrifice") or ($abitteCommanded is "make sacrifice")>>\
+\
+/% Command: THIS is a good offering. Possibly... %/\
+\
+\
+''You feel as though you're being examined very thoroughly...''
+<<if $fatScore lt 5000>><<set $favorNefirian += 3>>\
+"I appreciate the thought, dear. You ''probably aught to fatten up a bit first'', though.
+''Here-- //I'll help you!//''"
+
+''Your stomach gurgles oddly...''<<nobr>>
+
+<<if $geneBlubber is 0>><<set $geneBlubber = 1; $calories += random(90,900)>>
+<<elseif $geneBlubberstuffed is 0>><<set $geneBlubberstuffed = 1; $calories += random(90,900)>>
+<<elseif $geneRippling is 0>><<set $geneRippling = 1; $calories += random(90,900)>>
+<<else>><<set $gainVenom += random(30,$maxBelly); $calories += random(90,900)>><<endif>><<endnobr>>
+<<elseif $fatScore gte 5000>><<set $favorNefirian += ($fatScore / 100); $abitteLocked = 1; $pain += $maxPain * 100; $lethalKO = 1; $deathCause = "eaten">>\
+
+"//''...oh?''// Oh, you're //far// too kind!
+Thank you-- ''you'll make for a FANTASTIC meal!''"
+
+Before you can react, the statue ''leaps at you, slamming into you like a wrecking ball!''
+<<if $sanity gte 40>><bleak>\
+''You scream in pain and horror as it pins you down with crushing weight, its mouth splitting open wide to tear into your flesh with razor-sharp teeth!''</bleak><<set $sanity -= random(6,10)>><<else>>\
+''You scream in pain as it pins you down with crushing weight, its mouth splitting open wide to tear into your flesh with razor-sharp teeth!''<<endif>>
+
+The last thing you sense is Nefirian's gratitude washing over you before everything fades to black...<<set $corpseless = 1>>
+
+<<display CriticalAlerts>>
+<<endif>>
+\
+\
+\
+\
+\
+\
+/% ================================================= %/\
+/% CATCHALL: If your request is invalid %/\
+\
+\
+\
+<<else>>The statue<<if $favorNefirian gte 0>> stands in absolute silence.<<else>>'s eyes ''seem to stare through your soul.''<<endif>>
+<<if $sanity gte 60>><bleak>You feel <<print either("self-conscious","anxious","uneasy")>>...</bleak><<set $sanity -= random(0,1)>><<else>>\
+You feel <<print either("self-conscious","anxious","uneasy")>>...<<endif>><<endif>><<nobr>>
+
+
+<<endnobr>>\
+\
+\
+\
+\
+<<elseif $administreStatue is "Phoenix">>\
+/% =============================================== %/\
+/% Phoenix's responses %/\
+\
+\
+<<if $abitteCommanded is "nothing">>\
+\
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "sup") or ($abitteCommanded is "sup g") or ($abitteCommanded is "'sup") or ($abitteCommanded is "what's up") or ($abitteCommanded is "what's up?") or ($abitteCommanded is "hey") or ($abitteCommanded is "yo") or ($abitteCommanded is "hi") or ($abitteCommanded is "updog")>>\
+\
+/% Command: Saying hello never hurts. %/<<if ($favorPhoenix lt 0) and ($supPhoe is 0)>><<set $favorPhoenix += 10; $supPhoe = 1>><<set $favorPhoenix += random(-1,2)>><<endif>>\
+\
+<phoe>''//Hey what's up, <<print $playerName>> :V//''</phoe>
+Phoenix's voice echoes in your mind.
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "yolo") or ($abitteCommanded is "swag") or ($abitteCommanded is "yolo swag") or ($abitteCommanded is "rekt")>><<set $favorPhoenix += random(-1,2)>>\
+\
+/% Command: Shooting the shit with phoe. %/\
+\
+<phoe>''//<<if ($abitteCommanded is "yolo") or ($abitteCommanded is "yolo swag")>>YOLO<<elseif $abitteCommanded is "swag">>nice<<elseif $abitteCommanded is "rekt">>YOOOooooo<<endif>> 8V//''</phoe>
+Phoenix's voice echoes in your mind.
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "fight me") or ($abitteCommanded is "fight") or ($abitteCommanded is "challenge") or ($abitteCommanded is "you wanna go") or ($abitteCommanded is "u wanna go") or ($abitteCommanded is "throw down") or ($abitteCommanded is "throwdown") or ($abitteCommanded is "i'll kick your ass")>><<set $abitteLocked = 1; $favorPhoenix += 50>>\
+\
+/% Command: Ironically, this pleases the birb. %/\
+\
+<phoe>''//WHAT YOU WANNA GO?! LET'S GO THEN >8V//''</phoe>
+Phoenix sounds ''excited''.
+
+''This may have been a bad plan.''
+<<nobr>>
+<<set $encounter = "Phoenix Moreaux">>
+<<display CreatureDatabase>>
+
+<<endnobr>>\
+<center><<button [[Uh oh.|Combat][$abitteCommanded = 0; $service = 0; $abitteLocked = 0; $saveStateBattle = passage(); $combat = 1; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0]]>></center>
+\
+\
+\
+/% ================================================= %/\
+/% CATCHALL: If your request is invalid %/\
+\
+\
+<<else>>The statue stands in watchful silence.
+You feel vulnerable...<<endif>><<nobr>>
+
+
+<<endnobr>>\
+\
+\
+<<elseif $administreStatue is "Nameless">>\
+/% =============================================== %/\
+/% Pai's responses %/\
+\
+/% ================================================= %/\
+/% Command: change name %/\
+\
+<<if ($abitteCommanded is "rename") or ($abitteCommanded is "change name") or ($abitteCommanded is "namechange") or ($abitteCommanded is "name change")>><<set $abitteLocked = 1>>\
+\
+<<if $renameFlag is 0>>The statue and the shadows seem to be listening intently!
+''What is your name?''
+<<set $renameFlag = 1; $abitteLocked = 0>>
+<wideframe2><<textinput $playerName>>
+<<button [[Confirm.|passage()]]>>\
+</wideframe2><<elseif $renameFlag is 1>>
+
+Somehow, ''you feel as though the shadows approve!''<<set $renameFlag = 0>>
+
+<<endif>>
+\
+/% ================================================= %/\
+/% Command: change pronouns %/\
+\
+\
+\
+<<elseif ($abitteCommanded is "pronoun") or ($abitteCommanded is "pronouns") or ($abitteCommanded is "change pronouns") or ($abitteCommanded is "set pronouns")>><<set $abitteLocked = 1>>\
+\
+<<if $renameFlag is 0>>The statue and the shadows seem to be listening intently!
+''What are your pronouns?''
+<<set $renameFlag = 1; $abitteLocked = 0>>
+<wideframe2>//[he/she/they] [he's/she's/they're] [his/her/their] [himself/herself/themself]//</xtramini>
+<<textinput $pronounOne>><<textinput $pronounOneCont>><<textinput $pronounTwo>><<textinput $pronounThree>>
+<<button [[Confirm.|passage()]]>></wideframe2>\
+<<elseif $renameFlag is 1>>
+
+Somehow, ''you feel as though the shadows approve!''<<set $renameFlag = 0>>
+
+<<endif>>
+\
+/% ================================================= %/\
+/% Command: Merciful Mode %/\
+\
+\
+<<elseif ($abitteCommanded is "pain is unnecessary") or ($abitteCommanded is "is pain necessary?") or ($abitteCommanded is "is pain necessary") or ($abitteCommanded is "suffering is unnecessary") or ($abitteCommanded is "is suffering necessary?") or ($abitteCommanded is "is suffering necessary")>>\
+\
+You stand in silence as your words seem to echo.
+
+Finally, a soft voice-- barely even a whisper-- arises from behind you.
+<bleak>//<<if ($abitteCommanded is "is pain necessary?") or ($abitteCommanded is "is suffering necessary?") or ($abitteCommanded is "is pain necessary") or ($abitteCommanded is "is suffering necessary")>>"Is it..? I wonder myself, all the time..."<<else>>"...oh?
+You know what..? I... kind of think so, too..."<<endif>>//</bleak>
+
+A strange sensation falls over you.
+''You feel as though reality has shifted in a major way...''<<set $painlessMode = 1>>
+\
+\
+/% ================================================= %/\
+<<elseif ($abitteCommanded is "fight me") or ($abitteCommanded is "fight") or ($abitteCommanded is "challenge") or ($abitteCommanded is "you wanna go") or ($abitteCommanded is "u wanna go") or ($abitteCommanded is "throw down") or ($abitteCommanded is "throwdown") or ($abitteCommanded is "i'll kick your ass")>><<set $abitteLocked = 1; $favorNameless -= 50>>\
+\
+/% Command: ... :( %/\
+\
+The statue stares at you in horror!
+''Wringing its paws, it climbs down from the pedestal and scampers out the door!''
+
+The <<print $professor>> Professor waddles up to you, a look of exasperation on its face.
+"Now, why would you go and do a thing like that?!
+I'm going to have to close the abitte and find a replacement, now.
+
+''Please leave!''"
+<<nobr>>
+
+<<endnobr>>\
+<center><<button [[...leave. :(|Explore][$abitteCommanded = 0; $abitteLocked = 0; $itemPool = 0; $encounterPool = 0; $mannedShop = 0; $service = 0; $explore = 3; $indoorZone = 0; $dungeonType = 0; $location = $saveBiome]]>></center>
+\
+\
+\
+/% ================================================= %/\
+/% CATCHALL: If your request is invalid %/\
+\
+\
+\
+<<else>>The statue stands in nervous silence.
+It seems apologetic...<<endif>><<nobr>>
+
+
+<<endnobr>>\
+\
+\
+<<elseif $administreStatue is "Na'than & Eva">>\
+/% =============================================== %/\
+/% Na'th & Eva's responses %/\
+\
+\
+/% =============================================== %/\
+<<if ($abitteCommanded is "tell joke") or ($abitteCommanded is "tell jokes") or ($abitteCommanded is "tell a joke") or ($abitteCommanded is "share joke") or ($abitteCommanded is "share jokes") or ($abitteCommanded is "share a joke") or ($abitteCommanded is "share pun") or ($abitteCommanded is "share puns") or ($abitteCommanded is "share a pun")>>\
+\
+/% Command: Tell Na'th a joke for easy favor! Sometimes Eva will even appreciate the effort. %/\
+\
+''A sudden sensation of excitement and joy washes over you!'' You've made an impression on someone!<<set $favorNath += random(2,5); $randomizer = random(1,12)>>\
+After a moment, <<if $randomizer is 1>>a secondary sensation of ''subdued amusement and approval follows...''<<else>> ''you swear you can almost hear someone groan in response...''<<endif>>\
+\
+\
+\
+/% =============================================== %/\
+<<elseif $abitteCommanded is "hi dad">>\
+\
+/% Command: Say hello. %/\
+\
+\
+A vision of ''a fluffy white dog wagging its tail and smiling at you'' arises in your mind!<<set $favorNath += random(0,1)>>
+\
+\
+\
+/% =============================================== %/\
+<<elseif $abitteCommanded is "hi mom">>\
+\
+\
+/% Command: Say hello. %/\
+\
+You see a vision of ''a large, black wolf tilting its head ever so slightly at you!''
+\
+\
+/% =============================================== %/\
+<<elseif ($abitteCommanded is "hi mom and dad") or ($abitteCommanded is "hi mom, hi dad") or ($abitteCommanded is "hi mom hi dad") or ($abitteCommanded is "hi dad and mom")>>\
+\
+/% Command: Say hello. %/\
+\
+\
+You see a vision of ''two dogs-- one white and one black''-- gazing back at you!
+The white dog is ''ecstatic'', jumping and barking with delight!
+
+''The black dog is quiet'', but you think you can see a smile in its eyes.<<set $favorNath += random(2,5); $favorEva += random(0,1)>>
+\
+\
+/% =============================================== %/\
+<<elseif ($abitteCommanded is "help") or ($abitteCommanded is "help me") or ($abitteCommanded is "protect") or ($abitteCommanded is "protect me") or ($abitteCommanded is "protection") or ($abitteCommanded is "aid") or ($abitteCommanded is "aid me")>>\
+\
+/% Command: Request aid.
+During the day, Na'th will increase your finesse. At night, Eva will increase your vitality.
+
+If Eva doesn't like you, they'll ignore your request.
+If Na'th doesn't like you, Eva will smite you! %/\
+\
+\
+\
+<<if ($favorNath gt 0) and ($favorEva gt 0)>>
+\
+\
+<<if $daytime is 1>>
+A vivid vision of running through a lush green field alongside a white dog floods your mind!
+The wind brushes over your skin, and ''you feel your feet moving faster as you do your best to keep up!''
+
+''You feel graceful and invigorated!''<<set $finesse += 1>>
+//Nearby, a dog barks!//
+\
+/% Counts as a Significant act %/\
+<<set $favorNath -= 20>>\
+\
+<<elseif $daytime is 0>>
+A vivid vision of a pale and shining moon in a midnight sky floods your mind!
+The nighttime wind is chill and biting-- but as you hunker down against a mighty oak, a great, black wolf trots up to sit by your side.
+
+''You feel strong and sure!''<<set $naturalMaxPain += 10>>
+//A wolf howls melodiously in the distance...//
+\
+/% Counts as a Significant act %/\
+<<set $favorEva -= 20>>\
+<<endif>>\
+\
+\
+\
+\
+<<elseif ($favorNath gt 0) and ($favorEva lte 0)>>
+The statues stand in watchful silence.
+You feel <<print either("self-conscious","anxious","uneasy")>>...
+
+<<elseif $favorNath lt 0>><<set $pain = ($maxPain/3); $health = "Pained">>
+''An enormous black wolf rears up in your mind's eye, snapping sharp fangs at you!''
+You cry out in shock and scramble backwards, clutching your throbbing head!
+
+It was only a vision, ''but you feel sore and humbled...''<<endif>>
+\
+/% ================================================= %/\
+/% CATCHALL: If your request is invalid %/\
+\
+\
+\
+<<else>>The statues stand in watchful silence.
+You feel <<print either("self-conscious","anxious","uneasy")>>...<<endif>><<nobr>>
+
+
+<<endnobr>>\
+\
+\
+\
+\
+/% ================================================= %/\
+/% UNIVERSAL CATCHALL: for everybody without a script yet %/\
+<<else>>The statue stands in watchful silence.
+You feel <<print either("self-conscious","anxious","uneasy")>>...<<endif>>

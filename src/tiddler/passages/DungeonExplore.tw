@@ -1,0 +1,12 @@
+﻿<<display ZoneBackgrounds>>
+
+<<set $indoorZone = 1; $nullEncounter = "Nothing in the immediate surroundings catches your eye.">>
+
+/% Zone frame - Dungeons %/
+
+<<if $dungeonLocation is "Abandoned Storage Mound">><<set $zoneType = "revstorage">>
+
+<<elseif $dungeonLocation is "Abandoned Laboratory Mound">><<set $zoneType = "science">>
+
+<<elseif $dungeonLocation is "Gingerbread Mound">><<set $zoneType = "gingerbreadmound"; $hiddenExit = 1>>
+<<endif>>

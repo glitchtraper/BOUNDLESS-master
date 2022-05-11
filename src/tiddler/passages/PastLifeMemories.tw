@@ -1,0 +1,92 @@
+﻿<<if $memoryPasscode is "explorer">>
+<<if $memory00 is 0>><<set $memory00 = 1>>
+\
+''You remember days spent roaming the land, a pack full of supplies slung over your back as you went off in search of wonder and beauty...''
+
+<affirmative>\
+\
+[+ Metal Shovel]<<set $key_shovel_metal += 1>>
+\
+[+ Metal Pickaxe]<<set $key_pickaxe_metal += 1>>
+/% Placeholder - replace with 1 metal axe %/\
+[+ Basic Axe //(PLACEHOLDER)//]<<set $key_axe += 5>>
+/% Placeholder - replace with some kind of energy bars or something %/\
+[+ Buttercake ~~x~~10 //(PLACEHOLDER)//]<<set $pastry_buttercake += 10>>
+\
+[+ Water ~~x~~16]<<set $waterStock += 16>>
+\
+[+ Cooking Pot]<<set $key_cookpot += 1>>
+\
+[+ Firewood ~~x~~30]<<set $key_firewood += 30>></affirmative>
+\
+\
+<<elseif $memory00 is 1>>\
+You remember days spent roaming the land, a pack slung over your back as you went off in search of wonder and beauty...
+//[Memory Already Active]//</hypo><<endif>><<nobr>>
+
+
+
+
+<<endnobr>>\
+<<elseif $memoryPasscode is "kiss hypothesis">>
+<<if $memory01 is 0>><<set $memory01 = 1>>
+\
+''You remember days spent within the heart of mirasteel-reinforced laboratories, performing rituals as ornate and awe-inspiring as any occult summons...
+
+You remember your allegiance to the weeping eye of <hypo>the HYPOTHESIS Conglomerate... //and its secretive, insatiable masters...//</hypo>''
+
+<affirmative>\
+\
+[+ Dartgun]<<set $gun_dart += 1>>
+\
+[+ Tranquilizer Darts ~~x~~30]<<set $dart_tranq += 30>>
+\
+[+ Fattenium Darts ~~x~~20]<<set $dart_fattenium += 10>>
+\
+[+ Scientist's Set]<<set $set_science_glasses += 1; $set_science_goggles += 1; $set_science_mask += 1; $set_science_top += 1; $set_science_top_stained += 1>>
+\
+[+500 reputation: The HYPOTHESIS Conglomerate]<<set $rep_HYPOTHESIS += 500>></affirmative>
+\
+[60 Sanity]<<set $sanity = 60>>
+\
+\
+<<elseif $memory01 is 1>>\
+You remember days spent within the heart of mirasteel-reinforced laboratories, performing rituals as ornate and awe-inspiring as any occult summons...
+
+You remember your allegiance to the weeping eye of <hypo>the HYPOTHESIS Conglomerate... //and its secretive, insatiable masters...//
+//[Memory Already Active]//</hypo><<endif>><<nobr>>
+
+
+
+
+<<endnobr>>\
+<<elseif $memoryPasscode is "iron culinet">>
+/% IRON CULINET - Culinet occupation +  %/\
+<<if $memory02 is 0>><<set $memory02 = 1>>
+\
+''You remember days spent over roaring cookfires and sizzling stoves, crafting the most delicious dishes anyone could dream up...''
+
+<affirmative>\
+\
+[Culinet Occupation ~~unlocked~~]<<set $culinetProgress = 50>>
+\
+[+ Firewood ~~x~~100]<<set $key_firewood += 100>>
+\
+[+ Cooking Pot]<<set $key_cookpot += 1>>
+\
+[+ Filet Knife]<<set $key_filetknife += 1>>
+\
+[+ Herbs ~~x~~200]<<set $herbStock += 200>></affirmative>
+\
+\
+<<elseif $memory02 is 1>>\
+\
+You remember days spent over roaring cookfires and sizzling stoves, crafting the most delicious dishes anyone could dream up...
+//[Memory Already Active]//<<endif>><<nobr>>
+
+
+
+
+<<endnobr>>
+<<else>>
+''...but you can't recall anything like that.''<<endif>>

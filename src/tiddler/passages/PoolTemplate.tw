@@ -1,0 +1,55 @@
+﻿	/% Common (50%) %/
+	<<if $randomizer lte 50>>
+
+			/% 1 %/
+			<<if $clawMachine lte 20>>
+
+			/% 2 %/
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>>
+
+			/% 3 %/
+			<<elseif $clawMachine gte 61>>
+			<<endif>>
+		<<endif>>
+
+	/% Uncommon (30% chance) %/
+	<<if ($randomizer gt 50) and ($randomizer lt 70)>>
+
+			/% 1 %/
+			<<if $clawMachine lte 20>>
+
+			/% 2 %/
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>>
+
+			/% 3 %/
+			<<elseif $clawMachine gte 61>>
+			<<endif>>
+		<<endif>>
+
+	/% Rare (15%) %/
+	<<if ($randomizer gte 70) and ($randomizer lt 95)>>
+
+			/% 1 %/
+			<<if $clawMachine lte 20>>
+
+			/% 2 %/
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>>
+
+			/% 3 %/
+			<<elseif $clawMachine gte 61>>
+			<<endif>>
+		<<endif>>
+
+	/% Very Rare (5%) %/
+	<<if $randomizer gte 95>>
+
+			/% 1 %/
+			<<if $clawMachine lte 20>>
+
+			/% 2 %/
+			<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>>
+
+			/% 3 %/
+			<<elseif $clawMachine gte 61>>
+			<<endif>>
+		<<endif>>

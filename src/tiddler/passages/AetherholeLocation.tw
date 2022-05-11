@@ -1,0 +1,44 @@
+﻿/% ========================================================= %/
+/% Destinations %/
+
+
+<<set $destinationClass = 0; $destinationType = 0>>
+
+<<if $aetherDestination is "heitepresse">>
+
+/% ========================================================= %/
+/% Heitepresse (ADMIN LOCATION). %/
+
+/% 1x range for aetherhole-generated planets %/
+
+<<set $plane = "Heitepresse"; $planet = 0; $planetID = 00; $planetClass = "Mutant Living"; $planetType = "realized">>
+
+<<set $planetTemp = "temperate"; $planetHumidity = "average"; $planetAmbience = either("mira","mira","somnic","plump","chub","gainer"); $planetAtmosphere = "breathable">>
+
+<<set $planetCoreType = 0; $livingPlanetType = 0; $livingPlanetBlood = 0; $planetCoreFluid = 0>>
+
+<<set $popDensity = "mid"; $majorDenizen = "revix"; $minorDenizen1 = "revix"; $minorDenizen2 = "revix"; $weatherType = 0; $newWeather = 1>>
+
+<<set $location = "Heitprussi Gardens"; $planeRegion = "The Secret Gardens"; $zoneMobs = 0; $locName = 0; $newPlanet = 3; $hours += random(0,3)>>
+
+
+
+<<elseif $aetherDestination is 0>>
+
+/% ========================================================= %/
+/% Randomized physworld. %/
+
+<<display BilleportePlanetGen>>
+
+/% 1x range for aetherhole-generated planets %/
+
+<<set $plane = 0; $planet = $destinationPlanet; $planetID = random(1000000,1999999); $planetClass = $destinationClass; $planetType = $destinationType>>
+
+<<set $planetTemp = $destinationTemp; $planetHumidity = $destinationHumidity; $planetAmbience = $destinationAmbience; $planetAtmosphere = $destinationAtmosphere; $planetCoreType = $destinationCoreType; $livingPlanetType = $destinationLivingType; $livingPlanetBlood = $destinationPlanetBlood; $planetCoreFluid = $destinationCoreFluid>>
+
+<<set $popDensity = $destinationPop; $majorDenizen = $destinationMajorDenizen; $minorDenizen1 = $destinationMinorDenizen1; $minorDenizen2 = $destinationMinorDenizen2; $weatherType = 0; $newWeather = 1>>
+
+<<set $startBiome = 0; $location = $startBiome; $locName = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $newPlanet = 3; $hours += random(0,3)>>
+
+
+<<endif>>

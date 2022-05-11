@@ -1,0 +1,510 @@
+﻿/% ========================================================= %/
+/% Passive species traits %/
+
+<<set $powers = 0>>
+
+/% Switch this off for specific species only %/
+<<set $needsAir = 1>>
+
+
+/% ====================== %/
+/% Flight %/
+
+<<if $geneFlight is 1>><<set $miscPowers = 1; $powers = 1>>
+
+<<if $gain50 is 0>><<set $flight = 1>><<elseif $gain50 is 1>><<set $flight = 0>><<endif>>
+
+
+<<endif>>
+
+/% ====================== %/
+/% Post-Human & Arka %/
+
+
+<<if ($species is "post-human") or ($species is "arka")>>
+
+/% Post-humans and arka are domestic humanoids %/
+<<set $humanoidFlag = 1>>
+
+/% Needs to breathe. %/
+<<set $needsAir = 1>>
+
+<<endif>>
+
+/% ====================== %/
+/% aladri %/
+
+
+<<if $species is "aladri">>
+
+/% Needs to breathe. %/
+<<set $needsAir = 1>>
+
+/% Bitey. %/
+<<set $withTeeth = 1>>
+
+/% aladri unlock the aladri skilltree. %/
+<<set $aladriPowers = 1; $powers = 1>>
+
+/% aladri can 'warp' through wild areas to points of interest at will. (code in BiomeDatabase. %/
+
+<<endif>>
+
+
+/% ========================================================= %/
+
+/% Leupai (all) %/
+
+
+<<if ($species is "leupai") or ($species is "erinyi") or ($species is "somnian") or ($species is "helene") or ($lycanthropy is "laworn")>>
+
+/% Leupai family flag %/
+
+<<set $leupaiFlag = 1>>
+
+/% Leupai are greedy! %/
+<<if $esurience lt 7>><<set $esurience = 7>><<endif>>
+
+/% Leupai are stretchy %/
+<<set $stretchy = 1>>
+
+/% Bitey. %/
+<<set $withTeeth = 1>>
+
+/% Leupai spontaneously gain weight when exposed to cold weather. %/
+
+<<if $coldWeather is 1>>
+<<set $belly += ($metaGain * either(0.01,0.02,0.03)); $thigh += ($metaGain * either(0.01,0.02,0.03))>><<endif>>
+
+/% Leupai spontaneously bloat when exposed to high heat. %/
+
+<<if $hotWeather is 1>>
+<<set $bellyBloat += ($maxBelly * either(0.01,0.02,0.03)); $breastBloat += ($maxBreast * either(0.01,0.02,0.03))>><<endif>>
+
+/% Leupai do not metabolize most toxins (code in Overdoses passage) %/
+<<set $toxinResistant = 1>>
+
+/% Leupai are unharmed by radiation, and grow when overexposed. %/
+<<set $radAffinity = 1>>
+
+/% Vitae is lethal to Leupai! (code in Toxins passage) %/
+
+/% Extreme weather & atmospheres don't harm leupai. %/
+<<set $heatResistant = 1; $coldResistant = 1>>
+
+/% Leupai are resistant to blunt trauma. (recode) %/
+<<if $bluntTraumaAfflicted gt 0>><<set $pain -= ($bluntTraumaAfflicted/2); $bluntTraumaAfflicted  = 0>><<endif>>
+
+/% Leupai are bolstered by mirajin (save for immense quantities) %/
+<<if ($mirajinRads gt 0) and ($mirajinRads lt 700)>><<set $pain -= random(2,5); $bonusEnergy += random(2,5)>><<endif>>
+
+/% Leupai are resistant to mirajin %/
+<<if $mirajinRads gt 0>><<set $mirajinRads -= random(2,5)>><<endif>>
+
+<<endif>>
+
+
+/% ====================== %/
+/% Leupai (specific) %/
+
+
+<<if $species is "leupai">>
+
+/% Unlock for toon select. %/
+
+<<if $unlock_leupai is 0>>
+	<<set $speciesKey = "leupai"; $unlock_leupai = 1>>
+	<<set $leupaiArray.push($speciesKey); $monsterArray.push($speciesKey)>><<endif>>
+
+/% Leupai species store - keeps leupai from being transformed into non-leupai %/
+<<set $speciesStore = $species>>
+
+/% Doesn't need to breathe. %/
+<<set $needsAir = 0>>
+
+/% Leupai unlock the leupai skilltree. %/
+<<set $leupaiPowers = 1; $powers = 1>>
+
+/% Leupai are ENORMOUSLY elastic. %/
+
+<<if $stretchMod lt 100>><<set $stretchMod += (100 - $stretchMod)>><<endif>>
+
+/% Leupai BodySystems keeps you from burning too many calories. %/
+<<if $metaBurn gte 40>><<set $metaBurn = 30>><<endif>>
+
+/% Leupai BodySystems processes as many calories into fat as possible. %/
+<<if $metaGain lte 40>><<set $metaGain = 50>><<endif>>
+
+/% Leupai produce venom. %/
+<<set $storedVenom += 0.5>>
+
+<<if $playerVenom is 0>><<set $playerVenom = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>><<endif>>
+
+/% Once leupai grow fat enough, they begin to transform into Queens. %/
+<<if ($gain75 gte 1) and ($leupaiBroodMode is 0)>><<set $leupaiBroodMode = 1>>
+<<elseif ($gain75 is 0) and ($leupaiBroodMode is 1)>><<set $leupaiBroodMode = 0>><<endif>>
+
+
+/% Brood mode. Constant belly & breast weight gain & egg production %/
+
+<<if $leupaiBroodMode is 2>>
+
+<<set $belly += either(0,0,0,0,0,0,0,1)>>
+
+<<set $breast += either(0,0,0,0,0,0,0,0,0,0,1)>>
+
+<<if ($lactation is 0) and ($geneDry is 0)>><<set $lactation = either(0,0,0,0,0,0,0,1)>><<endif>>
+
+
+<<if ($leupaiEggTimer is 0) and ($leupaiEggLoad is 0)>>
+<<set $randomizer = random(1,32)>>
+	<<if $randomizer is 1>>
+			<<display LeupaiEggGen>><<endif>><<endif>>
+	<<endif>>
+<<endif>>
+
+
+/% ====================== %/
+/% Somnian %/
+
+/% Somnian BodySystems keeps you from burning too many calories. %/
+
+<<if $species is "somnian">>
+
+/% Unlock for toon select. %/
+
+<<if $unlock_somnian is 0>>
+	<<set $speciesKey = "somnian"; $unlock_somnian = 1>>
+		<<set $leupaiArray.push($speciesKey); $monsterArray.push($speciesKey); $humanoidArray.push($speciesKey)>><<endif>>
+
+/% Leupai species store - keeps leupai from being transformed into non-leupai %/
+<<set $speciesStore = $species>>
+
+/% Needs to breathe. %/
+<<set $needsAir = 1>>
+
+<<if $metaBurn gte 60>><<set $metaBurn = 50>><<endif>>
+
+<<endif>>
+
+/% ====================== %/
+/% Helene %/
+
+/% Helene BodySystems keeps you from burning too many calories. %/
+
+<<if $species is "helene">>
+
+/% Unlock for toon select. %/
+
+<<if $unlock_helene is 0>>
+	<<set $speciesKey = "helene"; $unlock_helene = 1>>
+	<<set $leupaiArray.push($speciesKey); $monsterArray.push($speciesKey); $humanoidArray.push($speciesKey)>><<endif>>
+
+/% Leupai species store - keeps leupai from being transformed into non-leupai %/
+<<set $speciesStore = $species>>
+
+/% Doesn't need to breathe. %/
+<<set $needsAir = 0>>
+
+<<if $metaBurn gte 60>><<set $metaBurn = 50>><<endif>>
+
+/% Helenes constantly produce milk which is extremely fattening and causes addiction (WIP)  %/
+<<if $lactation is 1>><<set $lactation = 1>><<endif>>
+<<if $milkFat lte 20>><<set $milkFat = 30>><<endif>>
+<<if $storedMilk lt $breast>><<set $storedMilk = $breast>><<endif>>
+<<if $milkRate lt 30>><<set $milkRate = 30>><<endif>>
+
+<<endif>>
+
+
+/% ====================== %/
+/% Fyynlings %/
+
+<<if ($species is "fyynling") or ($species is "fyynling horror") or ($substatus is "fyynmorphic")>>
+
+/% Doesn't need to breathe. %/
+<<set $needsAir = 0>>
+
+/% Slime family flag %/
+
+<<set $slimeFlag = 1>>
+
+/% Leupai family flag %/
+
+<<if ($species is "fyynling") or ($species is "fyynling horror") or ($substatus is "fyynmorphic")>>
+<<set $leupaiFlag = 1>>
+
+/% Leupai species store - keeps leupai from being transformed into non-leupai %/
+<<set $speciesStore = $species>><<endif>>
+
+/% Unlock for toon select. %/
+<<if ($species is "fyynling") or ($substatus is "fyynmorphic") or ($substatus is "fyynling horror")>>
+
+<<if $unlock_fyynling is 0>>
+	<<set $speciesKey = "fyynling"; $unlock_fyynling = 1>>
+	<<set $leupaiArray.push($speciesKey); $monsterArray.push($speciesKey)>>
+
+	<<set $speciesKey = "fyynling horror">>
+	<<set $monsterArray.push($speciesKey); $humanoidArray.push($speciesKey)>>
+	<<endif>>
+
+<<endif>>
+
+/% Fyynlings unlock the slime skilltree. %/
+<<set $slimePowers = 1; $powers = 1>>
+
+
+/% Fyynlings merge on exposure, growing fatter. %/
+
+<<if $fyynlingMorph gte $metaGain>>
+<<set $calories += $fyynlingMorph; $fyynlingMorph -= $metaGain>><<endif>>
+
+/% Fyynlings constantly grow fatter regardless of caloric intake. %/
+
+<<set $calories += either(0,0,0,0,0,0,10)>>
+<<if $metaGain lt 30>><<set $metaGain = 30>><<endif>>
+<<if $metaBurn gt 20>><<set $metaBurn = 20>><<endif>>
+
+/% Fyynlings never suffer bloat and cannot burst. %/
+
+<<set $maxBelly += $bellyBloat; $maxBreast += $breastBloat>>
+
+/% Fyynlings cannot become immobile. %/
+
+<<set $immobilityDisabled = 1; $immobileMode = 0; $immobile = 0>>
+
+/% Fyynlings are resistant to blunt trauma. (recode) %/
+<<if $bluntTraumaAfflicted gt 0>><<set $pain -= ($bluntTraumaAfflicted/2); $bluntTraumaAfflicted  = 0>><<endif>>
+
+/% Fyynlings are greedy! %/
+<<if $esurience lt 7>><<set $esurience = 7>><<endif>>
+
+<<endif>>
+
+
+/% ====================== %/
+/% Blubberslimes & Fat Elementals %/
+
+<<if ($substatus is "adiposa") or ($species is "blubberslime")>>
+
+/% Doesn't need to breathe. %/
+<<set $needsAir = 0>>
+
+/% Slime family flag %/
+
+<<set $slimeFlag = 1>>
+
+/% Unlock for toon select. %/
+<<if $species is "blubberslime">>
+
+<<if $unlock_blubber is 0>>
+	<<set $speciesKey = "blubberslime"; $unlock_blubber = 1>>
+	<<set $monsterArray.push($speciesKey)>>
+	<<endif>>
+
+<<endif>>
+
+
+/% Blubberslimes & Fat Elementals unlock the slime skilltree. %/
+<<set $slimePowers = 1; $powers = 1>>
+
+
+/% Blubberslimes & Fat Elementals merge on exposure, growing fatter. %/
+
+<<if $fyynlingMorph gte $metaGain>>
+<<set $calories += $fyynlingMorph; $fyynlingMorph -= $metaGain>><<endif>>
+
+/% Blubberslimes & Fat Elementals constantly grow fatter regardless of caloric intake. %/
+
+<<set $calories += either(0,0,0,0,0,0,10)>>
+<<if $metaGain lt 30>><<set $metaGain = 30>><<endif>>
+<<if $metaBurn gt 20>><<set $metaBurn = 20>><<endif>>
+
+/% Blubberslimes & Fat Elementals never suffer bloat and cannot burst. %/
+
+<<set $maxBelly += $bellyBloat; $maxBreast += $breastBloat>>
+
+/% Blubberslimes & Fat Elementals cannot become immobile. %/
+
+<<set $immobilityDisabled = 1; $immobileMode = 0; $immobile = 0>>
+
+/% Blubberslimes & Fat Elementals are resistant to blunt trauma. (recode) %/
+<<if $bluntTraumaAfflicted gt 0>><<set $pain -= ($bluntTraumaAfflicted/2); $bluntTraumaAfflicted  = 0>><<endif>>
+
+/% Blubberslimes & Fat Elementals are greedy! %/
+<<if $esurience lt 32>><<set $esurience = 32>><<endif>>
+
+<<endif>>
+
+/% ====================== %/
+/% Adephagian %/
+
+
+<<if $species is "adephagian">>
+
+/% Unlock for toon select. %/
+
+<<if $unlock_adephagian is 0>>
+	<<set $speciesKey = "adephagian"; $unlock_adephagian = 1>>
+	<<set $humanoidArray.push($speciesKey); $monsterArray.push($speciesKey)>>
+<<endif>>
+
+/% Adephagians are domestic humanoids %/
+<<set $humanoidFlag = 1>>
+
+/% Needs to breathe. %/
+<<set $needsAir = 1>>
+
+/% Adephagian BodySystems keeps you from burning too many calories. %/
+<<if $metaBurn gte 60>><<set $metaBurn = 50>><<endif>>
+
+/% Adephagians are flabby and frail. %/
+<<if $strength gte 26>><<set $strength = 25>><<endif>>
+<<if $thighFirmness gt 1000>><<set $thighFirmness = 800>><<endif>>
+
+/% Adephagians are greedy! %/
+<<if $esurience lt 10>><<set $esurience = 10>><<endif>>
+
+<<endif>>
+
+	/% ====================== %/
+	/% Bovitype %/
+
+
+	/% Bovitypes constantly produce fattening milk. %/
+
+	<<if $subspecies is "bovitype">>
+
+	<<if $lactation is 0>><<set $lactation = 1>><<endif>>
+	<<if $milkFat lte 40>><<set $milkFat = 50>><<endif>>
+	<<if $storedMilk lt $breast>><<set $storedMilk = $breast>><<endif>>
+	<<if $milkRate lt 30>><<set $milkRate = 30>><<endif>>
+
+	<<endif>>
+
+/% ====================== %/
+/% Mythosi %/
+
+
+<<if $species is "mythosi">>
+
+/% Unlock for toon select. %/
+
+<<if $unlock_mythosi is 0>>
+	<<set $speciesKey = "mythosi"; $unlock_mythosi = 1>>
+	<<set $monsterArray.push($speciesKey)>>
+<<endif>>
+
+/% Needs to breathe. %/
+<<set $needsAir = 1>>
+
+/% All dragons get an elemental affinity. (chosen at generation/mutation) %/
+
+/% Dragon family flag %/
+
+<<set $dragonFlag = 1>>
+
+/% Bitey. %/
+<<set $withTeeth = 1>>
+
+/% Mythosi unlock the dragon skilltree. %/
+<<set $dragonPowers = 1; $powers = 1>>
+
+/% Mythosi have bestial strength. %/
+<<if $strength lte 24>><<set $strength = 25>><<endif>>
+
+/% Mythosi have tough bodies. %/
+<<if $dragonSkin is 0>><<set $painBuffer += 20; $dragonSkin = 1>><<endif>>
+
+
+
+<<endif>>
+
+/% ====================== %/
+/% Balloon %/
+
+<<if $substatus is "balloon">>
+
+/% Doesn't need to breathe. %/
+<<set $needsAir = 0>>
+
+/% Balloons can fly, if they aren't too fat. %/
+<<set $geneFlight = 1>>
+
+/% Balloons are stretchy %/
+<<set $stretchy = 1>>
+
+
+<<endif>>
+
+/% ====================== %/
+/% Slime %/
+
+
+<<if ($species is "slime") or ($substatus is "slime")>>
+
+/% Unlock for toon select. %/
+
+<<if $unlock_slime is 0>>
+	<<set $speciesKey = "slime"; $unlock_slime = 1>>
+	<<set $monsterArray.push($speciesKey)>>
+<<endif>>
+
+/% Slime family flag %/
+
+<<set $slimeFlag = 1>>
+
+/% Doesn't need to breathe. %/
+<<set $needsAir = 0>>
+
+/% Slimes unlock the slime skilltree. %/
+<<set $slimePowers = 1; $powers = 1>>
+
+/% Slimes never suffer bloat and cannot burst. %/
+
+<<set $maxBelly += $bellyBloat; $maxBreast += $breastBloat>>
+
+
+/% Slimes are stretchy %/
+<<set $stretchy = 1>>
+
+/% Slimes cannot become immobile. %/
+
+<<set $immobilityDisabled = 1; $immobileMode = 0; $immobile = 0>>
+
+/% Slimes absorb all liquids as body "fat". %/
+
+<<if $bellyLiquid gte 10>><<set $calories += 10; $bellyBloat -= 10; $bellyLiquid -= 10>><<endif>>
+<<if $storedMilk gte 10>><<set $breast += 10; $storedMilk -= 10>><<endif>>
+
+/% Parasitic slime is immediately absorbed as girth %/
+
+<<if $slimeBellyParaLoad gte 10>><<set $belly += $slimeBellyParaLoad; $bellyBloat += $slimeBellyParaLoad; $slimeBellyParaLoad = 0; $slimeBellyParasite = 0>><<endif>>
+<<if $slimeBreastParaLoad gte 10>><<set $breast += $slimeBreastParaLoad; $breastBloat += $slimeBreastParaLoad; $slimeBreastParaLoad = 0; $slimeBreastParasite = 0>><<endif>>
+
+/% Slimes are hard to hurt. %/
+<<if $slimeBlubber is 0>><<set $painBuffer += 10; $slimeBlubber = 1>><<endif>>
+
+/% Slimes are resistant to blunt trauma. %/
+<<if $bluntTraumaAfflicted gt 0>><<set $pain -= ($bluntTraumaAfflicted/2); $bluntTraumaAfflicted  = 0>><<endif>>
+
+<<endif>>
+
+/% ===============================================  %/
+
+/% Leupai stay leupai regardless of species mutations/transformations. %/
+/% Currently broken! Needs more complexity to work properly %/
+
+<<if $leupaiFlag is 1>>
+<<if $species neq $speciesStore>><<set $species = $speciesStore>><<endif>><<endif>>
+
+
+/% ===============================================  %/
+/% Strip invalid species bonuses %/
+
+
+<<if ($dragonFlag is 0) and ($dragonSkin is 1)>><<set $painBuffer -= 20; $dragonSkin = 0>><<endif>>
+<<if ($slimeFlag is 0) and ($slimeBlubber is 1)>><<set $painBuffer -= 10; $slimeBlubber = 0>><<endif>>
+<<if ($slimeFlag is 0) and ($immobilityDisabled is 1)>><<set $immobilityDisabled = 0>><<endif>>
+<<if ($aladriPowers is 1) and ($species neq "aladri")>><<set $wildrunning = 0; $aladriPowers = 0>><<endif>>
+<<if ($wildrunning is 1) and ($species neq "aladri")>><<set $wildrunning = 0; $aladriPowers = 0>><<endif>>

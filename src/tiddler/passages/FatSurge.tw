@@ -1,0 +1,106 @@
+﻿/% ===================================================== %/
+/% Body type-sensitive weight gain scripts; like fattenium, but much more potent.  %/
+
+/% Key --
+Body - 1
+Breast - 2
+Belly - 3
+Thigh - 4 %/
+
+<<if $fatteningSurge is 0>><<set $fatteningSurge = random(10,35)>><<endif>>
+
+<<if $bodyType is 0>>
+<<set $randomizer = either(1,1,2,3,4)>>
+
+<<elseif $bodyType is "busty">>
+<<set $randomizer = either(1,2,5)>>
+
+<<elseif $bodyType is "hourglass">>
+<<set $randomizer = either(1,2,4)>>
+
+<<elseif $bodyType is "round">>
+<<set $randomizer = either(1,3,3,4)>>
+
+<<elseif $bodyType is "belly">>
+<<set $randomizer = either(1,3)>>
+
+<<elseif $bodyType is "pear">>
+<<set $randomizer = either(1,3,4)>>
+
+<<elseif $bodyType is "thigh">>
+<<set $randomizer = either(1,4)>>
+
+/% Special types %/
+
+<<elseif $bodyType is "boviete">>
+<<set $randomizer = 2,6>>
+
+<<elseif $bodyType is "cubus">>
+<<set $randomizer = either(2,4,6)>>
+
+<<elseif $bodyType is "guguetelle">>
+<<set $randomizer = 3,7>>
+
+<<elseif $bodyType is "bulging">>
+<<set $randomizer = either(3,4,7,8)>>
+
+<<elseif $bodyType is "blimpthigh">>
+<<set $randomizer = 4,8>>
+
+<<endif>>
+
+
+/% ===================================================== %/
+/% Finalize weight gain %/
+
+/% Body gain, with possible secondary gain %/
+
+<<if $randomizer is 1>>
+
+<<set $girth += $fatteningSurge; $belly += ($fatteningSurge * either(0,0,1)); $breast += ($fatteningSurge * either(0,0,1)); $thigh += ($fatteningSurge * either(0,0,1)); $thighFirmness -= ($fatteningSurge * either(0,0,1))>>
+
+/% Breast gain, with possible secondary gain %/
+
+<<elseif $randomizer is 2>>
+
+<<set $breast += $fatteningSurge; $belly += ($fatteningSurge * either(0,0,1)); $girth += ($fatteningSurge * either(0,0,1)); $thigh += ($fatteningSurge * either(0,0,1)); $thighFirmness -= ($fatteningSurge * either(0,0,1))>>
+
+/% Belly gain, with possible secondary gain %/
+
+<<elseif $randomizer is 3>>
+
+<<set $belly += $fatteningSurge; $girth += ($fatteningSurge * either(0,0,1)); $breast += ($fatteningSurge * either(0,0,1)); $thigh += ($fatteningSurge * either(0,0,1)); $thighFirmness -= ($fatteningSurge * either(0,0,1))>>
+
+/% Thigh gain, with possible secondary gain %/
+
+<<elseif $randomizer is 4>>
+
+<<set $thigh += $fatteningSurge; $thighFirmness -= $fatteningSurge; $girth += ($fatteningSurge * either(0,0,1)); $breast += ($fatteningSurge * either(0,0,1)); $belly += ($fatteningSurge * either(0,0,1))>>
+
+/% Body gain, no secondary gain %/
+
+<<elseif $randomizer is 5>>
+
+<<set $girth += $fatteningSurge>>
+
+/% Breast gain, no secondary gain %/
+
+<<elseif $randomizer is 6>>
+
+<<set $breast += $fatteningSurge>>
+
+/% Belly gain, no secondary gain %/
+
+<<elseif $randomizer is 7>>
+
+<<set $belly += $fatteningSurge>>
+
+/% Thigh gain, no secondary gain %/
+
+<<elseif $randomizer is 8>>
+
+<<set $thigh += $fatteningSurge; $thighFirmness -= $fatteningSurge>><<endif>>
+
+
+/% Surge cleanup %/
+<<set $fatteningSurge = 0>>

@@ -1,0 +1,796 @@
+﻿/% ========== ITEMS DATABASE ==========
+
+All encounterable statted items ingame draw information from here!
+Just have the calling page provide the item name, and then call this page to have plug in the rest of the info.
+
+Items don't NEED to have an entry here, but if the item can be called from an encounter or treasure pool, it does.
+
+canSplit = for food items that can be 'shattered' into resources via the inventory. %/
+
+<<set $itemLiquid = 0; $itemType = 0; $injectLoc = 0; $articleColor = 0; $caffeineContent = 0; $collectiblePool = 0; $itemSpecialDesc = 0; $wearColor = 0; $baseElasticity = 0>>
+
+/% ==================================== %/
+/% I. Use-Effect Consumables. %/
+
+<<if $itemEncounter is "miraberries">><<set $itemGrammar = "a handful of"; $itemEffect = random(10,20,30); $useDesc = "Consume."; $itemType = "statfood"; $itemID = "berry_mira"; $itemQuantity = either(2,2,2,3,4)>><<endif>>
+
+<<if $itemEncounter is "rainberries">><<set $itemGrammar = "a handful of"; $useDesc = "Consume."; $itemType = "statfood"; $itemID = "berry_rain"; $itemQuantity = either(2,2,2,3,4)>><<endif>>
+
+<<if $itemEncounter is "roundberries">><<set $itemGrammar = "a handful of"; $useDesc = "Consume."; $itemType = "statfood"; $itemID = "berry_round"; $itemQuantity = either(2,2,2,3,4)>><<endif>>
+
+<<if $itemEncounter is "bulkberries">><<set $itemGrammar = "a handful of"; $useDesc = "Consume."; $itemType = "statfood"; $itemID = "berry_bulk"; $itemQuantity = either(2,2,2,3,4)>><<endif>>
+
+<<if $itemEncounter is "burstberries">><<set $itemGrammar = "a handful of"; $useDesc = "Consume."; $itemType = "statfood"; $itemID = "berry_burst"; $itemQuantity = either(2,2,2,3,4)>><<endif>>
+
+<<if $itemEncounter is "cowberries">><<set $itemGrammar = "a handful of"; $useDesc = "Consume."; $itemType = "statfood"; $itemID = "berry_cow"; $itemQuantity = either(2,2,2,3,4)>><<endif>>
+
+<<if $itemEncounter is "plushberries">><<set $itemGrammar = "a handful of"; $useDesc = "Consume."; $itemType = "statfood"; $itemID = "berry_plush"; $itemQuantity = either(2,2,2,3,4)>><<endif>>
+
+<<if $itemEncounter is "bounceberries">><<set $itemGrammar = "a handful of"; $useDesc = "Consume."; $itemType = "statfood"; $itemID = "berry_bounce"; $itemQuantity = either(2,2,2,3,4)>><<endif>>
+
+<<if $itemEncounter is "bulgeberries">><<set $itemGrammar = "a handful of"; $useDesc = "Consume."; $itemType = "statfood"; $itemID = "berry_bulge"; $itemQuantity = either(2,2,2,3,4)>><<endif>>
+
+<<if $itemEncounter is "butterberries">><<set $itemGrammar = "a handful of"; $useDesc = "Consume."; $itemType = "statfood"; $itemID = "berry_butter"; $itemQuantity = either(2,2,2,3,4)>><<endif>>
+
+<<if $itemEncounter is "egg plant">><<set $itemGrammar = "an"; $useDesc = "Consume."; $itemType = "statfood"; $itemID = "plant_egg"; $itemQuantity = either(2,2,2,3,4)>><<endif>>
+
+<<if $itemEncounter is "mushroom">><<set $itemEncounter = either("strange mushroom","glowing mushroom","puffbelly mushroom")>><<endif>>
+
+<<if $itemEncounter is "strange mushroom">><<set $itemGrammar = "a"; $itemEffect = random(1,16); $useDesc = "Consume."; $itemType = "statfood"; $encImg = "mushroom"; $itemID = "mush_strange">><<endif>>
+
+<<if $itemEncounter is "glowing mushroom">><<set $itemGrammar = "a"; $itemEffect = random(1,6); $useDesc = "Consume."; $itemType = "statfood"; $encImg = "mushroom"; $itemID = "mush_glowing">><<endif>>
+
+<<if $itemEncounter is "mysterious potion">><<set $itemGrammar = "a"; $itemEffect = random(1,16); $useDesc = "Consume."; $itemType = "medicine"; $itemID = "potion_mystery">><<endif>>
+
+<<if $itemEncounter is "leupai oil">><<set $itemGrammar = "a bottle of"; $useDesc = "Use."; $itemType = "misc"; $encImg = "bottle_oil"; $itemID = "oil_leupai">><<endif>>
+
+<<if $itemEncounter is "gainer pills">><<set $itemGrammar = "a bottle of"; $useDesc = "Use."; $itemType = "medicine"; $encImg = "dispenser"; $itemID = "pill_gainer">><<endif>>
+
+<<if $itemEncounter is "calorie powder">><<set $itemGrammar = "a bottle of"; $useDesc = "Use."; $itemType = "medicine"; $encImg = "powderjar"; $itemID = "powder_calorie">><<endif>>
+
+<<if $itemEncounter is "extra strength calorie powder">><<set $itemGrammar = "a bottle of"; $useDesc = "Use."; $itemType = "medicine"; $encImg = "powderjar"; $itemID = "powder_calorie_extra">><<endif>>
+
+<<if $itemEncounter is "maximum strength calorie powder">><<set $itemGrammar = "a bottle of"; $useDesc = "Use."; $itemType = "medicine"; $encImg = "powderjar"; $itemID = "powder_calorie_max">><<endif>>
+
+<<if $itemEncounter is "experimental calorie powder">><<set $itemGrammar = "a bottle of"; $useDesc = "Use."; $itemType = "medicine"; $encImg = "powderjar"; $itemID = "powder_calorie_xp">><<endif>>
+
+<<if $itemEncounter is "bust billower shot">><<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "breast"; $encImg = "injector"; $itemID = "shot_bustbillow">><<endif>>
+
+<<if $itemEncounter is "super bust billower shot">><<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "breast"; $encImg = "injector"; $itemID = "shot_bustbillow_super">><<endif>>
+
+<<if $itemEncounter is "thigh plumper shot">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "thigh"; $encImg = "injector"; $itemID = "shot_thighplump">><<endif>>
+
+<<if $itemEncounter is "super thigh plumper shot">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "thigh"; $encImg = "injector"; $itemID = "shot_thighplump_super">><<endif>>
+
+<<if $itemEncounter is "belly booster">><<set $itemGrammar = "a bottle of"; $itemEffect = random(1,5); $useDesc = "Consume."; $itemType = "medicine"; $encImg = "dispenser"; $itemID = "pill_bellyboost">><<endif>>
+
+<<if $itemEncounter is "super belly booster">><<set $itemGrammar = "a bottle of"; $itemEffect = random(1,5); $useDesc = "Consume."; $itemType = "medicine"; $encImg = "dispenser"; $itemID = "pill_bellyboost_super">><<endif>>
+
+<<if $itemEncounter is "puffbelly ichor">><<set $itemGrammar = "a squirt of"; $itemEffect = random(1,5); $useDesc = "Use."; $itemType = "medicine" $itemID = "special_puffbelly_ichor">><<endif>>
+
+<<if $itemEncounter is "fattenium shot">><<set $itemGrammar = "a"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_fattenium">><<endif>>
+
+<<if $itemEncounter is "pure fattenium shot">><<set $itemGrammar = "a"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_fattenium_pure">><<endif>>
+
+<<if $itemEncounter is "miratoxin shot">><<set $itemGrammar = "a"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_miratoxin">><<endif>>
+
+<<if $itemEncounter is "miradetoxin shot">><<set $itemGrammar = "a"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector2"; $itemID = "shot_miratoxin_detox">><<endif>>
+
+<<if $itemEncounter is "bellybomb">><<set $itemGrammar = "a bottle of"; $itemEffect = random(1,5); $useDesc = "Consume."; $itemType = "medicine"; $encImg = "dispenser"; $itemID = "pill_bellybomb">><<endif>>
+
+<<if $itemEncounter is "mega bellybomb">><<set $itemGrammar = "a bottle of"; $itemEffect = random(1,5); $useDesc = "Consume."; $itemType = "medicine"; $encImg = "dispenser"; $itemID = "pill_bellybomb_mega">><<endif>>
+
+<<if $itemEncounter is "helium pills">><<set $itemGrammar = "a bottle of";  $useDesc = "Consume."; $itemType = "medicine"; $itemID = "pill_helium">><<endif>>
+
+<<if $itemEncounter is "voracity shot">><<set $itemGrammar = "a"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_voracity">><<endif>>
+
+<<if $itemEncounter is "satiator shot">><<set $itemGrammar = "a"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_satiatior">><<endif>>
+
+<<if $itemEncounter is "soothers">><<set $itemGrammar = "a bottle of"; $itemEffect = random(1,5); $useDesc = "Consume."; $itemType = "medicine"; $encImg = "dispenser"; $itemID = "pill_soother">><<endif>>
+
+<<if $itemEncounter is "strange milk">><<set $itemGrammar = "a bottle of"; $itemEffect = 0; $useDesc = "Consume."; $itemType = "drinkable"; $itemID = "milk_strange">><<endif>>
+
+<<if $itemEncounter is "unmarked injection">><<set $itemEncounter = either("deflator injection","M. belesse injection","M. miriete injection","M. belebaret injection","M. belite injection","M. belite injection","M. moreauii injection","M. heleni injection","L. virii injection","slime injection","dire worm injection","egg accelerator injection","bust billower shot","thigh plumper shot","fattenium shot","pure fattenium shot","miratoxin shot","miradetoxin shot")>><<endif>>
+
+<<if $itemEncounter is "deflator injection">><<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_deflator">><<endif>>
+
+<<if $itemEncounter is "M. belesse injection">><<set $itemGrammar = "an"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_parasite_belesse">><<endif>>
+
+<<if $itemEncounter is "M. miriete injection">><<set $itemGrammar = "an"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_parasite_miriete">><<endif>>
+
+<<if $itemEncounter is "M. belebaret injection">><<set $itemGrammar = "an"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_parasite_belebaret">><<endif>>
+
+<<if $itemEncounter is "M. belite injection">><<set $itemGrammar = "an"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_parasite_belite">><<endif>>
+
+<<if $itemEncounter is "M. moreauii injection">><<set $itemGrammar = "an"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_parasite_moreauii">><<endif>>
+
+<<if $itemEncounter is "M. heleni injection">><<set $itemGrammar = "an"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_parasite_heleni">><<endif>>
+
+<<if $itemEncounter is "L. virii injection">><<set $itemGrammar = "an"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_parasite_virii">><<endif>>
+
+<<if $itemEncounter is "slime injection">><<set $itemGrammar = "a"; $itemEffect = random(1,7); $useDesc = "Use."; $itemType = "tranq"; $injectLoc = either("belly","breast"); $encImg = "injector"; $itemID = "shot_slime">><<endif>>
+
+<<if $itemEncounter is "dire worm injection">><<set $itemGrammar = "a"; $itemEffect = random(1,7); $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_worm">><<endif>>
+
+<<if $itemEncounter is "egg accelerator injection">><<set $itemGrammar = "an"; $itemEffect = random(4,10); $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_eggGrowth">><<endif>>
+
+<<if $itemEncounter is "venombloat injection">><<set $itemGrammar = "a"; $itemEffect = random(4,10); $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_venombloat">><<endif>>
+
+<<if $itemEncounter is "enormous cake">><<set $itemGrammar = "an"; $useDesc = "Consume."; $itemType = "statfood"; $itemID = "cake_enormous">><<endif>>
+
+<<if $itemEncounter is "tiny fyynling specimen">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "misc"; $itemID = "specimen_fyynling">><<endif>>
+
+<<if $itemEncounter is "dose of reality injection">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_reality">><<endif>>
+
+<<if $itemEncounter is "bolstering vitamin slurry">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "misc"; $itemID = "statboost_stamina">><<endif>>
+
+<<if $itemEncounter is "bulk powder">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "misc"; $itemID = "statboost_strength">><<endif>>
+
+<<if $itemEncounter is "limber tonic">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "misc"; $itemID = "statboost_finesse">><<endif>>
+
+<<if $itemEncounter is "black ichor potion">><<set $itemGrammar = "a bottle of"; $useDesc = "Drink"; $itemType = "medicine" $itemID = "potion_puffbelly">><<endif>>
+
+<<if $itemEncounter is "bloated gut">><<set $itemGrammar = "a"; $useDesc = "Open."; $itemType = "misc"; $itemID = "special_bloatgut">><<endif>>
+
+<<if $itemEncounter is "huge bloated gut">><<set $itemGrammar = "a"; $useDesc = "Open."; $itemType = "misc"; $itemID = "special_bloatgut_huge">><<endif>>
+
+<<if $itemEncounter is "plushifier">><<set $itemGrammar = "an"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_plushifier">><<endif>>
+
+<<if $itemEncounter is "belly plushifier">><<set $itemGrammar = "an"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_plushifier_belly">><<endif>>
+
+<<if $itemEncounter is "breast plushifier">><<set $itemGrammar = "an"; $itemEffect = 0; $useDesc = "Use."; $itemType = "tranq"; $injectLoc = "belly"; $encImg = "injector"; $itemID = "shot_plushifier_breast">><<endif>>
+
+
+/% ==================================== %/
+/% Collectible jars %/
+
+<<if $itemEncounter is "jar of somnus">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_somnus_weak">><<endif>>
+
+<<if $itemEncounter is "jar of strong somnus">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_somnus">><<endif>>
+
+<<if $itemEncounter is "jar of miratoxin">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_miratoxin">><<endif>>
+
+<<if $itemEncounter is "jar of wild miratoxin">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_miratoxin_wild">><<endif>>
+
+<<if $itemEncounter is "jar of dilute fattenium">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_fattenium_weak">><<endif>>
+
+<<if $itemEncounter is "jar of fattenium">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_fattenium">><<endif>>
+
+<<if $itemEncounter is "jar of dilute miraplasm">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_miraplasm_weak">><<endif>>
+
+<<if $itemEncounter is "jar of vital water">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_water_vital">><<endif>>
+
+<<if $itemEncounter is "jar of dirty water">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_water_dirty">><<endif>>
+
+<<if $itemEncounter is "jar of blood">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_blood">><<endif>>
+
+<<if $itemEncounter is "jar of leupai blood">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_leupaiblood">><<endif>>
+
+<<if $itemEncounter is "jar of vitae">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_vitae">><<endif>>
+
+/% ==================================== %/
+/% Milkable products %/
+
+<<if $itemEncounter is "jar of helenic milk">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_milk_helene">><<endif>>
+
+<<if $itemEncounter is "jar of leupai milk">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_milk_leupai">><<endif>>
+
+<<if $itemEncounter is "jar of toxic venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_toxic">><<endif>>
+
+<<if $itemEncounter is "jar of lethal venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_lethal">><<endif>>
+
+<<if $itemEncounter is "jar of fattening venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_gain">><<endif>>
+
+<<if $itemEncounter is "jar of super-fattening venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_supergain">><<endif>>
+
+<<if $itemEncounter is "jar of belly-fattening venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_bellygain">><<endif>>
+
+<<if $itemEncounter is "jar of belly super-fattening venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_bellysupergain">><<endif>>
+
+<<if $itemEncounter is "jar of breast-fattening venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_breastgain">><<endif>>
+
+<<if $itemEncounter is "jar of breast super-fattening venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_breastsupergain">><<endif>>
+
+<<if $itemEncounter is "jar of thigh-fattening venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_thighgain">><<endif>>
+
+<<if $itemEncounter is "jar of thigh super-fattening venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_thighsupergain">><<endif>>
+
+<<if $itemEncounter is "jar of fattenium venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_fattenium">><<endif>>
+
+<<if $itemEncounter is "jar of bulking venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_bulk">><<endif>>
+
+<<if $itemEncounter is "jar of flabbifying venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_flab">><<endif>>
+
+<<if $itemEncounter is "jar of bloating venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_bloat">><<endif>>
+
+<<if $itemEncounter is "jar of breast-bloating venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_breastbloat">><<endif>>
+
+<<if $itemEncounter is "jar of healing venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_heal">><<endif>>
+
+<<if $itemEncounter is "jar of weakening venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_weakening">><<endif>>
+
+<<if $itemEncounter is "jar of voracity venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_glutton">><<endif>>
+
+<<if $itemEncounter is "jar of caloric venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_caloric">><<endif>>
+
+<<if $itemEncounter is "jar of hallucenogenic venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_hallucenogen">><<endif>>
+
+<<if $itemEncounter is "jar of mutagenic venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_mutagen">><<endif>>
+
+<<if $itemEncounter is "jar of leucanthropic venom">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "medicine"; $itemID = "collectionjar_venom_leucanthropy">><<endif>>
+
+/% ==================================== %/
+/% II. Foods. %/
+
+/% 1/25/16 - Don't put food stats here anymore, see how it works out (we're going to try to store those in FoodEffects from now on to avoid the redundancy).
+
+These listings will just be to link up itemEncounter name calls with their itemIDs for use in other places in the code. %/
+
+<<if $itemEncounter is "fruit candies">><<set $itemEncounter = either("balloon animal gummies","glitterdrops","candy crystals"); $itemGrammar = "a bag of"; $itemType = "food"; $foodFat = either(0,0,10); $foodBloat = 10; $energy = 20; $itemID = "candy_colorfulfruit">><<endif>>
+
+<<if $itemEncounter is "milky candies">><<set $itemEncounter = either("chocolate drops","white nonpareils","pastel nonpareils","rainbow nonpareils","autumn nonpareils","maple sugar leaves","caramels"); $itemGrammar = "a bag of"; $itemType = "food"; $foodFat = 10; $foodBloat = 10; $energy = 20; $itemID = "candy_milky">><<endif>>
+
+<<if $itemEncounter is "bubble candies">><<set $itemGrammar = "a bag of"; $itemType = "food"; $itemID = "candy_slimebait">><<endif>>
+
+<<if $itemEncounter is "honeybutter comb">><<set $itemGrammar = "a piece of"; $itemType = "food"; $itemID = "candy_honeybuttercomb">><<endif>>
+
+<<if $itemEncounter is "adephagian milk">><<set $itemGrammar = "a bottle of"; $itemType = "food"; $foodFat = either(10,20,30); $foodBloat = 20; $foodLiquid = 50; $energy = 30; $itemLiquid = 1; $itemID = "drink_milk">><<endif>>
+
+<<if $itemEncounter is "espresso">><<set $itemGrammar = "a shot of"; $itemType = "food"; $foodFat = 0; $foodBloat = 10; $foodLiquid = 30; $energy = 120; $caffeineContent = random(10,18); $itemLiquid = 1; $itemID = "drink_espresso">><<endif>>
+
+<<if $itemEncounter is "black coffee">><<set $itemGrammar = "a mug of"; $itemType = "food"; $foodFat = 0; $foodBloat = 30; $foodLiquid = 30; $energy = 80; $caffeineContent = random(6,12); $itemLiquid = 1; $itemID = "drink_coffee">><<endif>>
+
+<<if $itemEncounter is "milky coffee">><<set $itemGrammar = "a mug of"; $itemType = "food"; $foodFat = 10; $foodBloat = 30; $foodLiquid = 30; $energy = 60; $caffeineContent = random(2,6); $itemLiquid = 1; $itemID = "drink_coffee_milky">><<endif>>
+
+<<if $itemEncounter is "fragrant">><<set $itemEncounter = either("rose","lavender","honeybutter","tea","wine") + " fragrant"; $itemGrammar = "a bottle of"; $itemType = "food"; $foodFat = 10; $foodBloat = 60; $energy = 10; $itemLiquid = 1; $itemID = "drink_fragrant">><<endif>>
+
+<<if $itemEncounter is "honeybutter">><<set $itemGrammar = "a jar of"; $itemType = "food"; $foodFat = 90; $foodBloat = 20; $foodLiquid = 20; $energy = 100; $itemLiquid = 1; $itemID = "collectionjar_honeybutter">><<endif>>
+
+<<if $itemEncounter is "royal gorger jelly">><<set $itemGrammar = "a jar of"; $itemType = "food"; $foodFat = 250; $foodBloat = 5; $foodLiquid = 5; $energy = 500; $itemLiquid = 1; $itemID = "collectionjar_gorgerjelly">><<endif>>
+
+<<if $itemEncounter is "buttercandy">><<set $itemEncounter = either("vanilla","chocolate","strawberry","mint","orange","nut","ginger","caramel","coffee","milk") + " buttercandy"; $itemGrammar = "a bar of"; $itemType = "food"; $foodFat = 30; $foodBloat = 20; $energy = 30; $itemID = "candy_buttercandy">><<endif>>
+
+<<if $itemEncounter is "indulgence biscuits">><<set $itemGrammar = "a package of"; $itemType = "food"; $foodFat = 70; $foodBloat = 30; $energy = 30; $itemID = "pastry_indulgence">><<endif>>
+
+<<if $itemEncounter is "buttercake">><<set $itemGrammar = "a"; $itemType = "food"; $foodFat = 30; $foodBloat = 10; $energy = 10; $itemID = "pastry_buttercake">><<endif>>
+
+<<if $itemEncounter is "buttercakes">><<set $itemGrammar = "a box of"; $itemType = "food"; $foodFat = 300; $foodBloat = 100; $energy = 100; $itemID = "pastry_buttercake"; $itemQuantity = 10>><<endif>>
+
+<<if $itemEncounter is "croissant">><<set $itemEncounter = "huge " + either("beef","pork","swan","leupai-meat","dragon-meat","adephagian") + " croissant"; $itemGrammar = "a"; $itemType = "food"; $foodFat = 80; $foodBloat = 100; $energy = 50; $itemID = "pastry_croissant">><<endif>>
+
+<<if $itemEncounter is "plump suai belsuite">><<set $itemEncounter = "plump " + either("chocolate","sour cream","custard","cherry","strawberry","sweet cheese","cheddar","cheddar spice","chili","beef","chicken","pork","poturnip","honeybutter","royal cream","vanilla buttercream","chocolate buttercream","vanilla sweetbutter","chocolate sweetbutter","strawberry sweetbutter","mint sweetbutter","orange sweetbutter","nut sweetbutter") + " suai belsuite"; $itemGrammar = "a"; $useDesc = "Eat it!"; $itemType = "food"; $foodFat = random(60,80); $foodBloat = 30; $energy = 20; $itemID = "pastry_belsuite">><<endif>>
+
+<<if $itemEncounter is "overstuffed suai belsuite">><<set $itemEncounter = "overstuffed " + either("chocolate","sour cream","custard","cherry","strawberry","sweet cheese","cheddar","cheddar spice","chili","beef","chicken","pork","poturnip","honeybutter","royal cream","vanilla buttercream","chocolate buttercream","vanilla sweetbutter","chocolate sweetbutter","strawberry sweetbutter","mint sweetbutter","orange sweetbutter","nut sweetbutter") + " suai belsuite"; $itemGrammar = "a"; $useDesc = "Eat it!"; $itemType = "food"; $foodFat = either(90,100,110,120); $foodBloat = 40; $energy = 20; $itemID = "pastry_belsuite_fat">><<endif>>
+
+<<if $itemEncounter is "experimental buttercake">><<set $itemGrammar = "an"; $itemType = "food"; $foodFat = random(150,350); $foodBloat = random(10,150); $energy = random(0,100); $itemID = "pastry_buttercake_spiked">><<endif>>
+
+<<if $itemEncounter is "science soda">><<set $itemEncounter = "fizzy " + either("red","green","blue","orange","purple","black","teal","white","pale") + " liquid"; $itemGrammar = "an unlabeled bottle of"; $itemType = "food"; $foodFat = random(0,500); $foodBloat = random(0,500); $foodLiquid = random(0,50000); $energy = random(0,500); $itemLiquid = 1; $itemID = "drink_science">><<endif>>
+
+<<if $itemEncounter is "fattenium donut">><<set $itemGrammar = "a"; $useDesc = "Eat it!"; $itemType = "food"; $foodFat = random(65,110); $foodBloat = 100; $foodLiquid = 0; $itemID = "donut_fattenium">><<endif>>
+
+<<if $itemEncounter is "fattenium donuts">><<set $itemGrammar = "half a dozen"; $useDesc = "Eat them!"; $itemType = "food"; $foodFat = random(250,350); $foodBloat = 500; $foodLiquid = 0; $itemID = "donut_fattenium"; $itemQuantity = 6>><<endif>>
+
+
+/% ==================================== %/
+/% Eggs %/
+
+<<if $itemEncounter is "small eggs">><<set $itemGrammar = "some"; $itemType = "food"; $itemID = "egg_small">><<endif>>
+
+<<if $itemEncounter is "eggs">><<set $itemGrammar = "some"; $itemType = "food"; $itemID = "egg_med">><<endif>>
+
+<<if $itemEncounter is "large eggs">><<set $itemGrammar = "some"; $itemType = "food"; $itemID = "egg_large">><<endif>>
+
+
+/% ==================================== %/
+/% Produce %/
+
+
+<<if $itemEncounter is "plump tendrilgrass">><<set $itemGrammar = "a patch of"; $itemType = "food"; $itemID = "produce_tendrilgrass">><<endif>>
+
+<<if $itemEncounter is "coffee berry">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_coffee">><<endif>>
+
+<<if $itemEncounter is "succulent rose">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_succulent">><<endif>>
+
+<<if $itemEncounter is "cactus pad">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_cactus">><<endif>>
+
+<<if $itemEncounter is "pricklepear">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_pricklepear">><<endif>>
+
+<<if $itemEncounter is "starberry">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_starberry">><<endif>>
+
+<<if $itemEncounter is "cramberry">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_cramberry">><<endif>>
+
+<<if $itemEncounter is "effervescent grape">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_grape">><<endif>>
+
+<<if $itemEncounter is "inert tendrilvines">><<set $itemGrammar = "a cluster of"; $itemType = "food"; $itemID = "produce_tendrilvine">><<endif>>
+
+<<if $itemEncounter is "puffbelly mushroom flesh">><<set $itemGrammar = "a chunk of"; $itemType = "food"; $itemID = "produce_puffshroom">><<endif>>
+
+<<if $itemEncounter is "rockroot">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_rockroot">><<endif>>
+
+<<if $itemEncounter is "honeycarrot">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_honeycarrot">><<endif>>
+
+<<if $itemEncounter is "golden starchroot">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_starchroot">><<endif>>
+
+<<if $itemEncounter is "sugarcane">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_sugarcane">><<endif>>
+
+<<if $itemEncounter is "ripe tomato">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_tomato">><<endif>>
+
+<<if $itemEncounter is "plump belcheri">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_belcheri">><<endif>>
+
+<<if $itemEncounter is "plump plum">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_plum">><<endif>>
+
+<<if $itemEncounter is "giant peach">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_peach">><<endif>>
+
+<<if $itemEncounter is "voluptuous pear">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_pear">><<endif>>
+
+<<if $itemEncounter is "imperial apple">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_apple">><<endif>>
+
+<<if $itemEncounter is "puddingfruit">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_pudding">><<endif>>
+
+<<if $itemEncounter is "bloated milkmelon">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_milkmelon"; $canSplit = 1>><<endif>>
+
+<<if $itemEncounter is "creaking milkmelon">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_milkmelon_creaking"; $canSplit = 1>><<endif>>
+
+<<if $itemEncounter is "fat pumpkin">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_fatpumpkin">><<endif>>
+
+<<if $itemEncounter is "zeppelon">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "produce_zeppelon">><<endif>>
+
+/% ==================================== %/
+/% Meats %/
+
+
+<<if $itemEncounter is "haunch of meat">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "meat_haunch">><<endif>>
+
+<<if $itemEncounter is "fat haunch of meat">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "meat_fattyhaunch">><<endif>>
+
+<<if $itemEncounter is "fat haunch of leupai meat">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "meat_fattyleuphaunch">><<endif>>
+
+<<if $itemEncounter is "plump tentacle">><<set $itemGrammar = "a"; $itemType = "food"; $itemID = "tentacle_plump">><<endif>>
+
+/% ==================================== %/
+/% Milkable Foods %/
+
+<<if $itemEncounter is "jar of slime">><<set $itemGrammar = "a"; $itemType = "food"; $foodFat = 0; $foodBloat = 20; $foodLiquid = 50; $energy = 0;  $itemLiquid = 1; $itemID = "collectionjar_slime">><<endif>>
+
+<<if $itemEncounter is "jar of milk">><<set $itemGrammar = "a"; $itemType = "food"; $foodFat = 20; $foodBloat = 20; $foodLiquid = 50; $energy = 30;  $itemLiquid = 1; $itemID = "collectionjar_milk">><<endif>>
+
+<<if $itemEncounter is "jar of adephagian milk">><<set $itemGrammar = "a"; $itemType = "food"; $foodFat = 40; $foodBloat = 20; $foodLiquid = 50; $energy = 40;  $itemLiquid = 1; $itemID = "collectionjar_milk_adephagian">><<endif>>
+
+<<if $itemEncounter is "jar of cream">><<set $itemGrammar = "a"; $itemType = "food"; $foodFat = 50; $foodBloat = 20; $foodLiquid = 50; $energy = 50;  $itemLiquid = 1; $itemID = "collectionjar_cream">><<endif>>
+
+<<if $itemEncounter is "jar of thick cream">><<set $itemGrammar = "a"; $itemType = "food"; $foodFat = 80; $foodBloat = 40; $foodLiquid = 50; $energy = 60;  $itemLiquid = 1; $itemID = "collectionjar_cream_thick">><<endif>>
+
+<<if $itemEncounter is "jar of whipped cream">><<set $itemGrammar = "a"; $itemType = "food"; $foodFat = 100; $foodBloat = 60; $foodLiquid = 20; $energy = 80; $itemID = "collectionjar_cream_whipped">><<endif>>
+
+<<if $itemEncounter is "jar of imperial cream">><<set $itemGrammar = "a"; $itemType = "food"; $foodFat = 120; $foodBloat = 40; $foodLiquid = 50; $energy = 100;  $itemLiquid = 1; $itemID = "collectionjar_cream_imperial">><<endif>>
+
+<<if $itemEncounter is "jar of superb imperial cream">><<set $itemGrammar = "a"; $itemType = "food"; $foodFat = 160; $foodBloat = 40; $foodLiquid = 50; $energy = 150;  $itemLiquid = 1; $itemID = "collectionjar_cream_superimperial">><<endif>>
+
+/% ==================================== %/
+/% III. Static, Interactible Objects. %/
+
+
+/% ==================================== %/
+/% Puffbelly Mushrooms (Miracoceps suculiet fruiting body) %/
+
+<<if $itemEncounter is "puffbelly mushroom">>
+<<set $itemGrammar = "a"; $useDesc = "Harvest!"; $itemType = "static">><<endif>>
+
+/% ==================================== %/
+/% Gorger/Fairyhawk trees %/
+
+<<if $itemEncounter is "hollow tree">>
+<<set $itemGrammar = "a"; $itemEffect = random(1,4); $useDesc = "Approach."; $itemType = "static">><<endif>>
+
+
+/% ==================================== %/
+/% Tainted Pools %/
+
+/% By planet type %/
+<<if $itemEncounter is "tainted pool">><<set $itemEncounter = "pool of " + $planetFluid>><<endif>>
+
+/% Molten pools (by planet) %/
+
+<<if $itemEncounter is "molten pool">>
+<<set $itemEncounter = "pool of " + $planetCoreFluid; $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $itemSpecialDesc = "You can feel the INTENSE heat wafting off of it!">><<endif>>
+
+
+/% Inert pools %/
+
+<<if $itemEncounter is "pool of dark red ichor">>
+<<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 1; $collectedItem = "jar of blood"; $itemID = "collectionjar_blood">><<endif>>
+
+<<if $itemEncounter is "pool of shimmering blue ichor">>
+<<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 1; $collectedItem = "jar of leupai blood"; $itemID = "collectionjar_leupaiblood">><<endif>>
+
+<<if $itemEncounter is "pool of golden oil">>
+<<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 1; $collectedItem = "jar of fattenium"; $itemID = "collectionjar_fattenium">><<endif>>
+
+<<if $itemEncounter is "pool of pink water">>
+<<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 1; $collectedItem = "jar of dilute miraplasm"; $itemID = "collectionjar_miraplasm_weak">><<endif>>
+
+<<if $itemEncounter is "pool of golden water">>
+<<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 1; $collectedItem = "jar of dilute fattenium"; $itemID = "collectionjar_fattenium_weak">><<endif>>
+
+<<if $itemEncounter is "pool of shining water">>
+<<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 1; $collectedItem = "jar of vital water"; $itemID = "collectionjar_water_vital">><<endif>>
+
+<<if $itemEncounter is "pool of dirty water">>
+<<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 1; $collectedItem = "jar of dirty water"; $itemID = "collectionjar_water_dirty">><<endif>>
+
+/% Somnus pools %/
+
+<<if $itemEncounter is "pool of somnus">>
+<<set $itemEncounter = "pool of " + either("red-tinted","orange-tinted","yellow-tinted","green-tinted","blue-tinted","indigo-tinted","violet-tinted","magenta-tinted","black-tinted","white-tinted") + " water"; $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 1; $itemID = either("collectionjar_somnus_weak","collectionjar_somnus","collectionjar_miratoxin")>><<endif>>
+
+/% Boiling pools %/
+
+<<if ($itemEncounter is "pool of glowing teal ichor") or ($itemEncounter is "pool of glowing blue ichor") or ($itemEncounter is "pool of molten orange goo") or ($itemEncounter is "pool of molten red goo") or ($itemEncounter is "pool of molten blue goo") or ($itemEncounter is "pool of boiling water") or ($itemEncounter is "pool of boiling oil")>>
+<<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 0; $itemSpecialDesc = "You can feel the INTENSE heat wafting off of it!">><<endif>>
+
+/% Just FINDING a pool of miraplasm or radioactive goo is dangerous! %/
+/% Make collectible later-- have an effect that greatly increases your mirads just for holding it %/
+<<if $itemEncounter is "pool of glowing magenta goo">>
+<<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 0; $ambientMirajin += random(4,12); $itemSpecialDesc = "You feel unwell..."; $collectedItem = "jar of miraplasm"; $itemID = "collectionjar_miraplasm">><<endif>>
+
+/% TODO: Radiation pool %/
+/% Make collectible later-- have an effect that greatly increases your rads just for holding it %/
+<<if $itemEncounter is "pool of glowing green goo">>
+<<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 0; $itemSpecialDesc = "You feel unwell..."; $collectedItem = "jar of radioactive goop"; $itemID = "collectionjar_goop_radioactive">><<endif>>
+
+/% Vitae pools %/
+
+<<if $itemEncounter is "pool of glowing teal goo">>
+<<set $itemGrammar = "a"; $itemEffect = random(1,3); $useDesc = "Drink."; $itemType = "pool"; $collectiblePool = 1; $itemSpecialDesc = "You feel anxious..."; $collectedItem = "jar of vitae"; $itemID = "collectionjar_vitae">><<endif>>
+
+
+
+
+
+/% ======================================================== %/
+/% IV. Clothing. %/
+
+/% ==================================== %/
+/% Threadbare Set %/
+
+<<if $itemEncounter is "threadbare cape">><<set $wearType = "back"; $itemGrammar = "a"; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "gray"; $itemID = "set_threadbare_cape">><<endif>>
+
+<<if $itemEncounter is "threadbare top">><<set $wearType = "top"; $itemGrammar = "a"; $baseElasticity = 300; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "gray"; $itemID = "set_threadbare_top">><<endif>>
+
+<<if $itemEncounter is "threadbare pants">><<set $wearType = "pants"; $itemGrammar = "a pair of"; $pantsPlural = "0"; $baseElasticity = 300; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "gray"; $itemID = "set_threadbare_pants">><<endif>>
+
+<<if $itemEncounter is "threadbare skirt">><<set $wearType = "pants"; $itemGrammar = "a"; $pantsPlural = "1"; $baseElasticity = 300; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "gray"; $itemID = "set_threadbare_skirt">><<endif>>
+
+<<if $itemEncounter is "worn leather sandals">><<set $wearType = "feet"; $itemGrammar = "a pair of"; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = either("brown","gray","black"); $itemID = "set_threadbare_feet">><<endif>>
+
+
+/% ==================================== %/
+/% Hospital Inpatient Set %/
+
+<<if $itemEncounter is "flimsy hospital gown">><<set $wearType = "top"; $itemGrammar = "a"; $baseElasticity = 250; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "white"; $itemID = "set_hospital_top">><<endif>>
+
+<<if $itemEncounter is "bloody hospital gown">><<set $wearType = "top"; $itemGrammar = "a"; $baseElasticity = 250; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "white"; $itemID = "set_hospital_top_bloody">><<endif>>
+
+<<if $itemEncounter is "hospital armband">><<set $wearType = "arm"; $itemGrammar = "a"; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = either("white","gray","black","magenta"); $itemID = "set_hospital_arms">><<endif>>
+
+<<if $itemEncounter is "hospital slippers">><<set $wearType = "feet"; $itemGrammar = "a pair of"; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = either("white","gray","black","magenta"); $itemID = "set_hospital_feet">><<endif>>
+
+
+/% ==================================== %/
+/% Scientist Set %/
+
+<<if $itemEncounter is "thick-rimmed glasses">><<set $wearType = "face"; $itemGrammar = "a"; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "black"; $itemID = "set_science_glasses">><<endif>>
+
+<<if $itemEncounter is "laboratory goggles">><<set $wearType = "face"; $itemGrammar = "a"; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "black"; $itemID = "set_science_goggles">><<endif>>
+
+<<if $itemEncounter is "paper medical mask">><<set $wearType = "face"; $itemGrammar = "a"; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "blue"; $itemID = "set_science_mask">><<endif>>
+
+<<if $itemEncounter is "classic labcoat">><<set $wearType = "top"; $itemGrammar = "a"; $baseElasticity = 700; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = either("white","white","white","blue"); $itemID = "set_science_top">><<endif>>
+
+<<if $itemEncounter is "stained labcoat">><<set $wearType = "top"; $itemGrammar = "a"; $baseElasticity = 700; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = either("white","white","white","blue"); $itemID = "set_science_top_stained">><<endif>>
+
+
+/% ==================================== %/
+/% Expanding Set %/
+
+<<if $itemEncounter is "expanding belt">><<set $wearType = "belt"; $itemGrammar = "a"; $baseElasticity = 250; $useDesc = "Wear."; $itemType = "wearable"; $itemID = "set_hypo_belt">><<endif>>
+
+
+/% ==================================== %/
+/% Cursed Fat Demon Set %/
+
+<<if $itemEncounter is "fat demon belt">><<set $wearType = "belt"; $itemGrammar = "a"; $baseElasticity = 500; $useDesc = "Wear."; $itemType = "wearable"; $itemID = "set_fatdemon_belt">><<endif>>
+
+
+/% ==================================== %/
+/% Plague Set %/
+
+<<if $itemEncounter is "plague doctor hood">><<set $wearType = "head"; $itemGrammar = "a"; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "black"; $itemID = "set_plague_head">><<endif>>
+
+<<if $itemEncounter is "plague doctor mask">><<set $wearType = "face"; $itemGrammar = "a"; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "white"; $itemID = "set_plague_mask">><<endif>>
+
+
+/% ==================================== %/
+/% HYPOTHESIS Mega-Armor Set %/
+
+<<if $itemEncounter is "HYPOTHESIS power helmet">><<set $wearType = "head"; $itemGrammar = "a"; $useDesc = "Wear."; $itemType = "wearable"; $itemID = "set_hypo_head">><<endif>>
+
+<<if $itemEncounter is "HYPOTHESIS kite">><<set $wearType = "top"; $itemGrammar = "a"; $baseElasticity = 1200; $useDesc = "Wear."; $itemType = "wearable"; $itemID = "set_hypo_top">><<endif>>
+
+<<if $itemEncounter is "HYPOTHESIS cesile">><<set $wearType = "belt"; $itemGrammar = "a"; $baseElasticity = 1200; $useDesc = "Wear."; $itemType = "wearable"; $itemID = "set_hypo_belt">><<endif>>
+
+<<if $itemEncounter is "HYPOTHESIS coroles">><<set $wearType = "pants"; $itemGrammar = "a pair of"; $pantsPlural = "0"; $baseElasticity = 1200; $useDesc = "Wear."; $itemType = "wearable"; $itemID = "set_hypo_pants">><<endif>>
+
+<<if $itemEncounter is "HYPOTHESIS kilt">><<set $wearType = "pants"; $itemGrammar = "a"; $pantsPlural = "1"; $baseElasticity = 1200; $useDesc = "Wear."; $itemType = "wearable"; $itemID = "set_hypo_skirt">><<endif>>
+
+
+/% ==================================== %/
+/% Night on the Town Set %/
+
+<<if $itemEncounter is "top hat">><<set $wearType = "head"; $itemGrammar = "a"; $useDesc = "Wear."; $itemType = "wearable"; $wearColor = "black"; $itemID = "set_town_head">><<endif>>
+
+
+/% ==================================== %/
+/% Dyes %/
+
+<<if $itemEncounter is "spectrum prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_rainbow">><<endif>>
+
+<<if $itemEncounter is "white prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_white">><<endif>>
+
+<<if $itemEncounter is "silver prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_silver">><<endif>>
+
+<<if $itemEncounter is "magenta prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_magenta">><<endif>>
+
+<<if $itemEncounter is "pink prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_pink">><<endif>>
+
+<<if $itemEncounter is "red prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_red">><<endif>>
+
+<<if $itemEncounter is "brown prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_brown">><<endif>>
+
+<<if $itemEncounter is "orange prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_orange">><<endif>>
+
+<<if $itemEncounter is "yellow prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_yellow">><<endif>>
+
+<<if $itemEncounter is "golden prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_golden">><<endif>>
+
+<<if $itemEncounter is "green prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_green">><<endif>>
+
+<<if $itemEncounter is "teal prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_teal">><<endif>>
+
+<<if $itemEncounter is "blue prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_blue">><<endif>>
+
+<<if $itemEncounter is "indigo prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_indigo">><<endif>>
+
+<<if $itemEncounter is "violet prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_violet">><<endif>>
+
+<<if $itemEncounter is "black prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_black">><<endif>>
+
+<<if $itemEncounter is "gray prisma shard">><<set $itemGrammar = "a"; $useDesc = "Use."; $itemType = "dye"; $itemID = "dye_gray">><<endif>>
+
+
+
+
+
+/% ==================================== %/
+/% Resources %/
+
+<<if $itemEncounter is "fragrant herbs">><<set $itemGrammar = "a bunch of"; $itemType = "resource"; $itemID = "herbStock"; $itemQuantity = random(2,5)>><<endif>>
+
+<<if $itemEncounter is "miracrystal ore">><<set $itemGrammar = "a vein of"; $itemType = "food"; $encImg = "ore_miracrystal"; $itemID = "miraStock"; $itemQuantity = random(2,5)>><<endif>>
+
+<<if $itemEncounter is "fattenium ore">><<set $itemGrammar = "a vein of"; $itemType = "food"; $encImg = "ore_fattenium"; $itemID = "fatteniumStock"; $itemQuantity = random(2,5)>><<endif>>
+
+
+/% ==================================== %/
+/% V. Trinkets, Gubs, & Special Bits. %/
+
+<<if $itemEncounter is "dreamshard">><<set $itemGrammar = "a"; $itemID = "special_dreamshard"; $itemType = "gubbin"; $encImg = "dreamshard">><<endif>>
+
+<<if $itemEncounter is "live miracrystal chunk">><<set $itemGrammar = "a"; $itemID = "special_miracrystal"; $itemType = "gubbin"; $encImg = "crystal_mira">><<endif>>
+
+<<if $itemEncounter is "recall shard">><<set $itemGrammar = "a"; $itemID = "shard_recall"; $itemType = "gubbin"; $encImg = "dreamshard">><<endif>>
+
+<<if $itemEncounter is "stasis shard">><<set $itemGrammar = "a"; $itemID = "shard_stasis"; $itemType = "gubbin"; $encImg = "dreamshard">><<endif>>
+
+<<if $itemEncounter is "egress shard">><<set $itemGrammar = "a"; $itemID = "shard_egress"; $itemType = "gubbin"; $encImg = "dreamshard">><<endif>>
+
+<<if $itemEncounter is "shield shard">><<set $itemGrammar = "a"; $itemID = "shard_shield"; $itemType = "gubbin"; $encImg = "dreamshard">><<endif>>
+
+<<if $itemEncounter is "vital shard">><<set $itemGrammar = "a"; $itemID = "shard_vital"; $itemType = "gubbin"; $encImg = "dreamshard">><<endif>>
+
+<<if $itemEncounter is "glass jar">><<set $itemGrammar = "a"; $itemID = "special_jar"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "depth meter">><<set $itemGrammar = "a"; $itemID = "special_depthmeter"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "geiger counter">><<set $itemGrammar = "a"; $itemID = "special_gcounter"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "battery crystal">><<set $itemGrammar = "a"; $itemID = "special_battery"; $itemType = "gubbin"; $encImg = "crystal_battery">><<endif>>
+
+<<if $itemEncounter is "genesis shard">><<set $itemGrammar = "a"; $itemID = "shard_genesis"; $itemType = "gubbin"; $encImg = "dreamshard">><<endif>>
+
+
+/% ==================================== %/
+/% Key Items %/
+
+
+<<if $itemEncounter is "firewood">><<set $itemGrammar = "a"; $itemID = "key_firewood"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "cooking pot">><<set $itemGrammar = "a"; $itemID = "key_cookpot"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "filet knife">><<set $itemGrammar = "a"; $itemID = "key_filetknife"; $itemType = "gubbin">><<endif>>
+
+
+/% ==================================== %/
+/% Weapons & Ammo %/
+
+
+<<if $itemEncounter is "dartgun">><<set $itemGrammar = "a"; $itemID = "gun_dart"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "fat ray">><<set $itemGrammar = "a"; $itemID = "gun_fatray"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "bass cannon">><<set $itemGrammar = "a"; $itemID = "gun_bass"; $itemType = "gubbin">><<endif>>
+
+
+<<if $itemEncounter is "tranquilizer dart">><<set $itemGrammar = "a"; $itemID = "dart_tranq"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "fattenium dart">><<set $itemGrammar = "a"; $itemID = "dart_fattenium"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "distensium dart">><<set $itemGrammar = "a"; $itemID = "dart_distensium"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "toxic dart">><<set $itemGrammar = "a"; $itemID = "dart_toxic"; $itemType = "gubbin">><<endif>>
+
+
+/% ==================================== %/
+/% Enchanted & Cursed Objects %/
+
+<<if $itemEncounter is "balloon-bellied leupai carving">><<set $itemGrammar = "a"; $itemID = "special_carving_belly"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "balloon-breasted leupai carving">><<set $itemGrammar = "a"; $itemID = "special_carving_breast"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "balloon-thighed leupai carving">><<set $itemGrammar = "a"; $itemID = "special_carving_thigh"; $itemType = "gubbin">><<endif>>
+
+
+/% ==================================== %/
+/% Materials & Vendor Trash %/
+
+<<if $itemEncounter is "dirt">><<set $itemGrammar = "a"; $itemID = "material_dirt"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "grass">><<set $itemGrammar = "a"; $itemID = "material_grass"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "fertile soil">><<set $itemGrammar = "a"; $itemID = "material_soil"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "rope">><<set $itemGrammar = "a"; $itemID = "material_rope"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "leather lacing">><<set $itemGrammar = "a"; $itemID = "material_leather_lace"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "ash">><<set $itemGrammar = "a"; $itemID = "material_ash"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "rock">><<set $itemGrammar = "a"; $itemID = "material_rock"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "metal">><<set $itemGrammar = "a"; $itemID = "material_metal"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "driftwood">><<set $itemGrammar = "a"; $itemID = "material_driftwood"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "bright powder">><<set $itemGrammar = "a"; $itemID = "material_powder_bright"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "tiny skull">><<set $itemGrammar = "a"; $itemID = "skull_tiny"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "little bones">><<set $itemGrammar = "a handful of"; $itemID = "bones_tiny"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "brilliant scales">><<set $itemGrammar = "a handful of"; $itemID = "scales_brilliant"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "tuft of fur">><<set $itemGrammar = "a"; $itemID = "fur_tuft"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "tuft of feathers">><<set $itemGrammar = "a"; $itemID = "feather_tuft"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "chitin plate">><<set $itemGrammar = "a"; $itemID = "chitin_plate"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "small pelt">><<set $itemGrammar = "a"; $itemID = "pelt_small"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "thick pelt">><<set $itemGrammar = "a"; $itemID = "pelt_thick"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "gleaming feather">><<set $itemGrammar = "a"; $itemID = "feather_gleaming"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "hide scraps">><<set $itemGrammar = "a"; $itemID = "hide_scraps"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "tattered hide">><<set $itemGrammar = "a"; $itemID = "hide_tattered"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "armored hide">><<set $itemGrammar = "a"; $itemID = "hide_armored"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "pristine hide">><<set $itemGrammar = "a"; $itemID = "hide_pristine"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "broken antler">><<set $itemGrammar = "a"; $itemID = "antler_broken"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "trophy antlers">><<set $itemGrammar = "a"; $itemID = "antler_trophy"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "voxi tail">><<set $itemGrammar = "a"; $itemID = "tail_voxi"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "wicked claw">><<set $itemGrammar = "a"; $itemID = "claw_wicked"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "ram horn">><<set $itemGrammar = "a"; $itemID = "horn_ram"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "spiral horn">><<set $itemGrammar = "a"; $itemID = "horn_spiral"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "leupai skin">><<set $itemGrammar = "a"; $itemID = "hide_leupai"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "cracked facet">><<set $itemGrammar = "a"; $itemID = "facet_cracked"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "pristine facet">><<set $itemGrammar = "a"; $itemID = "facet_pristine"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "bloated venom sac">><<set $itemGrammar = "a"; $itemID = "venomsac_bloated"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "tiny gem">><<set $itemGrammar = "a"; $itemID = "gem_tiny"; $itemType = "gubbin">><<endif>>
+
+<<if $itemEncounter is "sparkling gem">><<set $itemGrammar = "a"; $itemID = "gem_sparkling"; $itemType = "gubbin">><<endif>>
+
+/% ==================================== %/
+/% VI. Image directory %/
+
+/% Miraplasm %/
+
+<<if $itemEncounter is "pool of glowing magenta goo">><<set $encImg = "pool_miraplasm">><<endif>>
+
+/% Vitae %/
+<<if ($itemEncounter is "pool of glowing teal goo") or ($itemEncounter is "pool of molten teal goo")>><<set $encImg = "pool_vitae">><<endif>>
+
+/% Starblood %/
+<<if $itemEncounter is "pool of glowing teal ichor">><<set $encImg = "pool_tealstarblood">><<endif>>
+<<if $itemEncounter is "pool of glowing blue ichor">><<set $encImg = "pool_bluestarblood">><<endif>>
+
+/% Plutonium %/
+<<if $itemEncounter is "pool of glowing green goo">><<set $encImg = "pool_plutonium">><<endif>>
+
+/% Fattenium %/
+<<if $itemEncounter is "pool of golden oil">><<set $encImg = "pool_goldenoil">><<endif>>
+
+/% Lava %/
+<<if $itemEncounter is "pool of molten orange goo">><<set $encImg = "pool_orangelava">><<endif>>
+<<if $itemEncounter is "pool of molten red goo">><<set $encImg = "pool_redlava">><<endif>>
+<<if $itemEncounter is "pool of molten blue goo">><<set $encImg = "pool_bluelava">><<endif>>
+
+/% Blood %/
+<<if $itemEncounter is "pool of shimmering blue ichor">><<set $encImg = "pool_leupaiblood">><<endif>>
+<<if $itemEncounter is "pool of dark red ichor">><<set $encImg = "pool_blood">><<endif>>
+
+/% Mirajinic Water %/
+<<if $itemEncounter is "pool of pink water">><<set $encImg = "pool_magentasomnus">><<endif>>
+
+/% Fattenium-tainted water %/
+<<if $itemEncounter is "pool of golden water">><<set $encImg = "pool_oilywater">><<endif>>
+
+/% Oil %/
+<<if $itemEncounter is "pool of boiling oil">><<set $encImg = either("pool_crudeoil","pool_blackoil")>><<endif>>
+
+/% Shining Water %/
+<<if $itemEncounter is "pool of shining water">><<set $encImg = "pool_shiningwater">><<endif>>
+
+/% Dirty Water %/
+<<if $itemEncounter is "pool of dirty water">><<set $encImg = "pool_dirtywater">><<endif>>
+
+/% Boiling Water %/
+<<if $itemEncounter is "pool of boiling water">><<set $encImg = "pool_boilingwater">><<endif>>
+
+/% Somnus %/
+<<if $itemEncounter is "pool of red-tinted water">><<set $encImg = "pool_redsomnus">><<endif>>
+<<if $itemEncounter is "pool of orange-tinted water">><<set $encImg = "pool_orangesomnus">><<endif>>
+<<if $itemEncounter is "pool of yellow-tinted water">><<set $encImg = "pool_yellowsomnus">><<endif>>
+<<if $itemEncounter is "pool of green-tinted water">><<set $encImg = "pool_greensomnus">><<endif>>
+<<if $itemEncounter is "pool of blue-tinted water">><<set $encImg = "pool_bluesomnus">><<endif>>
+<<if $itemEncounter is "pool of indigo-tinted water">><<set $encImg = "pool_indigosomnus">><<endif>>
+<<if $itemEncounter is "pool of violet-tinted water">><<set $encImg = "pool_violetsomnus">><<endif>>
+<<if $itemEncounter is "pool of magenta-tinted water">><<set $encImg = "pool_magentasomnus">><<endif>>
+<<if $itemEncounter is "pool of white-tinted water">><<set $encImg = "pool_whitesomnus">><<endif>>
+<<if $itemEncounter is "pool of black-tinted water">><<set $encImg = "pool_blacksomnus">><<endif>>
+
+/% ==================================== %/
+/% XX. Special stuff. %/
+
+<<if $itemType is "statfood">><<set $itemUsed = "You devour the">>
+<<elseif $itemType is "drinkable">><<set $itemUsed = "You drink the">>
+<<elseif $itemType is "pool">><<set $itemUsed = "You drink from the">>
+<<elseif $itemType is "medicine">><<set $itemUsed = "You take the">>
+<<elseif $itemType is "tranq">><<set $itemUsed = "You inject the">>
+<<elseif $itemType is "ointment">><<set $itemUsed = "You rub the">>
+<<elseif $itemType is "static">><<set $itemUsed = "You inspect the">>
+<<elseif $itemType is "wearable">><<set $itemUsed = "You slip into the">>
+<<elseif $itemType is "misc">><<set $itemUsed = "You use the">><<endif>>

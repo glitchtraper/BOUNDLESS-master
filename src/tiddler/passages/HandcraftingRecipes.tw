@@ -1,0 +1,63 @@
+﻿/% ======================================================== %/
+/% HANDCRAFTING RECIPES %/
+
+/% Basic crafting recipes that don't require a specialized work area or materials. %/
+
+/% ======================================================== %/
+
+/% ======================================================== %/
+/% CRAFTING %/
+
+<<if $material_grass gte 5>>
+<<button [[Rope: Grass ~~x~~5|passage()][$material_rope += 1; $material_grass -= 5; $crafted = 1; $craftedItem = "Rope"; $craftedQuantity = 1]]>><<else>><unframe>''Rope: Grass ~~x~~5''</unframe><<endif>>
+
+<<if $pelt_small gt 0>>
+<<button [[Leather Lacing ~~x~~2: Small Pelt ~~x~~1|passage()][$craftedQuantity = either(2,2,2,2,3); $material_leather_lace += $craftedQuantity; $pelt_small -= 1; $crafted = 1; $craftedItem = "Leather Lacing"]]>><<else>><unframe>''Leather Lacing ~~x~~2: Small Pelt ~~x~~1''</unframe><<endif>>
+
+<<if $hide_scraps gte 2>>
+<<button [[Leather Lacing ~~x~~3: Hide Scraps ~~x~~2|passage()][$craftedQuantity = either(3,3,3,3,3,4,5); $material_leather_lace += $craftedQuantity; $hide_scraps -= 2; $crafted = 1; $craftedItem = "Leather Lacing"]]>><<else>><unframe>''Leather Lacing ~~x~~3: Hide Scraps ~~x~~2''</unframe><<endif>>
+
+<<if $hide_tattered gt 0>>
+<<button [[Leather Lacing ~~x~~8: Tattered Hide ~~x~~2|passage()][$craftedQuantity = either(8,8,8,8,8,9,10,12); $material_leather_lace += $craftedQuantity; $hide_tattered -= 1; $crafted = 1; $craftedItem = "Leather Lacing"]]>><<else>><unframe>''Leather Lacing ~~x~~3: Hide Scraps ~~x~~2''</unframe><<endif>>
+
+<<if $material_rope gte 2>>
+<<button [[Snare Trap: Rope ~~x~~2|passage()][$trap_snare += 1; $material_rope -= 2; $crafted = 1; $craftedItem = "Snare Trap"; $craftedQuantity = 1]]>><<else>><unframe>''Snare Trap: Rope ~~x~~2''</unframe><<endif>>
+
+<<if ($material_grass gte 3) and ($key_firewood gt 0) and ($material_rock gte 2)>>
+<<button [[Basic Pickaxe: Grass ~~x~~3 Firewood ~~x~~1 Rock ~~x~~2|passage()][$key_pickaxe += 1; $material_grass -= 3; $key_firewood -= 1; $material_rock -= 2; $crafted = 1; $craftedItem = "Basic Pickaxe"; $craftedQuantity = 1]]>><<else>><unframe>''Basic Pickaxe: Grass ~~x~~3 Firewood ~~x~~1 Rock ~~x~~3''</unframe><<endif>>
+
+<<if ($material_grass gte 3) and ($key_firewood gt 0) and ($material_rock gte 3)>>
+<<button [[Basic Axe: Grass ~~x~~3 Firewood ~~x~~1 Rock ~~x~~3|passage()][$key_axe += 1; $material_grass -= 3; $key_firewood -= 1; $material_rock -= 3; $crafted = 1; $craftedItem = "Basic Shovel"; $craftedQuantity = 1]]>><<else>><unframe>''Basic Axe: Grass ~~x~~3 Firewood ~~x~~1 Rock ~~x~~3''</unframe><<endif>>
+
+<<if ($material_grass gte 5) and ($key_firewood gte 2) and ($material_rock gte 3)>>
+<<button [[Basic Shovel: Grass ~~x~~5 Firewood ~~x~~2 Rock ~~x~~3|passage()][$key_shovel += 1; $material_grass -= 5; $key_firewood -= 2; $material_rock -= 3; $crafted = 1; $craftedItem = "Basic Shovel"; $craftedQuantity = 1]]>><<else>><unframe>''Basic Shovel: Grass ~~x~~5 Firewood ~~x~~2 Rock ~~x~~3''</unframe><<endif>>
+
+<<if ($material_leather_lace gte 3) and ($key_firewood gte 2) and ($material_metal gte 5)>>
+<<button [[Metal Pickaxe: Leather Lacing ~~x~~3 Firewood ~~x~~2 Metal ~~x~~5|passage()][$key_pickaxe_metal += 1; $material_leather_lace -= 3; $key_firewood -= 2; $material_metal -= 5; $crafted = 1; $craftedItem = "Metal Pickaxe"; $craftedQuantity = 1]]>><<endif>>
+
+<<if ($material_leather_lace gte 5) and ($key_firewood gte 5) and ($material_metal gte 8)>>
+<<button [[Metal Shovel: Leather Lacing ~~x~~5 Firewood ~~x~~5 Metal ~~x~~8|passage()][$key_shovel_metal += 1; $material_leather_lace -= 5; $key_firewood -= 5; $material_metal -= 8; $crafted = 1; $craftedItem = "Metal Shovel"; $craftedQuantity = 1]]>><<endif>>
+
+<<if $herbStock gte 3>>
+<<button [[Basic Ointment: Herbs ~~x~~3|passage()][$craftedQuantity = 1; $med_ointment += $craftedQuantity; $herbStock -= 3; $crafted = 1; $craftedItem = "Basic Ointment"]]>><<endif>>
+
+<<if ($material_dirt gte 3) and ($collectionjar_water_vital gt 0)>>
+<<button [[Fertile Soil x 5: Jar of Vital Water ~~x~~1 Dirt ~~x~~3|passage()][$material_soil += 5; $material_dirt -= 3; $collectionjar_water_vital -= 3; $crafted = 1; $craftedItem = "Fertile Soil"; $craftedQuantity = 5]]>><<endif>>
+
+<<if $scales_brilliant gte 5>>
+<<button [[Bright Powder x 3: Brilliant Scales ~~x~~5|passage()][$craftedQuantity = either(3,3,3,4,5); $material_powder_bright += $craftedQuantity; $scales_brilliant -= 5; $crafted = 1; $craftedItem = "Bright Powder"]]>><<endif>>
+
+<<if $material_metal gte 10>>
+<<button [[Cooking Pot: Metal ~~x~~10|passage()][$key_cookpot += 1; $material_metal -= 10; $crafted = 1; $craftedItem = "Cooking Pot"; $craftedQuantity = 1]]>><<else>><unframe>''Cooking Pot: Metal ~~x~~10''</unframe><<endif>>
+
+<<if ($material_soil gte 5) and ($material_metal gte 10) and ($material_glass gte 10) and ($material_rubber gte 6)>>
+<<button [[Greenhouse Mound Addon: Metal ~~x~~10 Glass ~~x~~10 Rubber ~~x~~10 Fertile Soil ~~x~~5|passage()][$mound_greenhouse += 1; $material_soil -= 5; $material_metal -= 10; $material_glass -= 10; $material_rubber -= 6; $crafted = 1; $craftedItem = "Greenhouse Mound Addon"; $craftedQuantity = 1]]>><<endif>>
+
+/% ======================================================== %/
+/% COOKING %/
+
+<<if $berry_butter gte 5>>
+<<button [[Butterberry Oil x 3: Butterberry ~~x~~5|passage()][$craftedQuantity = either(3,3,3,4,5,6); $oil_butterberry += $craftedQuantity; $berry_butter -= 5; $crafted = 1; $craftedItem = "Butterberry Oil"]]>><<endif>>
+
+<<if ($oil_butterberry gte 2) and ($material_ash gt 0) and ($fatteniumStock gte 10)>>
+<<button [[Refined Fattenium Oil x 2: Butterberry Oil ~~x~~2 Ash ~~x~~1 Fattenium Powder ~~x~~10|passage()][$craftedQuantity = 2; $oil_fattenium_refined += $craftedQuantity; $oil_butterberry -= 2; $material_ash -= 1; $fatteniumStock -= 10; $crafted = 1; $craftedItem = "Refined Fattenium Oil"]]>><<endif>>

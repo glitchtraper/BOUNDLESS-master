@@ -1,0 +1,15 @@
+﻿<<nobr>>
+
+/% Notes: Leupai can constrict their bodies at will to shift girth to other body parts. (fixed gi quantity, only from parts that have that much + a buffer to give)
+
+Leupai can willingly inflate themselves.
+
+Leupai can rip open aetherholes at will.
+
+Leupai can cause their own eggs to spontaneously activate.%/
+
+
+<<endnobr>>''__Leupai Powers__''
+<<button [[Open Aetherhole|TransportAetherhole][$saveStateEncounter = $saveState]]>>
+<<button [[Inflate Belly.|LeupaiPowerActivate][$powerType = "leupaiBellyInflation"]]>> <<button [[Inflate Breasts.|LeupaiPowerActivate][$powerType = "leupaiBreastInflation"]]>><<button [[Compress/Decompress.|LeupaiPowerActivate][$powerType = "leupaiCompression"]]>>
+<<if $hunger is "Overengorged">><<button [[Activate Eggs.|LeupaiPowerActivate][$powerType = "leupaiEggActivation"; $calories -= ($calories/3)]]>><<else>><unframe>''Not enough calories to activate eggs...''</unframe><<endif>>

@@ -1,0 +1,38 @@
+﻿/% Checks your current body type, and either grants you a body type based on your current dimensions, or upgrades you to the fatter version. %/
+
+<<if $bodyStage is 0>>
+
+/% Stage 1 setup %/
+
+<<display BodytypeDevelopment>>
+
+<<elseif $bodyStage is 1>>
+
+/% Stage 2 setup %/
+
+	<<set $randomizer = random(1,12)>>
+
+	<<if $randomizer is 1>>
+
+			<<display BodytypeDevelopment>>
+
+			<<if $bodyType is "busty">><<set $bodyType = "boviete">>
+
+			<<elseif $bodyType is "hourglass">><<set $bodyType = "cubus">>
+
+			<<elseif $bodyType is "round">><<set $bodyType = "bulging">>
+
+			<<elseif $bodyType is "belly">><<set $bodyType = "guguetelle">>
+
+			<<elseif $bodyType is "pear">><<set $bodyType = "bloatpear">>
+
+			<<elseif $bodyType is "thigh">><<set $bodyType = "blimpthigh">><<endif>>
+
+	<<endif>>
+
+<<endif>>
+
+
+/% Stage checking %/
+
+<<if ($bodyType is "boviete") or ($bodyType is "cubus") or ($bodyType is "bulging") or ($bodyType is "guguetelle") or ($bodyType is "bloatpear") or ($bodyType is "blimpthigh")>><<set $bodyStage = 2>><<endif>>

@@ -1,0 +1,9 @@
+﻿<<nobr>>
+
+/% HYPOTHESIS Mega-Armor %/
+<<endnobr>><<if ($topWorn is "HYPOTHESIS kite") and ($beltWorn is "HYPOTHESIS cesile")>><<if ($pantsWorn is "HYPOTHESIS coroles") or ($pantsWorn is "HYPOTHESIS kilt")>>
+<brightalert>''set bonus:</brightalert> +5 HP, +2 Mirajin Resistance''<<endif>><<endif>><<nobr>>
+
+
+
+<<endnobr>>

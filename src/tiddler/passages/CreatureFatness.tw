@@ -1,0 +1,52 @@
+﻿/% ============================================================================================================ %/
+/% VI. Fatness & Prefix modifiers %/
+
+/% Fatness Modifier %/
+/%
+		emaciated (-0.5)
+		sickly (-0.2)
+		[n/a] (default)
+		plump (+0.2)
+		round (+0.5)
+		fat (+1)
+		blubbery (+1.5)
+		gelatinous (+2)
+		blimplike (+5)
+		mountainous (+10)
+		moonlike (+20)?
+
+Perhaps fatness ranges should depend on planet/plane/prefix, normally.
+So by default, a normal planet will only have creatures between default to fat, whereas larger sizes happen because of specific effects (which will need to bypass the clear at the top of the database somehow-- via flags?).
+ %/
+
+	<<if $creatureFatness is "emaciated">><<set $creatureCalories -= ($creatureCalories * 0.95); $creatureGirth -= ($creatureGirth * 0.5)>>
+
+	<<elseif $creatureFatness is "sickly">><<set $creatureCalories -= ($creatureCalories * 0.8); $creatureGirth -= ($creatureGirth * 0.2)>>
+
+	<<elseif $creatureFatness is "plump">><<set $creatureCalories += ($creatureCalories * 0.2); $creatureGirth += ($creatureGirth * 0.2)>>
+
+	<<elseif $creatureFatness is "round">><<set $creatureCalories += ($creatureCalories * 0.5); $creatureGirth += ($creatureGirth * 0.5)>>
+
+	<<elseif $creatureFatness is "fat">><<set $creatureCalories += $creatureCalories; $creatureGirth += $creatureGirth>>
+
+	<<elseif $creatureFatness is "blubbery">><<set $creatureCalories += ($creatureCalories * 1.5); $creatureGirth += ($creatureGirth * 1.5)>>
+
+	<<elseif $creatureFatness is "gelatinous">><<set $creatureCalories += ($creatureCalories * 2); $creatureGirth += ($creatureGirth * 2)>>
+
+	<<elseif $creatureFatness is "blimplike">><<set $creatureCalories += ($creatureCalories * 5); $creatureGirth += ($creatureGirth * 5)>>
+
+	<<elseif $creatureFatness is "mountainous">><<set $creatureCalories += ($creatureCalories * 10); $creatureGirth += ($creatureGirth * 10)>>
+
+	<<elseif $creatureFatness is "oceanic">><<set $creatureCalories += ($creatureCalories * 20); $creatureGirth += ($creatureGirth * 20)>>
+
+	<<elseif $creatureFatness is "moonlike">><<set $creatureCalories += ($creatureCalories * 30); $creatureGirth += ($creatureGirth * 30)>>
+
+	<<elseif $creatureFatness is "planetary">><<set $creatureCalories += ($creatureCalories * 50); $creatureGirth += ($creatureGirth * 50)>>
+
+	<<elseif $creatureFatness is "gravitational">><<set $creatureCalories += ($creatureCalories * 100); $creatureGirth += ($creatureGirth * 100)>><<endif>>
+
+
+/% ============================ %/
+/% Post-modifier cleanup %/
+
+<<set $creatureCalories = Math.round($creatureCalories); $creatureGirth = Math.round($creatureGirth); $encounterMaxPain = Math.round($encounterMaxPain); $encounterFinesse = Math.round($encounterFinesse); $encounterPower = Math.round($encounterPower)>>

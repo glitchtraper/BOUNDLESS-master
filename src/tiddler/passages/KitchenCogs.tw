@@ -1,0 +1,120 @@
+﻿<<nobr>>
+/% Have you cooked? Display the proper messages. %/
+
+<<if $cooked is 1>>
+/% Make sure it doesn't display that goddamn 0 %/
+<<if $cookMessage is 0>><<set $cookMessage = "You prepare and enjoy your meal!">><<endif>>
+<<print $cookMessage>><<set $cooked = 0; $cookMessage = "You prepare and enjoy your meal!">>
+
+/% Fullness notifiers. %/
+<<if $bellyStatus is "round">> Your belly protrudes pleasantly. <<elseif $bellyStatus is "full">> Your well-stuffed belly gurgles softly.<<elseif $bellyStatus is "bursting">> Your overstuffed gut creaks, packed tight!<<endif>>
+
+<<display BodySystems>><<display Alert>><<display Effects>>
+
+/% Next bit needs linebreak; if you're too full you can't cook and eat food. %/
+
+<<endif>><<endnobr>><<if $bellyStatus is "bursting">>
+''You're too full to eat anything else right now.''<<endif>><<nobr>>
+
+/% Now, the complicated stuff.
+Each type of kitchen has access to a different set of recipes. All food recipes need to be disabled when the player is too full, BUT all alchemy and consiee recipes need to always be available.
+
+So let's take this nice and easy. We've got room to stretch our legs now.
+
+First, the if:then display clauses for the recipes themselves. Once we've got that, then we display the recipe books links. %/
+
+/% ============================= %/
+/% Kitchen setup %/
+
+/% ============================= %/
+/% Camp Cooking %/
+
+<<if $kitchenType is "Camp">>
+
+/% Cooking surfaces %/
+<<set $campfireCooking = 1; $grillCooking = 0; $stoveCooking = 0; $potCooking = 0; $ovenCooking = 0>>
+
+/% Item prep surfaces %/
+<<set $alchemyPrep = 0; $consieePrep = 0; $craftingPrep = 1>>
+
+
+/% ============================= %/
+/% Lab Cooking %/
+
+<<elseif $kitchenType is "Lab Kitchen">>
+
+/% Cooking surfaces %/
+<<set $campfireCooking = 0; $grillCooking = 1; $stoveCooking = 1; $potCooking = 1; $ovenCooking = 1>>
+
+/% Item prep surfaces %/
+<<set $alchemyPrep = 1; $consieePrep = 1; $craftingPrep = 1>>
+
+
+/% End kitchen type setup. %/ <<endif>>
+
+/% Recipe books ========================= %/
+/% Inedibles %/
+
+/% If you have the equipment, these are always available. %/
+
+<<if $showAlchemyIRecipes is 1>><hr><<display BasicAlchemy>>
+<<elseif $showAlchemyIIRecipes is 1>><hr><<display Alchemy>>
+<<elseif $showProcessRecipes is 1>><hr><<display ProcessRecipes>>
+<<elseif $showCraftingRecipes is 1>><hr><<display Crafting>><<endif>>
+
+/% Edibles %/
+
+/% If you're too full to eat, you can't access these recipes. %/
+
+<<if $bellyStatus neq "bursting">>
+
+<<if $showRawRecipes is 1>><hr><<display RawRecipes>>
+<<elseif $showCampRecipes is 1>><hr><<display CampfireRecipes>>
+<<elseif $showGrillRecipes is 1>><hr><<display GrillRecipes>>
+<<elseif $showStoveRecipes is 1>><hr><<display StoveRecipes>>
+<<elseif $showPotRecipes is 1>><hr><<display PotRecipes>>
+<<elseif $showOvenRecipes is 1>><hr><<display OvenRecipes>><<endif>>
+
+<<endif>><hr>
+
+/% Recipe links ========================= %/
+
+/% Edibles %/
+
+<<if $bellyStatus neq "bursting">>
+
+/% You can always prepare basic food recipes; all you need is your hands.
+(and room to eat the results) %/
+
+<<if $showRawRecipes is 0>>[[Basic Recipes|passage()][$showRawRecipes = 1; $showCampRecipes = 0; $showGrillRecipes = 0; $showStoveRecipes = 0; $showPotRecipes = 0; $showOvenRecipes = 0; $showAlchemyIRecipes = 0; $showAlchemyIIRecipes = 0; $showProcessRecipes = 0; $showCraftingRecipes = 0]] ♦ <<endif>>
+
+/% These recipes need specific equipment. %/
+
+<<if ($showCampRecipes is 0) and ($campfireCooking is 1)>>[[Campfire Recipes|passage()][$showRawRecipes = 0; $showCampRecipes = 1; $showGrillRecipes = 0; $showStoveRecipes = 0; $showPotRecipes = 0; $showOvenRecipes = 0; $showAlchemyIRecipes = 0; $showAlchemyIIRecipes = 0; $showProcessRecipes = 0; $showCraftingRecipes = 0]] ♦ <<endif>>
+
+<<if ($showGrillRecipes is 0) and ($grillCooking is 1)>>[[Grill Recipes|passage()][$showRawRecipes = 0; $showCampRecipes = 0; $showGrillRecipes = 1; $showStoveRecipes = 0; $showPotRecipes = 0; $showOvenRecipes = 0; $showAlchemyIRecipes = 0; $showAlchemyIIRecipes = 0; $showProcessRecipes = 0; $showCraftingRecipes = 0]] ♦ <<endif>>
+
+<<if ($showStoveRecipes is 0) and ($stoveCooking is 1)>>[[Stove Recipes|passage()][$showRawRecipes = 0; $showCampRecipes = 0; $showGrillRecipes = 0; $showStoveRecipes = 1; $showPotRecipes = 0; $showOvenRecipes = 0; $showAlchemyIRecipes = 0; $showAlchemyIIRecipes = 0; $showProcessRecipes = 0; $showCraftingRecipes = 0]] ♦ <<endif>>
+
+<<if ($showPotRecipes is 0) and ($potCooking is 1)>>[[Pot Recipes|passage()][$showRawRecipes = 0; $showCampRecipes = 0; $showGrillRecipes = 0; $showStoveRecipes = 0; $showPotRecipes = 1; $showOvenRecipes = 0; $showAlchemyIRecipes = 0; $showAlchemyIIRecipes = 0; $showProcessRecipes = 0; $showCraftingRecipes = 0]] ♦ <<endif>>
+
+<<if ($showOvenRecipes is 0) and ($ovenCooking is 1)>>[[Oven Recipes|passage()][$showRawRecipes = 0; $showCampRecipes = 0; $showGrillRecipes = 0; $showStoveRecipes = 0; $showPotRecipes = 0; $showOvenRecipes = 1; $showAlchemyIRecipes = 0; $showAlchemyIIRecipes = 0; $showProcessRecipes = 0; $showCraftingRecipes = 0]] ♦ <<endif>>
+
+
+<<endif>>
+
+/% Inedibles %/
+
+/% You can always prepare basic alchemy recipes; all you need is your hands. %/
+
+<<if $showAlchemyIRecipes is 0>>[[Basic Alchemy|passage()][$showRawRecipes = 0; $showCampRecipes = 0; $showGrillRecipes = 0; $showStoveRecipes = 0; $showPotRecipes = 0; $showOvenRecipes = 0; $showAlchemyIRecipes = 1; $showAlchemyIIRecipes = 0; $showProcessRecipes = 0; $showCraftingRecipes = 0]]<<endif>>
+
+<<if ($showAlchemyIIRecipes is 0) and ($alchemyPrep is 1)>> ♦ [[Alchemy|passage()][$showRawRecipes = 0; $showStoveRecipes = 0; $showGrillRecipes = 0; $showPotRecipes = 0; $showOvenRecipes = 0; $showAlchemyIRecipes = 0; $showAlchemyIIRecipes = 1; $showProcessRecipes = 0; $showCraftingRecipes = 0]]<<endif>>
+
+<<if ($showCraftingRecipes is 0) and ($craftingPrep is 1)>> ♦ [[Basic Crafting|passage()][$showRawRecipes = 0; $showStoveRecipes = 0; $showGrillRecipes = 0; $showPotRecipes = 0; $showOvenRecipes = 0; $showAlchemyIRecipes = 0; $showAlchemyIIRecipes = 0; $showProcessRecipes = 0; $showCraftingRecipes = 1]]<<endif>>
+
+<<if ($showProcessRecipes is 0) and ($consieePrep is 1)>> ♦ [[Make Consiee|passage()][$showRawRecipes = 0; $showStoveRecipes = 0; $showGrillRecipes = 0; $showPotRecipes = 0; $showOvenRecipes = 0; $showAlchemyIRecipes = 0; $showAlchemyIIRecipes = 0; $showProcessRecipes = 1; $showCraftingRecipes = 0]]<<endif>>
+
+/% Maybe have complex crafting for special areas only (hard-coded?) %/
+
+<<endnobr>>

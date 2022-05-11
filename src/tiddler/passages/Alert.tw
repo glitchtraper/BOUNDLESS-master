@@ -1,0 +1,493 @@
+﻿<framedalert><center>
+
+/% ============================================================ %/
+/% Pain alerts %/
+
+/% Gorging pain %/
+<<if $gorging is 1>>
+
+[img[icon_alert_critical]]<brightalert>
+
+/% Liquid mode %/
+<<if $bellyLiquid gte ($bellyBloat / 2)>>
+
+<<print either("Your belly sloshes and jiggles...","Your belly wobbles like an overinflated water balloon...","You gasp for breath, your liquid-bloated gut bouncing...","Groaning loudly, you pause to rub your gurgling gut...","You pant softly... you're REALLY full..!","You're not sure how much more your gurgling, bloated belly can hold...","Your bloated gut jiggles, protruding heavily before you...","You place a palm gently to your sore, aching belly...")>>
+
+/% Dry mode %/
+<<else>>
+
+<<print either("Your overstuffed belly pulses softly...","You wince as your bloated belly creaks...","You gasp for breath, your bloated gut protruding...","Groaning loudly, you pause to rub your tightly-packed gut...","You pant softly... you're REALLY full..!","You're not sure how much more your bloated belly can hold...","Your bloated gut wobbles and protrudes as it hangs heavily before you...","You place a palm gently to your sore, aching belly...")>><<endif>>
+
+</brightalert><<set $gorging = 0>><hr><<endif>>
+
+/% 20-30% pain %/
+<<if $health is "Sore">>
+
+[img[icon_alert_critical]]<brightalert>You ache a bit...</brightalert><hr><<endif>>
+
+/% 30-50% pain %/
+<<if $health is "Pained">>
+
+[img[icon_alert_critical]]<brightalert>It hurts...</brightalert><hr><<endif>>
+
+/% 50-70% pain %/
+<<if $health is "Suffering">>
+
+[img[icon_alert_red]]<deepalert>''You're in a lot of pain!''</deepalert><hr><<endif>>
+
+/% 70-99% pain %/
+<<if $health is "Agonized!">>
+
+[img[icon_alert_red]]<deepalert>''//It's getting harder and harder t-to...//''</deepalert><hr><<endif>>
+
+/% Pain-based Immobility (Important alert, double linebreak) %/
+<<if ($immobile is 1) and ($immobileMode is 0) and ($immobilityDisabled is 0) and ($immobilityCause is "pain")>>
+
+[img[icon_alert_red]]The pain is too great... ''<redalert>Overcome, you collapse in agony!</redalert>''<<set $immobileMode = 1; $autorest = 0>><hr><<endif>>
+
+
+/% ============================================================ %/
+/% Gain alerts %/
+
+/% 20% to immobility %/
+<<if $gain20 is 1>>
+
+[img[icon_gain]]Your body jiggles pleasantly. ''You've put on a bit of weight!''<<set $gain20 = 2>><hr><<endif>>
+
+/% 35% to immobility %/
+<<if $gain35 is 1>>
+
+[img[icon_gain]]You pause for a moment, and your body wobbles like jelly. ''You're getting //really// fat...''<<set $gain35 = 2>><hr><<endif>>
+
+/% 50% to immobility %/
+<<if $gain50 is 1>>
+
+[img[icon_gain]]Your soft, blubbery body jiggles with each breath you take...<<set $gain50 = 2>><hr><<endif>>
+
+/% 75% to immobility %/
+<<if $gain75 is 1>>
+
+[img[icon_gain]]Gasping and panting, you pause to catch your breath, ''watching as your enormous, blubbery body ripples and dances around you like liquid.
+<redalert>It's getting harder and harder to move...''</redalert><<set $gain75 = 2; $autoRest = 0>><hr><<endif>>
+
+/% Sub-immobility (90%) %/
+<<if $gain90 is 1>>
+
+[img[icon_alert]]Your bloated, doughy body quakes and jiggles as you squirm, shifting your enormous weight.
+<redalert>''You've swollen up into a huge, blubbery ball, and if you get much fatter...''</redalert><<set $gain90 = 2; $autoRest = 0>><hr><<endif>>
+
+/% Girth-based Immobility (Important alert, double linebreak) %/
+<<if ($immobile is 1) and ($immobileMode is 0) and ($immobilityDisabled is 0) and ($immobilityCause is "girth") and ($heliumBallooned lte 0)>>
+
+[img[icon_alert_red]]Gasping, you begin to continue along on your way... ''but fail, your gargantuan body quivering and wobbling around you.
+<redalert>You've grown too fat to move!</redalert>''<<set $immobileMode = 1; $autorest = 0>><hr><<endif>>
+
+/% Special - leupai brooding mode %/
+<<if $leupaiBroodMode is 1>>
+
+[img[icon_alert]]Your belly gurgles oddly, slowly bloating rounder as you watch with curiosity. ''Your body is starting to fatten up on its own, and is sending your egg production into overdrive..!''<<set $leupaiBroodMode = 2>><hr><<endif>>
+
+
+/% ============================================================ %/
+/% Belly alerts %/
+/% Massive belly %/
+<<if $bellyGrowth is 3>>
+
+[img[icon_gain]]Your gargantuan belly ripples and surges around you, finally swelling fat enough to block your view... and ''dwarfing the rest of your body!''<<set $bellyGrowth = 4>><hr><<endif>>
+
+/% Huge belly %/
+<<if $bellyGrowth is 1>>
+
+[img[icon_gain]]Your great, fat belly lurches and jiggles impressively, billowing well ahead of the rest of you!<<set $bellyGrowth = 2>><hr><<endif>>
+
+/% Max belly bloat %/
+<<if $bellyBloat gte (($maxBelly * 1.2) + $stretchMod)>><<set $bellyBloat = (($maxBelly * 1.2) + $stretchMod); $randomizer = either(0,1); $lethalKO = 1; $deathCause = "burst belly">><<if $randomizer is 1>>
+[img[icon_alert]]
+
+/% Liquid mode %/
+<<if $liquidBloat gte ($bellyBloat / 2)>>Your belly gurgles and sloshes<<else>>
+/% Dry mode %/
+Your belly creaks loudly<<endif>>, ''bloated up into a perfectly round, agonizingly tight globe!''
+
+<<set $autorest = 0>><hr><<endif>><<endif>>
+
+/% ============================================================ %/
+/% Breast alerts %/
+/% Breast bloat %/
+<<if ($breastStatus is "engorged") and ($bloatedBreasts is 0)>>
+
+[img[icon_alert]]Your breasts are growing tight and full...<<set $bloatedBreasts = 1>><hr><<endif>>
+
+/% Massive breast bloat %/
+<<if ($breastStatus is "creaking") and ($bloatedBreasts is 1)>>
+
+[img[icon_alert]]Your breasts wobble and creak, swelling up like balloons as the pressure in them continues to rise!<<set $bloatedBreasts = 2>><hr><<endif>>
+
+/% Massive breasts %/
+<<if $breastGrowth is 5>>
+
+[img[icon_gain]]Quivering and shaking, your gargantuan, blubbery breasts heave atop your chest, making it hard to see!<<set $breastGrowth = 6>><hr><<endif>>
+
+/% Huge breasts %/
+<<if $breastGrowth is 3>>
+
+[img[icon_gain]]Your huge, fat breasts quiver as you move!<<set $breastGrowth = 4>><hr><<endif>>
+
+/% Big breasts %/
+<<if $breastGrowth is 1>>
+
+[img[icon_gain]]Your breasts wobble and jiggle pleasantly. They seem to be plumping up!<<set $breastGrowth = 2>><hr><<endif>>
+
+/% Massive breast bloat %/
+<<if $blimpBreasts is 1>>
+
+[img[icon_alert]]Your breasts wobble and bounce as they swell into enormous, tight globes!<<set $blimpBreasts = 2>><hr><<endif>>
+
+/% Max breast bloat %/
+<<if $breastBloat gte ($maxBreast * 1.2)>><<set $randomizer = either(0,1)>><<if $randomizer is 1>>
+
+[img[icon_alert]]Your breasts are creaking loudly-- swollen so round and tight that light shines through the skin!<<set $autorest = 0>><hr><<endif>><<endif>>
+
+/% ============================================================ %/
+/% Thigh alerts %/
+/% Flabby thighs %/
+<<if $thighFatness is 1>>
+
+[img[icon_gain]]Your thighs are growing soft and plump!<<set $thighFatness = 2>><hr><<endif>>
+
+/% Fat thighs %/
+<<if $thighFatness is 3>>
+
+[img[icon_gain]]Your thighs jiggle and quiver!<<set $thighFatness = 4>><hr><<endif>>
+
+/% Bloated thighs %/
+<<if $thighFatness is 5>>
+
+[img[icon_gain]]Your blubbery, squishy thighs ripple as you move!<<set $thighFatness = 6>><hr><<endif>>
+
+/% ============================================================ %/
+/% Clothing %/
+
+/% ============================================================ %/
+/% Top %/
+
+<<if ($topWorn neq "nothing") and ($topWorn neq 0)>>
+
+<<if ($topSnug is 1) and ($topStretched1 is 0)>>
+
+[img[icon_alert]]Your <<print $topWorn>> hugs your growing body tightly!<<set $topStretched1 = 1>><hr><<endif>>
+
+
+<<if ($topTight is 1) and ($topStretched2 is 0)>>
+
+[img[icon_alert]]Your <<print $topWorn>> creaks softly, stretched skin-tight around your expanding figure!<<set $topStretched2 = 1>><hr><<endif>>
+
+<<if $topBurst is 1>>
+
+[img[icon_alert_critical]]Your <<print $topWorn>> creaks loudly before bursting open, your breasts and belly jiggling as they spill out!<<set $topBurst = 0; $topElasticityStatus = 0; $topWorn = "nothing"; $topColor = 0; $topElasticity = 0; $topElasticityMax = 0>><<set $autorest = 0>><hr><<endif>>
+
+<<endif>>
+
+
+/% ============================================================ %/
+/% Belt %/
+
+<<if ($beltWorn neq "nothing") and ($beltWorn neq 0)>>
+
+<<if ($beltSnug is 1) and ($beltStretched1 is 0)>>
+
+[img[icon_alert]]Your <<print $beltWorn>> hugs your growing belly tightly!<<set $beltStretched1 = 1>><hr><<endif>>
+
+<<if ($beltTight is 1) and ($beltStretched2 is 0)>>
+
+[img[icon_alert]]Your <<print $beltWorn>> creaks, stretching tight as your belly grows even rounder!<<set $beltStretched2 = 1>><hr><<endif>>
+
+<<if $beltBurst is 1>>
+
+[img[icon_alert_critical]]Your <<print $beltWorn>> creaks loudly before bursting open, your wobbling belly spilling out of the remains!<<set $beltBurst = 0; $beltElasticityStatus = 0; $beltWorn = "nothing"; $beltColor = 0; $beltElasticity = 0; $beltElasticityMax = 0>><<set $autorest = 0>><hr><<endif>>
+
+<<endif>>
+
+
+/% ============================================================ %/
+/% Pants %/
+
+
+<<if ($pantsWorn neq "nothing") and ($pantsWorn neq 0)>>
+
+<<if ($pantsSnug is 1) and ($pantsStretched1 is 0)>>
+
+[img[icon_alert]]Your <<print $pantsWorn>> hug<<if $pantsGrammar is 1>>s<<endif>> your growing thighs tightly!<<set $pantsStretched1 = 1>><hr><<endif>>
+
+<<if ($pantsTight is 1) and ($pantsStretched2 is 0)>>
+
+[img[icon_alert]]Your <<print $pantsWorn>> squeeze<<if $pantsGrammar is 1>>s<<endif>> your bulging thighs, the seams beginning to pull apart!<<set $pantsStretched2 = 1>><hr><<endif>>
+
+
+<<if $pantsBurst is 1>>
+
+[img[icon_alert_critical]]Your <<print $pantsWorn>> creak<<if $pantsGrammar is 1>>s<<endif>> loudly before bursting open, freeing your jiggling thighs!<<set $pantsBurst = 0; $pantsElasticityStatus = 0; $pantsWorn = "nothing"; $pantsColor = 0; $pantsElasticity = 0; $pantsElasticityMax = 0>><<set $autorest = 0>><hr><<endif>>
+
+<<endif>>
+
+
+/% ============================================================ %/
+/% Bonus gaining (Important alert, double linebreak) %/
+<<if $plumpingUp is 1>>
+
+[img[icon_alert]]You furrow your brow. ''It seems as though you're putting on more weight than you aught to be...''<<set $plumpingUp = 2>><hr><<endif>>
+
+/% Bonus draining (Important alert, double linebreak) %/
+<<if $witheringAway is 1>>
+
+[img[icon_alert]]You furrow your brow. ''It seems as though you're dropping weight more quickly than you aught to be...''<<set $witheringAway = 2>><hr><<endif>>
+
+/% Leupai cold exposure weight gain %/
+<<if $leupaiFlag is 1>>
+<<if $coldWeather is 1>>
+[img[icon_alert]]Your body is producing extra fat to protect you from the cold weather!<hr><<endif>>
+
+/% Leupai heat exposure bloating %/
+<<if $hotWeather is 1>>
+[img[icon_alert]]The high temperature is causing your body to ''expand!''<hr><<endif>><<endif>>
+
+/% ============================================================ %/
+/% Parasites %/
+
+<<if $parasiteBellyGaining is 1>>
+
+[img[icon_gain]]Your belly jiggles...<<set $parasiteBellyGaining = 0>><hr><<endif>>
+
+<<if $parasiteBreastGaining is 1>>
+
+[img[icon_gain]]Your breasts jiggle...<<set $parasiteBreastGaining = 0>><hr><<endif>>
+
+
+/% ============================================================ %/
+/% Mutation %/
+
+
+/% Lycanthropy %/
+
+
+<<if $wereShift is 1>>
+
+[img[icon_alert_critical]]<mutation>You break into a sudden sweat... ''then cry out in agony! Your body bulges and distorts painfully as it twists into a new, more monstrous form!''</mutation><hr><<set $wereShift = 0; $shiftPhase = 1>><<endif>>
+
+
+<<if $wereShift is 2>>
+
+[img[icon_alert_critical]]<mutation>''Your body begins to shrink and melt away, tightening around you as you return to your original form!''</mutation><hr><<set $wereShift = 0; $shiftPhase = 0>><<endif>>
+
+
+/% ===================== %/
+/% Ambient Mirajin %/
+
+<<if ($mirajinRads gte 20) and ($mirajinRads lt 100)>>
+
+[img[icon_alert]]//<mirometer>You feel lightheaded and dreamy...<hr></mirometer>//
+
+<<elseif ($mirajinRads gte 100) and ($mirajinRads lt 250)>>
+
+[img[icon_alert]]//<mirometer>You feel undeniably ''<mutation>odd</mutation>...<hr>''</mirometer>//
+
+<<elseif ($mirajinRads gte 250) and ($mirajinRads lt 500)>>
+
+[img[icon_alert]]<mutation>''Something is wrong!'' //You can feel it in your bones...//<hr></mutation>
+
+<<elseif ($mirajinRads gte 500) and ($mirajinRads lt 800)>>
+
+[img[icon_alert_critical]]<mutation>''Your flesh is crawling!''<hr></mutation>
+
+<<elseif ($mirajinRads gte 800) and ($mirajinRads lt 900)>>
+
+[img[icon_alert_critical]]<mutation>''Your flesh writhes, bulges, and throbs!''<hr></mutation>
+
+<<elseif $mirajinRads gte 900>>
+
+[img[icon_alert_critical]]<mutation>''Your flesh writhes, bulges, and throbs!''</mutation><redalert> ''You cry out in agony as your body ripples, convulses, and distorts chaotically!''<hr></redalert><<endif>>
+
+/% ===================== %/
+/% Subtle Mutations %/
+
+<<if $mutationFlagI is 1>>
+
+[img[icon_alert_critical]]<mirometer>You feel particularly strange...</mirometer><hr><<set $mutationFlagI = 0>><<endif>>
+
+<<if $mutationFlagII is 1>>
+
+[img[icon_alert_critical]]<mirometer>''<<print $mutationDesc>>''</mirometer><<set $mutationFlagII = 0>><hr><<endif>>
+
+<<if $mutationFlagIII is 1>>
+
+[img[icon_alert_critical]]<mutation>''<<print $mutationDesc>>''</mutation><<set $mutationFlagIII = 0>><hr><<endif>>
+
+/% ===================== %/
+/% Miratoxin %/
+
+<<if $miraPoisoning gte 1>>
+
+[img[icon_alert]]//You feel a bit off...//<hr><<endif>>
+
+/% ===================== %/
+/% Leupai miratoxin exposure %/
+<<if $miraFattening is 1>>
+[img[icon_gain]]''Your <<print $miraFattened>> up before your eyes'', bolstered by the excess mirajin!<<set $miraFattening = 0>><hr><<endif>>
+
+/% ===================== %/
+/% Somniation (Important alert, double linebreak) %/
+
+<<if $somniating is 1>>
+
+[img[icon_alert_critical]]<deepalert>You suddenly feel very strange, as if your entire body is... ''wrong somehow...''</deepalert><<set $somniating += 1>><hr><<elseif $somniating is 2>><<set $somniating += either(0,0,1)>><<elseif $somniating is 3>>
+
+[img[icon_alert_critical]]<deepalert>You cry out in pain and shock as your teeth and nails sharpen and elongate, your ears lengthening to points!<hr></deepalert>
+<mutation>''You've mutated into //something else..!//''</mutation><<set $species = "somnian"; $withTeeth = 1; $somniating = 0; $miraPoisoning = 0; $pain += random(15,30); $playerBody = "bloated"; $playerEars = "fae">><hr><<set $autorest = 0>><<endif>>
+
+/% ===================== %/
+/% Realization  (Important alert, double linebreak) %/
+
+<<if $realizing is 1>>
+
+[img[icon_alert_critical]]<deepalert>''You cry out in pain and shock as your body begins to bloat and distort!
+//You're mutating!//''</deepalert><<set $realizing += 1; $pain += random(3,5)>><hr><<elseif ($realizing gte 2) and ($transformationDuration gt 1)>><<if $skipRound is 1>><<set $skipRound = 0>><<elseif $skipRound is 0>>
+
+[img[icon_alert_critical]]<deepalert>''Squirming and gasping, you whimper as your body continues to expand, swelling with fat and muscle as your insides twist and change!''</deepalert><hr><<set $transformationDuration -= 1; $pain += random(3,5); $playerBody = "bloated">><<endif>><<elseif ($realizing gte 2) and ($transformationDuration is 1)>>
+
+[img[icon_alert_critical]]<deepalert>''You collapse onto your knees, crying out in agony as your body bulges even rounder, your visage twisting into something alien and reptilian as your greatly-increased bulk wobbles gelatinously around you, your scaly skin creaking as it struggles to contain you.<hr></deepalert>
+
+<mutation>You've mutated into //something else..!//<hr></mutation>''<<set $species = "leupai"; $withTeeth = 1; $somniation = 0; $somniating = 0; $realizing = 0; $transformationDuration = 0; $miraPoisoning = 0; $pain += random(3,5); $bodyColor = $fullChroma>><<display BodyDatabase>><<set $autorest = 0>><<endif>>
+
+/% ===================== %/
+/% Fyynling Mutation  (Important alert, double linebreak) %/
+
+<<if $fyyningMutation is 1>>
+
+[img[icon_gain]]<deepalert>''You gasp as your body jiggles and quivers, suddenly growing softer, fatter, and flabbier! What's going on..?''<hr></deepalert><<display ExpandBodytype>><<set $fyyningMutation = 2>><<set $autoRest = 0>><<endif>>
+
+<<if $fyyningMutation is 3>>
+
+[img[icon_alert_critical]]<deepalert>''You cry out in shock as your body suddenly bloats even fatter, billowing outwards as it becomes as soft and pillowy as dough, jiggling as it settles!
+
+ If this continues on, you're going to grow into a blob of quivering, blubbery flesh...''<hr></deepalert><<set $autoRest = 0>><<set $fyyningMutation = 4; $playerBody = "blubbery">><<display ExpandBodytype>><<if $leupaiFlag is 1>>
+Several soft, flabby tentacles coil out from your fleshy, overstuffed sides...<<set $playerBack = "tentacles">><hr><<elseif ($slimeFlag is 0) and ($dragonFlag is 0)>><<set $species = "fyynmorph"; $withTeeth = 1>><<endif>><<endif>>
+
+<<if ($fyyningMutation is 5) and ($speciesLock is 0)>>
+
+[img[icon_alert_critical]]<deepalert>''You collapse onto your hands and knees, trembling as your entire body blimps up with an enormous amount of fat, your belly lifting you into the air as it inflates and quivers!''
+
+ Wriggling, you're helpless to do anything but sink into your own expanding flesh as you grow fatter and fatter, thick, writhing tentacles squirming out from beneath the fleshy folds, seemingly prodding at you to encourage your rampant growth.<hr>
+
+''Finally, it stops, leaving you much, //much// fatter, your flesh so soft and squishy it's nearly liquid.''</deepalert><<set $autoRest = 0; $playerBody = "gelatinous"; $playerBack = "tentacles"; $playerFace = either("monstrous","oneroiesque"); $playerSkin = "jelly"; $speciesLock = 0; $playerElement = "mirajin">>
+<mutation> The tendrils-- //your// tendrils-- lovingly knead, prod, and caress your bloated, gelatinous form, seemingly with a mind of their own.
+You feel ''enormous'', and something gives you the feeling that ''you're only going to keep getting fatter and fatter from here on in, no matter what...''<hr></mutation><<if $slimeFlag is 1>><<set $species = "fyynling"; $withTeeth = 1; $subspecies = 0>><<elseif $leupaiFlag is 1>><<set $substatus = "fyynmorphic"; $withTeeth = 1>><<elseif $dragonFlag is 1>><<set $subspecies = "fyynling"; $withTeeth = 1>><<elseif ($leupaiFlag is 0) and ($slimeFlag is 0) and ($dragonFlag is 0)>><<set $species = "fyynling horror"; $withTeeth = 1>><<endif>><<set $calories += $fyynlingMorph; $fyynlingGain = 1; $fyynlingMorph = 0; $fyyningMutation = 0>><<endif>>
+
+/% ============================================================ %/
+/% Toxins & Atmospheric Alerts %/
+
+<<display Atmospheric Alerts>>
+
+/% ============================================================ %/
+/% Parasites %/
+
+
+/% Leupai Eggs %/
+<<if $leupaiEggLoad gte 3>>
+
+[img[icon_alert]]<<if $leupaiEggLoad lt 6>>Your gut protrudes awkwardly, feeling heavy and overstuffed...
+<<elseif ($leupaiEggLoad gte 6) and ($leupaiEggLoad lt 9)>>Your belly aches softly, stuffed full of something...
+<<elseif ($leupaiEggLoad gte 9) and ($leupaiEggLoad lt 12)>>Your belly is heavy and bulging with eggs!
+<<elseif $leupaiEggLoad gte 12>><<print either("The sizeable clutch of eggs growing in your belly pulses ominously...","You can practically see every egg in your belly, bulging just beneath the skin..!","Your belly lurches and wobbles as the eggs packed inside it shift and settle...","You swear the eggs inside you are slowly expanding...")>><<endif>><hr><<endif>>
+
+
+/% Miscellaneous large parasite wriggling %/
+
+<<if $parasiteBreastSquirm is 1>><<set $parasiteBreastSquirm = 0>>
+
+<<if $sanity gte 40>><<set $sanity -= random(0,2)>><<endif>>
+
+[img[icon_alert]]Suddenly, ''your chest <<if $breast gte 20>>wobbles and bounces of its own accord<<else>>squirms unnervingly<<endif>>'', as though something is moving from within...!<hr><<endif>>
+
+<<if $parasiteBellySquirm is 1>><<set $parasiteBellySquirm = 0>>
+
+<<if $sanity gte 40>><<set $sanity -= random(0,2)>><<endif>>
+
+[img[icon_alert]]Something inside your belly ''wriggles disconcertingly''<<if $belly gte 20>>'', setting it to jiggling''<<endif>>!<hr><<endif>>
+
+
+
+/% ============================================================ %/
+/% Curses %/
+
+
+/% Belly carving curse %/
+<<if $special_carving_belly gt 0>><<set $randomizer = random(1,8)>><<if $randomizer is 1>>
+
+[img[icon_gain]]//An odd, electrical sensation crackles over your belly...//<hr><<endif>><<endif>>
+
+/% Breast carving curse %/
+<<if $special_carving_breast gt 0>><<set $randomizer = random(1,8)>><<if $randomizer is 1>>
+
+[img[icon_gain]]//An odd, electrical sensation crackles over your breasts...//<hr><<endif>><<endif>>
+
+/% Thigh carving curse %/
+<<if $special_carving_thigh gt 0>><<set $randomizer = random(1,8)>><<if $randomizer is 1>>
+
+[img[icon_gain]]//An odd, electrical sensation crackles over your thighs...//<hr><<endif>><<endif>>
+
+/% Revix Voracity curse %/
+<<if $curse_revixVoracity is 1>>
+
+[img[icon_gain]]//Your belly feels as though it's constantly filling... but you're ''still hungry..!''//<hr><<endif>>
+
+/% Drowning in fat %/
+
+<<if $leupaiFlag is 0>><<if $blubberDrowning is 1>>[img[icon_alert_critical]]<criticalalert>You cry out in shock as your blubbery body threatens to swallow you up!</criticalalert> <redalert>''You can't breathe!''<hr></redalert><<set $pain += random(2,6); $blubberDrowning = either(1,1,0); $lethalKO = 1; $deathCause = "fat suffocation">><<endif>><<endif>>
+
+/% ============================================================ %/
+/% Genes %/
+
+/% Overinflation %/
+
+<<if $geneOverinflation is 1>>[img[icon_alert_critical]]<redalert>''Your belly is blowing up like a balloon, and doesn't show any signs of stopping!''<<set $playerBody = "bloated">><hr></redalert><<endif>>
+
+/% Dissolution %/
+
+<<if $dissolving is 1>>[img[icon_alert_critical]]<redalert>''Your flesh is bubbling and burning away!''</redalert><<set $pain += random(2,6); $dissolving = 1; $lethalKO = 1; $deathCause = "agony">><hr><<endif>>
+
+/% Overgrowth %/
+
+<<if $overgrowth is 1>>[img[icon_alert_critical]]<criticalalert>''You cry out in pain as your body bulges and bloats, <<print either("branches","leaves","foliage","vines","flowers","roses")>> erupting from your expanding form!''<hr></criticalalert><<set $pain += random(2,6); $dissolving = 1; $lethalKO = 1; $deathCause = "explosion"; $playerBody = "bloated">><<endif>>
+
+/% ============================================================ %/
+/% Walker Mech Status Alerts %/
+
+<<if $mechDamageAlert is 1>>
+[img[icon_alert_critical]] ''<deepalert>Your mech creaks loudly in complaint...</deepalert>''<hr><<set $mechDamageAlert = 0>><<endif>>
+
+<<if $mechDamageAlert is 2>>
+[img[icon_alert_critical]] ''Your mech grinds and groans as it moves! <deepalert>You should get it repaired as soon as possible!</deepalert>''<hr><<set $mechDamageAlert = 0>><<endif>>
+
+<<if $mechDamageAlert is 3>>
+[img[icon_alert_critical]] ''<redalert>Your walker mech groans loudly as it collapses in a heap, screeching to a stop!</redalert>''<<set $mechDamageAlert = 0; $special_walkermech = -1>><<endif>>
+
+
+/% ============================================================ %/
+/% Misc alerts %/
+
+/% Rapid weight gain  (Important alert, double linebreak) %/
+<<if $rapidGain is 1>>
+
+[img[icon_gain]]You blink. ''You swear you just... //saw// your body swell a little plumper!''<hr><<set $rapidGain = 2>><<endif>>
+
+/% Extremely rapid weight gain (Important alert, double linebreak) %/
+<<if $rapidGain is 3>>
+
+[img[icon_gain]]A chill ices down your spine as you watch your body ''slowly, steadily growing fatter before your eyes!''<hr><<set $rapidGain = 4>><<endif>>
+
+/% Starvation (Important alert, double linebreak) %/
+<<if $starvation is 1>><<set $randomizer = random(1,5)>><<if $randomizer is 1>>
+
+[img[icon_alert_critical]]You tremble, your knees knock, and your bones ache... <redalert>''you're starving!''</redalert><hr><<set $pain = random(0,6); $lethalKO = either(0,1); $deathCause = "starvation"; $playerBody = "emaciated">><<set $autorest = 0>><<endif>><<endif>>
+
+</center></framedalert>

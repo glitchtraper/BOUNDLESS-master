@@ -1,0 +1,236 @@
+﻿/% ================================================ %/
+/% Setup with database stats. %/
+
+	<<print "<<set $donsair" + "MilkYield = $dons" + $donsairID + "MilkYield>>">>
+	<<print "<<set $donsair" + "Milk = $dons" + $donsairID + "Milk>>">>
+	<<print "<<set $donsair" + "Color = $dons" + $donsairID + "Color>>">>
+
+/% ================================================ %/
+/% Food %/
+
+/% Ignore the bloat/saturation stats until we've figured that out. %/
+
+
+<<if $forcefedPet is "Water">>
+	<<set $donsairSaturation += random(4,8)>>
+	<<set $donsairBloat += random(3,8)>>
+
+<<elseif $forcefedPet is "Water (x10)">>
+	<<set $donsairSaturation += random(40,80)>>
+	<<set $donsairBloat += random(30,80)>>
+
+<<elseif $forcefedPet is "Milk">>
+	<<set $donsairSaturation += random(4,8)>>
+	<<set $donsairBloat += random(3,8)>>
+
+	<<set $donsairGirth += either(0,0,10,10,20)>>
+
+<<elseif $forcefedPet is "Milk (x10)">>
+	<<set $donsairSaturation += random(40,80)>>
+
+	<<set $donsairBloat += random(30,80)>>
+	<<set $donsairGirth += either(10,10,20,20,30,40)>>
+
+<<elseif $forcefedPet is "Jelly">>
+	<<set $donsairSaturation += random(16,24)>>
+
+	<<set $donsairBloat += random(6,12)>>
+	<<set $donsairGirth += either(0,0,0,10,10)>>
+
+<<elseif $forcefedPet is "Jelly (x10)">>
+	<<set $donsairSaturation += random(160,240)>>
+
+	<<set $donsairBloat += random(60,120)>>
+	<<set $donsairGirth += either(0,0,10,10,20)>>
+
+<<elseif ($forcefedPet is "Fruit") or ($forcefedPet is "Vegetables")>>
+	<<set $donsairSaturation += random(2,6)>>
+
+	<<set $donsairGirth += either(0,0,0,0,0,0,10)>>
+
+<<elseif ($forcefedPet is "Fruit (x10)") or ($forcefedPet is "Vegetables (x10)")>>
+	<<set $donsairSaturation += random(20,60)>>
+
+	<<set $donsairGirth += either(0,0,0,10,10)>>
+
+<<elseif $forcefedPet is "Roots">>
+	<<set $donsairSaturation += random(5,12)>>
+
+	<<set $donsairGirth += either(0,0,10,10,10)>>
+
+<<elseif $forcefedPet is "Roots (x10)">>
+	<<set $donsairSaturation += random(50,120)>>
+
+	<<set $donsairGirth += either(10,10,10,20)>>
+
+<<elseif $forcefedPet is "Grain">>
+	<<set $donsairSaturation += random(12,24)>>
+
+	<<set $donsairGirth += either(0,0,10,20)>>
+
+<<elseif $forcefedPet is "Nuts">>
+	<<set $donsairSaturation += random(8,16)>>
+
+	<<set $donsairGirth += either(0,10,10,20)>>
+
+<<elseif $forcefedPet is "Nuts (x50)">>
+	<<set $donsairSaturation += random(20,32)>>
+
+	<<set $donsairGirth += either(10,10,10,20,20,30)>>
+
+<<elseif $forcefedPet is "Eggs">>
+	<<set $donsairSaturation += random(8,16)>>
+
+	<<set $donsairGirth += either(0,0,10,10)>>
+
+<<elseif $forcefedPet is "Eggs (x12)">>
+	<<set $donsairSaturation += random(20,32)>>
+
+	<<set $donsairGirth += either(10,20,20,30,40)>>
+
+<<elseif ($forcefedPet is "Fish") or ($forcefedPet is "Poultry")>>
+	<<set $donsairSaturation += random(12,24)>>
+
+	<<set $donsairGirth += either(0,0,10,10,20)>>
+
+<<elseif ($forcefedPet is "Fish (x4)") or ($forcefedPet is "Poultry (x4)")>>
+	<<set $donsairSaturation += random(48,72)>>
+
+	<<set $donsairGirth += either(0,10,10,10,20)>>
+
+<<elseif $forcefedPet is "Meat">>
+	<<set $donsairSaturation += random(8,16)>>
+
+	<<set $donsairGirth += either(0,10,10,10,20,20)>>
+
+<<elseif $forcefedPet is "Meat (x4)">>
+	<<set $donsairSaturation += random(20,32)>>
+
+	<<set $donsairGirth += either(10,10,20,20,30)>>
+
+<<elseif $forcefedPet is "Dragon Meat">>
+	<<set $donsairSaturation += random(12,24)>>
+
+	<<set $donsairGirth += either(0,0,10,10,20,20)>>
+
+<<elseif $forcefedPet is "Dragon Meat (x4)">>
+	<<set $donsairSaturation += random(40,62)>>
+
+	<<set $donsairGirth += either(10,10,20,20,30)>>
+
+<<elseif $forcefedPet is "Leupai Flesh">>
+	<<set $donsairSaturation += random(12,24)>>
+
+	<<set $donsairGirth += either(0,10,10,20,30)>>
+
+<<elseif $forcefedPet is "Leupai Flesh (x4)">>
+	<<set $donsairSaturation += random(40,62)>>
+
+	<<set $donsairGirth += either(10,20,20,20,30,40,50)>>
+
+<<elseif $forcefedPet is "Sugar">>
+	<<set $donsairSaturation += random(2,6)>>
+
+	<<set $donsairGirth += either(0,0,10)>>
+
+<<elseif $forcefedPet is "Fat">>
+	<<set $donsairSaturation += random(24,36)>>
+
+	<<set $donsairGirth += either(0,0,10,10)>>
+
+<<elseif $forcefedPet is "Fat (x4)">>
+	<<set $donsairSaturation += random(70,120)>>
+
+	<<set $donsairGirth += either(10,10,10,10,10,20)>>
+
+
+/% ================================================ %/
+/% Status %/
+
+<<elseif $forcefedPet is "Miraberry">>
+	<<set $donsairSaturation += random(6,12)>>
+
+	<<set $donsairGirth += either(10,10,20,30,40,50)>>
+
+<<elseif $forcefedPet is "Miraberry (x10)">>
+	<<set $donsairSaturation += random(30,120)>>
+
+	<<set $donsairGirth += either(10,20,30,40,50,60,70,80,90,100,110,120,130,140,150)>>
+
+<<elseif $forcefedPet is "Fattenium Powder">>
+	<<set $donsairSaturation += random(20,50)>>
+
+	<<set $donsairGirth += either(20,20,30,40,50,60)>>
+
+<<elseif $forcefedPet is "Fattenium Powder (x10)">>
+	<<set $donsairSaturation += random(200,500)>>
+
+	<<set $donsairGirth += either(80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,280,300)>>
+
+<<elseif $forcefedPet is "Distensium Powder">>
+	<<set $donsairSaturation += random(40,100)>>
+	<<set $donsairBloat += random(8,20)>>
+
+<<elseif $forcefedPet is "Distensium Powder (x10)">>
+	<<set $donsairSaturation += random(400,1000)>>
+	<<set $donsairBloat += random(80,200)>>
+
+<<elseif $forcefedPet is "Miracrystal Dust">>
+	<<set $donsairMutation += random(0,6)>>
+
+<<elseif $forcefedPet is "Strange Milk">>
+	<<set $donsairSaturation += random(32,48)>>
+
+	<<if $donsairMilk is 0>><<set $donsairMilk = either(0,0,0,0,'yes','yes','bloated')>><<elseif $donsairMilk is "yes">><<set $donsairMilk = either('yes','yes','bloated'); $donsairMilkYield += either(0,1,2)>><<endif>>
+	<<if $donsairMilk is 'bloated'>><<set $donsairGirth += either(50,60,70,80); $donsairMilkYield += either(0,1,2)>><<endif>>
+	<<set $donsairGirth += either(10,20,20,30)>>
+
+<<elseif $forcefedPet is "Fattenium Shot">>
+
+	<<print "<<set $donsair" + "FatteniumDose = $dons" + $donsairID + "Fattenium>>">>
+
+	<<set $donsairFattenium = $donsairGirth / 5; $donsairFattenium = Math.round($donsairFattenium); $donsairGirth += $donsairFattenium; $donsairFatteniumDose += either(0.5,0.5,1)>>
+
+<<elseif $forcefedPet is "Pure Fattenium Shot">>
+
+	<<print "<<set $donsair" + "FatteniumDose = $dons" + $donsairID + "Fattenium>>">>
+
+	<<set $donsairFattenium = $donsairGirth / 3; $donsairFattenium = Math.round($donsairFattenium); $donsairGirth += $donsairFattenium; $donsairFatteniumDose += random(0,0.5,0.8,1,1,1,1.2)>>
+
+/% ================================================ %/
+/% Meds %/
+
+<<elseif $forcefedPet is "Deflator Injection">>
+	<<set $donsairBloat -= random(20,40); $donsairSaturation -= random(6,18)>>
+
+/% Have to figure out how these work without donsair hunger as a mechanic. Temporary weight gain boosts/prevention for next few food item uses? %/
+
+<<elseif $forcefedPet is "Voracity Shot">>
+	<<set $donsairGluttony += random(2,6); $donsairBloat -= random(10,30)>>
+
+<<elseif $forcefedPet is "Satiator Shot">>
+	<<set $donsairGluttony -= random(2,6)>>
+
+
+/% ================================================ %/
+/% Dyes (Catchall) %/
+
+
+<<elseif $forcefedPet is "Prisma Shard">>
+	<<set $donsairColor = $dyeColor>>
+
+
+/% ================================================ %/
+/% End all items %/
+
+<<endif>>
+
+/% ================================================ %/
+/% Update the database stats. %/
+
+	<<set $donsairGirth = Math.round($donsairGirth)>>
+	<<print "<<set $dons" + $donsairID + "Girth = $donsair" + "Girth>>">>
+	<<print "<<set $dons" + $donsairID + "MilkYield = $donsair" + "MilkYield>>">>
+	<<print "<<set $dons" + $donsairID + "Milk = $donsair" + "Milk>>">>
+	<<print "<<set $dons" + $donsairID + "Fattenium = $donsair" + "FatteniumDose>>">>
+	<<print "<<set $dons" + $donsairID + "Color = $donsair" + "Color>>">>

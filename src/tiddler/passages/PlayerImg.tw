@@ -1,0 +1,25 @@
+﻿<<if $subspec is "bovitype">>[img[player_bovitype]]
+<<elseif $species is "somnian">>[img[player_somnian]]
+<<elseif $species is "slime">>[img[player_slime]]
+<<elseif ($species is "mythosi") or ($species is "monster")>>[img[player_mythosi]]
+<<elseif $species is "leupai">>[img[player_leupai]]
+<<elseif $species is "iicarn">>[img[player_iicarn]]
+<<elseif $species is "helene">>[img[player_helene]]
+<<elseif ($species is "fyynling") or ($species is "fyynling horror") or ($species is "mutant")>>[img[player_fyynling]]
+<<elseif $species is "daedlan">>[img[player_daedlan]]
+<<elseif $species is "blubberslime">>[img[player_blubberslime]]
+<<elseif $subspecies is "dragon">>[img[player_mythosi]]
+<<elseif ($subspecies is "alligator") or ($subspecies is "crocodile") or ($subspecies is "gecko") or ($subspecies is "raptor") or ($subspecies is "salamander") or ($subspecies is "leupai") or ($subspecies is "serpent") or ($subspecies is "lizard") or ($subspecies is "carnosaur") or ($subspecies is "ceratopsian") or ($subspecies is "parasaur") or ($subspecies is "frog")>>[img[player_leupai]]
+<<elseif ($species is "arka") or ($species is "arquesse")>>[img[player_arka]]
+<<elseif $species is "adephagian">>[img[player_adephagian]]
+<<elseif $species is "aladri">>[img[player_aladri]]
+<<elseif $species is "post-human">>[img[player_post-human]]
+
+<<endif>>
+
+
+
+/% NEEDED:
+quad pose base
+avian arka base
+reptilian arka base %/

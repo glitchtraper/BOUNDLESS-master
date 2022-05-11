@@ -1,0 +1,124 @@
+﻿/% ========== BODY DATABASE ==========  %/
+
+/% Body parts genes & base setup for player species & transformations. %/
+
+<<set $playerHead = 0; $playerFace = 0; $playerBack = 0; $playerWings = 0; $playerTail = 0>>
+
+/% =========================================================================== %/
+/% Blubberslime Defaults %/
+
+<<if $species is "blubberslime">>
+
+	<<set $playerLegNumber = 0>>
+
+
+<<endif>>
+
+/% =========================================================================== %/
+/% Post-Human Defaults %/
+
+<<if $species is "post-human">>
+
+
+	<<set $playerEarNumber = 2; $playerEyeNumber = 2; $playerArmNumber = 2; $playerLegNumber = 2>>
+
+	<<set $playerHead = 0; $playerEars = "round"; $playerEyes = 0; $playerFace = 0; $playerSkin = 0; $playerBody = "humanoid"; $playerBack = 0; $playerWings = 0; $playerTail = 0>>
+
+<<endif>>
+
+/% ================================================ %/
+/% Aladri Defaults %/
+
+<<if $species is "aladri">>
+
+
+	<<set $playerEarNumber = 2; $playerEyeNumber = 2; $playerArmNumber = 2; $playerLegNumber = 2; $withTeeth = 1>>
+
+	<<set $playerHead = 0; $playerFace = 0; $playerEars = "fae"; $playerEyes = 0; $playerFace = 0; $playerSkin = 0; $playerBody = "humanoid"; $playerBack = 0; $playerWings = 0; $playerTail = 0>>
+
+	<<set $playerEyeColor = either("black","indigo","violet","red","magenta","pink","orange","golden","yellow","green","teal","blue","silver","white")>>
+<<endif>>
+
+/% ================================================ %/
+/% Arka Defaults %/
+
+<<if $species is "arka">>
+
+
+	<<set $playerEarNumber = 2; $playerEyeNumber = 2; $playerArmNumber = 2; $playerLegNumber = 2; $withTeeth = either(0,0,1)>>
+
+	<<set $playerHead = 0; $playerEars = either("round","triangular","long","double","winged","finned","split","fae","equine","spike","ribbon","lop"); $playerEyes = 0; $playerSkin = either(0,0,0,0,0,"scaled","fish-scaled","carapaced","furry","velvet","crystalline","slick","plush","stitched","feathered","glittery"); $playerBody = "humanoid"; $playerBack = 0; $playerWings = 0; $playerTail = either(0,0,0,0,0,"cotton","long","crocodilian","rat","equine","leonine","feline","rooster","phoenix","dragon","gecko","club","canine","bushy","feathered","carnosaur","sauropod","fox","fat")>>
+
+	<<set $playerFace = $subspecies>>
+
+	<<if $subspecies is "cat">><<set $playerEyes = "cat">><<endif>>
+	<<if ($subspecies is "moth") or ($subspecies is "bee") or ($subspecies is "wasp")>><<set $playerHead = "antennae"; $playerWings = "mini insect wings">><<endif>>
+	<<if ($subspecies is "sheep") or ($subspecies is "goat")>><<set $playerHead = either("spike horns","curly horns")>><<endif>>
+	<<if ($subspecies is "chimaera") or ($subspecies is "lion") or ($subspecies is "hyena") or ($subspecies is "horse")>><<set $playerHead = "mane">><<endif>>
+	<<if ($subspecies is "deer") or ($subspecies is "peryton")>><<set $playerFace = "deer"; $playerHead = "antlers">><<endif>>
+	<<if ($subspecies is "pegasus") or ($subspecies is "peryton") or ($subspecies is "phoenix")>><<set $playerWings = "mini feather wings">><<endif>>
+	<<if $subspecies is "unicorn">><<set $playerHead = "horn">><<endif>>
+
+<<endif>>
+
+
+/% =========================================================================== %/
+/% Adephagian Defaults %/
+
+<<if $species is "adephagian">>
+
+
+	<<set $playerEarNumber = 2; $playerEyeNumber = 2; $playerArmNumber = 2; $playerLegNumber = 2>>
+
+	<<set $playerBody = "flabby"; $playerBack = 0; $playerWings = 0; $playerTail = 0; $playerEars = "fae">>
+
+<<endif>>
+
+	<<if $subspecies is "bovitype">>
+
+	<<set $playerEarNumber = 2; $playerEyeNumber = 2; $playerArmNumber = 2; $playerLegNumber = 2>>
+
+	<<set $playerHead = either("long horns","short horns","horn nubs","spike horns"); $playerLegs = "split-hoofed digitigrade"; $playerTail = "cow">>
+
+<<endif>>
+
+/% =========================================================================== %/
+/% Mythosi Defaults %/
+
+<<if $species is "mythosi">>
+
+
+	<<set $playerEarNumber = 2; $playerEyeNumber = 2; $playerArmNumber = 2; $playerLegNumber = 2; $withTeeth = 1>>
+
+<<display ColorWheel>>
+
+	<<set $playerHead = either("straight horns","spiral horns","smooth head","finned crest","lion mane","horse mane","bull horns","spike horns","unicorn horn","rhino horns","nose horn"); $playerEars = either("fin","fin","fin","elf","winged"); $playerEyes = 0; $playerFace = either("blunt","crocodilian","avian","gecko","boid"); $playerSkin = either("round-scaled","fish-scaled","smooth-scaled","scaleless","plush","crystalline"); $playerBody = either("bloated","monstrous","serpentine","flabby","pot-bellied"); $playerBack = either(0,"spiked back","spiny back","crested back","finned back","feathered spine","furry spine"); $playerWings = either("bat wings","bat wings","bat wings","bat wings","bat wings","wings"); $playerTail = either("spade-tipped","heart-tipped","club-tipped","diamond-tipped","lion","smooth-tipped","wyvern"); $bodyColor = $fullChroma; $geneFlight = 1>>
+
+<<endif>>
+
+/% =========================================================================== %/
+/% Leupai Defaults %/
+
+<<if $species is "leupai">>
+
+
+	<<set $playerEarNumber = either(2,2,2,4,6); $playerEyeNumber = either(0,0,1,2,2,2,3,3,4,4,5,6,6,7,8,9,10,12); $playerArmNumber = either(0,2,2,2,2,2,2,4,4,6); $playerLegNumber = either(0,2,2,2,2,4,4,4,6,8,10); $withTeeth = 1>>
+
+	<<set $playerHead = either(0,"angler lantern","antennae","antlers","armor","bull horns","crystal points","curly horns","feather crest","finned crest","fins","hair","horn","horns","horse mane","lion mane","mane","nose horn","quills","rhino horns","smooth head","snake hair","spike horns","spikes","spines","spiral horns","straight horns","tentacles","tiny bat headwings","tiny feathered headwings","two-headed","unicorn horn","winged head"); $playerEars = either("double","equine","fae","finned","long","lop","ribbon","round","spike","split","tendril","triangular","winged"); $playerEyes = 0; $playerSkin = either("armored","bumpy","cake","candy","carapaced","crystalline","feathered","fish-scaled","furry","glass","jelly","plush","porcelain","pulsing","robotic","scaled","slick","smooth","squishy","stitched","studded","toy","velvet","vial","wispy"); $playerBody = either("blimplike","bloated","blubber-stuffed","blubbery","bulging","flabby","gelatinous","monstrous","pot-bellied","serpentine"); $playerBack = either(0,"armor","back armor","back foliage","bioluminescent mushrooms","bioluminescent spots","crested back","crystal points","feather crest","feathered spine","finned back","fins","furry spine","horns","hunched back","mane","mountainous back","plates","quills","spiked back","spikes","spines","spiny back","stitched spine","stitches","teeth","tentacles","toothy spine","wings","zipper","zippered spine"); $playerTail = either("no","braided","bushy","cable","canine","carnosaur","club","crocodilian","dragon","equine","fat","feathered","feline","fox","gecko","leonine","long","maw","nub","phoenix","rat","rooster","sauropod","serpentine","slug","spade","split","tentacle","worm")>>
+
+<<set $venomGland = 1; $venomProd = 1; $playerVenom = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>>
+
+<<if $playerFace is 0>><<set $playerFace = either("avian","blunt","boid","canine","crocodilian","crusher","eel","feline","flat","gecko","humanoid","leonine","oneroiesque","saurian","seal","sharklike","vulpine","monstrous")>><<endif>>
+
+<<endif>>
+
+
+/% ================================================ %/
+/% Miscellaneous Tweaks %/
+
+
+	<<if ($subspecies is "pegasus") or ($subspecies is "unicorn")>><<set $playerFace = "horse">><<endif>>
+	<<if $subspecies is "peryton">><<set $playerFace = "deer">><<endif>>
+
+
+	<<if $subspecies is "squid">><<set $playerHead = "tendrils">><<endif>>

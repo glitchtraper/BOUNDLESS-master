@@ -1,0 +1,23 @@
+﻿<<display ZoneBackgrounds>><center><<nobr>><<set $toggleDisplay = 1>><<display AchievementTracker>><<display PersistentEffects>><<if $didCombat is 1>><<display CombatCleanup>><<set $didCombat = 0>><<endif>>
+
+
+<<endnobr>>\
+\
+<<if $pain lt $maxPain>>\
+<<if $groveRest is 0>><<display GrovePool>><<set $monsterGrovePop -= 1>>\
+<<elseif $groveRest is 1>><<set $pain -= random(2,5); $encImg = 0>>
+\
+You find a safe place to hide and rest away from the eyes of the lurking monsters.
+<<display Effects>><<display Alert>><<display Vitality>>
+<framed><<button [[Continue searching.|passage()][$groveRest = 0]]>><<button [[Rest for a moment.|passage()][$groveRest = 1]]>></framed><<endif>>
+<<nobr>>
+
+<<endnobr>><<if $groveRest is 0>>
+<<if $monsterGrovePop gt 0>><center>You wander around the area...
+<<display CreatureImages>><<display EncounterImg>><<display CreatureEncounter>></center><<display Effects>><<display Alert>><<display Vitality>><<nobr>>
+
+<<endnobr>><<if $overrideExplore is 0>><framed><<button [[Slip past and continue searching.|passage()][$groveRest = 0]]>><<button [[Rest for a moment.|passage()][$groveRest = 1]]>></framed><<endif>><<elseif $monsterGrovePop is 0>>You wander around the area...''but all seems quiet.''
+You have the feeling there's nothing more to be found here.<<endif>><<endif>>
+<<nobr>>
+
+<<endnobr>><<if $overrideExplore is 0>><<button [[Leave.|$saveStateSpecial][$groveRest = 0]]>><<endif>><<elseif $pain gte $maxPain>><<set $blackout = 1>><<display CriticalAlerts>><<endif>></center>

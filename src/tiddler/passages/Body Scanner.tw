@@ -1,0 +1,94 @@
+﻿<<if $carryBG neq 0>><<addtag $carryBG>><<endif>><<display ZoneBackgrounds>><<set $seenIt_bodyScan = 1>><<if $newMachine is 1>><<display MachineEfficiency>><<endif>>
+It's an odd piece of equipment with a large, enterable chamber and several screens.
+It looks like it can be used to ''scan a creature's vitals.''<<if $inUse is 1>>
+
+You turn the machinery on before slipping into the scanning chamber and closing your eyes.
+After a few moments and an odd, buzzy feeling, ''it outputs a reading.''
+
+<framed><center>''Subject Species:'' <<if $substatus neq 0>><<print $substatus>> <<endif>><<if $subspecies neq 0>><<print $subspecies>> <<endif>><<print $species>><<if $playerElement neq 0>> //(<<print $playerElement>>)//<<endif>>
+''Weight:'' <<print $fatScore / 10>>~~gi~~ ♦ ''Body Fat Configuration:'' <<if $bodyType is 0>>Unremarkable<<elseif $bodyType is "busty">>Busty<<elseif $bodyType is "hourglass">>Hourglass<<elseif $bodyType is "round">>Round<<elseif $bodyType is "belly">>Miriete<<elseif $bodyType is "pear">>Pear<<elseif $bodyType is "thigh">>Bottom-Heavy<<else>>''SCAN ERROR''<<endif>>
+''Breast Size:'' <<print $breast / 10>>~~gi~~ ♦ ''Belly Size:'' <<print $belly / 10>>~~gi~~ ♦ ''Thigh Size:'' <<print $thigh / 10>>~~gi~~
+
+''Calories Processing:'' <<print $calories / 10>> ♦ ''Metabolic Absorption Average:'' <<print ($metaGain - $metaBurn) / 10>>
+
+<<if $milkType neq 0>>''Lactation Type:'' <<print $milkType>> ♦ <<endif>>''Lactation Rate:'' <<print $milkRate / 10>> ♦ ''Milkfat:'' <<print $milkFat / 10>>
+
+<narrowframe><xtralarge>''__Parasitic Load:__''</xtralarge>
+<<nobr>>''<<if $leupaiEggTimer gt 0>><<set $parasiteCheck = 1>>
+[//Leupai Eggs// (<<print $leupaiEggLoad>>, <<print $quaggyGirth / 10>>~~gi~~ each)] <<endif>>
+<<if $breastParasite is 1>><<set $parasiteCheck = 1>>
+[//Microstygi heleni (Breast Bloat Parasite)// (<<print $breastParaLoad / 10>>)] <<endif>>
+<<if $bellyParasite is 1>><<set $parasiteCheck = 1>>
+[//Microstygi moreauii (Belly Bloat Parasite)// (<<print $bellyParaLoad / 10>>)] <<endif>>
+<<if $bodyPlumperParasite is 1>><<set $parasiteCheck = 1>>
+[//Microleupii belesse (Weight Gain Parasite)// (<<print $wgParaLoad / 10>>)] <<endif>>
+<<if $bellyPlumperParasite is 1>><<set $parasiteCheck = 1>>
+[//Microleupii miriete (Belly Weight Gain Parasite)// (<<print $bellywgParaLoad / 10>>)] <<endif>>
+<<if $breastPlumperParasite is 1>><<set $parasiteCheck = 1>>
+[//Microleupii belebaret (Breast Weight Gain Parasite)// (<<print $breastwgParaLoad / 10>>)] <<endif>>
+<<if $lactationParasite is 1>><<set $parasiteCheck = 1>>
+[//Lactosa virii (Lactation-Inducing Parasite)// (<<print $lacParaLoad / 10>>)] <<endif>>
+<<if $metaParasite is 1>><<set $parasiteCheck = 1>>
+[//Microleupii belite (Metabolism-Slowing Parasite)// (<<print $metaParaLoad / 10>>)] <<endif>>
+<<if $slimeBellyParasite is 1>><<set $parasiteCheck = 1>>
+[//Slime colonization (belly)// (<<print $slimeBellyParaLoad / 10>>)] <<endif>>
+<<if $slimeBreastParasite is 1>><<set $parasiteCheck = 1>>
+[//Slime colonization (breast)// (<<print $slimeBreastParaLoad / 10>>)] <<endif>>
+<<if $direParasite is 1>><<set $parasiteCheck = 1>>
+[//Dire worm colonization// (<<print $direParaLoad / 10>>)] <<endif>>
+<<if $ampliParasite is 1>><<set $parasiteCheck = 1>>
+[//Amplibaene colonization// (<<print $ampliParaLoad>>)]<<endif>>
+<<if $parasiteCheck is 0>>
+<<if ($zeppelonParasite is 1) or ($milkmelonParasite is 1) or ($tendrilvineParasite is 1)>>''SCAN ERROR''<<else>>//OK//<<endif>><<endif>>''<<endnobr>></narrowframe>
+
+<narrowframe><xtralarge>''__Other Status:__''</xtralarge>
+''<<nobr>><<if ($mirajinRads gt 0) and ($mirajinRads lt 20)>>
+[Mirajin Radiation Exposure] <<set $statusCheck = 1>>
+<<elseif ($mirajinRads gte 20) and ($mirajinRads lt 200)>>
+[<brightalert>Minor Mirajin Radiation</brightalert>] <<set $statusCheck = 1>>
+<<elseif ($mirajinRads gte 200) and ($mirajinRads lt 350)>>
+[<brightalert>Mild Mirajin Radiation Poisoning</brightalert>] <<set $statusCheck = 1>>
+<<elseif ($mirajinRads gte 350) and ($mirajinRads lt 500)>>
+[<warning>Moderate Mirajin Radiation Poisoning</warning>] <<set $statusCheck = 1>>
+<<elseif ($mirajinRads gte 500) and ($mirajinRads lt 700)>>
+[<seriouswarning>Major Mirajin Radiation Poisoning</seriouswarning>] <<set $statusCheck = 1>>
+<<elseif ($mirajinRads gte 700) and ($mirajinRads lt 800)>>
+[<criticalwarning>Severe Mirajin Radiation Poisoning</criticalwarning>] <<set $statusCheck = 1>>
+<<elseif $mirajinRads gte 800>>
+[<redalert>Catastrophic Mirajin Radiation Poisoning</redalert>] <<set $statusCheck = 1>><<endif>>
+<<if $miraPoisoning gte 1>>
+[Miratoxic Poisoning] <<set $statusCheck = 1>><<endif>>
+<<if $vitaePPM gt 0>>
+[<redalert>Vitae Poisoning</redalert>] <<set $statusCheck = 1>><<endif>>
+<<if $somniation gte 5>>
+[Incomplete Somniation] <<set $statusCheck = 1>><<endif>>
+<<if $realizing gt 0>>
+[Miratoxic Realization] <<set $statusCheck = 1>><<endif>>
+<<if $miratoxicOverdose gt 0>>
+[Miratoxic Overdose] <<set $statusCheck = 1>><<endif>>
+<<if $leupaiEggLoad gt 0>>
+[Leupai Impregnation] <<set $statusCheck = 1>><<endif>>
+<<if $fatteniumPoisoning gte 10>>
+[Fattenium Poisoning] <<set $statusCheck = 1>><<endif>>
+<<if $fatteniumCascade is 1>>
+[Fattenium Cascade] <<set $statusCheck = 1>><<endif>>
+<<if $autoEat is 1>>
+[Insatiable] <<set $statusCheck = 1>><<endif>>
+<<if $bellyBloat gte $maxBelly>>
+[Bloated] <<set $statusCheck = 1>><<endif>>
+<<if $lactation is 1>>
+[Lactating] <<set $statusCheck = 1>><<endif>>
+<<if $consecutiveDrain gte 1>>
+[<seriouswarning>Wasting Disease</seriouswarning>] <<set $statusCheck = 1>><<endif>>
+<<if $consecutiveGain gte 1>>
+[Spontaneous Weight Gain] <<set $statusCheck = 1>><<endif>>
+<<if $stomachBug is 1>>
+[Stomach Virus] <<set $statusCheck = 1>><<endif>>
+<<if $starvation is 1>>
+[<redalert>Starving!</redalert>] <<set $statusCheck = 1>><<endif>>
+<<if $statusCheck is 0>>
+//N/A//<<endif>><<endnobr>>''</narrowframe></center></framed>
+<<set $inUse = 0>><<endif>>
+<<if $machinePower gt $machineBattery>>''It looks like it's run out of power.''<<if $special_battery gt 0>><<button [[Use a battery.|passage()][$special_battery -= 1; $machineBattery += random(8,24); $inUse = 0]]>><<endif>><<endif>><<display BodySystems>><<display Effects>>
+<center><framed><<nobr>><<if $machinePower lte $machineBattery>><<button [[Use it.|passage()][$machineBattery -= $machinePower; $inUse = 1]]>><<endif>><<endnobr>></framed>
+<<button [[Back.|$saveStateSpecial][$inUse = 0; $parasiteCheck = 0; $statusCheck = 0; $carryBG = 0]]>></center>

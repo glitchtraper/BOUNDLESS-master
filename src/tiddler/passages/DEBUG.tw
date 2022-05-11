@@ -1,0 +1,447 @@
+﻿<<nobr>>
+
+/% OVERHEALING - if you hit negative vitality, turn the excess into calories. >:3c %/
+
+<<if $pain lt 0>><<set $calories -= $pain; $pain = 0>><<endif>>
+
+/% CLEANUP - tidy up any stats that get messy. %/
+
+<<set $strength = Math.round($strength)>>
+
+
+/% ====================== %/
+
+<<button [[Memories.|Memories][$saveState = passage(); $autoRest = 0]]>>
+
+/% ====================== %/
+
+<<endnobr>><xxtramini><<if $showDebug is 0>><<button [[DEBUG|passage()][$showDebug = 1]]>><<elseif $showDebug is 1>><<button [[DEBUG|passage()][$showDebug = 0]]>>
+<<if $toggleReadout is 0>><<button [[Meta|passage()][$toggleReadout = 1]]>><<elseif $toggleReadout is 1>><<button [[Meta|passage()][$toggleReadout = 0]]>><<endif>>\
+\
+\
+\
+\
+<<if $toggleReadout is 1>><center><xtramini><framed>\
+//Planet Class: <<if $plane is 0>><<print $planetClass>> (<<print $planetTemp>>)<<else>>''N/A''<<endif>> ♦ \
+\
+Plane: <<if $plane is 0>>Physical<<else>><<print $plane>><<endif>> ♦ \
+\
+Atmosphere: <<print $planetAtmosphere>> (Player <<if $needsAir is 1>>needs air<<elseif $needsAir is 0>> doesn't need air<<endif>>) ♦ \
+\
+Surface Liquid: <<print $planetFluid>> ♦ \
+\
+Core: <<if $planetCoreType neq 0>><<print $planetCoreType>><<else>>Default<<endif>><<if $planetCoreType is "liquid">> <<print $planetCoreFluid>><<endif>> ♦ \
+\
+Weather: <<print $forecast>> (<<print $weatherTime>> rounds left (if outside)) \
+\
+<<if $planetAmbience neq 0>>Ambience: <<print $planetAmbience>> ♦ <<endif>>\
+\
+Zone: <<print $tempSelect>> <<print $zoneType>> ♦ \
+\
+Map: <<if $indoorZone is 0>><<print $planetaryMode>><<else>>dungeon<<endif>> ♦ \
+\
+Sub Level: <<print $depthMeter>> ♦ \
+\
+Dungeon? <<if $indoorZone is 1>><<print $dungeonLocation>><<else>><redalert>''No''</redalert><<endif>> ♦ \
+\
+Population: ''<<print $majorDenizen>>'', <<print $minorDenizen1>>, <<print $minorDenizen2>> (<<print $popDensity>>pop) ♦ \
+\
+Encounter: <<print $encounterKind>>, name is <<if $encounterKind is "resource">><<print $resourceEncounter>><<elseif $encounterKind is "creature">><<print $encounter>><<elseif $encounterKind is "item">><<print $itemEncounter>>, id is <<print $itemID>><<elseif $encounterKind is "special">><<print $specialEncounter>><<else>>''no encounter ID found'' (if Encounter is 0, this may be right)<<endif>>
+(Randomizer: <<print $randomizer>> clawMachine: <<print $clawMachine>>)
+\
+\
+<<if $mutationStrength neq 0>>Mutation strength was ''<<print $mutationStrength>>''; procced ''<<print $geneRandomizer>>''.<<endif>>//</framed></xtramini></center><<endif>>\
+\
+<<if $debugBody is 0>><<button [[Body|passage()][$debugBody = 1]]>><<else>><<button [[Body|passage()][$debugBody = 0]]>><<endif>>\
+\
+<<if $debugParasites is 0>><<button [[Parasites|passage()][$debugParasites = 1]]>><<else>><<button [[Parasites|passage()][$debugParasites = 0]]>><<endif>>\
+\
+<<if $debugToxins is 0>><<button [[Toxins|passage()][$debugToxins = 1]]>><<else>><<button [[Toxins|passage()][$debugToxins = 0]]>><<endif>>\
+\
+<<if $debugHazards is 0>><<button [[Hazards|passage()][$debugHazards = 1]]>><<else>><<button [[Hazards|passage()][$debugHazards = 0]]>><<endif>>\
+\
+<<if $debugGenetics is 0>><<button [[Genetics|passage()][$debugGenetics = 1]]>><<else>><<button [[Genetics|passage()][$debugGenetics = 0]]>><<endif>>\
+\
+<<if $debugFavor is 0>><<button [[Favor|passage()][$debugFavor = 1]]>><<else>><<button [[Favor|passage()][$debugFavor = 0]]>><<endif>>\
+\
+\
+\
+/% ========================== Body Debug %/\
+\
+<<if $debugBody is 1>>
+\
+<framed>//''sanity:'' <<print $workingSanity>> (<<print $sanity>> - <<print $imagination>>) ♦ <<if $immobilityDisabled is 0>><<print ($immobilityCeiling - $fatScore) / 10>> left to immobility<<elseif $immobilityDisabled is 1>>''immobility disabled''<<endif>>
+\
+\
+''calories:'' <<print $calories / 10>>
+\
+\
+gain: <<print $metaGain / 10>> ''(<<print $metaCap / 10>>)'' (species max: <<print $speciesGaincap / 10>> ♦ gainer bonus: <<print $gainerBonus * 0.1>>) ♦ esurience: <<print $esurience>>/64
+\
+burn: <<print $metaBurn / 10>> ♦ \
+\
+''belly capacity:'' <<print $bellyBloat / 10>> / <<print $maxBelly / 10>> (<<print (($maxBelly * 1.2)/10) + $stretchMod>>) ♦ \
+\
+belly liquid: <<print $bellyLiquid / 10>>
+\
+venom: <<print $storedVenom / 10>> (<<print $playerVenom>>) \
+\
+venom production/turn: <<print $venomProd / 10>><<if $geneVenomBloated is 1>> (Overproductive)<<endif>>
+\
+''breast capacity:'' <<print $breastBloat / 10>> / <<print $maxBreast / 10>> (<<print ($maxBreast * 1.2)/10>>)
+\
+(<<if $milkType is 0>>milk<<else>><<print $milkType>><<endif>>) \
+\
+milkfat: <<print $milkFat / 10>> ♦ \
+\
+milk production/turn: <<print $milkRate / 10>>\
+\
+//</framed><<endif>>\
+\
+/% ========================== Parasites Debug %/\
+\
+<<if $debugParasites is 1>>
+\
+<framed>//leupai eggs: <<print $leupaiEggLoad>> (<<print $quaggyGirth / 10>>gi)<<if $leupaiEggTimer gt 0>> ♦ est. emergence: <<print $leupaiEggTimer>> turns<<endif>>
+\
+\
+Fyynling Hybridization: <<print $fyynlingMorph>>%
+\
+\
+Slime Colonization: <<print ($slimeBreastParaLoad + $slimeBellyParaLoad)/10>>/<<print $girth/10>>
+\
+\
+Dire Worms: <<print $direParaLoad>> ♦ \
+\
+Amplibaenes: <<print $ampliParaLoad>>//</framed><<endif>>\
+\
+/% ========================== Toxins Debug %/\
+\
+<<if $debugToxins is 1>>//
+\
+<framed><<if ($miraPoisoning gt 0) and ($miraPoisoning lt ($girth/100))>><warning>Miratoxins:</warning>\
+\
+<<elseif ($miraPoisoning gte ($girth/100)) and ($miraPoisoning lt (($girth/100)*1.5))>><seriouswarning>Miratoxins:</seriouswarning>\
+\
+<<elseif $miraPoisoning gte (($girth/100)*1.5)>><criticalwarning>''Miratoxins:''</criticalwarning>\
+\
+<<else>>Miratoxins:<<endif>> <<print $miraPoisoning>> ♦ \
+\
+<<if ($amalgaToxicity gt 0) and ($amalgaToxicity lt ($girth/100))>><warning>Amalgatoxins:</warning>\
+\
+<<elseif ($amalgaToxicity gte ($girth/100)) and ($amalgaToxicity lt (($girth/100)*1.5))>><seriouswarning>Amalgatoxins:</seriouswarning>\
+\
+<<elseif $amalgaToxicity gte (($girth/100)*1.5)>><criticalwarning>''Amalgatoxins:''</criticalwarning>\
+\
+<<else>>Amalgatoxins:<<endif>> <<print $amalgaToxicity>> ♦ \
+\
+<<if $vitaePPM gt 0>><criticalwarning>''Vitae:''</criticalwarning>\
+\
+<<elseif $vitaePPM lte 0>>Vitae:<<endif>> <<print $vitaePPM>>
+\
+\
+<<if ($helenoToxicity gt 0) and ($helenoToxicity lt ($girth/100))>><warning>Helenotoxins:</warning>\
+\
+<<elseif ($helenoToxicity gte ($girth/100)) and ($helenoToxicity lt (($girth/100)*1.5))>><seriouswarning>Helenotoxins:</seriouswarning>\
+\
+<<elseif $helenoToxicity gte (($girth/100)*1.5)>><criticalwarning>''Helenotoxins:''</criticalwarning>\
+\
+<<else>>Helenotoxins:<<endif>> <<print $helenoToxicity>> ♦ \
+\
+<<if ($somniation gt 0) and ($somniation lt 30)>><warning>Somniation:</warning>\
+\
+<<elseif ($somniation gte 20) and ($somniation lt 30)>><seriouswarning>Somniation:</seriouswarning>\
+\
+<<elseif $somniation gte 30>><criticalwarning>''Somniation:''</criticalwarning>\
+\
+<<else>>Somniation:<<endif>> <<print $somniation>>
+\
+\
+<<if ($fatteniumPoisoning gte 10) and ($fatteniumPoisoning lt ($girth/40))>><warning>Fattenium Toxicity:</warning>\
+\
+<<elseif ($fatteniumPoisoning gte ($girth/40)) and ($fatteniumPoisoning lt ($girth/20))>><seriouswarning>Fattenium Toxicity:</seriouswarning>\
+\
+<<elseif $fatteniumPoisoning gte ($girth/20)>><criticalwarning>''Fattenium Toxicity:''</criticalwarning>\
+\
+<<else>>Fattenium Toxicity:<<endif>> <<print $fatteniumPoisoning/10>> (\
+\
+<<if ($bellyfatteniumToxicity gt 0) and ($bellyfatteniumToxicity lt ($girth/100))>><warning>Belly:</warning>\
+\
+<<elseif ($bellyfatteniumToxicity gte ($girth/100)) and ($bellyfatteniumToxicity lt (($girth/100)*1.5))>><seriouswarning>Belly:</seriouswarning>\
+\
+<<elseif $bellyfatteniumToxicity gte (($girth/100)*1.5)>><criticalwarning>''Belly:''</criticalwarning>\
+\
+<<else>>Belly:<<endif>> <<print $bellyfatteniumToxicity>> ♦ \
+\
+<<if ($breastfatteniumToxicity gt 0) and ($breastfatteniumToxicity lt ($girth/100))>><warning>Breast:</warning>\
+\
+<<elseif ($breastfatteniumToxicity gte ($girth/100)) and ($breastfatteniumToxicity lt (($girth/100)*1.5))>><seriouswarning>Breast:</seriouswarning>\
+\
+<<elseif $breastfatteniumToxicity gte (($girth/100)*1.5)>><criticalwarning>''Breast:''</criticalwarning>\
+\
+<<else>>Breast:<<endif>> <<print $breastfatteniumToxicity>> ♦ \
+\
+<<if ($thighfatteniumToxicity gt 0) and ($thighfatteniumToxicity lt ($girth/100))>><warning>Thigh:</warning>\
+\
+<<elseif ($thighfatteniumToxicity gte ($girth/100)) and ($thighfatteniumToxicity lt (($girth/100)*1.5))>><seriouswarning>Thigh:</seriouswarning>\
+\
+<<elseif $thighfatteniumToxicity gte (($girth/100)*1.5)>><criticalwarning>''Thigh:''</criticalwarning>\
+\
+<<else>>Thigh:<<endif>> <<print $thighfatteniumToxicity>>)
+\
+\
+<<if ($gainerToxicity gt 0) and ($gainerToxicity lt ($girth/100))>><warning>Metabotoxins:</warning>\
+\
+<<elseif ($gainerToxicity gte ($girth/100)) and ($gainerToxicity lt (($girth/100)*1.5))>><seriouswarning>Metabotoxins:</seriouswarning>\
+\
+<<elseif $gainerToxicity gte (($girth/100)*1.5)>><criticalwarning>''Metabotoxins:''</criticalwarning>\
+\
+<<else>>Metabotoxins:<<endif>> <<print $gainerToxicity>> ♦ \
+\
+<<if ($inflaToxicity gt 0) and ($inflaToxicity lt ($girth/100))>><warning>Inflatoxins:</warning>\
+\
+<<elseif ($inflaToxicity gte ($girth/100)) and ($inflaToxicity lt (($girth/100)*1.5))>><seriouswarning>Inflatoxins:</seriouswarning>\
+\
+<<elseif $inflaToxicity gte (($girth/100)*1.5)>><criticalwarning>''Inflatoxins:''</criticalwarning>\
+\
+<<else>>Inflatoxins:<<endif>> <<print $inflaToxicity>> ♦ \
+\
+<<if ($deflaToxicity gt 0) and ($deflaToxicity lt ($girth/100))>><warning>Deflatoxins:</warning>\
+\
+<<elseif ($deflaToxicity gte ($girth/100)) and ($deflaToxicity lt (($girth/100)*1.5))>><seriouswarning>Deflatoxins:</seriouswarning>\
+\
+<<elseif $deflaToxicity gte (($girth/100)*1.5)>><criticalwarning>''Deflatoxins:''</criticalwarning>\
+\
+<<else>>Deflatoxins:<<endif>>: <<print $deflaToxicity>>
+\
+\
+<<if ($calpowderToxicity gt 0) and ($calpowderToxicity lt ($girth/100))>><warning>Aditoxins:</warning>\
+\
+<<elseif ($calpowderToxicity gte ($girth/100)) and ($calpowderToxicity lt (($girth/100)*1.5))>><seriouswarning>Aditoxins:</seriouswarning>\
+\
+<<elseif $calpowderToxicity gte (($girth/100)*1.5)>><criticalwarning>''Aditoxins:''</criticalwarning>\
+\
+<<else>>Aditoxins:<<endif>> <<print $calpowderToxicity>> ♦ \
+\
+<<if ($leupoilToxicity gt 0) and ($leupoilToxicity lt ($girth/100))>><warning>Leupaditoxins:</warning>\
+\
+<<elseif ($leupoilToxicity gte ($girth/100)) and ($leupoilToxicity lt (($girth/100)*1.5))>><seriouswarning>Leupaditoxins:</seriouswarning>\
+\
+<<elseif $leupoilToxicity gte (($girth/100)*1.5)>><criticalwarning>''Leupaditoxins:''</criticalwarning>\
+\
+<<else>>Leupaditoxins:<<endif>> <<print $leupoilToxicity>> ♦ \
+\
+<<if ($miraberryToxicity gt 0) and ($miraberryToxicity lt ($girth/100))>><warning>Somnitoxins:</warning>\
+\
+<<elseif ($miraberryToxicity gte ($girth/100)) and ($miraberryToxicity lt (($girth/100)*1.5))>><seriouswarning>Somnitoxins:</seriouswarning>\
+\
+<<elseif $miraberryToxicity gte (($girth/100)*1.5)>><criticalwarning>''Somnitoxins:''</criticalwarning>\
+\
+<<else>>Somnitoxins:<<endif>> <<print $miraberryToxicity>>
+\
+\
+<<if ($mushroomToxicity gt 0) and ($mushroomToxicity lt ($girth/100))>><warning>Mycotoxins:</warning>\
+\
+<<elseif ($mushroomToxicity gte ($girth/100)) and ($mushroomToxicity lt (($girth/100)*1.5))>><seriouswarning>Mycotoxins:</seriouswarning>\
+\
+<<elseif $mushroomToxicity gte (($girth/100)*1.5)>><criticalwarning>''Mycotoxins:''</criticalwarning>\
+\
+<<else>>Mycotoxins:<<endif>> <<print $mushroomToxicity>> ♦ \
+\
+\
+<<if ($miracoSpores gt 0) and ($miracoSpores lt 100)>><warning>M. suculiet spore load:</warning>\
+\
+<<elseif ($miracoSpores gte 100) and ($miracoSpores lt 500)>><seriouswarning>M. suculiet spore load:</seriouswarning>\
+\
+<<elseif $miracoSpores gte 500>><criticalwarning>''M. suculiet spore load:''</criticalwarning>\
+\
+<<else>>M. suculiet spore load:<<endif>> <<print $miracoSpores>> ♦ \
+\
+\
+<<if ($caffeineToxicity gt 0) and ($caffeineToxicity lt ($girth/100))>><warning>Caffeine:</warning>\
+\
+<<elseif ($caffeineToxicity gte ($girth/100)) and ($caffeineToxicity lt (($girth/100)*1.5))>><seriouswarning>Caffeine:</seriouswarning>\
+\
+<<elseif $caffeineToxicity gte (($girth/100)*1.5)>><criticalwarning>''Caffeine:''</criticalwarning>\
+\
+<<else>>Caffeine:<<endif>> <<print $caffeineToxicity>></framed><<endif>>//\
+\
+/% ========================== Hazards Debug %/\
+\
+<<if $debugHazards is 1>>
+\
+<framed>//Mirajin Radiation: <<print $mirajinRads>>/1000
+Radiation: <<print $nuclearRads>>/1000//</framed><<endif>>\
+\
+/% ========================== Genetics Debug %/\
+\
+<<if $debugGenetics is 1>>
+<<nobr>><framed>''
+
+/% Minor Genes %/
+
+<cheery>
+
+<<if $geneFattyI is 1>>[Fatty I] <<endif>>
+<<if $geneFattyII is 1>>[Fatty II] <<endif>>
+
+<<if $geneLeanI is 1>>[Lean I] <<endif>>
+<<if $geneLeanII is 1>>[Lean II] <<endif>>
+
+<<if $geneMuscular is 1>>[Muscular] <<endif>>
+<<if $geneDextrous is 1>>[Dextrous] <<endif>>
+
+<<if $geneEnergetic is 1>>[Energetic] <<endif>>
+
+<<if $geneGainer is 1>>[Gainer] <<endif>>
+
+<<if $genePlumpBreast is 1>>[Plump Breast] <<endif>>
+<<if $genePlumpBelly is 1>>[Plump Belly] <<endif>>
+<<if $genePlumpThigh is 1>>[Plump Thigh] <<endif>>
+
+<<if $geneFatBreast is 1>>[Fat Breast] <<endif>>
+<<if $geneFatBelly is 1>>[Fat Belly] <<endif>>
+<<if $geneFatThigh is 1>>[Fat Thigh] <<endif>>
+
+<<if $geneSolidThighs is 1>>[Solid Thighs] <<endif>>
+<<if $geneFlabbyThighs is 1>>[Flabby Thighs] <<endif>>
+
+<<if $geneGlutton is 1>>[Glutton] <<endif>>
+<<if $geneSatisfied is 1>>[Satisfied] <<endif>>
+
+/% Body Types %/
+
+<<if $bodyType is "busty">>[Busty] <<endif>>
+<<if $bodyType is "cubus">>[Helene] <<endif>>
+<<if $bodyType is "boviete">>[Boviete] <<endif>>
+<<if $bodyType is "hourglass">>[Hourglass] <<endif>>
+<<if $bodyType is "round">>[Round] <<endif>>
+<<if $bodyType is "belly">>[Pot-Bellied] <<endif>>
+<<if $bodyType is "guguetelle">>[Guguetelle] <<endif>>
+<<if $bodyType is "pear">>[Pear] <<endif>>
+<<if $bodyType is "bloatpear">>[Pear II] <<endif>>
+<<if $bodyType is "thigh">>[Thigh I] <<endif>>
+<<if $bodyType is "blimpthigh">>[Thigh II] <<endif>>
+<<if $bodyType is "bulging">>[Bulging] <<endif>>
+
+</cheery>
+
+/% Major Genes %/
+
+<mutation>
+
+<<if $geneTough is 1>>[Tough] <<endif>>
+
+<<if $geneProductive is 1>>[Productive] <<endif>>
+
+<<if $genePlump is 1>>[Plump] <<endif>>
+<<if $geneSleek is 1>>[Sleek] <<endif>>
+
+<<if $geneRapidAbsorption is 1>>[Rapid Absorption] <<endif>>
+
+<<if $geneLeadBelly is 1>>[Lead Belly] <<endif>>
+
+<<if $geneHugeBreast is 1>>[Huge Breast] <<endif>>
+<<if $geneHugeBelly is 1>>[Huge Belly] <<endif>>
+<<if $geneHugeThigh is 1>>[Huge Thigh] <<endif>>
+
+<<if $geneAmphibious is 1>>[Amphibious] <<endif>>
+
+<<if $geneVenomBloated is 1>>[Venom-Bloated] <<endif>>
+
+<<if $geneBlubber is 1>>[Blubber] <<endif>>
+<<if $geneBlubberstuffed is 1>>[Blubber-Stuffed] <<endif>>
+<<if $geneRippling is 1>>[Rippling] <<endif>>
+
+<<if $geneRubber is 1>>[Rubber] <<endif>>
+<<if $geneRigid is 1>>[Rigid] <<endif>>
+
+<<if $geneWeatherSensitive is 1>>[Weather Sensitive] <<endif>>
+<<if $geneThermalConversion is 1>>[Thermal Conversion] <<endif>>
+<<if $geneLiquidConversion is 1>>[Liquid Conversion] <<endif>>
+<<if $geneNourishingLight is 1>>[Nourishing Light] <<endif>>
+<<if $geneSlimeHarmony is 1>>[Slime Harmony] <<endif>>
+
+<<if $geneDeflation is 1>>[Deflation] <<endif>>
+
+<<if $geneExpandable is 1>>[Expandable] <<endif>>
+<<if $geneOvivore is 1>>[Ovivore] <<endif>>
+<<if $geneDaedlan is 1>>[Daedlan] <<endif>>
+
+
+<<if $geneRapidGain is 1>>[Rapid Gain] <<endif>>
+
+<<if $geneFatteniumResistance is 1>>[Fattenium Resistant] <<endif>>
+
+<<if $geneMirajinicGain is 1>>[Mirajinic Gain] <<endif>>
+<<if $geneMirajinicBloat is 1>>[Mirajinic Bloat] <<endif>>
+
+<<if $geneVitality is 1>>[Vitality] <<endif>>
+<<if $geneVitalEssence is 1>>[Vital Essence] <<endif>>
+
+</mutation>
+
+/% Afflictive Genes %/
+
+<softwarning>
+
+<<if $geneDry is 1>>[Dry] <<endif>>
+
+<<if $geneExhaustion is 1>>[Exhaustion] <<endif>>
+
+<<if $geneFrail is 1>>[Frail] <<endif>>
+<<if $geneSoft is 1>>[Soft] <<endif>>
+
+<<if $geneBloat is 1>>[Bloat] <<endif>>
+
+</softwarning>
+<warning><<if $geneRapidBurn is 1>>[Rapid Burn] <<endif>>
+<<if $geneWasting is 1>>[Wasting] <<endif>>
+
+<<if $geneMoistureSensitive is 1>>[Moisture Sensitive] <<endif>>
+<<if $geneDroughtSensitive is 1>>[Drought Sensitive] <<endif>>
+<<if $geneLightSensitive is 1>>[Light Sensitive] <<endif>>
+<<if $geneHeatSensitive is 1>>[Heat Sensitive] <<endif>>
+<<if $geneColdSensitive is 1>>[Cold Sensitive] <<endif>>
+
+<<if $geneFatteniumAllergy is 1>>[Fattenium Allergy] <<endif>>
+<<if $geneMirajinSensitive is 1>>[Mirajin Sensitive] <<endif>>
+<<if $geneVitalAllergy is 1>>[Vital Allergy] <<endif>>
+
+
+</warning>
+
+/% Lethal Genes %/
+
+<criticalwarning>
+
+<<if $geneStomachRot is 1>>[Stomach Rot] <<endif>>
+<<if $geneOverinflation is 1>>[Overinflation] <<endif>>
+<<if $geneLiquification is 1>>[Liquification] <<endif>>
+<<if $geneSponge is 1>>[Sponge] <<endif>>
+<<if $geneOvergrowth is 1>>[Overgrowth] <<endif>>
+<<if $geneDissolution is 1>>[Dissolution] <<endif>>
+<<if $geneWeakSkin is 1>>[Weak Skin] <<endif>>
+
+</criticalwarning>
+
+''</framed><<endnobr>><<endif>>\
+\
+\
+\
+/% ========================== Favor Debug %/\
+\
+<<if $debugFavor is 1>>
+<framed>\
+<large>''__MAJOR__''</large>
+[img[icon_eye]] ''Nefirian:'' <<print $favorNefirian>> [img[icon_sigil]] ''Phoenix:'' <<print $favorPhoenix>> [img[icon_crescent]] ''The Nameless Dark:'' <<print $favorNameless>>
+[img[icon_eagle]] ''Kaolan:'' <<print $favorKaolan>> [img[icon_blackhole]] ''Giovan:'' <<print $favorGiovan>>
+<large>''__MINOR__''</large>
+''Ander:'' <<print $favorAnder>> ♦ ''Lyric'Ai:'' <<print $favorLyric>> ♦ ''Reks:'' <<print $favorReks>>
+''Na'than:'' <<print $favorNath>> ♦ ''Eva:'' <<print $favorEva>> ♦ ''Andreu:'' <<print $favorAndreu>> ♦ ''Eliot:'' <<print $favorEliot>>
+''Cello:'' <<print $favorCello>> ♦ ''Tristan:'' <<print $favorTristan>> ♦ ''Troie:'' <<print $favorTroie>>
+''Arches:'' <<print $favorArches>> ♦ ''Silent:'' <<print $favorSilent>>
+\
+</framed><<endif>>\
+\
+<<endif>></xxtramini>

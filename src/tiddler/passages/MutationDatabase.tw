@@ -1,0 +1,467 @@
+﻿/% ========================================================= %/
+/% Mutations! Genes and other fine messes! %/
+
+<<set $autoRest = 0>>
+
+/% ========================================================= %/
+/% Nuclear Mutations %/
+
+<<if $mutationStrength is "subtleRad">>
+<<set $geneRandomizer = random(1,25)>>
+
+<<elseif $mutationStrength is "minorRad">>
+<<set $geneRandomizer = random(1,25)>>
+
+<<elseif $mutationStrength is "majorRad">>
+<<set $geneRandomizer = random(1,25)>>
+
+<<elseif $mutationStrength is "severeRad">>
+<<set $geneRandomizer = random(1,25)>>
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% Mirajin Mutations %/
+
+/% ================================ %/
+/% Subtle Mutations %/
+
+<<if $mutationStrength is "subtle">>
+<<set $geneRandomizer = random(1,25)>>
+
+/% Mild to Moderate gene flags + effects %/
+
+<<if $geneRandomizer is 1>><<display ColorWheel>><<set $bodyColor = $fullChroma>><<endif>>
+
+<<if $geneRandomizer is 2>><<set $geneFattyI = 1; $geneLeanI = 0; $painBuffer += 5; $finesse -= 1>><<endif>>
+<<if $geneRandomizer is 3>><<set $geneFattyII = 1; $geneLeanII = 0; $painBuffer += 10; $finesse -= 1>><<endif>>
+<<if $geneRandomizer is 4>><<set $geneLeanI = 1; $geneFattyI = 0; $finesse += 1; $painAmp -= 5>><<endif>>
+<<if $geneRandomizer is 5>><<set $geneLeanII = 1; $geneFattyII = 0; $finesse += 1; $painAmp -= 5>><<endif>>
+
+<<if $geneRandomizer is 6>><<set $geneMuscular = 1; $geneFrail = 0; $geneDextrous = 0; $strength += 1; $finesse -= 1>><<endif>>
+<<if $geneRandomizer is 7>><<set $geneDextrous = 1; $geneMuscular = 0; $finesse += 1; $strength -= 1>><<endif>>
+
+<<if $geneRandomizer is 8>><<set $geneGainer = 1; $painBuffer += 5; $finesse -= 1>><<endif>>
+
+<<if $geneRandomizer is 9>><<set $genePlumpBreast = 1; $breast += 10>><<endif>>
+<<if $geneRandomizer is 10>><<set $genePlumpBelly = 1; $belly += 10; $painBuffer += 2>>
+	<<if $playerBody is "humanoid">><<set $playerBody = "pot-bellied"; $bodyMutation = 1>><<endif>><<endif>>
+<<if $geneRandomizer is 11>><<set $genePlumpThigh = 1; $thigh += 10>><<endif>>
+
+<<if $geneRandomizer is 12>><<set $geneSolidThighs = 1; $geneFlabbyThighs = 0>><<endif>>
+<<if $geneRandomizer is 13>><<set $geneFlabbyThighs = 1; $geneSolidThighs = 0>><<endif>>
+
+<<if $geneRandomizer is 14>><<set $geneGlutton = 1; $geneSatisfied = 0; $esurience += 5>><<endif>>
+<<if $geneRandomizer is 15>><<set $geneSatisfied = 1; $geneGlutton = 0; $esurience -= 5>><<endif>>
+
+<<if $geneRandomizer is 16>><<set $bodyType = either("busty","hourglass","round","belly","pear","thigh")>><<endif>>
+
+<<set $mutationFlagI = 1>>
+
+<<if $geneRandomizer is 17>><<set $bellyBloat = $maxBelly * 1.2; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your belly bloats up like a balloon!">><<endif>>
+
+<<if $geneRandomizer is 18>><<set $belly += 50; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your belly jiggles, spilling outwards as it suddenly swells fatter!"; $painBuffer += 5; $finesse -= 1>><<endif>>
+
+<<if $geneRandomizer is 19>><<set $breast += 50; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your breasts jiggle, puffing up as they suddenly swell fatter!">><<endif>>
+
+<<if $geneRandomizer is 20>><<set $thigh += 50; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your thighs jiggle, puffing up as they suddenly swell fatter!">><<endif>>
+
+<<if $geneRandomizer is 21>><<set $maxBelly -= 30; $maxBreast -= 30; $mutationFlagII = 1; $mutationDesc = "Your skin suddenly tightens around you!"; $finesse += 1; $painAmp -= 5>><<endif>>
+
+<<if $geneRandomizer is 22>><<display ColorWheel>><<set $playerEyeColor = $fullChroma>><<endif>>
+
+<<if $geneRandomizer is 23>>
+<<if $playerEars neq 0>><<set $playerEars = 0; $playerEarNumber = 0; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You feel as though something is missing...">><<elseif $playerEars is 0>><<set $playerEars = either("round","triangular","long","double","winged","finned","split","fae","equine","spike","ribbon","lop"); $earMutation = 1; $playerEarNumber = either(2,2,2,4,6); $mutationFlagI = 1>><<endif>><<endif>>
+
+<<if $geneRandomizer is 24>><<display ColorWheel>><<set $bodyColor = $fullChroma; $bodyMutation = 1; $playerSkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","toy","plush","stitched","glass","porcelain","feathered","wispy","squishy","pulsing"); $skinMutation = 1; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You feel intensely odd...">><<endif>>
+
+<<if $geneRandomizer is 25>><<set $playerHead = either("antennae","horn","spike horns","curly horns","antlers","mane","angler lantern","fins"); $headMutation = 1; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You cry out in pain as you develop a monstrous headache!">><<endif>>
+
+/% ================================ %/
+/% Minor Mutations %/
+
+<<elseif $mutationStrength is "minor">>
+<<set $geneRandomizer = random(1,50)>>
+
+/% Mild to Moderate gene flags + effects %/
+
+<<set $mutationFlagI = 1>>
+
+<<if $geneRandomizer is 1>><<set $genePlump = 1; $geneSleek = 0; $painBuffer += 5; $finesse -= 1>><<endif>>
+<<if $geneRandomizer is 2>><<set $geneSleek = 1; $genePlump = 0; $finesse += 1; $painAmp -= 5>><<endif>>
+
+<<if $geneRandomizer is 3>><<set $genePlumpBreast = 1>><<endif>>
+<<if $geneRandomizer is 4>><<set $genePlumpBelly = 1; $painBuffer += 5; $finesse -= 1>><<endif>>
+<<if $geneRandomizer is 5>><<set $genePlumpThigh = 1>><<endif>>
+
+<<if $geneRandomizer is 6>><<set $geneFatBreast = 1; $genePlumpBreast = 1; $breast += 30>><<endif>>
+<<if $geneRandomizer is 7>><<set $geneFatBelly = 1; $genePlumpBelly = 1; $belly += 30; $painBuffer += 10; $finesse -= 2>><<endif>>
+<<if $geneRandomizer is 8>><<set $geneFatThigh = 1; $genePlumpThigh = 1; $thigh += 30>><<endif>>
+
+<<if ($geneRandomizer is 9) or ($geneRandomizer is 10)>>/% Placeholder? %/<<endif>>
+
+<<if $geneRandomizer is 12>><<set $geneSoft = 1; $geneTough = 0; $strength -= 1>><<endif>>
+<<if $geneRandomizer is 13>><<set $geneTough = 1; $geneSoft = 0; $strength += 1>><<endif>>
+
+<<if $geneRandomizer is 14>><<set $playerBody = "bloated"; $bodyMutation = 1; $geneBloat = 1; $geneDeflation = 0; $painAmp += 5; $finesse -= 1>><<endif>>
+<<if $geneRandomizer is 15>><<set $geneDeflation = 1; $geneBloat = 0>><<endif>>
+
+<<if $geneRandomizer is 16>><<display FatSurge>><<endif>>
+
+<<if $geneRandomizer is 17>><<if $geneDry is 0>><<set $geneProductive = 1>><<endif>><<endif>>
+<<if $geneRandomizer is 18>><<set $geneDry = 1; $geneProductive = 0>><<endif>>
+
+<<if $geneRandomizer is 19>><<set $bellyBloat = $maxBelly * 1.1; $mutationFlagI= 0; $mutationFlagII = 1; $mutationDesc = "Your belly bloats up like a balloon!"; $painAmp += 5; $finesse -= 1>>
+	<<if $playerBody is "humanoid">><<set $playerBody = "pot-bellied"; $bodyMutation = 1>><<endif>><<endif>>
+
+<<if $geneRandomizer is 20>><<set $belly += 100; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your belly jiggles, spilling outwards as it suddenly swells fatter!">>
+	<<if $playerBody is "humanoid">><<set $playerBody = "pot-bellied"; $bodyMutation = 1; $painBuffer += 5; $finesse -= 1>><<endif>><<endif>>
+
+<<if $geneRandomizer is 21>><<set $breast += 100; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your breasts jiggle, puffing up as they suddenly swell fatter!">><<endif>>
+
+<<if $geneRandomizer is 22>><<set $thigh += 100; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your thighs jiggle, puffing up as they suddenly swell fatter!">><<endif>>
+
+<<if $geneRandomizer is 23>><<set $bellyBloat = $maxBelly * 2.5; $calories += either(500,600,700,800,900,1000,1200,1500); $bellyLiquid += either(0,0,0,0,0,0,30,60,90,120,200,500)>><<set $playerBody = "bloated"; $bodyMutation = 1; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your belly distends rapidly, growing bigger and heavier as it fills near to bursting!"; $painAmp += 3; $finesse -= 1>><<endif>>
+
+<<if $geneRandomizer is 24>><<set $substatus = "adiposa"; $playerElement = "fat">><<display ExpandBodytype>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $playerBody = "bloated"; $bodyMutation = 1; $playerArms = "bloated"; $armMutation = 1; $playerLegs = "bloated"; $legMutation = 1; $mutationFlagII = 1; $mutationDesc = "You cry out in shock as your body suddenly surges and softens, billowing outwards into a ball of squishy, jiggling flesh!"; $painBuffer += 10; $finesse -= 2; $girth = $girth * 2; $belly = $belly * 2; $breast = $breast * 2; $thigh = $thigh * 2>>
+<<if $species is "post-human">><<set $species = "blubberslime"; $substatus = 0>><<endif>><<endif>>
+
+<<if $geneRandomizer is 25>><<set $substatus = "balloon"; $playerElement = "balloon"; $bodyColor = $briteChroma; $bellyBloat = $maxBelly * 2.5; $geneFlight = 1>><<display ExpandBodytype>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $playerBody = "balloon"; $bodyMutation = 1; $playerArms = "bloated"; $armMod = "balloon"; $armMutation = 1; $playerLegs = "bloated"; $legMod = "balloon"; $legMutation = 1; $playerSkin = "rubber"; $skinMutation = 1; $mutationFlagII = 1; $mutationDesc = "You cry out in shock as you suddenly begin to rapidly inflate, swelling bigger and rounder as your skin creaks!">>
+<<if $species is "post-human">><<set $species = "balloon"; $substatus = 0>><<endif>><<endif>>
+
+<<if $geneRandomizer is 26>><<set $substatus = "slime"; $playerElement = "liquid"; $bodyColor = $briteChroma; $bellyBloat = $maxBelly * 1.2; $bellyLiquid += either(200,500,1000)>><<display ExpandBodytype>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $playerBody = "gelatinous"; $bodyMutation = 1; $playerSkin = "jelly"; $skinMutation = 1; $mutationFlagII = 1; $mutationDesc = "You cry out in shock as you suddenly begin to rapidly inflate, your body jiggling and wobbling as it bulges and surges with liquid!"; $painBuffer += 10; $finesse -= 2>>
+<<if $species is "post-human">><<set $species = "slime"; $substatus = 0>><<endif>><<endif>>
+
+<<if $geneRandomizer is 27>><<set $playerBody = "bloated"; $bodyMutation = 1; $belly = (($belly + $girth + $breast + $thigh) - 1150); $bellyBloat = ($maxBelly * 3); $girth = 1000; $breast = 50; $thigh = 100; $pain += random(20,30); $health = "Sore"; $lethalKO = either(0,1); $deathCause = "burst belly"; $mutationFlagII = 1; $mutationDesc = "You gasp in shock as your belly suddenly blimps, the rest of your body fat draining into it!"; $painBuffer += 15; $finesse -= 3>><<endif>>
+
+<<if $geneRandomizer is 28>><<set $breast = (($belly + $girth + $breast + $thigh) - 1300); $breastBloat = ($maxBreast * 2); $girth = 1000; $belly = 200; $thigh = 100; $pain += random(20,30); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You gasp in shock as your breasts suddenly blimp, the rest of your body fat draining into them!">><<endif>>
+
+<<if $geneRandomizer is 29>><<set $playerLegs = "bloated"; $legMutation = 1; $thigh = (($belly + $girth + $breast + $thigh) - 1250); $girth = 1000; $belly = 200; $breast = 50; $pain += random(20,30); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You gasp in shock as your thighs suddenly blimp, the rest of your body fat draining into them!">><<endif>>
+
+<<if $geneRandomizer is 30>><<set $strength += random(6,12); $playerBody = "bulging"; $bodyMutation = 1; $playerArms = "bulging"; $armMutation = 1; $playerLegs = "bulging"; $legMutation = 1; $pain += random(30,40); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your muscles suddenly and rapidly expand!">><<endif>>
+
+<<if $geneRandomizer is 31>><<set $belly -= 30; $pain += random(10,15); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and confusion as your belly fat suddenly bulges, then pulls away from your body-- plopping onto the ground as a new fyynling and squirming away!"; $finesse += 1>><<endif>>
+
+<<if $geneRandomizer is 32>><<set $breast -= 30; $pain += random(10,15); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and confusion as your breast fat suddenly bulges, then pull away from your body-- plopping onto the ground as new fyynlings!"; $finesse += 1; $presetEncounter = 1; $presetEvent = 1; $presetType = "creature"; $preEncounter = "fyynling"; $exploring = 0; $befriendable = 1>><<endif>>
+
+<<if $geneRandomizer is 33>><<set $thigh -= 30; $pain += random(10,15); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and confusion as your thigh fat suddenly bulges, then pull away from your body-- plopping onto the ground as new fyynlings!"; $finesse += 1; $presetEncounter = 1; $presetEvent = 1; $presetType = "creature"; $preEncounter = "fyynling"; $exploring = 0; $befriendable = 1>><<endif>>
+
+<<if $geneRandomizer is 34>>
+<<if $playerTail neq 0>><<set $playerTail = 0; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You feel as though something is missing...">><<elseif $playerTail is 0>><<set $playerTail = either("cotton","long","crocodilian","rat","equine","leonine","feline","rooster","phoenix","dragon","gecko","club","canine","bushy","feathered","carnosaur","sauropod","fox","fat","cable","braided","maw","split"); $tailMutation = 1>><<endif>><<endif>>
+
+<<if $geneRandomizer is 35>>
+<<set $playerEyeNumber += random(1,2); $eyeMutation = 1; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your vision seems sharper!">><<endif>>
+
+<<if $geneRandomizer is 36>>
+<<set $strength += random(1,2); $playerArms = "bulging"; $armMutation = 1; $pain += random(2,5); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your arms suddenly bulge with extra muscle!">><<endif>>
+
+<<if $geneRandomizer is 37>>
+<<if $playerArms neq "digging">><<set $strength += random(2,3); $playerArms = "digging"; $pain += random(2,5); $armMutation = 1; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your arms suddenly bulge with extra muscle, your fingers curving forward into tough digging claws!">><<else>><<set $strength += random(1,2); $pain += random(2,5); $armMutation = 1; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your arms suddenly bulge with extra muscle!">><<endif>><<endif>>
+
+<<if $geneRandomizer is 38>>
+<<set $girth += either(20,30,40,50); $playerArms = "bloated"; $armMutation = 1; $pain += random(2,5); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your arms suddenly bloat up softer and fatter!">><<endif>>
+
+<<if $geneRandomizer is 39>>
+<<if $playerLegs neq "digitigrade">><<set $strength += random(1,2); $playerLegs = "digitigrade"; $legMutation = 1; $pain += random(2,5); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your legs suddenly bulge with extra muscle, reconfiguring into digitigrade!">><<else>><<set $strength += random(1,2); $pain += random(2,5); $legMutation = 1; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your legs suddenly bulge with extra muscle!">><<endif>><<endif>>
+
+<<if $geneRandomizer is 40>>
+<<if $playerLegs is 0>><<set $girth += either(20,30,40,50); $playerLegs = "bloated"; $legMutation = 1; $pain += random(2,5); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your arms suddenly bloat up softer and fatter!">><<else>><<set $girth += either(20,30,40,50); $pain += random(2,5); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your arms suddenly bloat up softer and fatter!">><<endif>><<endif>>
+
+<<if $geneRandomizer is 41>><<set $playerHead = either("antennae","horn","spike horns","curly horns","antlers","mane","tiny feathered headwings","tiny bat headwings","two-headed","angler lantern","fins"); $headMutation = 1; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You cry out in pain as you develop a monstrous headache!">><<endif>>
+
+<<if $geneRandomizer is 42>>
+<<set $playerEyes = either("cat","glowing","toothy","segmented","split-iris","slitted","empty","button","stitched","oozing","crystalline"); $eyeMutation = 1; $mutationFlagI = 1; $mutationFlagII = 0>><<endif>>
+
+<<if $geneRandomizer is 43>><<display RevecroixRandomizer>><<set $playerFace = $randomArka; $faceMutation = 1; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You cry out in pain as you develop a monstrous headache!">><<endif>>
+
+<<if $geneRandomizer is 44>><<display LeupaiEggGen>><<set $leupaiEggLoad += random(2,4); $quaggySubspecies2 = either("belmere","celesse","devinn","erinyi","ein", "heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","null","ouinsel","rexaur","rosso"); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your belly bloats up like a balloon!">>
+
+	<<if $finesse gte 8>> <<set $finesse -= 3>><<endif>><<endif>>
+
+<<if $geneRandomizer is 45>><<display LeupaiEggGen>><<set $leupaiEggLoad += random(6,34); $quaggySubspecies2 = either("belmere","celesse","devinn","erinyi","ein", "heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","null","ouinsel","rexaur","rosso"); $quaggyGirth += either(10,20,30,50,60); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your belly distends rapidly, creaking loudly as it bloats to ENORMOUS size!">>
+
+<<if $finesse gte 9>> <<set $finesse -= 4>><<endif>><<endif>>
+
+<<if $geneRandomizer is 46>><<display ExpandBodytype>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your body suddenly piles with fat!"; $painBuffer += 10; $finesse -= 2; $playerElement = "fat">>
+
+<<if $finesse gte 9>> <<set $finesse -= 4>><<endif>>
+<<endif>>
+
+<<if $geneRandomizer is 47>><<set $calories += $mirajinRads; $mirajinRads = 0; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You grit your teeth as a sudden heat flash washes over you, your belly gurgling ominously! Odd...">><<endif>>
+
+<<if $geneRandomizer is 48>><<set $withTeeth = 1; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You cry out in pain as your teeth suddenly begin to ache!"; $pain += 5; $lethalKO = 0>><<endif>>
+
+<<if $geneRandomizer is 49>><<set $withTeeth = 1; $breast += either(70,80,80,90,100,100,110,120,130,140,150,150,150,180,200,250,300,500,800,1000); $breastMod = "toothy"; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You gasp in shock as your breasts suddenly bloat up with fat-- and split open to reveal a pair of toothy, slavering maws!">><<endif>>
+
+<<if $geneRandomizer is 50>><<set $withTeeth = 1; $belly += either(100,200,300,500,500,500,500,800,1000,1500,2000,3000); $playerBody = "hungry"; $bodyMutation = 1; $bellyMod = "toothy"; $esurience += random(3,8); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You gasp in shock as your belly suddenly bloats up with fat-- and splits open to reveal a toothy, slavering maw!">><<endif>>
+
+/% ================================ %/
+/% Major Mutations %/
+
+<<elseif $mutationStrength is "major">>
+<<set $geneRandomizer = random(1,58)>>
+
+
+/% Moderate to Severe gene flags + effects %/
+
+<<set $mutationFlagII = 1; $mutationDesc = "You feel your insides shifting uncomfortably...">>
+
+<<if $geneRandomizer is 1>><<set $genePlump = 1; $geneSleek = 0>><<endif>>
+<<if $geneRandomizer is 2>><<set $geneSleek = 1; $genePlump = 0>><<endif>>
+
+<<if $geneRandomizer is 3>><<set $genePlumpBreast = 1>><<endif>>
+<<if $geneRandomizer is 4>><<set $playerBody = "pot-bellied"; $bodyMutation = 1; $genePlumpBelly = 1; $painBuffer += 5; $finesse -= 1>><<endif>>
+
+<<if $geneRandomizer is 5>><<set $genePlumpThigh = 1>><<endif>>
+
+<<if $geneRandomizer is 6>><<set $geneFatBreast = 1; $genePlumpBreast = 1; $breast += 50>><<endif>>
+<<if $geneRandomizer is 7>><<set $geneFatBelly = 1; $genePlumpBelly = 1; $belly += 50; $painBuffer += 10; $finesse -= 2>>
+	<<if $playerBody is "humanoid">><<set $playerBody = "pot-bellied"; $bodyMutation = 1>><<endif>><<endif>>
+
+<<if $geneRandomizer is 8>><<set $geneFatThigh = 1; $genePlumpThigh = 1; $thigh += 50>><<endif>>
+
+<<if $geneRandomizer is 9>><<set $geneHugeBreast = 1; $geneFatBreast = 1; $genePlumpBreast = 1; $breast += 100>><<endif>>
+<<if $geneRandomizer is 10>><<set $geneHugeBelly = 1; $geneFatBelly = 1; $genePlumpBelly = 1; $belly += 100; $painBuffer += 15; $finesse -= 3>>
+	<<if $playerBody is "humanoid">><<set $playerBody = "pot-bellied"; $bodyMutation = 1>><<endif>><<endif>>
+
+<<if $geneRandomizer is 11>><<set $geneHugeThigh = 1; $geneFatThigh = 1; $genePlumpThigh = 1; $thigh += 100>><<endif>>
+
+<<if $geneRandomizer is 12>><<set $playerSkin = "rubber"; $skinMutation = 1; $geneRubber = 1; $geneRigid = 0>><<endif>>
+<<if $geneRandomizer is 13>><<set $geneRigid = 1; $geneRubber = 0>><<endif>>
+
+<<if $geneRandomizer is 14>><<set $geneRapidGain = 1>><<endif>>
+<<if $geneRandomizer is 15>><<set $geneRapidAbsorption = 1>><<endif>>
+
+<<if $geneRandomizer is 16>><<set $geneAmphibious = 1; $playerElement = "water">>
+	<<if $playerHead is 0>><<set $playerHead = "gills"; $headMutation = 1>><<endif>><<endif>>
+
+<<if $geneRandomizer is 17>><<set $geneLiquidConversion = 1>><<endif>>
+<<if $geneRandomizer is 18>><<set $geneSlimeHarmony = 1>><<endif>>
+
+<<if $geneRandomizer is 19>><<set $geneMirajinicGain = 1>><<endif>>
+<<if $geneRandomizer is 20>><<set $geneMirajinicBloat = 1>><<endif>>
+
+<<if $geneRandomizer is 21>><<set $geneVitality = 1>><<endif>>
+<<if $geneRandomizer is 22>><<set $geneVitalEssence = 1>><<endif>>
+
+<<if $geneRandomizer is 23>><<set $geneMirajinSensitive = 1>><<endif>>
+<<if $geneRandomizer is 24>><<set $geneVitalAllergy = 1>><<endif>>
+
+<<if $geneRandomizer is 25>><<set $geneMoistureSensitive = 1>><<endif>>
+<<if $geneRandomizer is 26>><<set $geneLightSensitive = 1>><<endif>>
+<<if $geneRandomizer is 27>><<set $geneHeatSensitive = 1>><<endif>>
+<<if $geneRandomizer is 28>><<set $geneColdSensitive = 1>><<endif>>
+
+<<if $geneRandomizer is 29>><<set $geneRapidBurn = 1>><<endif>>
+<<if $geneRandomizer is 30>><<set $geneWasting = 1>><<endif>>
+<<if $geneRandomizer is 31>><<set $geneFrail = 1; $geneMuscular = 0; $strength -= 1; $finesse -= 1>><<endif>>
+
+<<if $geneRandomizer is 32>><<display ExpandBodytype>><<display FatSurge>><<display FatSurge>><<set $mutationFlagII = 1; $mutationDesc = "You gasp as your body suddenly plumps up!"; $painBuffer += 5; $finesse -= 1>>
+
+	<<if $finesse gte 6>> <<set $finesse -= 1>><<endif>><<endif>>
+
+<<if $geneRandomizer is 33>><<display FatSurge>><<display FatSurge>><<set $mutationFlagII = 1; $mutationDesc = "You gasp as your body suddenly plumps up!"; $painBuffer += 5; $finesse -= 1>>
+
+	<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>><<endif>>
+
+<<if $geneRandomizer is 34>><<set $belly += 250; $mutationFlagII = 1; $mutationDesc = "Your belly quivers, spilling out like dough as it bloats with fat!"; $painBuffer += 10; $finesse -= 2>>
+	<<if $playerBody is "humanoid">><<set $playerBody = "pot-bellied"; $bodyMutation = 1>><<endif>>
+	<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>><<endif>>
+
+<<if $geneRandomizer is 35>><<set $breast += 250; $mutationFlagII = 1; $mutationDesc = "Your breasts quiver, spilling out like dough as they bloat with fat!">>
+	<<if $finesse gte 8>> <<set $finesse -= 3>><<endif>><<endif>>
+
+<<if $geneRandomizer is 36>><<set $thigh += 250; $mutationFlagII = 1; $mutationDesc = "Your thighs quiver like jelly, spreading outwards as they bloat with fat!">><<endif>>
+
+<<if $geneRandomizer is 37>><<set $belly += 1000; $mutationFlagII = 1; $mutationDesc = "Your belly groans loudly before surging, billowing outwards as it blimps up monstrously!"; $painBuffer += 15; $finesse -= 3>>
+	<<if $playerBody is "humanoid">><<set $playerBody = "pot-bellied"; $bodyMutation = 1>><<endif>>
+	<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>><<endif>>
+
+<<if $geneRandomizer is 38>><<set $breast += 1000; $mutationFlagII = 1; $mutationDesc = "Your breasts groan loudly before surging, billowing outwards as they blimp up monstrously!">>
+
+	<<if $finesse gte 8>> <<set $finesse -= 3>><<endif>><<endif>>
+
+<<if $geneRandomizer is 39>><<set $thigh += 1000; $playerLegs = "bloated"; $legMutation = 1; $mutationFlagII = 1; $mutationDesc = "Your thighs groan loudly before surging, billowing outwards as they blimp up monstrously!">>
+
+	<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>><<endif>>
+
+<<if $geneRandomizer is 40>><<set $playerBody = "bloated"; $bodyMutation = 1; $belly += 1000; $mutationFlagII = 1; $mutationDesc = "Your belly groans loudly before surging, billowing outwards as it blimps up monstrously!"; $painBuffer += 15; $finesse -= 3>>
+
+	<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>><<endif>>
+
+<<if $geneRandomizer is 41>><<display ExpandBodytype>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $playerBody = "bloated"; $bodyMutation = 1; $playerArms = "bloated"; $playerarmNumber = either(0,0,2,2,2,4,4,6,8); $armMutation = 1; $playerLegs = either(0,"bloated","tentacle"); $playerLegNumber = either(0,0,2,2,2,4,4,6,8); $legMutation = 1; $playerBack = "tentacles"; $girth += either(2000,2500,3000,3500,5000); $belly += either(500,600,700,800,900,1000); $maxBelly += $belly; $breast += either(100,200,300,400,500); $maxBreast += ($breast / 2); $thigh += either(200,300,400,500); $thighFirmness = 0; $metaBurn = 0; $species = either("mutant","fyynling","fyynling horror"); $playerElement = "fat"; $withTeeth = 1; $subspecies = 0; $mutationFlagII = 1; $mutationDesc = "You scream in pain and agony as your body bloats, surges, and softens, fleshy tendrils sprouting from your quivering form!"; $painBuffer += 15>>
+
+	<<if $finesse gte 10>> <<set $finesse -= 5>><<endif>><<endif>>
+
+<<if $geneRandomizer is 42>>
+	<<if $playerWings is 0>><<set $playerWings = either("wings","bat wings","insect wings"); $geneFlight = 1; $powers = 1; $finesse += 1; $pain += random(5,12); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your back explodes into enormous pain! What's going on...?">>
+	<<elseif $playerWings is "mini feather wings">><<set $playerWings = "wings"; $geneFlight = 1; $powers = 1; $finesse += 1; $pain += random(2,5); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your wings flex and expand into full size!">>
+	<<elseif $playerWings is "mini insect wings">><<set $playerWings = "insect wings"; $geneFlight = 1; $powers = 1; $finesse += 1; $pain += random(2,5); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your wings flex and expand into full size!">><<endif>><<endif>>
+
+<<if $geneRandomizer is 43>>
+<<if $venomGland is 0>><<set $venomGland = 1; $venomProd += 1; $pain += random(3,5); $bellyBloat = $maxBelly * 1.2; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You gasp and grit your teeth as your belly suddenly bloats! You feel very strange..."; $painBAmp += 5>>
+<<if $playerBody is "humanoid">><<set $playerBody = "pot-bellied"; $bodyMutation = 1>><<endif>>
+<<elseif $venomGland is 1>><<set $geneVenomBloated = 1; $venomProd += 1; $pain += random(3,5); $bellyBloat = $maxBelly * 1.2; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You gasp and grit your teeth as your belly suddenly bloats tight!"; $painAmp += 5>>
+<<if $playerBody is "humanoid">><<set $playerBody = "pot-bellied"; $bodyMutation = 1>><<endif>><<endif>><<endif>>
+
+<<if $geneRandomizer is 44>><<set $geneBlubber = 1; $mutationFlagI = 1>><<endif>>
+
+<<if $geneRandomizer is 45>><<display LeupaiEggGen>><<set $playerBody = "bloated"; $leupaiEggLoad += random(12,99); $quaggySubspecies2 = either("belmere","celesse","devinn","erinyi","ein", "heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","null","ouinsel","rexaur","rosso"); $quaggyGirth += either(10,20,30,50,60,80); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your belly bloats MASSIVELY, creaking loudly and threatening to explode!">>
+
+	<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>><<endif>>
+
+<<if $geneRandomizer is 46>><<display RevecroixRandomizer>><<display ColorWheel>>
+<<set $faceMutation = either(0,1); $faceMutation = 1; $strength += random(3,6); $playerEars = either("round","triangular","long","double","winged","finned","split","fae","equine","spike","ribbon","lop","tendril"); $earMutation = 1; $bodyColor = $fullChroma; $playerBody = either("bloated","blimplike","blubbery","blubber-stuffed","gelatinous","bulging","monstrous"); $bodyMutation = 1; $playerSkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","toy","plush","stitched","glass","porcelain","feathered","wispy","squishy","pulsing","robotic"); $skinMutation = 1; $playerArms = "bulging"; $armMutation = 1; $playerLegs = "digitigrade"; $legMutation = 1; $playerTail = either(0, "long","crocodilian","rat","equine","leonine","feline","dragon","gecko","club","canine","bushy","feathered","carnosaur","sauropod","fox","fat","cable","braided","maw","split"); $tailMutation = either(0,1); $playerHead = either(0,0,0,0,0,0,0,"antennae","horn","spike horns","curly horns","antlers","mane","tiny feathered headwings","tiny bat headwings","two-headed"); $headMutation = 1; $pain += random(12,20); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your body shifts into a new form!"; $species = "mutant"; $withTeeth = 1; $playerElement = either(0,"mirajin","vitae","bestial","arcane","psionic","electric","radiation","sonic","light","eldritch","void","love","fire","earth","air","water","metal","crystal","toxic","bestial","vegetal","fungal","viral","decay","fat","food","balloon","liquid","vore","egg","parasite","whimsy"); $subspecies = 0; $lethalKO = 0; $painBuffer += 5>>
+
+	<<if $faceMutation is 1>><<set $playerFace = $randomArka>><<endif>>
+	<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>><<endif>>
+
+<<if $geneRandomizer is 47>><<display RevecroixRandomizer>><<display ColorWheel>>
+<<set $playerFace = $randomArka; $faceMutation = 1; $strength += random(6,12); $playerEars = either("round","triangular","long","double","winged","finned","split","fae","equine","spike","ribbon","lop","tendril"); $earMutation = 1; $bodyColor = $fullChroma; $playerBody = either("bulging","monstrous"); $bodyMutation = 1; $playerSkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","toy","plush","stitched","glass","porcelain","feathered","wispy","squishy","pulsing","robotic"); $skinMutation = 1; $playerArms = "bulging"; $armMutation = 1; $playerLegs = "digitigrade"; $legMutation = 1; $playerTail = either(0,0,0,"long","crocodilian","rat","equine","leonine","feline","dragon","gecko","club","canine","bushy","feathered","carnosaur","sauropod","fox","fat","cable","braided","maw","split"); $tailMutation = either(0,1); $playerHead = either(0,0,0,0,0,0,0,"antennae","horn","spike horns","curly horns","antlers","mane","tiny feathered headwings","tiny bat headwings","two-headed"); $headMutation = 1; $playerBack = either(0,0,0,"hunched"); $pain += random(25,40); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your muscles suddenly and rapidly expand, your body bulging as it shifts into a new form!"; $subspecies = $randomArka; $species = "arquesse"; $playerElement = either(0,"mirajin","vitae","bestial","arcane","psionic","electric","radiation","sonic","light","eldritch","void","love","fire","earth","air","water","metal","crystal","toxic","bestial","vegetal","fungal","viral","decay","fat","food","balloon","liquid","vore","egg","parasite","whimsy"); $withTeeth = 1; $lethalKO = 0; $painBuffer += 15>>
+
+<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>><<endif>>
+
+<<if $geneRandomizer is 48>>
+<<display RevecroixRandomizer>><<display ColorWheel>>
+<<display ExpandBodytype>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>
+<<set $faceMutation = either(0,1); $randomizer = either(0,1,2,3,4,5); $strength += random(8,24); $playerEars = either("round","triangular","long","double","winged","finned","split","fae","equine","spike","ribbon","lop","tendril"); $earMutation = 1; $bodyColor = $fullChroma; $playerBody = either("bloated","blimplike","blubbery","blubber-stuffed","gelatinous","bulging","monstrous"); $bodyMutation = 1; $playerSkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","toy","plush","stitched","glass","porcelain","feathered","wispy","squishy","pulsing","robotic"); $skinMutation = 1; $playerArms = either("bloated","bulging","tentacle"); $playerArmNumber = either(2,2,2,4,4,6,8); $armMutation = 1; $playerLegs = either(0,"bloated","digitigrade","bulging","tentacle"); $playerLegNumber = either(0,0,2,2,2,4,4,6,8); $legMutation = 1; $playerBack = either("tentacles","spikes","spines","plates","back armor","toothy spine","zippered spine","stitched spine","back foliage","mountainous back","hunched back","fins","bioluminescent spots","mane","quills","feather crest","bioluminescent mushrooms"); $playerTail = either(0,0,0,"long","crocodilian","rat","equine","leonine","feline","dragon","gecko","club","canine","bushy","feathered","carnosaur","sauropod","fox","fat","cable","braided","maw","split"); $tailMutation = 1; $playerHead = either(0,0,0,"antennae","horn","spike horns","curly horns","antlers","mane","tiny feathered headwings","tiny bat headwings","two-headed","angler lantern","fins"); $headMutation = 1; $pain += random(30,40); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your body suddenly and rapidly expands, your body bloating as it takes on a terrifying new form!"; $species = "monster"; $playerElement = either(0,"mirajin","vitae","bestial","arcane","psionic","electric","radiation","sonic","light","eldritch","void","love","fire","earth","air","water","metal","crystal","toxic","bestial","vegetal","fungal","viral","decay","fat","food","balloon","liquid","vore","egg","parasite","whimsy"); $withTeeth = 1; $subspecies = 0; $lethalKO = 0; $painBuffer += 30>>
+
+<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>>
+
+<<if $randomizer is 1>><<display FatSurge>>
+<<elseif $randomizer is 2>><<display FatSurge>><<display FatSurge>>
+<<elseif $randomizer is 3>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<if $finesse gte 7>> <<set $finesse -= 2>><<endif>>
+<<elseif $randomizer is 4>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>
+<<elseif $randomizer is 5>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $strength += random(3,5)>><<if $finesse gte 8>> <<set $finesse -= 3>><<endif>><<endif>>
+
+<<if $faceMutation is 1>><<set $playerFace = $randomArka>><<endif>><<endif>>
+
+<<if $geneRandomizer is 49>>
+<<set $playerBack = either("tentacles","spikes","spines","plates","back armor","toothy spine","zippered spine","stitched spine","back foliage","mountainous back","hunched back","fins","bioluminescent spots","mane","quills","feather crest","bioluminescent mushrooms"); $pain += random(5,12); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "Your back explodes into enormous pain!">><<endif>>
+
+<<if $geneRandomizer is 50>><<display RevecroixRandomizer>><<display ColorWheel>>
+<<set $faceMutation = either(0,1); $strength += random(3,6); $playerEars = either("round","triangular","long","double","winged","finned","split","fae","equine","spike","ribbon","lop","tendril"); $earMutation = 1; $bodyColor = $fullChroma; $playerBody = either("monstrous","serpentine"); $bodyMutation = 1; $playerSkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","toy","plush","stitched","glass","porcelain","feathered","wispy","squishy","pulsing","robotic"); $skinMutation = 1; $playerArmNumber = 0; $armMutation = 1; $playerLegs = "digitigrade"; $playerLegNumber = either(4,4,6,8); $legMutation = 1; $playerTail = either(0,0,"long","crocodilian","rat","equine","leonine","feline","dragon","gecko","club","canine","bushy","feathered","carnosaur","sauropod","fox","fat","cable","braided","maw","split"); $tailMutation = either(0,1); $playerHead = either(0,0,0,0,0,"antennae","horn","spike horns","curly horns","antlers","mane","tiny feathered headwings","tiny bat headwings","two-headed"); $headMutation = 1; $pain += random(12,20); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your body shifts into a new form, dropping down onto all fours!"; $species = "beast"; $playerElement = either(0,"mirajin","vitae","bestial","arcane","psionic","electric","radiation","sonic","light","eldritch","void","love","fire","earth","air","water","metal","crystal","toxic","bestial","vegetal","fungal","viral","decay","fat","food","balloon","liquid","vore","egg","parasite","whimsy"); $withTeeth = 1; $subspecies = 0; $lethalKO = 0; $painBuffer += 10>>
+
+<<if $finesse gte 6>> <<set $finesse -= 1>><<endif>>
+
+<<if $faceMutation is 1>><<set $playerFace = $randomArka>><<endif>><<endif>>
+
+
+<<if $geneRandomizer is 51>><<display RevecroixRandomizer>><<display ColorWheel>>
+<<set $faceMutation = either(0,1); $randomizer = either(0,1,2,3,4,5); $strength += random(6,12); $playerEars = either("round","triangular","long","double","winged","finned","split","fae","equine","spike","ribbon","lop","tendril"); $earMutation = 1; $bodyColor = $fullChroma; $playerBody = either("bloated","blimplike","blubbery","blubber-stuffed","gelatinous","monstrous"); $bodyMutation = 1; $playerSkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","toy","plush","stitched","glass","porcelain","feathered","wispy","squishy","pulsing","robotic"); $skinMutation = 1; $playerArms = "bulging"; $armMutation = 1; $playerLegs = "digitigrade"; $legMutation = 1; $playerTail = either(0,0,0,"long","crocodilian","rat","equine","leonine","feline","dragon","gecko","club","canine","bushy","feathered","carnosaur","sauropod","fox","fat","cable","braided","maw","split"); $tailMutation = either(0,1); $playerHead = either(0,0,0,0,0,"antennae","horn","spike horns","curly horns","antlers","mane","tiny feathered headwings","tiny bat headwings","two-headed"); $headMutation = 1; $playerBack = either(0,0,0,"hunched"); $belly += either(500,600,700,800,900,1000); $maxBelly += $belly; $thigh += either(200,300,400,500); $bodyType = either("pear","bulging","bloatpear","blimpthigh"); $thighFirmness = 0; $pain += random(25,40); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your body suddenly and distorts, your belly and thighs rapidly blimping up with fat as you take on a monstrous new form!"; $subspecies = $randomArka; $species = either("arquesse","monster"); $playerElement = either(0,"mirajin","vitae","bestial","arcane","psionic","electric","radiation","sonic","light","eldritch","void","love","fire","earth","air","water","metal","crystal","toxic","bestial","vegetal","fungal","viral","decay","fat","food","balloon","liquid","vore","egg","parasite","whimsy"); $withTeeth = 1; $lethalKO = 0; $painBuffer += 25>>
+<<if $species is "monster">><<set $subspecies = 0>><<endif>>
+
+<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>>
+
+<<if $randomizer is 1>><<display FatSurge>>
+<<elseif $randomizer is 2>><<display FatSurge>><<display FatSurge>>
+<<elseif $randomizer is 3>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<if $finesse gte 7>> <<set $finesse -= 2>><<endif>>
+<<elseif $randomizer is 4>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>
+<<elseif $randomizer is 5>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $strength += random(3,5)>><<if $finesse gte 8>> <<set $finesse -= 3>><<endif>><<endif>>
+
+<<if $faceMutation is 1>><<set $playerFace = $randomArka>><<endif>><<endif>>
+
+<<if $geneRandomizer is 52>><<set $geneBlubberstuffed = 1; $mutationFlagI = 1>><<endif>>
+
+<<if $geneRandomizer is 53>><<set $geneVenomBloated = 1; $mutationFlagI = 1>><<endif>>
+
+<<if $geneRandomizer is 54>><<display ColorWheel>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>
+<<set $faceMutation = either(0,1); $faceMutation = 1; $strength += random(3,6); $playerEars = "crystal-point"; $earMutation = 1; $bodyColor = $briteChroma; $playerBody = either("pot-bellied","bloated","blimplike","blubbery","blubber-stuffed"); $bodyMutation = 1; $playerSkin = "crystalline"; $skinMutation = 1; $playerArms = "bulging"; $armMutation = 1; $playerLegs = "digitigrade"; $playerLegNumber = 2; $legMutation = 1; $playerBack = either("crystal spines","crystal spikes","crystal quills","crystal flowers"); $legMutation = 1; $playerTail = either(0, "long","crocodilian","rat","leonine","feline","dragon","gecko","club","carnosaur","sauropod","fat","maw","split"); $tailMutation = either(0,1,1); $playerHead = either(0,0,0,0,0,0,0,"crystal horns","crystal horn","crystal spikes","crystal antlers"); $headMutation = 1; $pain += random(12,20); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your body bloats, distorts, and finally crystallizes into a new form!"; $species = "mutant"; $withTeeth = 1; $subtype = "miracrystal"; $playerElement = either("mirajin","crystal"); $lethalKO = 0; $painBuffer += 15>>
+
+	<<if $finesse gte 8>> <<set $finesse -= 3>><<endif>><<endif>>
+
+<<if $geneRandomizer is 55>><<set $calories += ($mirajinRads * 10); $mirajinRads = 0; $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You grit your teeth as a sudden heat flash washes over you, your belly gurgling ominously! Odd...">><<endif>>
+
+<<if $geneRandomizer is 56>><<set $bellyBloat = $maxBelly * 1.2; $fatteniumPoisoning += ($girth/10); $mutationFlagI = 0; $mutationFlagII = 1; $mutationDesc = "You gasp as your belly suddenly bloats full of liquid! You have a bad feeling about this...">><<endif>>
+
+<<if $geneRandomizer is 57>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $playerBody = "hungry"; $bodyMutation = 1; $esurience += random(5,10); $playerArms = "bloated"; $armMutation = 1; $playerLegs = "bloated"; $legMutation = 1; $mutationFlagII = 1; $mutationDesc = "You cry out in shock as your body suddenly blimps up!"; $painBuffer += 20; $finesse -= 5>><<set $playerBody = "bloated"; $bodyMutation = 1; $playerArms = "bloated"; $armMutation = 1; $playerLegs = "bloated"; $bellyMod = "toothy"; $breastMod = "toothy"; $legMutation = 1; $mutationFlagII = 1; $mutationDesc = "You cry out in shock as your body suddenly blimps up, your breasts and belly splitting open into monstrous, hungry maws!"; $painBuffer += 20; $finesse -= 5; $withTeeth = 1; $breast += either(100,100,110,120,130,140,150,150,150,180,200,250,300,500,800,1000,1500,2000); $belly += either(500,500,500,500,800,1000,1500,2000,3000,5000)>><<endif>>
+
+<<if $geneRandomizer is 58>><<set $geneUnreal = 1; $mutationFlagI = 1>><<endif>>
+
+/% ================================ %/
+/% Severe Mutations %/
+
+<<elseif $mutationStrength is "severe">>
+<<set $geneRandomizer = random(1,29)>>
+
+/% Moderate to Severe gene flags + effects %/
+
+<<if $geneRandomizer is 1>><<set $geneExpandable = 1>><<endif>>
+<<if $geneRandomizer is 2>><<set $geneOvivore = 1>><<endif>>
+<<if $geneRandomizer is 3>><<set $geneDaedlan = 1>><<endif>>
+
+<<if $geneRandomizer is 4>><<set $geneWeatherSensitive = 1>><<endif>>
+<<if $geneRandomizer is 5>><<set $geneThermalConversion = 1>><<endif>>
+
+<<if $geneRandomizer is 6>><<set $geneFatteniumResistance = 1; $geneFatteniumAllergy = 0>><<endif>>
+<<if $geneRandomizer is 7>><<set $geneFatteniumAllergy = 1; $geneFatteniumResistance = 0>><<endif>>
+
+<<set $mutationFlagII = 1; $mutationDesc = "You feel your insides shifting uncomfortably...">>
+
+<<if $geneRandomizer is 8>><<set $geneMirajinSensitive = 1>><<set $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel intensely unwell...">><<endif>>
+<<if $geneRandomizer is 9>><<set $geneVitalAllergy = 1>><<set $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel intensely unwell...">><<endif>>
+<<if $geneRandomizer is 10>><<set $geneMoistureSensitive = 1>><<set $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel intensely unwell...">><<endif>>
+<<if $geneRandomizer is 11>><<set $geneLightSensitive = 1>><<set $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel intensely unwell...">><<endif>>
+<<if $geneRandomizer is 12>><<set $geneRapidBurn = 1>><<set $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel intensely unwell...">><<endif>>
+<<if $geneRandomizer is 13>><<set $geneWasting = 1>><<set $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel intensely unwell...">><<endif>>
+
+<<if $geneRandomizer is 14>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $playerBody = "bloated"; $bodyMutation = 1; $playerArms = "bloated"; $armMutation = 1; $playerLegs = "bloated"; $legMutation = 1; $mutationFlagII = 1; $mutationDesc = "You cry out in shock as your body suddenly bloats fatter!"; $painBuffer += 15; $finesse -= 5>><<endif>>
+
+<<if $geneRandomizer is 15>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $playerBody = "bloated"; $bodyMutation = 1; $playerArms = "bloated"; $armMutation = 1; $playerLegs = "bloated"; $legMutation = 1; $mutationFlagII = 1; $mutationDesc = "You cry out in shock as your body suddenly blimps up!"; $painBuffer += 20; $finesse -= 5>>
+
+<<if $finesse gte 8>> <<set $finesse -= 3>><<endif>><<endif>>
+
+<<if $geneRandomizer is 16>><<set $pain = 80; $lethalKO = 1; $deathCause = "explosion">><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $playerBody = either("blubber-stuffed","blimplike"); $bodyMutation = 1; $playerArms = "bloated"; $armMutation = 1; $playerLegs = "bloated"; $legMutation = 1; $mutationFlagII = 1; $mutationDesc = "You cry out in pain and shock as your body suddenly blimps up ENORMOUSLY! You feel ready to explode!"; $playerElement = "fat"; $painBuffer += 45; $finesse -= 5>>
+
+<<if $finesse gte 10>> <<set $finesse -= 5>><<endif>><<endif>>
+
+/% Severe to Lethal gene flags + effects %/
+
+<<if $geneRandomizer is 17>><<set $geneHeatSensitive = 1; $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel deathly ill!">><<endif>>
+<<if $geneRandomizer is 18>><<set $geneColdSensitive = 1; $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel deathly ill!">><<endif>>
+<<if $geneRandomizer is 19>><<set $playerBody = "bloated"; $bodyMutation = 1; $geneStomachRot = 1; $stomachBug = $girth * 5; $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel deathly ill!">><<endif>>
+<<if $geneRandomizer is 20>><<set $playerBody = "bloated"; $bodyMutation = 1; $geneOverinflation = 1; $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel deathly ill!">><<endif>>
+<<if $geneRandomizer is 21>><<set $playerBody = "quivering"; $bodyMutation = 1; $geneLiquification = 1; $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel deathly ill!">><<endif>>
+<<if $geneRandomizer is 22>><<set $geneSponge = 1; $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel deathly ill!">><<endif>>
+<<if $geneRandomizer is 23>><<set $playerBody = "bloated"; $bodyMutation = 1; $geneOvergrowth = 1; $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel deathly ill!">><<endif>>
+<<if $geneRandomizer is 24>><<set $playerBody = "thin-skinned"; $bodyMutation = 1; $geneWeakSkin = 1; $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel deathly ill!">><<endif>>
+
+<<if $geneRandomizer is 25>><<set $geneRippling = 1>><<endif>>
+
+<<if $geneRandomizer is 26>><<set $pain = 90; $lethalKO = 1; $deathCause = "explosion">><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $geneBlubber = 1; $geneBlubberstuffed = 1; $geneRippling = 1; $bodyMutation = 1; $playerArms = "bloated"; $armMutation = 1; $playerLegs = "bloated"; $legMutation = 1; $mutationFlagII = 1; $mutationDesc = "You cry out in pain and shock as your body suddenly blimps up ENORMOUSLY! You feel ready to explode!"; $playerElement = "fat"; $painBuffer += 50; $finesse -= 10>>
+
+<<set $finesse = 5>><<endif>>
+
+<<if $geneRandomizer is 27>>
+<<display RevecroixRandomizer>><<display ColorWheel>>
+<<display ExpandBodytype>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>
+<<set $faceMutation = either(0,1); $randomizer = either(0,1,2,3,4,5); $strength += random(16,32); $playerEars = either("round","triangular","long","double","winged","finned","split","fae","equine","spike","ribbon","lop","tendril"); $earMutation = 1; $bodyColor = $fullChroma; $playerBody = either("bloated","blimplike","blubbery","blubber-stuffed","gelatinous","bulging","monstrous"); $bodyMutation = 1; $playerSkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","toy","plush","stitched","glass","porcelain","feathered","wispy","squishy","pulsing","robotic"); $skinMutation = 1; $playerArms = either("bloated","bulging","tentacle"); $playerArmNumber = either(2,2,2,4,4,6,8); $armMutation = 1; $playerLegs = either(0,"bloated","digitigrade","bulging","tentacle"); $playerLegNumber = either(0,0,2,2,2,4,4,6,8); $legMutation = 1; $playerBack = either("tentacles","spikes","spines","plates","back armor","toothy spine","zippered spine","stitched spine","back foliage","mountainous back","hunched back","fins","bioluminescent spots","mane","quills","feather crest","bioluminescent mushrooms"); $playerTail = either(0,0,0,"long","crocodilian","rat","equine","leonine","feline","dragon","gecko","club","canine","bushy","feathered","carnosaur","sauropod","fox","fat","cable","braided","maw","split"); $tailMutation = 1; $playerHead = either(0,0,0,"antennae","horn","spike horns","curly horns","antlers","mane","tiny feathered headwings","tiny bat headwings","two-headed","angler lantern","fins"); $headMutation = 1; $pain += random(30,40); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your body suddenly BLIMPS, taking on a new and terrifying form!"; $species = "monster"; $playerElement = "fat"; $withTeeth = 1; $lethalKO = 0; $painBuffer += 65; $finesse -= 10>>
+
+<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>>
+
+<<if $randomizer is 1>><<display FatSurge>>
+<<elseif $randomizer is 2>><<display FatSurge>><<display FatSurge>>
+<<elseif $randomizer is 3>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<if $finesse gte 7>> <<set $finesse -= 2>><<endif>>
+<<elseif $randomizer is 4>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>
+<<elseif $randomizer is 5>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $strength += random(3,5)>><<if $finesse gte 8>> <<set $finesse -= 3>><<endif>><<endif>>
+
+<<if $faceMutation is 1>><<set $playerFace = $randomArka>><<endif>><<endif>>
+
+<<if $geneRandomizer is 28>>
+<<display RevecroixRandomizer>><<display ColorWheel>>
+<<set $faceMutation = either(0,1); $randomizer = either(0,1,2,3,4,5); $strength += random(16,32); $playerEars = either("round","triangular","long","double","winged","finned","split","fae","equine","spike","ribbon","lop","tendril"); $earMutation = 1; $bodyColor = $fullChroma; $playerBody = either("bloated","blimplike","blubbery","blubber-stuffed","gelatinous","bulging","monstrous"); $bodyMutation = 1; $playerSkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","velvet","crystalline","slick","toy","plush","stitched","glass","porcelain","feathered","wispy","squishy","pulsing","robotic"); $skinMutation = 1; $playerArmNumber = 0; $playerLegNumber = 0; $playerBack = either("tentacles","spikes","spines","plates","back armor","toothy spine","zippered spine","stitched spine","back foliage","mountainous back","hunched back","fins","bioluminescent spots","mane","quills","feather crest","bioluminescent mushrooms"); $playerTail = either(0,0,0,"long","crocodilian","rat","equine","leonine","feline","dragon","gecko","club","canine","bushy","feathered","carnosaur","sauropod","fox","fat","cable","braided","maw","split"); $tailMutation = 1; $playerHead = either(0,0,0,"antennae","horn","spike horns","curly horns","antlers","mane","tiny feathered headwings","tiny bat headwings","two-headed","angler lantern","fins"); $headMutation = 1; $pain += random(30,40); $health = "Sore"; $mutationFlagII = 1; $mutationDesc = "You cry out in shock and pain as your body suddenly bloats and distorts, your limbs withering away as you take on a new and terrifying form!"; $species = "monster"; $playerElement = either(0,"mirajin","vitae","bestial","arcane","psionic","electric","radiation","sonic","light","eldritch","void","love","fire","earth","air","water","metal","crystal","toxic","bestial","vegetal","fungal","viral","decay","fat","food","balloon","liquid","vore","egg","parasite","whimsy"); $withTeeth = 1; $subspecies = 0; $lethalKO = 0; $painBuffer += 45; $finesse -= 10>>
+
+<<if $finesse gte 7>> <<set $finesse -= 2>><<endif>>
+
+<<if $randomizer is 1>><<display FatSurge>>
+<<elseif $randomizer is 2>><<display FatSurge>><<display FatSurge>>
+<<elseif $randomizer is 3>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<if $finesse gte 7>> <<set $finesse -= 2>><<endif>>
+<<elseif $randomizer is 4>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>
+<<elseif $randomizer is 5>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $strength += random(3,5)>><<if $finesse gte 8>> <<set $finesse -= 3>><<endif>><<endif>>
+
+<<if $faceMutation is 1>><<set $playerFace = $randomArka>><<endif>><<endif>>
+
+<<if $geneRandomizer is 29>><<set $geneDroughtSensitive = 1>><<set $mutationFlagII = 0; $mutationFlagIII = 1; $mutationDesc = "You suddenly feel intensely unwell...">><<endif>>
+
+<<endif>>

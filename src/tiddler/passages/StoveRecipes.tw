@@ -1,0 +1,33 @@
+﻿<center>[img[plate]]
+''__Stove Recipes__''</center>
+''<<if ($grainStock gte 5) and ($fatStock gte 1)>>[[Flatbread|passage()][$calories += 20; $bellyBloat = 180; $bonusEnergy += 30; $grainStock -= 5; $fatStock -= 1; $cooked = 1]]<<else>>//Flatbread//<<endif>>'' ♦ <<print $grainStock>>/5 ''Grain'' ♦ <<print $fatStock>>/1 ''Fat''
+<<nobr>>
+<<endnobr>>''<<if ($grainStock gte 5) and ($fatStock gte 1) and ($herbStock gte 3)>>[[Herb-Encrusted Flatbread|passage()][$calories += 20; $bellyBloat = 180; $bonusEnergy += 60; $grainStock -= 5; $fatStock -= 1; $herbStock -= 1; $cooked = 1]]<<else>>//Herb-Encrusted Flatbread//<<endif>>'' ♦ <<print $grainStock>>/5 ''Grain'' ♦ <<print $fatStock>>/1 ''Fat'' ♦ <<print $herbStock>>/3 ''Herb''
+<<nobr>>
+<<endnobr>>''<<if $eggStock gte 2>>[[Fried Eggs|passage()][$calories += 50; $bellyBloat += 30; $bonusEnergy += 10; $eggStock -= 2; $cooked = 1]]<<else>>//Fried Eggs//<<endif>>'' ♦ <<print $eggStock>>/2 ''Eggs''
+<<nobr>>
+<<endnobr>>''<<if ($eggStock gte 2) and ($meatStock gte 2)>>[[Eggs and Bacon|passage()][$calories += 150; $bellyBloat += 80; $bonusEnergy += 40; $eggStock -= 2; $meatStock -= 2; $cooked = 1]]<<else>>//Eggs and Bacon//<<endif>>'' ♦ <<print $eggStock>>/2 ''Eggs'' ♦ <<print $meatStock>>/2 ''Meat''
+<<nobr>>
+<<endnobr>>''<<if $fishStock gte 2>>[[Seared Fish|passage()][$calories += 10; $bellyBloat += 30; $bonusEnergy += 30; $fishStock -= 2; $cooked = 1]]<<else>>//Seared Fish//<<endif>>'' ♦ <<print $fishStock>>/2 ''Fish''
+<<nobr>>
+<<endnobr>>''<<if $meatStock gte 2>>[[Seared Pork|passage()][$calories += 40; $bellyBloat += 40; $bonusEnergy += 20; $meatStock -= 2; $cooked = 1]]<<else>>//Seared Pork//<<endif>>'' ♦ <<print $meatStock>>/2 ''Meat''
+<<nobr>>
+<<endnobr>>''<<if $meatStock gte 2>>[[Seared Dry Steak|passage()][$calories += 30; $bellyBloat += 40; $bonusEnergy += 20; $meatStock -= 2; $cooked = 1]]<<else>>//Seared Dry Steak//<<endif>>'' ♦ <<print $meatStock>>/2 ''Meat''
+<<nobr>>
+<<endnobr>>''<<if $poultryStock gte 2>>[[Seared Dry Fowl|passage()][$calories += 20; $bellyBloat += 50; $bonusEnergy += 10; $poultryStock -= 2; $cooked = 1]]<<else>>//Seared Dry Fowl//<<endif>>'' ♦ <<print $poultryStock>>/2 ''Poultry''
+<<nobr>>
+<<endnobr>>''<<if ($fatteniumStock gte 1) and ($meatStock gte 3)>>[[Seared Steak Revecroit|passage()][$calories += 90; $bellyBloat += 50; $bonusEnergy += 100; $fatteniumStock -= 1; $meatStock -= 3; $cooked = 1]]<<else>>//Seared Steak Revecroit//<<endif>>'' ♦ <<print $fatteniumStock>>/1 ''Fattenium Powder'' ♦ <<print $meatStock>>/3 ''Meat''
+<<nobr>>
+<<endnobr>>''<<if ($fatteniumStock gte 1) and ($poultryStock gte 3)>>[[Seared Swan Revecroit|passage()][$calories += 120; $bellyBloat += 50; $bonusEnergy += 120; $fatteniumStock -= 1; $poultryStock -= 3; $cooked = 1]]<<else>>//Seared Swan Revecroit//<<endif>>'' ♦ <<print $fatteniumStock>>/1 ''Fattenium Powder'' ♦ <<print $poultryStock>>/3 ''Poultry''
+<<nobr>>
+<<endnobr>>''<<if $dragonStock gte 2>>[[Seared Dragon Steak|passage()][$calories += 150; $bellyBloat += 50; $bonusEnergy += 50; $dragonStock -= 2; $cooked = 1]]<<else>>//Seared Dragon Steak//<<endif>>'' ♦ <<print $dragonStock>>/2 ''Dragon Meat''
+<<nobr>>
+<<endnobr>>''<<if $leupaiStock gte 2>>[[Seared Leupai Steak|passage()][$calories += 180; $bellyBloat += 50; $bonusEnergy += 50; $leupaiStock -= 2; $cooked = 1]]<<else>>//Seared Leupai Steak//<<endif>>'' ♦ <<print $leupaiStock>>/2 ''Leupai Flesh''
+<<nobr>>
+<<endnobr>>''<<if $fatStock gte 5>>[[Seared Floute ac Beliron|passage()][$calories += 40; $bellyBloat += 20; $bonusEnergy += 50; $fatStock -= 5; $cooked = 1]]<<else>>//Seared Floute ac Beliron//<<endif>>'' ♦ <<print $fatStock>>/5 ''Fat''
+<<nobr>>
+<<endnobr>>''<<if ($fatStock gte 5) and ($fatteniumStock gte 3)>>[[Beliron Floute ac Belsusset|passage()][$calories += 500; $bellyBloat += 200; $bonusEnergy += 100; $fatteniumStock -= 3; $fatStock -= 2; $cooked = 1]]<<else>>//Beliron Floute ac Belsusset//<<endif>>'' ♦ <<print $fatteniumStock>>/3 ''Fattenium Powder'' ♦ <<print $fatStock>>/5 ''Fat''
+<<nobr>>
+<<endnobr>>''<<if ($leupaiStock gte 2) and ($fatteniumStock gte 3)>>[[Leupai Floute ac Belsusset|passage()][$calories += 1000; $bellyBloat += 200; $bonusEnergy += 150; $fatteniumStock -= 3; $leupaiStock -= 2; $cooked = 1]]<<else>>//Leupai Floute ac Belsusset//<<endif>>'' ♦ <<print $fatteniumStock>>/3 ''Fattenium Powder'' ♦ <<print $leupaiStock>>/2 ''Leupai Flesh''
+<<nobr>>
+<<endnobr>>''<<if ($fatteniumStock gte 50) and ($waterStock gte 5)>>[[Liquid Fattenium|useItem][$itemEncounter = "pure fattenium shot"; $saveStateItem = passage(); $itemType = "tranq"; $injectLoc = "belly"; $fatteniumStock -= 50; $waterStock -= 5; $cooked = 1]]<<else>>//Liquid Fattenium//<<endif>>'' ♦ <<print $fatteniumStock>>/50 ''Fattenium Powder'' ♦ <<print $waterStock>>/5 ''Water''

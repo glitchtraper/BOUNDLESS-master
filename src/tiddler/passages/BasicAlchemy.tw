@@ -1,0 +1,5 @@
+﻿<<if $material_sand gte 3>>
+<<button [[Glass: Sand ~~x~~3|passage()][$craftedQuantity = either(1,1,1,2); $material_glass += craftedQuantity; $material_sand -= 3; $crafted = 1; $craftedItem = "Sand"]]>><<endif>>
+
+<<if ($oil_leupai gt 0) and ($collectionjar_leupaiblood gt 0)>>
+<<button [[Rubber ~~x~~3: Leupai Oil ~~x~~1 Jar of Leupai Blood ~~x~~1|passage()][$craftedQuantity = either(3,3,3,3,4,5); $material_rubber += craftedQuantity; $collectionjar_leupaiblood -= 1; $crafted = 1; $craftedItem = "Rubber"]]>><<endif>>

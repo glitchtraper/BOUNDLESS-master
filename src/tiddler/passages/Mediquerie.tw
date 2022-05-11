@@ -1,0 +1,323 @@
+﻿<<nobr>><<if $mannedShop is 0>><<display RevecroixRandomizer>><<set $medique = $randomRevecroix; $mannedShop = 1; $mediqueDesc = either("sleek","plump","round","fat","blubbery","busty","blubber-stuffed","blimplike","gelatinous"); $mediqueVoice = either("singsong","cheery","chirpy","gruff","warbling","shrill","deep","rich","melodic","honeyed","smooth","silky"); $freebie = 0>><<endif>><<endnobr>><<if $service is 0>>You walk in to find a rather simple and comfortable-looking room, equipped with several big, well-stuffed bellychairs, a number of books, magazines, and toys, and a sturdy-looking desk at the far end.
+
+The desk is occupied by a <<print $mediqueDesc>> <<print $medique>> who looks over to you with a warm smile.
+"Aiua! Shall I have a look at you?"<<endif>><<nobr>>
+
+<<endnobr>><<if $service is 1>>"Alright, let's see... just relax, and I'll take care of you."
+
+The //medique// examines you thoroughly with a gentle touch, talking softly and reassuringly as they go through the motions, pausing on occasion to take notes on a holographic pad, or look over them carefully for mistakes.<<nobr>>
+
+<<if ($leupaiEggLoad gt 0) and ($leupaiEggTimer gt 0)>><<set $eggCheck = 1>><<endif>>
+
+<<if $breastParasite is 1>><<set $parasiteCheck = 1>><<endif>>
+<<if $bellyParasite is 1>><<set $parasiteCheck = 1>><<endif>>
+<<if $bodyPlumperParasite is 1>><<set $parasiteCheck = 1>><<endif>>
+<<if $bellyPlumperParasite is 1>><<set $parasiteCheck = 1>><<endif>>
+<<if $breastPlumperParasite is 1>><<set $parasiteCheck = 1>><<endif>>
+<<if $lactationParasite is 1>><<set $parasiteCheck = 1>><<endif>>
+<<if $metaParasite is 1>><<set $parasiteCheck = 1>><<endif>>
+<<if $slimeBellyParasite is 1>><<set $parasiteCheck = 1>><<endif>>
+<<if $slimeBreastParasite is 1>><<set $parasiteCheck = 1>><<endif>>
+<<if $direParasite is 1>><<set $parasiteCheck = 1>><<endif>>
+<<if $ampliParasite is 1>><<set $parasiteCheck = 1>><<endif>>
+
+<<if ($zeppelonParasite is 1) and ($bellyZeppelonGirth gte 50)>><<set $parasitePlantCheck = 1>><<endif>>
+<<if ($milkmelonParasite is 1) and ($breastMelonGirth gte 50)>><<set $parasitePlantCheck = 1>><<endif>>
+<<if ($tendrilvineParasite is 1) and ($tendrilParasiteGirth gte 50)>><<set $parasitePlantCheck = 1>><<endif>>
+
+<<if ($miraberryToxicity gte ($girth/100)) or ($miraberryPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if ($mushroomToxicity gte ($girth/100)) or ($mushroomPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if ($calpowderToxicity gte ($girth/100)) or ($calpowderPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if ($gainerToxicity gte ($girth/100)) or ($gainPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if ($leupoilToxicity gte ($girth/100)) or ($leupoilPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if ($bellyfatteniumToxicity gte ($girth/100)) or ($bellyfatteniumPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if ($breastfatteniumToxicity gte ($girth/100)) or ($breastfatteniumPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if ($thighfatteniumToxicity gte ($girth/100)) or ($thighfatteniumPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if ($inflaToxicity gte ($girth/100)) or ($inflaPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if ($deflaToxicity gte ($girth/100)) or ($deflaPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if ($caffeine gte ($girth/100)) or ($caffeinePoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if $fatteniumCascade is 1>><<set $poisonCheck = 1>><<endif>>
+
+<<if $toxicVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if $lethalVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if $supergainVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if $bellySupergainVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if $breastSupergainVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if $thighSupergainVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if $fatteniumVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+
+<<if $bulkVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if $musclebloatVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if $bloatVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if $breastbloatVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if $burstVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+
+<<if $flabbyVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if $weakeningVenom gt 0>><<set $poisonCheck = 1>><<endif>>
+
+<<if ($helenoToxicity gte ($girth/100)) or ($helenoPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if $vitaePPM gt 0>><<set $poisonCheck = 1>><<endif>>
+<<if ($amalgaToxicity gte ($girth/100)) or ($amalgaPoisoning is 1)>><<set $poisonCheck = 1>><<endif>>
+<<if $mirajinRads gte 200>><<set $poisonCheck = 1>><<endif>>
+<<if $nuclearRads gte 100>><<set $poisonCheck = 1>><<endif>>
+
+<<if $geneMoistureSensitive is 1>><<set $allergyCheck = 1>><<endif>>
+<<if $geneDroughtSensitive is 1>><<set $allergyCheck = 1>><<endif>>
+<<if $geneLightSensitive is 1>><<set $allergyCheck = 1>><<endif>>
+<<if $geneHeatSensitive is 1>><<set $allergyCheck = 1>><<endif>>
+<<if $geneColdSensitive is 1>><<set $allergyCheck = 1>><<endif>>
+
+<<if $geneFatteniumAllergy is 1>><<set $allergyCheck = 1>><<endif>>
+<<if $geneMirajinSensitive is 1>><<set $allergyCheck = 1>><<endif>>
+<<if $geneVitalAllergy is 1>><<set $allergyCheck = 1>><<endif>>
+
+<<if $geneStomachRot is 1>><<set $lethalCheck = 1>><<endif>>
+<<if $geneOverinflation is 1>><<set $lethalCheck = 1>><<endif>>
+<<if $geneLiquification is 1>><<set $lethalCheck = 1>><<endif>>
+<<if $geneSponge is 1>><<set $lethalCheck = 1>><<endif>>
+<<if $geneOvergrowth is 1>><<set $lethalCheck = 1>><<endif>>
+<<if $geneDissolution is 1>><<set $lethalCheck = 1>><<endif>>
+<<if $geneWeakSkin is 1>><<set $lethalCheck = 1>><<endif>>
+
+<<if $breastPlushsplosion neq 0>><<set $interactionCheck = 1>><<endif>>
+<<if $bellyPlushsplosion neq 0>><<set $interactionCheck = 1>><<endif>>
+
+<<endnobr>>
+
+Finally satisfied, the <<print $medique>> sets their tools down. "Alright, let's go over what I've found together.
+
+"You're currently at <<print ($girth + $belly + $breast + $thigh) / 10>>~~gi~~,<<if $starvation is 1>>and ''you appear to be suffering from malnutrition. It's a good thing you're here!'''<<else>> which is just fine, as long as you're feeling well.<<endif>><<if $metaBurn gt $metaGain>> Your ''metabolism seems to be running a bit hot''; we can do something about that, if you feel you need it.<<endif>><<if $autoEat is 1>>
+
+The <<print $medique>> tilts their head slightly, examining their notes. "...It seems as though ''you may be suffering from insatiability''-- is that true?
+If so, and you'd rather not be, I should be able to counteract that for you."<<endif>><<if $allergyCheck is 1>>
+
+"You've picked up an ''allergy'' from somewhere.
+Those can be relatively mild or quite serious-- ''but I can't do much to help you with it.'' I can give you something to help with any pain you may be experiencing, but ''you'll need to see a genetic specialist to have it removed.''"<<endif>><<if $eggCheck is 1>>
+
+The //medique// scratches their cheek, smiling. "Now, it appears as though congratulations may be in order-- <<if $leupaiBroodMode is 0>>''you're carrying leupai eggs<<else>>you're brooding<<endif>>!''
+
+"Hatching quaggies is a little bit complex; you'll want to ''make sure you're getting plenty to eat'', so they don't kill you by draining your vitality. ''You'll want to avoid exposing yourself to any vitae''-- it's a good idea to avoid vitae //anyhow//, but even a tiny amount can harm the eggs very severely!
+And, of course, ''the eggs themselves will grow over time, and throw your metabolism a bit out of whack''. Expect to see some extra weight gain and a reasonable amount of belly growth, and you may end up somewhat... //insatiable// for a while, at least until they've emerged."
+
+"Lastly, ''be careful what you expose yourself to in general''. Quaggies are very malleable, and will take on aspects of yourself and your surroundings... and they'll also be affected by things you take in. ''I advise against fattenium and miratoxin exposure'', unless you're certain you know what you're doing...!
+
+"Now, I cannot remove the eggs for you, but what I //can// do, if you're interested, is ''administer a serum that will speed the process along somewhat.'' Just let me know!<<if $leupaiBroodMode is 1>>
+Since you're a leupai yourself, ''even after this clutch hatches, more of your eggs will spontaneously activate shortly thereafter.'' So don't be alarmed when that happens!<<endif>>"<<endif>><<if $parasiteCheck is 1>>
+
+"Now, moving on... you've ''checked out positive for parasites.'' They're all relatively easily curable, so if you want any of them gone, I can do that for you."<<elseif $parasiteCheck is 0>>
+
+"You seem to be completely free of parasites of any kind." The //medique// notes, tapping their cheek thoughtfully.<<endif>><<if $parasitePlantCheck is 1>>
+
+"Hmmm. Now, bear with me..." the //medique// begins carefully, "but you seem to have, erm... ''one or more plants growing inside of you!''
+Unfortunately, I'm no surgeon, so ''I can't actually help here'', other than to give you something for any pain or discomfort you might be feeling. A HYPOTHESIS laboratory with medical equipment installed would be your best bet."<<endif>><<if $consecutiveDrain gte 1>>
+
+"You seem to have ''picked up a wasting disease from somewhere,''" the <<print $medique>> frowns, chewing their lip. "That's pretty serious, so if you'd like me to treat it, I will."<<endif>><<if $fatteniumPoisoning gte 10>>
+
+"It looks as though you were ''recently exposed to some concentrated fattenium,''" the //medique// notes. "''You'll continue getting fatter until it's been completely absorbed by your system,'' unless you'd like me to neutralize what's left."<<endif>><<if $poisonCheck is 1>>
+
+"Mmm," the <<print $medique>> says gravely. "You ''seem to have been poisoned!'' It's a good thing you've come to me.
+''Your symptoms will continue until you've recieved a detoxification treatment''-- which I can provide for you right now. Otherwise, they'll continue ''indefinitely!''"<<endif>><<if $interactionCheck is 1>>
+
+The //medique// squints at their holopad, cringing. "Oh, dear... you're suffering from a ''dangerous drug interaction''!
+Certain medicines can react poorly to the presence of others.
+''All I can do for you is give you something for the pain, unfortunately... you'll have to wait this one out!''"<<endif>><<if $lethalCheck is 1>>
+
+They frown, chewing their lip. "You've contracted a <deepalert>''lethal genetic disease''</deepalert>. I can give you something for the pain, but ''I //highly// reccomend you see a genetic specialist as soon as possible. Your life is at stake!''"<<endif>>
+
+"Okay!" they announce<<if ($lethalCheck is 0) and ($realizing is 0)>>, flashing you another smile<<elseif $realizing gte 1>>, smiling nervously and glancing away..<<endif>>. "That's my full report.
+''If there's anything else going on with you that I didn't mention, it's likely outside of my<<if $realizing gte 1>>, erm... //reach..//<<else>> reach<<endif>>.''
+
+So, ''can I help you in any way'', or will that be all?"<<endif>><<nobr>>
+
+
+
+<<endnobr>><<if $service is 2>>The <<print $medique>> //medique// smiles at you. "Come with me, please."
+
+They lead you into a back room, gently sitting you down in an enormous, incredibly squishy bellychair before fetching a syringe full of pale, golden liquid, gently squirting it into your mouth.
+
+It tastes rather pleasantly like sweetened butter, and you enjoy the flavor of it for a moment before a sudden flash of heat washes over you.
+Gasping, you curl into a ball upon the chair as you begin to ''rapidly, steadily gain weight, your own skin squeezing you tightly as you bloat with fat!''
+
+Finally, the growth stops, leaving you flopped over in the chair as you catch your breath.
+
+"Well, I'd say that should do it!" the <<print $medique>> announces happily, admiring your girth.<<endif>><<nobr>>
+
+
+
+<<endnobr>><<if $service is 33>>The <<print $medique>> //medique// smiles at you. "Come with me, please."
+
+They lead you into a back room, gently sitting you down in an enormous, incredibly squishy bellychair, then carefully injects a syringe directly into your side.
+''You cry out in shock as your already bulging belly suddenly begins to inflate, softening with extra fat even as the eggs inside it expand considerably!
+
+Hunger gnaws at your strained insides as the growth slows and finally stops, leaving you-- and the eggs-- a fair bit rounder than before...''
+
+"Well, I'd say that should do it!" the <<print $medique>> announces happily, admiring your girth.
+"Now, be careful... ''you don't want to overdo it on these.'' Explosion is the leading cause of leupai egg-related deaths, you know!" they laugh.<<endif>><<nobr>>
+
+
+
+<<endnobr>><<if ($service is 3) or ($service is 4) or ($service is 5) or ($service is 6) or ($service is 7) or ($service is 8) or ($service is 10)>>The <<print $medique>> nods at you. "Alright, one moment."
+Stepping aside, they rifle through drawers in the back room before returning with a syringe full of <<print either("red","blue","green","black","purple","white","clear","pale","golden")>> liquid, carefully taking your arm and administering it skillfully.
+
+''Your stomach bloats uncomfortably, gurgling softly...''<<set $bellyBloat = $maxBelly>>
+
+"There you are! <<if $service is 3>>You might gain a good ten or twenty ~~gi~~, but ''your ravening hunger will trouble you no more'', provided you don't, you know... do //whatever you did the first time again.//"<<elseif $service is 4>>
+You'll probably chunk up a little bit more, but ''the process has been stopped in its tracks-- you shouldn't keep blowing up.''
+
+"And hey... careful with that fattenium, hmm?" the //medique// adds with a grin.
+"They use that shit to make billetroa, you know..."<<elseif $service is 5>>
+It may take a little bit for the symptoms to fade, but ''that particular strain of parasitic beastie will trouble you no longer.''
+
+"At least, not until //next time//," they add with a laugh.<<set $parasiteCheck = 0>><<elseif $service is 7>>That should balance you back out for a while."<<set $metaGain = ($metaBurn + $metaGain)/2; $metaBurn = $metaGain>><<elseif $service is 8>>''Your symptoms should subside as your body returns to health.''
+Be careful, hm? There are all sorts of nasty, toxic things out there... or, well, you could just become a leupai, I suppose!" the //medique// laughs.<<nobr>>
+<<endnobr>><<elseif $service is 6>>Drop by again the next time you need a pick-me-up, hmm?"<<set $freebie = 1>><<elseif $service is 10>>Drop by again the next time you've gotten the ol' knock-around. We'll take care of you!"<<endif>><<endif>><<nobr>>
+
+
+<<endnobr>><<if $service is "emergency">>"Oh, there you are! //Shhh, easy...//"<<nobr>><<if $mannedShop is 0>><<display RevecroixRandomizer>><<set $medique = $randomRevecroix; $mannedShop = 1; $mediqueDesc = either("sleek","plump","round","fat","blubbery","busty","blubber-stuffed","blimplike","gelatinous"); $bovietVoice = either("singsong","cheery","chirpy","gruff","warbling","shrill","deep","rich","melodic","honeyed","smooth","silky")>><<endif>>
+
+<<set $miraberryToxicity = 0; $miraberryPoisoning = 0; $mushroomToxicity = 0; $mushroomPoisoning = 0; $calpowderToxicity = 0; $calpowderPoisoning = 0; $gainerToxicity = 0; $gainPoisoning = 0; $leupoilToxicity = 0; $leupoilPoisoning = 0; $bellyfatteniumToxicity = 0; $bellyfatteniumPoisoning = 0; $breastfatteniumToxicity = 0; $breastfatteniumPoisoning = 0; $thighfatteniumToxicity = 0; $thighfatteniumPoisoning = 0; $deflaToxicity = 0; $deflaPoisoning = 0; $inflaToxicity = 0; $inflaPoisoning = 0; $fatteniumPoisoning = 0; $fatteniumCascade = 0; $helenoToxicity = 0; $helenoPoisoning = 0; $caffeineToxicity = 0; $caffeinePoisoning = 0; $vitaePPM = 0; $miraPoisoning = 0; $amalgaToxicity = 0; $amalgaPoisoning = 0; $mirajinRads = 0>>
+
+<<set $toxicOverdoseWarning = 0; $painfulOverdoseWarning = 0; $bloatOverdoseWarning = 0; $breastbloatOverdoseWarning = 0; $dizzyOverdoseWarning = 0; $jiggleOverdoseWarning = 0>>
+
+<<set $toxicVenom = 0; $lethalVenom = 0; $gainVenom = 0; $supergainVenom = 0; $bellygainVenom = 0; $bellySupergainVenom = 0; $breastgainVenom = 0; $breastSupergainVenom = 0; $thighgainVenom = 0; $thighSupergainVenom = 0; $fatteniumVenom = 0; $bulkVenom = 0; $bloatVenom = 0; $burstVenom = 0; $breastbloatVenom = 0; $healVenom = 0; $gluttonVenom = 0; $caloricVenom = 0; $hallucenoVenom = 0; $mutagenVenom = 0; $flabbyVenom = 0; $weakeningVenom = 0; $leucanthropicVenom = 0>>
+
+<<set $pain = 21; $health = "Sore"; $immobile = 0; $immobilityCause = 0; $blackout = 0>>
+
+
+<<endnobr>>
+
+You slowly open your eyes to find yourself lying upon an incredibly comfortable bed-- a <<print $mediqueDesc>> <<print $medique>> gazing at you from across the room with a look of relief.
+"You were in ''a bit of a state when you were brought in''. Take it easy, hm? I'm glad you're awake, but you might need a bit more time to heal."
+
+The //medique// brings you food and watches over you as your body steadily sets to work knitting itself back together, thanks to whatever strange medicines you've been given.
+
+As you're finally cleared to get up and go, it strikes you-- //''that could've gone a lot worse than it did...''//<<set $service = 0; $freebie = 1>><<endif>><<nobr>>
+
+
+<<endnobr>><<display BodySystems>><<display Effects>>
+
+<framed><center><<nobr>>
+
+<<display Vitality>>
+
+/% ================================= %/
+/% Basics %/
+
+<<endnobr>><<button [[Evaluation.|passage()][$service = 1; $evaluated = 1]]>><<if $freebie is 0>><<button [[Calorie Booster.|passage()][$service = 6; $calories += either(50,60,70,80); $bonusEnergy += 100]]>><<endif>><<if $pain gte 5>><<button [[Pain Reliever.|passage()][$service = 10; $pain = 0]]>><<endif>><<if ($bribedDoc is 0) and ($food gte 500)>><<button [[...Bribe. (500 ~~consiee~~)|passage()][$bribedDoc = either(0,0,0,0,0,0,0,0,0,0,0,1)]]>><<elseif $bribedDoc is 1>><<if $food gte 15000>><<button [[Pure Fattenium Shot ~~x~~1: 15000~~consiee~~|passage()][$shot_fattenium_pure += 1; $food -= 15000; $bribedDoc = 0]]>><<else>><unframe>''Pure Fattenium Shot ~~x~~1: 15000~~consiee~~''</unframe><<endif>><<endif>><<nobr>>
+
+/% ================================= %/
+/% Evaluation-only %/
+
+<<if $evaluated is 1>><hr>
+
+/% ================================= %/
+/% Metabolic & Other Ailments %/
+
+	<<if ($starvation is 1) or ($consecutiveDrain neq 0)>><<button [[Robustification Treatment.|passage()][$service = 2; $girth = $starveFloor + 200; $starvation = 0; $consecutiveDrain = 0]]>><<endif>>
+
+	<<if $metaBurn gt $metaGain>><<button [[Metabalancing Treatment.|passage()][$service = 7]]>><<endif>>
+
+	<<if ($esurience gte 16) or ($autoEat is 1)>><<button [[Satiation Treatment.|passage()][$service = 3; $esurience = 0; $autoEat = 0; $calories += 250]]>><<endif>>
+
+/% ================================= %/
+/% Toxins %/
+
+	<<if ($miraberryPoisoning is 1) or ($miraberryToxicity gte ($girth/100))>><<button [[Somnitoxin Detox Treatment.|passage()][$service = 8; $miraberryPoisoning = 0; $miraberryToxicity = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($mushroomPoisoning is 1) or ($mushroomToxicity gte ($girth/100))>><<button [[Mycotoxin Detox Treatment.|passage()][$service = 8; $mushroomPoisoning = 0; $mushroomToxicity = 0; $toxicOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($calpowderPoisoning is 1) or ($calpowderToxicity gte ($girth/100))>><<button [[Aditoxin Detox Treatment.|passage()][$service = 8; $calpowderPoisoning = 0; $calpowderToxicity = 0; $dizzyOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($gainPoisoning is 1) or ($gainerToxicity gte ($girth/100))>><<button [[Metabotoxin Detox Treatment.|passage()][$service = 8; $gainPoisoning = 0; $gainerToxicity = 0; $bloatOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($leupoilPoisoning is 1) or ($leupoilToxicity gte ($girth/100))>><<button [[Leupaditoxin Detox Treatment.|passage()][$service = 8; $leupoilPoisoning = 0; $leupoilToxicity = 0; $dizzyOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($deflaPoisoning is 1) or ($deflaToxicity gte ($girth/100))>><<button [[Deflatoxin Detox Treatment.|passage()][$service = 8; $deflaPoisoning = 0; $deflaToxicity = 0; $toxicOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($inflaPoisoning is 1) or ($inflaToxicity gte ($girth/100))>><<button [[Inflatoxin Detox Treatment.|passage()][$service = 8; $inflaPoisoning = 0; $inflaToxicity = 0; $bloatOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($breastfatteniumPoisoning is 1) or ($breastfatteniumToxicity gte ($girth/100))>><<button [[Targeted Breast Fattenium Detox Treatment.|passage()][$service = 8; $breastfatteniumPoisoning = 0; $breastfatteniumToxicity = 0; $breastbloatOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($thighfatteniumPoisoning is 1) or ($thighfatteniumToxicity gte ($girth/100))>><<button [[Targeted Thigh Fattenium Detox Treatment.|passage()][$service = 8; $thighfatteniumPoisoning = 0; $thighfatteniumToxicity = 0; $bloatOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($fatteniumPoisoning gte 10) or ($fatteniumCascade is 1)>><<button [[Fattenium Detox Treatment.|passage()][$service = 4; $calories += $fatteniumPoisoning; $fatteniumPoisoning = 0; $fatteniumCascade = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($helenoPoisoning is 1) or ($helenoToxicity gte ($girth/100))>><<button [[Helenotoxin Detox Treatment.|passage()][$service = 8; $helenoPoisoning = 0; $helenoToxicity = 0; $breastbloatOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($caffeinePoisoning is 1) or ($caffeineToxicity gte ($girth/100))>><<button [[Caffeine Detox Treatment.|passage()][$service = 8; $caffeinePoisoning = 0; $caffeineToxicity = 0; $dizzyOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($amalgaPoisoning is 1) or ($amalgaToxicity gte ($girth/100))>><<button [[Amalgatoxin Detox Treatment.|passage()][$service = 8; $amalgaPoisoning = 0; $amalgaToxicity = 0; $painfulOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+
+	<<if ($lethalVenom neq 0) or ($toxicVenom neq 0) or ($noxiousVenom neq 0)>><<button [[Lethal Venom Treatment.|passage()][$service = 8; $lethalVenom = 0; $toxicVenom = 0; $noxiousVenom = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($bloatVenom neq 0) or ($breastbloatVenom neq 0) or ($burstVenom neq 0) or ($bulkVenom neq 0) or ($musclebloatVenom neq 0) or ($esqueVenom neq 0)>><<button [[Bloat Venom Treatment.|passage()][$service = 8; $bloatVenom = 0; $breastbloatVenom = 0; $burstVenom = 0; $bulkVenom = 0; $musclebloatVenom = 0; $esqueVenom = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($weakeningVenom neq 0) or ($flabbyVenom neq 0)>><<button [[Weakening Venom Treatment.|passage()][$service = 8; $weakeningVenom = 0; $gainVenom += $flabbyVenom; $flabbyVenom = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if ($fatteniumVenom neq 0) or ($supergainVenom neq 0) or ($bellySupergainVenom neq 0) or ($breastSupergainVenom neq 0) or ($thighSupergainVenom neq 0) or ($blubberVenom neq 0)>><<button [[Expansion Venom Treatment.|passage()][$service = 8; $gainVenom = 0; $fatteniumVenom = 0; $supergainVenom = 0; $bellySupergainVenom = 0; $breastSupergainVenom = 0; $thighSupergainVenom = 0; $blubberVenom = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if $hallucenoVenom neq 0>><<button [[Hallucenogen Treatment.|passage()][$service = 8; $hallucenoVenom = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if $vitaePPM gt 0>><<button [[Vitae Stabilization Treatment.|passage()][$service = 8; $vitaePPM = 0; $painfulOverdoseWarning = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if $mirajinRads gte 200>><<button [[Mirajin Poisoning Treatment.|passage()][$service = 8; $mirajinRads = 0; $poisonCheck = 0]]>><<endif>>
+
+	<<if $nuclearRads gte 100>><<button [[Radiation Poisoning Treatment.|passage()][$service = 8; $nuclearRads = 0; $poisonCheck = 0]]>><<endif>>
+
+
+/% ================================= %/
+/% Parasites %/
+
+	<<if ($eggCheck is 1) and ($eggBoosted is 0)>><<button [[Egg Acceleration Treatment.|passage()][$service = 33; $eggBoosted = 1; $leupaiEggTimer = ($leupaiEggTimer / 2); $quaggySuperfattened = 1; $quaggyGirth += random(30,80); $esurience += 3; $calories += random(250,500); $belly += random(15,50); $eggCheck = 0]]>><<endif>>
+
+	<<if $breastParasite is 1>><<button [[//Microstygi heleni// (Breast Bloat Parasite) Removal.|passage()][$service = 5; $breastParasite = 0; $breastParaLoad = 0]]>><<endif>>
+
+	<<if $bellyParasite is 1>><<button [[//Microstygi moreauii// (Belly Bloat Parasite) Removal.|passage()][$service = 5; $bellyParasite = 0; $bellyParaLoad = 0]]>><<endif>>
+
+	<<if $bodyPlumperParasite is 1>><<button [[//Microleupii belesse// (Weight Gain Parasite) Removal.|passage()][$service = 5; $bodyPlumperParasite = 0; $wgParaLoad = 0]]>><<endif>>
+
+	<<if $bellyPlumperParasite is 1>><<button [[//Microleupii miriete// (Belly Weight Gain Parasite) Removal.|passage()][$service = 5; $bellyPlumperParasite = 0; $bellywgParaLoad = 0]]>><<endif>>
+
+	<<if $breastPlumperParasite is 1>><<button [[//Microleupii belebaret// (Breast Weight Gain Parasite) Removal.|passage()][$service = 5; $breastPlumperParasite = 0; $breastwgParaLoad = 0]]>><<endif>>
+
+	<<if $lactationParasite is 1>><<button [[//Lactosa virii// (Lactation-Inducing Parasite) Removal.|passage()][$service = 5; $lactationParasite = 0; $lacParaLoad = 0]]>><<endif>>
+
+	<<if $metaParasite is 1>><<button [[//Microleupii belite// (Metabolism-Slowing Parasite) Removal.|passage()][$service = 5; $metaParasite = 0; $metaParaLoad = 0]]>><<endif>>
+
+	<<if $slimeBellyParasite is 1>><<button [[Parasitic Belly Slime Removal.|passage()][$service = 5; $slimeBellyParasite = 0; $slimeBellyParaLoad = 0; $jiggleOverdoseWarning = 0]]>><<endif>>
+
+	<<if $slimeBreastParasite is 1>><<button [[Parasitic Breast Slime Removal.|passage()][$service = 5; $slimeBreastParasite = 0; $slimeBreastParaLoad = 0; $jiggleOverdoseWarning = 0]]>><<endif>>
+
+	<<if $direParasite is 1>><<button [[Dire Worm Removal.|passage()][$service = 5; $direParasite = 0; $direParaLoad = 0]]>><<endif>>
+
+	<<if $ampliParasite is 1>><<button [[Amplibaene Removal.|passage()][$service = 5; $ampliParasite = 0; $ampliParaLoad = 0; $bonusWG = 0]]>><<endif>>
+
+<<endif>><<endnobr>>\
+\
+/% ================================= %/\
+/% For Sale %/\
+<hr><huge>''Buy: ''</huge><<nobr>>
+
+<<if $food gte 800>><<button [[Soothers ~~x~~1: 800~~consiee~~|passage()][$pill_soother += 1; $food -= 800]]>><<else>><unframe>''Soothers ~~x~~1: 800~~consiee~~''</unframe><<endif>>
+<<if $food gte 3500>><<button [[Soothers ~~x~~5: 3500~~consiee~~|passage()][$pill_soother += 5; $food -= 3500]]>><<endif>>
+
+<<if $food gte 5000>><<button [[Mira-Detoxin Shot ~~x~~1: 5000~~consiee~~|passage()][$shot_miratoxin_detox += 1; $food -= 500]]>><<else>><unframe>''Mira-Detoxin Shot ~~x~~1: 5000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 500>><<button [[Dose of Reality Injection ~~x~~1: 500~~consiee~~|passage()][$shot_reality += 1; $food -= 500]]>><<else>><unframe>''Dose of Reality Injection ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+<<if $food gte 1500>><<button [[Dose of Reality Injection ~~x~~3: 1500~~consiee~~|passage()][$shot_reality += 3; $food -= 1500]]>><<endif>>
+
+<<if $food gte 350>><<button [[Antibiotic Injection ~~x~~1: 350~~consiee~~|passage()][$shot_antibio += 1; $food -= 350]]>><<else>><unframe>''Antibiotic Injection ~~x~~1: 350~~consiee~~''</unframe><<endif>>
+<<if $food gte 1500>><<button [[Antibiotic Injection ~~x~~5: 1500~~consiee~~|passage()][$shot_antibio += 5; $food -= 1500]]>><<endif>>
+
+<<if $food gte 350>><<button [[Antifungal Injection ~~x~~1: 350~~consiee~~|passage()][$shot_antifungal += 1; $food -= 350]]>><<else>><unframe>''Antifungal Injection ~~x~~1: 350~~consiee~~''</unframe><<endif>>
+<<if $food gte 1500>><<button [[Antifungal Injection ~~x~~5: 1500~~consiee~~|passage()][$shot_antifungal += 5; $food -= 1500]]>><<endif>>
+
+<<if $food gte 300>><<button [[Solvent Injection ~~x~~1: 300~~consiee~~|passage()][$shot_solvent += 1; $food -= 300]]>><<else>><unframe>''Solvent Injection ~~x~~1: 300~~consiee~~''</unframe><<endif>>
+<<if $food gte 1500>><<button [[Solvent Injection ~~x~~6: 1500~~consiee~~|passage()][$shot_solvent += 6; $food -= 1500]]>><<endif>>
+
+<<if $food gte 200>><<button [[Deflator Injection ~~x~~1: 200~~consiee~~|passage()][$shot_deflator += 1; $food -= 200]]>><<else>><unframe>''Deflator Injection ~~x~~1: 200~~consiee~~''</unframe><<endif>>
+<<if $food gte 800>><<button [[Deflator Injection ~~x~~5: 800~~consiee~~|passage()][$shot_deflator += 5; $food -= 800]]>><<endif>>
+
+<<endnobr>></center></framed>
+<center><<button [[Leave.|$saveStateEncounter][$itemPool = 0; $encounterPool = 0; $mannedShop = 0; $service = 0; $parasiteCheck = 0; $interactionCheck = 0; $evaluated = 0; $explore = 3; $indoorZone = 0; $dungeonType = 0; $eggBoosted = 0; $eggCheck = 0; $justLeftType = "area"; $justLeft = "Mediquerie"; $stepcounter = 1; $stepsCounted = 0; $location = $saveBiome; $bribedDoc = 0]]>></center>

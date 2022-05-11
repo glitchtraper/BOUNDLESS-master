@@ -1,0 +1,258 @@
+﻿/% ========================================================= %/
+/% Combat Ability selector for NPCs %/
+
+/% Flee Protection forces the npc to use an ability other than flee up until at least the designated number of combat rounds have passed.
+Flee is NOT allowed to be a first-line choice. %/
+<<set $enemyChoice = 0; $fleeProtection = random(3,5)>>
+
+<<if $movesetOverride neq 0>><<set $originalMoveset = $moveset; $moveset = $movesetOverride>><<endif>>
+
+/% ========================================================= %/
+
+		<<if $moveset is 1>><<set $enemyChoice = "strike">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("strike","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 2>><<set $enemyChoice = "strike">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = "lunge">><<endif>><<endif>>
+
+		<<if $moveset is 3>><<set $enemyChoice = either("strike","lunge")>><<endif>>
+
+		<<if $moveset is 4>><<set $enemyChoice = "lunge">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("lunge","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 5>><<set $enemyChoice = "lunge">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("lunge","lunge","lunge","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 6>><<set $enemyChoice = "panic">><<endif>>
+
+		<<if $moveset is 7>><<set $enemyChoice = either("strike","panic")>><<endif>>
+
+		<<if $moveset is 8>><<set $enemyChoice = either("strike","panic")>>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("strike","panic","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 9>><<set $enemyChoice = either("strike","lunge","panic")>>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("strike","lunge","panic","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 10>><<set $enemyChoice = "lunge">><<endif>>
+
+		<<if $moveset is 11>><<set $enemyChoice = "slam">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("slam","slam","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 12>><<set $enemyChoice = "slam">><<endif>>
+
+		<<if $moveset is 13>><<set $enemyChoice = either("strike","slam")>><<endif>>
+
+		<<if $moveset is 14>><<set $enemyChoice = either("strike","slam","lunge")>><<endif>>
+
+		<<if $moveset is 15>><<set $enemyChoice = "bloat">><<endif>>
+
+		<<if $moveset is 16>><<set $enemyChoice = either("bloat","bloat","engulf")>><<endif>>
+
+		<<if $moveset is 17>><<set $enemyChoice = either("plump","plump","tonguesiphon","tonguebloat","smother","smother","fatten")>>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("plump","plump","plump","tonguesiphon","tonguebloat","smother","smother","fatten","fatten","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 18>><<set $enemyChoice = either("merge","liquid feed","liquid engorge")>><<endif>>
+
+		<<if $moveset is 19>><<set $enemyChoice = "strike">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = "flee">><<endif>><<endif>>
+
+/% ================================ %/
+/% Leupai Movesets %/
+
+		/% Fighter %/
+		<<if $moveset is 20>><<set $enemyChoice = either("strike","lunge","slam","tonguesiphon")>><<endif>>
+
+		/% Trickster %/
+		<<if $moveset is 21>><<set $enemyChoice = either("tonguebloat","tonguevenom","tonguefatten")>>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("tonguebloat","tonguebloat","tonguebloat","tonguebloat","tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguefatten","tonguefatten","tonguefatten","flee")>><<endif>><<endif>>
+
+		/% Bloater %/
+		<<if $moveset is 22>><<set $enemyChoice = either("tonguebloat","tonguevenom","implant")>>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("tonguebloat","tonguebloat","tonguebloat","tonguebloat","tonguebloat","tonguebloat","tonguevenom","tonguevenom","tonguevenom","implant","implant","implant","implant","flee")>><<endif>><<endif>>
+
+		/% Bleeder %/
+		<<if $moveset is 23>><<set $enemyChoice = "tonguesiphon">><<endif>>
+
+		/% Pumper %/
+		<<if $moveset is 24>><<set $enemyChoice = "tonguebloat">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("tonguebloat","tonguebloat","tonguebloat","tonguebloat","tonguebloat","tonguebloat","tonguebloat","tonguebloat","flee")>><<endif>><<endif>>
+
+		/% Feeder %/
+		<<if $moveset is 25>><<set $enemyChoice = "tonguefatten">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("tonguefatten","tonguefatten","tonguefatten","tonguefatten","tonguefatten","tonguefatten","flee")>><<endif>><<endif>>
+
+		/% Nester %/
+		<<if $moveset is 26>><<set $enemyChoice = "implant">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("implant","implant","implant","implant","implant","implant","implant","implant","implant","implant","implant","implant","implant","implant","implant","flee")>><<endif>><<endif>>
+
+		/% Corruptor %/
+		<<if $moveset is 27>><<set $enemyChoice = "tonguevenom">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguevenom","tonguevenom","flee")>><<endif>><<endif>>
+
+/% ================================ %/
+
+		<<if $moveset is 28>><<set $enemyChoice = either("lunge","inject")>>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("lunge","lunge","lunge","inject","inject","inject","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 29>><<if $stranglationDOT lte 0>><<set $enemyChoice = either("lunge","strangle","inject")>>
+			<<elseif $heldDOT lte 0>><<set $enemyChoice = either("inject","swallow")>>
+			<<else>><<set $enemyChoice = either("indigestion")>><<endif>><<endif>>
+
+		<<if $moveset is 30>><<set $enemyChoice = "tonguevenom">><<endif>>
+
+		<<if $moveset is 31>><<set $enemyChoice = "tonguebloat">><<endif>>
+
+		<<if $moveset is 32>><<set $enemyChoice = "implant">><<endif>>
+
+		<<if $moveset is 33>><<set $enemyChoice = "tonguefatten">><<endif>>
+
+		<<if $moveset is 34>><<set $enemyChoice = "panic">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("panic","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 35>><<set $enemyChoice = "liquid feed">><<endif>>
+
+		<<if $moveset is 36>><<set $enemyChoice = "feed">><<endif>>
+
+		<<if $moveset is 37>><<set $enemyChoice = either("liquid feed","liquid engorge")>><<endif>>
+
+		<<if $moveset is 38>><<set $enemyChoice = either("feed","feed","engorge")>><<endif>>
+
+		<<if $moveset is 39>><<set $enemyChoice = "liquid engorge">><<endif>>
+
+		<<if $moveset is 40>><<set $enemyChoice = "engorge">><<endif>>
+
+		<<if $moveset is 41>><<set $enemyChoice = "inflate">><<endif>>
+
+		<<if $moveset is 42>><<set $enemyChoice = "liquid inflate">><<endif>>
+
+		<<if $moveset is 43>><<set $enemyChoice = "balloon">><<endif>>
+
+		<<if $moveset is 44>><<set $enemyChoice = "liquid balloon">><<endif>>
+
+		<<if $moveset is 45>><<set $enemyChoice = either("liquid inflate","liquid inflate","liquid balloon")>><<endif>>
+
+		<<if $moveset is 46>><<set $enemyChoice = either("feed","feed","liquid feed","engorge","liquid engorge","fatdart","fatdart")>><<endif>>
+
+		<<if $moveset is 47>><<set $enemyChoice = "fatray">><<endif>>
+
+		<<if $moveset is 48>><<set $enemyChoice = "fatdart">><<endif>>
+
+		<<if $moveset is 49>><<set $enemyChoice = "bloatdart">><<endif>>
+
+		<<if $moveset is 50>><<set $enemyChoice = "shred">><<endif>>
+
+		<<if $moveset is 51>><<set $enemyChoice = "shred">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("shred","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 52>><<set $enemyChoice = either("shred","lunge")>><<endif>>
+
+		<<if $moveset is 53>><<set $enemyChoice = either("thrust","thrust","thrust","slam","z-slash","elemental beam")>>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("thrust","thrust","slam","z-slash","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 54>><<set $enemyChoice = either("slam","shred","lunge","swallow","elemental burst","elemental beam")>><<endif>>
+
+		<<if $moveset is 55>><<set $enemyChoice = either("shred","pummel","strangle","elemental beam")>><<endif>>
+
+		<<if $moveset is 56>><<set $enemyChoice = either("slam","swallow","crush","bulwark","elemental burst")>><<endif>>
+
+		<<if $moveset is 57>><<set $enemyChoice = either("shred","lunge","inject","elemental beam")>><<endif>>
+
+		<<if $moveset is 58>><<if $heldDOT lte 0>><<set $enemyChoice = either("strike","panic","merge","liquid feed","liquid engorge")>>
+			<<else>><<set $enemyChoice = either("merge","liquid feed","liquid engorge")>><<endif>><<endif>>
+
+		<<if $moveset is 59>><<set $enemyChoice = "inject">>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = "flee">><<endif>><<endif>>
+
+		<<if $moveset is 60>><<if $heldDOT lte 0>><<set $enemyChoice = either("strike","slam","bloat","liquid feed","liquid engorge")>>
+			<<else>><<set $enemyChoice = either("bloat","bloat","liquid feed","liquid engorge")>><<endif>><<endif>>
+
+		<<if $moveset is 61>><<set $enemyChoice = either("strike","slam","crush","thrust","bulwark")>><<endif>>
+
+		<<if $moveset is 62>><<set $enemyChoice = either("shred","shred","lunge","lunge","z-slash","eviscerate")>><<endif>>
+
+		<<if $moveset is 63>><<set $enemyChoice = either("shred","lunge","buffet","panic")>>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("shred","lunge","buffet","panic","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 64>><<set $enemyChoice = "inject">>
+		<<if $enemyPain gte ($encounterMaxPain * 0.80)>><<set $enemyChoice = "flee">><<endif>><<endif>>
+
+		<<if $moveset is 65>><<set $enemyChoice = either("liquid feed","liquid feed","liquid feed","liquid feed","inject")>>
+		<<if $enemyPain gte ($encounterMaxPain * 0.80)>><<set $enemyChoice = "flee">><<endif>><<endif>>
+
+		<<if $moveset is 66>><<set $enemyChoice = "crush">><<endif>>
+
+		<<if $moveset is 67>><<set $enemyChoice = "elemental blast">><<endif>>
+
+		<<if $moveset is 68>><<set $enemyChoice = either("smash","smash","buffet","z-slash")>><<endif>>
+
+		<<if $moveset is 69>><<set $enemyChoice = either("strike","lunge","panic","elemental burst")>>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("strike","lunge","panic","elemental burst","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 70>><<set $enemyChoice = either("lunge","lunge","elemental burst","elemental burst","elemental blast")>>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("elemental burst","lunge","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 71>><<set $enemyChoice = either("lunge","lunge","elemental burst")>><<endif>>
+
+		<<if $moveset is 72>><<set $enemyChoice = either("tonguebloat","inject","ampliply")>><<endif>>
+
+		<<if $moveset is 73>><<set $enemyChoice = either("shred","buffet")>>
+		<<if $battleRound gt $fleeProtection>><<set $enemyChoice = either("shred","flee")>><<endif>><<endif>>
+
+		<<if $moveset is 74>><<set $enemyChoice = either("shred","lunge","buffet","elemental blast")>><<endif>>
+
+		<<if $moveset is 75>><<if $heldDOT lte 0>><<set $enemyChoice = "swallow">>
+			<<else>><<set $enemyChoice = "indigestion">><<endif>><<endif>>
+
+		<<if $moveset is 76>><<if $heldDOT lte 0>><<set $enemyChoice = either("lunge","swallow")>>
+			<<else>><<set $enemyChoice = "indigestion">><<endif>><<endif>>
+
+		<<if $moveset is 77>><<set $enemyChoice = "soften">><<endif>>
+
+		<<if $moveset is 78>><<if $smotherDOT lte 0>><<set $enemyChoice = "smother">>
+			<<else>><<set $enemyChoice = "soften">><<endif>><<endif>>
+
+/% ================================ %/
+/% "Friendly" Leupai %/
+
+		/% Benevolent Trickster %/
+		<<if $moveset is 900>><<set $enemyChoice = either("tonguebloat","tonguevenom","tonguefatten")>>
+			<<if $pain gte ($maxPain * 0.60)>><<set $enemyChoice = "miratoxic salve">><<endif>>
+			<<if $enemyPain gte ($encounterMaxPain * 0.80)>><<set $enemyChoice = "flee">><<endif>><<endif>>
+
+		/% Beletoire %/
+		<<if $moveset is 901>><<set $enemyChoice = either("tonguebloat","tonguebloat","tonguebloat","tonguebloat","tonguevenom")>>
+			<<if $pain gte ($maxPain * 0.60)>><<set $enemyChoice = "miratoxic salve">><<endif>>
+			<<if $enemyPain gte ($encounterMaxPain * 0.80)>><<set $enemyChoice = "flee">><<endif>><<endif>>
+
+		/% Susseroit %/
+		<<if $moveset is 902>><<set $enemyChoice = "tonguefatten">>
+			<<if $pain gte ($maxPain * 0.60)>><<set $enemyChoice = "miratoxic salve">><<endif>>
+			<<if $enemyPain gte ($encounterMaxPain * 0.80)>><<set $enemyChoice = "flee">><<endif>><<endif>>
+
+		/% Beltedier %/
+		<<if $moveset is 903>><<set $enemyChoice = either("implant","tonguefatten","tonguefatten")>>
+			<<if $pain gte ($maxPain * 0.60)>><<set $enemyChoice = "miratoxic salve">><<endif>>
+			<<if $enemyPain gte ($encounterMaxPain * 0.80)>><<set $enemyChoice = "flee">><<endif>><<endif>>
+
+		/% Venemoire %/
+		<<if $moveset is 904>><<set $enemyChoice = either("tonguevenom","tonguevenom","tonguebloat")>>
+			<<if $pain gte ($maxPain * 0.60)>><<set $enemyChoice = "miratoxic salve">><<endif>>
+			<<if $enemyPain gte ($encounterMaxPain * 0.80)>><<set $enemyChoice = "flee">><<endif>><<endif>>
+
+
+/% ================================ %/
+
+/% ================================ %/
+
+		/% Phoenix (Spar Mode) %/
+		<<if $moveset is 666>><<set $enemyChoice = either("shitkicker","shitkicker","shitkicker","jolly reaper","jolly reaper","jolly reaper","jolly reaper","sunslammer")>>
+			<<if $battleRound is 1>><<set $enemyChoice = "iridescence">><<endif>>
+			<<if $battleRound gt 66>><<set $enemyChoice = "mercy killer">><<endif>>
+			<<if $enemyPain gte ($encounterMaxPain * 0.85)>><<set $enemyChoice = "vengeful salute">><<endif>><<endif>>
+
+/% ================================ %/
+
+<<if ($enemyChoice is 0) or ($moveset is 0)>><<set $enemyChoice = "strike">><<endif>>
+
+/% If moveset was overridden, put it back now %/
+<<if $movesetOverride neq 0>><<set $moveset = $originalMoveset; $movesetOverride = 0>><<endif>>

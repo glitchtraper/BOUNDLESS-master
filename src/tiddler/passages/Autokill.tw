@@ -1,0 +1,9 @@
+﻿<<display ZoneBackgrounds>><center><<set $toggleDisplay = 1>><<nobr>>
+<<endnobr>>
+
+<framed>\
+<<if $lootRolls neq 0>><<display CreatureLoot>><<endif>>
+<<if $noButcher is 0>>
+<narrowframe>You butcher <<print $encounter>> and pack away the spoils:<<display CreatureResources>></narrowframe><<endif>>
+</framed>
+<<button [[Continue.|$saveState][$toggleDisplay = 0; $dropped = 0]]>></center>

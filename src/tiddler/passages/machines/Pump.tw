@@ -1,0 +1,31 @@
+﻿
+<<display ZoneBackgrounds>><<set $seenIt_pump = 1>><<if $newMachine is 1>><<display MachineEfficiency>><<set $maintained = 3; $maintenanceCap = 0>><<endif>>
+It's an odd piece of equipment with a large, round <<if ($pumpType is 1) or ($pumpType is 6)>>air <<elseif ($pumpType is 2) or ($pumpType is 5)>>water <<elseif ($pumpType is 3) or ($pumpType is 4)>><<endif>>tank attached to several thick hoses and a powerful-looking pump.<<if $inUse is 1>>
+
+You <<if ($pumpTarget is 1) or ($pumpTarget is 3)>>gently slide the nozzle into your mouth<<elseif $pumpTarget is 2>>clamp the hoses onto your nipples<<endif>> before carefully turning the machine on.
+
+It hums to life, wheezing for a few moments before the pump begins to operate-- ''and your <<if ($pumpTarget is 1) or ($pumpTarget is 3)>>belly bloats up<<set $bellyBloat += ($machinePower * 3)>><<if $pumpType is 2>>, jiggling as it fills with cool water<<set $bellyLiquid += ($machinePower * 3)>><<elseif $pumpType is 5>>, jiggling as it bloats with a thick, cool liquid..<<set $bellyBloat += $machinePower; $bellyLiquid += ($machinePower * 3); $slimeBellyParasite = 1; $slimeBellyParaLoad += ($machinePower * 2)>><<elseif $pumpType is 3>>, jiggling as it fills with thick, sweet and creamy liquid<<set $bellyLiquid += ($machinePower * 3); $calories += ($machinePower * either(2,3,4,5)); $milkFat += either(0,0,0,0,0,10)>><<elseif $pumpType is 4>>, jiggling as it swells fatter and rounder<<set $belly += $machinePower>><<elseif $pumpType is 6>>, creaking softly as it inflates, leaving you suddenly feeling much lighter<<set $bellyBloat += ($maxBelly * 0.4); $heliumBallooned += ($machinePower * 2)>><<endif>><<elseif $pumpTarget is 2>>breasts wobble and bounce as they inflate<<if $pumpType is 2>>, jiggling like water balloons<<set $storedMilk += ($machinePower * 3)>><<elseif $pumpType is 4>>, jiggling like water balloons<<set $breast += $machinePower>><<elseif $pumpType is 5>>, jiggling like water balloons as they bloat with a thick, cool liquid..<<set $breastBloat += $machinePower; $slimeBreastParasite = 1; $slimeBreastParaLoad += ($machinePower * 2)>><<elseif $pumpType is 6>>breasts wobble and bounce as they inflate, leaving you suddenly feeling much lighter<<set $bellyBloat += ($maxBelly * 0.4); $heliumBallooned += ($machinePower * 2)>><<endif>><<set $breastBloat += ($machinePower * 3)>><<endif>>!''<<if ($lactation is 1) and ($milkType is 0) and ($pumpType is 1)>><<set $milkType = "whipped cream"; $milkFat = 30>><<elseif $pumpType is 2>><<set $milkFat -= 10>><<endif>><<endif>><<if $doMaintenance is 1>>
+
+You sit, removing the back panel from the equipment and setting to work!<<set $doMaintenance = 0>><<if $successMaintenance is 1>>
+After a bit of careful evaluation and maintenance work, ''the machine is now in <<if $machineEfficiency is "poor">><<set $machineEfficiency = "fair">>fair condition!<<elseif $machineEfficiency is "fair">><<set $machineEfficiency = "good">>good condition!<<endif>><<display MachineEfficiency>><<set $maintenanceCap = 1>>''
+<<else>>You work and fiddle with the parts, circuits, and controls, ''but the thing is fighting you all the way..!''
+<<endif>><<endif>><center><framed>\
+<<if $machinePower gt $machineBattery>>
+''It looks like it's run out of power.''
+<<if $special_battery gt 0>> <<button [[Use a battery.|passage()][$special_battery -= 1; $machineBattery += random(8,24); $inUse = 0]]>><<endif>><<endif>><<display BodySystems>><<display Effects>>
+\
+\
+<<if $machinePower lte $machineBattery>><<if ($pumpType is 1) or ($pumpType is 2) or ($pumpType is 4) or ($pumpType is 5) or ($pumpType is 6)>><<button [[Inflate belly.|passage()][$machineBattery -= $machinePower; $inUse = 1; $pumpTarget = 1; $lethalKO = either(0,1); $deathCause = "burst belly"]]>>\
+\
+<<button [[Inflate breasts.|passage()][$machineBattery -= $machinePower; $inUse = 1; $pumpTarget = 2]]>><<elseif $pumpType is 3>><<if ($bellyStatus neq "bursting") and ($machinePower lte $machineBattery)>>\
+\
+<<button [[Drink.|passage()][$machineBattery -= $machinePower; $inUse = 1; $pumpTarget = 3; $lethalKO = either(0,1); $deathCause = "burst belly"; $repeatUse += 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>>\
+<<elseif $machinePower lte $machineBattery>><<endif>><<endif>><<endif>>\
+<<nobr>><<if ($activeOcc is "Smithier") or ($activeOcc is "Datiere")>>
+
+<<if ($maintained gt 0) and ($machineEfficiency neq "good") and ($machineEfficiency neq "excellent") and ($machineEfficiency neq "flawless") and ($maintenanceCap neq 1) and ($pain lt 60)>>
+
+<<button [[Attempt Maintenance.|passage()][$inUse = 0; $maintained -= 1; $doMaintenance = 1; $successMaintenance = either(0,1)]]>><<endif>>
+<<endif>><<endnobr>></framed>
+<<button [[Back.|$saveStateSpecial][$pumpType = 0; $inUse = 0; $pumpTarget = 0; $repeatUse = 0]]>></center>

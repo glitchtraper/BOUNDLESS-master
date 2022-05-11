@@ -1,0 +1,33 @@
+﻿/% FLOATING STATION - this is where you go to access the Planetary Metagame.
+Arrival clause %/<center>[img[wip-plate]]</center>
+<<if $floatingStationArriving is 1>>Your billetroa arrives at the Floating Station, settling gently onto the platform and allowing the passengers to exit.<<set $floatingStationArriving = 0>><<display RevecroixRandomizer>><<endif>>
+You find yourself within a sprawling room of glistening metal and polished tiled floors, decorated with enormous banners in blue-gray, decorated with a familiar crying eye.
+Most noteworthy of all are the wide windows, boasting a dazzling view of a starry sky... and the void beyond. ''You are most definitely in deep space'', and there are no obvious planets around for as far as the eye can see.<<if $sanity gte 70>>
+//It's a little unsettling.//<<endif>>
+
+You do notice a collection of odd, iridescent bubbles that seem to be tethered to the outside of station, drifting weightlessly through space.
+
+The station is populated with ''HYPOTHESIS'' employees of all kinds-- from scientists and researchers who scurry quickly across the floor with notes, specimens, and bits of curious technology, to guards who take note of your presence with <<if $rep_HYPOTHESIS lt 50>>unwavering stares. ''It'd be a good idea to stay on your best behavior...''<<elseif $rep_HYPOTHESIS gte 50>>a smile and nod of recognition. ''You're happy for the reassurance that you're welcome here.''<<endif>>\
+<<if $stationDialogue is 1>>
+
+You spot a help desk nearby; the <<print $randomRevecroix>> on duty offers you a smile.
+"Ah, a visitor! Welcome to the station.
+Are you here to go out on a ''tether'', or are you interested in ''free orbit as a planetary body''?"<<endif>><<if $stationInfo is 1>>
+
+"This station is primarily a research & development vessel for a variety of different HYPOTHESIS projects.
+I can't share the details of most of those with you, but one of the things we are exploring here is our ''Orbital Production program.'' Generally, we utilize various creatures from our labs in the program for research purposes, but on occasion we do allow ''volunteers'' to take part. Being as though you recieved clearance to visit our station, ''I see no problem with offering you a hands-on look at our work!''
+
+Should you be interested, we'll suspend you from a tether outside, with an simulated atmosphere bubble so you can breathe and we can regulate your temperature as needed. The process will make you quite sluggish over time, so ''the longer you're out there, the more likely it'll take you a while to move around normally again.''
+
+Assuming you //still have the ability to move, of course...//"<<set $stationInfo = 0>><<elseif $stationInfo is 2>>
+
+We do a lot of work here alongside ''Giovan's null''; a large portion of that is helping oversee the ''Planetary Ascension project'', which is exactly what it sounds like. ''We're developing technology that will allow anyone to become a <affirmative>living, thriving planet!</affirmative>''
+Now, naturally, you'd have to ''give up your body'' in order to go through with the process... but should all go according to plan, ''we'll be able to transfer your consciousness into one of your inhabitants at a later time!''
+
+"On one hand, it's a big decision to make-- but on the other, you'll be gaining an experience few sapient creatures have had at relatively small cost!
+If you're interested, ''we'll need you at around 5,000~~gi~~ or larger'' so you can survive the initial expansion process.
+Otherwise you'd likely just, erm... //explode.//
+
+If you're not quite there yet, we could ''send you out on a tether for a while'' to make up the difference..."<<set $stationInfo = 0>><<endif>>
+
+<center><framed><<if $stationDialogue is 1>><<button [[Ask about tethers.|passage()][$stationInfo = 1]]>><<button [[Go out on a tether.|FloatingTether][$stationInfo = 0; $stationDialogue = 0; $serviceOverride = 1]]>><<button [[Ask about Planetary Ascension.|passage()][$stationInfo = 2]]>><<if $fatScore gte 50000>><<button [[Initiate Planetary Ascension. (WIP/EXPERIMENTAL)|PlanetGameIntro][$stationInfo = 0; $stationDialogue = 0]]>><<endif>><<endif>><<button [[Take the next flight back.|Explore][$hours += random(2,5); $stationInfo = 0; $stationDialogue = 0]]>><<if $stationDialogue is 0>><<button [[Speak to a scientist.|passage()][$stationDialogue = 1]]>><<endif>></framed></center>

@@ -1,0 +1,23 @@
+﻿<<if $overrideExplore is 0>><<nobr>>
+
+<<set $ateIt = 0>>
+
+<<if ($resourceType is "edible") and ($resourceLiquid is 0)>><<set $useDesc = "Consume."; $consumeVerb = "eat"; $gluttonyVerb = "devouring">><<elseif ($resourceType is "edible") and ($resourceLiquid is 1)>><<set $useDesc = "Drink."; $consumeVerb = "drink"; $gluttonyVerb = "gulping it down">><<endif>>
+
+<<if $resourceLiquid is 0>><<set $gatherVerb = "Take.">><<elseif $resourceLiquid is 1>><<set $gatherVerb = "Collect.">><<endif>>
+
+<<endnobr>>
+''You spot <<print $resourceGrammar>> <<print $resourceEncounter>> nearby!''<<if ($resourceType is "edible") and ($autoEat is 1)>>
+''You can't resist <<print $gluttonyVerb>> it on the spot!''<<set $calories += $foodFat; $bellyBloat += $foodBloat; $bellyLiquid += $foodLiquid; $stomachBug += $bacteria; $fatteniumPoisoning += $traceFattenium; $mirajinSaturation += $traceMirajin; $ateIt = 1; $lethalKO = 1; $deathCause = "burst belly">><<endif>><<endif>>\
+\
+\
+<<if $ateIt is 0>><<if ($resourceType is "edible") and ($resourceLiquid is 0)>> [[<<print $useDesc>>|passage()][$calories += $foodFat; $bellyBloat += $foodBloat; $bellyLiquid += $foodLiquid; $bonusEnergy += $energy; $exploring = 2]] ♦ [[<<print $gatherVerb>>|passage()][$waterStock += $waterResource; $milkStock += $milkResource; $meatStock += $meatResource; $fishStock += $fishResource; $poultryStock += $poultryResource; $eggStock += $eggResource; $grainStock += $grainResource; $rootStock += $rootResource; $fruitStock += $fruitResource; $vegStock += $vegResource; $sugarStock += $sugarResource; $nutStock += $nutResource; $fatStock += $fatResource; $herbStock += $herbResource; $jellyStock += $jellyResource; $dragonStock += $dragonResource; $leupaiStock += $leupaiResource; $fatteniumStock += $fatteniumResource; $miraStock += $miraResource; $exploring = 2]]
+\
+\
+ <<elseif ($resourceLiquid is 1) and ($special_jar gt 0)>> [[<<print $useDesc>>|passage()][$calories += $foodFat; $bellyBloat += $foodBloat; $bellyLiquid += $foodLiquid; $bonusEnergy += $energy; $exploring = 2]] ♦ [[Collect.|passage()][$waterStock += $waterResource; $milkStock += $milkResource; $meatStock += $meatResource; $fishStock += $fishResource; $poultryStock += $poultryResource; $eggStock += $eggResource; $grainStock += $grainResource; $rootStock += $rootResource; $fruitStock += $fruitResource; $vegStock += $vegResource; $sugarStock += $sugarResource; $nutStock += $nutResource; $fatStock += $fatResource; $herbStock += $herbResource; $jellyStock += $jellyResource; $dragonStock += $dragonResource; $leupaiStock += $leupaiResource; $fatteniumStock += $fatteniumResource; $miraStock += $miraResource; $exploring = 2]]
+\
+\
+ <<elseif ($resourceLiquid is 1) and ($special_jar is 0)>> [[<<print $useDesc>>|passage()][$calories += $foodFat; $bellyBloat += $foodBloat; $bellyLiquid += $foodLiquid; $bonusEnergy += $energy; $exploring = 2]]<<endif>><<endif>>\
+\
+\
+<<if $resourceType neq "edible">> [[<<print $gatherVerb>>|passage()][$waterStock += $waterResource; $milkStock += $milkResource; $meatStock += $meatResource; $fishStock += $fishResource; $poultryStock += $poultryResource; $eggStock += $eggResource; $grainStock += $grainResource; $rootStock += $rootResource; $fruitStock += $fruitResource; $vegStock += $vegResource; $sugarStock += $sugarResource; $nutStock += $nutResource; $fatStock += $fatResource; $herbStock += $herbResource; $jellyStock += $jellyResource; $dragonStock += $dragonResource; $leupaiStock += $leupaiResource; $fatteniumStock += $fatteniumResource; $miraStock += $miraResource; $exploring = 2]]<<endif>>

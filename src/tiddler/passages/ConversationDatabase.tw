@@ -1,0 +1,274 @@
+﻿/% =============================================================== %/
+/% Conversation database! Let's see how this goes.
+
+Later, add different responses based on demeanor/other things %/
+
+/% =============================================================== %/
+/% Insult %/
+
+<<if $convoType is "insult">>
+
+/% ============================= %/
+
+/% If you insult a creature, you can goad it into a fight, and possibly debuff and/or enrage it in the process.
+It's more likely to work if it understands you, though. %/
+
+<<if $encounterDifficulty is "easy">>
+	<<set $reaction = either("fear","anger","amusement")>>
+
+<<else>>
+	<<set $reaction = either("anger","amusement")>>
+<<endif>>
+
+/% ============================= %/
+	/% Can't understand you. %/
+
+	<<if ($encLanguage neq $playerLanguage) and ($encLanguage neq "empulse") and ($playerLanguage neq "empulse")>>
+
+	<<set $randomizer = random(1,4)>>
+	<<if $randomizer is 1>>
+	/% ...It gets the gist of what you're saying. %/
+
+
+
+	<<else>>
+	/% ...what is THAT supposed to mean?! %/
+
+<<if $randomizer gte 3>>... It looks <brightalert>''confused''</brightalert>...
+<<else>>... It ''<affirmative>laughs</affirmative> at you!''
+		<<endif>>
+	<<endif>>
+
+/% ============================= %/
+	/% Understands. %/
+	<<else>>
+/% Demeanor may make it more or less likely that the creature will decide to beat you up, bribe you, or just leave! %/
+
+		<<if $reaction is "amusement">>
+
+It ''<affirmative>laughs</affirmative> at you!''
+
+		<<elseif $reaction is "fear">>
+
+	/% It may become nervous, run away, or try to bribe you. %/
+//(TODO: fear response)//
+
+		<<elseif $reaction is "anger">>
+
+	/% Uh oh!
+	It could either insult you back, or decide to go for it... %/
+//(TODO: anger response)//
+
+		<<endif>>
+
+
+	<<endif>>
+
+
+
+/% =============================================================== %/
+/% Threaten %/
+
+<<elseif $convoType is "threat">>
+
+/% Threatening a creature can have multiple results.
+First, compare the player's visible stats to the creature's stats. %/
+
+<<if $encounterDifficulty is "easy">>
+	<<set $reaction = either("fear","fear","confusion")>>
+
+<<elseif $encounterDifficulty is "normal">>
+	<<set $reaction = either("fear","anger","confusion")>>
+
+<<elseif $encounterDifficulty is "hard">>
+	<<set $reaction = either("fear","anger","anger","amusement","confusion")>>
+
+<<elseif $encounterDifficulty is "deadly">>
+	<<set $reaction = either("fear","anger","anger","anger","anger","anger","anger","amusement","amusement","amusement","amusement","confusion")>>
+<<endif>>
+
+/% ============================= %/
+
+/% The actual readout depends on whether or not you speak the same language, but in this case the result is generally the same. %/
+
+/% ============================= %/
+	/% Can't understand you. %/
+
+	<<if ($encLanguage neq $playerLanguage) and ($encLanguage neq "empulse") and ($playerLanguage neq "empulse")>>
+
+		<<if $reaction is "amusement">>
+
+It ''<affirmative>laughs</affirmative> at you!''
+
+		<<elseif $reaction is "confusion">>
+
+... It looks <brightalert>''confused''</brightalert>...
+
+		<<elseif $reaction is "fear">>
+
+	/% It may become nervous, run away, or try to bribe you. %/
+//(TODO: fear response)//
+
+		<<elseif $reaction is "anger">>
+
+	/% Uh oh!
+	It could either insult you back, or decide to go for it... %/
+//(TODO: anger response)//
+
+		<<endif>>
+
+/% ============================= %/
+	/% Understands. %/
+	<<else>>
+
+		<<if $reaction is "amusement">>
+
+It ''<affirmative>laughs</affirmative> at you!''
+
+		<<elseif $reaction is "confusion">>
+
+... It looks <brightalert>''confused''</brightalert>...
+
+		<<elseif $reaction is "fear">>
+
+	/% It may become nervous, run away, or try to bribe you. %/
+//(TODO: fear response)//
+
+		<<elseif $reaction is "anger">>
+
+	/% Uh oh!
+	It could either insult you back, or decide to go for it... %/
+//(TODO: anger response)//
+
+		<<endif>>
+
+	<<endif>>
+/% ============================= %/
+
+
+/% =============================================================== %/
+/% Greet %/
+
+<<elseif $convoType is "greeting">>
+You ''greet <<if $encounterUnique is 0>>the <<endif>> <<print $encounter>>!''
+
+	/% Can't understand you. %/
+	<<if ($encLanguage neq $playerLanguage) and ($encLanguage neq "empulse") and ($playerLanguage neq "empulse")>>
+
+It looks <brightalert>''confused''</brightalert>.
+
+	/% Understands. %/
+	<<else>>
+It ''<affirmative>smiles</affirmative> at you!''<<endif>>
+
+
+
+/% =============================================================== %/
+/% Personal inquiry %/
+
+<<elseif $convoType is "how are you">>
+
+	/% Can't understand you. %/
+	<<if ($encLanguage neq $playerLanguage) and ($encLanguage neq "empulse") and ($playerLanguage neq "empulse")>>
+
+/% Asking something of a creature who can't understand you is worthless. %/
+
+It looks <brightalert>''confused''</brightalert>.
+
+	/% Understands. %/
+	<<else>>
+
+//(insert some small talk.
+probably species and/or occupation specific, possibly also area specific)//
+
+<<endif>>
+
+
+/% =============================================================== %/
+/% Species inquiry %/
+
+<<elseif $convoType is "species query">>
+
+	/% Can't understand you. %/
+	<<if ($encLanguage neq $playerLanguage) and ($encLanguage neq "empulse") and ($playerLanguage neq "empulse")>>
+
+/% Asking something of a creature who can't understand you is worthless. %/
+
+It looks <brightalert>''confused''</brightalert>.
+
+	/% Understands. %/
+	<<else>>
+
+//(Some creatures may be willing to tell you more about their species. Others... may not.)//
+
+<<endif>>
+
+
+/% =============================================================== %/
+/% Occupation inquiry %/
+
+<<elseif $convoType is "occupation query">>
+
+	/% Can't understand you. %/
+	<<if ($encLanguage neq $playerLanguage) and ($encLanguage neq "empulse") and ($playerLanguage neq "empulse")>>
+
+/% Asking something of a creature who can't understand you is worthless. %/
+
+It looks <brightalert>''confused''</brightalert>.
+
+	/% Understands. %/
+	<<else>>
+
+//(Some creatures may be willing to tell you more about their trade. Others... may not.)//
+
+<<endif>>
+
+
+
+/% =============================================================== %/
+/% Specific inquiry %/
+
+<<elseif $convoType is "specific query">>
+
+	/% Can't understand you. %/
+	<<if ($encLanguage neq $playerLanguage) and ($encLanguage neq "empulse") and ($playerLanguage neq "empulse")>>
+
+/% Asking something of a creature who can't understand you is worthless. %/
+
+It looks <brightalert>''confused''</brightalert>.
+
+	/% Understands. %/
+	<<else>>
+
+//(Some creatures may be obvious choices to ask about particular things in the game world.
+You have to have seen, or seen some mention of, the topic in order to ask about it (so, topic-specific flags to turn on when an askable topic is encountered).)//
+
+<<endif>>
+
+
+/% =============================================================== %/
+/% Trade inquiry %/
+
+<<elseif $convoType is "trade">>
+
+	/% Can't understand you. %/
+	<<if ($encLanguage neq $playerLanguage) and ($encLanguage neq "empulse") and ($playerLanguage neq "empulse")>>
+
+/% Asking something of a creature who can't understand you is worthless. %/
+
+It looks <brightalert>''confused''</brightalert>.
+
+	/% Understands. %/
+	<<else>>
+
+//(Some creatures may be seeking a particular item or creature. If you have what they're looking for, you might be able to make a deal.
+
+For creatures, they need to be in your party. I'm not going to figure out how to have the game search your whole damn donsair list...)//
+
+<<endif>>
+
+
+
+/% =============================================================== %/
+
+<<endif>>

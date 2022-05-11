@@ -1,0 +1,44 @@
+﻿/% ==================================== %/
+/% Records player's stats and location at time of death and analyzes them into a corpse event for them to find! %/
+
+/% ==================================== %/
+/% Static Stats %/
+<<set $corpseColor = $bodyColor; $corpseType = $substatus; $corpseSubspecies = $subspecies; $corpseSpecies = $species; $canEatCorpse = 1; $eatenCorpse = 0; $storedCorpse = 1; $corpseMeat = ($girth / 2)/20; $corpseFat = ($breast + $belly + $thigh + ($girth / 2))/20; $corpseMilk = $storedMilk>>
+
+/% Forensics %/
+
+/% "You find the corpse of a ($corpseColor $corpseType $corpseSubspecies $corpseSpecies)" %/
+
+<<if ($deathCause is "agony") or ($deathCause is "poison") or ($deathCause is 0)>><<set $corpseCondition = "Back arched and body curled into pronounced foetal position, this poor creature looks as though its last moments were spent in the worst kind of pain."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "eaten">><<set $corpseCondition = "The creature has been all but totally devoured, leaving only smears, bloodied scraps, and bits of bone."; $canEatCorpse = 0>><<endif>>
+
+<<if $deathCause is "incineration">><<set $corpseCondition = "The creature has been burnt to a crisp..."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "freezing">><<set $corpseCondition = "It's frozen solid, put simply."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "bleeding">><<set $corpseCondition = "The creature is lying in a pool of its own blood..."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "drowned">><<set $corpseCondition = "The creature's corpse is clammy and bloated fat with liquid."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "fat suffocation">><<set $corpseCondition = "It's grown so enormously fat that it seems to have suffocated in its own blubbery flesh..."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "blunt force trauma">><<set $corpseCondition = "The creature seems to have been battered ferociously by something."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "slash damage">><<set $corpseCondition = "The creature has been brutally shredded by something sharp..."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "asphyxiation">><<set $corpseCondition = "The creature seems to have suffocated..."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "burst belly">><<set $corpseCondition = "The unfortunate creature's belly has been distended to the point of rupture, ichor splattered in a telltale pattern around the burst radius."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "explosion">><<set $corpseCondition = "...or, at least what remains of it. What's left is splattered about the area, all bloated limbs, shredded flesh, and spilled viscera."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "radiation">><<set $corpseCondition = "Back arched and body curled into pronounced foetal position, the corpse's skin seems to be flaking and peeling away in strips... but it's quite fresh. Something about it strikes a very keen fear into your heart, and you want to be away from it as quickly as possible."; $canEatCorpse = 0>><<endif>>
+
+<<if ($deathCause is "starvation") or ($deathCause is "atrophy") or ($deathCause is "exsanguination")>><<set $corpseCondition = "Back arched and body curled into pronounced foetal position, the corpse is piteously emaciated."; $canEatCorpse = 1>><<endif>>
+
+<<if $deathCause is "vitae">><<set $corpseCondition = "... or, at least what remains of it. Most of it has apparently dissolved into a brilliantly-glowing teal goo that smells strongly of tea, and strikes a very keen fear into your heart. You don't want to get near it-- or let any of it get near you."; $canEatCorpse = 0>><<endif>>
+
+<<if $deathCause is "vitae annihilation">><<set $corpseCondition = "... or, at least what remains of it. Most of it has dissolved into a brilliantly-glowing teal goo that smells strongly of tea... It strikes a very keen fear into your heart, and as you watch, the last bits of flesh melt away. You don't want to get near it-- or let any of it get near you..."; $canEatCorpse = 0>><<endif>>
+
+<<if $deathCause is "catastrophic mutation">><<set $corpseCondition = "... or, at least what remains of it. What's left is splattered about the area, all bloated limbs, shredded flesh, and spilled viscera-- along with an alarming amount of glowing, sticky magenta ichor. You don't really want to touch it, honestly."; $canEatCorpse = 0>><<endif>>

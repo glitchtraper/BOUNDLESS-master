@@ -1,0 +1,15 @@
+﻿<center>[img[plate]]
+''__Basic Recipes__''</center>
+''<<if $waterStock gte 1>>[[Water|passage()][$bellyBloat += 10; $bellyLiquid += 10; $bonusEnergy += either(0,0,10); $waterStock -= 1; $cooked = 1; $cookMessage = "You enjoy a drink!"]]<<else>>//Water//<<endif>>'' ♦ <<print $waterStock>>/1 ''Water''
+<<nobr>>
+<<endnobr>>''<<if $fruitStock gte 3>>[[Fruit Juice|passage()][$calories += 10; $bellyBloat += 10; $bellyLiquid += 10; $bonusEnergy += 20; $fruitStock -= 3; $cooked = 1; $cookMessage = "You enjoy a drink!" ]]<<else>>//Fruit Juice//<<endif>>'' ♦ <<print $fruitStock>>/3 ''Fruit''
+<<nobr>>
+<<endnobr>>''<<if $milkStock gte 1>>[[Milk|passage()][$calories += 30; $bellyBloat += 10; $bellyLiquid += 10; $bonusEnergy += 10; $milkStock -= 1; $cooked = 1; $cookMessage = "You enjoy a drink!"]]<<else>>//Milk//<<endif>>'' ♦ <<print $milkStock>>/1 ''Milk''
+<<nobr>>
+<<endnobr>>''<<if ($vegStock gte 2) and ($rootStock gte 1)>>[[Salad|passage()][$calories += 10; $bellyBloat += 30; $bonusEnergy += 10; $vegStock -= 2; $rootStock -= 1; $cooked = 1]]<<else>>//Salad//<<endif>>'' ♦ <<print $vegStock>>/2 ''Vegetable'' ♦ <<print $rootStock>>/1 ''Root''
+<<nobr>>
+<<endnobr>>''<<if $fatStock gte 5>>[[Floute ac Beliron|passage()][$calories += 50; $bellyBloat += 30; $bonusEnergy += 20; $fatStock -= 5; $cooked = 1]]<<else>>//Floute ac Beliron//<<endif>>'' ♦ <<print $fatStock>>/5 ''Fat''
+<<nobr>>
+<<endnobr>>''<<if ($vegStock gte 2) and ($rootStock gte 1)>>[[Salad|passage()][$calories += 10; $bellyBloat += 30; $bonusEnergy += 10; $vegStock -= 2; $rootStock -= 1; $cooked = 1]]<<else>>//Salad//<<endif>>'' ♦ <<print $vegStock>>/2 ''Vegetable'' ♦ <<print $rootStock>>/1 ''Root''
+<<nobr>>
+<<endnobr>>''<<if $fruitStock gte 2>>[[Fruit Salad|passage()][$calories += 10; $bellyBloat += 30; $bonusEnergy += 20; $fruitStock -= 2; $cooked = 1]]<<else>>//Fruit Salad//<<endif>>'' ♦ <<print $fruitStock>>/2 ''Fruit''

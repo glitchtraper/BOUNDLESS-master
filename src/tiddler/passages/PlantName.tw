@@ -1,0 +1,6 @@
+﻿<<display ZoneBackgrounds>><center>[img[$plantImg]]
+Enter your plant's new name. [[Cancel|PlotView]]
+
+<framed><<print "<<textinput $plot" + $plotID + "PlantName>>">></framed>
+
+<<button [[Finalize.|PlotView]]>></center>

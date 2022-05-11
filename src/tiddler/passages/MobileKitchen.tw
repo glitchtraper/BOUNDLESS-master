@@ -1,0 +1,3 @@
+﻿<<print $kitchenDesc>>
+
+<<display KitchenCogs>><hr>[[Rest.|passage()][$showRawRecipes = 0; $showCampRecipes = 0; $showAlchemyIRecipes = 0; $resting = 1]] ♦ [[Continue.|$saveState][$showRawRecipes = 0; $showCampRecipes = 0; $showAlchemyIRecipes = 0; $showCraftingRecipes = 0; $kitchenType = 0]]

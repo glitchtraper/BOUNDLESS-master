@@ -1,0 +1,189 @@
+﻿<<display ZoneBackgrounds>><framed><center><<if $powerType is "leupaiEggActivation">>
+You close your eyes, relaxing your body for a moment and concentrating...
+''your muscles twitch, and your belly begins to expand as several eggs activate within you!''<<nobr>>
+
+<<display LeupaiEggGen>><<if $hunger is "Overengorged">><<button [[Activate More Eggs.|passage()][$powerType = "leupaiEggActivation"; $calories -= ($calories/3)]]>><<endif>>
+
+<<endnobr>><<elseif $powerType is "leupaiBellyInflation">>
+''You draw a long, deep breath, your rubbery belly bloating up like a balloon!''\
+<<display BodySystems>>
+
+<<button [[Inflate Belly.|passage()][$powerType = "leupaiBellyInflation"]]>><<button [[Inflate Breasts.|passage()][$powerType = "leupaiBreastInflation"]]>><<nobr>>
+
+<<set $bellyBloat += ($maxBelly * 0.2)>>
+
+<<endnobr>><<elseif $powerType is "leupaiBreastInflation">>
+''You draw a long, deep breath and tighten your belly, your breasts swelling up tight and round!''<<display BodySystems>>
+
+<<button [[Inflate Belly.|passage()][$powerType = "leupaiBellyInflation"]]>><<button [[Inflate Breasts.|passage()][$powerType = "leupaiBreastInflation"]]>><<nobr>>
+
+<<set $breastBloat += ($maxBreast * 0.2)>>
+
+<<endnobr>><<elseif $powerType is "leupaiCompression">>
+<<if $inUse is 1>>
+You close your eyes, relaxing your body for a moment.. and then ''squeeze your skin tightly, reshaping and compressing yourself!''<<set $inUse = 0>><<nobr>>
+
+
+<<if $compressType is "BodyCompress">>
+<<set $phantomGirth += ($strength * 10); $phantomBreast += ($strength * 10); $phantomBelly += ($strength * 10); $phantomThigh += ($strength * 10); $girth -= ($strength * 10); $breast += ($strength * 10); $breastBloat += ($strength * 10); $bellyBloat += ($strength * 20); $breastBloat += ($strength * 10); $thighFirmness += ($strength * 10)>>
+<<elseif $compressType is "GirthCompress">>
+<<set $phantomGirth += ($strength * 10); $girth -= ($strength * 10); $bellyBloat += ($strength * 10)>>
+<<elseif $compressType is "BreastCompress">>
+<<set $phantomBreast += ($strength * 10); $breast -= ($strength * 10); $breastBloat += ($strength * 10)>>
+<<elseif $compressType is "BellyCompress">>
+<<set $phantomBelly += ($strength * 10); $belly -= ($strength * 10); $bellyBloat += ($strength * 10)>>
+<<elseif $compressType is "ThighCompress">>
+<<set $phantomThigh += ($strength * 10); $thigh -= ($strength * 10); $thighFirmness += ($strength * 10)>>
+
+<<elseif $compressType is "BodyToBreast">>
+<<set $girth -= ($strength * 10); $breast += ($strength * 10); $breastBloat += ($strength * 10)>>
+<<elseif $compressType is "BellyToBreast">>
+<<set $belly -= ($strength * 10); $bellyBloat -= ($strength * 10); $breast += ($strength * 10); $breastBloat += ($strength * 10)>>
+<<elseif $compressType is "ThighToBreast">>
+<<set $thigh -= ($strength * 10); $thighFirmness += ($strength * 10); $breast += ($strength * 10); $breastBloat += ($strength * 10)>>
+<<elseif $compressType is "IntoBreast">>
+<<set $girth -= ($strength * 10); $belly -= ($strength * 10); $bellyBloat -= ($strength * 10); $thigh -= ($strength * 10); $thighFirmness += ($strength * 10); $breast += (($strength * 10) * 4); $breastBloat += (($strength * 10) * 3)>>
+
+<<elseif $compressType is "BreastToBelly">>
+<<set $belly += ($strength * 10); $bellyBloat += ($strength * 10); $breast -= ($strength * 10); $breastBloat -= ($strength * 10)>>
+<<elseif $compressType is "ThighToBelly">>
+<<set $belly += ($strength * 10); $bellyBloat += ($strength * 10); $thigh -= ($strength * 10); $thighFirmness += ($strength * 10)>>
+<<elseif $compressType is "BodyToBelly">>
+<<set $belly += ($strength * 10); $bellyBloat += ($strength * 10); $girth -= ($strength * 10)>>
+<<elseif $compressType is "IntoBelly">>
+<<set $girth -= ($strength * 10); $breast -= ($strength * 10); $breastBloat -= ($strength * 10); $thigh -= ($strength * 10); $thighFirmness += ($strength * 10); $belly += (($strength * 10) * 2); $bellyBloat += (($strength * 10) * 3)>>
+
+<<elseif $compressType is "BodyToThigh">>
+<<set $girth -= ($strength * 10); $thigh += ($strength * 10); $thighFirmness += ($strength * 10)>>
+<<elseif $compressType is "BellyToThigh">>
+<<set $belly -= ($strength * 10); $bellyBloat -= ($strength * 10); $thigh += ($strength * 10); $thighFirmness -= ($strength * 10)>>
+<<elseif $compressType is "BreastToThigh">>
+<<set $thigh += ($strength * 10); $thighFirmness -= ($strength * 10); $breast -= ($strength * 10); $breastBloat -= ($strength * 10)>>
+<<elseif $compressType is "IntoThigh">>
+<<set $girth -= ($strength * 10); $belly -= ($strength * 10); $bellyBloat -= ($strength * 10); $breast -= ($strength * 10); $breastBloat -= ($strength * 10); $thigh += (($strength * 10) * 4); $thighFirmness -= (($strength * 10) * 3)>>
+
+<<elseif $compressType is "BreastToBody">>
+<<set $girth += ($strength * 10); $breast -= ($strength * 10); $breastBloat -= ($strength * 10)>>
+<<elseif $compressType is "BellyToBody">>
+<<set $belly -= ($strength * 10); $bellyBloat -= ($strength * 10); $girth += ($strength * 10)>>
+<<elseif $compressType is "ThighToBody">>
+<<set $girth += ($strength * 10); $thigh -= ($strength * 10); $thighFirmness += ($strength * 10)>>
+<<elseif $compressType is "IntoBody">>
+<<set $belly -= ($strength * 10); $bellyBloat -= ($strength * 10); $breast -= ($strength * 10); $breastBloat -= ($strength * 10); $thigh -= ($strength * 10); $thighFirmness += ($strength * 10); $girth += (($strength * 10) * 4)>><<endif>>
+
+<<endnobr>>
+
+<<elseif $inUse is 2>>
+You close your eyes and relax... ''and your skin decompresses, your body expanding!''<<nobr>>
+
+<<if $compressType is "BodyDecompress">><<set $girth = $girth + $phantomGirth; $breast = $breast + $phantomBreast; $belly = $belly + $phantomBelly; $thigh = $thigh + $phantomThigh>>
+<<set $phantomGirth = 0; $phantomBreast = 0; $phantomBelly = 0; $phantomThigh = 0>>
+
+<<elseif $compressType is "GirthDecompress">><<set $girth = $girth + $phantomGirth; $phantomGirth = 0>>
+
+<<elseif $compressType is "BreastDecompress">><<set $breast = $breast + $phantomBreast; $phantomBreast = 0>>
+
+<<elseif $compressType is "BellyDecompress">><<set $belly = $belly + $phantomBelly; $phantomBelly = 0>>
+
+<<elseif $compressType is "ThighDecompress">><<set $thigh = $thigh + $phantomThigh; $phantomThigh = 0>><<endif>>
+
+<<endnobr>><<endif>>
+<<display BodySystems>><<display Alert>>
+<framed><<if $powerType is "leupaiCompression">><<nobr>>
+
+
+/% Fat compression %/
+
+<<if ($phantomGirth lte ($girth/3)) and ($phantomBreast lte ($breast/3)) and ($phantomBelly lte ($belly/3)) and ($phantomThigh lte ($thigh/3))>>
+<<button [[Full Body Compress.|passage()][$inUse = 1; $compressType = "BodyCompress"]]>><<endif>>
+
+<<if $phantomGirth lte ($girth/3)>>
+<<button [[Compress Body.|passage()][$inUse = 1; $compressType = "GirthCompress"]]>><<endif>>
+
+<<if $phantomBreast lte ($breast/3)>>
+<<button [[Compress Breasts.|passage()][$inUse = 1; $compressType = "BreastCompress"]]>><<endif>>
+
+<<if $phantomBelly lte ($belly/3)>>
+<<button [[Compress Belly.|passage()][$inUse = 1; $compressType = "BellyCompress"]]>><<endif>>
+
+<<if $phantomThigh lte ($thigh/3)>>
+<<button [[Compress Thighs.|passage()][$inUse = 1; $compressType = "ThighCompress"]]>><<endif>>
+
+
+<<endnobr>>
+<<nobr>>
+
+/% Fat decompression %/
+
+<<if ($phantomGirth neq 0) and ($phantomBreast neq 0) and ($phantomBelly neq 0) and ($phantomThigh neq 0)>>
+<<button [[Full Body Decompress.|passage()][$inUse = 2; $compressType = "BodyDecompress"]]>><<endif>>
+
+<<if $phantomGirth neq 0>>
+<<button [[Decompress Body.|passage()][$inUse = 2; $compressType = "GirthDecompress"]]>><<endif>>
+
+<<if $phantomBreast neq 0>>
+<<button [[Decompress Breasts.|passage()][$inUse = 2; $compressType = "BreastDecompress"]]>><<endif>>
+
+<<if $phantomBelly neq 0>>
+<<button [[Decompress Belly.|passage()][$inUse = 2; $compressType = "BellyDecompress"]]>><<endif>>
+
+<<if $phantomThigh neq 0>>
+<<button [[Decompress Thighs.|passage()][$inUse = 2; $compressType = "ThighDecompress"]]>><<endif>>
+
+
+<<endnobr>>
+<<nobr>>
+
+/% Fat shifting %/
+
+
+<<if $girth gte $strength * 12>>
+<<button [[Body Fat into Breast Fat.|passage()][$inUse = 1; $compressType = "BodyToBreast"]]>><<endif>>
+
+<<if $belly gte $strength * 10>>
+<<button [[Belly Fat into Breast Fat.|passage()][$inUse = 1; $compressType = "BellyToBreast"]]>><<endif>>
+
+<<if $thigh gte $strength * 10>>
+<<button [[Thigh Fat into Breast Fat.|passage()][$inUse = 1; $compressType = "ThighToBreast"]]>><<endif>>
+
+<<if ($girth gte $strength * 12) and ($belly gte $strength * 10) and ($thigh gte $strength * 10)>>
+<<button [[Belly, Thigh & Body Fat into Breast Fat.|passage()][$inUse = 1; $compressType = "IntoBreast"]]>><<endif>>
+
+<<if $breast gte $strength * 10>>
+<<button [[Breast Fat into Belly Fat.|passage()][$inUse = 1; $compressType = "BreastToBelly"]]>><<endif>>
+
+<<if $thigh gte $strength * 10>>
+<<button [[Thigh Fat into Belly Fat.|passage()][$inUse = 1; $compressType = "ThighToBelly"]]>><<endif>>
+
+<<if $girth gte $strength * 14>>
+<<button [[Body Fat into Belly Fat.|passage()][$inUse = 1; $compressType = "BodyToBelly"]]>><<endif>>
+
+<<if ($girth gte $strength * 14) and ($breast gte $strength * 10) and ($thigh gte $strength * 10)>>
+<<button [[Body, Breast & Thigh Fat into Belly Fat.|passage()][$inUse = 1; $compressType = "IntoBelly"]]>><<endif>>
+
+<<if $breast gte $strength * 10>>
+<<button [[Breast Fat into Thigh Fat.|passage()][$inUse = 1; $compressType = "BreastToThigh"]]>><<endif>>
+
+<<if $belly gte $strength * 10>>
+<<button [[Belly Fat into Thigh Fat.|passage()][$inUse = 1; $compressType = "BellyToThigh"]]>><<endif>>
+
+<<if $girth gte $strength * 10>>
+<<button [[Body Fat into Thigh Fat.|passage()][$inUse = 1; $compressType = "BodyToThigh"]]>><<endif>>
+
+<<if ($girth gte $strength * 14) and ($breast gte $strength * 10) and ($belly gte $strength * 10)>>
+<<button [[Body, Breast & Belly Fat into Thigh Fat.|passage()][$inUse = 1; $compressType = "IntoThigh"]]>><<endif>>
+
+<<if $belly gte $strength * 10>>
+<<button [[Belly Fat into Body Fat.|passage()][$inUse = 1; $compressType = "BellyToBody"]]>><<endif>>
+
+<<if $breast gte $strength * 10>>
+<<button [[Breast Fat into Body Fat.|passage()][$inUse = 1; $compressType = "BreastToBody"]]>><<endif>>
+
+<<if $thigh gte $strength * 10>>
+<<button [[Thigh Fat into Body Fat.|passage()][$inUse = 1; $compressType = "ThighToBody"]]>><<endif>>
+
+<<if ($girth gte $strength * 14) and ($belly gte $strength * 10) and ($thigh gte $strength * 10)>>
+<<button [[Belly, Breast & Thigh Fat into Body Fat.|passage()][$inUse = 1; $compressType = "IntoBody"]]>><<endif>>
+
+<<endnobr>><<endif>></framed><<endif>>
+<<button [[Continue.|$saveState][$compressType = 0; $powerType = 0]]>></center></framed>

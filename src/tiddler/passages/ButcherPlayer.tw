@@ -1,0 +1,36 @@
+﻿/% ==================================== %/
+/% Examines the most recent player corpse and attempts to break it down into resources. Maybe will include items later (bones, crystals, dragon scales etc), but not yet.
+
+For now, let's do meat and fat. %/
+
+/% Conditional adjustments %/
+
+<<if ($deathCause is "eaten") or ($deathCause is "incineration") or ($deathCause is "explosion")>><<set $corpseMeat = $corpseMeat * either(0.5,0.6,0.7,0.8)>><<endif>>
+
+<<set $corpseMeat = Math.round($corpseMeat)>>
+
+/% Meat yield %/
+<<if ($corpseSpecies is "leupai") or ($corpseSpecies is "helene") or ($corpseSpecies is "somnian") or ($corpseSpecies is "fyynling") or ($corpseSpecies is "fyynling horror")>><<set $leupaiResource = $corpseMeat>>
+
+/% No meat, no fat; only slime. %/
+<<elseif ($corpseSpecies is "slime") or ($subspecies is "slime")>><<set $jellyResource = ($corpseMeat + $corpseFat); $corpseFat = 0>>
+
+<<elseif $corpseSpecies is "mythosi">><<set $dragonResource = $corpseMeat>>
+
+<<else>><<set $meatResource = $corpseMeat>><<endif>>
+
+
+
+
+/% Fat yield %/
+<<if $corpseFat gt 0>><<set $fatResource = $corpseFat; $corpseFat = Math.round($corpseFat)>><<endif>>
+
+
+/% Milk yield %/
+<<if $corpseMilk gt 0>><<set $milkResource = $corpseMilk; $corpseMilk = Math.round($corpseMilk)>><<endif>>
+
+
+/% Misc yield %/
+<<if ($corpseSpecies is "leupai") or ($corpseSpecies is "helene") or ($corpseSpecies is "fyynling") or ($corpseSpecies is "fyynling horror") or ($subspecies is "fyynling")>><<set $miraResource = random(2,8)>><<endif>>
+
+<<if $deathCause is "drowned">><<set $waterResource = random(5,12)>><<endif>>

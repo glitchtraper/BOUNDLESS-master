@@ -1,0 +1,4 @@
+﻿<<nobr>><<display ZoneBackgrounds>><<display ItemDatabase>><<set $itemQuantity = 1>>
+<<print "<<set $" + $itemID + " += " + $itemQuantity + ">>">><<set $itemQuantity = 0>><<endnobr>>
+<framed>You return your <<print $itemEncounter>> to the inventory.</framed>
+[[Continue.|Inventory]]

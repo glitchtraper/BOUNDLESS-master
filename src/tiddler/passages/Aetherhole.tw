@@ -1,0 +1,6 @@
+﻿<<display ZoneBackgrounds>><center>[img[aetherhole]]</center>
+
+The edges of the aetherhole glow and shift as you peer inside; a simple passage between two points in time and space....
+
+<framed><center><<display AetherholeSetup>></center></framed>
+<center><<button [[Leave.|$saveStateEncounter][$explore = 3; $indoorZone = 0; $dungeonType = 0]]>></center>

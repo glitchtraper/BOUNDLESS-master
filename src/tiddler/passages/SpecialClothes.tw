@@ -1,0 +1,20 @@
+﻿/% ========================================= %/
+
+/% ================= %/
+/% Expanding Set - slowly makes the effective body parts fatter until removed or burst. %/
+
+	<<if $beltWorn is "expanding belt">>
+		<<set $belly += random(0,3)>>
+			<<if $beltStatus is "tight">>
+				<<set $belly += random(1,3)>><<endif>>
+			<<if $beltStatus is "creaking">>
+				<<set $belly += random(2,6)>><<endif>>
+	<<endif>>
+
+/% ================= %/
+/% Cursed Fat Demon Set - slowly makes the effective body parts fatter; cannot be removed. %/
+
+	<<if $beltWorn is "fat demon belt">>
+	<<set $beltCursed = 1>>
+		<<set $belly += random(0,8)>>
+	<<endif>>

@@ -1,0 +1,7 @@
+﻿<<print "<<set $plot" + $plotID + " = 0>>">>
+<<print "<<set $plot" + $plotID + "Species = 0>>">>
+<<print "<<set $plot" + $plotID + "PlantStart = 0>>">>
+<<print "<<set $plot" + $plotID + "PlantTimer = 0>>">>
+<<print "<<set $plot" + $plotID + "PlantAge = 0>>">>
+<<print "<<set $plot" + $plotID + "PlantName = 0>>">>
+<<print "<<set $plot" + $plotID + "PlantColor = 0>>">>

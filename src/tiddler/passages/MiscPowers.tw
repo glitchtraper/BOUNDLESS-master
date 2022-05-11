@@ -1,0 +1,29 @@
+﻿<<if $flight is 1>><<if $indoorZone is 0>>''__Fly__''
+<<nobr>>
+
+/% Results of travel depend on the population of the current area. %/
+
+<<if $popDensity neq "low">>
+<<button [[Seek Mediquerie.|Mediquerie][$saveStateEncounter = "Explore"; $cycleWeather = 1]]>>
+
+<<button [[Seek Fatiere.|Fatiere][$saveStateEncounter = "Explore"; $weatherType = 0; $newWeather = 1; $cycleWeather = 1]]>>
+
+<<button [[Seek Bovieterie.|Bovieterie][$saveStateEncounter = "Explore"; $cycleWeather = 1]]>><<endif>>
+
+
+<<button [[Seek Billeporte.|Billeporte][$saveStateEncounter = "Explore"; $cycleWeather = 1]]>>
+
+
+<<button [[Seek Dungeon.|Explore][$dungeonType = either("Abandoned Laboratory Mound","Abandoned Storage Mound"); $saveStateEncounter = "Explore"; $specStatus = 0; $exploring = 3; $indoorZone = 1; $dungeonLocation = $dungeonType; $cycleWeather = 1]]>>
+
+
+<<button [[Fly Away.|Explore][$startBiome = 0; $location = $startBiome; $locName = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $hours += random(1,2); $cycleWeather = 1]]>>
+
+
+<<if ($hasMound is 1) and ($plane is $moundPlane) and ($moundwPlanetID is $planetID)>>
+<<button [[Fly Home.|Mound][$locName = $moundLocation; $location = $moundBiome; $cycleWeather = 1]]>>
+
+<<endif>>
+
+<<endnobr>><<else>>''//You can only Fly in Overworld areas.//''<<endif>>\
+<<else>>''//You are too fat to fly!//''<<endif>>

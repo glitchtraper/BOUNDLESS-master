@@ -1,0 +1,345 @@
+﻿/% ========== Loot Tables ==========  %/
+
+/% Called by the Hunting script on a successful catch.
+Whether you eat or butcher the creature in question, there's a chance extra goodies fall out.
+
+For ease of use here, if something drops a usable item it gets put in your inventory.
+
+Don't forget to tidy up first. %/
+
+<<set $dropped = 0; $itemQuantity = 0; $itemEncounter = 0>>
+
+
+/% ============================================= %/
+/% Template - Small Mammal %/
+
+	<<if $lootTable is 1>>
+
+	<<set $randomizer = either(0,0,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("little bones","tuft of fur","tuft of fur"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = either("tiny skull","small pelt"); $dropped = 1>>
+<<endif>>
+
+/% ============================================= %/
+/% Template - Small Bird %/
+
+	<<elseif $lootTable is 2>>
+
+	<<set $randomizer = either(0,0,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("little bones","tuft of feathers","tuft of feathers"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = "tiny skull"; $dropped = 1>>
+<<endif>>
+
+/% ============================================= %/
+/% Template - Small Fish/Reptile %/
+
+	<<elseif $lootTable is 3>>
+
+	<<set $randomizer = either(0,0,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("little bones","brilliant scales","brilliant scales"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = "tiny skull"; $dropped = 1>>
+<<endif>>
+
+/% ============================================= %/
+/% Template - Beast %/
+
+	<<elseif $lootTable is 4>>
+
+	<<set $randomizer = either(0,0,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("haunch of meat","fat haunch of meat","hide scraps","hide scraps"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = either("tattered hide","tattered hide","tattered hide","pristine hide"); $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% Template - Leupai %/
+
+	<<elseif $lootTable is 5>>
+
+	<<set $randomizer = either(0,0,1,1,1,1,2,2,2,3)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("brilliant scales","brilliant scales","fat haunch of leupai meat","leupai oil","jar of leupai blood","leupai skin","leupai skin"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = either("jar of leupai milk","jar of miratoxin","jar of wild miratoxin","cracked facet","bloated venom sac"); $dropped = 1>>
+
+		/% Rare %/
+		<<elseif $randomizer is 3>><<set $itemEncounter = "pristine facet"; $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% Template - Tentacle %/
+
+	<<elseif $lootTable is 6>>
+
+	<<set $randomizer = either(0,0,1)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = "plump tentacle"; $itemQuantity = random(1,3); $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% Template - Slime %/
+
+	<<elseif $lootTable is 7>>
+
+	<<set $randomizer = either(0,0,1)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = "jar of slime"; $itemQuantity = random(1,2); $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% Unicorn %/
+
+	<<elseif $lootTable is 8>>
+	/% Always drops %/
+
+	<<set $itemEncounter = "spiral horn"; $itemQuantity = 1; $dropped = 1>>
+
+/% ============================================= %/
+/% Voxi %/
+
+	<<elseif $lootTable is 9>>
+
+	<<set $randomizer = either(0,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("little bones","tuft of fur","tuft of fur"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = "voxi tail"; $dropped = 1>>
+<<endif>>
+
+/% ============================================= %/
+/% Stag %/
+
+	<<elseif $lootTable is 10>>
+
+	<<set $randomizer = either(0,0,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("haunch of meat","fat haunch of meat","hide scraps","hide scraps"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = either("broken antler","broken antler","broken antler","trophy antlers"); $dropped = 1>>
+<<endif>>
+
+/% ============================================= %/
+/% Razormouth %/
+
+	<<elseif $lootTable is 11>>
+
+	<<set $randomizer = either(0,1,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("haunch of meat","fat haunch of meat","hide scraps","tuft of feathers","gleaming feather"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = "wicked claw"; $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% Wooly Razormouth %/
+
+	<<elseif $lootTable is 12>>
+
+	<<set $randomizer = either(0,1,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("fat haunch of meat","hide scraps","thick pelt","gleaming feather"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = "wicked claw"; $dropped = 1>>
+<<endif>>
+
+/% ============================================= %/
+/% Scaled Beast %/
+
+	<<elseif $lootTable is 13>>
+
+	<<set $randomizer = either(0,0,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("haunch of meat","fat haunch of meat","hide scraps","hide scraps","wicked claw"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = "armored hide"; $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% Rockcharger %/
+
+	<<elseif $lootTable is 14>>
+
+	<<set $randomizer = either(0,0,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("haunch of meat","fat haunch of meat","hide scraps","thick pelt"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = "ram horn"; $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% Template - Insect %/
+
+	<<elseif $lootTable is 15>>
+
+	<<set $randomizer = either(0,0,1)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("chitin plate","jar of slime"); $itemQuantity = random(1,3); $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% Jewel Scorpion %/
+
+	<<elseif $lootTable is 16>>
+
+	<<set $randomizer = either(0,0,1,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("chitin plate","jar of slime"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = either("bloated venom sac","bloated venom sac","tiny gem"); $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% Template - Carnivorous Beast %/
+
+	<<elseif $lootTable is 17>>
+
+	<<set $randomizer = either(0,0,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("haunch of meat","fat haunch of meat","hide scraps","bloated gut"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = either("tattered hide","tattered hide","tattered hide","pristine hide"); $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% Template - Gluttonous Predator %/
+
+	<<elseif $lootTable is 18>>
+
+	<<set $randomizer = either(0,0,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("haunch of meat","fat haunch of meat","hide scraps","bloated gut","bloated gut"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = either("tattered hide","tattered hide","tattered hide","pristine hide"); $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% Template - Giant Gluttonous Predator %/
+
+	<<elseif $lootTable is 19>>
+
+	<<set $randomizer = either(0,0,1,1,2)>>
+
+		/% No drop (womp womp) %/
+		<<if $randomizer is 0>><<set $itemEncounter = 0>>
+
+		/% Common %/
+		<<elseif $randomizer is 1>><<set $itemEncounter = either("armored hide","wicked claw","wicked claw","huge bloated gut","huge bloated gut"); $itemQuantity = random(1,3); $dropped = 1>>
+
+		/% Uncommon %/
+		<<elseif $randomizer is 2>><<set $itemEncounter = either("tattered hide","tattered hide","tattered hide","pristine hide"); $dropped = 1>>
+<<endif>>
+
+
+/% ============================================= %/
+/% End tables %/
+<<endif>>
+
+/% ============================================= %/
+/% Output %/
+
+
+<<if $itemEncounter neq 0>>
+<<display ItemDatabase>><<endif>>
+
+/% ================================================ %/
+

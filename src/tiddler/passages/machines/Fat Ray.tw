@@ -1,0 +1,34 @@
+﻿<<display ZoneBackgrounds>><<set $seenIt_fatRay = 1>><<if $newMachine is 1>><<display MachineEfficiency>><<set $maintained = 3; $maintenanceCap = 0>><<endif>>
+It's an odd piece of equipment that looks like a large, high-tech cannon with railings, handles, and wires along the sides and back, tipped with a chunk of miracrystal and bolted down to the floor.
+
+''A manual sticking from the back seems to imply it's a fat ray.''<<if $inUse is 1>>\
+You carefully set up the ray and turn it on, setting the timer before quickly positioning yourself and preparing for the blast.
+
+The cannon begins to hum, the floor vibrating as it charges up and fires-- ''enveloping you in a strange, warm beam of light that makes your insides quiver.
+
+After a few moments, your body begins to swell with a new layer of soft fat!''<<set $girth += $machinePower; $belly += $machinePower; $bellyBloat = $maxBelly * 0.3; $breast += $machinePower; $calories += $machinePower; $milkFat += random(0,2); $thigh += $machinePower; $thighFirmness -= $machinePower; $inUse = 0; $randomizer = either(1,6)>><<if $randomizer is 1>>
+
+You can virtually ''feel your metabolism slowing to a crawl...''<<set $metaGain += either(10,10,20); $metaBurn -= either(10,10,20)>><<endif>><<display ExpandBodytype>><<elseif $inUse is 2>>
+You carefully set up the ray and turn it on, setting the timer before quickly positioning yourself and preparing for the blast, grinning as you squish the crystal-tipped barrel right against your belly.
+
+The cannon begins to hum, the floor vibrating as it charges up before releasing its blast ''directly into your gut, which grows incredibly warm before suddenly swelling fatter, billowing outwards like dough!''
+
+You groan and squirm, but struggle to stay still until it finishes-- it's //much// more potent this way, and your new, fatter belly feels ready to pop!<<set $belly += ($machinePower * 2); $calories += ($machinePower * 2); $bellyBloat = $maxBelly * 2.5; $inUse = 0; $randomizer = either(1,4); $pain += random(1,3); $playerBody = "bloated">><<if $randomizer is 1>>
+
+You can virtually ''feel your metabolism slowing to a crawl...''<<set $metaGain += either(10,10,20); $metaBurn -= either(10,10,20)>><<endif>><<if $bodyType is 0>><<set $bodyType = either(0,0,"belly")>><<elseif $bodyType is "thigh">><<set $bodyType = "pear">><<elseif $bodyType is "belly">><<set $bodyType = "guguetelle">><<endif>><<endif>><<if $doMaintenance is 1>>
+
+You sit, removing the back panel from the equipment and setting to work!<<set $doMaintenance = 0>><<if $successMaintenance is 1>>
+After a bit of careful evaluation and maintenance work, ''the machine is now in <<if $machineEfficiency is "poor">><<set $machineEfficiency = "fair">>fair condition!<<elseif $machineEfficiency is "fair">><<set $machineEfficiency = "good">>good condition!<<endif>><<display MachineEfficiency>><<set $maintenanceCap = 1>>''
+<<else>>You work and fiddle with the parts, circuits, and controls, ''but the thing is fighting you all the way..!''<<endif>><<endif>><<if $machinePower gt $machineBattery>>
+''It looks like it's run out of power.''<<if $special_battery gt 0>><<button [[Use a battery.|passage()][$special_battery -= 1; $machineBattery += random(8,24); $inUse = 0]]>><<endif>><<endif>>
+<<display BodySystems>><<display Effects>>
+<center><framed><<nobr>>
+
+<<if $machinePower lte $machineBattery>><<button [[Use it.|passage()][$machineBattery -= $machinePower; $inUse = 1]]>>
+
+<<button [[...Press your belly against it.|passage()][$machineBattery -= $machinePower; $inUse = 2; $lethalKO = either(0,1); $deathCause = "burst belly"]]>><<endif>>
+
+<<if ($activeOcc is "Smithier") or ($activeOcc is "Datiere")>><<if ($maintained gt 0) and ($machineEfficiency neq "good") and ($machineEfficiency neq "excellent") and ($machineEfficiency neq "flawless") and ($maintenanceCap neq 1) and ($pain lt 60)>><<button [[Attempt Maintenance.|passage()][$inUse = 0; $maintained -= 1; $doMaintenance = 1; $successMaintenance = either(0,1)]]>><<endif>><<endif>>
+
+<<endnobr>></framed>
+<<button [[Back.|$saveStateSpecial][$inUse = 0]]>></center>

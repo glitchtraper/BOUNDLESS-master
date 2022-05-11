@@ -1,0 +1,30 @@
+﻿/% Checks your current bodily dimensions, and assigns a new body type. %/
+
+<<if ($bodyStage is 0) or ($bodyStage is 1)>>
+
+<<if ($breast gte $belly * 0.8) and ($breast gte $thigh * 0.8)>>
+<<set $bodyType = "busty">><<endif>>
+
+<<if ($breast gte $belly * 0.8) and ($thigh gte $breast * 0.8)>>
+<<set $bodyType = "hourglass">><<endif>>
+
+<<if ($breast gte $thigh * 1.2) and ($belly gte $breast * 0.8)>>
+<<set $bodyType = "round">><<endif>>
+
+<<if ($belly gte $breast * 1.5) and ($belly gte $thigh * 1.5)>>
+<<set $bodyType = "belly">><<endif>>
+
+<<if ($belly gte $breast * 1.2) and ($thigh gte $belly)>>
+<<set $bodyType = "pear">><<endif>>
+
+<<if ($thigh gte $breast * 1.2) and ($thigh gte $belly)>>
+<<set $bodyType = "thigh">><<endif>>
+
+<<endif>>
+
+
+/% Stage checking %/
+
+<<if $bodyType is 0>><<set $bodyStage = 0>><<endif>>
+
+<<if ($bodyType is "busty") or ($bodyType is "hourglass") or ($bodyType is "round") or ($bodyType is "belly") or ($bodyType is "pear") or ($bodyType is "thigh")>><<set $bodyStage = 1>><<endif>>

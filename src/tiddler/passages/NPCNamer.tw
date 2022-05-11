@@ -1,0 +1,44 @@
+﻿<<set $revStandardName = either("Aariar","Gleerier","Kelchesai","Lyii","Meraie","Nalieur","Neesier","Radlier","Coumiltreau","Andand","Mairautreau","Zeuriet","Aarindi","Aerat","Arice","Auinran","Faerore","Faesai","Fahlandi","Hearath","Iser","Maillath","Mairan","Meuhan","Naecai","Neroet","Revral","Saldi","Saro","Sialane","Fayai","Heil","Maroet","Veraami","Naath","Torautan","Siaricore","Torroi","Chochesie","Radissel")>>
+
+<<set $revHardName = either("Aareula","Arartan","Miraroil","Naerus","Torriroit","Trarheit","Pilricet","Mairmilath","Revnakhan","Arllran","Ceaaet","Chobeah","Hebei","Neurl","Revll","Salldi","Glerague","Couesheit","Auerkhan")>>
+
+<<set $revDictionaryName = either("Abitte","Abore","Adifagiet","Afliette","Anigma","Archetoix","Arglien","Arvet","Asaleut","Ascenti","Auisant","Avangue","Belatiere","Belcheri","Belebille","Belesse","Beletoire","Belette","Belite","Belsuite","Belte","Beltedier","Billet","Billetroa","Bilotte","Boret","Cassiet","Cavet","Ceri","Cesile","Cessile","Challe","Cham","Chantau","Chavaliet","Cher","Cheri","Colle","Combe","Consee","Consere","Consie","Consiee","Coudonsair","Creatrix","Croir","Cron","Danse","Donsair","Feire","Fesse","Folle","Galatee","Galleure","Grande","Groll","Gugue","Heite","Icor","Iicarn","Iiron","Induste","Intier","Keure","Laps","Leave","Lebret","Let","Leupak","Longe","Luche","Lum","Lumie","Lumiee","Lumiet","Lumy","Lumydanse","Ma","Maire","Ment","Mer","Mere","Mirajin","Miriet","Miriete","Mitte","Nobile","Noine","Non","Nourlee","Nuil","Oa","Oai","Ortolet","Ouncel","Oura","Ouri","Plene","Pliete","Ponte","Presse","Rec","Reite","Revere","Revet","Revetelle","Revetoire","Roil","Ros","Rule","Russ","Scalle","Silesse","Soc","Starke","Suai","Suete","Susse","Sussere","Susseroit","Susset","Terreur","Toxe","Trai","Troi","Troia","Trois","Vair","Vaire","Veile","Velle","Vermil","Vesel","Vesell","Veselle","Vin","Vis","Vitee","Vito","Vitoi","Vitoque","Vitosse","Vitossi","Vouere")>>
+
+<<set $revDynaGenName = either("A","Aar","And","Ar","Au","Ce","Cho","Cou","Fa","Fah","Fle","Gle","Gy","He","Is","Kae","Kel","Ly","Ma","Mai","Mair","Me","Mir","Na","Ne","Pil","Rad","Rev","Sa","Sia","Tor","Tr","Ver","Ze") + either("aa","au","an","ar","be","ches","ec","er","eu","es","firi","gae","i","il","in","is","iss","lan","li","ll","mil","na","o","ra","ren","ric","ri","ro","th","ur","y","yl") + either("","","","","","","a","ah","ai","an","ar","at","ath","and","d","di","dil","e","el","et","eur","gue","han","heit","i","il","ie","ier","iet","khan","l","la","mi","ore","ran","roi","roil","roit","se","tan","tri","troia","treau","troi","troil","us","ud")>>
+
+<<set $dregName = either("Ae","Aou","Ar","Au","Ay","Cris","Criss","Crys","Cryst","Dar","Dr","Dra","Drae","Draeg","Draen","Draet","Draett","Dran","Drao","Draou","Draout","Draoute","Drau","Dre","Dreg","Dregt","Dregth","Dren","Dretg","Drett","Dron","Drote","Drout","Ee","Eou","Er","Eu","Ey","Feu","Feur","Feuri","Feurie","Fl","Fla","Fle","Fler","Flet","Flette","Fliet","Fliette","Flit","Flite","Fur","Furi","Furie","Furiet","Gae","Gar","Gou","Gr","Gra","Gran","Grand","Grans","Granst","Granth","Gre","Gree","Grei","Gren","Grens","Grenst","Gret","Gretch","Gretche","Gretchen","Gu","Gy","Gya","Gyaa","Har","Hare","Harel","Haren","Hari","Hart","Ie","Iou","Ir","Iu","Iy","Ka","Ke","Kel","Kell","Kelli","Kellin","Kellit","Kellith","Ken","Ker","Keuil","Keul","Keur","Meg","Mega","Megae","Sk","Ska","Skae","Sky","Te","Tel","Tet","Tetant","Tetanth","Teth","Tethan","Tethant","Tethi") + either("akis","a","aeran","ah","ai","air","aire","airen","ala","ali","aliess","aliet","alio","alion","aliss","alla","an","and","ar","at","ath","ay","ayl","ayla","aylla","d","di","dil","e","eir","ekis","eks","ekss","ekz","el","er","era","erae","eran","erin","ern","err","et","eur","ex","exe","gue","han","heit","i","ickz","ie","ier","iet","iks","il","ix","ixx","khan","l","la","mi","ore","ran","roi","roil","roit","se","tan","treau","tri","troi","troia","troil","ud","us")>>
+
+<<set $randomizer = random(1,2)>>
+
+<<if $randomizer is 1>><<set $revName = $revDictionaryName>>
+<<elseif $randomizer is 2>><<set $revName = $revDynaGenName>><<endif>>
+
+<<set $randomizer = either(1,1,1,1,1,1,2,2,2,2,2,3,4,5,6)>>
+
+<<if $randomizer is 1>><<set $planetName = $revDictionaryName>>
+<<elseif $randomizer is 2>><<set $planetName = $revDynaGenName>>
+<<elseif $randomizer is 3>><<set $planetName = $revDynaGenName + " " + $revDictionaryName>>
+<<elseif $randomizer is 4>><<set $planetName = $revDictionaryName + " " + $revDynaGenName>>
+<<elseif $randomizer is 5>>
+<<set $planetName = $revDictionaryName>>
+
+<<set $revDictionaryName = either("Abitte","Abore","Adifagiet","Afliette","Anigma","Archetoix","Arglien","Arvet","Asaleut","Ascenti","Auisant","Avangue","Belatiere","Belcheri","Belebille","Belesse","Beletoire","Belette","Belite","Belsuite","Belte","Beltedier","Billet","Billetroa","Bilotte","Boret","Cassiet","Cavet","Ceri","Cesile","Cessile","Challe","Cham","Chantau","Chavaliet","Cher","Cheri","Colle","Combe","Consee","Consere","Consie","Consiee","Coudonsair","Creatrix","Croir","Cron","Danse","Donsair","Feire","Fesse","Folle","Galatee","Galleure","Grande","Groll","Gugue","Heite","Icor","Iicarn","Iiron","Induste","Intier","Keure","Laps","Leave","Lebret","Let","Leupak","Longe","Luche","Lum","Lumie","Lumiee","Lumiet","Lumy","Lumydanse","Ma","Maire","Ment","Mer","Mere","Mirajin","Miriet","Miriete","Mitte","Nobile","Noine","Non","Nourlee","Nuil","Oa","Oai","Ortolet","Ouncel","Oura","Ouri","Plene","Pliete","Ponte","Presse","Rec","Reite","Revere","Revet","Revetelle","Revetoire","Roil","Ros","Rule","Russ","Scalle","Silesse","Soc","Starke","Suai","Suete","Susse","Sussere","Susseroit","Susset","Terreur","Toxe","Trai","Troi","Troia","Trois","Vair","Vaire","Veile","Velle","Vermil","Vesel","Vesell","Veselle","Vin","Vis","Vitee","Vito","Vitoi","Vitoque","Vitosse","Vitossi","Vouere")>>
+
+<<set $planetName = $planetName + " " + $revDictionaryName>>
+
+<<elseif $randomizer is 6>>
+<<set $planetName = $revDynaGenName>>
+
+<<set $revDynaGenName = either("A","Aar","And","Ar","Au","Ce","Cho","Cou","Fa","Fah","Fle","Gle","Gy","He","Is","Kae","Kel","Ly","Ma","Mai","Mair","Me","Mir","Na","Ne","Pil","Rad","Rev","Sa","Sia","Tor","Tr","Ver","Ze") + either("aa","au","an","ar","be","ches","ec","er","eu","es","firi","gae","i","il","in","is","iss","lan","li","ll","mil","na","o","ra","ren","ric","ri","ro","th","ur","y","yl") + either("","","","","","","a","ah","ai","an","ar","at","ath","and","d","di","dil","e","el","et","eur","gue","han","heit","i","il","ie","ier","iet","khan","l","la","mi","ore","ran","roi","roil","roit","se","tan","tri","troia","treau","troi","troil","us","ud")>>
+
+<<set $planetName = $planetName + " " + $revDynaGenName>>
+
+<<endif>>
+
+<<set $randomizer = random(1,10)>>
+
+<<if $randomizer is 1>>
+<<set $planetName = either("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Sigma","Upsilon","Omega","Laps","On","Tuoi","Trai","Non","Alta") + " " + $planetName>>
+
+<<elseif $randomizer is 2>>
+<<set $planetName = $planetName + " " + either("I","II","III","du Ment","Lacarde","Lacarda","Iette","Grande","Roil","Ascenti","ac Revet","Prime")>><<endif>>

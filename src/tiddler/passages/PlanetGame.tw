@@ -1,0 +1,89 @@
+﻿<<display Clocks>>
+//<mini>[img[icon_clock]]month <<print $months>> (<<print $season>>), week <<print $weeks>>, day <<print $days>>: 0<<print $hours>>:0<<print $minutes>></mini>//
+''__PLANETARY MODE__''
+<center>[img[wip-plate]]</center>
+/% ========================= INITIALIZATION =========================
+Planetary Mode initialization.
+
+You get 10 rounds (for now) to be blown up into your starting dimensions.
+After that, the main game begins; you're given your starting population, and a couple starting options.
+
+The primary "goal" is to grow your population so that you can unlock more options. Beyond that, you can do whatever the fuck you want-- but you have to unlock the laboratories before you can get a new body and continue playing RPG mode!%/<<if $planetStage is 0>>
+<huge><rain>''The HYPOTHESIS scientists jettison you into the darkness of deep space!''</rain></huge>
+
+<framed><<if $planetStageTick lt 10>>You drift from your tether-hose linked to the billetroa, your head still fuzzy and vague as a sweet, buttery liquid pumps down your throat... ''//are they feeding you liquid fattenium?!//''
+
+The question answers itself as your body rapidly begins to bloat-- ''faster than you've ever before experienced!''
+You cry out in pain and shock, but the overwhelming sensation quickly balances into something more tolerable.
+
+You drift through the silent darkness, only aware of the feeling of your body swelling up into an ''enormous'' globe.
+
+There's nothing to do but float... and //wait//...<<elseif $planetStageTick is 10>>A small pod drifts from the nearby billetroa, settling atop your monstorusly-overinflated form.
+A door on the side slides open, ''allowing a small group of tiny people-- no, //they're// not tiny; //you're// just HUGE!-- out onto your surface before flying back towards the ship.''
+
+A few moments later, your tether detaches and retracts.
+The billetroa vanishes, slipping away through the folds of reality.
+
+If anything goes wrong, you can call them back again... ''but for now, it's just you and your budding population!''<<endif>></framed>
+<framedalert><center>[img[icon_gain]]Your body bloats up with incredible speed as ''your weight skyrockets!''<hr>
+[img[icon_gain]]Your belly grows uncomfortably warm...<brightalert>''Suddenly, it begins to rapidly expand, jiggling and bouncing as it blimps up with extra fat!''<hr></brightalert>
+[img[icon_gain]]Your breasts grow uncomfortably warm...<brightalert>''Suddenly, they begin to rapidly expand, jiggling and bouncing as they blimp up with extra fat!''<hr></brightalert>
+[img[icon_gain]]Your thighs grow uncomfortably warm...<brightalert>''Suddenly, they begin to rapidly expand, squishing and wobbling as they blimp up with extra fat!''<hr></brightalert>
+[img[icon_gain]]''Your body quivers, bulges, and surges-- <deepalert>the massive amount of fattenium in your system inflating you rapidly with tons of fat!''<hr></deepalert>
+[img[icon_gain]]Your enormous body groans as it swells rounder and rounder... ''you're growing fatter than you can even comprehend!''<<set $sanity -= random(1,5)>></center></framedalert><<nobr>>
+
+<<set $girth += either(900,1000,1100,1200,1500,1800,2000); $belly += either(1000,1100,1200,1500,1800,2000); $breast += either(900,1000,1100,1200,1500); $thigh += either(900,1000,1100,1200,1500); $planetStageTick += 1>><<display BodySystems>>
+
+<<endnobr>><<if $planetStageTick is 10>><<set $planetStage = 1; $planetPhase = "Development"; $planetGirth = $girth + $belly + $breast + $thigh + 100000; $hiddenSidebar = 1; $planetarySidebar = 1; $playerPlanetType = "Bloated"; $playerPlanetClass = "Temperate Living"; $playerPlanetFluid = "Clean Water"; $playerPlanetHumidity = "Average"; $playerPlanetAtmosphere = "Breathable">><<nobr>>
+
+/% Population setup; common species and animals %/
+<<set $humanPop = random(0,1000); $elfPop = random(0,100000); $arkaPop = random(0,1000); $playerPlanetPopulation = $humanPop + $elfPop + $arkaPop; $planetMeat = 250000; $planetCrops = 2500000; $playerAnimalPopulation = 500000000; $popAnimalFatness = 2000>>
+
+/% Base population girth %/
+<<set $popFatness = random(2500000,2500000)>>
+
+/% Fill out the rest with leupai! %/
+<<set $leupaiPop = 100000000 - $playerPlanetPopulation; $playerPlanetPopulation += $leupaiPop; $planetCivilians = $playerPlanetPopulation; $popFatness += $leupaiPop * 2>>
+
+/% Initial planet size class %/
+
+<<if $planetGirth / 10 lte 100000>><<set $playerPlanetSize = "Satellite">>
+<<elseif ($planetGirth / 10 gte 1000000) and ($planetGirth / 10 lt 50000000)>><<set $playerPlanetSize = "Moon">>
+<<elseif ($planetGirth / 10 gte 50000000) and ($planetGirth / 10 lt 100000000)>><<set $playerPlanetSize = "Dwarf Planet">>
+<<elseif ($planetGirth / 10 gte 100000000) and ($planetGirth / 10 lt 1000000000)>><<set $playerPlanetSize = "Planet">>
+<<elseif $planetGirth / 10 gte 1000000000>><<set $playerPlanetSize = "Titan Planet">><<endif>>
+
+<<endnobr>><<endif>>
+/% ========================= MAIN PHASE =========================
+
+Planetary Mode, main phase.
+Grow your population, have them build structures and develop a civilization.
+
+You can raise them to help you grow even bigger, experiment on them to turn them into different things, or guide their civilization to raise its own people as livestock and feed themselves to you!
+
+If your population dies out, you can call Hypo up to deliver you some new starters. %/
+
+<<else>><<set $hiddenSidebar = 1; $planetarySidebar = 1>>
+<<if $repopulatePlanet is 1>>
+
+<framed>A small pod drifts from the nearby billetroa, settling atop your monstorusly-overinflated form.
+A door on the side slides open, ''allowing a small group of tiny people-- no, //they're// not tiny; //you're// just huge!-- out onto your surface before flying back towards the ship.''
+
+A few moments later, your tether detaches and retracts.
+The billetroa vanishes, slipping away through the folds of reality.
+
+If anything goes wrong, you can call them back again... ''but for now, it's just you and your budding population!''</framed>
+<<nobr>>
+
+/% Population setup; common species and animals %/
+<<set $humanPop = random(0,3); $elfPop = random(0,3); $arkaPop = random(0,3); $playerPlanetPopulation = $humanPop + $elfPop + $arkaPop; $planetMeat = 25; $planetCrops = 25; $playerAnimalPopulation = 50; $popAnimalFatness = 20>>
+
+/% Base population girth %/
+<<set $popFatness = random(18,25)>>
+
+/% Fill out the rest with leupai! %/
+<<set $leupaiPop = 100000000 - $playerPlanetPopulation; $playerPlanetPopulation += $leupaiPop>>
+<<set $popFatness += $leupaiPop * 2; $planetCivilians = $playerPlanetPopulation>>
+
+<<set $repopulatePlanet = 0>><<endnobr>><<endif>>
+<<display PlanetGameControls>><<endif>><<if $pausePlanetGame is 0>><<timedgoto passage() 2s >><<endif>>

@@ -1,0 +1,25 @@
+﻿<<display Clocks>><<display ZoneBackgrounds>>\
+''__<brightalert>Your Mound!</brightalert>
+ <<display ZoneDisplay>>__''
+''__Plot <<print $plotID>>__''<<nobr>>
+
+/% post-combat stealth plot clear %/
+<<if $emptyPlot is 1>><<display PlotClear>><<endif>>
+
+<<display PlotTraits>>
+<<if $planted neq 0>><<display PlantDatabase>><<endif>>
+<<if $forcefedPet neq 0>><<display PlotItemEffect>><<set $forcefedPet = 0>><<endif>>
+
+<<endnobr>><center>
+<<if $planted is 0>><affirmative>''Ready for Planting!''</affirmative>
+<<else>>
+[img[$plantImg]]
+__''<<if $plantName neq 0>><<print $plantName>> the <<endif>><<if $plantColor neq 0>><<print $plantColor>> <<endif>><<print $plantSpecies>>''__
+''Age:'' <<print $plantAge>>
+''Thirsty?'' <<print $plantNeedsWater>>
+<<endif>>
+<framed>\
+<<if $plotCaption neq 0>><<print $plotCaption>><<set $plotCaption = 0>>
+<<endif>>\
+<<display PlotOptions>></center></framed>
+<center><<button [[Back.|Greenhouse][$planted = 0]]>></center>

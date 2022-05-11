@@ -1,0 +1,68 @@
+﻿/% ================================================= %/
+/% Post-combat executions. %/
+
+/% Character growth %/
+<<if ($combatResult is "victory") or ($combatResult is "capture")>>
+
+/% The more difficult the opponent defeated, the higher the chance of stat growth. %/
+<<set $levelChance = random(1,100)>>
+
+<<if $encounterDifficulty is "easy">>
+/% 30% level chance %/
+	<<if $levelChance gte 80>><<set $leveled = 1>><<endif>>
+
+<<elseif $encounterDifficulty is "normal">>
+/% 40% level chance %/
+	<<if $levelChance gte 70>><<set $leveled = 1>><<endif>>
+
+<<elseif $encounterDifficulty is "hard">>
+/% 60% level chance %/
+	<<if $levelChance gte 50>><<set $leveled = 1>><<endif>>
+
+<<elseif $encounterDifficulty is "deadly">>
+/% Guaranteed level %/
+	<<set $leveled = 1>><<endif>>
+
+<<endif>>
+
+<<if $leveled is 1>>
+<<set $leveled = 0>>
+	/% Strength build %/
+		<<if $pain gte ($maxPain/4)>><<set $strength += 1; $gotStronger = 1>>
+	/% Finesse build %/
+		<<elseif $fatScore lt ($immobilityCeiling * 0.35)>><<set $finesse += 1; $gotNimbler = 1>>
+	/% Vitality build %/
+		<<else>><<set $naturalMaxPain += 10; $gotResilient = 1>><<endif>>
+
+<<endif>>
+
+
+/% ================================================= %/
+/% Combat Cleanup. %/
+
+<<set $baseDamage = 0; $combatMagnitude = 0; $playerDamage = 0; $enemyDamage = 0>>
+
+<<set $encounterUnique = 0; $playerDefenseless = 0>>
+
+<<set $playerChoice = 0; $combatWeaken = 0; $encounterSubtype = 0; $enemyPain = 0; $enemyDeath = 0; $killingBlow = 0; $weakeningVenom = 0; $combatWeaken = 0; $movesetOverride = 0; $fleeProtection = 0; $battleRound = 0; $combatLocked = 0; $fleeDisabled = 0>>
+
+<<set $companionAbility = 0; $calledCompanion = 0>>
+
+/% Shields %/
+<<set $shieldValue = 0; $enemy_shieldValue = 0; $shieldType = 0; $enemy_shieldType = 0; $shieldHP = 0; $enemy_shieldHP = 0>>
+
+/% DOT Ticks %/
+<<set $heldDOT = 0; $stranglationDOT = 0; $strangleBonus = 0; $smotherDOT = 0; $smotherBonus = 0; $feedingDOT = 0; $consumeBonus = 0; $hoseDOT = 0; $swallowDOT = 0; $indigestionDOT = 0>>
+
+<<set $enemy_stranglationDOT = 0; $enemy_feedingDOT = 0; $enemy_hoseDOT = 0; $enemy_eggDOT = 0; $enemy_swallowDOT = 0; $enemy_bleedDOT = 0; $bleedDOT = 0>>
+
+<<set $enemy_toxicVenom = 0; $enemy_lethalVenom = 0; $enemy_gainVenom = 0; $enemy_supergainVenom = 0; $enemy_bellygainVenom = 0; $enemy_bellySupergainVenom = 0; $enemy_breastgainVenom = 0; $enemy_breastSupergainVenom = 0; $enemy_thighgainVenom = 0; $enemy_thighSupergainVenom = 0; $enemy_fatteniumVenom = 0; $enemy_bulkVenom = 0; $enemy_bloatVenom = 0; $enemy_burstVenom = 0; $enemy_breastbloatVenom = 0; $enemy_healVenom = 0; $enemy_gluttonVenom = 0; $enemy_caloricVenom = 0; $enemy_hallucenoVenom = 0; $enemy_mutagenVenom = 0; $enemy_flabbyVenom = 0; $enemy_weakeningVenom = 0; $enemy_leucanthropicVenom = 0>>
+
+/% Special DOTs %/
+<<set $incandescenceTick = 0>>
+
+/% Status Effects %/
+<<set $enemyFear = 0; $enemyDaze = 0; $enemyBlocked = 0; $fear = 0; $daze = 0; $blocked = 0>>
+
+/% Stasis %/
+<<set $creatureStasis = 0>>

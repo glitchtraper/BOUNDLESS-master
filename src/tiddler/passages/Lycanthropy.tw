@@ -1,0 +1,85 @@
+﻿/% A player can only be one type of lycanthrope. Once a player is a lycanthrope, they are immune to contracting any other type of lycanthropy until the condition is cured. %/
+
+<<if $shiftPhase is 0>>
+	/% I. Transformation prep. Store stats for retrieval later. %/
+
+	<<set $unshiftSpecies = $species; $unshiftSubpecies = $subspecies>>
+
+	/% Body grid %/
+	<<if $playerFace neq 0>><<set $unshiftFace = $playerFace>><<endif>>
+	<<if $playerSkin neq 0>><<set $unshiftSkin = $playerSkin>><<endif>>
+
+	/% II. Transformation. Check lycanthropy type and make the necessary changes. %/
+
+	<<if $sanity gte 70>><<set $sanity -= 1>><<endif>>
+
+	/% Laworn %/
+	<<if $lycanthropy is "laworn">>
+
+		/% Species + combat stats %/
+		<<set $species = "leupai"; $subspecies = "laworn">>
+		<<set $naturalMaxPain += either(10,15,20); $strength += random(5,8); $finesse += random(3,5); $pain = $maxPain/5; $health = "Sore">>
+
+		/% Body grid %/
+
+		<<if $lawornForm is 0>>/% Initial laworn form selection. %/
+			<<set $lawornFace = either("blunt","canine","canine","seal","vulpine","boid")>>
+			<<set $lawornSkin = either("smooth","scaled","armored","studded","bumpy","fish-scaled","carapaced","furry","furry","furry","velvet","crystalline","feathered")>>
+			<<set $lawornBody = either("blimplike","bloated","blubber-stuffed","blubbery","bulging","flabby","gelatinous","monstrous","pot-bellied","serpentine")>>
+			<<set $lawornForm = 1>><<endif>>
+
+				<<set $unshiftFace = $playerFace; $unshiftSkin = $playerSkin; $unshiftBody = $playerBody>>
+				<<set $playerFace = $lawornFace; $playerSkin = $lawornSkin; $playerBody = $lawornBody>>
+
+
+		/% Weight gain %/
+		/% Wereleup shifting adds fat as well as muscle mass. Emphasized body parts grow larger than unemphasized, as in standard weight gain. %/
+
+			<<if ($bodyType is 0) or ($bodyType is "bulging")>>
+				<<set $shiftGainBody = either(300,400,500,600); $shiftGainBelly += either(100,200,300,400,500); $shiftGainBreast += either(100,150,200); $shiftGainThigh += either(100,200,300)>>
+
+			<<elseif ($bodyType is "busty") or ($bodyType is "hourglass") or ($bodyType is "boviete") or ($bodyType is "cubus")>>
+				<<set $shiftGainBody += either(300,400,500); $shiftGainBelly += either(100,200,300); $shiftGainBreast += either(300,400,500); $shiftGainThigh += either(100,200,300)>>
+
+			<<elseif ($bodyType is "round") or ($bodyType is "belly") or ($bodyType is "guguetelle")>>
+				<<set $shiftGainBody += either(400,500,600,700); $shiftGainBelly += either(300,400,500); $shiftGainBreast += either(100,150,200); $shiftGainThigh += either(200,300,400,500)>>
+
+			<<elseif ($bodyType is "pear") or ($bodyType is "thigh") or ($bodyType is "bulging") or ($bodyType is "bloatpear") or ($bodyType is "blimpthigh")>>
+				<<set $shiftGainBody += either(300,400,500); $shiftGainBelly += either(200,300,400,500); $shiftGainBreast += either(100,150,200); $shiftGainThigh += either(400,500)>>
+			<<endif>>
+
+			<<set $girth += $shiftGainBody; $belly += $shiftGainBelly; $breast += $shiftGainBreast; $thigh += $shiftGainThigh>>
+
+		<<endif>>
+
+	<<set $wereShift = 1>>
+
+<<endif>>
+
+
+<<if $shiftPhase is 1>>
+	/% Reversion. Check lycanthropy type and make the necessary changes. %/
+
+	/% Laworn %/
+	<<if $lycanthropy is "laworn">>
+
+		/% Species + combat stats %/
+		<<set $species = $unshiftSpecies; $subspecies = $unshiftSubpecies>>
+		<<set $naturalMaxPain -= either(10,15); $strength -= random(3,8); $finesse -= random(2,5); $pain = $maxPain/5; $health = "Sore">>
+
+		/% Body grid %/
+		<<set $playerFace = $unshiftFace; $playerSkin = $unshiftSkin; $playerBody = $unshiftBody>>
+
+		/% Weight reversion %/
+		/% Shifting back has a chance of leaving you fatter than you started, especially if it's a body part with emphasized gain. %/
+
+			<<set $girth -= ($shiftGainBody - either(0,50,100,150,150,200,250,300)); $belly -= ($shiftGainBelly - either(0,20,30,40,50,60,70,80,90,100)); $breast -= ($shiftGainBreast - either(0,20,30,40,50,60,70,80,90,100)); $thigh -= ($shiftGainThigh - either(0,20,30,40,50,60,70,80,90,100))>>
+		<<endif>>
+
+	/% If you ate anything and it hasn't finished digesting, you bloat up as your body shrinks back down. %/
+	<<if $bellyStatus is "full">><<set $bellyBloat = $maxBelly * 1.5; $bellyStatus = "bursting">>
+	<<elseif $bellyStatus is "bloated">><<set $bellyBloat = $maxBelly * 2; $bellyStatus = "bursting">><<endif>>
+
+	<<set $wereShift = 2>>
+
+<<endif>>

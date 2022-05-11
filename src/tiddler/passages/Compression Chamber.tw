@@ -1,0 +1,108 @@
+﻿<<display ZoneBackgrounds>><<set $seenIt_Compression = 1>><<if $newMachine is 1>><<display MachineEfficiency>><<set $maintained = 3; $maintenanceCap = 0>><<endif>>
+It's an odd piece of equipment with a large, enterable chamber attached to a control panel and a series of thick cables.
+
+''A label on the side announces it as a Compression Chamber.''
+
+<<if $inUse is 1>>
+You carefully set up the machine, then slide into the compression chamber, which locks into place around you.
+
+After a few moments, soft fabric envelops you as the pressure in the chamber increases-- ''squeezing your body tightly!
+
+Gasping for breath, you squirm uncomfortably as you feel the intense pressure squishing the fat around inside you!''
+
+Finally, the pressure recedes again, and the chamber unlocks, releasing you out into the world with a reshaped form.
+
+<<if $sanity gte 70>><bleak>//''It unnerves you a bit...''//</bleak><<set $sanity -= 1>><<endif>><<nobr>>
+
+<<set $inUse = 0>>
+
+<<if $compressType is "BodyToBreast">><<set $girth -= $machinePower; $breast += $machinePower; $breastBloat += $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "BellyToBreast">><<set $belly -= $machinePower; $bellyBloat -= $machinePower; $breast += $machinePower; $breastBloat += $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "ThighToBreast">><<set $thigh -= $machinePower; $thighFirmness += $machinePower; $breast += $machinePower; $breastBloat += $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "IntoBreast">><<set $girth -= $machinePower; $belly -= $machinePower; $bellyBloat -= $machinePower; $thigh -= $machinePower; $thighFirmness += $machinePower; $breast += ($machinePower * 4); $breastBloat += ($machinePower * 3); $machineBattery -= ($machinePower * 2)>><<endif>>
+
+<<if $compressType is "BreastToBelly">><<set $belly += $machinePower; $bellyBloat += $machinePower; $breast -= $machinePower; $breastBloat -= $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "ThighToBelly">><<set $belly += $machinePower; $bellyBloat += $machinePower; $thigh -= $machinePower; $thighFirmness += $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "BodyToBelly">><<set $belly += $machinePower; $bellyBloat += $machinePower; $girth -= $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "IntoBelly">><<set $girth -= $machinePower; $breast -= $machinePower; $breastBloat -= $machinePower; $thigh -= $machinePower; $thighFirmness += $machinePower; $belly += ($machinePower * 2); $bellyBloat += ($machinePower * 3); $machineBattery -= ($machinePower * 3)>><<endif>>
+
+<<if $compressType is "BodyToThigh">><<set $girth -= $machinePower; $thigh += $machinePower; $thighFirmness += $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "BellyToThigh">><<set $belly -= $machinePower; $bellyBloat -= $machinePower; $thigh += $machinePower; $thighFirmness -= $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "BreastToThigh">><<set $thigh += $machinePower; $thighFirmness -= $machinePower; $breast -= $machinePower; $breastBloat -= $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "IntoThigh">><<set $girth -= $machinePower; $belly -= $machinePower; $bellyBloat -= $machinePower; $breast -= $machinePower; $breastBloat -= $machinePower; $thigh += ($machinePower * 4); $thighFirmness -= ($machinePower * 3); $machineBattery -= ($machinePower * 2)>><<endif>>
+
+<<if $compressType is "BreastToBody">><<set $girth += $machinePower; $breast -= $machinePower; $breastBloat -= $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "BellyToBody">><<set $belly -= $machinePower; $bellyBloat -= $machinePower; $girth -= $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "ThighToBody">><<set $girth += $machinePower; $thigh -= $machinePower; $thighFirmness += $machinePower; $machineBattery -= $machinePower>><<endif>>
+
+<<if $compressType is "IntoBody">><<set $belly -= $machinePower; $bellyBloat -= $machinePower; $breast -= $machinePower; $breastBloat -= $machinePower; $thigh -= $machinePower; $thighFirmness += $machinePower; $girth += ($machinePower * 4); $machineBattery -= ($machinePower * 3)>><<endif>>
+
+<<endnobr>><<display BodySystems>><<display Effects>><<endif>>\
+
+<<if $doMaintenance is 1>>
+
+You sit, removing the back panel from the equipment and setting to work!<<set $doMaintenance = 0>><<if $successMaintenance is 1>>
+After a bit of careful evaluation and maintenance work, ''the machine is now in <<if $machineEfficiency is "poor">><<set $machineEfficiency = "fair">>fair condition!<<elseif $machineEfficiency is "fair">><<set $machineEfficiency = "good">>good condition!<<endif>><<display MachineEfficiency>><<set $maintenanceCap = 1>>''
+<<else>>You work and fiddle with the parts, circuits, and controls, ''but the thing is fighting you all the way..!''
+<<endif>><<endif>><<if $machinePower gt $machineBattery>>
+''It looks like it's run out of power.''<<if $special_battery gt 0>>
+<<button [[Use a battery.|passage()][$special_battery -= 1; $machineBattery += random(8,24); $inUse = 0]]>><<endif>><<else>><mini><center><framed><<nobr>>
+
+<narrowframe><<if $girth gte $machinePower>>
+<<button [[Body Fat into Breast Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "BodyToBreast"]]>><<endif>>
+
+<<if $belly gte $machinePower>>
+<<button [[Belly Fat into Breast Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "BellyToBreast"]]>><<endif>>
+
+<<if $thigh gte $machinePower>>
+<<button [[Thigh Fat into Breast Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "ThighToBreast"]]>><<endif>>
+
+<<if ($girth gte $machinePower) and ($belly gte $machinePower) and ($thigh gte $machinePower)>>
+<<button [[Belly, Thigh & Body Fat into Breast Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "IntoBreast"]]>><<endif>></narrowframe>
+<narrowframe><<if $breast gte $machinePower>>
+<<button [[Breast Fat into Belly Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "BreastToBelly"]]>><<endif>>
+
+<<if $thigh gte $machinePower>>
+<<button [[Thigh Fat into Belly Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "ThighToBelly"]]>><<endif>>
+
+<<if $girth gte $machinePower>>
+<<button [[Body Fat into Belly Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "BodyToBelly"]]>><<endif>>
+
+<<if ($girth gte $machinePower) and ($breast gte $machinePower) and ($thigh gte $machinePower)>>
+<<button [[Body, Breast & Thigh Fat into Belly Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "IntoBelly"]]>><<endif>></narrowframe>
+<narrowframe><<if $breast gte $machinePower>>
+<<button [[Breast Fat into Thigh Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "BreastToThigh"]]>><<endif>>
+
+<<if $belly gte $machinePower>>
+<<button [[Belly Fat into Thigh Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "BellyToThigh"]]>><<endif>>
+
+<<if $girth gte $machinePower>>
+<<button [[Body Fat into Thigh Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "BodyToThigh"]]>><<endif>>
+
+<<if ($girth gte $machinePower) and ($breast gte $machinePower) and ($belly gte $machinePower)>>
+<<button [[Body, Breast & Belly Fat into Thigh Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "IntoThigh"]]>><<endif>></narrowframe>
+<narrowframe><<if $belly gte $machinePower>>
+<<button [[Belly Fat into Body Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "BellyToBody"]]>><<endif>>
+
+<<if $breast gte $machinePower>>
+<<button [[Breast Fat into Body Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "BreastToBody"]]>><<endif>>
+
+<<if $thigh gte $machinePower>>
+<<button [[Thigh Fat into Body Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "ThighToBody"]]>><<endif>>
+
+<<if ($girth gte $machinePower) and ($belly gte $machinePower) and ($thigh gte $machinePower)>>
+<<button [[Belly, Breast & Thigh Fat into Body Fat.|passage()][$machineBattery -= $machinePower; $inUse = 1; $compressType = "IntoBody"]]>><<endif>></narrowframe>
+
+<<endnobr>></mini><<if ($activeOcc is "Smithier") or ($activeOcc is "Datiere")>><<if ($maintained gt 0) and ($machineEfficiency neq "good") and ($machineEfficiency neq "excellent") and ($machineEfficiency neq "flawless") and ($maintenanceCap neq 1) and ($pain lt 60)>><hr> <<button [[Attempt Maintenance.|passage()][$inUse = 0; $maintained -= 1; $doMaintenance = 1; $successMaintenance = either(0,1)]]>><<endif>><<endif>></framed></center><<endif>>
+<center><<button [[Back.|$saveStateSpecial][$compressType = 0; $inUse = 0]]>></center>

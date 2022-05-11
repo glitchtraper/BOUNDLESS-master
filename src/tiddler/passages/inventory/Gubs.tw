@@ -1,0 +1,254 @@
+﻿/% ========================================== %/
+/% Special Items %/
+
+<<if $special_dreamshard gt 0>>
+<<button [[Dreamshard|passage()][$selectedItem = 1; $itemID = "special_dreamshard"; $itemName = "Dreamshard"; $itemType = 0; $itemTag = "mira"; $itemDesc = "A small chunk of magenta crystal, pleasantly cool to the touch."]]>><<endif>>
+
+<<if $special_battery gt 0>>
+<<button [[Battery Crystal|passage()][$selectedItem = 1; $itemID = "special_battery"; $itemName = "Battery Crystal"; $itemType = 0; $itemTag = "mira"; $itemDesc = "A chunk of miracrystal with a faint, warm glow. This one doesn't make you feel funny."]]>><<endif>>
+
+<<if $special_miracrystal gt 0>>
+<<button [[Live Miracrystal Chunk|passage()][$selectedItem = 1; $itemID = "special_miracrystal"; $itemName = "Live Miracrystal Chunk"; $itemType = "food"; $itemTag = "dangerous"; $itemDesc = "This chunk of miracrystal seems to buzz unsettlingly in your hand..."]]>><<endif>>
+
+<<if $shard_recall gt 0>>
+<<button [[Recall Shard|passage()][$selectedItem = 1; $itemID = "shard_recall"; $itemName = "Recall Shard"; $itemType = 0; $itemTag = "mira"; $itemDesc = "This little chunk of miracrystal will summon an aetherhole to take you back home from anywhere on the same planet!"]]>><<endif>>
+
+<<if $shard_stasis gt 0>>
+<<button [[Stasis Shard|passage()][$selectedItem = 1; $itemID = "shard_stasis"; $itemName = "Stasis Shard"; $itemType = 0; $itemTag = "rare"; $itemDesc = "You feel as though this chunk of miracrystal is tugging on your very essence..!"]]>><<endif>>
+
+<<if $shard_genesis gt 0>>
+<<button [[Genesis Shard|passage()][$selectedItem = 1; $itemID = "shard_genesis"; $itemName = "Genesis Shard"; $itemType = 0; $itemTag = "mira"; $itemDesc = "An oddly-sparkling, fist-sized crystal. It seems to pulse with a life of its own in your hands!"]]>><<endif>>
+
+<<if $shard_egress gt 0>>
+<<button [[Egress Shard|passage()][$selectedItem = 1; $itemID = "shard_egress"; $itemName = "Egress Shard"; $itemType = 0; $itemDesc = "This little chunk of crystal seems to blur whenever you look directly at it... Use in combat to escape immediately!"]]>><<endif>>
+
+<<if $shard_shield gt 0>>
+<<button [[Shield Shard|passage()][$selectedItem = 1; $itemID = "shard_shield"; $itemName = "Shield Shard"; $itemType = 0; $itemDesc = "This crystal fits in the palm of your hand. Holding it makes you feel well-protected..."]]>><<endif>>
+
+<<if $special_depthmeter gt 0>>
+<<button [[Depth Meter|passage()][$selectedItem = 1; $itemID = "special_depthmeter"; $itemName = "Depth Meter"; $itemType = 0; $itemDesc = "A handy little device that allows for more deliberate travel through subterranean areas."]]>><<endif>>
+
+<<if $special_gcounter gt 0>>
+<<button [[Geiger Counter|passage()][$selectedItem = 1; $itemID = "special_gcounter"; $itemName = "Geiger Counter"; $itemType = 0; $itemDesc = "Detects radiation. If it starts clicking, you've got a problem..."]]>><<endif>>
+
+<<if $special_jar gt 0>>
+<<button [[Glass Jar|passage()][$selectedItem = 1; $itemID = "special_jar"; $itemName = "Glass Jar"; $itemType = 0; $itemDesc = "A simple empty jar. You could probably keep something in it!"]]>><<endif>>
+
+
+/% ========================================== %/
+/% Dartguns & Darts %/
+
+<<if $gun_dart gt 0>>
+<<button [[Dartgun|passage()][$selectedItem = 1; $itemID = "gun_dart"; $itemName = "Dartgun"; $itemType = 0; $itemDesc = "A HYPOTHESIS-issue dartgun. Usable with all standard darts."]]>><<endif>>
+
+<<if $dart_tranq gt 0>>
+<<button [[Tranquilizer Dart|passage()][$selectedItem = 1; $itemID = "dart_tranq"; $itemName = "Tranquilizer Dart"; $itemType = 0; $itemDesc = "Full of a potent serum for inducing sleep."]]>><<endif>>
+
+<<if $dart_fattenium gt 0>>
+<<button [[Fattenium Dart|passage()][$selectedItem = 1; $itemID = "dart_fattenium"; $itemName = "Fattenium Dart"; $itemType = 0; $itemDesc = "Full of liquid fattenium, good for rapidly fleshing out targets."]]>><<endif>>
+
+<<if $dart_distensium gt 0>>
+<<button [[Distensium Dart|passage()][$selectedItem = 1; $itemID = "dart_distensium"; $itemName = "Distensium Dart"; $itemType = 0; $itemDesc = "Full of liquid distensium-- useful if you like balloons!"]]>><<endif>>
+
+<<if $dart_toxic gt 0>>
+<<button [[Toxic Dart|passage()][$selectedItem = 1; $itemID = "dart_toxic"; $itemName = "Toxic Dart"; $itemType = 0; $itemDesc = "This dart's only purpose is to kill... The Asotirix design is unmistakable."]]>><<endif>>
+
+
+
+
+/% ========================================== %/
+/% Weapons & Ammo %/
+
+<<if $gun_fatray gt 0>>
+<<button [[Fat Ray|passage()][$selectedItem = 1; $itemID = "gun_fatray"; $itemName = "Fat Ray"; $itemType = 0; $itemDesc = "A raygun that emits strange energy. HYPOTHESIS uses these to harmlessly incapacitate would-be threats... Mostly harmlessly. Requires batteries to use."]]>><<endif>>
+
+<<if $gun_bass gt 0>>
+<<button [[Bass Cannon|passage()][$selectedItem = 1; $itemID = "gun_bass"; $itemName = "Bass Cannon"; $itemType = 0; $itemDesc = "A powerful sonic weapon used by disciples of Andreu to subdue attackers... Kick it. Requires batteries to use."]]>><<endif>>
+
+<<if $knife_crescent gt 0>>
+<<button [[Crescent Knife|passage()][$selectedItem = 1; $itemID = "knife_crescent"; $itemName = "Crescent Knife"; $itemType = 0; $itemDesc = "This vicious blade will rip flesh wide open!"]]>><<endif>>
+
+
+/% ========================================== %/
+/% Magical & Cursed Items %/
+
+<<if $special_carving_belly gt 0>>
+<<button [[Balloon-Bellied Leupai Carving|passage()][$selectedItem = 1; $itemID = "special_carving_belly"; $itemName = "Balloon-Bellied Leupai Carving"; $itemType = 0; $itemTag = "cursed"; $noDiscard = 1; $itemDesc = "A little crystal carving in the shape of a leupai with an ENORMOUS round belly. Holding it makes your own belly tingle..."]]>><<endif>>
+
+<<if $special_carving_breast gt 0>>
+<<button [[Balloon-Breasted Leupai Carving|passage()][$selectedItem = 1; $itemID = "special_carving_breast"; $itemName = "Balloon-Breasted Leupai Carving"; $itemType = 0; $itemTag = "cursed"; $noDiscard = 1; $itemDesc = "A little crystal carving in the shape of a leupai with huge, balloon breasts. Holding it makes your own chest tingle..."]]>><<endif>>
+
+<<if $special_carving_thigh gt 0>>
+<<button [[Balloon-Thighed Leupai Carving|passage()][$selectedItem = 1; $itemID = "special_carving_thigh"; $itemName = "Balloon-Thighed Leupai Carving"; $itemType = 0; $itemTag = "cursed"; $noDiscard = 1; $itemDesc = "A little crystal carving in the shape of a leupai with the biggest, fattest thighs you've ever seen. Holding it makes your own thighs tingle..."]]>><<endif>>
+
+
+/% ========================================== %/
+/% Recipe/Flavor Items %/
+
+<<if $material_dirt gt 0>>
+<<button [[Dirt|passage()][$selectedItem = 1; $itemID = "material_dirt"; $itemName = "Dirt"; $itemType = 0; $itemDesc = "A handful of plain old dirt."]]>><<endif>>
+
+<<if $material_mud gt 0>>
+<<button [[Mud|passage()][$selectedItem = 1; $itemID = "material_mud"; $itemName = "Mud"; $itemType = 0; $itemDesc = "Like dirt, but wet and kind of gross."]]>><<endif>>
+
+<<if $material_grass gt 0>>
+<<button [[Grass|passage()][$selectedItem = 1; $itemID = "material_grass"; $itemName = "Grass"; $itemType = 0; $itemDesc = "A bundle of long grass. It'll do for tying things together."]]>><<endif>>
+
+<<if $material_sand gt 0>>
+<<button [[Sand|passage()][$selectedItem = 1; $itemID = "material_sand"; $itemName = "Sand"; $itemType = 0; $itemDesc = "Soft, warm sand. Don't let any get in your food... or delicate places."]]>><<endif>>
+
+<<if $material_snow gt 0>>
+<<button [[Snow|passage()][$selectedItem = 1; $itemID = "material_snow"; $itemName = "Snow"; $itemType = 0; $itemDesc = "Cold, wet, and sparkling white."]]>><<endif>>
+
+<<if $material_petals gt 0>>
+<<button [[Dry Petals|passage()][$selectedItem = 1; $itemID = "material_petals"; $itemName = "Dry Petals"; $itemType = 0; $itemDesc = "Beautiful flowers blown from nearby trees. Or perhaps, fallen from the sky..."]]>><<endif>>
+
+<<if $material_gravel gt 0>>
+<<button [[Gravel|passage()][$selectedItem = 1; $itemID = "material_gravel"; $itemName = "Gravel"; $itemType = 0; $itemDesc = "Crunchy... but please don't eat it."]]>><<endif>>
+
+<<if $material_soil gt 0>>
+<<button [[Fertile Soil|passage()][$selectedItem = 1; $itemID = "material_soil"; $itemName = "Fertile Soil"; $itemType = 0; $itemDesc = "Rich, loamy soil ready for farming and gardening."]]>><<endif>>
+
+<<if $material_rope gt 0>>
+<<button [[Rope|passage()][$selectedItem = 1; $itemID = "material_rope"; $itemName = "Rope"; $itemType = 0; $itemDesc = "A strong and sturdy woven rope."]]>><<endif>>
+
+<<if $material_leather_lace gt 0>>
+<<button [[Leather Lacing|passage()][$selectedItem = 1; $itemID = "material_leather_lace"; $itemName = "Leather Lacing"; $itemType = 0; $itemDesc = "Strips of sturdy leather to hold stuff together."]]>><<endif>>
+
+<<if $material_ash gt 0>>
+<<button [[Ash|passage()][$selectedItem = 1; $itemID = "material_ash"; $itemName = "Ash"; $itemType = 0; $itemDesc = "A pile of ashes. Useful..?"]]>><<endif>>
+
+<<if $material_rock gt 0>>
+<<button [[Rock|passage()][$selectedItem = 1; $itemID = "material_rock"; $itemName = "Rock"; $itemType = 0; $itemDesc = "A fist-sized chunk of rock."]]>><<endif>>
+
+<<if $material_obsidian gt 0>>
+<<button [[Obsidian|passage()][$selectedItem = 1; $itemID = "material_obsidian"; $itemName = "Obsidian"; $itemType = 0; $itemDesc = "Cooled black volcanic glass, beloved by diabolical architects everywhere."]]>><<endif>>
+
+<<if $material_metal gt 0>>
+<<button [[Metal|passage()][$selectedItem = 1; $itemID = "material_metal"; $itemName = "Metal"; $itemType = 0; $itemDesc = "Strong, sturdy metal, waiting to be crafted into all kinds of useful things!"]]>><<endif>>
+
+<<if $material_driftwood gt 0>>
+<<button [[Driftwood|passage()][$selectedItem = 1; $itemID = "material_driftwood"; $itemName = "Driftwood"; $itemType = 0; $itemDesc = "A bit waterlogged..."]]>><<endif>>
+
+<<if $material_glass gt 0>>
+<<button [[Glass|passage()][$selectedItem = 1; $itemID = "material_glass"; $itemName = "Glass"; $itemType = 0; $itemDesc = "See-through and versatile, but prone to shattering."]]>><<endif>>
+
+<<if $material_rubber gt 0>>
+<<button [[Rubber|passage()][$selectedItem = 1; $itemID = "material_rubber"; $itemName = "Glass"; $itemType = 0; $itemDesc = "See-through and versatile, but prone to shattering."]]>><<endif>>
+
+<<if $material_powder_bright gt 0>>
+<<button [[Bright Powder|passage()][$selectedItem = 1; $itemID = "material_powder_bright"; $itemName = "Bright Powder"; $itemType = 0; $itemDesc = "A handful of sparkling, iridescent dust..."]]>><<endif>>
+
+<<if $skull_tiny gt 0>>
+<<button [[Tiny Skull|passage()][$selectedItem = 1; $itemID = "skull_tiny"; $itemName = "Tiny Skull"; $itemType = 0; $itemDesc = "This little skull fits neatly in the palm of your hand."]]>><<endif>>
+
+<<if $skull_old gt 0>>
+<<button [[Old Skull|passage()][$selectedItem = 1; $itemID = "skull_old"; $itemName = "Old Skull"; $itemType = 0; $itemDesc = "It seems to stare jealously into your soul..."]]>><<endif>>
+
+<<if $skull_distorted gt 0>>
+<<button [[Distorted Skull|passage()][$selectedItem = 1; $itemID = "skull_old"; $itemName = "Distorted Skull"; $itemType = 0; $itemDesc = "This thing doesn't look... natural."]]>><<endif>>
+
+<<if $bones_tiny gt 0>>
+<<button [[Little Bones|passage()][$selectedItem = 1; $itemID = "bones_tiny"; $itemName = "Little Bones"; $itemType = 0; $itemDesc = "A handful of tiny bones, picked clean."]]>><<endif>>
+
+<<if $bones_old gt 0>>
+<<button [[Old Bones|passage()][$selectedItem = 1; $itemID = "bones_old"; $itemName = "Old Bones"; $itemType = 0; $itemDesc = "Chewed and yellowed. What did these come from?"]]>><<endif>>
+
+<<if $fur_tuft gt 0>>
+<<button [[Tuft of Fur|passage()][$selectedItem = 1; $itemID = "fur_tuft"; $itemName = "Tuft of Fur"; $itemType = 0; $itemDesc = "A cute little puff of soft fur."]]>><<endif>>
+
+<<if $feather_tuft gt 0>>
+<<button [[Tuft of Feathers|passage()][$selectedItem = 1; $itemID = "feather_tuft"; $itemName = "Tuft of Feathers"; $itemType = 0; $itemDesc = "A handful of downy feathers."]]>><<endif>>
+
+<<if $scales_brilliant gt 0>>
+<<button [[Brilliant Scales|passage()][$selectedItem = 1; $itemID = "scales_brilliant"; $itemName = "Brilliant Scales"; $itemType = 0; $itemDesc = "A handful of scales that shimmer in the faintest light."]]>><<endif>>
+
+<<if $chitin_plate gt 0>>
+<<button [[Chitin Plate|passage()][$selectedItem = 1; $itemID = "chitin_plate"; $itemName = "Chitin Plate"; $itemType = 0; $itemDesc = "A hard chunk of exoskeleton."]]>><<endif>>
+
+<<if $pelt_small gt 0>>
+<<button [[Small Pelt|passage()][$selectedItem = 1; $itemID = "pelt_small"; $itemName = "Small Pelt"; $itemType = 0; $itemDesc = "A whole pelt from a small creature."]]>><<endif>>
+
+<<if $pelt_thick gt 0>>
+<<button [[Small Pelt|passage()][$selectedItem = 1; $itemID = "pelt_thick"; $itemName = "Thick Pelt"; $itemType = 0; $itemDesc = "A warm, fluffy pelt-- great for insulation from the cold."]]>><<endif>>
+
+<<if $feather_gleaming gt 0>>
+<<button [[Gleaming Feather|passage()][$selectedItem = 1; $itemID = "feather_gleaming"; $itemName = "Gleaming Feather"; $itemType = 0; $itemDesc = "A beautiful, brilliantly-hued feather."]]>><<endif>>
+
+<<if $hide_scraps gt 0>>
+<<button [[Hide Scraps|passage()][$selectedItem = 1; $itemID = "hide_scraps"; $itemName = "Hide Scraps"; $itemType = 0; $itemDesc = "A learning experience?"]]>><<endif>>
+
+<<if $hide_tattered gt 0>>
+<<button [[Tattered Hide|passage()][$selectedItem = 1; $itemID = "hide_tattered"; $itemName = "Tattered Hide"; $itemType = 0; $itemDesc = "This one didn't turn out too well."]]>><<endif>>
+
+<<if $hide_armored gt 0>>
+<<button [[Armored Hide|passage()][$selectedItem = 1; $itemID = "hide_armored"; $itemName = "Armored Hide"; $itemType = 0; $itemDesc = "Tough, thick-plated beast's hide."]]>><<endif>>
+
+<<if $hide_leupai gt 0>>
+<<button [[Leupai Skin|passage()][$selectedItem = 1; $itemID = "hide_leupai"; $itemName = "Leupai Skin"; $itemType = 0; $itemDesc = "A thick, rubbery sheet of leupai skin."]]>><<endif>>
+
+<<if $hide_pristine gt 0>>
+<<button [[Pristine Hide|passage()][$selectedItem = 1; $itemID = "hide_pristine"; $itemName = "Pristine Hide"; $itemType = 0; $itemDesc = "A hide of exceptional quality, sure to be of value to someone..."]]>><<endif>>
+
+<<if $antler_broken gt 0>>
+<<button [[Broken Antler|passage()][$selectedItem = 1; $itemID = "antler_broken"; $itemName = "Broken Antler"; $itemType = 0; $itemDesc = "An antler, shattered during some sort of struggle."]]>><<endif>>
+
+<<if $antler_trophy gt 0>>
+<<button [[Trophy Antlers|passage()][$selectedItem = 1; $itemID = "antler_trophy"; $itemName = "Trophy Antlers"; $itemType = 0; $itemDesc = "A flawless, unbroken rack of antlers."]]>><<endif>>
+
+<<if $tail_voxi gt 0>>
+<<button [[Voxi Tail|passage()][$selectedItem = 1; $itemID = "tail_voxi"; $itemName = "Voxi Tail"; $itemType = 0; $itemDesc = "The cute, fluffy tail of a voxi."]]>><<endif>>
+
+<<if $claw_wicked gt 0>>
+<<button [[Wicked Claw|passage()][$selectedItem = 1; $itemID = "claw_wicked"; $itemName = "Wicked Claw"; $itemType = 0; $itemDesc = "A razor-sharp, crescent-shaped talon."]]>><<endif>>
+
+<<if $horn_ram gt 0>>
+<<button [[Ram Horn|passage()][$selectedItem = 1; $itemID = "horn_ram"; $itemName = "Ram Horn"; $itemType = 0; $itemDesc = "A great, curly horn."]]>><<endif>>
+
+<<if $horn_spiral gt 0>>
+<<button [[Spiral Horn|passage()][$selectedItem = 1; $itemID = "horn_spiral"; $itemName = "Spiral Horn"; $itemType = 0; $itemDesc = "The horn of a unicorn..?"]]>><<endif>>
+
+<<if $facet_cracked gt 0>>
+<<button [[Cracked Facet|passage()][$selectedItem = 1; $itemID = "facet_cracked"; $itemName = "Cracked Facet"; $itemType = 0; $itemDesc = "All that remains of a slain leupai."]]>><<endif>>
+
+<<if $facet_pristine gt 0>>
+<<button [[Pristine Facet|passage()][$selectedItem = 1; $itemID = "facet_pristine"; $itemName = "Pristine Facet"; $itemType = 0; $itemDesc = "All that remains of a slain leupai. This one is unmarred."]]>><<endif>>
+
+<<if $venomsac_bloated gt 0>>
+<<button [[Bloated Venom Sac|passage()][$selectedItem = 1; $itemID = "venomsac_bloated"; $itemName = "Bloated Venom Sac"; $itemType = 0; $itemDesc = "Like a little balloon full of horrible toxins."]]>><<endif>>/% strain to get a random jar of venom? %/
+
+<<if $gem_tiny gt 0>>
+<<button [[Tiny Gem|passage()][$selectedItem = 1; $itemID = "gem_tiny"; $itemName = "Tiny Gem"; $itemType = 0; $itemDesc = "A small, sparkling jewel. Certain to be worth something to someone."]]>><<endif>>
+
+<<if $gem_sparkling gt 0>>
+<<button [[Sparkling Gem|passage()][$selectedItem = 1; $itemID = "gem_sparkling"; $itemName = "Sparkling Gem"; $itemType = 0; $itemDesc = "A beautiful jewel. Certain to be worth something to someone."]]>><<endif>>
+
+<<if $gem_fistsized gt 0>>
+<<button [[Fist-Sized Gem|passage()][$selectedItem = 1; $itemID = "gem_fistsized"; $itemName = "Fist-Sized Gem"; $itemType = 0; $itemDesc = "An enormous, glittering jewel. Certain to be worth something to someone."]]>><<endif>>
+
+/% ========================================== %/
+/% Key Items (as opposed to actual keys...) %/
+
+<<if $key_firewood gt 0>>
+<<button [[Firewood|passage()][$selectedItem = 1; $itemID = "key_firewood"; $itemName = "Firewood"; $itemType = 0; $itemDesc = "Essential for whipping up a campfire!"]]>><<endif>>
+
+<<if $key_pickaxe gt 0>>
+<<button [[Basic Pickaxe|passage()][$selectedItem = 1; $itemID = "key_pickaxe"; $itemName = "Basic Pickaxe"; $itemType = 0; $itemDesc = "Break away loose rocks and ores with this handy tool. Made of stone, this one is prone to wearing away..."]]>><<endif>>
+
+<<if $key_pickaxe_metal gt 0>>
+<<button [[Metal Pickaxe|passage()][$selectedItem = 1; $itemID = "key_pickaxe_metal"; $itemName = "Metal Pickaxe"; $itemType = 0; $itemDesc = "Break away loose rocks and ores with this handy tool-- built to last."]]>><<endif>>
+
+<<if $key_axe gt 0>>
+<<button [[Basic Axe|passage()][$selectedItem = 1; $itemID = "key_axe"; $itemName = "Basic Axe"; $itemType = 0; $itemDesc = "Perfect for if you want to knock, knock, knock on wood... or just cut some."]]>><<endif>>
+
+<<if $key_shovel gt 0>>
+<<button [[Basic Shovel|passage()][$selectedItem = 1; $itemID = "key_shovel"; $itemName = "Basic Shovel"; $itemType = 0; $itemDesc = "If you need a lot of dirt or dirt-like substances, you can't go wrong with a shovel. This one is a little flimsy, though..."]]>><<endif>>
+
+<<if $key_shovel_metal gt 0>>
+<<button [[Metal Shovel|passage()][$selectedItem = 1; $itemID = "key_shovel_metal"; $itemName = "Metal Shovel"; $itemType = 0; $itemDesc = "If you need a lot of dirt or dirt-like substances, you can't go wrong with a shovel."]]>><<endif>>
+
+<<if $key_cookpot gt 0>>
+<<button [[Cooking Pot|passage()][$selectedItem = 1; $itemID = "key_cookpot"; $itemName = "Cooking Pot"; $itemType = 0; $itemDesc = "A durable metal pot for cooking and boiling all sorts of things in. An essential cooking tool."]]>><<endif>>
+
+<<if $key_filetknife gt 0>>
+<<button [[Filet Knife|passage()][$selectedItem = 1; $itemID = "key_filetknife"; $itemName = "Filet Knife"; $itemType = 0; $itemDesc = "Skillful hands can use this knife to make the most of any fresh carcass!"]]>><<endif>>

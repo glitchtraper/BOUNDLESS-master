@@ -1,0 +1,735 @@
+﻿/% elementDamage is the damage multiplier for an elemental type versus another elemental type.
+
+Ineffectuality is 0.1.
+Critical Weakness is 0.2.
+Weakness is 0.5.
+Default multiplier is 1 (no change).
+Strength is 1.5.
+Critical Strength is 2.
+Lethal Strength is 5. %/
+
+<<set $elementDamage = 1>> /% Default. %/
+
+/% =================================================== %/
+
+<<if $attacker is "enemy">>
+/% Calculate encounterElement damage against playerElement. %/
+
+<<set $offenseElement = $encounterElement; $defenseElement = $playerElement>>
+
+<<elseif $attacker is "player">>
+/% Calculate playerElement damage against encounterElement. %/
+
+<<set $offenseElement = $playerElement; $defenseElement = $encounterElement>>
+
+<<endif>>
+
+/% =================================================== %/
+/% Hard-set elements %/
+
+/% Use for attacks with specific elements, or abilities that temporarily change defender's element %/
+
+<<if $offenseElementOverride neq 0>><<set $offenseElement = $offenseElementOverride; $offenseElementOverride = 0>><<endif>>
+
+<<if $defenseElementOverride neq 0>><<set $defenseElement = $defenseElementOverride; $defenseElementOverride = 0>><<endif>>
+
+/% =================================================== %/
+/% TYPELESS %/
+
+<<if $offenseElement is 0>>
+
+/% Placeholder slot; nothing to see here... move along... %/
+
+/% =================================================== %/
+/% MIRAJIN %/
+
+<<elseif $offenseElement is "mirajin">>
+<<set $elementCall = $offenseElement>>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "metal") or ($defenseElement is "air") or ($defenseElement is "decay") or ($defenseElement is "void") or ($defenseElement is "sonic") or ($defenseElement is "light") or ($defenseElement is "arcane") or ($defenseElement is "electric")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "crystal") or ($defenseElement is "earth") or ($defenseElement is "fire") or ($defenseElement is "liquid") or ($defenseElement is "eldritch") or ($defenseElement is "love") or ($defenseElement is "whimsy") or ($defenseElement is "toxic")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "water") or ($defenseElement is "vegetal") or ($defenseElement is "fungal") or ($defenseElement is "vitae")>><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "fat") or ($defenseElement is "food") or ($defenseElement is "balloon") or ($defenseElement is "vore") or ($defenseElement is "parasite") or ($defenseElement is "psionic")>><<set $elementDamage = 2>>
+
+<<endif>>
+
+/% =================================================== %/
+/% VITAE %/
+
+<<elseif $offenseElement is "vitae">>
+<<set $elementCall = "vital energy">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void") or ($defenseElement is "light") or ($defenseElement is "sonic") or ($defenseElement is "air") or ($defenseElement is "vegetal") or ($defenseElement is "fire") or ($defenseElement is "arcane") or ($defenseElement is "psionic") or ($defenseElement is "electric") or ($defenseElement is "radiation") or ($defenseElement is "eldritch") or ($defenseElement is "love") or ($defenseElement is "whimsy")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "earth") or ($defenseElement is "water")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "fungal") or ($defenseElement is "vitae")>><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "vore") or ($defenseElement is "liquid") or ($defenseElement is "egg") or ($defenseElement is "parasite") or ($defenseElement is "viral")>><<set $elementDamage = 2>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "decay") or ($defenseElement is "toxic") or ($defenseElement is "mirajin")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% ARCANE %/
+
+<<elseif $offenseElement is "arcane">>
+<<set $elementCall = "magical force">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "whimsy") or ($defenseElement is "love")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "void") or ($defenseElement is "eldritch")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "metal") or ($defenseElement is "crystal") or ($defenseElement is "earth")>><<set $elementDamage = 1.5>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% PSIONIC %/
+
+<<elseif $offenseElement is "psionic">>
+<<set $elementCall = "psionic energy">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "mirajin") or ($defenseElement is "void") or ($defenseElement is "air") or ($defenseElement is "radiation") or ($defenseElement is "viral") or ($defenseElement is "light")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "metal") or ($defenseElement is "vegetal") or ($defenseElement is "fungal") or ($defenseElement is "whimsy") or ($defenseElement is "decay") or ($defenseElement is "earth")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "crystal")>><<set $elementDamage = 1.5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% ELECTRIC %/
+
+<<elseif $offenseElement is "electric">>
+<<set $elementCall = "crackling plasma">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void") or ($defenseElement is "light") or ($defenseElement is "sonic") or ($defenseElement is "air") or ($defenseElement is "earth") or ($defenseElement is "fire") or ($defenseElement is "arcane") or ($defenseElement is "radiation")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif $defenseElement is "crystal">><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "vore")>><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "metal")>><<set $elementDamage = 2>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "water") or ($defenseElement is "liquid")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% RADIATION %/
+
+<<elseif $offenseElement is "radiation">>
+<<set $elementCall = "nuclear power">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void") or ($defenseElement is "light") or ($defenseElement is "sonic") or ($defenseElement is "fire") or ($defenseElement is "arcane") or ($defenseElement is "radiation") or ($defenseElement is "crystal") or ($defenseElement is "metal")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif $defenseElement is "toxic">><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "water") or ($defenseElement is "liquid")>><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "vore") or ($defenseElement is "earth") or ($defenseElement is "vegetal") or ($defenseElement is "fungal") or ($defenseElement is "viral") or ($defenseElement is "parasite") or ($defenseElement is "egg")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% SONIC %/
+
+<<elseif $offenseElement is "sonic">>
+<<set $elementCall = "hypersonic waves">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void") or ($defenseElement is "light") or ($defenseElement is "radiation") or ($defenseElement is "metal") or ($defenseElement is "electric") or ($defenseElement is "viral")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "vegetal") or ($defenseElement is "fungal") or ($defenseElement is "decay")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "earth") or ($defenseElement is "parasite") or ($defenseElement is "bestial") or ($defenseElement is "vore") or ($defenseElement is "psionic") or ($defenseElement is "arcane") or ($defenseElement is "water") or ($defenseElement is "liquid") or ($defenseElement is "fat") or ($defenseElement is "eldritch")>><<set $elementDamage = 2>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "fire") or ($defenseElement is "air") or ($defenseElement is "balloon") or ($defenseElement is "crystal") or ($defenseElement is "egg")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% LIGHT %/
+
+<<elseif $offenseElement is "light">>
+<<set $elementCall = "blinding light">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "fire") or ($defenseElement is "whimsy") or ($defenseElement is "void") or ($defenseElement is "crystal")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "water") or ($defenseElement is "liquid") or ($defenseElement is "earth")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif $defenseElement is "vegetal">><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif $defenseElement is "eldritch">><<set $elementDamage = 2>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "fungal") or ($defenseElement is "decay")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% ELDRITCH %/
+
+<<elseif $offenseElement is "eldritch">>
+<<set $elementCall = "sheer darkness">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "viral") or ($defenseElement is "parasite") or ($defenseElement is "void") or ($defenseElement is "metal") or ($defenseElement is "crystal") or ($defenseElement is "decay")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif $defenseElement is "fungal">><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "light") or ($defenseElement is "sonic") or ($defenseElement is "love")>><<set $elementDamage = 2>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "fire") or ($defenseElement is "vegetal")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% VOID %/
+
+<<elseif $offenseElement is "void">>
+<<set $elementCall = "crushing gravity">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "whimsy") or ($defenseElement is "viral")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "earth") or ($defenseElement is "water") or ($defenseElement is "liquid") or ($defenseElement is "metal") or ($defenseElement is "crystal") or ($defenseElement is "love")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif $defenseElement is "decay">><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "vore") or ($defenseElement is "vegetal") or ($defenseElement is "fungal") or ($defenseElement is "fire") or ($defenseElement is "air") or ($defenseElement is "balloon") or ($defenseElement is "parasite") or ($defenseElement is "egg") or ($defenseElement is "light")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% LOVE %/
+
+<<elseif $offenseElement is "love">>
+<<set $elementCall = "overpowering love">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if $defenseElement is "void">><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "earth") or ($defenseElement is "fire") or ($defenseElement is "air") or ($defenseElement is "water") or ($defenseElement is "electric") or ($defenseElement is "metal")>><<set $elementDamage = 0.5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% FIRE %/
+
+<<elseif $offenseElement is "fire">>
+<<set $elementCall = "flame">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void") or ($defenseElement is "crystal") or ($defenseElement is "metal")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "water") or ($defenseElement is "liquid") or ($defenseElement is "earth")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "vore") or ($defenseElement is "balloon")>><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "vegetal") or ($defenseElement is "fungal") or ($defenseElement is "fat") or ($defenseElement is "egg")>><<set $elementDamage = 2>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif $defenseElement is "decay">><<set $elementDamage = 5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% AIR %/
+
+<<elseif $offenseElement is "air">>
+<<set $elementCall = "sheer force">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void") or ($defenseElement is "metal") or ($defenseElement is "crystal") or ($defenseElement is "electric")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "earth")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif $defenseElement is "fire">><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "balloon")>><<set $elementDamage = 2>>
+
+<<endif>>
+
+/% =================================================== %/
+/% EARTH %/
+
+<<elseif $offenseElement is "earth">>
+<<set $elementCall = "crackling rock">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "metal") or ($defenseElement is "crystal") or ($defenseElement is "fungal")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "void") or ($defenseElement is "toxic")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif $defenseElement is "water">><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif $defenseElement is "fire">><<set $elementDamage = 5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% WATER %/
+
+<<elseif $offenseElement is "water">>
+<<set $elementCall = "pure water">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if $defenseElement is "vitae">><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "void") or ($defenseElement is "metal")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "balloon") or ($defenseElement is "liquid") or ($defenseElement is "toxic") or ($defenseElement is "earth")>><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "fire") or ($defenseElement is "electric")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% METAL %/
+
+<<elseif $offenseElement is "metal">>
+<<set $elementCall = "metal barbs">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "air") or ($defenseElement is "water") or ($defenseElement is "liquid") or ($defenseElement is "void") or ($defenseElement is "viral")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif $defenseElement is "eldritch">><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif $defenseElement is "earth">><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "vore") or ($defenseElement is "food") or ($defenseElement is "fat") or ($defenseElement is "vegetal") or ($defenseElement is "fungal") or ($defenseElement is "parasite") or ($defenseElement is "whimsy")>><<set $elementDamage = 2>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "balloon") or ($defenseElement is "egg") or ($defenseElement is "electric") or ($defenseElement is "crystal")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% CRYSTAL %/
+
+<<elseif $offenseElement is "crystal">>
+<<set $elementCall = "crystal shards">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "air") or ($defenseElement is "water") or ($defenseElement is "liquid") or ($defenseElement is "void") or ($defenseElement is "viral") or ($defenseElement is "sonic")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "vore") or ($defenseElement is "food") or ($defenseElement is "fat") or ($defenseElement is "vegetal") or ($defenseElement is "fungal")>><<set $elementDamage = 2>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "balloon") or ($defenseElement is "egg")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% TOXIC %/
+
+<<elseif $offenseElement is "toxic">>
+<<set $elementCall = "miasma">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void") or ($defenseElement is "crystal") or ($defenseElement is "metal") or ($defenseElement is "mirajin")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "vore") or ($defenseElement is "fat") or ($defenseElement is "vegetal") or ($defenseElement is "fungal") or ($defenseElement is "viral") or ($defenseElement is "earth") or ($defenseElement is "air")>><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "egg") or ($defenseElement is "food") or ($defenseElement is "parasite") or ($defenseElement is "water") or ($defenseElement is "liquid")>><<set $elementDamage = 2>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "whimsy") or ($defenseElement is "love")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% BESTIAL %/
+
+<<elseif $offenseElement is "bestial">>
+<<set $elementCall = "bestial fury">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void") or ($defenseElement is "metal") or ($defenseElement is "viral") or ($defenseElement is "air") or ($defenseElement is "sonic")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "fat") or ($defenseElement is "liquid") or ($defenseElement is "water") or ($defenseElement is "love") or ($defenseElement is "whimsy") or ($defenseElement is "arcane") or ($defenseElement is "crystal")>><<set $elementDamage = 0.5>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% VEGETAL %/
+
+<<elseif $offenseElement is "vegetal">>
+<<set $elementCall = "grasping vegetation">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void") or ($defenseElement is "eldritch") or ($defenseElement is "fire") or ($defenseElement is "electric") or ($defenseElement is "vitae")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "metal")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "earth") or ($defenseElement is "light")>><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "water") or ($defenseElement is "liquid")>><<set $elementDamage = 2>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% FUNGAL %/
+
+<<elseif $offenseElement is "fungal">>
+<<set $elementCall = "infectious spores">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void") or ($defenseElement is "fire") or ($defenseElement is "electric") or ($defenseElement is "light") or ($defenseElement is "vitae")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "metal")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "water") or ($defenseElement is "liquid") or ($defenseElement is "eldritch")>><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "earth") or ($defenseElement is "decay")>><<set $elementDamage = 2>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% VIRAL %/
+
+<<elseif $offenseElement is "viral">>
+<<set $elementCall = "disease">>
+
+/% ======================= %/
+/% Inert vs. %/
+<<if ($defenseElement neq "bestial") and ($defenseElement neq "vore") and ($defenseElement neq "vegetal") and ($defenseElement neq "food") and ($defenseElement neq "fat") and ($defenseElement neq "egg") and ($defenseElement neq "parasite") and ($defenseElement neq "water") and ($defenseElement neq "liquid")>><<set $elementDamage = 0>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<else>><<set $elementDamage = 5>>
+
+<<endif>>
+
+
+/% =================================================== %/
+/% DECAY %/
+
+<<elseif $offenseElement is "decay">>
+<<set $elementCall = "entropy">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void") or ($defenseElement is "fire") or ($defenseElement is "eldritch") or ($defenseElement is "light") or ($defenseElement is "crystal") or ($defenseElement is "sonic") or ($defenseElement is "electric") or ($defenseElement is "toxic")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "water") or ($defenseElement is "liquid")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "vore") or ($defenseElement is "fat") or ($defenseElement is "viral") or ($defenseElement is "parasite")>><<set $elementDamage = 1.5>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "vegetal") or ($defenseElement is "fungal") or ($defenseElement is "food")>><<set $elementDamage = 2>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "whimsy") or ($defenseElement is "egg")>><<set $elementDamage = 5>>
+<<endif>>
+
+/% =================================================== %/
+/% FAT %/
+
+<<elseif $offenseElement is "fat">>
+<<set $elementCall = "fattening energy">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "metal") or ($defenseElement is "earth") or ($defenseElement is "fire") or ($defenseElement is "air") or ($defenseElement is "decay") or ($defenseElement is "void") or ($defenseElement is "sonic") or ($defenseElement is "light") or ($defenseElement is "arcane") or ($defenseElement is "electric") or ($defenseElement is "crystal") or ($defenseElement is "toxic")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "eldritch") or ($defenseElement is "fat") or ($defenseElement is "food") or ($defenseElement is "vore") or ($defenseElement is "parasite") or ($defenseElement is "egg") or ($defenseElement is "balloon") or ($defenseElement is "whimsy")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% FOOD %/
+
+<<elseif $offenseElement is "food">>
+<<set $elementCall = "caloric energy">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "metal") or ($defenseElement is "earth") or ($defenseElement is "fire") or ($defenseElement is "air") or ($defenseElement is "decay") or ($defenseElement is "void") or ($defenseElement is "sonic") or ($defenseElement is "light") or ($defenseElement is "arcane") or ($defenseElement is "electric") or ($defenseElement is "crystal") or ($defenseElement is "toxic")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "eldritch") or ($defenseElement is "food") or ($defenseElement is "vore") or ($defenseElement is "parasite") or ($defenseElement is "egg") or ($defenseElement is "whimsy")>><<set $elementDamage = 2>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "fat">><<set $elementDamage = 5>>
+<<endif>>
+
+/% =================================================== %/
+/% BALLOON %/
+
+<<elseif $offenseElement is "balloon">>
+<<set $elementCall = "expansion">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "metal") or ($defenseElement is "earth") or ($defenseElement is "fire") or ($defenseElement is "decay") or ($defenseElement is "void") or ($defenseElement is "sonic") or ($defenseElement is "light") or ($defenseElement is "electric") or ($defenseElement is "crystal") or ($defenseElement is "toxic")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Critically Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "fat") or ($defenseElement is "food") or ($defenseElement is "air") or ($defenseElement is "whimsy")>><<set $elementDamage = 5>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "whimsy") or ($defenseElement is "balloon")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% LIQUID %/
+
+<<elseif $offenseElement is "liquid">>
+<<set $elementCall = "bloating liquid">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "vitae") or ($defenseElement is "metal") or ($defenseElement is "crystal") or ($defenseElement is "sonic") or ($defenseElement is "light") or ($defenseElement is "electric")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "balloon") or ($defenseElement is "liquid") or ($defenseElement is "food") or ($defenseElement is "whimsy")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% VORE %/
+
+<<elseif $offenseElement is "vore">>
+<<set $elementCall = "voracity">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "metal") or ($defenseElement is "void") or ($defenseElement is "light") or ($defenseElement is "electric") or ($defenseElement is "crystal")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "vore") or ($defenseElement is "fat") or ($defenseElement is "food") or ($defenseElement is "liquid") or ($defenseElement is "egg")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% EGG %/
+
+<<elseif $offenseElement is "egg">>
+<<set $elementCall = "fertile energy">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "metal") or ($defenseElement is "fire") or ($defenseElement is "air") or ($defenseElement is "sonic") or ($defenseElement is "light") or ($defenseElement is "electric") or ($defenseElement is "toxic")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif ($defenseElement is "bestial") or ($defenseElement is "eldritch") or ($defenseElement is "egg") or ($defenseElement is "balloon") or ($defenseElement is "whimsy")>><<set $elementDamage = 5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% PARASITE %/
+
+<<elseif $offenseElement is "parasite">>
+<<set $elementCall = "parasitic energy">>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "metal") or ($defenseElement is "fire") or ($defenseElement is "air") or ($defenseElement is "sonic") or ($defenseElement is "light") or ($defenseElement is "electric") or ($defenseElement is "toxic")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Lethally Strong vs. %/
+<<elseif $defenseElement is "egg">><<set $elementDamage = 5>>
+
+<<endif>>
+
+/% =================================================== %/
+/% WHIMSY %/
+
+<<elseif $offenseElement is "whimsy">>
+<<set $elementCall = $offenseElement>>
+
+/% ======================= %/
+/% Ineffectual vs. %/
+<<if ($defenseElement is "void")>><<set $elementDamage = 0.1>>
+
+/% ======================= %/
+/% Weak vs. %/
+<<elseif ($defenseElement is "eldritch") or ($defenseElement is "decay") or ($defenseElement is "viral") or ($defenseElement is "mirajin") or ($defenseElement is "metal")>><<set $elementDamage = 0.5>>
+
+/% ======================= %/
+/% Strong vs. %/
+<<elseif ($defenseElement is "arcane") or ($defenseElement is "psionic") or ($defenseElement is "bestial") or ($defenseElement is "vegetal") or ($defenseElement is "fungal") or ($defenseElement is "balloon") or ($defenseElement is "light") or ($defenseElement is "love") or ($defenseElement is "whimsy")>><<set $elementDamage = 1.5>>
+
+<<endif>>
+
+/% =================================================== %/
+<<endif>>

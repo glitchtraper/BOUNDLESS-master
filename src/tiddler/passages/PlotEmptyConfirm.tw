@@ -1,0 +1,20 @@
+﻿<<display ZoneBackgrounds>><center>\
+<<if $emptyPlot is 0>>[img[$plantImg]]
+__''<<if $plantName neq 0>><<print $plantName>> the <<endif>><<if $plantColor neq 0>><<print $plantColor>> <<endif>><<print $plantSpecies>>''__
+
+<framed>''ARE YOU SURE you wish to empty the plot?''
+You will <redalert>permanently</redalert> lose this plant!
+<<button [[Confirm|passage()][$emptyPlot = 1]]>>\
+\
+\
+<<elseif $emptyPlot is 1>><<nobr>>
+
+<<display PlotClear>>
+
+<<endnobr>>
+''This greenhouse plot is now empty.''
+<<endif>>\
+\
+\
+</center></framed>
+<center><<button [[Back.|Greenhouse][$planted = 0; $emptyPlot = 0]]>></center>

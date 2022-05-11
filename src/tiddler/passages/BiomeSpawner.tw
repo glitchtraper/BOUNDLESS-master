@@ -1,0 +1,650 @@
+﻿/% ========================================== %/
+/% Biome selection by temp/humidity %/
+
+
+/% ==================================================================%/
+/% PHYS %/
+
+<<if $plane is 0>>
+
+/% ==================================================================%/
+/% OVERWORLD %/
+
+<<if $subterranean is 0>>
+
+<<if $planetaryMode is "subterranean">><<set $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $depthMeter = 0>><<endif>>
+
+<<if $zoneFoliage is 0>><<set $zoneFoliage = either("barren","scrub","moderate","abundant")>><<endif>>
+
+/% ========================================== %/
+/% LOW HUMIDITY %/
+
+<<if $planetHumidity is "low">>
+
+
+			/% ========================================== %/
+			/% Cold %/
+
+		<<if $planetTemp is "very cold">>
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+		<<set $biomeSelectVCold = either("Frost Wastes","Tundra","Cliffs","Mountain","Peak","Crystal Spires","Deadwood")>>
+		<<set $biomeSelectCold = either("Frost Wastes","Tundra","Valley","Cliffs","Mountain","Peak","Crystal Spires")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+		<<set $biomeSelectVCold = either("Icewood","Frost Wastes","Tundra","Cliffs","Mountain","Peak","Crystalforest")>>
+		<<set $biomeSelectCold = either("Icewood","Deadwood","Mountain","Peak","Crystalforest")>>
+					<<endif>>
+
+
+		<<endif>>
+
+		<<if ($planetTemp is "temperate") or ($planetTemp is "cold")>>
+
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+			<<set $biomeSelectVCold = either("Frost Wastes","Tundra","Cliffs","Mountain","Peak","Crystal Spires","Deadwood")>>
+			<<set $biomeSelectCold = either("Frost Wastes","Tundra","Valley","Cliffs","Mountain","Peak","Crystal Spires")>>
+			<<set $biomeSelectTemp = either("Highlands","Deadwood","Plains","Valley","Cliffs","Ruins","Mountain","Beach")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+			<<set $biomeSelectVCold = either("Icewood","Frost Wastes","Tundra","Cliffs","Mountain","Peak","Crystalforest")>>
+			<<set $biomeSelectCold = either("Icewood","Deadwood","Mountain","Peak","Crystalforest")>>
+			<<set $biomeSelectTemp = either("Crystalforest","Farms","Pasture","Meadow","Field","Garden","Clearing","Riverside","Forest","Woods","Deep Forest","Deep Woods","Cliffs","Ruins","Mountain")>>
+					<<endif>>
+
+		<<endif>>
+
+
+			/% ========================================== %/
+			/% Temperate %/
+
+		<<if ($planetTemp is "temperate") or ($planetTemp is "cold") or ($planetTemp is "hot")>>
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+			<<set $biomeSelectVCold = either("Frost Wastes","Tundra","Cliffs","Mountain","Peak","Crystal Spires","Deadwood")>>
+			<<set $biomeSelectCold = either("Frost Wastes","Tundra","Valley","Cliffs","Mountain","Peak","Crystal Spires")>>
+			<<set $biomeSelectTemp = either("Highlands","Deadwood","Plains","Valley","Cliffs","Ruins","Mountain","Beach")>>
+			<<set $biomeSelectHot = either("Valley","Scrublands","Canyon","Cliffs","Deadwood","Rocky Desert","Red Sands","Wastelands","Ruins","Crater","Slagheap","Mountain","Volcano")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+			<<set $biomeSelectVCold = either("Icewood","Frost Wastes","Tundra","Cliffs","Mountain","Peak","Crystalforest")>>
+			<<set $biomeSelectCold = either("Icewood","Deadwood","Mountain","Peak","Crystalforest")>>
+			<<set $biomeSelectTemp = either("Crystalforest","Farms","Pasture","Meadow","Field","Garden","Clearing","Riverside","Forest","Woods","Deep Forest","Deep Woods","Cliffs","Ruins","Mountain")>>
+			<<set $biomeSelectHot = either("Cliffs","Riverside","Marsh","Reeds","Bog","Swamp","Clearing","Jungle","Rainforest","Mountain","Volcano")>>
+					<<endif>>
+
+		<<endif>>
+
+
+			/% ========================================== %/
+			/% Hot %/
+
+		<<if ($planetTemp is "temperate") or ($planetTemp is "hot")>>
+
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+						<<set $biomeSelectTemp = either("Highlands","Deadwood","Plains","Valley","Cliffs","Ruins","Mountain","Beach")>>
+						<<set $biomeSelectHot = either("Valley","Scrublands","Canyon","Cliffs","Deadwood","Rocky Desert","Red Sands","Wastelands","Ruins","Crater","Slagheap","Mountain","Volcano")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+						<<set $biomeSelectTemp = either("Crystalforest","Farms","Pasture","Meadow","Field","Garden","Clearing","Riverside","Forest","Woods","Deep Forest","Deep Woods","Cliffs","Ruins","Mountain")>>
+						<<set $biomeSelectHot = either("Cliffs","Riverside","Marsh","Reeds","Bog","Swamp","Clearing","Jungle","Rainforest","Mountain","Volcano")>>
+					<<endif>>
+
+		<<endif>>
+
+		<<if $planetTemp is "very hot">>
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+			<<set $biomeSelectTemp = either("Highlands","Deadwood","Plains","Valley","Cliffs","Ruins","Mountain","Beach")>>
+			<<set $biomeSelectHot = either("Valley","Scrublands","Canyon","Cliffs","Deadwood","Rocky Desert","Red Sands","Wastelands","Ruins","Crater","Slagheap","Mountain","Volcano")>>
+			<<set $biomeSelectVHot = either("Valley","Scrublands","Canyon","Cliffs","Rocky Desert","Red Sands","Wastelands","Ruins","Crater","Slagheap","Volcano")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+			<<set $biomeSelectTemp = either("Crystalforest","Clearing","Riverside","Cliffs","Ruins","Mountain")>>
+			<<set $biomeSelectHot = either("Cliffs","Clearing","Mountain","Volcano","Valley","Scrublands")>>
+			<<set $biomeSelectVHot = either("Valley","Scrublands","Volcano")>>
+					<<endif>>
+
+		<<endif>>
+
+
+			/% ========================================== %/
+
+<<endif>>
+
+/% ========================================== %/
+/% AVERAGE HUMIDITY %/
+<<if $planetHumidity is "average">>
+
+
+			/% ========================================== %/
+			/% Cold %/
+
+		<<if $planetTemp is "very cold">>
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+			<<set $biomeSelectVCold = either("Snowdrifts","Frost Wastes","Tundra","Cliffs","Mountain","Peak","Crystal Spires","Frozen Beach","Ice"); $biomeSelectCold = $biomeSelectVCold>>
+			<<set $biomeSelectCold = either("Snowdrifts","Frost Wastes","Tundra","Highlands","Valley","Cliffs","Mountain","Peak","Crystal Spires","Frozen Beach","Ice")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+			<<set $biomeSelectVCold = either("Icewood","Snowdrifts","Mountain","Peak","Crystalforest","Frozen Riverside"); $biomeSelectCold = $biomeSelectVCold>>
+			<<set $biomeSelectCold = either("Snowdrifts","Highlands","Garden","Forest","Woods","Deep Forest","Deep Woods","Mountain","Crystalforest","Frozen Riverside")>>
+					<<endif>>
+
+		<<endif>>
+
+		<<if ($planetTemp is "temperate") or ($planetTemp is "cold")>>
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+						<<set $biomeSelectVCold = either("Snowdrifts","Frost Wastes","Tundra","Cliffs","Mountain","Peak","Crystal Spires","Frozen Beach","Ice"); $biomeSelectCold = $biomeSelectVCold>>
+						<<set $biomeSelectCold = either("Snowdrifts","Frost Wastes","Tundra","Highlands","Valley","Cliffs","Mountain","Peak","Crystal Spires","Beach","Ice")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+						<<set $biomeSelectVCold = either("Icewood","Snowdrifts","Mountain","Peak","Crystalforest","Frozen Riverside"); $biomeSelectCold = $biomeSelectVCold>>
+						<<set $biomeSelectCold = either("Snowdrifts","Highlands","Garden","Forest","Woods","Deep Forest","Deep Woods","Mountain","Crystalforest","Riverside")>>
+					<<endif>>
+
+		<<endif>>
+
+
+			/% ========================================== %/
+			/% Temperate %/
+
+		<<if ($planetTemp is "temperate") or ($planetTemp is "cold") or ($planetTemp is "hot")>>
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+						<<set $biomeSelectVCold = either("Icewood","Snowdrifts","Mountain","Peak","Crystalforest","Frozen Riverside"); $biomeSelectCold = $biomeSelectVCold>>
+						<<set $biomeSelectCold = either("Snowdrifts","Highlands","Garden","Forest","Woods","Deep Forest","Deep Woods","Mountain","Crystalforest","Riverside")>>
+						<<set $biomeSelectTemp = either("Clearing","Deadwood","Beach","Plains","Valley","Cliffs","Ruins","Mountain")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+						<<set $biomeSelectVCold = either("Icewood","Snowdrifts","Mountain","Peak","Crystalforest","Frozen Riverside"); $biomeSelectCold = $biomeSelectVCold>>
+						<<set $biomeSelectCold = either("Snowdrifts","Highlands","Garden","Forest","Woods","Deep Forest","Deep Woods","Mountain","Crystalforest","Riverside")>>
+						<<set $biomeSelectTemp = either("Crystalforest","Farms","Pasture","Meadow","Field","Garden","Highlands","Clearing","Riverside","Forest","Woods","Deep Forest","Deep Woods","Ruins","Mountain")>>
+					<<endif>>
+
+		<<endif>>
+
+
+			/% ========================================== %/
+			/% Hot %/
+
+		<<if ($planetTemp is "temperate") or ($planetTemp is "hot")>>
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+						<<set $biomeSelectCold = either("Snowdrifts","Highlands","Garden","Forest","Woods","Deep Forest","Deep Woods","Mountain","Crystalforest","Riverside")>>
+						<<set $biomeSelectTemp = either("Clearing","Deadwood","Beach","Plains","Valley","Cliffs","Ruins","Mountain")>>
+						<<set $biomeSelectHot = either("Valley","Scrublands","Canyon","Cliffs","Clearing","Deadwood","Rocky Desert","Red Sands","Wastelands","Ruins","Crater","Slagheap","Mountain","Volcano")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+						<<set $biomeSelectCold = either("Snowdrifts","Highlands","Garden","Forest","Woods","Deep Forest","Deep Woods","Mountain","Crystalforest","Riverside")>>
+						<<set $biomeSelectTemp = either("Crystalforest","Farms","Pasture","Meadow","Field","Garden","Highlands","Clearing","Riverside","Forest","Woods","Deep Forest","Deep Woods","Ruins","Mountain")>>
+						<<set $biomeSelectHot = either("Riverside","Marsh","Reeds","Bog","Swamp","Clearing","Jungle","Rainforest","Mountain","Volcano")>>
+					<<endif>>
+
+		<<endif>>
+
+		<<if $planetTemp is "very hot">>
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+						<<set $biomeSelectVHot = either("Valley","Scrublands","Canyon","Cliffs","Rocky Desert","Red Sands","Wastelands","Ruins","Crater","Slagheap","Obsidian Wastes","Volcano")>>
+						<<set $biomeSelectHot = either("Valley","Scrublands","Canyon","Cliffs","Clearing","Deadwood","Rocky Desert","Red Sands","Wastelands","Ruins","Crater","Slagheap","Mountain","Volcano")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+						<<set $biomeSelectHot = either("Riverside","Marsh","Reeds","Bog","Swamp","Clearing","Jungle","Rainforest","Mountain","Volcano")>>
+						<<set $biomeSelectVHot = either("Valley","Scrublands","Volcano")>>
+					<<endif>>
+		<<endif>>
+
+
+			/% ========================================== %/
+
+<<endif>>
+
+/% ========================================== %/
+/% HIGH HUMIDITY %/
+<<if $planetHumidity is "high">>
+
+
+			/% ========================================== %/
+			/% Cold %/
+
+		<<if ($planetTemp is "temperate") or ($planetTemp is "cold") or ($planetTemp is "very cold")>>
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+						<<set $biomeSelectCold = either("Snowdrifts","Frost Wastes","Cliffs","Mountain","Peak","Crystal Spires","Riverside","Beach","Ice"); $biomeSelectVCold = either("Snowdrifts","Frost Wastes","Cliffs","Mountain","Peak","Crystal Spires","Frozen Riverside","Frozen Beach","Ice")>>
+						<<set $biomeSelectTemp = either("Field","Clearing","Deadwood","Beach","Plains","Valley","Cliffs","Ruins","Mountain","Ocean")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+						<<set $biomeSelectCold = either("Icewood","Snowdrifts","Forest","Woods","Deep Forest","Deep Woods","Mountain","Peak","Crystalforest","Riverside"); $biomeSelectVCold = $biomeSelectCold>>
+						<<set $biomeSelectTemp = either("Crystalforest","Farms","Pasture","Meadow","Field","Garden","Highlands","Clearing","Riverside","Forest","Woods","Deep Forest","Deep Woods","Ruins","Mountain")>>
+					<<endif>>
+
+		<<endif>>
+
+			/% ========================================== %/
+			/% Temperate %/
+
+		<<if ($planetTemp is "temperate") or ($planetTemp is "cold") or ($planetTemp is "hot")>>
+
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+						<<set $biomeSelectCold = either("Snowdrifts","Frost Wastes","Cliffs","Mountain","Peak","Crystal Spires","Riverside","Beach","Ice"); $biomeSelectVCold = either("Snowdrifts","Frost Wastes","Cliffs","Mountain","Peak","Crystal Spires","Frozen Riverside","Frozen Beach","Ice")>>
+						<<set $biomeSelectTemp = either("Field","Clearing","Deadwood","Beach","Plains","Valley","Cliffs","Ruins","Mountain","Ocean")>>
+						<<set $biomeSelectHot = either("Valley","Cliffs","Clearing","Deadwood","Wastelands","Ruins","Crater","Slagheap","Mountain","Volcano","Ocean")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+						<<set $biomeSelectCold = either("Icewood","Snowdrifts","Forest","Woods","Deep Forest","Deep Woods","Mountain","Peak","Crystalforest","Riverside"); $biomeSelectVCold = $biomeSelectCold>>
+						<<set $biomeSelectTemp = either("Crystalforest","Farms","Pasture","Meadow","Field","Garden","Highlands","Clearing","Riverside","Forest","Woods","Deep Forest","Deep Woods","Ruins","Mountain")>>
+						<<set $biomeSelectHot = either("Riverside","Clearing","Jungle","Rainforest","Mountain","Volcano")>>
+					<<endif>>
+
+		<<endif>>
+
+
+			/% ========================================== %/
+			/% Hot %/
+
+		<<if ($planetTemp is "temperate") or ($planetTemp is "hot")>>
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+
+						<<set $biomeSelectCold = either("Snowdrifts","Frost Wastes","Cliffs","Mountain","Peak","Crystal Spires","Riverside","Beach","Ice"); $biomeSelectVCold = either("Snowdrifts","Frost Wastes","Cliffs","Mountain","Peak","Crystal Spires","Frozen Riverside","Frozen Beach","Ice")>>
+						<<set $biomeSelectTemp = either("Field","Clearing","Deadwood","Beach","Plains","Valley","Cliffs","Ruins","Mountain","Ocean")>>
+						<<set $biomeSelectHot = either("Valley","Cliffs","Clearing","Deadwood","Wastelands","Ruins","Crater","Slagheap","Mountain","Volcano","Ocean")>>
+						<<set $biomeSelectVHot = either("Valley","Cliffs","Wastelands","Ruins","Crater","Slagheap","Volcano","Ocean")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+						<<set $biomeSelectCold = either("Icewood","Snowdrifts","Forest","Woods","Deep Forest","Deep Woods","Mountain","Peak","Crystalforest","Riverside"); $biomeSelectVCold = $biomeSelectCold>>
+						<<set $biomeSelectTemp = either("Crystalforest","Farms","Pasture","Meadow","Field","Garden","Highlands","Clearing","Riverside","Forest","Woods","Deep Forest","Deep Woods","Ruins","Mountain")>>
+						<<set $biomeSelectHot = either("Riverside","Clearing","Jungle","Rainforest","Mountain","Volcano")>>
+						<<set $biomeSelectVHot = either("Valley","Cliffs","Wastelands","Ruins","Crater","Slagheap","Volcano","Ocean")>>
+					<<endif>>
+
+		<<endif>>
+
+		<<if $planetTemp is "very hot">>
+
+					<<if ($zoneFoliage is "barren") or ($zoneFoliage is "scrub")>>
+
+						<<set $biomeSelectHot = either("Valley","Cliffs","Clearing","Deadwood","Wastelands","Ruins","Crater","Slagheap","Mountain","Volcano","Ocean")>>
+						<<set $biomeSelectVHot = either("Valley","Cliffs","Wastelands","Ruins","Crater","Slagheap","Volcano","Molten Fields","Molten Sea","Boiling Ocean")>>
+
+					<<elseif ($zoneFoliage is "moderate") or ($zoneFoliage is "abundant")>>
+
+						<<set $biomeSelectHot = either("Riverside","Clearing","Jungle","Rainforest","Mountain","Volcano")>>
+						<<set $biomeSelectVHot = either("Valley","Cliffs","Wastelands","Ruins","Crater","Slagheap","Volcano","Molten Fields","Molten Sea","Boiling Ocean")>>
+					<<endif>>
+
+		<<endif>>
+
+<<endif>>
+
+/% ========================================== %/
+/% TRANSITIONAL BIOMES I %/
+
+/% B-Transitions %/
+
+<<set $randomizer = random(1,8)>>
+<<if ($randomizer is 1) and ($location neq 0)>><<set $biomeSelectVCold = "Ice Cave"; $biomeSelectCold = either("Cave","Ice Cave"); $biomeSelectTemp = "Cave"; $biomeSelectHot = either("Cave","Ash Cave"); $biomeSelectVHot = "Ash Cave">>
+	<<elseif $randomizer is 2>>
+	<<if ($planetHumidity is "average") or ($planetHumidity is "high")>><<set $biomeSelectVCold = either("Frozen Riverside","Frozen Beach"); $biomeSelectCold = either("Riverside","Beach"); $biomeSelectTemp = either("Riverside","Beach"); $biomeSelectHot = either("Riverside","Beach"); $biomeSelectVHot = either("Obsidian Wastes","Molten Fields")>><<endif>><<endif>>
+
+
+/% ========================================== %/
+/% END OVERWORLD CODE %/
+<<set $planetaryMode = "overworld">>
+<<endif>>
+
+/% ==================================================================[ SUBTERRANEAN ]================================================================== %/
+
+<<if $subterranean is 1>>
+<<if $planetaryMode is "overworld">><<set $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $depthMeter = 0>><<endif>>
+
+/% ========================================== %/
+/% LOW HUMIDITY %/
+/% for low/non-humidity/coreless planets (no moisture underground, no active planetary core) %/
+
+
+<<if $planetHumidity is "low">>
+
+			/% ========================================== %/
+			/% Cold %/
+
+		<<if ($planetTemp is "very cold") or ($planetTemp is "cold")>>
+
+				/% ========================================== %/
+				/% Surface to Deep %/
+
+				<<if $depthMeter lt 50>>
+
+				<<set $biomeSelectVCold = either("Ice Cave","Frozen Cavern","Frozen Cavern","Frozen Cavern","Frozen Cavern","Crystal Caverns")>>
+				<<set $biomeSelectCold = either("Cave","Ice Cave","Frozen Cavern","Frozen Cavern","Frozen Cavern","Crystal Caverns","Underglade")>>
+
+
+				/% ========================================== %/
+				/% Deep to Core %/
+
+				<<elseif ($depthMeter gte 50) and ($depthMeter lt 90)>>
+
+				<<set $biomeSelectVCold = either("Frozen Cavern","Frozen Cavern","Crystal Caverns","Deep Frost","Deep Frost")>>
+				<<set $biomeSelectCold = either("Frozen Cavern","Frozen Cavern","Crystal Caverns","Deep Frost","Deep Frost","Underglade")>>
+
+				<<elseif $depthMeter gte 90>>
+
+				<<set $biomeSelectVCold = either("Deep Frost","Deep Frost","Deep Frost","Icy Void")>>
+				<<set $biomeSelectVCold = either("Deep Frost","Deep Frost","Deep Frost","Icy Void")>>
+
+			<<endif>>
+		<<endif>>
+
+			/% ========================================== %/
+			/% Temperate %/
+
+			<<if ($planetTemp is "cold") or ($planetTemp is "temperate") or ($planetTemp is "hot")>>
+
+				/% ========================================== %/
+				/% Surface to Deep %/
+
+				<<if $depthMeter lt 50>>
+
+				<<set $biomeSelectVCold = either("Ice Cave","Frozen Cavern","Frozen Cavern","Frozen Cavern","Mine","Crystal Caverns")>>
+				<<set $biomeSelectCold = either("Cave","Ice Cave","Frozen Cavern","Frozen Cavern","Tunnel","Mine","Crystal Caverns","Underglade")>>
+				<<set $biomeSelectTemp = either("Cave","Tunnel","Tunnel","Tunnel","Mine","Crystal Caverns","Underglade")>>
+				<<set $biomeSelectHot = either("Cave","Ash Cave","Obsidian Tunnel","Obsidian Tunnel","Tunnel","Mine","Crystal Caverns","Magma Pit","Underglade")>>
+				<<set $biomeSelectVHot = either("Ash Cave","Obsidian Tunnel","Obsidian Tunnel","Obsidian Tunnel","Mine","Crystal Caverns","Magma Pit")>>
+
+
+				/% ========================================== %/
+				/% Deep to Core %/
+
+				<<elseif ($depthMeter gte 50) and ($depthMeter lt 90)>>
+
+				<<set $biomeSelectVCold = either("Frozen Cavern","Frozen Cavern","Crystal Caverns","Deep Frost","Deep Frost")>>
+				<<set $biomeSelectCold = either("Frozen Cavern","Frozen Cavern","Crystal Caverns","Deep Frost","Deep Frost","Underglade")>>
+				<<set $biomeSelectTemp = either("Labyrinth","Labyrinth","Pit","Pit","Nest","Nest","Crystal Caverns","Magma Pit","Underglade")>>
+				<<set $biomeSelectHot = either("Obsidian Tunnel","Obsidian Tunnel","Vents","Magma Pit","Magma Pit","Boiling Dark","Crystal Caverns","Underglade")>>
+				<<set $biomeSelectVHot = either("Obsidian Tunnel","Vents","Magma Pit","Magma Pit","Magma Pit","Boiling Dark","Boiling Dark","Crystal Caverns")>>
+
+				<<elseif $depthMeter gte 90>>
+
+				<<set $biomeSelectVCold = either("Crystal Caverns","Crystal Caverns","Deep Frost","Deep Frost","Deep Frost","Icy Void")>>
+				<<set $biomeSelectCold = either("The Endless Echoes","Crystal Caverns","Deep Frost","Deep Frost","Deep Frost","Icy Void","Writhing Void","Underglade")>>
+				<<set $biomeSelectTemp = either("The Endless Echoes","The Endless Echoes","The Slithering Dark","The Slithering Dark","Writhing Void","Shattered Void")>>
+				<<set $biomeSelectHot = either("The Endless Echoes","The Endless Echoes","The Slithering Dark","The Slithering Dark","Molten Void","Crystal Caverns","Underglade")>>
+				<<set $biomeSelectVHot = either("Boiling Dark","Magma Pit","Boiling Dark","Hellmouth Depths","Hellmouth Depths","Molten Void","Crystal Caverns")>>
+
+				<<endif>>
+			<<endif>>
+
+			/% ========================================== %/
+			/% Hot %/
+
+		<<if ($planetTemp is "very hot") or ($planetTemp is "hot")>>
+
+				/% ========================================== %/
+				/% Surface to Deep %/
+
+				<<if $depthMeter lt 50>>
+
+				<<set $biomeSelectTemp = either("Cave","Tunnel","Tunnel","Tunnel","Mine","Crystal Caverns","Underground Spring","Underglade")>>
+				<<set $biomeSelectHot = either("Cave","Ash Cave","Obsidian Tunnel","Obsidian Tunnel","Tunnel","Mine","Crystal Caverns","Underground Spring","Magma Pit","Underglade")>>
+				<<set $biomeSelectVHot = either("Ash Cave","Obsidian Tunnel","Obsidian Tunnel","Obsidian Tunnel","Mine","Crystal Caverns","Magma Pit")>>
+
+
+				/% ========================================== %/
+				/% Deep to Core %/
+
+				<<elseif ($depthMeter gte 50) and ($depthMeter lt 90)>>
+
+				<<set $biomeSelectTemp = either("Labyrinth","Labyrinth","Pit","Pit","Nest","Nest","Crystal Caverns","Magma Pit","Underglade")>>
+				<<set $biomeSelectHot = either("Obsidian Tunnel","Obsidian Tunnel","Vents","Magma Pit","Magma Pit","Boiling Dark","Crystal Caverns","Underglade")>>
+				<<set $biomeSelectVHot = either("Obsidian Tunnel","Vents","Magma Pit","Magma Pit","Magma Pit","Boiling Dark","Boiling Dark","Crystal Caverns")>>
+
+				<<elseif $depthMeter gte 90>>
+
+				<<set $biomeSelectTemp = either("The Endless Echoes","The Endless Echoes","The Slithering Dark","The Slithering Dark","Shattered Void","Writhing Void")>>
+				<<set $biomeSelectHot = either("The Endless Echoes","The Endless Echoes","The Slithering Dark","The Slithering Dark","Molten Void","Writhing Void","Crystal Caverns","Underglade")>>
+				<<set $biomeSelectVHot = either("Boiling Dark","Magma Pit","Boiling Dark","Hellmouth Depths","Hellmouth Depths","Molten Void","Crystal Caverns")>>
+
+				<<endif>>
+		<<endif>>
+
+
+<<endif>>
+
+
+
+/% ========================================== %/
+/% MID-HIGH HUMIDITY %/
+/% planets with active cores and/or moisture %/
+
+<<if ($planetHumidity is "average") or ($planetHumidity is "high")>>
+
+/% ========================================== %/
+
+			/% Cold %/
+
+		<<if ($planetTemp is "very cold") or ($planetTemp is "cold")>>
+
+				/% ========================================== %/
+				/% Surface to Deep %/
+
+				<<if $depthMeter lt 50>>
+
+				<<set $biomeSelectVCold = either("Ice Cave","Frozen Cavern","Frozen Cavern","Frozen Cavern","Frozen Cavern","Crystal Caverns")>>
+				<<set $biomeSelectCold = either("Cave","Ice Cave","Frozen Cavern","Frozen Cavern","Frozen Cavern","Crystal Caverns","Underglade")>>
+
+
+				/% ========================================== %/
+				/% Deep to Core %/
+
+				<<elseif ($depthMeter gte 50) and ($depthMeter lt 90)>>
+
+				<<set $biomeSelectVCold = either("Frozen Cavern","Frozen Cavern","Crystal Caverns","Deep Frost","Deep Frost")>>
+				<<set $biomeSelectCold = either("Frozen Cavern","Frozen Cavern","Crystal Caverns","Deep Frost","Deep Frost","Underglade")>>
+
+				<<elseif $depthMeter gte 90>>
+
+				<<set $biomeSelectVCold = either("Deep Frost","Deep Frost","Deep Frost","Frozen Heart")>>
+				<<set $biomeSelectCold = either("Deep Frost","Deep Frost","Deep Frost","Frozen Heart")>>
+
+			<<endif>>
+		<<endif>>
+
+			/% ========================================== %/
+			/% Temperate %/
+
+			<<if ($planetTemp is "cold") or ($planetTemp is "temperate") or ($planetTemp is "hot")>>
+
+				/% ========================================== %/
+				/% Surface to Deep %/
+
+				<<if $depthMeter lt 50>>
+
+				<<set $biomeSelectVCold = either("Ice Cave","Frozen Cavern","Frozen Cavern","Frozen Cavern","Mine","Crystal Caverns")>>
+				<<set $biomeSelectCold = either("Cave","Ice Cave","Frozen Cavern","Frozen Cavern","Tunnel","Mine","Crystal Caverns","Underground Spring","Underglade")>>
+				<<set $biomeSelectTemp = either("Cave","Tunnel","Tunnel","Tunnel","Mine","Crystal Caverns","Underground Spring","Underglade")>>
+				<<set $biomeSelectHot = either("Cave","Ash Cave","Obsidian Tunnel","Obsidian Tunnel","Tunnel","Mine","Crystal Caverns","Underground Spring","Magma Pit","Underglade")>>
+				<<set $biomeSelectVHot = either("Ash Cave","Obsidian Tunnel","Obsidian Tunnel","Obsidian Tunnel","Mine","Crystal Caverns","Magma Pit")>>
+
+
+				/% ========================================== %/
+				/% Deep to Core %/
+
+				<<elseif ($depthMeter gte 50) and ($depthMeter lt 90)>>
+
+				<<set $biomeSelectVCold = either("Frozen Cavern","Frozen Cavern","Crystal Caverns","Deep Frost","Deep Frost")>>
+				<<set $biomeSelectCold = either("Frozen Cavern","Frozen Cavern","Crystal Caverns","Deep Frost","Deep Frost","Underglade")>>
+				<<set $biomeSelectTemp = either("Labyrinth","Labyrinth","Pit","Pit","Nest","Nest","Crystal Caverns","Magma Pit","Underglade")>>
+				<<set $biomeSelectHot = either("Obsidian Tunnel","Obsidian Tunnel","Vents","Magma Pit","Magma Pit","Boiling Dark","Crystal Caverns","Underglade")>>
+				<<set $biomeSelectVHot = either("Obsidian Tunnel","Vents","Magma Pit","Magma Pit","Magma Pit","Boiling Dark","Boiling Dark","Crystal Caverns")>>
+
+				<<elseif $depthMeter gte 90>>
+
+				<<set $biomeSelectVCold = either("Crystal Caverns","Crystal Caverns","Deep Frost","Deep Frost","Deep Frost","Frozen Heart")>>
+				<<set $biomeSelectVCold = either("The Endless Echoes","Crystal Caverns","Deep Frost","Deep Frost","Deep Frost","Frozen Heart")>>
+				<<set $biomeSelectTemp = either("The Endless Echoes","The Endless Echoes","The Slithering Dark","The Slithering Dark","Planet's Heart")>>
+				<<set $biomeSelectHot = either("The Endless Echoes","The Endless Echoes","The Slithering Dark","The Slithering Dark","Planet's Heart","Crystal Caverns")>>
+				<<set $biomeSelectVHot = either("Boiling Dark","Magma Pit","Boiling Dark","Hellmouth Depths","Hellmouth Depths","Planet's Heart","Crystal Caverns")>>
+
+				<<endif>>
+			<<endif>>
+
+			/% ========================================== %/
+			/% Hot %/
+
+		<<if ($planetTemp is "very hot") or ($planetTemp is "hot")>>
+		/% ========================================== %/
+				/% Surface to Deep %/
+
+				<<if $depthMeter lt 50>>
+
+				<<set $biomeSelectTemp = either("Cave","Tunnel","Tunnel","Tunnel","Mine","Crystal Caverns","Underground Spring","Underglade")>>
+				<<set $biomeSelectHot = either("Cave","Ash Cave","Obsidian Tunnel","Obsidian Tunnel","Tunnel","Mine","Crystal Caverns","Underground Spring","Magma Pit","Underglade")>>
+				<<set $biomeSelectVHot = either("Ash Cave","Obsidian Tunnel","Obsidian Tunnel","Obsidian Tunnel","Mine","Crystal Caverns","Magma Pit")>>
+
+
+				/% ========================================== %/
+				/% Deep to Core %/
+
+				<<elseif ($depthMeter gte 50) and ($depthMeter lt 90)>>
+
+				<<set $biomeSelectTemp = either("Labyrinth","Labyrinth","Pit","Pit","Nest","Nest","Crystal Caverns","Magma Pit","Underglade")>>
+				<<set $biomeSelectHot = either("Obsidian Tunnel","Obsidian Tunnel","Vents","Magma Pit","Magma Pit","Boiling Dark","Crystal Caverns","Underglade")>>
+				<<set $biomeSelectVHot = either("Obsidian Tunnel","Vents","Magma Pit","Magma Pit","Magma Pit","Boiling Dark","Boiling Dark","Crystal Caverns")>>
+
+				<<elseif $depthMeter gte 90>>
+
+				<<set $biomeSelectTemp = either("The Endless Echoes","The Endless Echoes","The Slithering Dark","The Slithering Dark","Planet's Heart")>>
+				<<set $biomeSelectHot = either("The Endless Echoes","The Endless Echoes","The Slithering Dark","The Slithering Dark","Planet's Heart","Crystal Caverns","Underglade")>>
+				<<set $biomeSelectVHot = either("Boiling Dark","Magma Pit","Boiling Dark","Hellmouth Depths","Hellmouth Depths","Planet's Heart","Crystal Caverns")>>
+
+				<<endif>>
+		<<endif>>
+
+<<endif>>
+
+
+/% ========================================== %/
+/% END SUBTERRANEAN CODE %/
+<<set $planetaryMode = "subterranean">>
+<<endif>>
+
+/% ========================================== %/
+/% TEMP SELECT %/
+
+<<if $planetTemp is "very cold">><<set $tempSelect = either("vcold","vcold","vcold","cold")>><<endif>>
+<<if $planetTemp is "cold">><<set $tempSelect = either("vcold","cold","cold","temp")>><<endif>>
+<<if $planetTemp is "temperate">>
+	<<if ($tempSelect is "temp") or ($tempSelect is 0)>><<set $tempSelect = either("cold","temp","temp","temp","hot")>>
+	<<elseif $tempSelect is "cold">><<set $tempSelect = either("cold","cold","temp")>>
+	<<elseif $tempSelect is "hot">><<set $tempSelect = either("hot","hot","temp")>><<endif>><<endif>>
+<<if $planetTemp is "hot">><<set $tempSelect = either("vhot","hot","hot","temp")>><<endif>>
+<<if $planetTemp is "very hot">><<set $tempSelect = either("vhot","vhot","vhot","hot")>><<endif>>
+
+	<<if $tempSelect is "vcold">>
+		<<if $biomeNorth is 0>><<set $biomeNorth = $biomeSelectVCold>>
+		<<elseif $biomeSouth is 0>><<set $biomeSouth = $biomeSelectVCold>>
+		<<elseif $biomeEast is 0>><<set $biomeEast = $biomeSelectVCold>>
+		<<elseif $biomeWest is 0>><<set $biomeWest = $biomeSelectVCold>><<endif>>
+
+	<<elseif $tempSelect is "cold">>
+		<<if $biomeNorth is 0>><<set $biomeNorth = $biomeSelectCold>>
+		<<elseif $biomeSouth is 0>><<set $biomeSouth = $biomeSelectCold>>
+		<<elseif $biomeEast is 0>><<set $biomeEast = $biomeSelectCold>>
+		<<elseif $biomeWest is 0>><<set $biomeWest = $biomeSelectCold>><<endif>>
+
+	<<elseif $tempSelect is "temp">>
+		<<if $biomeNorth is 0>><<set $biomeNorth = $biomeSelectTemp>>
+		<<elseif $biomeSouth is 0>><<set $biomeSouth = $biomeSelectTemp>>
+		<<elseif $biomeEast is 0>><<set $biomeEast = $biomeSelectTemp>>
+		<<elseif $biomeWest is 0>><<set $biomeWest = $biomeSelectTemp>><<endif>>
+
+	<<elseif $tempSelect is "hot">>
+		<<if $biomeNorth is 0>><<set $biomeNorth = $biomeSelectHot>>
+		<<elseif $biomeSouth is 0>><<set $biomeSouth = $biomeSelectHot>>
+		<<elseif $biomeEast is 0>><<set $biomeEast = $biomeSelectHot>>
+		<<elseif $biomeWest is 0>><<set $biomeWest = $biomeSelectHot>><<endif>>
+
+	<<elseif $tempSelect is "vhot">>
+		<<if $biomeNorth is 0>><<set $biomeNorth = $biomeSelectVHot>>
+		<<elseif $biomeSouth is 0>><<set $biomeSouth = $biomeSelectVHot>>
+		<<elseif $biomeEast is 0>><<set $biomeEast = $biomeSelectVHot>>
+		<<elseif $biomeWest is 0>><<set $biomeWest = $biomeSelectVHot>><<endif>>
+
+<<endif>>
+
+/% ========================================== %/
+/% TRANSITIONAL BIOMES II%/
+
+/% C-Transitions %/
+
+<<set $randomizer = random(1,6)>>
+<<if $randomizer is 1>>
+	<<if $location is "Frozen Riverside">><<set $biomeNorth = either("Frozen River","Frozen Lake")>><<endif>>
+	<<if $location is "Frozen Beach">><<set $biomeNorth = either("Frigid Ocean","Ice")>><<endif>>
+	<<if $location is "Riverside">><<set $biomeNorth = either("River","Lake","Marsh","Reeds","Bog","Swamp")>><<endif>>
+	<<if $location is "Beach">><<set $biomeNorth = "Ocean">><<endif>>
+	<<if ($location is "Slagheap") or ($location is "Obsidian Wastes")>>
+			<<if $planetTemp is "very hot">><<set $biomeNorth = either("Molten Sea","Boiling Ocean")>><<else>><<set $biomeNorth = either("Molten Fields","Volcano")>><<endif>>
+			<<endif>>
+
+<<endif>>
+
+/% ==================================================================%/
+/% PLANAR %/
+
+<<elseif $plane neq 0>>
+
+/% ==================%/
+/% Heitepresse %/
+
+	<<if $plane is "Heitepresse">>
+
+		<<set $location = "Heitprussi Gardens">>
+
+
+/% ==================%/
+/% Placeholder %/
+
+	<<elseif $plane is "something else">>
+
+
+/% ==================================================================%/
+/% End biomes by plane %/
+	<<endif>>
+
+
+/% ==================================================================%/
+/% End biome spawner %/
+
+<<endif>>

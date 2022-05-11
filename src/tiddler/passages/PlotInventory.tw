@@ -1,0 +1,73 @@
+﻿/% =========================================================================== %/
+/% Plot Inventory %/
+/% Seeds you own show up here for planting if there's no seed in the plot.
+Otherwise, items you can use on live plants show up. %/
+
+<<if $planted is 0>>
+/% Seeds (for Empty Plot) %/
+
+<<if $seed_rose_glass gt 0>>
+<<button [[Plant Glass Rose|passage()][$planted = "glass rose"; $plantAge = "Seed"; $plantStart = $globalTime; $plantNeedsWater = "Yes!"; $newPlant = 1; $seed_rose_glass -= 1]]>><<endif>>
+
+<<if $seed_tendrilvine gt 0>>
+<<button [[Plant Tendrilvine|passage()][$planted = "tendrilvine"; $plantAge = "Seed"; $plantStart = $globalTime; $plantNeedsWater = "Yes!"; $newPlant = 1; $seed_tendrilvine -= 1]]>><<endif>>
+
+
+<<else>>
+/% =========================================================================== %/
+/% Items (for Occupied Plot) %/
+
+
+/% =========================================================================== %/
+/% Watering %/
+
+<<if $waterStock gte 10>>
+<<button [[Water Plant|passage()][$plantNeedsWater = "No"; $waterStock -= 10; $waterTimer = $globalTime; $watered = 1; $plotCaption = "Your " + $planted + " looks refreshed!"]]>><<endif>>
+
+<<if $collectionjar_water_vital gt 1>>
+<<button [[Water Plant (Vital Water)|passage()][$plantNeedsWater = "No"; $collectionjar_water_vital -= 1; $waterTimer = $globalTime; $watered = 1; $forcefedPet = "vital water"; $plotCaption = "Your " + $planted + " grows rapidly as the vitalized water fills it with life!"]]>><<endif>>
+
+<<if $collectionjar_blood gt 1>>
+<<button [[Water Plant (Blood)|passage()][$plantNeedsWater = "No"; $collectionjar_blood -= 1; $waterTimer = $globalTime; $watered = 1; $forcefedPet = "blood"; $plotCaption = "Your " + $planted + " looks refreshed!"]]>><<endif>>
+
+
+/% =========================================================================== %/
+/% Dye %/
+
+<<if $plantColor neq 0>>
+<<if $dye_rainbow gt 0>><<button [[Use Spectrum Prisma Shard.|passage()][$dye_rainbow -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = either("white","silver","magenta","pink","red","brown","orange","golden","yellow","green","teal","blue","indigo","violet","black","gray"); $petUse = "give"; $plotCaption = "It shifts into a new color!"; ]]>><<endif>>
+
+<<if $dye_white gt 0>><<button [[Use White Prisma Shard.|passage()][$dye_white -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "white"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_silver gt 0>><<button [[Use Silver Prisma Shard.|passage()][$dye_silver -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "silver"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_magenta gt 0>><<button [[Use Magenta Prisma Shard.|passage()][$dye_magenta -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "magenta"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_pink gt 0>><<button [[Use Pink Prisma Shard.|passage()][$dye_pink -= 1;$forcefedPet = "Prisma Shard"; $dyeColor = "pink"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_red gt 0>><<button [[Use Red Prisma Shard.|passage()][$dye_red -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "red"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_brown gt 0>><<button [[Use Brown Prisma Shard.|passage()][$dye_brown -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "brown"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_orange gt 0>><<button [[Use Orange Prisma Shard.|passage()][$dye_orange -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "orange"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_yellow gt 0>><<button [[Use Yellow Prisma Shard.|passage()][$dye_yellow -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "yellow"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_golden gt 0>><<button [[Use Golden Prisma Shard.|passage()][$dye_golden -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "golden"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_green gt 0>><<button [[Use Green Prisma Shard.|passage()][$dye_green -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "green"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_teal gt 0>><<button [[Use Teal Prisma Shard.|passage()][$dye_teal -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "teal"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_blue gt 0>><<button [[Use Blue Prisma Shard.|passage()][$dye_blue -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "blue"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_indigo gt 0>><<button [[Use Indigo Prisma Shard.|passage()][$dye_indigo -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "indigo"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_violet gt 0>><<button [[Use Violet Prisma Shard.|passage()][$dye_violet -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "violet"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_black gt 0>><<button [[Use Black Prisma Shard.|passage()][$dye_black -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "black"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+
+<<if $dye_gray gt 0>><<button [[Use Gray Prisma Shard.|passage()][$dye_gray -= 1; $forcefedPet = "Prisma Shard"; $dyeColor = "gray"; $petUse = "give"; $plotCaption = "It shifts into a new color!"]]>><<endif>>
+<<endif>>
+
+<<endif>>

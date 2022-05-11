@@ -1,0 +1,277 @@
+﻿/% ====================================================== %/
+/% Food & Drink database, for both 'true' food items and consumable resources.
+Hopefully won't have to put these values in itemDatabase anymore. %/
+
+/% liquidBloat = an extra variable to match up randomized belly and liquid bloat numbers, for things with high bloat caused by liquid consumption %/
+
+/% Unset seeds by default. Stuff that needs them will turn this on. %/
+<<set $seedFruit = 0>>
+
+/% ====================================================== %/
+/% Edible resources %/
+
+<<if $itemID is "waterStock">><<set $bellyBloat += 10; $bellyLiquid += 10; $bonusEnergy += 5>><<endif>>
+
+<<if $itemID is "milkStock">><<set $calories += 40; $bellyBloat += 10; $bellyLiquid += 10; $bonusEnergy += 20; $breast += either(0,0,0,0,0,0,0,0,0,0,0,0,0.1,0.1,0.1,0.2,0.3); $milkRate += either(0,0,0,0,0,0,0,0,0.1,0.1,0.1,0.2,0.3,0.5); $milkFat += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.1)>>
+<<display MilkCure>>
+<<endif>>
+
+<<if $itemID is "meatStock">><<set $calories += random(3,20); $bellyBloat += 30; $bonusEnergy += 20>><<endif>>
+
+<<if $itemID is "fleshStock">><<set $calories += random(8,65); $bellyBloat += 60; $bonusEnergy += 50; $sanity -= either(0,0,1,1,1,2)>><<endif>>
+
+<<if $itemID is "fishStock">><<set $calories += random(0,20); $bellyBloat += 30; $bonusEnergy += 20>><<endif>>
+
+<<if $itemID is "poultryStock">><<set $calories += 10; $bonusEnergy += 20; $bellyBloat += 30; $stomachBug += random(0,20)>><<endif>>
+
+<<if $itemID is "eggStock">><<set $calories += 10; $bellyBloat += 10; $bonusEnergy += 20; $stomachBug += random(0,20)>><<endif>>
+
+<<if $itemID is "rootStock">><<set $calories += 30; $bellyBloat += 30; $bonusEnergy += 20>><<endif>>
+
+<<if $itemID is "fruitStock">><<set $calories += either(0,10,20); $bellyBloat += 20; $bonusEnergy += 20>><<endif>>
+
+<<if $itemID is "vegStock">><<set $calories += either(0,10); $bellyBloat += 20; $bonusEnergy += 30>><<endif>>
+
+<<if $itemID is "sugarStock">><<set $calories += 30; $bellyBloat += 10; $bonusEnergy += 20>><<endif>>
+
+<<if $itemID is "nutStock">><<set $calories += 30; $bellyBloat += 10; $bonusEnergy += 20>><<endif>>
+
+<<if $itemID is "fatStock">><<set  $calories += 50; $bellyBloat += 20; $bonusEnergy += 10>><<endif>>
+
+<<if $itemID is "jellyStock">><<set $calories += 30; $bellyBloat += 20; $bellyLiquid += 10; $bonusEnergy += 10; $miraPoisoning += random(0,3)>><<endif>>
+
+<<if $itemID is "dragonStock">><<set $calories += 50; $bellyBloat += 30; $bonusEnergy += 10>><<endif>>
+
+<<if $itemID is "leupaiStock">><<set $calories += 80; $bellyBloat += 30; $bonusEnergy += 20; $direParaLoad += either(0,0,0,0,0,0,0,1); $miraPoisoning += random(0,3); $favorNefirian += random(0,2)>><<endif>>
+
+<<if $itemID is "fatteniumStock">><<set $calories += either(70,80,90,100); $bellyBloat += either(10,20,30); $fatteniumPoisoning += either(0,0,0,10,20)>><<endif>>
+
+<<if $itemID is "distensiumStock">><<set $bellyBloat += either(70,80,90,100)>><<endif>>
+
+<<if $itemID is "miraStock">><<set $calories += either(40,50,60,70); $bellyBloat += either(10,20,30); $mirajinSaturation += random(1,4)>><<endif>>
+
+/% ====================================================== %/
+/% Candy %/
+
+
+<<if $itemID is "candy_colorfulfruit">><<set $calories += either(0,0,10); $bellyBloat += 10; $bonusEnergy += 20>><<endif>>
+
+<<if $itemID is "candy_milky">><<set $calories += 10; $bellyBloat += 10; $bonusEnergy += 20>><<endif>>
+
+<<if $itemID is "candy_slimebait">><<set $calories += 0; $bellyBloat += 10; $bonusEnergy += 20>><<endif>>
+
+<<if $itemID is "candy_buttercandy">><<set $calories += 30; $bellyBloat += 20; $bonusEnergy += 30>><<endif>>
+
+<<if $itemID is "candy_honeybuttercomb">><<set $calories += random(25,42); $bellyBloat += 20; $bonusEnergy += 30>><<endif>>
+
+/% ====================================================== %/
+/% Produce %/
+
+
+<<if $itemID is "produce_tendrilgrass">><<set $calories += random(8,24); $liquidBloat = random(8,12); $bellyBloat += $liquidBloat; $bonusEnergy += random(5,12); $bellyLiquid += $liquidBloat>><<endif>>
+
+<<if $itemID is "produce_tendrilvine">><<set $calories += random(20,38); $liquidBloat = random(32,55); $bellyBloat += $liquidBloat; $bonusEnergy += random(18,32); $bellyLiquid += $liquidBloat>><<endif>>
+
+<<if $itemID is "produce_succulent">><<set $calories += random(0,3); $liquidBloat = random(2,5); $bellyBloat += $liquidBloat; $bonusEnergy += random(0,3); $bellyLiquid += $liquidBloat>><<endif>>
+
+<<if $itemID is "produce_cactus">><<set $calories += random(0,5); $liquidBloat = random(6,11); $bellyBloat += $liquidBloat; $bonusEnergy += random(0,6); $bellyLiquid += $liquidBloat>><<endif>>
+
+<<if $itemID is "produce_pricklepear">><<set $calories += random(3,6); $liquidBloat = random(4,9); $bellyBloat += $liquidBloat; $bonusEnergy += random(3,12); $bellyLiquid += $liquidBloat>><<endif>>
+
+<<if $itemID is "produce_rockroot">><<set $calories += random(8,16); $bellyBloat += random(10,16); $bonusEnergy += random(3,5)>><<endif>>
+
+<<if $itemID is "produce_starchroot">><<set $calories += random(10,20); $bellyBloat += random(10,16); $bonusEnergy += random(5,8)>><<endif>>
+
+<<if $itemID is "produce_honeycarrot">><<set $calories += random(4,6); $bellyBloat += random(6,8); $bonusEnergy += random(6,10)>><<endif>>
+
+<<if $itemID is "produce_sugarcane">><<set $calories += random(6,12); $bellyBloat += random(0,2); $bonusEnergy += random(8,16)>><<endif>>
+
+<<if $itemID is "produce_puffshroom">><<set $calories += 1; $bellyBloat += either(1,1,10,20,50); $belly += either(0,0,0,0,0,1,3,5); $bonusEnergy += random(2,5)>><<endif>>
+
+<<if $itemID is "produce_starberry">><<set $calories += 0; $bellyBloat += random(0,3); $bonusEnergy += random(3,8); $bellyLiquid += random(0,3)>><<endif>>
+
+<<if $itemID is "produce_rosehip_glass">><<set $calories += 0; $bellyBloat += random(0,2); $bonusEnergy += random(1,5); $bellyLiquid += random(0,2)>><<endif>>
+
+<<if $itemID is "produce_coffee">><<set $calories -= random(0,5); $bellyBloat += random(0,8); $bonusEnergy += random(8,36); $bellyLiquid += random(0,3); $caffeineToxicity += random(2,8)>><<endif>>
+
+<<if $itemID is "produce_cramberry">><<set $calories -= random(0,3); $bellyBloat -= random(2,6); $bonusEnergy += random(1,3); $bellyLiquid += random(0,2); $esurience += random(0.1,0.8)>>
+<<if $calories gte $metaGain>><<display Bodytype>>
+<<elseif $bonusEnergy gte $metaBurn>><<set $bonusEnergy -= $metaBurn>>
+<<else>><<display WeightLoss>><<endif>><<endif>>
+
+<<if $itemID is "produce_grape">><<set $calories += random(0,3); $liquidBloat = random(12,36); $bellyBloat += $liquidBloat; $bonusEnergy += random(5,10); $bellyLiquid += $liquidBloat>><<endif>>
+
+<<if $itemID is "produce_tomato">><<set $calories += random(3,6); $bellyBloat += random(5,8); $bonusEnergy += random(0,3); $bellyLiquid += random(2,6)>><<endif>>
+
+<<if $itemID is "produce_belcheri">><<set $calories += random(5,20); $liquidBloat = random(10,30); $bellyBloat += $liquidBloat; $bonusEnergy += random(5,15); $bellyLiquid += $liquidBloat>><<endif>>
+
+<<if $itemID is "produce_plum">><<set $calories += random(6,30); $liquidBloat = random(30,70); $bellyBloat += $liquidBloat; $bonusEnergy += random(6,20); $bellyLiquid += $liquidBloat>><<endif>>
+
+<<if $itemID is "produce_peach">><<set $calories += random(8,32); $liquidBloat = random(35,80); $bellyBloat += $liquidBloat; $bonusEnergy += random(12,24); $bellyLiquid += $liquidBloat>><<endif>>
+
+<<if $itemID is "produce_pear">><<set $calories += random(10,40); $liquidBloat = random(17,40); $bellyBloat += $liquidBloat; $bonusEnergy += random(16,35); $bellyLiquid += $liquidBloat>><<endif>>
+
+<<if $itemID is "produce_apple">><<set $calories += random(5,20); $liquidBloat = random(40,85); $bellyBloat += $liquidBloat; $bonusEnergy += random(24,60); $bellyLiquid += ($liquidBloat / 2)>><<endif>>
+
+<<if $itemID is "produce_pudding">><<set $calories += random(18,60); $bellyBloat += random(3,8); $bonusEnergy += random(6,30)>><<endif>>
+
+<<if $itemID is "produce_milkmelon">><<set $calories = random(15,80); $liquidBloat = random(80,140); $bellyBloat = $liquidBloat; $bonusEnergy = random(10,32); $bellyLiquid += $liquidBloat>>
+<<display MilkCure>>
+<<set $breast += either(0,0,0,0,0,0,0,0,0.1,0.1,0.1,0.2,0.3); $milkRate += either(0,0,0,0,0,0,0,0,0.1,0.1,0.1,0.2,0.3,0.5)>>
+
+/% Seeds %/
+<<set $seedFruit = 1; $seedID = "seed_milkmelon"; $seedQuantity = random(0,6)>><<endif>>
+
+<<if $itemID is "produce_milkmelon_creaking">><<set $calories = random(30,70); $liquidBloat = random(160,400); $bellyBloat = $liquidBloat; $bonusEnergy = random(30,60); $bellyLiquid += $liquidBloat>>
+<<display MilkCure>>
+<<set $breast += either(0,0,0,0,0,0.1,0.1,0.3,0.3,0.5); $milkRate += either(0,0,0,0,0,0.1,0.1,0.2,0.2,0.3,0.5)>>
+
+/% Seeds %/
+<<set $seedFruit = 1; $seedID = "seed_milkmelon"; $seedQuantity = random(0,8)>><<endif>>
+
+<<if $itemID is "produce_fatpumpkin">><<set $calories += random(8,50); $liquidBloat = random(100,600); $bellyBloat += $liquidBloat; $bonusEnergy += random(35,85); $bellyLiquid += $liquidBloat>>
+<<set $belly += either(0,0,0,0,0,0,0,0,0.1,0.1,0.1,0.2,0.3)>>
+
+/% Seeds %/
+<<set $seedFruit = 1; $seedID = "seed_fatpumpkin"; $seedQuantity = random(6,16)>><<endif>>
+
+<<if $itemID is "produce_zeppelon">><<set $calories += random(0,30); $liquidBloat = random(800,2000); $bellyBloat += $liquidBloat; $bonusEnergy += $liquidBloat; $bellyLiquid += $liquidBloat>>
+<<set $belly += either(0,0,0,0,0,0.1,0.2,0.3,0.3,0.5)>>
+
+/% Seeds %/
+<<set $seedFruit = 1; $seedID = "seed_zeppelon"; $seedQuantity = random(4,12)>><<endif>>
+
+/% ====================================================== %/
+/% Seeds %/
+
+<<if $itemID is "seed_fatpumpkin">><<set $calories += random(2,8); $bonusEnergy += random(0,6)>><<endif>>
+
+<<if $itemID is "seed_milkmelon">><<set $randomizer = random(1,48)>>
+
+/% Parasitic germination chance %/
+<<if ($randomizer is 1) and ($milkmelonParasite is 0)>><<set $milkmelonParasite = 1; $breastMelonType = either(0,0,"creaking")>><<endif>>
+<<endif>>
+
+<<if $itemID is "seed_zeppelon">><<set $randomizer = random(1,48)>>
+
+/% Parasitic germination chance %/
+<<if ($randomizer is 1) and ($zeppelonParasite is 0) and ($bellyLiquid gte 20)>><<set $zeppelonParasite = 1>><<endif>>
+<<endif>>
+
+<<if $itemID is "seed_tendrilvine">><<set $randomizer = random(1,48)>>
+
+/% Parasitic germination chance %/
+<<if ($randomizer is 1) and ($tendrilvineParasite is 0) and ($bellyLiquid gte 20)>><<set $tendrilvineParasite = 1>><<endif>>
+<<endif>>
+
+/% ====================================================== %/
+/% Meats %/
+
+<<if $itemID is "meat_haunch">><<set $calories += random(4,45); $bellyBloat += random(18,64); $bonusEnergy += random(15,55); $pain -= random(2,8)>><<endif>>
+
+<<if $itemID is "meat_fattyhaunch">><<set $calories += random(6,65); $bellyBloat += random(24,72); $bonusEnergy += random(25,65); $pain -= random(3,12)>><<endif>>
+
+<<if $itemID is "meat_fattyleuphaunch">><<set $calories += random(54,185); $bellyBloat += random(20,70); $bonusEnergy += random(12,46); $miraPoisoning += random(0,6); $pain -= random(4,24); $favorNefirian += random(0,2)>><<endif>>
+
+<<if $itemID is "tentacle_plump">><<set $calories += random(35,125); $bellyBloat += random(20,160); $bonusEnergy += random(6,60); $miraPoisoning += random(0,12); $pain -= random(4,24)>><<endif>>
+
+<<if $itemID is "cooked_fish">><<set $calories += random(4,38); $bellyBloat += random(16,50); $bonusEnergy += random(25,39); $pain -= random(2,5)>><<endif>>
+
+<<if $itemID is "cooked_poult">><<set $calories += random(7,18); $bellyBloat += random(12,45); $bonusEnergy += random(20,35); $pain -= random(2,5)>><<endif>>
+
+<<if $itemID is "cooked_fat">><<set $calories += random(45,99); $bellyBloat += random(8,18); $bonusEnergy += random(8,16); $pain -= random(0,3)>><<endif>>
+
+<<if $itemID is "cooked_meat">><<set $calories += random(6,38); $bellyBloat += random(24,55); $bonusEnergy += random(25,45); $pain -= random(4,10)>><<endif>>
+
+<<if $itemID is "cooked_dragon">><<set $calories += random(35,85); $bellyBloat += random(24,55); $bonusEnergy += random(8,16); $pain -= random(4,10)>><<endif>>
+
+<<if $itemID is "cooked_leupai">><<set $calories += random(49,155); $bellyBloat += random(24,55); $bonusEnergy += random(16,38); $miraPoisoning += random(0,2); $pain -= random(5,16); $favorNefirian += random(0,2)>><<endif>>
+
+
+/% ====================================================== %/
+/% Cooked Produce %/
+
+
+<<if $itemID is "cooked_starchroot">><<set $calories += random(8,18); $bellyBloat += random(8,16); $bonusEnergy += random(3,6); $pain -= random(2,5)>><<endif>>
+
+<<if $itemID is "cooked_honeycarrot">><<set $calories += random(0,4); $bellyBloat += random(4,8); $bonusEnergy += random(5,8); $pain -= random(2,5)>><<endif>>
+
+
+/% ====================================================== %/
+/% Pastry %/
+
+
+<<if $itemID is "donut_fattenium">><<set $calories += random(65,110); $bellyBloat += 100; $fatteniumPoisoning += either(0,0,0,10); $bonusEnergy += 100>><<endif>>
+
+<<if $itemID is "pastry_indulgence">><<set $calories += 70; $bellyBloat += 30; $bonusEnergy += 30>><<endif>>
+
+<<if $itemID is "pastry_croissant">><<set $calories += 80; $bellyBloat += 100; $bonusEnergy += 50>><<endif>>
+
+<<if $itemID is "pastry_belsuite">><<set $calories += either(60,70,80); $bellyBloat += 30; $bonusEnergy += 20>><<endif>>
+
+<<if $itemID is "pastry_belsuite_fat">><<set $calories += either(90,100,110,120); $bellyBloat += 40; $bonusEnergy += 20>><<endif>>
+
+<<if $itemID is "pastry_buttercake">><<set $calories += 30; $bellyBloat += 10; $bonusEnergy += 10>><<endif>>
+
+<<if $itemID is "pastry_buttercake_spiked">><<set $calories += either(50,60,70,80,90,100,150,200,250); $bellyBloat += either(10,20,30,40,50,60,70,80,90,100,150); $bonusEnergy += either(0,10,20,30,40,50,100); $fatteniumPoisoning += either(0,0,0,10,20)>><<endif>>
+
+
+/% ====================================================== %/
+/% Drinks %/
+
+
+<<if $itemID is "drink_milk">><<set $calories += either(10,20,30); $bellyBloat += 20; $bellyLiquid += 50; $bonusEnergy += 30>>
+<<display MilkCure>><<endif>>
+
+<<if $itemID is "collectionjar_slime">><<set $calories += 0; $bellyBloat += 20; $bellyLiquid += 50; $jarReturn = 1>><<endif>>
+
+<<if $itemID is "collectionjar_milk">><<set $calories += 30; $bellyBloat += 20; $bellyLiquid += 50; $bonusEnergy += 30; $jarReturn = 1>>
+<<display MilkCure>><<endif>>
+
+<<if $itemID is "collectionjar_milk_adephagian">><<set $calories += 40; $bellyBloat += 20; $bellyLiquid += 50; $bonusEnergy += 40; $jarReturn = 1>>
+<<display MilkCure>><<endif>>
+
+<<if $itemID is "collectionjar_cream">><<set $calories += 50; $bellyBloat += 20; $bellyLiquid += 50; $bonusEnergy += 50; $jarReturn = 1>>
+<<display MilkCure>><<endif>>
+
+<<if $itemID is "collectionjar_cream_thick">><<set $calories += 80; $bellyBloat += 40; $bellyLiquid += 50; $bonusEnergy += 60; $jarReturn = 1>>
+<<display MilkCure>><<endif>>
+
+<<if $itemID is "collectionjar_cream_whipped">><<set $calories += 100; $bellyBloat += 60; $bellyLiquid += 50; $bonusEnergy += 80; $jarReturn = 1>><<endif>>
+
+<<if $itemID is "collectionjar_cream_imperial">><<set $calories += 120; $bellyBloat += 40; $bellyLiquid += 50; $bonusEnergy += 100; $jarReturn = 1>><<endif>>
+
+<<if $itemID is "collectionjar_cream_superimperial">><<set $calories += 160; $bellyBloat += 40; $bellyLiquid += 50; $bonusEnergy += 150; $jarReturn = 1>><<endif>>
+
+<<if $itemID is "collectionjar_mousse_imperial">><<set $calories += 250; $bellyBloat += 20; $bellyLiquid += 30; $bonusEnergy += 200; $jarReturn = 1>><<endif>>
+
+<<if $itemID is "collectionjar_honeybutter">><<set $calories += 90; $bellyBloat += 20; $bellyLiquid += 20; $bonusEnergy += 100; $jarReturn = 1>><<endif>>
+
+<<if $itemID is "collectionjar_gorgerjelly">><<set $calories += 250; $bellyBloat += 5; $bellyLiquid += 5; $bonusEnergy += 500; $jarReturn = 1>><<endif>>
+
+<<if $itemID is "drink_espresso">><<set $bellyBloat += 10; $bellyLiquid += 30; $bonusEnergy += 120; $caffeineToxicity += random(10,18)>><<endif>>
+
+<<if $itemID is "drink_coffee">><<set $bellyBloat += 30; $bellyLiquid += 30; $bonusEnergy += 80; $caffeineToxicity += random(6,12)>><<endif>>
+
+<<if $itemID is "drink_coffee_milky">><<set $calories += 10; $bellyBloat += 30; $bellyLiquid += 30; $bonusEnergy += 60; $caffeineToxicity += random(3,8)>><<endif>>
+
+<<if $itemID is "drink_coffee_fat">><<set $calories += 80; $bellyBloat += 50; $bellyLiquid += 30; $bonusEnergy += 150; $caffeineToxicity += random(5,12)>><<endif>>
+
+<<if $itemID is "drink_fragrant">><<set $calories += 10; $bellyBloat += 60; $bellyLiquid += 30; $bonusEnergy += 10>><<endif>>
+
+
+/% ====================================================== %/
+/% Special Food %/
+
+<<if $itemID is "collectionjar_milk_leupai">><<set $calories += either(80,90,100,110); $bellyBloat += 50; $bonusEnergy += 50; $bellyLiquid += 50; $miraPoisoning += random(0,3); $jarReturn = 1>>
+<<display MilkCure>><<endif>>
+
+<<if $itemID is "cake_enormous">><<set $calories += random(200,500); $bellyBloat += random(300,600); $metaGain += either(0,5,10); $metaBurn -= either(0,5,10); $fatteniumPoisoning += either(0,0,1,2,3,5,10); $esurience += random(1,3)>><<endif>>
+
+<<if $itemID is "drink_science">><<set $calories += either(0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,200,500); $bellyBloat += either(0,10,20,30,40,50,100,150,200,210,220,230,240,250,260,270,280,290,300,450,500,1000,1500,2000,5000,10000,500000); $bonusEnergy += either(0,10,20,30,40,50,100,150,200,210,220,230,240,250,260,270,280,290,300,450,500); $bellyLiquid += either(0,10,20,30,40,50,100,150,200,210,220,230,240,250,260,270,280,290,300,450,500,1000,2000,5000,50000); $naturalMaxPain += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1); $finesse += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1); $strength += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1)>><<endif>>
+
+
+/% ====================================================== %/
+/% Edible Non-Foods %/
+
+<<if $itemID is "special_miracrystal">><<set $bellyBloat += 50; $mirajinSaturation += random(5,25)>><<endif>>

@@ -1,0 +1,566 @@
+﻿/% ========== Persistent Effects ==========  %/
+
+/% FOR HELD ITEM EFFECTS, SET BONUSES, & OTHER SIMILAR SHIT %/
+
+/% For admin controls %/
+<<if $mutationToggle is 1>><<display MutationDatabase>><<set $mutationToggle = 0>><<endif>>
+
+
+/% I. Occupation bonuses. %/
+
+<<if $activeOcc is "Beltedier">>
+
+	<<if $leupaiEggLoad gt 0>>
+
+	/% Rapid healing when carrying leupai eggs. %/
+	<<set $pain -= random(2,3)>>
+
+	/% Natural stretchiness. %/
+	<<set $stretchMod += either(0,0,0,1)>>
+
+	/% Bonus weight gain for eggs. %/
+	<<set $quaggyGirth += either(0,0,0,0,5)>>
+
+	/% Weight gain bonus when carrying %/
+	<<set $calories += $leupaiEggLoad * either(0,0,0,0,10)>>
+
+	/% Increased belly gain & body morph chance %/
+
+	<<set $randomizer = random(1,4)>>
+
+		<<if $randomizer is 1>>
+			<<set $belly += $metaGain; $randomizer = random(1,12)>>
+						<<if $randomizer is 1>>
+								<<display BodytypeDevelopment>>
+							<<endif>><<endif>><<endif>>
+<<endif>>
+
+<<if $activeOcc is "Fatiee">>
+
+	/% Bonus gain processing. %/
+
+	<<if $calories gte $metaGain>>
+	<<display Bodytype>><<endif>>
+
+	/% Natural stretchiness. %/
+	<<set $stretchMod += either(0,0,0,1)>>
+
+	/% Rapid healing when sated+. %/
+	<<if ($hunger is "Sated") or ($hunger is "Engorged") or ($hunger is "Overengorged")>>
+	<<set $pain -= random(2,3)>><<endif>>
+
+	/% Increased metaGain floor. %/
+	<<if $metaGain lt 40>><<set $metaGain = 40>><<endif>>
+
+	/% Bonus gain when forcefed (in forcefeeding code) %/
+
+
+<<endif>>
+
+/% ========================================= %/
+/% II. Set bonuses. %/
+
+
+/% HYPOTHESIS Mega-Armor - +5 HP -2 mirads %/
+<<if ($topWorn is "HYPOTHESIS kite") and ($beltWorn is "HYPOTHESIS cesile")>>
+	<<if ($pantsWorn is "HYPOTHESIS coroles") or ($pantsWorn is "HYPOTHESIS kilt")>>
+
+/% +2 Mirajin Resistance %/
+<<if $mirajinRads gte 2>><<set $mirajinRads -= 2>><<endif>>
+
+/% +5 HP %/
+<<if $setBonusOn is 0>><<set $painBuffer += 5; $setBonusOn = 1>><<endif>>
+
+	<<endif>>
+<<endif>>
+
+/% ========================================= %/
+/% Special non-set clothes effects. %/
+
+<<display SpecialClothes>>
+
+/% ========================================= %/
+/% III. Held Items. %/
+
+/% ========================== %/
+/% SPECIAL - Walker Mechs %/
+
+<<if $special_walkermech is 1>>
+<<if ($immobile is 1) and ($immobilityCause is "girth")>><<set $immobile = 0; $immobilityCause = 0>><<endif>>
+
+/% Mech Stat Bonuses %/
+
+/% Base Armor Bonus %/
+	<<if $painBuffer lt 5>><<set $painBuffer = 5>><<endif>>
+
+/% Bonuses by Class %/
+	<<if $walkermech_Class is "STALKER">>
+		<<if $finesse lt 10>><<set $finesse = 10>><<endif>><<endif>>
+
+	<<if $walkermech_Class is "ARACHNID">>
+		<<if $painBuffer lt 10>><<set $painBuffer = 10>><<endif>><<endif>>
+
+	<<if $walkermech_Class is "PALADINE">>
+		<<if $painBuffer lt 15>><<set $painBuffer = 15>><<endif>><<endif>>
+
+
+/% Mech Overload %/
+<<if $fatScore gte $mechMaxCarry>><<set $mechDamage += either(0,0,0,0,0,0,0,1)>><<endif>>
+
+<<if ($mechDamage gte 5) and ($mechDamage lt 8)>><<set $autoRest = 0; $mechDamageAlert = either(0,0,1)>>
+<<elseif $mechDamage gte 8>><<set $autoRest = 0; $mechDamageAlert = either(0,2)>><<endif>>
+
+<<if $mechDamage gte 10>><<set $autoRest = 0; $mechDamageAlert = 3>><<endif>>
+<<endif>>
+
+/% ========================== %/
+/% SPECIAL - Avbot Species Lock %/
+
+<<if $special_avbot is 1>>
+<<if $species neq "avbot">><<set $species = "avbot">><<endif>>
+<<if $playerSkin neq "jelly">><<set $playerSkin = "jelly"; $skinMutation = 0>><<endif>>
+
+<<endif>>
+
+
+/% ========================== %/
+/% Dreamshard %/
+
+<<if $special_dreamshard gt 0>>
+
+<<if $mirajinRads gt 0>><<set $mirajinRads -= (random(1,2) * $special_dreamshard); $miraPoisoning -= random(0,2); $randomizer = random(1,64)>><<endif>>
+
+/% Eventually dreamshards absorb too much mirajin and become live chunks. For now this is very broad; later, have the chance of transformation increase as ambient mirajin does %/
+<<if ($mirajinRads gt 0) and ($randomizer is 1)>><<set $special_dreamshard -= 1; $special_miracrystal += 1>><<endif>>
+<<endif>>
+
+/% ========================== %/
+/% Live Miracrystal Chunk %/
+
+<<if $special_miracrystal gt 0>>
+
+<<set $mirajinRads += $special_miracrystal * either(0,0.1,0.1,0.5)>>
+
+<<endif>>
+
+/% ========================== %/
+/% Mirajin Saturation (eaten Miracrystal dust & Miracrystals) %/
+
+<<if $mirajinSaturation gt 0>>
+
+<<set $mirajinRads += $mirajinSaturation * either(0,0.1,0.1); $calories += $mirajinSaturation * either(0,1)>>
+<<set $mirajinSaturation -= either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1)>>
+
+<<endif>>
+
+<<if $mirajinSaturation lt 0>><<set $mirajinSaturation = 0>><<endif>>
+
+/% ========================== %/
+/% Cursed Carvings %/
+
+<<if $special_carving_belly gt 0>>
+<<set $belly += either(0,0,0,0,0,0,0,1,2)>>
+<<endif>>
+
+<<if $special_carving_breast gt 0>>
+<<set $breast += either(0,0,0,0,0,0,0,1,2)>>
+<<endif>>
+
+<<if $special_carving_thigh gt 0>>
+<<set $thigh += either(0,0,0,0,0,0,0,1,2)>>
+<<endif>>
+
+
+/% ========================================= %/
+/% IV. Genes. %/
+
+<<display Genetics>>
+
+/% ========================================= %/
+/% V. Mirajin Mutation. %/
+
+/% MIRAJIN AMBIENCE METER %/
+
+/% 0(None)================500(HIGH)==================1000(CATASTROPHIC) %/
+
+/% =============================================== %/
+/% Less Than 200 %/
+
+		<<if $mirajinRads gt 0>>
+
+			/% Minor regeneration. %/
+			<<set $pain -= random(0,2)>>
+
+		<<endif>>
+
+		<<if $mirajinRads gte 20>>
+
+			/% Mild weight gain. %/
+			<<set $calories += either(0,0,0,0,0,0,10,10)>>
+
+		<<endif>>
+
+/% =============================================== %/
+/% 200+ %/
+
+		<<if $mirajinRads gte 200>>
+
+			/% Increased weight gain. %/
+			<<set $calories += either(0,0,0,0,10)>>
+
+			/% Subtle mutations start here. %/
+			<<set $randomizer = random(1,16)>>
+			<<if $randomizer is 1>><<set $mutationStrength = "subtle">><<display MutationDatabase>><<endif>>
+
+			/% Mild sanity loss. %/
+			<<set $randomizer = random(1,32)>>
+			<<if $randomizer is 1>><<if $sanity gte 50>><<set $sanity -= 1>><<endif>><<endif>>
+
+		<<endif>>
+
+		<<if $mirajinRads gte 350>>
+
+			/% Increased weight gain. %/
+			<<set $calories += either(0,0,0,10)>>
+
+			/% Minor mutations start here. %/
+			<<set $randomizer = random(1,24)>>
+			<<if $randomizer is 1>><<set $mutationStrength = "minor">><<display MutationDatabase>><<endif>>
+
+			/% Increased sanity loss. %/
+			<<set $randomizer = random(1,24)>>
+			<<if $randomizer is 1>><<if $sanity gte 50>><<set $sanity -= 1>><<endif>><<endif>>
+
+		<<endif>>
+
+/% =============================================== %/
+/% 500+ %/
+
+		<<if $mirajinRads gte 500>>
+
+			/% Minor pain. %/
+			<<if $leupaiFlag is 0>><<set $pain += random(0,3)>><<endif>>
+
+	/% Increased Subtle mutations. %/
+			<<set $randomizer = random(1,8)>>
+			<<if $randomizer is 1>><<set $mutationStrength = "subtle">><<display MutationDatabase>><<endif>>
+
+			/% Major mutations start here. %/
+			<<set $randomizer = random(1,24)>>
+			<<if $randomizer is 1>><<set $mutationStrength = "major">><<display MutationDatabase>><<endif>>
+
+			/% Increased sanity loss. %/
+			<<set $randomizer = random(1,16)>>
+			<<if $randomizer is 1>><<if $sanity gte 50>><<set $sanity -= 1>><<endif>><<endif>>
+
+		<<elseif $mirajinRads gte 600>>
+
+			/% Increased pain. %/
+			<<if $leupaiFlag is 0>><<set $pain += random(0,2)>><<endif>>
+
+			/% Increased Minor mutations. %/
+			<<set $randomizer = random(1,8)>>
+			<<if $randomizer is 1>><<set $mutationStrength = "minor">><<display MutationDatabase>><<endif>>
+
+		<<elseif $mirajinRads gte 700>>
+
+			/% Increased pain. %/
+			<<if $leupaiFlag is 0>><<set $pain += random(0,2)>><<endif>>
+
+			/% Increased Major mutations. %/
+			<<set $randomizer = random(1,20)>>
+			<<if $randomizer is 1>><<set $mutationStrength = "major">><<display MutationDatabase>><<endif>>
+
+			/% Severe mutations start here. %/
+			<<set $randomizer = random(1,32)>>
+			<<if $randomizer is 1>><<set $mutationStrength = "severe">><<display MutationDatabase>><<endif>>
+
+			/% Increased sanity loss. %/
+			<<set $randomizer = random(1,16)>>
+			<<if $randomizer is 1>><<if $sanity gte 50>><<set $sanity -= 1>><<endif>><<endif>>
+
+		<<elseif $mirajinRads gte 800>>
+
+			/% Increased pain. %/
+			<<if $leupaiFlag is 0>><<set $pain += random(0,5)>><<endif>>
+
+			/% Rapid weight gain. %/
+			<<set $randomizer = random(1,12)>>
+			<<if $randomizer is 1>><<display FatSurge>><<endif>>
+
+			/% Increased Severe mutations. %/
+			<<set $randomizer = random(1,32)>>
+			<<if $randomizer is 1>><<set $mutationStrength = "severe">><<display MutationDatabase>><<endif>>
+
+			/% Increased sanity loss. %/
+			<<set $randomizer = random(1,16)>>
+			<<if $randomizer is 1>><<if $sanity gt 40>><<set $sanity -= 1>><<endif>><<endif>>
+
+		<<elseif $mirajinRads gte 900>>
+
+			/% Increased pain. %/
+			<<set $pain += random(0,5); $lethalKO = 1; $deathCause = either("catastrophic mutation","explosion")>>
+
+			/% Body bulging. %/
+			<<set $randomizer = random(1,12)>>
+			<<if $randomizer is 1>><<display ExpandBodytype>><<display FatSurge>><<set $pain += random(2,4); $lethalKO = 1; $deathCause = "explosion">>
+			<<elseif $randomizer is 2>><<display FatSurge>><<set $pain += random(2,4); $lethalKO = 1; $deathCause = "explosion">><<endif>>
+
+			/% Increased Severe mutations. %/
+			<<set $randomizer = random(1,32)>>
+			<<if $randomizer is 1>><<set $mutationStrength = "severe">><<display MutationDatabase>><<endif>>
+
+			/% Increased sanity loss. %/
+			<<set $randomizer = random(1,16)>>
+			<<if $randomizer is 1>><<if $sanity gt 40>><<set $sanity -= 1>><<endif>><<endif>>
+
+		<<elseif $mirajinRads gte 950>>
+
+			/% Explosive weight gain. %/
+			<<set $randomizer = random(1,3)>>
+			<<if $randomizer is 1>><<display FatSurge>><<set $pain += random(2,4); $lethalKO = 1; $deathCause = either("catastrophic mutation","explosion")>>
+			<<elseif $randomizer is 2>><<display FatSurge>><<display FatSurge>><<set $pain += random(4,6); $lethalKO = 1; $deathCause = either("catastrophic mutation","explosion")>>
+			<<elseif $randomizer is 3>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<set $pain += random(6,8); $lethalKO = 1; $deathCause = either("catastrophic mutation","explosion")>>
+				<<endif>>
+
+			/% Increased mutations. %/
+			<<set $randomizer = random(1,4)>>
+			<<if $randomizer is 1>><<set $mutationStrength = either("subtle","subtle","subtle","minor","minor","major","severe")>><<display MutationDatabase>><<endif>>
+
+			/% Rapid sanity loss. %/
+			<<if $sanity gt 40>><<set $sanity -= random(0,2)>><<endif>>
+		<<endif>>
+
+/% ========================================= %/
+/% V. Radiation Sickness. %/
+
+/% ========================================== %/
+/% NUCLEAR AMBIENCE METER %/
+
+/% 0(None)================500(HIGH)==================1000(CATASTROPHIC) %/
+
+/% Rad-Vulnerable %/
+
+<<if $radAffinity is 0>>
+
+/% =============================================== %/
+/% Less Than 200 %/
+
+		<<if $nuclearRads gte 100>>
+
+			/% Minor pain. %/
+			<<set $pain += random(0,3)>>
+
+/% =============================================== %/
+/% 200+ %/
+
+		<<elseif $nuclearRads gte 250>>
+
+			/% Increased pain. %/
+			<<set $pain += random(2,3)>>
+
+		<<elseif $nuclearRads gte 400>>
+
+			/% Increased pain. %/
+			<<set $pain += random(3,4)>>
+
+			/% Nausea. %/
+			<<set $toxicOverdoseWarning = either(0,0,0,0,0,0,0,1)>>
+
+/% =============================================== %/
+/% 500+ %/
+
+		<<elseif $nuclearRads gte 450>>
+
+			/% Wasting. %/
+			<<set $metaGain -= either(0,0,0,0,0,1); $metaDrain += either(0,0,0,0,0,1); $calories -= either(0,0,0,10)>>
+
+			/% Increased nausea. %/
+			<<set $toxicOverdoseWarning = either(0,0,0,0,0,1)>>
+
+		<<elseif $nuclearRads gte 500>>
+
+			/% Increased pain. %/
+			<<set $pain += ($maxPain * 0.01)>>
+
+			/% Increased wasting. %/
+			<<set $metaGain -= either(0,0,0,1); $metaDrain += either(0,0,0,1); $calories -= either(0,0,0,10)>><<display WeightLoss>>
+
+			/% Physical Stat loss %/
+			<<set $randomizer = random(1,128)>>
+				<<if $randomizer is 1>><<set $strength -= 1; $finesse -= 1; $radPhysLoss = 1>><<endif>>
+
+			/% Mind loss %/
+			<<set $randomizer = random(1,128)>>
+				<<if $randomizer is 1>><<set $sanity -= random(1,2); $radMindLoss = 1>><<endif>>
+
+			/% Mild mutation chance %/
+			<<set $randomizer = random(1,128)>>
+				<<if $randomizer is 1>><<set $mutationStrength = either("subtleRad","minorRad")>><<display MutationDatabase>><<endif>>
+
+
+		<<elseif $nuclearRads gte 600>>
+
+
+			/% Increased pain. %/
+			<<set $pain += ($maxPain * 0.01); $lethalKO = either(0,0,1); $deathCause = "radiation">>
+
+			/% Increased nausea. %/
+			<<set $toxicOverdoseWarning = either(0,0,0,1)>>
+
+			/% Vitality loss %/
+			<<set $randomizer = random(1,128)>>
+				<<if $randomizer is 1>><<set $naturalMaxPain -= random(2,3); $radVitalityLoss = 1; $playerSkin = either("frail","cracked","oozing")>><<endif>>
+
+		<<elseif $nuclearRads gte 700>>
+
+			/% Increased nausea. %/
+			<<set $toxicOverdoseWarning = either(0,0,1)>>
+
+			/% Increased vitality loss %/
+			<<set $randomizer = random(1,64)>>
+				<<if $randomizer is 1>><<set $naturalMaxPain -= random(2,3); $radVitalityLoss = 1; $playerSkin = either("frail","diseased","cracked","oozing")>><<endif>>
+
+			/% Increased mind loss %/
+			<<set $randomizer = random(1,64)>>
+				<<if $randomizer is 1>><<set $sanity -= random(1,2); $radMindLoss = 1>><<endif>>
+
+			/% Tumor growth - PUT IN RAD MUTATIONS %/
+				<<set $bellyBloat += ($maxBelly * 0.01); $playerSkin = either("diseased","cracked","oozing","tumorous","peeling","bubbling")>>
+
+			/% Major mutation chance %/
+			<<set $randomizer = random(1,128)>>
+				<<if $randomizer is 1>><<set $mutationStrength = either("majorRad","majorRad","severeRad")>><<display MutationDatabase>><<endif>>
+
+		<<elseif $nuclearRads gte 800>>
+
+			/% Increased pain. %/
+			<<set $pain += ($maxPain * 0.02); $lethalKO = 1; $deathCause = "radiation">>
+
+			/% Increased phys loss %/
+			<<set $randomizer = random(1,64)>>
+				<<if $randomizer is 1>><<set $strength -= 1; $finesse -= 1; $radPhysLoss = 1>><<endif>>
+
+			/% Increased wasting. %/
+			<<set $metaGain -= either(0,0,0,1); $metaDrain += either(0,0,0,1); $calories -= either(0,0,0,10)>><<display WeightLoss>>
+
+			/% Increased tumor growth %/
+				<<set $bellyBloat += ($maxBelly * 0.02); $playerSkin = either("diseased","cracked","oozing","tumorous","peeling")>>
+
+			/% Severe mutation chance %/
+			<<set $randomizer = random(1,128)>>
+				<<if $randomizer is 1>><<set $mutationStrength = either("majorRad","majorRad","severeRad")>><<display MutationDatabase>><<endif>>
+
+		<<elseif $nuclearRads gte 900>>
+
+			/% Increased pain. %/
+			<<set $pain += ($maxPain * 0.03); $lethalKO = 1; $deathCause = "radiation">>
+
+			/% Increased phys loss %/
+			<<set $randomizer = random(1,64)>>
+				<<if $randomizer is 1>><<set $strength -= 1; $finesse -= 1; $radPhysLoss = 1>><<endif>>
+
+			/% Increased wasting. %/
+			<<set $metaGain -= either(0,0,0,1); $metaDrain += either(0,0,0,1); $calories -= either(10,20,30,50)>><<display WeightLoss>>
+
+			/% Severe mutation chance %/
+			<<set $randomizer = random(1,64)>>
+				<<if $randomizer is 1>><<set $mutationStrength = "severeRad">><<display MutationDatabase>><<endif>>
+
+			/% Increased tumor growth %/
+				<<set $bellyBloat += ($maxBelly * 0.03); $playerSkin = either("raw","tumorous","rotting")>>
+
+			/% Rapid weight loss %/
+				<<set $calories = 0>><<display WeightLoss>>
+
+			/% Dying Agony %/
+				<<set $naturalMaxPain -= either(0,0,0,0,1,1,2); $lethalKO = 1; $deathCause = "radiation">>
+
+		<<endif>>
+
+	<<elseif $nuclearRads gte 1000>>
+
+			/% Severe mutation chance %/
+			<<set $randomizer = random(1,64)>>
+				<<if $randomizer is 1>><<set $mutationStrength = either("subtleRad","minorRad","majorRad","severeRad")>><<display MutationDatabase>><<endif>>
+
+<<endif>>
+
+/% ========================================= %/
+/% V. Lycanthropy. %/
+
+<<if $lycanthropy neq 0>>
+	<<if ($daytime is 0) and ($shiftPhase is 0)>><<display Lycanthropy>>
+	<<elseif ($daytime is 1) and ($shiftPhase is 1)>><<display Lycanthropy>>
+		<<endif>>
+<<endif>>
+
+
+/% ========================================= %/
+/% VI. Curses. %/
+
+<<if $curse_revixVoracity is 1>>
+/% Max hunger + stretchy + withTeeth + constant calorie drip %/
+<<set $esurience = 64; $withTeeth = 1; $stretchy = 1; $calories += random(0,3)>><<endif>>
+
+/% ========================================= %/
+/% X. Statmods. %/
+
+
+/% ====================================================== %/
+/% Gorging %/
+
+/% If you continue eating after you reach fullness, it causes a proportionate  amount of pain. %/
+
+<<display Gorging>>
+
+
+/% ========================================= %/
+/% Vitality check. %/
+
+<<display Vitality>>
+
+/% ========================================= %/
+/% Calorie Dumping. %/
+
+/% If you're overengorged, your body tries to store the excess calories based on your body type, each round until you're no longer overengorged. %/
+
+<<if $calorieDumping is 1>>
+
+/% ===================================================== %/
+/% Calculate gain amount %/
+
+/% Gain per Round = metaGain/10 * 0.3 @ 100% efficiency %/
+
+<<set $gpr = ($metaGain/10) * 0.6>>
+<<set $gainTick = (($gpr * $calEfficiency) / 2)>>
+
+<<set $calories -= ($metaGain * 2)>>
+
+/% ==================== %/
+
+	<<if ($bodyType is "busty") or ($bodyType is "boviete")>>
+		<<set $breast += $gainTick>>
+
+	<<elseif ($bodyType is "hourglass") or ($bodyType is "cubus")>>
+		<<set $breast += (($gainTick / 3) * 2); $thigh += ($gainTick / 3)>>
+
+	<<elseif ($bodyType is "belly") or ($bodyType is "guguetelle")>>
+		<<set $belly += $gainTick>>
+
+	<<elseif ($bodyType is "round") or ($bodyType is "bulging")>>
+		<<set $belly += (($gainTick / 3) * 2); $thigh += ($gainTick / 3)>>
+
+	<<elseif ($bodyType is "thigh") or ($bodyType is "blimpthigh")>>
+		<<set $thigh += $gainTick>>
+
+	<<elseif ($bodyType is "pear") or ($bodyType is "bloatpear")>>
+		<<set $thigh += (($gainTick / 3) * 2); $belly += ($gainTick / 3)>>
+	<<endif>>
+
+<<set $calorieDumping = 0>>
+<<endif>>
+
+
+/% ====================================================== %/
+

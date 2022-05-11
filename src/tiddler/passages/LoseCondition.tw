@@ -1,0 +1,83 @@
+﻿<center><<display ZoneBackgrounds>><<display EncounterImg>>
+
+/% Coup de Grace - you're not dead yet, but you might be %/
+<<nobr>>
+/% ======================================================================== %/
+
+<<if ($pain lt $maxPain) or ($lethalKO is 0)>>
+<<set $randomizer = 0>>
+
+
+<<if $killmode is 0>><<set $randomizer = either(1,2,3)>><<endif>>
+
+/% ======================================================================== %/
+
+<framed>
+
+<<if $killmode is "defensive">>
+
+''The <<print $encounter>> takes the opportunity to flee!''<<endif>>
+
+<<if ($randomizer is 1) or ($killmode is "biter")>>
+
+''The <<print $encounter>> rips into your flesh, devouring you hungrily!''<<set $blackout = 1; $lethalKO = 1; $deathCause = "eaten">><<set $continueOverride = 1>><<endif>>
+<<if $randomizer is 2>>
+
+''The <<print $encounter>> leaves you for dead!''<<endif>>
+<<if ($randomizer is 3) or ($killmode is "slayer")>>\
+
+''The <<print $encounter>> delivers a killing blow!''<<set $blackout = 1; $lethalKO = 1>><<set $continueOverride = 1>><<endif>></framed>
+
+
+
+/% Fatalities - for spectacular deaths %/
+
+<<elseif $pain gte $maxPain>>
+
+<<if $deathCause is "poison">>
+
+''You thrash and tremble as the poison ravages through your system, froth at your mouth as you draw your last ragged breath..!''<<set $blackout = 1; $lethalKO = 1>><<set $continueOverride = 1>>
+
+
+<<elseif $deathCause is "explosion">>
+
+''Panting, you desperately cling to your rapidly-bloating sides, clenching your eyes and teeth tight as your skin creaks ominously, beginning to tear open...''<<set $blackout = 1; $lethalKO = 1>><<set $continueOverride = 1>>
+
+
+<<elseif $deathCause is "catastrophic mutation">>
+
+''You scream in inescapable agony as your flesh warps and bulges, twisting and distorting your body into shapes it was never made to hold..!''<<set $blackout = 1; $lethalKO = 1>><<set $continueOverride = 1>>
+
+
+<<elseif $deathCause is "fat suffocation">>
+
+''You squirm and scrabble in desperation as your body rapidly expands and bloats with massive quantities of soft fat-- the rising cascade of your own blubbery flesh finally swallowing you up completely!''<<set $blackout = 1; $lethalKO = 1>><<set $continueOverride = 1>>
+
+
+<<elseif $deathCause is "burst belly">>
+
+''You cry out in pain as you clutch your grotesquely-distended and still-ballooning belly; it creaks and groans as it swells far too round, your skin beginning to tear apart as it struggles to contain you...''<<set $blackout = 1; $lethalKO = 1>><<set $continueOverride = 1>>
+
+
+<<elseif $deathCause is "asphyxiation">>
+
+''You struggle and gasp desperately for air and freedom-- but you drew your last breath far too long ago...''<<set $blackout = 1; $lethalKO = 1>><<set $continueOverride = 1>>
+
+
+<<elseif $deathCause is "eaten">>
+
+''The <<print $encounter>> rips into your flesh, devouring you hungrily!''<<set $blackout = 1; $lethalKO = 1>><<set $continueOverride = 1>>
+
+
+/% ======================================================================== %/
+<<else>>/% Catchall %/
+
+''You see stars for a moment or two-- and then, //you see nothing at all...//''
+<<set $blackout = 1; $lethalKO = 1>><<set $continueOverride = 1>>
+/% ======================================================================== %/
+
+<<endif>><<endif>><<endnobr>>
+<<if $continueOverride is 0>><<button [[Continue.|$saveState]]>><<elseif $continueOverride is 1>><<if $blackout is 1>>
+<<display CriticalAlerts>><<endif>><<endif>>
+
+<<if $showDebug is 1>>//DEBUG: killmode is <<print $killmode>>, deathCause is <<print $deathCause>>//<<endif>></center>

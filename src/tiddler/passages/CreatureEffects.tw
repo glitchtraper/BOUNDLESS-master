@@ -1,0 +1,508 @@
+﻿<center><<display ZoneBackgrounds>><<display EncounterImg>><<display ColorWheel>><<set $continueOverride = 0>><framed><<nobr>>
+
+/% ======================================================================== %/
+/% Results page for special creatures that do things when you eat or otherwise interact with them. %/
+
+<<endnobr>><<if ($encounter is "small slime") or ($encounter is "slime")>>
+''The <<print $encounter>> forces itself into your mouth and down your throat, leaving you shivering as your belly <<print either("expands","swells","inflates","stretches","distends","bloats","balloons","jiggles","creaks")>>!''<<set $bellyBloat += $creatureGirth; $lethalKO = 1; $deathCause = "burst belly">><<elseif $encounter is "enormous slime">>
+<<set $continueOverride = 1; $noncon = 1; $ffeedingVerb = "inflate"; $ffeedingTarget = "belly"; $ffeedingEffect = "bouncing as it swells rounder and tighter"; $escapeDifficulty = 30>>
+The enormous slime ''engulfs you, your body bloating tight and round as it inflates you with itself!''<<set $ffCalories = 0; $ffBloat = $maxBelly * 0.01; $ffLiquid = $ffBloat; $ffBreastBloat = $maxBreast * 0.02; $ffMilk = either(10,20); $ffPain = random(1,3); $ffGreed = 0; $maxBelly += either(0,0,0,0,0,0,0,10); $lethalKO = 1; $deathCause = "burst belly">><<if $ffEncouraged is 1>><<set $ffBloat += $maxBelly; $ffLiquid = 10; $ffBreastBloat += $maxBreast; $ffMilk = 10; $ffGreed = 0>><<endif>>
+
+<<display ForcefeedEngine>><<nobr>>
+
+/% Slime Parasitism chance %/
+
+<<set $randomizer = either(0,0,1,2)>>
+
+<<if $randomizer is 1>><<set $slimeBellyParasite = 1>>
+
+<<if $encounter is "small slime">><<set $slimeBellyParaLoad += either(10,20,30,40,50,60,70,80,90,100); $bellyLiquid += either(10,20,30,40,50,60,70,80,90,100)>><<endif>>
+<<if $encounter is "slime">><<set $slimeBellyParaLoad += either(50,100,150,200,250); $bellyLiquid += either(50,100,150,200,250)>><<endif>>
+<<if $encounter is "enormous slime">><<set $slimeBellyParaLoad += either(10,15,20)>><<endif>>
+
+<<elseif $randomizer is 2>><<set $slimeBreastParasite = 1>>
+
+<<if $encounter is "small slime">><<set $slimeBreastParaLoad += either(10,20,30,40,50,60,70,80,90,100); $breastBloat += either(10,20,30,40,50)>><<endif>>
+<<if $encounter is "slime">><<set $slimeBreastParaLoad += either(50,100,150,200,250); $breastBloat += either(50,100,150,200,250)>><<endif>>
+<<if $encounter is "enormous slime">><<set $slimeBreastParaLoad += either(10,15,20,25,30); $breastBloat += either(100,150,200,250,300,350,400,450,500)>><<endif>>
+
+<<else>>
+<<if $encounter is "small slime">><<set $bellyLiquid += either(10,20,30,40,50,60,70,80,90,100)>><<endif>>
+<<if $encounter is "slime">><<set $bellyLiquid += either(50,100,150,200,250)>><<endif>>
+<<if $encounter is "enormous slime">><<set $bellyLiquid += either(10,15,20,25,30,35,40)>><<endif>><<endif>><<endnobr>><<endif>><<nobr>>
+
+/% ======================================================================== %/
+/% Fyynling %/
+
+<<endnobr>><<if $encounter is "fyynling">>Slithering up to you, the fyynling presses itself against your flesh-- melting away to nothing as it absorbs into you, your body swelling fatter! <<display FatSurge>><<display FatSurge>><<set $fyynlingMorph += random(2,8)>><<endif>><<nobr>>
+
+
+/% ======================================================================== %/
+/% Culinet Feeder %/
+
+<<endnobr>><<if $encounter is "wild-eyed culinet">>\
+<<if $culinetEffect is 0>><<display RevecroixRandomizer>><<set $culinetEffect = either(1,2,3); $culinetChub = either("flabby body jiggling as it moves closer","huge, bulging gut bouncing as it approaches","fat thighs rippling","tortured clothes creaking as they struggle to contain it")>><<endif>>The <<print $randomRevecroix>> culinet waddles very rapidly up to you, its <<print $culinetChub>>!
+
+Before you can react, ''they tackle you at once-- holding you down as they <<if $culinetEffect is 1>>pour an entire jar of prepared calorie powder down your throat!<<set $calories += either(100,150,200,250,300,350); $bellyBloat += 100; $bellyLiquid += 100; $calpowderToxicity += random(2,18)>><<elseif $culinetEffect is 2>>force a handful of pills down your throat!<<set $metaGain += either(10,20,30,40,50); $gainerToxicity += random(5,15)>>\
+\
+<<elseif $culinetEffect is 3>>press a thick hose into your mouth, pumping your gut full to bursting with industrial-strength honeybutter slurry!\
+<<set $continueOverride = 1; $noncon = 1; $ffeedingVerb = "inflate"; $ffeedingTarget = "belly"; $ffeedingEffect = "wobbling as it bloats with liquid"; $escapeDifficulty = 30>>\
+<<set $ffCalories = ($maxBelly * 0.02); $ffBloat = $maxBelly * 0.02; $ffLiquid = $ffBloat; $ffBreastBloat = $maxBreast * 0.02; $ffMilk = 0; $ffPain = random(0,2); $ffGreed = either(0,0,0.01); $maxBelly += either(0,0,0,0,0,0,0,10); $lethalKO = 1; $deathCause = "burst belly">><<if $ffEncouraged is 1>><<set $ffBloat += $maxBelly * 0.02; $ffLiquid = $ffBloat; $ffGreed =  either(0,0,0.01)>><<endif>>
+
+<<display ForcefeedEngine>><<endif>>''<<endif>><<nobr>>
+
+/% ======================================================================== %/
+/% Helene Encounters %/
+
+<<endnobr>><<if $encounter is "overstuffed helene">><<set $lethalKO = 0>>The fat, bat-winged daedlan grins as you approach, ''catching your gaze in its own! You freeze in place!
+You feel your own body growing softer..!''<<set $girth += either(30,40,50,60,70,80,90,100); $belly += either(0,10,20,30); $breast += either(0,10,20,30); $thigh += either(0,10,20,30); $thighFirmness -= either(0,10,20,30)>><<nobr>>
+
+<<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "blubber-bellied helene">><<set $lethalKO = 0>>The pot-bellied, bat-winged daedlan grins as you approach, ''catching your gaze in its own! You freeze in place!
+You feel your own belly growing bigger and softer..!''<<set $belly += either(20,30,40,50)>><<nobr>>
+
+<<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "blimp-thighed helene">><<set $lethalKO = 0>>The fat-thighed, bat-winged daedlan grins as you approach, ''catching your gaze in its own! You freeze in place!
+You feel your own thighs swelling soft and thick with fat..!''<<set $thigh += either(20,30,40,50); $thighFirmness -= either(40,50,60,70,80)>><<nobr>>
+
+<<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "huge-breasted helene">><<set $lethalKO = 0>><<nobr>>
+
+<<display ExpandBodytype>>
+
+<<set $randomizer = either(1,2,3)>>
+
+/% Fattening proc %/
+
+<<endnobr>><<if $randomizer is 1>>
+The bat-winged daedlan grins as you approach, ''catching your gaze in its own! You freeze in place!
+You feel your own breasts swelling fatter and heavier..!''<<set $breast += either(20,30,40,50); $breastBloat += ($maxBreast * either(0.5,0.8,1))>><<nobr>>
+
+/% Forcefeeding proc %/
+
+<<endnobr>><<elseif $randomizer is 2>>
+The bat-winged daedlan grins as you approach... ''then grabs you and pins you to the ground, forcing you to drink from its breasts!
+
+You squirm and groan as your own breasts slowly begin to inflate...''<<set $lactation = 1; $breast += either(10,20,30); $breastBloat += ($maxBreast * either(0.3,0.5,0.8)); $milkRate += either(0,0,10); $calories += either(100,110,120,130,140,150,160,170,180,190,200); $bellyLiquid += 100; $bellyBloat += 100; $helenoToxicity += random(2,6); $esurience += either(0,0,0,0.1,0.2,0.3)>><<nobr>>
+
+/% Milk enhancement proc %/
+
+<<endnobr>><<elseif $randomizer is 3>>
+The bat-winged daedlan grins as you approach, ''catching your gaze in its own! You freeze in place!
+You feel your own breasts bloating full and fat..!''<<set $breastBloat += ($maxBreast * either(0.3,0.5,0.6)); $milkRate += either(0,0,10); $milkFat += either(0,0,0,0,10); $milkRate += either(0,0,10)>><<endif>><<endif>><<nobr>>
+
+/% ======================================================================== %/
+
+/% Eldritch tendrils %/
+
+<<endnobr>><<if $encounter is "coaxing tendril">><<set $continueOverride = 1; $noncon = 1; $ffeedingVerb = "inflate"; $ffeedingTarget = "belly"; $ffeedingEffect = "bouncing as it swells rounder and tighter"; $escapeDifficulty = 16; $fyynlingMorph += random(1,6)>>
+The soft, fat tentacle coils around you, ''pressing its tip into your mouth and filling your belly!''
+
+<<nobr>>
+
+<<set $ffCalories = either(0,0,0,10,10,20); ; $ffBloat = ($maxBelly * 0.01); $ffLiquid = $ffBloat; $ffGreed = random(0,0.01); $maxBelly += either(0,0,0,0,0,0,0,0,0,0,0,10); $randomizer = random(1,8); $health = "Sore"; $lethalKO = 1; $deathCause = either("burst belly","drowned")>>
+
+/% Encourage bonus %/
+<<if $ffEncouraged is 1>><<set $ffCalories += random(10,20); $ffBloat += ($maxBelly * 0.01); $ffLiquid = $ffBloat; $ffGreed += random(0,0.01)>><<endif>>
+
+<<display ForcefeedEngine>>
+
+	<<if $randomizer is 1>><<set $randomizer = random(1,8)>>
+		<<if $randomizer is 1>><<set $breastParasite = 1; $breastParaLoad += 10>>
+			<<elseif $randomizer is 2>><<set $bellyParasite = 1; $bellyParaLoad += 10>>
+			<<elseif $randomizer is 3>><<set $bodyPlumperParasite = 1; $wgParaLoad += 10>>
+			<<elseif $randomizer is 4>><<set $bellyPlumperParasite = 1; $bellywgParaLoad += 10>>
+			<<elseif $randomizer is 5>><<set $breastPlumperParasite = 1; $breastwgParaLoad += 10>>
+			<<elseif $randomizer is 6>><<set $metaParasite = 1; $metaParaLoad += 10>>
+			<<elseif $randomizer is 7>><<set $direParasite = 1; $direParaLoad += either(50,60,70,80,90,100,110,120,130,140,150)>>
+						<<endif>>
+					<<endif>>
+
+		<<if $bodyType is 0>><<set $bodyType = either(0,0,0,0,0,"round","belly")>><<elseif $bodyType is "thigh">><<set $bodyType = either(0,0,0,0,"pear")>><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "feeder tendril">><<set $continueOverride = 1; $noncon = 1; $ffeedingVerb = "forcefeed"; $ffeedingTarget = "belly"; $ffeedingEffect = "bloating full and fat"; $escapeDifficulty = 15; $fyynlingMorph += random(1,6)>>
+The soft, fat tentacle coils around you, ''pressing its tip into your mouth and pumping you full of something rich and sweet!''
+
+<<nobr>>
+
+<<set $ffCalories = random(10,30); $ffBloat = $maxBelly * 0.02; $ffLiquid = $ffBloat; $ffMilk = 0; $ffPain = 0; $ffGreed = random(0,0.02); $maxBelly += either(0,0,0,0,0,0,0,0,1); $lethalKO = 1; $deathCause = either("burst belly","drowned"); $ffGreed = random(0,2)>>
+
+/% Encourage bonus %/
+<<if $ffEncouraged is 1>><<set $ffCalories += random(30,50); $ffBloat += ($maxBelly /2); $ffLiquid = $ffBloat; $ffGreed += random(0,0.01)>><<endif>>
+
+<<display ForcefeedEngine>>
+
+	<<if $randomizer is 1>><<set $randomizer = random(1,8)>>
+		<<if $randomizer is 1>><<set $breastParasite = 1; $breastParaLoad += 10>>
+			<<elseif $randomizer is 2>><<set $bellyParasite = 1; $bellyParaLoad += 10>>
+			<<elseif $randomizer is 3>><<set $bodyPlumperParasite = 1; $wgParaLoad += 10>>
+			<<elseif $randomizer is 4>><<set $bellyPlumperParasite = 1; $bellywgParaLoad += 10>>
+			<<elseif $randomizer is 5>><<set $breastPlumperParasite = 1; $breastwgParaLoad += 10>>
+			<<elseif $randomizer is 6>><<set $metaParasite = 1; $metaParaLoad += 10>>
+			<<elseif $randomizer is 7>><<set $direParasite = 1; $direParaLoad += either(50,60,70,80,90,100,110,120,130,140,150)>>
+						<<endif>>
+					<<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+<<endnobr>><<if $encounter is "hose tendril">><<set $continueOverride = 1; $noncon = 1; $ffeedingVerb = "inflate"; $ffeedingTarget = "belly"; $ffeedingEffect = "creaking as it balloons"; $escapeDifficulty = 35; $fyynlingMorph += random(1,6)>>
+The soft, fat tentacle coils around you, ''pressing its tip into your mouth and rapidly inflating your belly with a hiss!''
+
+<<nobr>>
+
+<<set $ffCalories = either(0,0,0,10,10,20); $ffBloat = ($maxBelly * 0.05); $ffLiquid = 0; $ffMilk = 0; $ffPain = random(0,2); $ffGreed = 0; $maxBelly += either(0,0,0,0,0,0,0,5); $lethalKO = 1; $deathCause = "burst belly">>
+
+/% Encourage bonus %/
+<<if $ffEncouraged is 1>><<set $ffBloat += ($maxBelly * 0.02); $ffLiquid = $ffBloat; $ffGreed += random(0,0.5); $maxBelly += either(0,0,0,0,0,0,0,5)>><<endif>>
+
+<<display ForcefeedEngine>>
+
+
+	<<if $randomizer is 1>><<set $randomizer = random(1,3)>>
+		<<if $itemEffect is 1>><<set $breastParasite = 1; $breastParaLoad += 10>>
+			<<elseif $itemEffect is 2>><<set $bellyParasite = 1; $bellyParaLoad += 10>>
+			<<elseif $itemEffect is 3>><<set $direParasite = 1; $direParaLoad += either(50,60,70,80,90,100,110,120,130,140,150)>>
+						<<endif>>
+					<<endif>>
+
+<<if $bodyType is 0>><<set $bodyType = either(0,0,0,0,0,0,0,0,"round","belly")>><<elseif $bodyType is "thigh">><<set $bodyType = either(0,0,0,0,0,0,0,"pear")>><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+
+/% ======================================================================== %/
+
+/% Tendrilvine %/
+
+<<endnobr>><<if $encounter is "tendrilvine">><<set $continueOverride = 1; $noncon = 1; $ffeedingVerb = "forcefeed"; $ffeedingTarget = "belly"; $ffeedingEffect = "swelling up tight, round, and heavy"; $escapeDifficulty = 25>>
+The thick, leathery vine coils tightly around your body and limbs, ''making sure to leave plenty of room for your belly to expand as it mercilessly forcefeeds you its sap!''
+
+<<nobr>>
+
+<<set $ffCalories = random(10,30); $ffBloat = ($maxBelly * 0.02); $ffLiquid = $ffBloat; $ffPain = random(0,1); $ffGreed = random(0,0.1); $maxBelly += either(0,0,0,0,0,0,0,0,1); $lethalKO = 1; $deathCause = either("burst belly","drowned")>>
+
+/% Encourage bonus %/
+<<if $ffEncouraged is 1>><<set $ffCalories += random(20,40); $ffBloat += ($maxBelly * 0.05); $ffLiquid = $ffBloat; $ffPain += random(0,1); $maxBelly += either(0,0,0,0,0,0,0,0,1); $ffGreed = random(0,0.1)>><<endif>>
+
+<<display ForcefeedEngine>><<endnobr>><<endif>><<nobr>>
+
+
+/% ======================================================================== %/
+/% Fyynling horror %/
+
+<<endnobr>><<if $encounter is "fyynling-possessed horror">>
+The //arguably// humanoid creature shuffles slowly up to you!
+You can't tell what it used to be; it's so bloated with fyynlings that have merged with its body that it's little more than a jiggling blob of flesh, blubber-stuffed limbs flailing.
+
+''It grabs hold of you once it gets close enough-- and its clawed fingers immediately disappear into your skin!
+You cry out in shock as the thing swiftly deflates, its body wilting into nothing as it pumps itself into you!
+
+Helplessly, you tremble and groan, clutching your doughy, bulging sides as your body billows and surges with an immense amount of quivering, gelatinous fat!
+<<if $sanity gte 70>>
+[img[icon_alert_critical]]<bleak>You are //traumatized and deeply unnerved// by what just transpired!</bleak><<set $sanity -= 10>><<endif>>''
+<<set $girth += ($creatureCalories / 3); $belly += random(250,500); $bellyBloat = $maxBelly * 2; $breast += random(50,150); $breastBloat += $maxBreast; $thigh += random(50,150); $thighFirmness -= either(10,15,20,25,30); $fyynlingMorph += random(10,30); $pain += random(20,30); $health = "Sore"; $esurience += random(2,6); $lethalKO = 1; $deathCause = either("explosion","fat suffocation")>><<nobr>>
+
+<<display ExpandBodytype>><<endnobr>><<endif>><<nobr>>
+
+/% ======================================================================== %/
+/% Puddings & Blubberslimes %/
+
+<<endnobr>><<if ($encounter is "small pudding") or ($encounter is "pudding") or ($encounter is "enormous pudding")>>\
+You cry out in shock as the <<print $encounter>> merges with your body...<<nobr>>
+
+<<set $effect = $creatureCalories / 10>>
+
+<<if ($encounter is "enormous pudding") and ($fatScore gte 9000)>><<set $effect * 10; $turnBlubberslime = 1>><<endif>>
+
+						<<if $bodyType is "busty">>
+<<set $girth += $effect * 0.1; $belly += $effect * 0.1; $breast += $effect * 0.5; $thigh += $effect * 0.1; $breastBloat += $maxBreast * 1.5>>
+<<set $lethalKO += either(0,1); $deathCause += either("explosion","fat suffocation")>>
+ ''Your breasts suddenly balloon with fat, the rest of your body growing steadily rounder!''
+
+			<<elseif $bodyType is "hourglass">>
+<<set $girth += $effect * 0.1; $belly += $effect * 0.1; $breast += $effect * 0.3; $thigh += $effect * 0.3; $breastBloat += $maxBreast * 1.5>>
+<<set $lethalKO += either(0,1); $deathCause += either("explosion","fat suffocation")>>
+ ''Your breasts and thighs jiggle and quake as they suddenly bloat fatter, the rest of your body growing steadily rounder!''
+
+			<<elseif $bodyType is "boviete">>
+<<set $breast += $effect * 0.8; $breastBloat += $maxBreast * 1.5>>
+<<set $lethalKO += either(0,1); $deathCause += either("explosion","fat suffocation")>>
+ ''Your breasts suddenly blimp up enormously, the rest of your body growing steadily rounder!''
+
+			<<elseif $bodyType is "cubus">>
+<<set $breast += $effect * 0.5; $thigh += $effect * 0.5; $breastBloat += $maxBreast * 1.5>>
+<<set $lethalKO += either(0,1); $deathCause += either("explosion","fat suffocation")>>
+ ''Your breasts and thighs creak as they grow exponentially fatter, the rest of your body growing steadily rounder!''
+
+			<<elseif $bodyType is "round">>
+<<set $belly += $effect * 0.3; $thigh += $effect * 0.3; $bellyBloat += $maxBelly * 1.5>>
+<<set $lethalKO += either(0,1); $deathCause += either("burst belly","explosion","fat suffocation")>>
+ ''Your belly and thighs bulge with soft new flesh, the rest of your body growing steadily rounder!''
+
+			<<elseif $bodyType is "bulging">>
+<<set $belly += $effect * 0.5; $thigh += $effect * 0.5; $bellyBloat += $maxBelly * 1.5>>
+<<set $lethalKO += either(0,1); $deathCause += either("burst belly","explosion","fat suffocation")>>
+ ''Your belly and thighs creak as they grow exponentially fatter, the rest of your body growing steadily rounder!''
+
+			<<elseif $bodyType is "belly">>
+<<set $girth += $effect * 0.1; $belly += $effect * 0.5; $breast += $effect * 0.1; $thigh += $effect * 0.1; $bellyBloat += $maxBelly * 1.5>>
+<<set $lethalKO += either(0,1); $deathCause += "burst belly">>
+ ''Your belly jiggles as it inflates fatter, the rest of your body growing steadily rounder!''
+
+			<<elseif $bodyType is "guguetelle">>
+<<set $belly += $effect * 0.8; $bellyBloat += $maxBelly * 1.5>>
+ ''Your belly blimps into a huge, quaking ball of fat, the rest of your body growing steadily rounder!''
+
+			<<elseif $bodyType is "pear">>
+<<set $girth += $effect * 0.1; $belly += $effect * 0.3; $breast += $effect * 0.1; $thigh += $effect * 0.3; $bellyBloat += $maxBelly * 1.5>>
+<<set $lethalKO += either(0,1); $deathCause += either("burst belly","explosion","fat suffocation")>>
+ ''Your thighs and belly suddenly pile with soft fat, the rest of your body growing steadily rounder!''
+
+			<<elseif $bodyType is "bloatpear">>
+<<set $breast += $effect * 0.5; $thigh += $effect * 0.5; $bellyBloat += $maxBelly * 1.5>>
+<<set $lethalKO += either(0,1); $deathCause += either("burst belly","explosion","fat suffocation")>>
+ ''Your belly and thighs creak as they grow exponentially fatter, the rest of your body growing steadily rounder!''
+
+			<<elseif $bodyType is "thigh">>
+<<set $girth += $effect * 0.1; $belly += $effect * 0.1; $breast += $effect * 0.1; $thigh += $effect * 0.5>>
+<<set $lethalKO += either(0,1); $deathCause += either("burst belly","explosion","fat suffocation")>>
+ ''Your thighs suddenly blow up big and soft, the rest of your body growing steadily rounder!''
+
+			<<elseif $bodyType is "blimpthigh">>
+<<set $thigh += $effect * 0.8>>
+<<set $lethalKO += either(0,1); $deathCause += either("explosion","fat suffocation")>>
+ ''Your thighs widen ENORMOUSLY, pushing your legs farther apart, the rest of your body growing steadily rounder!''
+
+			<<else>>
+<<set $girth += $effect * 0.2; $belly += $effect * 0.2; $breast += $effect * 0.2; $thigh += $effect * 0.2>>
+<<set $lethalKO += either(0,1); $deathCause += either("burst belly","explosion","fat suffocation")>>
+ ''Your entire body piles with fat, jiggling and quaking!''<<endif>>
+
+/% Cleanup %/
+<<set $girth = Math.round($girth); $breast = Math.round($breast); $belly = Math.round($belly); $thigh = Math.round($thigh)>>
+
+<<endnobr>><<if $turnBlubberslime is 1>>
+As you struggle to catch your breath and adjust to your new center of gravity, ''you begin to feel dizzy and //very ill//...''
+A shock of sudden pain shoots through you, and as you cry out, you feel your insides gurgling and your body softening...</redalert>
+
+<mutation>''Thrashing and helpless, you writhe and moan as you sink to the floor as a boneless blob of gelatinous fat and flesh!</mutation>''<<set $species = "blubberslime"; $speciesLock = 0; $playerElement = "fat"; $bellyBloat += $maxBelly * 2; $inUse = 0; $starveFloor = 1500; $subspecies = 0; $turnBlubberslime = 0>><<if $sanity gte 60>><<set $sanity -= 10>><<endif>><<endif>><<endif>><<nobr>>
+
+/% ======================================================================== %/
+/% Mythosi Encounters %/
+
+/% Adiposa Mythosi %/
+
+<<endnobr>><<if $encounter is "raging adiposa mythosi">>
+You bravely approach the enormous, jiggling <<print $fullChroma>> dragon...
+
+''Wheeling around to face you, it rewards you with a blast of potent magical breath before flying away!
+Your body quivers and creaks as it swells with fat!''<<set $pain += random(20,30); $health = "Sore"; $lethalKO = 1; $deathCause = either("explosion","fat suffocation")>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<nobr>>
+
+<<display ExpandBodytype>>
+
+<<endnobr>><<if ($species is "mythosi") and ($dragonflight is 0)>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<display Fattenium>><<set $substatus = "adiposa"; $strength += random(10,15)>>
+
+<mutation>''Ignited by the adiposa's magic, your already-ponderous bulk expands to an //enormous// degree, inflating your body into a blimplike monstrosity of draconic blubber!''</mutation><<endif>><<endif>><<nobr>>
+
+
+/% Gelatinous Mythosi %/
+
+<<endnobr>><<if $encounter is "raging gelatinous mythosi">>You bravely approach the enormous, jiggling <<print $fullChroma>> dragon...
+
+''Wheeling around to face you, it rewards you with a blast of potent magical breath before flying away!
+Your belly and breasts groan and creak as they bloat with an //enormous// amount of goo!''<<set $bellyBloat = $maxBelly * 1.3; $bellyLiquid += $creatureGirth; $breastBloat += $breast; $storedMilk += $maxBreast; $milkFat -= either(50,60,70,80,90,100); $milkType = "slime"; $pain += random(20,30); $health = "Sore"; $lethalKO = 1; $deathCause = either("explosion","drowned","fat suffocation")>><<nobr>>
+
+<<set $randomizer = either(0,1,2)>>
+<<if $randomizer is 1>><<set $slimeBellyParasite = 1; $slimeBellyParaLoad += $maxBelly * random(2,4)>><<endif>>
+<<if $randomizer is 2>><<set $slimeBreastParasite = 1; $slimeBreastParaLoad += $maxBreast * random(2,4)>><<endif>><<endnobr>><<endif>><<nobr>>
+
+/% Confectionary Mythosi %/
+
+<<endnobr>><<if $encounter is "raging confectionary mythosi">>You bravely approach the enormous, bloated <<print $fullChroma>> dragon...
+
+''Wheeling around to face you, it rewards you with a blast of potent magical breath before flying away!
+Your belly creaks and stretches agonizingly as it fills with a ton of sweet treats!''<<set $calories += either(1000,1100,1200,1300,1400,1500,1600,1800,2000,2500,3000); $bellyBloat = $maxBelly * 1.1; $pain += random(20,30); $health = "Sore"; $lethalKO = either(0,1); $deathCause = "burst belly"; $esurience += random(4,8)>><<endif>><<nobr>>
+
+/% Blimp Mythosi %/
+
+<<endnobr>><<if $encounter is "raging blimp mythosi">>You bravely approach the enormous, bloated <<print $fullChroma>> dragon...
+
+''Wheeling around to face you, it rewards you with a blast of potent magical breath before flying away!
+Your belly and breasts groan and creak as they billow up with air, your skin rubberizing!''<<set $maxBelly += either(30,40,50,60); $maxBreast += either(10,20,30,40); $bellyBloat = $maxBelly * 1.1; $breastBloat += $maxBreast; $milkType = "whipped cream"; $milkFat += $milkFat; $stretchMod += either(10,20,30,40,50); $leupoilToxicity += random(10,60); $pain += random(12,24); $health = "Sore"; $lethalKO = 1; $deathCause = either("explosion","belly burst")>><<endif>><<nobr>>
+
+/% ======================================================================== %/
+/% Amplibaene %/
+
+<<endnobr>><<if $encounter is "amplibaene">>
+You kneel to scoop up the little creature.
+[img[icon_alert_critical]]It seems rather happy to see you, and scurries right up into your palms... <brightalert>''before leaping onto your belly and digging in with its sharp talons, slithering inside!
+
+That can't be good...</brightalert>''<<set $ampliParasite = 1; $ampliParaLoad += 1; $bellyBloat += $ampliParaLoad * 10; $pain += random(4,12); $health = "Sore">><<endif>><<nobr>>
+
+
+<<endnobr>><<if $encounter is "amplibaene queen">>
+The bloated creature drags itself closer and closer to you... before opening its jaws wide, ''releasing a swarm of frenzied amplibanes!''
+[img[icon_alert_critical]]<brightalert>''The tiny salamanders burrow into your flesh as the queen deflates and flees''</brightalert>, leaving you sore, unnerved, and feeling <bleak>''incredibly anxious...!''</bleak>
+<<set $ampliParasite = 1; $ampliParaLoad += random(4,12); $bellyBloat += $ampliParaLoad * 10; $pain += random(16,32); $health = "Sore"; $sanity -= 5>><<endif>><<nobr>>
+
+
+<<endnobr>><<if $encounter is "pseudo-amplipai">>
+[img[icon_alert_critical]]<brightalert>You cry out as the monstrous salamander spears your belly with its tongue,'' inflating it with an enormous number of amplibaenes before leaving you to lie in the muck!</brightalert>!''</bleak>
+<<set $ampliParasite = 1; $ampliParaLoad += random(16,24); $bellyBloat += $ampliParaLoad * 10; $pain += random(16,45); $health = "Sore"; $sanity -= 10; $parasiteBellySquirm = 1>><<endif>><<nobr>>
+
+/% ======================================================================== %/
+/% Belmere Leupai Encounters %/
+
+
+<<endnobr>><<if ($encounter is "predatory leupai") or ($encounter is "belmere leupai") or ($encounter is "celesse leupai") or ($encounter is "devinn leupai") or ($encounter is "ein leupai") or ($encounter is "heitene leupai") or ($encounter is "intere leupai") or ($encounter is "kitsch leupai") or ($encounter is "laworn leupai") or ($encounter is "ouinsel leupai") or ($encounter is "rexaur leupai")>>\
+<<set $sanity -= 5>><<if $leupaiBloated is 0>><<set $randomizer = random(1,5)>><<else>><<set $randomizer = 0>><<endif>>\
+\
+/% Eggs & Fat %/\
+<<if ($randomizer is 1) or ($leupaiBloated is 1) or ($leupaiBloated is 2)>>\
+\
+[img[icon_alert_critical]]<brightalert>The <<print $fullChroma>> leupai leaps onto you and pins you down, latching onto your belly with its tongue and ''<<if ($leupaiBloated gte 1) or ($leupaiBloated gte 2)>>stuffing it full to bursting!<<else>>stuffing it full of something!<<endif>>''</brightalert>
+Satisfied, it gives your bloated belly a careful prod before climbing to its feet and scampering away!<<nobr>>
+
+<<set $miraPoisoning += random(2,6); $mirajinRads += random(3,8); $pain += random(12,16); $health = "Pained"; $lethalKO = either(0,0,1); $bellyBloat = $maxBelly * 2; $deathCause = "burst belly">>
+
+
+/% No, you stay awake for this, fuck you %/
+<<if $pain gte $maxPain>><<set $pain = $maxPain * 0.8; $health = "Suffering"; $blackout = 0; $overrideExplore = 0>><<endif>>
+
+
+/% If maxBelly > 30, give eggs %/
+
+<<if $maxBelly gte 300>>
+
+/% Belly score - determines number of eggs %/
+
+<<if $maxBelly lt 400>><<set $bellyScore = 1>>
+<<elseif ($maxBelly gte 400) and ($maxBelly lte 500)>><<set $bellyScore = random(1,2)>>
+<<elseif ($maxBelly gte 500) and ($maxBelly lte 800)>><<set $bellyScore = random(1,3)>>
+<<elseif ($maxBelly gte 1000) and ($maxBelly lte 1500)>><<set $bellyScore = random(2,3)>>
+<<elseif ($maxBelly gte 1500) and ($maxBelly lte 2000)>><<set $bellyScore = random(2,4)>>
+<<elseif $maxBelly gte 2000>><<set $bellyScore = random(3,5)>><<endif>>
+
+<<set $leupaiEggParasite = 1; $leupaiEggLoad += $bellyScore>>
+
+<<if $leupaiBloated is 1>><<set $leupaiEggLoad += either(2,2,3); $bellyBloat = $maxBelly * 1.1>>
+<<elseif $leupaiBloated is 2>><<set $leupaiEggLoad += either(3,3,4,5); $bellyBloat = $maxBelly * 1.3>><<endif>>
+
+<<if $eggTimer is 0>><<set $eggTimer = 1>><<endif>>
+
+<<if $leupaiEggTimer is 0>><<set $leupaiEggTimer = random(24,40)>><<elseif $leupaiEggTimer lte 10>><<set $leupaiEggTimer += random(6,12)>><<endif>>
+
+<<if $quaggyGirth is 0>><<set $quaggyGirth = either(10,10,10,20,30)>><<endif>>
+
+<<if ($randomEggLeupai is "rexaur") or ($randomEggLeupai is "belmere") or ($randomEggLeupai is "devinn")>><<set $quaggyGirth += either(10,10,10,20,30)>><<endif>>
+
+/% Save this leupai's subspecies for quaggy generation. up to two different subspecies can be stored. %/
+<<if $quaggySubspecies1 is 0>><<set $quaggySubspecies1 = $randomEggLeupai>><<elseif $quaggySubspecies1 neq 0>><<set $quaggySubspecies2 = $randomEggLeupai>><<endif>>
+
+/% Save color for quaggy generation. %/
+
+<<set $quaggyColorPoint1 = $fullChroma>>
+
+<<set $pain += $bellyScore * 3>>
+
+/% If maxBelly < 30, give fat %/
+
+<<elseif $maxBelly lt 300>><<set $calories += either(100,150,200); $belly += either(20,30,40,50); $maxBelly += either(20,30,40,50)>>
+
+
+<<set $pain += random(3,8)>>
+
+<<if $leupaiBloated is 1>><<set $calories += 50; $maxBelly += either(20,20,30)>>
+<<elseif $leupaiBloated is 2>><<set $calories += 100; $maxBelly += either(30,40,50,50,80)>><<endif>><<endif>>
+
+
+<<endnobr>>
+
+<brightalert>''Your stomach lurches and gurgles uncomfortably as you stand...''</brightalert>\
+\
+<<elseif ($randomizer is 2) or ($leupaiBloated is 3) or ($leupaiBloated is 4)>>\
+\
+/% Venom %/\
+[img[icon_alert_critical]]<brightalert>The <<print $fullChroma>> leupai leaps onto you and pins you down, ''<<if ($leupaiBloated is 3) or ($leupaiBloated is 4)>>pumping your belly so full of venom it creaks!<<set $bellyBloat = $maxBelly * either(2,2.5,3); $calories += either(20,30,40,50,80,100); $miraPoisoning += random(0,24)>><<set $bellyBloat = $maxBelly * either(1.8,2); $bellyLiquid = $bellyBloat>><<else>>pumping your belly full of venom!<<endif>>''</brightalert>
+Satisfied, it gives your bloated gut a careful prod before climbing to its feet and scampering away!<<set $miraPoisoning += random(0,36); $bellyBloat += $belly; $calories += either(30,40,50,80,100); $mirajinRads += random(3,8); $pain += random(12,16); $health = "Pained"; $lethalKO = either(0,0,1); $deathCause = "burst belly">>\
+\
+<<elseif ($randomizer is 3) or ($leupaiBloated is 5) or ($leupaiBloated is 6) or ($leupaiBloated is 7)>>\
+\
+\
+/% Fat %/\
+[img[icon_alert_critical]]<brightalert>The <<print $fullChroma>> leupai leaps onto you and pins you down, ''<<if ($leupaiBloated is 5) or ($leupaiBloated is 6) or ($leupaiBloated is 7)>>mercilessly inflating your belly to ENORMOUS size!<<set $bellyBloat = $maxBelly * either(2,2.5,3); $calories += random(20,100); $belly += random(100,300); $bellyLiquid = $bellyBloat>><<nobr>>
+
+<<if $leupaiBloated is 6>><<set $bellyBloat += ($maxBelly * 0.5); $calories += random(50,100); $belly += random(100,200); $bellyLiquid = $bellyBloat>><<endif>>
+
+<<if $leupaiBloated is 7>><<set $bellyBloat += ($maxBelly * 0.2); $calories += random(100,150); $belly += random(150,300); $bellyLiquid = $bellyBloat>><<endif>>
+
+<<endnobr>><<else>>blowing your belly up like a balloon!<<set $bellyBloat = $maxBelly * either(1.8,2)>><<endif>>''</brightalert>
+Satisfied, it gives your fat-bloated gut a careful prod before climbing to its feet and scampering away!<<set $miraPoisoning += random(0,36); $bellyBloat += $belly; $calories += either(30,40,50,80,100); $belly += either(50,100,150,200,250); $pain += random(12,16); $health = "Pained"; $lethalKO = either(0,0,1); $deathCause = "burst belly">>\
+\
+<<elseif $randomizer is 4>>\
+\
+\
+/% Forcefeeding %/\
+[img[icon_alert_critical]]<brightalert>The <<print $fullChroma>> leupai leaps onto you and pins you down, ''ripping open an aetherhole with one paw and stuffing food into your mouth!''
+You gasp and squirm in protest, but the beast is too strong-- ''and it continues feeding you until you feel ready to burst!''</brightalert>
+Finally satisfied, it gives your bloated gut a careful prod before climbing to its feet and scampering away!<<set $bellyBloat = $maxBelly * either(2,2.5,3); $calories += random(200,1500); $belly += random(50,250); $pain += random(12,16); $health = "Pained"; $lethalKO = either(0,0,1); $deathCause = "burst belly">>\
+\
+<<elseif $randomizer is 5>>\
+\
+\
+/% Inflation %/\
+[img[icon_alert_critical]]<brightalert>The <<print $fullChroma>> leupai leaps onto you and pins you down, ''blowing you up like a balloon!''
+You gasp and squirm in protest, but the beast is too strong-- ''and it continues inflating you until you feel ready to burst!''</brightalert>
+Satisfied, it gives your bloated gut a careful prod before climbing to its feet and scampering away!<<set $bellyBloat = $maxBelly * either(2,2.5,3);  $breastBloat += 9999999; $thighFirmness = 2000; $pain += random(18,24); $health = "Pained"; $lethalKO = either(0,0,1); $deathCause = "explosion">><<endif>><<endif>><<nobr>>
+
+/% Todo- have leupai carry you off to a nest (dungeon?) and imprison you, either at random or if you get knocked out %/
+
+
+/% ======================================================================== %/
+/% Friendly-Looking Passerby  %/
+
+<<endnobr>><<if $encounter is "friendly-looking passerby">><<display RevecroixRandomizer>>
+A <<print $randomRevecroix>> hurries up to meet you, worry apparent on its face!
+
+"You look like you need some help," it observes. "Hang on a second, I'll grab a couple friends!"
+
+Leaving again for a short while, the <<print $randomRevecroix>> arrives with extra help and a miracrystal-powered levitating flatbed.
+
+The group carefully loads you on and begins to carry you off!
+''It looks like you're going for a ride...''<<set $continueOverride = 1>><<if $immobilityCause is "girth">><<set $rescueDestination = "Fatiere">><<else>><<set $rescueDestination = "Mediquerie">><<endif>>
+<<button [[Continue.|$rescueDestination][$continueOverride = 0; $mannedShop = 0; $saveStateEncounter = "Explore"]]>><<endif>><<nobr>>
+
+
+/% Todo- have friendly passerby potentially carry you off to a dungeon or or donsair seller and imprison you, either at random or if you get knocked out %/
+
+
+/% ======================================================================== %/
+/% Null Planetary Mode breadcrumb %/
+
+<<endnobr>><<if $encounter is "enormous null leupai">><<if $event_planetaryNullCrumb is 0>>The null descends gracefully, its bioluminescent spots and eyes shimmering against the dark scales of its rounded form as it levitates before you.
+"Ah, hello!" it chirps. "I was passing by, and I couldn't help but notice you down here. I figured I'd check and make sure you were alright! <<if $immobileMode is 1>> You seem to be a bit stuck, ''but I can help!''"
+Pricking its ears upright, the null lifts both hands into the air-- ''and you begin to rise gently along with them, carried aloft by telekinetic power!''
+
+"Now, let's get you somewhere safer, hmm? I have ''some friends that can offer a more lasting solution...''"<<set $continueOverride = 1>>
+<center>
+<<button [[Continue.|Hypo Techlab][$event_planetaryNullCrumb = 1; $event_techlabCrumb = 1; $continueOverride = 0; $overrideEncounter = 0; $dungeonLocation = 0; $indoorZone = 0; $dungeonType = 0; $zoneType = 0]]>> <<button [[Refuse Assistance.|Explore][$event_planetaryNullCrumb = 1; $continueOverride = 0; $overrideEncounter = 0]]>></center>\
+<<else>>" It gives you an odd, knowing glance before continuing.
+"It can be rather difficult to move around down here at times, I know! If you like, I can take you to a ''nearby lab that can get you set up with some equipment that'll make for an easier time of things''-- of course, assuming you don't have other things in mind.
+If you're interested, let me know!
+''There's no need for you to end up stranded.''"
+
+<<button [[Follow the leupai.|Hypo Techlab][$event_planetaryNullCrumb = 1; $event_techlabCrumb = 1; $overrideEncounter = 0; $dungeonLocation = 0; $indoorZone = 0; $dungeonType = 0; $zoneType = 0]]>> <<button [[Refuse Assistance.|Explore][$event_planetaryNullCrumb = 1; $continueOverride = 0; $overrideEncounter = 0]]>><<endif>>\
+<<elseif $event_planetaryNullCrumb is 1>><<print $planetaryNull>> appears before you!
+"Oh, hello again. ''Need a lift?'' Accidents happen!"<<set $continueOverride = 1>>
+<center>
+<<button [[Continue.|Hypo Techlab][$continueOverride = 0; $overrideEncounter = 0; $dungeonLocation = 0; $indoorZone = 0; $dungeonType = 0; $zoneType = 0]]>></center><<endif>><<endif>><<nobr>>
+
+<<endnobr>></framed><<if $continueOverride is 0>><<nobr>><<display BodySystems>><<display Effects>><<display Vitality>><<endnobr>>
+<<button [[Continue.|$saveState][$culinetEffect = 0]]>><<elseif $continueOverride is 1>><<if $blackout is 1>>
+
+<<display CriticalAlerts>><<endif>><<endif>></center>

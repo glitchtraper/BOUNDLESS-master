@@ -1,0 +1,492 @@
+﻿/% ========================================== %/
+/% BIOMES DATABASE %/
+
+/% ========================================== %/
+/% Biomes & biome navigation %/
+
+<<set $underwater = 0; $wetWeather = 0; $coldWeather = 0; $hotWeather = 0; $darkArea = 0; $lethalHeat = 0; $lethalCold = 0; $unbreathable = 0; $toxicFumes = 0; $highPressure = 0; $vaccuum = 0; $weatherType = 0; $drinkableBiome = 0; $edibleBiome = 0>>
+
+<<if $planetTemp is "very cold">><<set $lethalCold = 1>>
+<<elseif $planetTemp is "very hot">><<set $lethalHeat = 1>><<endif>>
+
+/% ========================================== %/
+/% Output %/
+
+<<if $startBiome is 0>>
+<<set $subterranean = 0>><<display BiomeSpawner>><<set $startBiome = $biomeNorth>><<endif>>
+
+
+<<if $biomeNorth is 0>><<display BiomeSpawner>><<endif>>
+<<if $biomeSouth is 0>><<display BiomeSpawner>><<endif>>
+<<if $biomeEast is 0>><<display BiomeSpawner>><<endif>>
+<<if $biomeWest is 0>><<display BiomeSpawner>><<endif>>
+<<if $location is 0>><<display BiomeSpawner>><<set $location = $biomeNorth>><<endif>>
+
+/% ========================================== %/
+/% Data %/
+
+/% ========================================== %/
+/% Planetary Biomes by Element %/
+
+/% LEAF
+
+The green lands. Pretty shitty against fire types, which makes you wonder about Kaolan.
+(despite the fires, a seed still grows?) %/
+
+/% ====================[ Overworld %/
+
+	<<if ($location is "Meadow") or ($location is "Field") or ($location is "Highlands") or ($location is "Clearing")>>
+		<<set $zoneType = "woodland"; $zoneFoliage = either("moderate","abundant"); $zoneMobs = either("scrub","woodland"); $administreStatue = either("Na'than & Eva","Na'than & Eva","Kaolan")>>
+
+		<<set $weatherType = either("lush","foggy","arid","rainy","drought")>>
+
+		<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $zoneMobs = either("boreal","woodland")>>
+
+		<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $zoneMobs = either("scrub","tropical","woodland")>>
+	<<endif>>
+
+<<endif>>
+
+	<<if ($location is "Forest") or ($location is "Woods")>>
+		<<set $zoneType = "woodland"; $zoneFoliage = either("moderate","abundant"); $zoneMobs = "woodland"; $darkArea = either(0,1); $administreStatue = either("Na'than & Eva","Kaolan","Kaolan")>>
+
+		<<set $weatherType = either("lush","foggy","humid wet","rainy")>>
+
+			<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $zoneMobs = either("boreal","woodland")>>
+
+			<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $zoneMobs = either("scrub","tropical","woodland")>>
+	<<endif>>
+
+<<endif>>
+
+	<<if ($location is "Deep Forest") or ($location is "Deep Woods")>>
+		<<set $zoneType = "woodland"; $zoneFoliage = "abundant"; $zoneMobs = "woodland"; $darkArea = 1; $administreStatue = either("Na'than & Eva","Kaolan","Kaolan")>>
+
+		<<set $weatherType = either("lush","foggy","rainy")>>
+
+			<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $zoneMobs = either("boreal","woodland")>>
+
+			<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $zoneMobs = either("tropical","woodland")>><<endif>>
+<<endif>>
+
+	<<if ($location is "Jungle") or ($location is "Rainforest")>>
+		<<set $zoneType = "woodland"; $zoneFoliage = "abundant"; $zoneMobs = either("tropical","scrub"); $darkArea = 1; $administreStatue = "Reks">>
+
+		<<set $weatherType = either("lush","tropical","tropical","foggy","rainy")>><<endif>>
+
+
+/% ====================[ Subterranean %/
+
+
+/% ========================================== %/
+
+/% AGRICULTURE
+
+Farms, farmland, and revecroit flesh-processing plants. %/
+
+/% ====================[ Overworld %/
+
+<<if ($location is "Farms") or ($location is "Pasture")>>
+<<set $zoneType = "agriculture"; $zoneFoliage = either("moderate","abundant"); $zoneMobs = either("scrub","woodland","agriculture"); $administreStatue = either("Nefirian","Andreu")>>
+
+<<set $weatherType = either("lush","arid","drought")>><<endif>>
+
+/% ====================[ Subterranean %/
+
+/% ========================================== %/
+
+/% EARTH
+
+none shall pass into my-- %/
+
+/% ====================[ Overworld %/
+
+<<if ($location is "Plains") or ($location is "Valley")>>
+<<set $zoneType = "earth"; $zoneFoliage = either("moderate","scrub"); $zoneMobs = "scrub"; $wetWeather = 0; $administreStatue = "Reks">>
+
+<<set $weatherType = either("lush","arid","drought")>><<endif>>
+
+<<if ($location is "Scrublands") or ($location is "Canyon") or ($location is "Cliffs")>>
+<<set $zoneType = "earth"; $zoneFoliage = "scrub"; $zoneMobs = either("scrub","mountain"); $wetWeather = 0; $administreStatue = "Reks">>
+
+<<set $weatherType = either("arid","drought")>><<endif>>
+
+<<if $location is "Mountain">>
+<<set $zoneType = "earth"; $zoneFoliage = "scrub"; $zoneMobs = either("scrub","mountain","mountain"); $administreStatue = "Reks">>
+
+	<<set $weatherType = either("lush","foggy","arid","rainy","drought")>>
+
+	<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>>
+	<<set $zoneFoliage = either("scrub","moderate"); $zoneMobs = either("woodland","boreal","mountain","mountain"); $coldWeather = 1; $zoneType = "ice"; $administreStatue = "Nefirian">>
+
+		<<set $weatherType = either("snowy","foggy","snowfog","rainy","coldsnap")>>
+
+	<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>>
+	<<set $zoneFoliage = "barren"; $zoneMobs = either("scrub","tropical","infernal","mountain"); $hotWeather = 1>>
+
+		<<set $weatherType = either("arid","baked","drought")>><<endif>><<endif>>
+
+/% ====================[ Subterranean %/
+
+/% ========================================== %/
+
+/% FIRE
+
+Because vengeance isn't the only thing that burns. Deserts, volcanoes, and the smouldering core of the earth.
+The earth that isn't just cold, anyway. %/
+
+/% ====================[ Overworld %/
+
+<<if ($location is "Rocky Desert") or ($location is "Red Sands")>>
+<<set $zoneType = "fire"; $zoneFoliage = "scrub"; $zoneMobs = "scrub"; $hotWeather = 1; $wetWeather = 0; $administreStatue = either("Phoenix","Phoenix","Reks","Kaolan")>>
+
+		<<set $weatherType = either("arid","baked","drought")>><<endif>>
+
+<<if ($location is "Volcano") or ($location is "Obsidian Wastes") or ($location is "Molten Fields") or ($location is "Molten Sea") or ($location is "Boiling Ocean")>>
+<<set $zoneType = "fire"; $zoneFoliage = "barren"; $zoneMobs = either("scrub","tropical","infernal","infernal"); $darkArea = 0; $hotWeather = 1; $wetWeather = 1; $administreStatue = "Phoenix">>
+
+		<<set $weatherType = either("arid","baked","wasted","drought")>><<endif>>
+
+<<if ($location is "Molten Sea") or ($location is "Boiling Ocean")>>
+	<<set $lethalHeat = 1; $weatherType = either("baked","wasted")>><<endif>>
+
+<<if ($location is "Molten Fields") or ($location is "Molten Sea")>>
+	<<set $lethalHeat = 1; $toxicFumes = 1; $weatherType = either("baked","wasted")>><<endif>>
+
+/% ====================[ Subterranean %/
+
+<<if ($location is "Ash Cave") or ($location is "Obsidian Tunnel") or ($location is "Vents")>>
+<<set $zoneType = "fire"; $zoneFoliage = either("scrub","barren"); $zoneMobs = either("subterranean","subterranean","infernal","eldritch"); $darkArea = either(0,1); $subterranean = 1;  $hotWeather = 1; $administreStatue = either("Phoenix","Lyric'Ai","Lyric'Ai","Nefirian","Nameless")>>
+
+<<set $weatherType = either("dampcave","heatcave","smokecave","smogcave")>>
+<<endif>>
+
+<<if ($location is "Magma Pit") or ($location is "Boiling Dark") or ($location is "Hellmouth Depths") or ($location is "Molten Void")>>
+<<set $zoneType = "fire"; $zoneFoliage = "barren"; $zoneMobs = either("subterranean","infernal"); $darkArea = either(0,1); $subterranean = 1; $wetWeather = 1; $hotWeather = 1; $administreStatue = either("Phoenix","Lyric'Ai")>>
+
+<<set $weatherType = either("dampcave","heatcave","smokecave","smogcave")>><<endif>>
+
+<<if ($location is "Magma Pit") or ($location is "Boiling Dark") or ($location is "Hellmouth Depths")>>
+<<set $lethalHeat = 1; $toxicFumes = 1>>
+
+<<set $weatherType = either("dampcave","heatcave","smokecave","smogcave")>><<endif>>
+
+<<if $location is "Molten Void">>
+<<set $lethalHeat = 1; $unbreathable = 1; $toxicFumes = 1; $vaccuum = 1>>
+<<set $weatherType = either("dampcave","heatcave","smokecave","smogcave")>><<endif>>
+
+/% ========================================== %/
+
+/% FRESHWATER
+
+The land of Salamanders and Aquatech. ugh kill me %/
+
+/% ====================[ Overworld %/
+
+<<if ($location is "Riverside") or ($location is "River") or ($location is "Lake") or ($location is "Marsh") or ($location is "Reeds") or ($location is "Bog") or ($location is "Swamp")>>
+<<set $zoneType = "freshwater"; $zoneFoliage = "abundant"; $zoneMobs = either("freshwater","wetland"); $wetWeather = 1; $administreStatue = either("Kaolan","Arches")>>
+
+	<<set $weatherType = either("lush","humid wet","humid wet","foggy","rainy"); $drinkableBiome = 1>><<endif>>
+
+/% ====================[ Subterranean %/
+
+<<if $location is "Underground Spring">>
+<<set $zoneType = "freshwater"; $zoneFoliage = "moderate"; $zoneMobs = "subterranean"; $darkArea = 1; $subterranean = 1; $wetWeather = 1; $administreStatue = either("Arches","Nameless","Nameless","Nefirian"); $drinkableBiome = 1>>
+
+	<<set $weatherType = either("dampcave","wetcave")>><<endif>>
+
+/% ========================================== %/
+
+/% SALTWATER
+
+The sea and its depths-- or, most of them. (Once you get Too Deep, things quickly turn Eldritch...) %/
+
+/% ====================[ Overworld %/
+
+<<if $location is "Beach">>
+	<<set $zoneType = "saltwater"; $zoneFoliage = either("moderate","scrub"); $zoneMobs = either("scrub","oceanic"); $wetWeather = either(0,0,1); $administreStatue = either("Arches","Arches","Reks","Nefirian")>>
+
+	<<set $weatherType = either("humid wet","tropical","rainy"); $drinkableBiome = 1>><<endif>>
+
+<<if ($location is "Ocean")>>
+	<<set $zoneType = "saltwater"; $zoneFoliage = either("moderate","scrub"); $zoneMobs = "oceanic"; $wetWeather = 1; $administreStatue = either("Arches","Arches","Nefirian")>>
+
+	<<set $weatherType = "aquatic">><<endif>>
+
+/% ====================[ Subterranean %/
+
+<<if ($location is "Reef") or ($location is "Brackish Depths")>>
+	<<set $zoneType = "saltwater"; $zoneFoliage = either("moderate","abundant"); $zoneMobs = either("oceanic","eldritch"); $darkArea = 1; $subterranean = 1; $underwater = 1; $wetWeather = 1; $administreStatue = either("Arches","Arches","Nefirian","Nameless")>>
+
+	<<set $weatherType = "aquatic"; $drinkableBiome = 1>><<endif>>
+
+
+/% ========================================== %/
+
+/% ICE
+
+Pai lets you know that this biome is cold. %/
+
+/% ====================[ Overworld %/
+
+<<if ($location is "Tundra") or ($location is "Icewood") or ($location is "Snowdrifts")>>
+<<set $zoneType = "ice"; $zoneFoliage = either("moderate","scrub"); $zoneMobs = "boreal"; $coldWeather = 1; $administreStatue = either("Nefirian","Nefirian","Nefirian","Silent")>>
+
+	<<set $weatherType = either("snowy","snowy","snowfog","coldsnap","blizzard")>><<endif>>
+
+<<if $location is "Frost Wastes">>
+<<set $zoneType = "ice"; $zoneFoliage = either("moderate","scrub","barren"); $zoneMobs = "boreal"; $coldWeather = 1; $administreStatue = either("Nefirian","Nefirian","Nefirian","Silent")>>
+
+	<<set $weatherType = either("snowy","snowfog","coldsnap","blizzard")>><<endif>>
+
+<<if ($location is "Frozen Riverside") or ($location is "Frozen River") or ($location is "Frozen Lake") or ($location is "Frozen Beach") or ($location is "Ice") or ($location is "Frigid Ocean")>>
+
+	<<set $zoneType = "ice"; $zoneFoliage = either("moderate","scrub"); $zoneMobs = either("boreal","oceanic"); $coldWeather = 1; $wetWeather = 1; $administreStatue = either("Nefirian","Nefirian","Nefirian","Silent")>>
+
+	<<set $weatherType = either("snowy","snowfog","coldsnap","blizzard")>><<endif>>
+
+<<if ($location is "Ice") or ($location is "Frigid Ocean")>>
+<<set $zoneType = "ice"; $zoneFoliage = either("scrub","barren"); $zoneMobs = "oceanic"; $coldWeather = 1; $wetWeather = 1; $administreStatue = either("Nefirian","Nefirian","Nefirian","Silent")>>
+
+	<<set $weatherType = either("snowy","snowfog","coldsnap","blizzard")>><<endif>>
+
+<<if $location is "Peak">>
+
+<<set $zoneType = "ice"; $zoneFoliage = either("moderate","scrub"); $zoneMobs = either("woodland","boreal"); $wetWeather = either(0,0,0,0,1); $administreStatue = either("Nefirian","Nefirian","Nefirian","Silent")>>
+
+	<<set $weatherType = either("snowy","snowfog","coldsnap")>>
+
+	<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $coldWeather = 1>>
+
+		<<set $weatherType = either("snowy","snowfog","coldsnap","blizzard")>>
+
+	<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $hotWeather = 1; $zoneType = "earth"; $zoneFoliage = either("moderate","scrub","barren"); $zoneMobs = either("scrub","tropical")>>
+
+		<<set $weatherType = either("arid","baked")>><<endif>><<endif>>
+
+/% ====================[ Subterranean %/
+
+<<if ($location is "Frozen Cavern") or ($location is "Ice Cave") or ($location is "Deep Frost") or ($location is "Frozen Heart") or ($location is "Icy Void")>>
+<<set $zoneType = "ice"; $zoneFoliage = "barren"; $zoneMobs = either("subterranean","boreal","eldritch"); $darkArea = 1; $subterranean = 1; $coldWeather = 1; $wetWeather = either(0,0,0,0,1); $administreStatue = either("Nefirian","Nefirian","Nefirian","Silent")>>
+
+<<set $weatherType = either("dampcave","wetcave","crystalcave","icecave","icecave")>><<endif>>
+
+<<if $location is "Frigid Depths">>
+<<set $zoneType = "ice"; $zoneFoliage = "barren"; $zoneMobs = either("oceanic","eldritch"); $darkArea = 1; $lethalCold = 1; $highPressure = 1; $subterranean = 1; $coldWeather = 1; $wetWeather = 1; $administreStatue = either("Nefirian","Nefirian","Nefirian","Silent","Arches")>>
+
+<<set $weatherType = either("dampcave","wetcave","crystalcave","icecave")>><<endif>>
+
+<<if $location is "Deep Frost">>
+<<set $zoneType = "ice"; $zoneFoliage = "barren"; $zoneMobs = either("subterranean","eldritch"); $darkArea = 1; $lethalCold = 1; $subterranean = 1; $coldWeather = 1; $wetWeather = 1; $administreStatue = either("Nefirian","Nefirian","Nefirian","Silent")>>
+
+<<set $weatherType = either("wetcave","crystalcave","icecave","icecave")>><<endif>>
+
+
+<<if $location is "Frozen Heart">>
+	<<set $lethalCold = 1; $highPressure = 1>>
+
+<<set $weatherType = either("dampcave","wetcave","crystalcave","icecave")>><<endif>>
+
+<<if $location is "Icy Void">>
+	<<set $unbreathable = 1; $lethalCold = 1; $vaccuum = 1>>
+
+<<set $weatherType = "icecave">><<endif>>
+
+/% ========================================== %/
+
+/% FAERIE
+
+The fae lands; elves, leupai, and misleadingly sparkly things. Oh, and probably dragons. %/
+
+/% ====================[ Overworld %/
+
+<<if $location is "Garden">>
+<<set $zoneType = "faerie"; $zoneFoliage = "abundant"; $zoneMobs = either("woodland","fey"); $ambientMirajin += either(0,1,1); $administreStatue = "Nefirian">>
+
+	<<set $weatherType = either("lush","foggy","rainy")>>
+
+	<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>>
+	<<set $coldWeather = 1; $zoneMobs = either("woodland","boreal","fey")>>
+
+		<<set $weatherType = either("snowy","snowfog","foggy")>>
+
+	<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $hotWeather = 1; $zoneMobs = either("scrub","tropical","fey")>>
+
+		<<set $weatherType = either("lush","humid wet","foggy")>><<endif>>
+<<endif>>
+
+<<if $location is "Crystal Spires">>
+<<set $zoneType = "faerie"; $zoneFoliage = "fey"; $ambientMirajin += either(0,1,1,2); $administreStatue = "Nefirian">>
+
+	<<set $weatherType = either("lush","foggy","rainy","snowy","snowfog")>>
+
+	<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $coldWeather = 1; $zoneMobs = either("boreal","fey")>>
+
+		<<set $weatherType = either("snowy","snowfog","foggy","blizzard")>>
+
+	<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $hotWeather = 1; $zoneMobs = either("scrub","tropical","fey")>>
+
+		<<set $weatherType = either("lush","humid wet","arid")>><<endif>>
+<<endif>>
+
+<<if $location is "Crystalforest">>
+<<set $zoneType = "faerie"; $zoneFoliage = "moderate"; $zoneMobs = either("woodland","boreal","fey"); $ambientMirajin += either(0,1,1,2); $administreStatue = "Nefirian">>
+
+	<<set $weatherType = either("lush","foggy","rainy","snowy","snowfog")>>
+
+	<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $coldWeather = 1>>
+
+		<<set $weatherType = either("lush","humid wet","foggy")>>
+
+	<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $hotWeather = 1; $zoneMobs = either("scrub","tropical","fey")>>
+
+		<<set $weatherType = either("snowy","snowfog","foggy")>><<endif>>
+<<endif>>
+
+/% ====================[ Subterranean %/
+
+<<if $location is "Crystal Caverns">>
+<<set $zoneType = "faerie"; $zoneFoliage = "barren"; $darkArea = either(0,1); $zoneMobs = either("fey","subterranean","eldritch"); $subterranean = 1; $ambientMirajin += either(0,1,1,2,3); $administreStatue = either("Nefirian","Lyric'Ai","Nameless")>>
+	<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $coldWeather = 1>><<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $hotWeather = 1; $zoneMobs = either("fey","subterranean")>>
+
+<<set $weatherType = "crystalcave">><<endif>>
+<<endif>>
+
+<<if $location is "Underglade">>
+<<set $zoneType = "faerie"; $zoneFoliage = "abundant"; $zoneMobs = either("fey","subterranean","eldritch"); $darkArea = either(0,1); $subterranean = 1; $ambientMirajin += either(0,1,1,2,3); $administreStatue = either("Nefirian","Nefirian","Lyric'Ai","Nameless")>>
+
+<<set $weatherType = either("crystalcave","wetcave","dampcave")>>
+	<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $coldWeather = 1>><<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $hotWeather = 1; $zoneMobs = either("fey","subterranean","eldritch","infernal")>><<endif>>
+<<endif>>
+
+/% ========================================== %/
+
+/% DARK
+
+the depths, but not the deepest. Night creatures dwell here. %/
+
+/% ====================[ Overworld %/
+
+<<if $location is "Deadwood">>
+<<set $zoneType = "dark"; $zoneFoliage = "scrub"; $darkArea = 1; $administreStatue = either("Nameless","Nameless","Kaolan")>>
+
+	<<set $weatherType = either("arid","humid wet","foggy","rainy","drought")>>
+
+		<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $coldWeather = 1; $zoneMobs = either("woodland","boreal","eldritch")>>
+
+			<<set $weatherType = either("snowy","foggy","snowfog","arid")>>
+
+		<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $hotWeather = 1; $zoneMobs = either("scrub","tropical","infernal")>>
+
+			<<set $weatherType = either("humid wet","foggy","arid")>><<endif>>
+<<endif>>
+
+/% ====================[ Subterranean %/
+
+<<if ($location is "Cave") or ($location is "Tunnel")>>
+<<set $zoneType = "dark"; $zoneFoliage = "barren"; $zoneMobs = either("subterranean","subterranean","eldritch"); $subterranean = 1; $darkArea = 1; $administreStatue = either("Nameless","Nefirian","Lyric'Ai")>>
+
+<<set $weatherType = either("crystalcave","wetcave","dampcave")>>
+	<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $coldWeather = 1>><<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $hotWeather = 1; $zoneMobs = either("subterranean","subterranean","infernal")>><<endif>><<endif>>
+
+/% ========================================== %/
+
+/% STEEL
+
+The domain of industry; artificially-created places, factories and unirradiated ruins. %/
+
+/% ====================[ Subterranean %/
+
+<<if $location is "Mine">>
+<<set $zoneType = "steel"; $zoneFoliage = "barren"; $zoneMobs = either("subterranean","subterranean","eldritch"); $darkArea = either(0,1); $subterranean = 1; $administreStatue = either("Andreu","Nameless","Nefirian")>>
+	<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $coldWeather = 1>>
+<<set $weatherType = either("crystalcave","wetcave","dampcave","icecave")>>
+
+<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $hotWeather = 1; $zoneMobs = either("subterranean","subterranean","infernal")>>
+
+<<set $weatherType = either("crystalcave","wetcave","dampcave","smokecave")>><<endif>>
+<<endif>>
+
+/% ========================================== %/
+
+/% POISON
+
+Irradiated ruins, wastelands, and places tainted by things that will make you Sick in the Real Way. %/
+
+/% ====================[ Overworld %/
+
+<<if ($location is "Crater") or ($location is "Slagheap")>>
+<<set $zoneType = "poison"; $zoneFoliage = "barren"; $zoneMobs = either("scrub","tropical","infernal"); $hotWeather = 1; $administreStatue = "Phoenix">>
+
+	<<set $weatherType = either("arid","wasted","baked","drought")>><<endif>>
+
+<<if ($location is "Wastelands") or ($location is "Ruins")>>
+<<set $zoneType = "poison"; $zoneFoliage = either("scrub","barren"); $zoneMobs = either("scrub","tropical","infernal"); $administreStatue = "Phoenix">>
+
+	<<set $weatherType = either("arid","wasted","baked","drought")>>
+
+	<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $coldWeather = 1; $zoneMobs = "scrub">>
+		<<set $weatherType = either("arid","snowfog","coldsnap")>>
+
+	<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $hotWeather = 1>>
+
+		<<set $weatherType = either("arid","wasted","baked","drought")>><<endif>>
+<<endif>>
+
+/% ====================[ Subterranean %/
+
+<<if $location is "Acid Pools">>
+<<set $zoneType = "poison"; $zoneFoliage = "barren"; $zoneMobs = "infernal"; $darkArea = 0; $subterranean = 1; $wetWeather = 1; $hotWeather = 1; $administreStatue = "Phoenix"; $toxicFumes = 1>>
+
+<<set $weatherType = either("heatcave","smogcave")>><<endif>>
+
+
+/% ========================================== %/
+
+/% ELDRITCH
+
+The home of the deep gods. Weird shit abounds. %/
+
+/% ====================[ Overworld %/
+
+/% ====================[ Subterranean %/
+
+<<if ($location is "Nest") or ($location is "Labyrinth") or ($location is "Pit") or ($location is "The Slithering Dark") or ($location is "The Endless Echoes") or ($location is "Planet's Heart") or ($location is "Shattered Void") or ($location is "Writhing Void")>>
+<<set $zoneType = "eldritch"; $zoneFoliage = "barren"; $zoneMobs = either("subterranean","eldritch"); $subterranean = 1; $darkArea = 1; $administreStatue = either("Nameless","Nameless","Nefirian","Lyric'Ai")>>
+	<<if ($planetTemp is "cold") or ($planetTemp is "very cold")>><<set $coldWeather = 1>>
+
+	<<set $weatherType = either("crystalcave","wetcave","dampcave","icecave")>>
+	<<elseif ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $hotWeather = 1; $zoneMobs = either("subterranean","infernal")>>
+
+	<<set $weatherType = either("crystalcave","wetcave","dampcave","smokecave","smogcave")>><<endif>><<endif>>
+
+<<if $location is "Planet's Heart">>
+	<<set $toxicFumes = 1; $lethalHeat = 1; $highPressure = 1>>
+
+<<set $weatherType = either("crystalcave","wetcave","dampcave","smokecave","smogcave")>><<endif>>
+
+<<if ($location is "Shattered Void") or ($location is "Writhing Void")>>
+	<<set $unbreathable = 1; $vaccuum = 1>>
+
+<<set $weatherType = either("crystalcave","wetcave","dampcave")>><<endif>>
+
+/% ========================================== %/
+/% Output II (failsafe) %/
+
+<<if $startBiome is 0>>
+<<set $subterranean = 0>><<display BiomeSpawner>><<set $startBiome = $biomeNorth>><<endif>>
+
+<<if $biomeNorth is 0>><<display BiomeSpawner>><<endif>>
+<<if $biomeSouth is 0>><<display BiomeSpawner>><<endif>>
+<<if $biomeEast is 0>><<display BiomeSpawner>><<endif>>
+<<if $biomeWest is 0>><<display BiomeSpawner>><<endif>>
+<<if $location is 0>><<display BiomeSpawner>><<set $location = $biomeNorth>><<endif>>
+
+/% ========================================== %/
+/% Species Abilities %/
+
+<<if ($zoneType is "woodland") or ($zoneType is "faerie") or ($location is "Deadwood") or ($location is "Icewood")>>
+<<if $indoorZone is 0>><<set $wildrunning = 1>><<else>><<set $wildrunning = 0>><<endif>><<endif>>
+
+
+<<display AmbienceDatabase>><<display BiomeStatus>><<display BiomeColorDatabase>>

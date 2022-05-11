@@ -1,0 +1,88 @@
+﻿<center><<display ZoneBackgrounds>>/% Talk to your friends! %/<<nobr>><<set $companionObserved = 0; $randomizer = 0>>
+
+<<print "[img[$companion" + $viewingCompanion + "img]]">><<endnobr>>\
+/%=============================================================================%/\
+/% Observations %/\
+\
+\
+/% HIGHEST Priority %/
+/%=============================================================================%/\
+/% Player is in pain. %/\
+\
+\
+<<if $pain gte 50>><<print "<<print $companion" + $viewingCompanion + ">> frowns..." >>
+“<<print either("Hey, um... you don't look so hot. Should we find help?","Are...are you alright?!","...I'll admit, I'm a little worried about you right now...","Are you hurt?!","H-hey, um... you alright??","C-come on, we should get help... You're worrying me!")>><<set $companionObserved = 1>><<endif>>\
+\
+/% High Priority %/\
+/%=============================================================================%/\
+\
+\
+/%=============================================================================%/\
+/% Aspecte Observations %/\
+\
+/% Companions of appropriate aspecte comment when the player is actively gaining or losing weight, is fatter or thinner, bloated, carrying eggs, etc. %/\
+\
+\
+/% Lowest Priority %/\
+/%=============================================================================%/\
+/% Randomized Commentary %/\
+\
+\
+<<if $companionObserved is 0>><<set $randomizer = either(1,2,3)>><<print "<<print $companion" + $viewingCompanion + ">> <<print either('considers you.','tilts their head.','hmms...','chuckles.','glances away for a moment.','laughs!','clicks their tongue...')>>" >><<print "<<if $companion" + $viewingCompanion + "Species is 'leupai'>><<if ($companion" + $viewingCompanion + "AgeStatus is 'quagling') or ($companion" + $viewingCompanion + "AgeStatus is 'quaggy') or ($companion" + $viewingCompanion + "AgeStatus is 'gecko')>><<set $randomizer = either(1,2)>><<endif>><<endif>>">>
+“<<endif>><<nobr>>
+
+
+
+<<if $randomizer is 1>>
+
+/%===============================%/
+/% Unfocused commentary by mood %/
+
+<<print either("Not much going on, huh?","It’s quiet...","What’s up?","Don’t mind me.")>>
+
+
+<<elseif $randomizer is 2>>
+
+/%===============================%/
+/% Unfocused commentary by personality %/
+
+<<print "<<if ($companion" + $viewingCompanion + "Pers is 'anarchist') or ($companion" + $viewingCompanion + "Pers is 'misfit')>><<print either('And what’re YOU up to..?','I could start somethin’ somewhere... Couldn’t you?','You ever just wanna set something on fire..?','But think about it. We could take over an entire town, just for ourselves..!','I’m feelin’ restless...','Y’might wanna give me something to do, before I think of something on my own!','Hey. Hey, m’bored!','Got a match..?')>><<endif>>">>
+
+<<print "<<if ($companion" + $companionSelected + "Pers is 'corruptor') or ($companion" + $companionSelected + "Pers is 'expansionist')>><<print either('You’ve got meds, right? I could mix something up, and we could see what happens if we spike the water supply... It’ll be fun!','While we’re hanging around doing nothing, we may as well have a snack.','You hungry? You look hungry.')>><<endif>>">>
+
+<<print "<<if ($companion" + $companionSelected + "Pers is 'dramatic') or ($companion" + $companionSelected + "Pers is 'touchy')>><<print either('Ugh. You know, I’ve got better things to do than this...','Would you give me some space, already?!','Meh.','This blows.','What are we doing now, exactly?','Come on, there’s got to be a better place to lounge around than this dump...','Yeah, I know-- admiring me is probably the most interesting thing you could be doing right now, right?','...And me without a good mirror.')>><<endif>>">>
+
+<<print "<<if $companion" + $companionSelected + "Pers is 'observant'>><<print either('What do you think’s out there..?','I wonder what secrets this place holds.','You know, I’m really enjoying this. Thank you.','An infinite number of infinite universes. There’s enough to be seen and done that no one could ever hope to do it all, even with immortality...','It’s calm...')>><<endif>>">>
+
+<<print "<<if $companion" + $companionSelected + "Pers is 'parent'>><<print either('What do you think’s out there..?','I wonder what secrets this place holds.','You know, I’m really enjoying this. Thank you.','I’m glad to get to spend some time with you.','It’s calm...')>><<endif>>">>
+
+<<print "<<if ($companion" + $companionSelected + "Pers is 'guardian') or ($companion" + $companionSelected + "Pers is 'wildling')>><<print either('Shh, listen...','Be on your guard.','Don’t make too much noise.','Stay vigilant.','...did you hear that?','...am I being too serious?')>><<endif>>">>
+
+<<print "<<if $companion" + $companionSelected + "Pers is 'calculator'>><<print either('Wondering what I’m thinking, are you?','All this travel isn’t quite my style, but I suppose it’s worth the information.','...hmm.')>><<endif>>">>
+
+<<print "<<if ($companion" + $companionSelected + "Pers is 'cool') or ($companion" + $companionSelected + "Pers is 'suave')>><<print either('Not much going on, huh?','It’s quiet...','What’s up?','I’m cool. You cool?','It’s nice out here...','Hah. You’re good company.','Well, it’s just us, and the rest of the world...')>><<endif>>">>
+
+<<print "<<if $companion" + $companionSelected + "Pers is 'brooding'>><<print either('...forgive me for being so quiet.','It’s... nice out here.','...What’s up?','I don’t really have much to say. Sorry.','Oh. Just... thinking. About... things.')>><<endif>>">>
+
+
+/%===============================%/
+/% Unfocused commentary by aspecte (non-quaggy) %/
+
+<<elseif $randomizer is 3>>
+
+<<print "<<if ($companion" + $companionSelected + "Asp is 'belepresse') or ($companion" + $companionSelected + "Asp is 'belsusset') or ($companion" + $companionSelected + "Asp is 'predatrix') or ($companion" + $companionSelected + "Asp is 'vitossi')>><<print either('Got anything to eat?','Ugh. I don’t think I’ve been eating enough lately.','Do we have to do so much... traveling? With our legs?','You could feed me more, you know.','Don’t we have anything fattening?','You ever just want to lie down in front of a fat ray? Maybe forever?','Nnnghh, I want food. Or... something!','I wish we could just settle down somewhere nice and eat. And eat. And possibly also more eating. Yes.','Y’know, I think fatiees and succulees might have the right ideas about life...')>><<endif>>">>
+
+<<print "<<if ($companion" + $companionSelected + "Asp is 'coudonsair') or ($companion" + $companionSelected + "Asp is 'guguetele')>><<print either('I don’t think I’m quite... full enough. You know?','I wonder how much it’d take for me to burst. I mean, just... out of curiosity.','Have you ever wanted to be a balloon?','I could be so much rounder than I am right now.','Hey, y’know-- if you ever want to, you know... just get a hose or something and...')>><<endif>>">>
+
+<<print "<<if ($companion" + $companionSelected + "Asp is 'susseroit') or ($companion" + $companionSelected + "Asp is 'vouere')>><<print either('...have you been getting enough to eat?','I don’t know. I think you could stand to slow down a little. Take it easier... snack a bit more...','You look gorgeous. Have you put on weight?','Have something to eat.','Have we got any food? No, no, I’m not asking for me.','You know, another ten or twenty gi... or thirty. Or fifty. I’m just saying, it’d look good on you. Naturally.','I like it when people jiggle. Don’t you?','You ever just want to settle down somewhere... get ridiculously fat? Just imagine...')>><<endif>>">>
+
+<<print "<<if ($companion" + $companionSelected + "Asp is 'revetoire') or ($companion" + $companionSelected + "Asp is 'beletoire')>><<print either('Got anything to eat?','Ugh. I don’t think I’ve been eating enough lately.','Do we have to do so much... traveling? With our legs?','You could feed me more, you know.','Don’t we have anything fattening?','You ever just want to lie down in front of a fat ray? Maybe forever?','Nnnghh, I want food. Or... something!','I wish we could just settle down somewhere nice and eat. And eat. And possibly also more eating. Yes.','Y’know, I think the fatiees and succulees might have the right ideas about life...','I don’t think I’m quite... full enough. You know?','I wonder how much it’d take for me to burst. I mean, just... out of curiosity.','Have you ever wanted to be a balloon?','I could be so much rounder than I am right now.','Hey, y’know-- if you ever want to, you know... just get a hose or something and...','...have you been getting enough to eat?','I don’t know. I think you could stand to slow down a little. Take it easier... snack a bit more...','You look gorgeous. Have you put on weight?','Have something to eat.','Have we got any food? No, no, I’m not asking for me.','You know, another ten or twenty gi... or thirty. Or fifty. I’m just saying, it’d look good on you. Naturally.','I like it when people jiggle. Don’t you?','You ever just want to settle down somewhere... get ridiculously fat? Just imagine...','Man, I could really gain some weight. What do you think?','You ever wonder what it’s like to get as big as a moon? I bet it’d look good on you...','Nope. Still not soft enough yet.','...really, though. I wonder where we could get a portable fat ray...','Do we have to move around so much? I mean... my figure. YOUR figure..!')>><<endif>>">>
+
+
+/%===============================%/
+/% Unfocused commentary for Quaggies %/
+
+
+<<endif>>
+
+</center><<endnobr>>”<hr>[[More.|passage()]] ♦ [[Stop talking.|Companions]]

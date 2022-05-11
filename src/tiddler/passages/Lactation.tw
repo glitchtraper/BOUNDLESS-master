@@ -1,0 +1,93 @@
+﻿<<display ZoneBackgrounds>><center><<set $toggleDisplay = 1>>\
+\
+/% Milk fix %/\
+<<if $milkType is 0>><<set $milkType = "milk">><<endif>>\
+\
+<<if $function is "drink">>
+You drink from your breasts.<<nobr>>
+
+<<set $milkQuantity = $storedMilk/10; $mouthCap = $mouthful/10>>
+
+/% Use milkQuant + mouthCap for small numbers (single digits); use storedMilk + mouthful for tens. let's see if this solves our milk problem. %/
+
+<<if $milkQuantity gte $mouthCap>>
+<<set $storedMilk -= $mouthful; $breastBloat -= $mouthful; $bellyBloat += $mouthful; $bellyLiquid += $mouthful; $calories += ($milkFat * $mouthCap)>>
+
+<<elseif $mouthCap gt $milkQuantity>>
+<<set $breastBloat -= $storedMilk; $bellyBloat += $storedMilk; $bellyLiquid += $storedMilk; $calories += ($milkQuantity * $milkFat); $storedMilk -= 0>>
+
+<<endif>>
+
+<<if $milkType is "whipped cream">> ''Your cheeks puff out as you get a mouthful of whipped cream!''
+
+<<elseif $milkType is "slime">> ''Your cheeks puff out as you get a mouthful of flavorless goo!''
+
+<<else>> Refreshing!<<endif>>
+
+<<endnobr>>
+<<if $species is "helene">><<set $esurience += either(0,0,0.1,0.1,0.2)>>\
+/% Placeholder for helene milk effect %/<<endif>>\
+\
+\
+
+<<display Alertbox>>
+<framed><<if $storedMilk gte $mouthful>><<button [[Keep drinking.|Lactation][$repeatUse += 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<endif>></framed><<elseif $function is "milk">>
+You milk your breasts, ''collecting a jar of <<print $milkType>>'' and storing it in your inventory. <<set $storedMilk -= 30>><<nobr>>
+
+
+
+		<<if $species neq "helene">>
+
+		/% Standard milk %/
+		<<if $milkType is "milk">>
+
+			<<if $milkFat lt 50>>
+			<<set $collectionjar_milk += 1>>
+
+		/% High-fat milks %/
+
+			<<elseif ($milkFat gte 50) and ($milkFat lt 80)>>
+			<<set $collectionjar_cream += 1>>
+
+			<<elseif ($milkFat gte 80) and ($milkFat lt 120)>>
+			<<set $collectionjar_cream_thick += 1>>
+
+			<<elseif ($milkFat gte 120) and ($milkFat lt 160)>>
+			<<set $collectionjar_cream_imperial += 1>>
+
+			<<elseif $milkFat gte 160>>
+			<<set $collectionjar_cream_superimperial += 1>>
+
+		<<endif>>
+		<<endif>>
+
+		/% Helenic milk %/
+		<<elseif ($species is "helene") and ($milkType is "milk")>>
+
+			<<set $milk_strange += 1>>
+
+		/% Leupai milk %/
+		<<elseif ($species is "leupai") and ($milkType is "milk")>>
+
+			<<set $collectionjar_milk_leupai += 1>>
+
+		<<endif>>
+
+		/% Special milks %/
+		<<if $milkType is "whipped cream">>
+				<<set $collectionjar_cream_whipped += 1>>
+
+		<<elseif $milkType is "slime">>
+				<<set $collectionjar_slime += 1>><<endif>>
+
+
+<<set $randomizer = random(1,36)>>
+<<if $randomizer is 1>><<set $milkRate += either(0.1,0.1,0.1,0.2,0.3)>><<endif>>
+
+<<endnobr>>
+
+<framed><<if ($storedMilk gte 30) and ($special_jar gt 0)>><<button [[Keep milking.|Lactation][$special_jar -= 1;$repeatUse += 1; $storedMilk -= 30]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<endif>></framed>
+<<endif>>
+<<button [[Continue.|$saveStateLac][$toggleDisplay = 0; $repeatUse = 0; $function = 0]]>></center>

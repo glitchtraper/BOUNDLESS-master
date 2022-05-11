@@ -1,0 +1,63 @@
+﻿
+<<if $waterStock gt 0>>
+<<button [[Water|passage()][$selectedItem = 1; $itemID = "waterStock"; $itemName = "Water"; $itemType = "drink"; $itemDesc = "A portion of relatively clean water, suitable for cooking or drinking."]]>><<endif>>
+
+<<if $milkStock gt 0>>
+<<button [[Milk|passage()][$selectedItem = 1; $itemID = "milkStock"; $itemName = "Milk"; $itemType = "drink"; $itemDesc = "Fresh, sweet milk, free of any unusual... additives."]]>><<endif>>
+
+<<if $meatStock gt 0>>
+<<button [[Meat|passage()][$selectedItem = 1; $itemID = "meatStock"; $itemName = "Meat"; $itemType = "food"; $itemDesc = "A chunk of juicy red meat with a little marbling."]]>><<endif>>
+
+<<if $fleshStock gt 0>>
+<<button [[Flesh|passage()][$selectedItem = 1; $itemID = "fleshStock"; $itemName = "Flesh"; $itemType = "food"; $itemDesc = "Clammy, cold fleshy... stuff. It unnerves you..."]]>><<endif>>
+
+<<if $fishStock gt 0>>
+<<button [[Fish|passage()][$selectedItem = 1; $itemID = "meatStock"; $itemName = "Fish"; $itemType = "food"; $itemDesc = "A plump fish, cleaned and ready to cook or eat."]]>><<endif>>
+
+<<if $poultryStock gt 0>>
+<<button [[Poultry|passage()][$selectedItem = 1; $itemID = "poultryStock"; $itemName = "Poultry"; $itemType = "food"; $itemDesc = "A chunk of birdflesh, smooth and pale."]]>><<endif>>
+
+<<if $eggStock gt 0>>
+<<button [[Eggs|passage()][$selectedItem = 1; $itemID = "eggStock"; $itemName = "Egg"; $itemType = "food"; $itemDesc = "An unfertilized egg, from... something that lays them."]]>><<endif>>
+
+<<if $grainStock gt 0>>
+<<button [[Grain|passage()][$selectedItem = 1; $itemID = "grainStock"; $itemName = "Grain"; $itemType = "resource"; $itemDesc = "A handful of raw grain. No good to eat like this, but..."]]>><<endif>>
+
+<<if $rootStock gt 0>>
+<<button [[Roots|passage()][$selectedItem = 1; $itemID = "rootStock"; $itemName = "Roots"; $itemType = "food"; $itemDesc = "A root vegetable dug up from the soil."]]>><<endif>>
+
+<<if $fruitStock gt 0>>
+<<button [[Fruit|passage()][$selectedItem = 1; $itemID = "fruitStock"; $itemName = "Fruit"; $itemType = "food"; $itemDesc = "A sweet, ripe fruit-- good, quick energy."]]>><<endif>>
+
+<<if $vegStock gt 0>>
+<<button [[Vegetable|passage()][$selectedItem = 1; $itemID = "vegStock"; $itemName = "Vegetable"; $itemType = "food"; $itemDesc = "An uncooked vegetable, maybe nice for a snack."]]>><<endif>>
+
+<<if $sugarStock gt 0>>
+<<button [[Sugar|passage()][$selectedItem = 1; $itemID = "sugarStock"; $itemName = "Sugar"; $itemType = "food"; $itemDesc = "A handful of crystallized sugar. Better for a recipe than eaten outright, but it may do in a pinch."]]>><<endif>>
+
+<<if $nutStock gt 0>>
+<<button [[Nuts|passage()][$selectedItem = 1; $itemID = "nutStock"; $itemName = "Nuts"; $itemType = "food"; $itemDesc = "Aw, nuts..."]]>><<endif>>
+
+<<if $fatStock gt 0>>
+<<button [[Fat|passage()][$selectedItem = 1; $itemID = "fatStock"; $itemName = "Fat"; $itemType = "food"; $itemDesc = "A blob of raw, creamy fat. Nothing's stopping you from eating it, but..."]]>><<endif>>
+
+<<if $herbStock gt 0>>
+<<button [[Herbs|passage()][$selectedItem = 1; $itemID = "herbStock"; $itemName = "Herbs"; $itemType = "resource"; $itemDesc = "A bushel of flavorful herbs, good for cooking and prized in trade."]]>><<endif>>
+
+<<if $jellyStock gt 0>>
+<<button [[Jelly|passage()][$selectedItem = 1; $itemID = "jellyStock"; $itemName = "Jelly"; $itemType = "food"; $itemDesc = "A blob of squishy, sweet gelatin. A... resource?"]]>><<endif>>
+
+<<if $dragonStock gt 0>>
+<<button [[Dragon Meat|passage()][$selectedItem = 1; $itemID = "dragonStock"; $itemName = "Dragon Meat"; $itemType = "food"; $itemDesc = "A thick chunk of dragon meat. Pretty tough."]]>><<endif>>
+
+<<if $leupaiStock gt 0>>
+<<button [[Leupai Flesh|passage()][$selectedItem = 1; $itemID = "leupaiStock"; $itemName = "Leupai Flesh"; $itemType = "food"; $itemDesc = "A fatty, pillowy chunk of succulent leupai meat. The marbling is phenomenal."]]>><<endif>>
+
+<<if $fatteniumStock gt 0>>
+<<button [[Fattenium Powder|passage()][$selectedItem = 1; $itemID = "fatteniumStock"; $itemName = "Fattenium Powder"; $itemType = "food"; $itemDesc = "A handful of powdered fattenium ore. Crumbly, sweet, and buttery."]]>><<endif>>
+
+<<if $distensiumStock gt 0>>
+<<button [[Distensium Powder|passage()][$selectedItem = 1; $itemID = "distensiumStock"; $itemName = "Distensium Powder"; $itemType = "food"; $itemDesc = "A handful of powdered distensium ore. It has a somewhat unpleasant metallic tang..."]]>><<endif>>
+
+<<if $miraStock gt 0>>
+<<button [[Miracrystal Dust|passage()][$selectedItem = 1; $itemID = "miraStock"; $itemName = "Miracrystal Dust"; $itemType = "food"; $itemDesc = "Shimmering magenta miracrystal powder. Who knows what eating this may do to you..?"]]>><<endif>>

@@ -1,0 +1,1116 @@
+﻿/% ========== COMPANION DATABASE ==========  %/
+<<display ColorWheel>><<display NPCNamer>>
+
+/% Renameable until told otherwise. Generally sapients will pick and defend their own names. %/
+
+	<<print "<<set $companion" + $compSlot + "Nameable = 'true'>>">>
+
+/% =========================================================================== %/
+/% Quaggies %/
+
+<<if $addQuaggy is 1>><<set $encounter = 0>>
+
+/% TODO; Calculate starting Power and Finesse by species. %/
+
+
+	/% Name %/
+	<<set $quaggyName = $newQuaggyName1>><<if $newQuaggyName2 neq 0>><<set $quaggyName = $quaggyName + " " + $newQuaggyName2>><<endif>>
+	<<print "<<set $companion" + $compSlot + " = '" + $quaggyName + "'>>">>
+
+	<<print "<<set $companion" + $compSlot + "Nameable = 'false'>>">>
+
+	/% Underage Flag %/
+	<<print "<<set $companion" + $compSlot + "Underage = 'true'>>">>
+
+	/% Type %/
+	<<print "<<set $companion" + $compSlot + "Species = 'leupai'>>">>
+	<<print "<<set $companion" + $compSlot + "Subspec = '" + $newQuaggySubspecies + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Subtype = '" + $newQuaggySubtype + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+	<<print "<<set $companion" + $compSlot + "Girth = " + $newQuaggyGirth + ">>">>
+
+	/% Flavor %/
+
+	<<print "<<set $companion" + $compSlot + "Color = '" + $newQuaggyColor + "'>>">>
+
+	/% Leupai have facets. %/
+	<<print "<<set $companion" + $compSlot + "Facet = '" + $newQuaggyFacet + "'>>">>
+
+	<<print "<<set $companion" + $compSlot + "Skin = '" + $newQuaggySkin + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Ears = '" + $newQuaggyEars + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Eyes = '" + $newQuaggyEyes + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Face = '" + $newQuaggyFace + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Head = '" + $newQuaggyHead + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Body = '" + $newQuaggyBody + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Back = '" + $newQuaggyBack + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Legs = '" + $newQuaggyLegs + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = '" + $newQuaggyTail + "'>>">>
+
+	<<set $encounterSubtype = 0>>
+
+	<<set $addQuaggy = 0>>
+
+<<elseif $addQuaggy neq 1>>
+
+/% =========================================================================== %/
+
+	/% These stats should be pullable directly from the creature database/combat results, regardless of species... %/
+
+	<<print "<<set $companion" + $compSlot + "img = '" + $encImg + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Subtype = '" + $encounterSubtype + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Girth = " + $creatureGirth + ">>">>
+
+	<<print "<<set $companion" + $compSlot + "Color = '" + $creatureColor + "'>>">>
+
+	/% Combat %/
+	<<print "<<set $companion" + $compSlot + "Power = " + $encounterPower + ">>">>
+	<<print "<<set $companion" + $compSlot + "Finesse = " + $encounterFinesse + ">>">>
+
+
+<<endif>>
+
+/% =========================================================================== %/
+/% Mindless %/
+
+<<if ($encounter is "small slime") or ($encounter is "slime") or ($encounter is "enormous slime")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'slime'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = 'black'>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 'jelly'>>">>
+
+	/% =============== %/
+
+
+<<elseif ($encounter is "bloated anthroslime") or ($encounter is "anthroslime adventurer")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'anthroslime'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = 'black'>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 'jelly'>>">>
+	<<print "<<set $companion" + $compSlot + "Ears = either('round','round','round','fae','fae','fae','triangular','triangular','triangular','winged')>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "sporeslave">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Ears = either('round','round','fae','fae','tendril','tendril','winged')>>">>
+	<<print "<<set $companion" + $compSlot + "Face = either('blunt','crusher','humanoid','humanoid','humanoid','humanoid','humanoid','oneroiesque','sharklike','monstrous')>>">>
+
+	<<print "<<set $companion" + $compSlot + "Back = 'tentacles'>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 'blubbery'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = 'tentacle'>>">>
+
+	/% =============== %/
+
+<<elseif $encounter is "fyynling">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Back = 'tentacles'>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 'blubbery'>>">>
+
+	/% =============== %/
+
+<<elseif $encounter is "neon crawler">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'crawler'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Back = 'bioluminescent spots'>>">>
+
+/% =========================================================================== %/
+/% Beasts %/
+
+
+<<elseif $encounter is "corona hawk">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'hawk'>>">>
+	<<print "<<set $companion" + $compSlot + "Subspec = 'corona'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('brown','white','black','golden')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = 'feathered wings'>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "star-bound crow">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'crow'>>">>
+	<<print "<<set $companion" + $compSlot + "Subspec = 'star-bound'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('brown','white','black','red')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = 'feathered wings'>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "merreveti raven">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'raven'>>">>
+	<<print "<<set $companion" + $compSlot + "Subspec = 'merreveti'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('brown','white','black','red')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = 'feathered wings'>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "Kaolani eagle">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'eagle'>>">>
+	<<print "<<set $companion" + $compSlot + "Subspec = 'Kaolani'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('brown','black','yellow','teal','green')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = 'feathered wings'>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "screemer">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('white','black','red')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = 'bat wings'>>">>
+
+	/% =============== %/
+
+<<elseif $encounter is "drudgemol">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('white','black')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('crocodilian','dragon','rat','serpentine','slug','spade','worm')>>">>
+
+	/% =============== %/
+
+
+<<elseif $encounter is "dust coyote">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'coyote'>>">>
+	<<print "<<set $companion" + $compSlot + "Subspec = 'dust'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('brown','gray','red','black','orange','yellow')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('smooth','fluffy','curled')>>">>
+
+	/% =============== %/
+
+
+<<elseif $encounter is "hellpup">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('black','white','yellow')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('smooth','curled','whip','serpentine','nub','spade-tipped')>>">>
+
+	/% =============== %/
+
+
+<<elseif $encounter is "beach basker">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'herbi'>>">>
+
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('black','black','black','indigo')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = 'whip'>>">>
+
+
+	/% =============== %/
+
+
+<<elseif $encounter is "mirelock">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = 'black'>>">>
+
+
+	/% =============== %/
+
+
+<<elseif ($encounter is "voxi") or ($encounter is "arctic voxi")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'voxi'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+		<<if $encounter is "arctic voxi">>
+		<<print "<<set $companion" + $compSlot + "Subspec = 'arctic'>>">><<endif>>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('orange','orange','yellow','yellow','yellow','yellow','yellow','green','blue','gray')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = 'fluffy'>>">>
+
+
+	/% =============== %/
+
+
+<<elseif $encounter is "firefox">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('black','white','yellow')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = 'fluffy'>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "boar">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('brown','red','black')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('lion','curled')>>">>
+
+
+
+	/% =============== %/
+
+<<elseif $encounter is "wolf">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('brown','gray','red','black','orange','yellow')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('smooth','fluffy','curled')>>">>
+
+
+	/% =============== %/
+
+<<elseif ($encounter is "wasteland hyena") or ($encounter is "briarrose hyena")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'hyena'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+		<<if $encounter is "wasteland hyena">>
+		<<print "<<set $companion" + $compSlot + "Subspec = 'wasteland'>>">>
+
+		<<elseif $encounter is "briarrose hyena">>
+		<<print "<<set $companion" + $compSlot + "Subspec = 'briarrose'>>">><<endif>>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('orange','golden','yellow','red','black','blue')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = either(0,'mane','mane','mane','mane','lion mane')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('smooth','fluffy','curled','lion')>>">>
+
+
+	/% =============== %/
+
+<<elseif ($encounter is "deer") or ($encounter is "stag")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'herbi'>>">>
+
+	/% Some deer produce milk. %/
+	<<print "<<set $companion" + $compSlot + "Milk = either(0,0,0,0,'yes')>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('brown','gray','red','black','blue')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = either(0,0,'antlers')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('fluffy','fluffy','curled')>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "unicorn">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% Some unicorns produce milk. %/
+	<<print "<<set $companion" + $compSlot + "Milk = either(0,0,0,0,'yes')>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('brown','gray','red','black','blue')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = 'unicorn horn'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('lion','equine')>>">>
+
+
+	/% =============== %/
+
+<<elseif ($encounter is "tawny leo") or ($encounter is "dappled leo") or ($encounter is "peak leo") or ($encounter is "primordial leo") or ($encounter is "celestial leo")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'leo'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% Cosmetic %/
+
+		<<if $encounter is "tawny leo">>
+
+		<<print "<<set $companion" + $compSlot + "Subspec = 'tawny'>>">>
+
+		<<print "<<set $companion" + $compSlot + "Eyes = either('orange','golden','yellow','yellow','yellow','yellow','silver','white','blue','black')>>">>
+		<<print "<<set $companion" + $compSlot + "Head = either(0,0,'lion mane')>>">>
+		<<print "<<set $companion" + $compSlot + "Tail = 'lion'>>">>
+
+		<<elseif $encounter is "dappled leo">>
+
+		<<print "<<set $companion" + $compSlot + "Subspec = 'dappled'>>">>
+
+		<<print "<<set $companion" + $compSlot + "Eyes = either('orange','orange','golden','golden','golden','golden','yellow','gray','silver','white','blue','black')>>">>
+		<<print "<<set $companion" + $compSlot + "Head = either(0,0,0,0,0,'mane','mane''lion mane')>>">>
+		<<print "<<set $companion" + $compSlot + "Tail = either('feline','feline','feline','lion')>>">>
+
+		<<elseif $encounter is "peak leo">>
+
+		<<print "<<set $companion" + $compSlot + "Subspec = 'peak'>>">>
+
+		<<print "<<set $companion" + $compSlot + "Eyes = either('green','teal','blue','blue','blue','indigo','violet','black')>>">>
+		<<print "<<set $companion" + $compSlot + "Head = either(0,0,'mane','lion mane')>>">>
+		<<print "<<set $companion" + $compSlot + "Tail = either('feline','fluffy','fluffy','fluffy','fluffy','lion')>>">>
+
+		<<elseif $encounter is "primordial leo">>
+
+		<<print "<<set $companion" + $compSlot + "Subspec = 'primordial'>>">>
+
+		<<print "<<set $companion" + $compSlot + "Eyes = either('red','red','red','red','orange','golden','yellow','green','white','black')>>">>
+		<<print "<<set $companion" + $compSlot + "Head = either(0,0,'lion mane')>>">>
+		<<print "<<set $companion" + $compSlot + "Tail = 'lion'>>">>
+
+		<<elseif $encounter is "celestial leo">>
+
+		<<print "<<set $companion" + $compSlot + "Subspec = 'celestial'>>">>
+
+		<<print "<<set $companion" + $compSlot + "Eyes = either('red','orange','golden','yellow','green','blue','indigo','violet','magenta','white','silver','black')>>">>
+		<<print "<<set $companion" + $compSlot + "Head = either(0,0,'lion mane')>>">>
+		<<print "<<set $companion" + $compSlot + "Back = 'wings'>>">>
+		<<print "<<set $companion" + $compSlot + "Tail = 'lion'>>">>
+
+		<<endif>>
+
+
+
+
+	/% =============== %/
+
+<<elseif $encounter is "bear">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+
+	/% Cosmetic %/
+	<<print "<<set $companion" + $compSlot + "Eyes = either('brown','black','golden','orange','blue','white')>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "serpent">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('black','golden','orange','blue','white','yellow','red')>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "wild chevret">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'chevret'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'herbi'>>">>
+
+	/% Some chevret produce milk. %/
+	<<print "<<set $companion" + $compSlot + "Milk = either(0,0,0,0,'yes')>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('brown','black','blue')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = 'bull horns'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = 'lion'>>">>
+
+	/% =============== %/
+
+
+<<elseif $encounter is "rockcharger">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'herbi'>>">>
+
+	/% Some rams produce milk. %/
+	<<print "<<set $companion" + $compSlot + "Milk = either(0,0,0,0,'yes')>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = 'black'>>">>
+	<<print "<<set $companion" + $compSlot + "Head = either(0,'spiral horns')>>">>
+
+
+	/% =============== %/
+
+
+<<elseif $encounter is "breaching tusker">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('black','white','yellow')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = 'mane'>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "crocogator">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('black','golden','orange','blue','white','yellow','red','magenta')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = 'crocodilian'>>">>
+	<<print "<<set $companion" + $compSlot + "Back = 'armor'>>">>
+
+
+	/% =============== %/
+
+
+<<elseif $encounter is "teratops">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'herbi'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('black','brown','red')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = either('bony crest','bony crest','spiky crest')>>">>
+
+	/% =============== %/
+
+
+<<elseif ($encounter is "razormouth ripper") or ($encounter is "wooly razormouth")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'razormouth'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+
+		<<print "<<set $companion" + $compSlot + "Eyes = either('red','red','red','orange','golden','yellow','yellow','yellow','yellow','silver','white','blue','black','magenta')>>">>
+
+		<<if $encounter is "razormouth ripper">>
+
+		<<print "<<set $companion" + $compSlot + "Head = either(0,0,0,'feather crest')>>">>
+		<<print "<<set $companion" + $compSlot + "Tail = 'saurian'>>">>
+
+		<<elseif $encounter is "wooly razormouth">>
+
+		<<print "<<set $companion" + $compSlot + "Subspec = 'wooly'>>">>
+
+		<<print "<<set $companion" + $compSlot + "Head = 'mane'>>">>
+		<<print "<<set $companion" + $compSlot + "Back = 'wooly coat'>>">>
+		<<print "<<set $companion" + $compSlot + "Tail = 'saurian'>>">>
+		<<endif>>
+
+
+
+/% =========================================================================== %/
+/% Humanoids %/
+
+<<elseif ($encounter is "overstuffed helene") or ($encounter is "blubber-bellied helene") or ($encounter is "huge-breasted helene") or ($encounter is "blimp-thighed helene")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $revName + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'helene'>>">>
+
+	<<print "<<set $companion" + $compSlot + "Nameable = 'false'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+	/% Some helenes produce milk. %/
+	<<print "<<set $companion" + $compSlot + "Milk = either(0,0,0,'yes','bloated')>>">>
+	<<print "<<set $companion" + $compSlot + "MilkYield = random(2,10)>>">>
+
+	<<print "<<if $encounter is 'huge-breasted helene'>><<set $companion" + $compSlot + "Milk = either('yes','yes','bloated')>><<endif>>" >>
+
+	<<print "<<if $companion" + $compSlot + "Milk is 'bloated'>><<set $companion" + $compSlot + "Breast += either(300,400,500,600,700,800,1000,1200,1500,2000,2200,2500); $companion" + $compSlot + "MilkYield += random(2,5)>><<endif>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Ears = 'fae'>>">>
+	<<print "<<set $companion" + $compSlot + "Eyes = '" + $fullChroma + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Back = 'bat wings'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('leonine','long','maw','serpentine','spade')>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "fyynmorph">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'fyynmorph'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Ears = either('round','fae','tendril')>>">>
+	<<print "<<set $companion" + $compSlot + "Face = 'humanoid'>>">>
+
+	<<print "<<set $companion" + $compSlot + "Back = 'tentacles'>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 'blubbery'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either(0,'tentacle')>>">>
+
+	/% =============== %/
+
+
+<<elseif $encounter is "imp">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Eyes = either('black','white','yellow')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = either('straight horns','spiral horns','bull horns','spike horns')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = 'bat wings'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('spade-tipped','diamond-tipped','scorpion')>>">>
+
+
+
+/% =========================================================================== %/
+/% Monsters %/
+
+
+<<elseif ($encounter is "belmere leupai") or ($encounter is "celesse leupai") or ($encounter is "devinn leupai") or ($encounter is "ein leupai") or ($encounter is "heitene leupai") or ($encounter is "intere leupai") or ($encounter is "kitsch leupai") or ($encounter is "laworn leupai") or ($encounter is "ouinsel leupai") or ($encounter is "rexaur leupai")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $revName + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'leupai'>>">>
+
+	<<print "<<set $companion" + $compSlot + "Nameable = 'false'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+		<<if $encounter is "predatory leupai">>
+		<<print "<<set $companion" + $compSlot + "Subspec = '" + $randomEggLeupai + "'>>">>
+		<<elseif $encounter is "laworn leupai">>
+		<<print "<<set $companion" + $compSlot + "Subspec = 'laworn'>>">><<endif>>
+
+	/% Physical %/
+
+	/% Leupai venom. Usable in combat as well as milkable from donsair. %/
+	<<if $venomType neq 0>><<print "<<set $companion" + $compSlot + "Venom = '" + $venomType + "'>>">>
+	<<else>><<print "<<set $companion" + $compSlot + "Venom  = either('fattening','fattening','fattening','bellyfattening','breastfattening','thighfattening','bloating','bloating','bloating','bloating','bloating','breastbloating','breastbloating','bursting','healing','healing','healing','superfattening','superbellyfattening','superbreastfattening','superthighfattening','flabbifying','flabbifying','weakening','toxic','lethal','mutagenic','mutagenic','gluttonous','gluttonous','gluttonous','fattenium','bulking','hallucenogenic','caloric','caloric','caloric','caloric','caloric','caloric','caloric')>>">> <<endif>>
+
+	/% Some leupai produce milk. %/
+	<<print "<<set $companion" + $compSlot + "Milk = either(0,0,0,0,0,0,'yes','bloated')>>">>
+
+	<<print "<<if $companion" + $compSlot + "Milk is 'yes'>><<set $companion" + $compSlot + "MilkYield = random(2,10)>><<elseif $companion" + $compSlot + "Milk is 'bloated'>><<set $companion" + $compSlot + "MilkYield = random(8,24)>><<endif>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Skin = either('armored','bumpy','cake','candy','carapaced','crystalline','feathered','fish-scaled','furry','glass','jelly','plush','porcelain','pulsing','robotic','scaled','slick','smooth','squishy','stitched','studded','toy','velvet','vial','wispy')>>">>
+	<<print "<<set $companion" + $compSlot + "Ears = either('double','equine','fae','finned','long','lop','ribbon','round','spike','split','tendril','triangular','winged')>>">>
+	<<print "<<set $companion" + $compSlot + "Eyes = '" + $fullChroma + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Face = either('avian','blunt','boid','canine','crocodilian','crusher','eel','feline','flat','gecko','humanoid','leonine','oneroiesque','saurian','seal','sharklike','vulpine','monstrous')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = either(0,'angler lantern','antennae','antlers','armor','bull horns','crystal points','curly horns','feather crest','finned crest','fins','hair','horn','horns','horse mane','lion mane','mane','nose horn','quills','rhino horns','smooth head','snake hair','spike horns','spikes','spines','spiral horns','straight horns','tentacles','tiny bat headwings','tiny feathered headwings','two-headed','unicorn horn','winged head')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = either(0,'armor','back armor','back foliage','bioluminescent mushrooms','bioluminescent spots','crested back','crystal points','feather crest','feathered spine','finned back','fins','furry spine','horns','hunched back','mane','mountainous back','plates','quills','spiked back','spikes','spines','spiny back','stitched spine','stitches','teeth','tentacles','toothy spine','wings','zipper','zippered spine')>>">>
+	<<print "<<set $companion" + $compSlot + "Body = either('bloated','blubber-stuffed','blubbery','bulging','flabby','gelatinous','monstrous','pot-bellied','serpentine')>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('0','braided','bushy','cable','canine','carnosaur','club','crocodilian','dragon','equine','fat','feathered','feline','fox','gecko','leonine','long','maw','nub','phoenix','rat','rooster','sauropod','serpentine','slug','spade','split','tentacle','worm')>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "fyynmorph">>
+
+	<<print "<<set $companion" + $compSlot + " = 'fyynmorph'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Ears = either('round','round','fae','fae','tendril','tendril','winged')>>">>
+	<<print "<<set $companion" + $compSlot + "Face = either('blunt','crusher','humanoid','humanoid','humanoid','humanoid','humanoid','oneroiesque','sharklike','monstrous')>>">>
+
+	<<print "<<set $companion" + $compSlot + "Back = 'tentacles'>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 'blubbery'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = 'tentacle'>>">>
+
+
+
+	/% =============== %/
+
+<<elseif $encounter is "fyynling-possessed horror">>
+
+	<<print "<<set $companion" + $compSlot + " = 'fyynling horror'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'fyynling horror'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Ears = either('fae','fae','tendril','tendril','tendril','tendril','winged')>>">>
+	<<print "<<set $companion" + $compSlot + "Face = either('blunt','crusher','humanoid','humanoid','humanoid','humanoid','humanoid','oneroiesque','sharklike','monstrous')>>">>
+
+	<<print "<<set $companion" + $compSlot + "Back = 'tentacles'>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 'blubbery'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = 'tentacle'>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "streamserpent">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Skin = 'smooth-scaled'>>">>
+	<<print "<<set $companion" + $compSlot + "Ears = either('fin','fin','fin','winged')>>">>
+	<<print "<<set $companion" + $compSlot + "Eyes = '" + $fullChroma + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Face = either('crocodile','beaked','serpent')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = either('straight horns','spiral horns','smooth head','finned crest','bull horns','spike horns','unicorn horn','rhino horns','nose horn')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = either('bat wings','bat wings','bat wings','bat wings','bat wings','feathered wings')>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 'serpentine'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('spade-tipped','diamond-tipped','lion','smooth-tipped','wyvern')>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "reefwyrm">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Skin = 'fish-scaled'>>">>
+	<<print "<<set $companion" + $compSlot + "Ears = 'fin'>>">>
+	<<print "<<set $companion" + $compSlot + "Eyes = '" + $fullChroma + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Face = either('crocodile','shark','serpent')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = either('straight horns','spiral horns','smooth head','finned crest','bull horns','spike horns','unicorn horn','rhino horns','nose horn')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = either('finned spine','finned spine','dorsal fin','dorsal fin','bat wings')>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 'serpentine'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('fin','shark','whale','smooth-tipped')>>">>
+
+
+
+	/% =============== %/
+
+<<elseif $encounter is "flametongue">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Skin = either('round-scaled','fish-scaled','smooth-scaled')>>">>
+	<<print "<<set $companion" + $compSlot + "Ears = either('fin','fin','fin','elf')>>">>
+	<<print "<<set $companion" + $compSlot + "Eyes = '" + $fullChroma + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Face = either('crocodile','beaked','serpent')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = either('straight horns','spiral horns','smooth head','finned crest','bull horns','spike horns','unicorn horn','rhino horns','nose horn')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = 'bat wings'>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 0>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('spade-tipped','diamond-tipped','lion','smooth-tipped','whip')>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "cragonn">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+	/% Cosmetic %/
+
+<<print "<<set $companion" + $compSlot + "Skin = either('rock-encrusted','rock-encrusted','rock-encrusted','rock-encrusted','diamond-studded','crystalline')>>">>
+	<<print "<<set $companion" + $compSlot + "Ears = either('fin','fin','fin','elf')>>">>
+	<<print "<<set $companion" + $compSlot + "Eyes = '" + $fullChroma + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Face = either('crocodile','beaked','serpent','crusher')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = either('straight horns','spiral horns','smooth head','finned crest','bull horns','spike horns','unicorn horn','rhino horns','nose horn')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = 'bat wings'>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 'burly'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('club-tipped','spike-tipped')>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "terrogator">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Skin = 'armored'>>">>
+	<<print "<<set $companion" + $compSlot + "Eyes = '" + $fullChroma + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Face = 'crocodile'>>">>
+	<<print "<<set $companion" + $compSlot + "Back = 'bat wings'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = 'crocodilian'>>">>
+
+	/% =============== %/
+
+
+<<elseif $encounter is "celestial mythosi">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $dregName + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Nameable = 'false'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Subspec = 'celestial'>>">>
+
+	/% Mythosi have magical breath that can either deal extra damage, increase bloat/girth/body liquid, or transform the target's substatus. %/
+	/% <<print "<<set $companion" + $compSlot + "Breath = either('Fattening','Bloating','Confectionary','Slime','Magical','Fire','Ice','Poison','Bursting','Adiposal','Blimping','Sweetening','Pillowing','Jellifying')>>">> %/
+
+	/% Cosmetic %/
+
+	<<print "<<set $companion" + $compSlot + "Skin = either('round-scaled','fish-scaled','smooth-scaled','scaleless','plush','crystalline')>>">>
+	<<print "<<set $companion" + $compSlot + "Ears = either('fin','fin','fin','elf','winged')>>">>
+	<<print "<<set $companion" + $compSlot + "Eyes = '" + $fullChroma + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Face = either('blunt','crocodile','beaked','gecko','serpent')>>">>
+	<<print "<<set $companion" + $compSlot + "Head = either('straight horns','spiral horns','smooth head','finned crest','lion mane','horse mane','bull horns','spike horns','unicorn horn','rhino horns','nose horn')>>">>
+	<<print "<<set $companion" + $compSlot + "Back = either('bat wings','bat wings','bat wings','bat wings','bat wings','feathered wings')>>">>
+	<<print "<<set $companion" + $compSlot + "Body = 0>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = either('spade-tipped','heart-tipped','club-tipped','diamond-tipped','lion','smooth-tipped','wyvern')>>">>
+
+
+/% =========================================================================== %/
+/% Small Donsair %/
+
+	/% =============== %/
+
+<<elseif $encounter is "seraphim slug">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'herbi'>>">>
+
+	/% =============== %/
+
+<<elseif $encounter is "heartprint spekko">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'spekko'>>">>
+	<<print "<<set $companion" + $compSlot + "Subspec = 'heartprint'>>">>
+	<<print "<<set $companion" + $compSlot + "Tail = 'fat'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% =============== %/
+
+<<elseif $encounter is "raposui">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'raposui'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+	/% =============== %/
+
+<<elseif $encounter is "dust snake">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'snake'>>">>
+	<<print "<<set $companion" + $compSlot + "Subspec = 'dust'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% =============== %/
+
+<<elseif $encounter is "jewel scorpion">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'scorpion'>>">>
+	<<print "<<set $companion" + $compSlot + "Subspec = 'jewel'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% =============== %/
+
+<<elseif $encounter is "bubblefish">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'bubblefish'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% =============== %/
+
+<<elseif $encounter is "scrub-darter">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'scrub-darter'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% =============== %/
+
+<<elseif $encounter is "honeygorger swarm">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'honeygorger hive'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'herbi'>>">>
+
+
+	/% =============== %/
+
+<<elseif $encounter is "fairyhawk swarm">>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = 'fairyhawk hive'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+/% =========================================================================== %/
+/% Placeholders %/
+/% These species should be replaced with more interesting uniques... %/
+
+<<elseif ($encounter is "pigeon") or ($encounter is "dove") or ($encounter is "swan") or ($encounter is "goose") or ($encounter is "duck") or ($encounter is "fish") or ($encounter is "mouse")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'omni'>>">>
+
+	/% =============== %/
+
+<<elseif ($encounter is "pheasant") or ($encounter is "songbird") or ($encounter is "squirrel") or ($encounter is "chipmunk")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'herbi'>>">>
+
+	/% =============== %/
+
+<<elseif ($encounter is "owl") or ($encounter is "weasel")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'carni'>>">>
+
+	/% =============== %/
+
+<<elseif ($encounter is "rat") or ($encounter is "raccoon")>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+	/% Diet %/
+	<<print "<<set $companion" + $compSlot + "Vore = 'pan'>>">>
+
+
+/% =========================================================================== %/
+/% Pet Catchall %/
+
+	/% =============== %/
+
+<<else>>
+
+	<<print "<<set $companion" + $compSlot + " = '" + $encounter + "'>>">>
+	<<print "<<set $companion" + $compSlot + "Species = '" + $encounter + "'>>">>
+
+
+/% =========================================================================== %/
+/%  End database. %/
+
+<<endif>>
+
+/% =========================================================================== %/
+/%  Set special subtypes from combat. %/
+
+<<if $encounterSubtype is "inflated">><<print "<<set $companion" + $compSlot + "Subtype = 'balloon'>>">><<endif>>
+
+
+<<if $miniDonsair is 1>>
+	/% Littles get a different setup on the donsair page. %/
+<<print "<<set $companion" + $compSlot + "Mini = 1>>">>
+
+<<endif>>

@@ -1,0 +1,4138 @@
+﻿/% ========================================================= %/
+/% Combat Ability Database %/
+
+<<set $baseDamage = 0; $combatMagnitude = 0; $playerDamage = 0; $enemyDamage = 0>>
+
+/% Who's on first? %/
+
+<<if $attacker is "enemy">><<set $combatAbility = $enemyChoice; $attackerFinesse = $encounterFinesse; $baseDamage = $encounterPower - $enemyCombatWeaken; $combatMagnitude = $encounterMagnitude>>
+
+/% Combat status flags - ideally, these have been set up by the opponent's attack prior to this %/
+<<if $enemyFear is 1>><<set $combatAbility = "panic"; $enemyFear = 0>>
+<<elseif $enemyDaze is 1>><<set $combatAbility = "stun"; $enemyDaze = 0>>
+<<elseif $enemyBlocked is 1>><<set $combatAbility = "blocked"; $enemyDaze = 0>><<endif>>
+
+<<elseif $attacker is "player">>
+
+<<if $companionAbility is 0>><<set $theAttacker = "You">><<endif>>
+
+<<set $combatAbility = $playerChoice; $attackerFinesse = $combatFinesse; $baseDamage = $strength - $combatWeaken; $combatMagnitude = $accuracy>>
+/% Accuracy NYI, working title.
+Accuracy will probably work best being a randomized number/range usually, unless in the form of a one-time item or buff that sets up a certain magnitue and then clears immediately after.
+Innate accuracy probably shouldn't guarantee a certain magnitude, except in rare cases.
+
+Accuracy may be fun to test for wereleupai/lycanthropy shifts. %/
+
+<<if $playerVenom neq 0>><<set $pVenomType = $playerVenom>><<endif>>
+
+<<if $fear is 1>><<set $combatAbility = "panic"; $fear = 0>>
+<<elseif $daze is 1>><<set $combatAbility = "stun"; $daze = 0>>
+<<elseif $blocked is 1>><<set $combatAbility = "blocked"; $blocked = 0>><<endif>>
+
+
+
+<<endif>>
+
+
+<<if $attacker is "enemy">>
+/% Flee Protection forces the npc to use an ability other than flee up until at least the designated number of combat rounds have passed.
+If the enemy is still trying to flee here, it ends up panicking instead. Fuck you, buddy! %/
+<<if ($combatAbility is "flee") and ($battleRound lte $fleeProtection)>><<set $combatAbility = "panic">><<endif>><<endif>>
+
+
+<<if $baseDamage is 0>><<set $baseDamage = 1>><<endif>>
+
+/% ========================================================= %/
+/% Absolute/Perfect Defense %/
+
+/% This form of shielding completely disables the opponent's attack attempt.
+For other forms, check before final damage output (below). %/
+
+<<if ($shieldValue gt 0) and ($attacker is "enemy")>>
+
+/% Player shielding %/
+
+/% Absolute shields negate all incoming damage, but break immediately afterwards %/
+<<if $shieldType is "absolute">><<set $shieldValue = 0; $shieldType = 0; $strikeResult = "fail"; $enemyBlocked = 1>><<endif>>
+<<endif>>
+
+
+<<if ($enemy_shieldValue gt 0) and ($attacker is "player")>>
+
+/% Enemy shielding %/
+
+<<if $enemy_shieldType is "absolute">><<set $enemy_shieldValue = 0; $enemy_shieldType = 0; $strikeResult = "fail"; $blocked = 1>><<endif>>
+<<endif>>
+
+
+/% ========================================================= %/
+
+/% ========================================================= %/
+/% Targeting system %/
+
+<<if $attacker is "enemy">>
+<<set $combatTarget = either("face","body","body","body")>><<endif>>
+
+
+<<if $attacker is "player">>
+
+<<if ($encounterStructure is "horizontal") or ($encounterStructure is 0)>><<set $combatTarget = either("face","face","body","body")>><<endif>>
+<<if $encounterStructure is "vertical">><<set $combatTarget = either("face","body","body","body")>><<endif>>
+<<if $encounterStructure is "spherical">><<set $combatTarget = either("face","body","body","body","body","body")>><<endif>>
+<<if $encounterStructure is "faceless">><<set $combatTarget = "body">><<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% Landing blows - Default finesse %/
+
+<<if $attackerFinesse lt 999>>
+<<set $randomizer = random(1,16)>>
+
+/% Face shots are harder to land, but deal more damage %/
+<<if $combatTarget is "face">><<set $randomizer -= either(0,1,2,2,3)>><<endif>>
+
+/% Combat magnitude - alter to increase likelihood of solid/devastating strikes %/
+<<if $combatMagnitude is 1>><<set $randomizer += 1>>
+<<elseif $combatMagnitude is 2>><<set $randomizer += 2>>
+<<elseif $combatMagnitude is 3>><<set $randomizer += 5>>
+<<elseif $combatMagnitude is 4>><<set $randomizer += 10>>
+
+/% vv GUARANTEED DEVASTATING STRIKE. Do NOT use lightly! %/
+<<elseif $combatMagnitude is 5>><<set $randomizer += 15>><<endif>>
+
+<<if $randomizer lte 1>><<set $strikeResult = "fail">>
+<<elseif ($randomizer gte 2) and ($randomizer lte 3)>><<set $strikeResult = "glancing">>
+<<elseif ($randomizer gte 4) and ($randomizer lte 9)>><<set $strikeResult = "weak">>
+<<elseif ($randomizer gte 10) and ($randomizer lte 14)>><<set $strikeResult = "solid">>
+<<elseif $randomizer gte 15>><<set $strikeResult = "DEVASTATING">>
+<<endif>><<endif>>
+
+
+/% ========================================================= %/
+/% Defenseless Mode %/
+
+/% If this is the enemy's attack and the player has Passed or otherwise is defenseless, this changes the strike change and effectiveness. %/
+
+<<if ($attacker is "enemy") and ($playerDefenseless is 1)>>
+
+<<set $randomizer = random(6,16); $playerDefenseless = 0>>
+
+<<if $randomizer lte 1>><<set $strikeResult = "fail">>
+<<elseif ($randomizer gte 2) and ($randomizer lte 3)>><<set $strikeResult = "glancing">>
+<<elseif ($randomizer gte 4) and ($randomizer lte 9)>><<set $strikeResult = "weak">>
+<<elseif ($randomizer gte 10) and ($randomizer lte 14)>><<set $strikeResult = "solid">>
+<<elseif $randomizer gte 15>><<set $strikeResult = "DEVASTATING">>
+<<endif>>
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% Companion Mode %/
+
+/% Confirm that this is the companion's attack. %/
+
+<<if ($attacker is "player") and ($companionAbility is 1)>>
+
+<<set $theAttacker = $compCombatant; $attackerFinesse = $compFinesse; $baseDamage = $compPower>>
+
+<<endif>>
+
+/% ========================================================= %/
+/% Elemental Modifiers %/
+
+<<display ElementalTyping>>
+
+/% ========================================================= %/
+/% Basics & Defaults %/
+
+/% ========================================================= %/
+/% PASS forfeits the player's turn. %/
+
+
+<<if $combatAbility is "pass">>
+
+You <brightalert>''watch and wait!''</brightalert>
+
+<<endif>>
+
+/% ========================================================= %/
+/% PANIC forfeits the turn. %/
+
+
+<<if $combatAbility is "panic">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+The <<print $encounter>> <brightalert>''panics!!''</brightalert>
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+You <brightalert>''panic!!''</brightalert>
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% STUN forfeits the turn. %/
+
+
+<<if $combatAbility is "stun">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+The <<print $encounter>> is <brightalert>''stunned!''</brightalert>
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+You are <brightalert>''stunned!''</brightalert>
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% BLOCKED forfeits the turn. %/
+
+
+<<if $combatAbility is "blocked">>
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+The <<print $encounter>> <brightalert>''fails to pierce your defenses!''</brightalert>
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+You <brightalert>''fail to pierce the <<print $encounter>>'s defenses!''</brightalert>
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% FLEE is a run attempt. If it succeeds, the fight ends. For players, this only displays if the flee attempt fails %/
+
+
+<<if $combatAbility is "flee">>
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<set $randomizer = random(1,64)>>
+<<if $randomizer gte ($combatFinesse - $attackerFinesse)>><redalert>The <<print $encounter>> ''escapes!''</redalert><<set $combat = 0; $combatResult = "escape">>
+<<else>><<print $encounter>> attempts to flee, ''but fails''!<<endif>>
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+You attempt to flee, ''but fail''!
+
+
+/% =========================%/
+
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% STRUGGLE forfeits the turn, and attempt to break the hold. %/
+
+<<if $combatAbility is "struggle">>
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+The <<print $encounter>>
+<<if ($strikeResult is "glancing") or ($strikeResult is "weak")>> <brightalert>''struggles to break free''</brightalert>, but fails!
+<<elseif ($strikeResult is "solid") or ($strikeResult is "DEVASTATING")>> <brightalert>''breaks out of your hold!''</brightalert><<endif>>
+
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+/% =========================%/
+
+You
+<<if ($strikeResult is "glancing") or ($strikeResult is "weak")>> <brightalert>''struggle to break free''</brightalert>, but fail!<<set $combatLocked = 2; $fleeDisabled = 1>>
+<<elseif ($strikeResult is "solid") or ($strikeResult is "DEVASTATING")>> <brightalert>''break out of the <<print $encounter>>'s hold!''</brightalert><<set $combatLocked = 0; $fleeDisabled = 0; $heldDOT = 0>><<endif>>
+
+<<endif>>
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% DEFEND is a basic, single-round defensive maneuver. %/
+
+
+<<if $combatAbility is "defend">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''defends itself''<<if $strikeResult is "DEVASTATING">><brightalert> ''FLAWLESSLY''</brightalert><<endif>> from the anticipated attack!
+
+<<set $enemy_shieldType = "block">>
+
+<<if $strikeResult is "glancing">><<set $enemy_shieldValue = ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "weak">><<set $enemy_shieldValue = ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "solid">><<set $enemy_shieldValue = ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemy_shieldValue = ($baseDamage * either(0.8,1,1.2))>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''attempts to defend itself'', <affirmative>but fails!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>You ''defend yourself''<<if $strikeResult is "DEVASTATING">><brightalert> ''FLAWLESSLY''</brightalert><<endif>> from the anticipated attack!
+
+<<set $shieldType = "block">>
+
+<<if $strikeResult is "glancing">><<set $shieldValue = ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "weak">><<set $shieldValue = ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "solid">><<set $shieldValue = ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $shieldValue = ($baseDamage * either(0.8,1,1.2))>><<endif>>
+
+<<elseif $strikeResult is "fail">>You ''attempt to defend yourself'', <affirmative>but fail!</affirmative><<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% BULWARK is a single-round absolute defensive maneuver. %/
+
+
+<<if $combatAbility is "bulwark">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''raises an inpenetrable bulwark'' against the incoming attack!
+
+<<set $enemy_shieldType = "absolute">>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''attempts to defend itself'', <affirmative>but fails!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>You ''raise an inpenetrable bulwark'' against the incoming attack!
+
+<<set $shieldType = "absolute">>
+
+<<elseif $strikeResult is "fail">>You ''attempt to defend yourself'', <affirmative>but fail!</affirmative><<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+<<endif>>
+
+/% ========================================================= %/
+/% STRIKE is the most basic physical attack. %/
+
+
+<<if $combatAbility is "strike">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''leaps forward'', delivering a <<if $strikeResult is "DEVASTATING">><redalert><<print $strikeResult>></redalert><<else>><brightalert><<print $strikeResult>></brightalert><<endif>> blow to your <<print $combatTarget>>!
+
+<<if ($playerElement neq "balloon") and ($playerElement neq "fat") and ($playerElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * either(1.5,1.5,2))>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "blunt force trauma">>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $playerDamage += ($baseDamage * 0.1)>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''leaps forward'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+
+<<if $companionAbility is 0>>
+You ''leap forward'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> blow to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''leaps forward'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> blow to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<endif>>
+
+<<if ($encounterElement neq "balloon") and ($encounterElement neq "fat") and ($encounterElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(1.5,1.5,2))>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $enemyDamage += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''leap forward'', <deepalert>but miss!</deepalert>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''leaps forward'', <deepalert>but misses!</deepalert>
+
+<<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+<<endif>>
+
+/% ========================================================= %/
+/% SMOTHER is a physical attack with a chance of applying a smother dot. %/
+
+
+<<if $combatAbility is "smother">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''leaps forward'', pinning you beneath its bulk!
+
+<<if ($playerElement neq "balloon") and ($playerElement neq "fat") and ($playerElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += ($baseDamage * 0.3); $smotherDOT += random(2,4)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * either(0.5,0.7,1)); $smotherDOT += random(3,6)>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "asphyxiation">>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $playerDamage += ($baseDamage * 0.1)>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''leaps at you'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion (unfinished) %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+
+<<if $companionAbility is 0>>
+You ''leap forward'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> blow to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''leaps forward'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> blow to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<endif>>
+
+<<if ($encounterElement neq "balloon") and ($encounterElement neq "fat") and ($encounterElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(1.5,1.5,2))>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $enemyDamage += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''leap forward'', <deepalert>but miss!</deepalert>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''leaps forward'', <deepalert>but misses!</deepalert>
+
+<<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+<<endif>>
+
+/% ========================================================= %/
+/% STRANGLE is a damageless attack with a chance of applying a stranglation dot. %/
+
+
+<<if $combatAbility is "strangle">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''grabs you around the throat and begins to squeeze!''
+
+<<if $strikeResult is "glancing">><<set $stranglationDOT += 1>>
+<<elseif $strikeResult is "weak">><<set $stranglationDOT += random(1,2)>>
+<<elseif $strikeResult is "solid">><<set $stranglationDOT += random(2,3)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $stranglationDOT += random(3,5)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''grabs at you'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion (unfinished) %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+
+<<if $companionAbility is 0>>
+You ''leap forward'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> blow to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''leaps forward'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> blow to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<endif>>
+
+<<if ($encounterElement neq "balloon") and ($encounterElement neq "fat") and ($encounterElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(1.5,1.5,2))>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $enemyDamage += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''leap forward'', <deepalert>but miss!</deepalert>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''leaps forward'', <deepalert>but misses!</deepalert>
+
+<<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+<<endif>>
+
+
+
+/% ========================================================= %/
+/% PUMMEL is a basic melee multi-strike, based on finesse. %/
+
+
+<<if $combatAbility is "pummel">>
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+<<set $pummelBlows = $attackerFinesse / 10; $pummelBlows = Math.round($pummelBlows); $pummelBlows -= random(0,3)>>
+<<if $pummelBlows lte 0>><<set $pummelBlows = 2>><<endif>>
+
+/% pummelblows = finesse / 10. Minimum 20 finesse to unlock, for players %/
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''charges forward'', delivering a <<if $strikeResult is "DEVASTATING">><redalert><<print $strikeResult>></redalert><<else>><brightalert><<print $strikeResult>></brightalert><<endif>> volley of ''<<print $pummelBlows>> punches'' to your <<print $combatTarget>>!
+
+
+<<if ($playerElement neq "balloon") and ($playerElement neq "fat") and ($playerElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set ($playerDamage += ($baseDamage * 0.1)) * $pummelBlows>>
+<<elseif $strikeResult is "weak">><<set ($playerDamage += ($baseDamage * 0.3)) * $pummelBlows>>
+<<elseif $strikeResult is "solid">><<set ($playerDamage += ($baseDamage * 0.5)) * $pummelBlows>>
+<<elseif $strikeResult is "DEVASTATING">><<set ($playerDamage += ($baseDamage * either(1,1.2,1.5))) * $pummelBlows>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "blunt force trauma">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set ($playerDamage += ($baseDamage * 0.2)) * $pummelBlows>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set ($playerDamage += ($baseDamage * 0.1)) * $pummelBlows>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''charges at you'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+<<set $pummelBlows = $attackerFinesse / 10; $pummelBlows = Math.round($pummelBlows); $pummelBlows -= random(0,3)>>
+<<if $pummelBlows lte 0>><<set $pummelBlows = 2>><<endif>>
+
+/% pummelblows = finesse / 10. Minimum 20 finesse to unlock, for players %/
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''leap forward'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> volley of ''<<print $pummelBlows>> punches'' to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''charges forward'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> volley of ''<<print $pummelBlows>> punches'' to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<endif>>
+
+<<if ($encounterElement neq "balloon") and ($encounterElement neq "fat") and ($encounterElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set ($enemyDamage += ($baseDamage * 0.1)) * $pummelBlows>>
+<<elseif $strikeResult is "weak">><<set ($enemyDamage += ($baseDamage * 0.3)) * $pummelBlows>>
+<<elseif $strikeResult is "solid">><<set ($enemyDamage += ($baseDamage * 0.5)) * $pummelBlows>>
+<<elseif $strikeResult is "DEVASTATING">><<set ($enemyDamage += ($baseDamage * either(1,1.2,1.5))) * $pummelBlows>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set ($enemyDamage += ($baseDamage * 0.2)) * $pummelBlows>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set ($enemyDamage += ($baseDamage * 0.1)) * $pummelBlows>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''charge forward'', <deepalert>but miss!</deepalert>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''charges forward'', <deepalert>but misses!</deepalert>
+
+<<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% LUNGE is a basic bite attack. When used by players, it slowly consumes the enemy! %/
+
+
+<<if $combatAbility is "lunge">>
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''lunges'', delivering a <<if $strikeResult is "DEVASTATING">><redalert><<print $strikeResult>></redalert><<else>><brightalert><<print $strikeResult>></brightalert><<endif>> bite to your <<print $combatTarget>>!
+
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * either(1.5,1.5,2))>><<endif>>
+
+<<set $lethalKO = either(0,1,1); $deathCause = "eaten">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''lunges'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''lunge'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> bite into <<print $encounter>>'s <<print $combatTarget>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lunges'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> bite into <<print $encounter>>'s <<print $combatTarget>>!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5); $calories += $creatureGirth / 8; $creatureGirth -= $creatureGirth / 8>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage; $calories += $creatureGirth / 5; $creatureGirth -= $creatureGirth / 5>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(1.5,1.5,2)); $calories += $creatureGirth / 3; $creatureGirth -= $creatureGirth / 3>><<endif>>
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''lunge'', <deepalert>but miss!</deepalert>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lunges'', <deepalert>but misses!</deepalert>
+
+<<endif>>
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+<<endif>>
+
+/% ========================================================= %/
+/% SLAM is a basic blunt force attack. %/
+
+
+<<if $combatAbility is "slam">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''hurls itself bodily'', delivering a <<if $strikeResult is "DEVASTATING">><redalert><<print $strikeResult>></redalert><<else>><brightalert><<print $strikeResult>></brightalert><<endif>> slam to your <<print $combatTarget>>!
+
+<<if ($playerElement neq "balloon") and ($playerElement neq "fat") and ($playerElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * either(1.5,1.5,2))>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "blunt force trauma">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $playerDamage += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''hurls itself bodily'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+/% =========================%/
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''hurl yourself bodily'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> slam to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''hurls itself bodily'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> slam to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<endif>>
+
+<<if ($encounterElement neq "balloon") and ($encounterElement neq "fat") and ($encounterElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(1.5,1.5,2))>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $enemyDamage += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''hurl yourself bodily'' at <<print $encounter>>, <deepalert>''but it evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''hurls itself bodily'' at <<print $encounter>>, <deepalert>''but it evades the attack!''</deepalert>
+
+<<endif>><<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% SMASH is a blunt force attack with a chance to stun. %/
+
+
+<<if $combatAbility is "smash">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''swings its <<if $encounterWeapon neq 0>><<print $encounterWeapon>><<else>>weapon<<endif>> at you'', delivering a <<if $strikeResult is "DEVASTATING">><redalert><<print $strikeResult>></redalert><<else>><brightalert><<print $strikeResult>></brightalert><<endif>> blow to your <<print $combatTarget>>!
+
+<<if ($playerElement neq "balloon") and ($playerElement neq "fat") and ($playerElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += $baseDamage; $daze = either(0,0,0,0,1)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * either(1.5,1.5,2)); $daze = 1>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "blunt force trauma">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $playerDamage += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''swings its <<if $encounterWeapon neq 0>><<print $encounterWeapon>><<else>>weapon<<endif>> at you'', <affirmative>but misses!</affirmative><<endif>>
+
+/% =========================%/
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''swing your weapon'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> blow to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''swings its weapon'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> blow to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<endif>>
+
+<<if ($encounterElement neq "balloon") and ($encounterElement neq "fat") and ($encounterElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage; $enemyDaze = either(0,0,0,0,1)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(1.5,1.5,2)); $enemyDaze = 1>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $enemyDamage += ($baseDamage * 0.1); $daze = either(0,0,0,0,1)>><<endif>>
+
+/% Stun? %/
+<<if $daze is 1>> <brightalert>The attack ''stuns'' you!</brightalert><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''swing your weapon'' at <<print $encounter>>, <deepalert>''but it evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''swings its weapon'' at <<print $encounter>>, <deepalert>''but it evades the attack!''</deepalert>
+
+<<endif>><<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% BUFFET is a weak blunt force attack with a chance to stun. %/
+
+
+<<if $combatAbility is "buffet">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''batters you with its wings''!
+
+<<if ($playerElement neq "balloon") and ($playerElement neq "fat") and ($playerElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.05)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += ($baseDamage * 0.3); $daze = either(0,0,0,1)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * 0.5); $daze = 1>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "blunt force trauma">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $playerDamage += ($baseDamage * 0.01); $daze = either(0,0,0,1)>><<endif>>
+
+/% Stun? %/
+<<if $daze is 1>> <brightalert>The attack ''stuns'' you!</brightalert><<endif>>
+
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''beats its wings furiously at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+/% =========================%/
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''batter <<print $encounter>> with your wings''!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''batters <<print $encounter>> with its wings''!
+
+<<endif>>
+
+<<if ($encounterElement neq "balloon") and ($encounterElement neq "fat") and ($encounterElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.05)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += ($baseDamage * 0.3); $enemyDaze = either(0,0,0,1)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * 0.5); $enemyDaze = 1>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $enemyDamage += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''beats its wings furiously'' at <<print $encounter>>, <deepalert>''but it evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''beats its wings furiously'' at <<print $encounter>>, <deepalert>''but it evades the attack!''</deepalert>
+
+<<endif>><<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+
+/% ========================================================= %/
+/% CRUSH is a high-damage blunt force attack that uses girth for bonus damage. %/
+
+
+<<if $combatAbility is "crush">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''smashes into you'', delivering a <<if $strikeResult is "DEVASTATING">><redalert><<print $strikeResult>></redalert><<else>><brightalert><<print $strikeResult>></brightalert><<endif>> crushing blow!
+
+/% Girth damage bonus %/
+
+<<set $damageBonus = $creatureGirth / 500>>
+
+<<if ($playerElement neq "balloon") and ($playerElement neq "fat") and ($playerElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $playerDamage += (($baseDamage * 0.5) + ($damageBonus * 0.1))>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage + ($damageBonus * 0.2))>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += (($baseDamage * 1.5) + ($damageBonus * 0.5))>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += (($baseDamage * either(3,3.5,5)) + $damageBonus)>>
+
+<<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "blunt force trauma">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $playerDamage += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''hurls itself bodily'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+/% =========================%/
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''hurl yourself bodily'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> slam to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''hurls itself bodily'', delivering a <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<else>><affirmative><<print $strikeResult>></affirmative><<endif>> slam to <<print $encounter>>'s <<print $combatTarget>>!
+
+<<endif>>
+
+<<if ($encounterElement neq "balloon") and ($encounterElement neq "fat") and ($encounterElement neq "liquid")>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(1.5,1.5,2))>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<else>>
+/% Blunt Trauma Resistance %/
+<<set $enemyDamage += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''hurl yourself bodily'' at <<print $encounter>>, <deepalert>''but it evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''hurls itself bodily'' at <<print $encounter>>, <deepalert>''but it evades the attack!''</deepalert>
+
+<<endif>><<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% SHRED is a physical attack with a chance of applying a bleed effect. %/
+
+
+<<if $combatAbility is "shred">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''dives at you with talons extended'', tearing into your flesh with <<if $strikeResult is "DEVASTATING">><redalert>DEADLY force</redalert><<else>><brightalert>blinding speed</brightalert><<endif>>!
+
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.3)>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += ($baseDamage * 0.9); $bleedDOT += either(0,0,0,0,0,3,5,9)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * 3); $bleedDOT += random(6,18)>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "slash damage">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.5)>><<endif>>
+
+/% Bonus damage vs. Balloon %/
+<<if $playerElement is "balloon">><<set $playerDamage += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''dives at you'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''dive at the <<print $encounter>> with talons extended'', tearing into its flesh with <<if $strikeResult is "DEVASTATING">><redalert>DEADLY force</redalert><<else>><brightalert>blinding speed</brightalert><<endif>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''dives at the <<print $encounter>> with talons extended'', tearing into its flesh with <<if $strikeResult is "DEVASTATING">><redalert>DEADLY force</redalert><<else>><brightalert>blinding speed</brightalert><<endif>>!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.3)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += ($baseDamage * 0.9); $enemy_bleedDOT += either(0,0,0,0,0,3,5,9)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * 3); $enemy_bleedDOT += random(6,18)>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.5)>><<endif>>
+
+/% Bonus damage vs. Balloon %/
+<<if $encounterElement is "balloon">><<set $enemyDamage += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''dive at the <<print $encounter>>'', <deepalert>but miss!</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''dives at the <<print $encounter>>'', <deepalert>but misses!</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% Z-SLASH is a physical attack with with high critical damage and a chance of applying a bleed effect. %/
+
+
+<<if $combatAbility is "z-slash">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''slashes brutally at you'', tearing into your flesh with <<if $strikeResult is "DEVASTATING">><redalert>DEADLY force</redalert><<else>><brightalert>blinding speed</brightalert><<endif>>!
+
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += $baseDamage; $bleedDOT += either(0,0,0,2,3,4)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * 3); $bleedDOT += random(4,8)>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "slash damage">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.5)>><<endif>>
+
+/% Bonus damage vs. Balloon %/
+<<if $playerElement is "balloon">><<set $playerDamage += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''slashes brutally at you'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''brutally slash at <<print $encounter>>'', tearing into its flesh with <<if $strikeResult is "DEVASTATING">><redalert>DEADLY force</redalert><<else>><brightalert>blinding speed</brightalert><<endif>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''slashes brutally at <<print $encounter>>'', tearing into its flesh with <<if $strikeResult is "DEVASTATING">><redalert>DEADLY force</redalert><<else>><brightalert>blinding speed</brightalert><<endif>>!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage; $enemy_bleedDOT += either(0,0,0,2,3,4)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * 3); $enemy_bleedDOT += random(4,8)>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.5)>><<endif>>
+
+/% Bonus damage vs. Balloon %/
+<<if $encounterElement is "balloon">><<set $enemyDamage += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''dive at the <<print $encounter>>'', <deepalert>but miss!</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''dives at the <<print $encounter>>'', <deepalert>but misses!</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% THRUST is a physical attack with high critical damage. %/
+
+
+<<if $combatAbility is "thrust">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''charges at you'', impaling you<<if $strikeResult is "DEVASTATING">><redalert> with DEADLY force</redalert><<endif>>!
+
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * either(4,6))>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "slash damage">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += $baseDamage>><<endif>>
+
+/% Bonus damage vs. Balloon %/
+<<if $playerElement is "balloon">><<set $playerDamage += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''charges at you'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''charge at <<print $encounter>>'', impaling it<<if $strikeResult is "DEVASTATING">><redalert> with DEADLY force</redalert><<endif>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''charges at <<print $encounter>>'', impaling it<<if $strikeResult is "DEVASTATING">><redalert> with DEADLY force</redalert><<endif>>!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(4,6))>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += $baseDamage>><<endif>>
+
+/% Bonus damage vs. Balloon %/
+<<if $encounterElement is "balloon">><<set $enemyDamage += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''dive at the <<print $encounter>>'', <deepalert>but miss!</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''dives at the <<print $encounter>>'', <deepalert>but misses!</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% EVISCERATE is a physical attack with with potentially high damage and a chance of applying a bleed effect. %/
+
+
+<<if $combatAbility is "eviscerate">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''slashes brutally at you'', tearing into your flesh with <<if $strikeResult is "DEVASTATING">><redalert>DEADLY force</redalert><<else>><brightalert>blinding speed</brightalert><<endif>>!
+
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * either(0.1,0.1,0.2,0.3))>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * either(0.2,0.3,0.5,1))>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += ($baseDamage * either(1,1.5,1.8,2,2.5,3)); $bleedDOT += either(0,0,0,2,3,4)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * either(2,3,3,3.5,4,5,8)); $bleedDOT += random(4,8)>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "slash damage">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.5)>><<endif>>
+
+/% Bonus damage vs. Balloon %/
+<<if $playerElement is "balloon">><<set $playerDamage += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''slashes brutally at you'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''brutally slash at <<print $encounter>>'', tearing into its flesh with <<if $strikeResult is "DEVASTATING">><redalert>DEADLY force</redalert><<else>><brightalert>blinding speed</brightalert><<endif>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''slashes brutally at <<print $encounter>>'', tearing into its flesh with <<if $strikeResult is "DEVASTATING">><redalert>DEADLY force</redalert><<else>><brightalert>blinding speed</brightalert><<endif>>!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * either(0.1,0.1,0.2,0.3))>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * either(0.2,0.3,0.5,1))>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += ($baseDamage * either(1,1.5,1.8,2,2.5,3)); $enemy_bleedDOT += either(1,2,3,5,7)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(2,3,3,3.5,4,5,8)); $enemy_bleedDOT += random(6,12)>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.5)>><<endif>>
+
+/% Bonus damage vs. Balloon %/
+<<if $encounterElement is "balloon">><<set $enemyDamage += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''dive at the <<print $encounter>>'', <deepalert>but miss!</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''dives at the <<print $encounter>>'', <deepalert>but misses!</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+
+/% ========================================================= %/
+/% SWALLOW is a high-damage version of lunge which adds a DOT and hold. %/
+
+
+<<if $combatAbility is "swallow">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''lunges ferociously,''
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.5)>>'' snapping at you with its jaws!''
+<<elseif $strikeResult is "weak">><<set $playerDamage += $baseDamage>>'' snapping at you with its jaws!''
+<<elseif $strikeResult is "solid">><<set $playerDamage += ($maxPain * 0.3); $swallowDOT = random(1,5); $heldDOT = random(0,3)>>'' snapping you up in your jaws!''
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($maxPain * 0.5); $swallowDOT = random(2,8); $heldDOT = random(1,5)>>'' snapping you up in its jaws with a CRUSHING blow!''<<endif>>
+
+<<set $lethalKO = either(0,1,1); $deathCause = "eaten">>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''lunges at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''lunge ferociously,''
+
+<<if ($strikeResult is "glancing") or ($strikeResult is "weak")>>'' snapping at the <<print $encounter>> with your jaws!''
+<<elseif $strikeResult is "solid">>'' snapping the <<print $encounter>> up in your jaws!''
+<<elseif $strikeResult is "DEVASTATING">>'' snapping the <<print $encounter>> up in your jaws with a CRUSHING bite!''<<endif>>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lunges ferociously,''
+
+<<if ($strikeResult is "glancing") or ($strikeResult is "weak")>>'' snapping at the <<print $encounter>> with its jaws!''
+<<elseif $strikeResult is "solid">>'' snapping the <<print $encounter>> up in its jaws!''
+<<elseif $strikeResult is "DEVASTATING">>'' snapping the <<print $encounter>> up in its jaws with a CRUSHING bite!''<<endif>>
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += $baseDamage; $calories += $creatureGirth / 7; $creatureGirth -= $creatureGirth / 7>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += ($encounterMaxPain * 0.7); $calories += $creatureGirth / 4; $creatureGirth -= $creatureGirth / 4; $enemy_swallowDOT = random(1,5)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($encounterMaxPain * 0.9); $calories += $creatureGirth / 2; $creatureGirth -= $creatureGirth / 2; $enemy_swallowDOT = random(2,8)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''lunge at your opponent'', <deepalert>but miss!</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lunges at your opponent'', <deepalert>but misses!</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% INJECT is a weak attack that delivers venom! %/
+
+
+<<if $combatAbility is "inject">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''leaps forward with a <<print $injectType>>'', injecting its <redalert>venom</redalert> into your <<print $combatTarget>>!
+
+<<if $venomType is "toxic">><<set $toxicVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "lethal">><<set $lethalVenom += $baseDamage>>
+<<elseif $venomType is "bloating">><<set $bloatVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "bursting">><<set $burstVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "breastbloating">><<set $breastbloatVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "fattening">><<set $gainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "bellyfattening">><<set $bellygainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "breastfattening">><<set $breastgainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "thighfattening">><<set $thighgainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superfattening">><<set $supergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superbellyfattening">><<set $bellySupergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superbreastfattening">><<set $breastSupergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superthighfattening">><<set $thighSupergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "fattenium">><<set $fatteniumVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "bulking">><<set $bulkVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "musclebloat">><<set $musclebloatVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "flabbifying">><<set $flabbyVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "weakening">><<set $weakeningVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "gluttonous">><<set $gluttonVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "caloric">><<set $caloricVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "hallucenogenic">><<set $hallucenoVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "leucanthropic">><<set $leucanthropicVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "esque">><<set $esqueVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "noxious">><<set $noxiousVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "blubber">><<set $blubberVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "ampli">><<set $ampliVenom += $baseDamage * 0.5>><<endif>>
+
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * either(1.5,1.5,2))>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $theAttacker>> leap forward to strike, <deepalert>''but it evades the attack!''</deepalert><<endif>>
+
+/% =========================%/
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''leap forward at <<print $encounter>>'', injecting venom</redalert> into its <<print $combatTarget>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''leaps forward at <<print $encounter>>'', injecting venom</redalert> into its <<print $combatTarget>>!
+
+<<endif>>
+
+<<if $companionAbility is 0>><<set $storedVenom -= 10>><<endif>>
+
+<<if $pVenomType is "toxic">><<set $enemy_toxicVenom += $baseDamage * 0.5>>It looks sick!<<endif>>
+<<if $pVenomType is "lethal">><<set $enemy_lethalVenom += $baseDamage>>It cries out in pain!<<endif>>
+<<if $pVenomType is "bloating">><<set $enemy_bloatVenom += $baseDamage * 0.5>>It swells up rounder!<<endif>>
+<<if $pVenomType is "bursting">><<set $enemy_burstVenom += $baseDamage * 0.5>>Its body bloats rapidly!<<endif>>
+<<if $pVenomType is "breastbloating">><<set $enemy_bloatVenom += $baseDamage * 0.5>>It swells up rounder!<<endif>>
+<<if $pVenomType is "fattening">><<set $enemy_gainVenom += $baseDamage * 0.5>>It begins to grow fatter!<<endif>>
+<<if $pVenomType is "bellyfattening">><<set $enemy_bellygainVenom += $baseDamage * 0.5>>Its belly jiggles and swells!<<endif>>
+<<if $pVenomType is "breastfattening">><<set $enemy_gainVenom += $baseDamage * 0.5>>It begins to grow fatter!<<endif>>
+<<if $pVenomType is "thighfattening">><<set $enemy_gainVenom += $baseDamage * 0.5>>Its thighs jiggle and swell!<<endif>>
+<<if $pVenomType is "superfattening">><<set $enemy_supergainVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "superbellyfattening">><<set $enemy_bellySupergainVenom += $baseDamage * 0.5>>Its belly jiggles and swells rapidly!<<endif>>
+<<if $pVenomType is "superbreastfattening">><<set $enemy_supergainVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "superthighfattening">><<set $enemy_supergainVenom += $baseDamage * 0.5>>Its thighs jiggle and swell rapidly!<<endif>>
+<<if $pVenomType is "fattenium">><<set $enemy_fatteniumVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "bulking">><<set $enemy_bulkVenom += $baseDamage * 0.5>>It cries out as its weight surges, its muscles bulging!<<endif>>
+<<if $pVenomType is "flabbifying">><<set $enemy_flabbyVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "weakening">><<set $enemy_weakeningVenom += $baseDamage * 0.5>>It trembles!<<endif>>
+<<if $pVenomType is "healing">><<set $enemy_healVenom += $baseDamage>>It looks better!<<endif>>
+<<if $pVenomType is "gluttonous">><<set $enemy_gluttonVenom += $baseDamage * 0.5>>It looks hungry!<<endif>>
+<<if $pVenomType is "caloric">><<set $enemy_caloricVenom += $baseDamage * 0.5>>Its belly gurgles!<<endif>>
+<<if $pVenomType is "hallucenogenic">><<set $enemy_hallucenoVenom += $baseDamage * 0.5>>It looks anxious!<<endif>>
+<<if $pVenomType is "leucanthropic">><<set $enemy_leucanthropicVenom += $baseDamage * 0.5>>It looks sick!<<endif>>
+
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(1.5,1.5,2))>><<endif>>
+
+<<set $lethalKO = either(0,1,1); $deathCause = "eaten">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You leap forward to strike, <deepalert>''but your opponent evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> leaps forward to strike, <deepalert>''but your opponent evades the attack!''</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+<<endif>>
+
+<<endif>>
+
+/% ========================================================= %/
+/% INDIGESTION is a combo-attack, used after Swallow, which inflicts increasing Toxic damage each round, and attempts to retain Held status each round until successfully broken. %/
+
+
+<<if $combatAbility is "indigestion">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>You languish in the <<print $encounter>>'s belly, ''exposed to its digestive processes''!
+
+/% Indigestion damage increases each round until indigestion fails %/
+<<set $indigestionDOT += ($baseDamage * random(0.1,0.4))>>
+
+<<if $venomType is "toxic">><<set $toxicVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "lethal">><<set $lethalVenom += $baseDamage>>
+<<elseif $venomType is "bloating">><<set $bloatVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "bursting">><<set $burstVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "breastbloating">><<set $breastbloatVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "fattening">><<set $gainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "bellyfattening">><<set $bellygainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "breastfattening">><<set $breastgainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "thighfattening">><<set $thighgainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superfattening">><<set $supergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superbellyfattening">><<set $bellySupergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superbreastfattening">><<set $breastSupergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superthighfattening">><<set $thighSupergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "fattenium">><<set $fatteniumVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "bulking">><<set $bulkVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "musclebloat">><<set $musclebloatVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "flabbifying">><<set $flabbyVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "weakening">><<set $weakeningVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "gluttonous">><<set $gluttonVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "caloric">><<set $caloricVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "hallucenogenic">><<set $hallucenoVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "leucanthropic">><<set $leucanthropicVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "esque">><<set $esqueVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "noxious">><<set $noxiousVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "blubber">><<set $blubberVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "ampli">><<set $ampliVenom += $baseDamage * 0.5>><<endif>>
+
+/% Toxic damage %/
+
+<<set $offenseElementOverride = "toxic">>
+
+<<display ElementalTyping>>
+
+<<set $playerDamage += $indigestionDOT * $elementDamage>>
+
+/% Holding %/
+<<if $strikeResult is "solid">><<set $heldDOT += random(0,2)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $heldDOT += random(1,3)>><<endif>>
+
+<<elseif $strikeResult is "fail">>You ''escape from out of the <<print $encounter>>!''<<set $indigestionDOT = 0>><<endif>>
+
+/% =========================%/
+
+/% Player (Unfinished) %/
+
+<<elseif $attacker is "player">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''leap forward at <<print $encounter>>'', injecting venom</redalert> into its <<print $combatTarget>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''leaps forward at <<print $encounter>>'', injecting venom</redalert> into its <<print $combatTarget>>!
+
+<<endif>>
+
+<<if $companionAbility is 0>><<set $storedVenom -= 10>><<endif>>
+
+<<if $pVenomType is "toxic">><<set $enemy_toxicVenom += $baseDamage * 0.5>>It looks sick!<<endif>>
+<<if $pVenomType is "lethal">><<set $enemy_lethalVenom += $baseDamage>>It cries out in pain!<<endif>>
+<<if $pVenomType is "bloating">><<set $enemy_bloatVenom += $baseDamage * 0.5>>It swells up rounder!<<endif>>
+<<if $pVenomType is "bursting">><<set $enemy_burstVenom += $baseDamage * 0.5>>Its body bloats rapidly!<<endif>>
+<<if $pVenomType is "breastbloating">><<set $enemy_bloatVenom += $baseDamage * 0.5>>It swells up rounder!<<endif>>
+<<if $pVenomType is "fattening">><<set $enemy_gainVenom += $baseDamage * 0.5>>It begins to grow fatter!<<endif>>
+<<if $pVenomType is "bellyfattening">><<set $enemy_bellygainVenom += $baseDamage * 0.5>>Its belly jiggles and swells!<<endif>>
+<<if $pVenomType is "breastfattening">><<set $enemy_gainVenom += $baseDamage * 0.5>>It begins to grow fatter!<<endif>>
+<<if $pVenomType is "thighfattening">><<set $enemy_gainVenom += $baseDamage * 0.5>>Its thighs jiggle and swell!<<endif>>
+<<if $pVenomType is "superfattening">><<set $enemy_supergainVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "superbellyfattening">><<set $enemy_bellySupergainVenom += $baseDamage * 0.5>>Its belly jiggles and swells rapidly!<<endif>>
+<<if $pVenomType is "superbreastfattening">><<set $enemy_supergainVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "superthighfattening">><<set $enemy_supergainVenom += $baseDamage * 0.5>>Its thighs jiggle and swell rapidly!<<endif>>
+<<if $pVenomType is "fattenium">><<set $enemy_fatteniumVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "bulking">><<set $enemy_bulkVenom += $baseDamage * 0.5>>It cries out as its weight surges, its muscles bulging!<<endif>>
+<<if $pVenomType is "flabbifying">><<set $enemy_flabbyVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "weakening">><<set $enemy_weakeningVenom += $baseDamage * 0.5>>It trembles!<<endif>>
+<<if $pVenomType is "healing">><<set $enemy_healVenom += $baseDamage>>It looks better!<<endif>>
+<<if $pVenomType is "gluttonous">><<set $enemy_gluttonVenom += $baseDamage * 0.5>>It looks hungry!<<endif>>
+<<if $pVenomType is "caloric">><<set $enemy_caloricVenom += $baseDamage * 0.5>>Its belly gurgles!<<endif>>
+<<if $pVenomType is "hallucenogenic">><<set $enemy_hallucenoVenom += $baseDamage * 0.5>>It looks anxious!<<endif>>
+<<if $pVenomType is "leucanthropic">><<set $enemy_leucanthropicVenom += $baseDamage * 0.5>>It looks sick!<<endif>>
+
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(1.5,1.5,2))>><<endif>>
+
+<<set $lethalKO = either(0,1,1); $deathCause = "eaten">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You leap forward to strike, <deepalert>''but your opponent evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> leaps forward to strike, <deepalert>''but your opponent evades the attack!''</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+<<endif>>
+
+<<endif>>
+
+
+
+/% ========================================================= %/
+/% ELEMENTAL SPARK is a basic elemental energy attack. %/
+
+
+<<if $combatAbility is "elemental spark">>
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+
+The <<print $encounter>> unleashes a burst of <<if $strikeResult is "DEVASTATING">><redalert><<print $strikeResult>></redalert><<endif>> <<if $encounterElement neq 0>><<print $encounterElement>><<else>>force<<endif>> at you!
+
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.2) * $elementDamage>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.5) * $elementDamage>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += ($baseDamage * 0.9) * $elementDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * either(1.5,2,3)) * $elementDamage>><<endif>>
+
+/% Lethality and death cause depend on element %/
+
+<<if $encounterElement neq 0>>
+<<else>>
+<<set $lethalKO = either(0,1); $deathCause = "blunt force trauma">><<endif>>
+
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.3)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> unleashes an elemental burst, <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+
+<<if $companionAbility is 0>>
+You unleash a burst of <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<endif>> <<if $playerElement neq 0>><<print $playerElement>><<else>>force<<endif>> at <<print $encounter>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> unleashes a burst of <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<endif>> <<if $companionElement neq 0>><<print $elementCall>><<else>>force<<endif>> at <<print $encounter>>!
+
+<<endif>>
+
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2) * $elementDamage>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5) * $elementDamage>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += ($baseDamage * 0.9) * $elementDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(1.5,2,3)) * $elementDamage>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.3)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You unleash an elemental burst, <deepalert>but miss!</deepalert>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> unleashes an elemental burst, <deepalert>but misses!</deepalert>
+
+<<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+<<endif>>
+
+
+
+/% ========================================================= %/
+/% ELEMENTAL BEAM is a powerful elemental energy attack. %/
+
+
+<<if $combatAbility is "elemental beam">>
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+
+The <<print $encounter>> fires a beam of <<if $strikeResult is "DEVASTATING">><redalert><<print $strikeResult>></redalert><<endif>> <<if $encounterElement neq 0>><<print $elementCall>><<else>>force<<endif>> at you!
+
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.8) * $elementDamage>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.9) * $elementDamage>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += ($baseDamage * 1.5) * $elementDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * either(2,3,5)) * $elementDamage>><<endif>>
+
+/% Lethality and death cause depend on element %/
+
+<<if $encounterElement neq 0>>
+<<else>>
+<<set $lethalKO = either(0,1); $deathCause = "blunt force trauma">><<endif>>
+
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $playerDamage += ($baseDamage * 0.3)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> fires off a beam of elemental energy, <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+
+<<if $companionAbility is 0>>
+You fire a beam of <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<endif>> <<if $playerElement neq 0>><<print $elementCall>><<else>>force<<endif>> at <<print $encounter>>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> fires a beam of <<if $strikeResult is "DEVASTATING">><affirmative><<print $strikeResult>></affirmative><<endif>> <<if $companionElement neq 0>><<print $elementCall>><<else>>elemental<<endif>> energy at <<print $encounter>>!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.8) * $elementDamage>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.9) * $elementDamage>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += ($baseDamage * 1.5) * $elementDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * either(2,3,5)) * $elementDamage>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.3)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You fire a beam of elemental energy, <deepalert>but miss!</deepalert>!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> fires a beam of elemental energy, <deepalert>but misses!</deepalert>
+
+<<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% BLOAT is an attack primarily used by slimes, which sacrifices some of the attacker's health in order to inflate the target with themselves! %/
+
+
+<<if $combatAbility is "bloat">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''leaps for your face'', stuffing itself down your throat! <<if $strikeResult is "DEVASTATING">><affirmative>''Your belly sloshes and gurgles..!''</affirmative><<endif>>
+
+<<set $lethalKO = 1; $deathCause = "explosion">>
+
+<<set $randomizer = either(0,0,1,2)>>
+<<if $randomizer is 1>><<set $slimeBellyParasite = 1>>
+
+<<if $encounter is "small slime">><<set $slimeBellyParaLoad += either(10,20,30,40,50,60,70,80,90,100); $bellyLiquid += either(10,20,30,40,50,60,70,80,90,100)>><<endif>>
+<<if $encounter is "slime">><<set $slimeBellyParaLoad += either(50,100,150,200,250); $bellyLiquid += either(50,100,150,200,250)>><<endif>>
+<<if $encounter is "enormous slime">><<set $slimeBellyParaLoad += either(10,15,20)>><<endif>>
+
+<<elseif $randomizer is 2>><<set $slimeBreastParasite = 1>>
+
+<<if $encounter is "small slime">><<set $slimeBreastParaLoad += either(10,20,30,40,50,60,70,80,90,100); $breastBloat += either(10,20,30,40,50)>><<endif>>
+<<if $encounter is "slime">><<set $slimeBreastParaLoad += either(50,100,150,200,250); $breastBloat += either(50,100,150,200,250)>><<endif>>
+<<if $encounter is "enormous slime">><<set $slimeBreastParaLoad += either(10,15,20,25,30); $breastBloat += either(100,150,200,250,300,350,400,450,500)>><<endif>>
+
+<<else>>
+<<if $encounter is "small slime">><<set $bellyLiquid += either(10,20,30,40,50,60,70,80,90,100)>><<endif>>
+<<if $encounter is "slime">><<set $bellyLiquid += either(50,100,150,200,250)>><<endif>>
+<<if $encounter is "enormous slime">><<set $bellyLiquid += either(10,15,20,25,30,35,40)>><<endif>><<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.1); $bellyBloat += ($baseDamage * 0.5); $bellyLiquid += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.2); $bellyBloat += $baseDamage; $bellyLiquid += $baseDamage>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += ($baseDamage * 0.5); $bellyBloat += ($baseDamage * 2); $bellyLiquid += ($baseDamage * 2)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * 2); $bellyBloat += ($baseDamage * either(3,3,3,4)); $bellyLiquid += ($baseDamage * 3)>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "burst belly">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $bellyBloat += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''leaps forward'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''leap for <<print $encounter>>'s face'', stuffing yourself down its throat!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''leaps for <<print $encounter>>'s face'', stuffing itself down its throat!
+
+<<endif>>
+
+<<if $strikeResult is "DEVASTATING">><affirmative>''Its belly sloshes and gurgles as it expands..!''</affirmative><<endif>>
+
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.1); $girth += ($baseDamage * 0.1); $enemyDamage += ($baseDamage * 0.1); $bellyBloat -= ($baseDamage * 0.5); $bellyLiquid -= ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.2); $girth += ($baseDamage * 0.1); $enemyDamage += ($baseDamage * 0.2); $bellyBloat -= $baseDamage; $bellyLiquid -= $baseDamage>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += ($baseDamage * 0.5); $girth += ($baseDamage * 0.2); $enemyDamage += ($baseDamage * 0.5); $bellyBloat -= ($baseDamage * 2); $bellyLiquid -= ($baseDamage * 2)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += $baseDamage; $girth += ($baseDamage * 0.2); $enemyDamage += ($baseDamage * 2); $bellyBloat -= ($baseDamage * either(3,3,3,4)); $bellyLiquid -= ($baseDamage * 3)>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += $baseDamage; $bellyBloat -= ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You leap forward to strike, <deepalert>''but your opponent evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> leaps forward to strike, <deepalert>''but your opponent evades the attack!''</deepalert><<endif>>
+
+<<endif>>
+
+
+/% =========================%/
+<<endif>>
+
+
+<<endif>>
+
+
+
+/% ========================================================= %/
+/% ENGULF is a special attack for giant slimes, allowing them to engulf you and pump you full of slime more efficiently than bloat! %/
+
+
+<<if $combatAbility is "engulf">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''engulfs you with its body'', pumping you full of <<if $strikeResult is "DEVASTATING">><affirmative>an ENORMOUS amount of</affirmative><<else>></affirmative><<endif>> slime!
+
+<<set $lethalKO = 1; $deathCause = either("explosion","asphyxiation")>>
+
+<<set $randomizer = either(0,0,1,2)>>
+<<if $randomizer is 1>><<set $slimeBellyParasite = 1>>
+
+<<set $slimeBellyParaLoad += either(10,15,20)>>
+
+<<elseif $randomizer is 2>><<set $slimeBreastParasite = 1>>
+
+<<set $slimeBreastParaLoad += either(10,15,20,25,30); $breastBloat += either(100,150,200,250,300,350,400,450,500)>>
+
+<<else>><<set $bellyLiquid += either(10,15,20,25,30,35,40)>><<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2); $bellyBloat += ($baseDamage * 0.5); $bellyLiquid += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5); $bellyBloat += $baseDamage; $bellyLiquid += $baseDamage>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage; $bellyBloat += ($baseDamage * 2); $bellyLiquid += ($baseDamage * 2)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * 0.5); $bellyBloat += ($baseDamage * 4); $bellyLiquid += ($baseDamage * 4)>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "burst belly">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $bellyBloat += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''charges at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+
+/% =========================%/
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''engulf <<print $encounter>>'', pumping it full of <<if $strikeResult is "DEVASTATING">><affirmative>an ENORMOUS amount of</affirmative><<else>></affirmative><<endif>> slime!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''engulfs <<print $encounter>>'', pumping it full of <<if $strikeResult is "DEVASTATING">><affirmative>an ENORMOUS amount of</affirmative><<else>></affirmative><<endif>> slime!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.2); $girth += ($baseDamage * 0.1); $enemyDamage += ($baseDamage * 0.2); $bellyBloat -= ($baseDamage * 0.5); $bellyLiquid -= ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.5); $girth += ($baseDamage * 0.2); $enemyDamage += ($baseDamage * 0.5); $bellyBloat -= $baseDamage; $bellyLiquid -= $baseDamage>>
+<<elseif $strikeResult is "solid">><<set $playerDamage += $baseDamage; $girth += ($baseDamage * 0.2); $enemyDamage += $baseDamage; $bellyBloat -= ($baseDamage * 2); $bellyLiquid -= ($baseDamage * 2)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * 0.5); $girth += ($baseDamage * 0.2); $enemyDamage += ($baseDamage * 0.5); $bellyBloat -= ($baseDamage * either(3,3,3,4)); $bellyLiquid -= ($baseDamage * 3)>><<endif>>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($baseDamage * 0.5); $bellyBloat -= ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You charge forward to strike, <deepalert>''but your opponent evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> charges forward to strike, <deepalert>''but your opponent evades the attack!''</deepalert><<endif>>
+
+<<endif>>
+
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% PLUMP is a magical attack that fattens up the target! %/
+
+<<if $combatAbility is "plump">>
+
+
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+
+<<if $spellTarget neq 0>><<set $combatTarget = $spellTarget>><<else>><<set $combatTarget = either("body","belly","breasts","thighs")>><<endif>>
+
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''gestures at you...'' and your <<print $combatTarget>> suddenly <<if ($combatTarget is "breasts") or ($combatTarget is "thighs")>><<print either("swell","grow","puff up")>><<else>><<print either("swells","grows","puffs up")>><<endif>> <<if $strikeResult is "DEVASTATING">><affirmative>MUCH</affirmative><<endif>> plumper!
+
+<<set $lethalKO = either(0,1); $deathCause = either("explosion","fat suffocation")>>
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.2)>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.1)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.1)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.1)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.5)>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.2)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.2)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.2)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "solid">><<set $playerDamage += $baseDamage>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.3)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.3); $bellyBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.3); $breastBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.3); $thighFirmness -= ($baseDamage * 20)>><<endif>>
+
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += $baseDamage>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.7)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.7); $bellyBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.7); $breastBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.7); $thighFirmness -= ($baseDamage * 20)>><<endif>><<endif>>
+
+/% Fat type gain bonus %/
+<<if $encounterElement is "fat">>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.2)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.2)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.2)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.2)>><<endif>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<print $encounter>> ''gestures at you'', <affirmative>but you resist its effect!</affirmative><<endif>>
+
+
+
+/% =========================%/
+
+/% Player %/
+
+/% =========================%/
+
+<<elseif $attacker is "player">>
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+<<print $theAttacker>> ''gesture at the <<print $encounter>>...'' and it suddenly <<print either("swells","grows","puffs up")>> <<if $strikeResult is "DEVASTATING">><affirmative>MUCH</affirmative><<endif>> plumper!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''gestures at the <<print $encounter>>...'' and it suddenly <<print either("swells","grows","puffs up")>> <<if $strikeResult is "DEVASTATING">><affirmative>MUCH</affirmative><<endif>> plumper!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2); $creatureCalories += ($baseDamage * 0.1); $creatureGirth += ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5); $creatureCalories += ($baseDamage * 0.2); $creatureGirth += ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage; $creatureCalories += ($baseDamage * 0.3); $creatureGirth += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += $baseDamage; $creatureCalories += ($baseDamage * 0.7); $creatureGirth += ($baseDamage * 0.5)>><<endif>>
+
+/% Fat type gain bonus %/
+<<if $encounterElement is "fat">><<set $creatureCalories += ($baseDamage * 0.3); $creatureGirth += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''hurl a spell at your opponent'', <deepalert>but it resists!</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''gestures at your opponent'', <deepalert>but it resists the spell!</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% FATTEN is a magical attack that fattens up the target (more effective than Plump)! %/
+
+<<if $combatAbility is "fatten">>
+
+
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $spellTarget neq 0>><<set $combatTarget = $spellTarget>><<else>><<set $combatTarget = either("body","belly","breasts","thighs")>><<endif>>
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''gestures at you...'' and your <<print $combatTarget>> suddenly <<if ($combatTarget is "breasts") or ($combatTarget is "thighs")>><<print either("swell","grow","bloat")>><<else>><<print either("swells","grows","bloats")>><<endif>> <<if $strikeResult is "DEVASTATING">><affirmative>MUCH</affirmative><<endif>> fatter!<<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = either("explosion","fat suffocation")>>
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.2)>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.2)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.2)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.2)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.2)>><<endif>>
+
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.5)>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "solid">><<set $playerDamage += $baseDamage>>
+<<if $combatTarget is "body">><<set $girth += $baseDamage>>
+<<elseif $combatTarget is "belly">><<set $belly += $baseDamage; $bellyBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "breasts">><<set $breast += $baseDamage; $breastBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += $baseDamage; $thighFirmness -= ($baseDamage * 20)>><<endif>>
+
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += $baseDamage>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 1.5)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 1.5); $bellyBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 1.5); $breastBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 1.5); $thighFirmness -= ($baseDamage * 20)>><<endif>>
+
+/% Fat type gain bonus %/
+<<if $encounterElement is "fat">>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.5)>><<endif>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''directs a spell at you'', <affirmative>but you resist its effect!</affirmative><<endif>>
+
+
+
+/% =========================%/
+
+/% Player %/
+
+/% =========================%/
+
+<<elseif $attacker is "player">>
+
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+<<print $theAttacker>> ''gesture at the <<print $encounter>>...'' and it suddenly <<print either("swells","grows","bloats")>> <<if $strikeResult is "DEVASTATING">><affirmative>MUCH</affirmative><<endif>> fatter!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''gestures at the <<print $encounter>>...'' and it suddenly <<print either("swells","grows","bloats")>> <<if $strikeResult is "DEVASTATING">><affirmative>MUCH</affirmative><<endif>> fatter!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2); $creatureCalories += ($baseDamage * 0.2); $creatureGirth += ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5); $creatureCalories += ($baseDamage * 0.5); $creatureGirth += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage; $creatureCalories += $baseDamage; $creatureGirth += ($baseDamage * 0.3)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += $baseDamage; $creatureCalories += ($baseDamage * 1.5); $creatureGirth += ($baseDamage * 0.5)>><<endif>>
+
+/% Fat type gain bonus %/
+<<if $encounterElement is "fat">><<set $creatureCalories += ($baseDamage * 0.5); $creatureGirth += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''hurl a spell at your opponent'', <deepalert>but it resists!</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''gestures at your opponent'', <deepalert>but it resists the spell!</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% MERGE is an attack primarily used by fyynlings, which sacrifices some of the attacker's health in order to fatten the target! %/
+
+
+<<if $combatAbility is "merge">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $spellTarget neq 0>><<set $combatTarget = $spellTarget>><<else>><<set $combatTarget = either("body","belly","belly","belly","breasts","breasts","thighs","thighs")>><<endif>>
+
+<<if $strikeResult neq "fail">><<print $encounter>> ''prods you sharply with a tendril--'' and your <<print $combatTarget>> suddenly <<if ($combatTarget is "breasts") or ($combatTarget is "thighs")>><<print either("swell up","bloat","puff","surge","balloon")>><<else>><<print either("swells up","bloats","puffs","surges","balloons")>><<endif>><<if $strikeResult is "DEVASTATING">><affirmative> SIGNIFICANTLY</affirmative><<endif>> fatter as the <<print $encounter>>'s own body shrinks!<<set $enemyDeath = either("withers away, leaving only a filmy residue in its wake!"); $killingBlow = -1>>
+
+<<set $lethalKO = either(0,1); $deathCause = either("explosion","fat suffocation")>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.2); $playerDamage += ($baseDamage * 0.2)>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.1)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.1)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.1)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.5); $playerDamage += ($baseDamage * 0.5)>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $baseDamage; $playerDamage += $baseDamage>>
+<<if $combatTarget is "body">><<set $girth += $baseDamage>>
+<<elseif $combatTarget is "belly">><<set $belly += $baseDamage; $bellyBloat += ($maxBelly / 2)>>
+<<elseif $combatTarget is "breasts">><<set $breast += $baseDamage; $breastBloat += ($maxBreast / 2)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += $baseDamage; $thighFirmness -= ($baseDamage * 20)>><<endif>>
+
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * 1.5); $playerDamage += ($baseDamage * 1.5)>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 1.5)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 1.5); $bellyBloat += ($maxBelly * 100)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 1.5); $breastBloat += ($maxBreast * 100)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 1.5); $thighFirmness -= ($baseDamage * 30)>><<endif>>
+<<endif>>
+
+/% Fat type gain bonus %/
+<<if $encounterElement is "fat">>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.5)>><<endif>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''reaches out for you with a tendril'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+
+
+/% =========================%/
+
+/% Player %/
+
+/% =========================%/
+
+<<elseif $attacker is "player">>
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''prod the <<print $encounter>> sharply with a tendril--'' and it suddenly <<print either("swells up","bloats","puffs","surges","balloons")>><<if $strikeResult is "DEVASTATING">><affirmative> SIGNIFICANTLY</affirmative><<endif>> fatter as your own body shrinks!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''prods the <<print $encounter>> sharply with a tendril--'' and it suddenly <<print either("swells up","bloats","puffs","surges","balloons")>><<if $strikeResult is "DEVASTATING">><affirmative> SIGNIFICANTLY</affirmative><<endif>> fatter!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $creatureCalories += ($baseDamage * 0.2); $creatureGirth += ($baseDamage * 0.1); $enemyDamage += ($baseDamage * 0.05)>>
+<<elseif $strikeResult is "weak">><<set $creatureCalories += ($baseDamage * 0.5); $creatureGirth += ($baseDamage * 0.2); $enemyDamage += ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "solid">><<set $creatureCalories += $baseDamage; $creatureGirth += ($baseDamage * 0.5); $enemyDamage += ($baseDamage * 0.08)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $creatureCalories += ($baseDamage * 2); $creatureGirth += $baseDamage; $enemyDamage += ($baseDamage * 0.5)>><<endif>>
+
+<<if $companionAbility is 0>>
+<<if $strikeResult is "glancing">><<set $girth -= ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $girth -= ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $girth -= $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $girth -= ($baseDamage * 1.5)>><<endif>>
+<<endif>>
+
+/% Fat type gain bonus %/
+<<if $encounterElement is "fat">><<set $creatureCalories += ($baseDamage * 0.5); $creatureGirth += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''reach out with a tendril'', <deepalert>''but your opponent evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''reaches out with a tendril'', <deepalert>''but your opponent evades the attack!''</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% SOFTEN is an attack which sacrifices some of the attacker's health in order to fatten the target, taking body type into account! %/
+
+
+<<if $combatAbility is "soften">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">><<print $encounter>> ''gently brushes against you''... and your body suddenly grows<<if $strikeResult is "DEVASTATING">><affirmative> SIGNIFICANTLY</affirmative><<endif>> fatter as the <<print $encounter>> shrinks!<<set $enemyDeath = either("withers away, leaving only a greasy residue in its wake!"); $killingBlow = -1>>
+
+<<set $lethalKO = either(0,1); $deathCause = either("explosion","fat suffocation")>>
+
+<<if $strikeResult is "glancing">><<set $effect = $baseDamage * 0.1>>
+
+<<elseif $strikeResult is "weak">><<set $effect = $baseDamage * 0.2>>
+
+<<elseif $strikeResult is "solid">><<set $effect = $baseDamage * 0.5>>
+
+<<elseif $strikeResult is "DEVASTATING">><<set $effect = $baseDamage>>
+<<endif>>
+
+/% Fat type gain bonus %/
+<<if $encounterElement is "fat">>
+<<set $effect += $baseDamage * 0.5>>
+
+<<endif>>
+
+<<if $bodyType is "busty">>
+<<set $girth += $effect * 0.5; $belly += $effect * 0.5; $breast += $effect * 1.1; $thigh += $effect * 0.5; $breastBloat += $maxBreast * $effect>>
+ ''Your breasts are expanding!''
+
+<<elseif $bodyType is "hourglass">>
+<<set $girth += $effect * 0.5; $belly += $effect * 0.5; $breast += $effect * 1.1; $thigh += $effect; $breastBloat += $maxBreast * $effect>>
+ ''Your breasts and thighs are expanding!''
+
+<<elseif $bodyType is "boviete">>
+<<set $breast += $effect * 1.1; $breastBloat += $maxBreast * $effect>>
+ ''Your breasts are expanding!''
+
+<<elseif $bodyType is "cubus">>
+<<set $breast += $effect * 1.1; $thigh += $effect; $breastBloat += $maxBreast * $effect>>
+ ''Your breasts and thighs are expanding!''
+
+<<elseif $bodyType is "round">>
+<<set $belly += $effect; $thigh += $effect; $bellyBloat += $maxBelly * $effect>>
+ ''Your belly and thighs are expanding!''
+
+<<elseif $bodyType is "bulging">>
+<<set $belly += $effect * 1.1; $thigh += $effect; $bellyBloat += $maxBelly * $effect>>
+ ''Your belly and thighs are expanding!''
+
+<<elseif $bodyType is "belly">>
+<<set $girth += $effect * 0.5; $belly += $effect; $breast += $effect * 0.5; $thigh += $effect * 0.5; $bellyBloat += $maxBelly * $effect>>
+ ''Your belly is expanding!''
+
+<<elseif $bodyType is "guguetelle">>
+<<set $belly += $effect * 1.2; $bellyBloat += $maxBelly * $effect>>
+ ''Your belly is expanding!''
+
+<<elseif $bodyType is "pear">>
+<<set $girth += $effect * 0.5; $belly += $effect; $breast += $effect * 0.5; $thigh += $effect * 1.1; $bellyBloat += $maxBelly * $effect>>
+ ''Your belly and thighs are expanding!''
+
+<<elseif $bodyType is "bloatpear">>
+<<set $belly += $effect * 1.1; $thigh += $effect; $bellyBloat += $maxBelly * $effect>>
+ ''Your belly and thighs are expanding!''
+
+<<elseif $bodyType is "thigh">>
+<<set $girth += $effect * 0.5; $belly += $effect * 0.5; $breast += $effect * 0.5; $thigh += $effect>>
+ ''Your thighs are expanding!''
+
+<<elseif $bodyType is "blimpthigh">>
+<<set $thigh += $effect * 1.2>>
+ ''Your thighs are expanding!''
+
+<<else>>
+<<set $girth += $effect * 0.6; $belly += $effect * 0.6; $breast += $effect * 0.6; $thigh += $effect * 0.6>>
+ ''Your body jiggles!''<<endif>>
+
+/% Cleanup %/
+<<set $girth = Math.round($girth); $breast = Math.round($breast); $belly = Math.round($belly); $thigh = Math.round($thigh)>>
+
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''tries to touch you'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+
+
+/% =========================%/
+
+/% Player (Unfinished) %/
+
+/% =========================%/
+
+<<elseif $attacker is "player">>
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''reach out and touch <<print $encounter>>--'' and it suddenly <<print either("swells up","bloats","puffs","surges","balloons")>><<if $strikeResult is "DEVASTATING">><affirmative> SIGNIFICANTLY</affirmative><<endif>> fatter as your own body shrinks!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''gently brushes against the <<print $encounter>>--'' and it suddenly <<print either("swells up","bloats","puffs","surges","balloons")>><<if $strikeResult is "DEVASTATING">><affirmative> SIGNIFICANTLY</affirmative><<endif>> fatter!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">>
+<<elseif $strikeResult is "weak">>
+<<elseif $strikeResult is "solid">>
+<<elseif $strikeResult is "DEVASTATING">><<endif>>
+
+<<if $companionAbility is 0>>
+<<if $strikeResult is "glancing">><<set $girth -= ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $girth -= ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $girth -= $baseDamage>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $girth -= ($baseDamage * 1.5)>><<endif>>
+<<endif>>
+
+/% Fat type gain bonus %/
+<<if $encounterElement is "fat">><<set $creatureCalories += ($baseDamage * 0.5); $creatureGirth += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''try to touch your opponent'', <deepalert>''but it evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''tries to touch your opponent'', <deepalert>''but it evades the attack!''</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% TONGUEFATTEN is a tongueclaw attack that fattens & bloats the target's belly. %/
+
+<<if $combatAbility is "tonguefatten">>
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+
+<<if $playfulLeupai is 1>><<set $strikeResult = "DEVASTATING">><<endif>>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''lashes its tongue out at your belly'', latching on with the claws... it billows up<<if $strikeResult is "DEVASTATING">> <affirmative>MUCH</affirmative><<endif>> fatter!<<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "burst belly">>
+
+<<if $strikeResult is "glancing">><<set $belly += ($baseDamage * 0.2); $bellyBloat += 10; $playerDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $belly += ($baseDamage * 0.5); $bellyBloat += 50; $playerDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $belly += $baseDamage; $bellyBloat += ($maxBelly / 2); $playerDamage += ($baseDamage * 0.5); $feedingDOT += random(2,5)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $belly += ($baseDamage * 1.5); $bellyBloat = ($maxBelly * 2); $playerDamage += ($baseDamage * 0.5); $feedingDOT += random(3,8)>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''lashes its tongue out at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player %/
+
+
+/% =========================%/
+
+<<elseif $attacker is "player">>
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''lash your tongue out at the <<print $encounter>>'s belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">> <affirmative>RAPIDLY </affirmative><<endif>>pumping it full of fat!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lashes its tongue out at the <<print $encounter>>'s belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">> <affirmative>RAPIDLY </affirmative><<endif>>pumping it full of fat!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $creatureGirth += random(10,30); $enemyDamage += ($baseDamage * 0.5); $creatureCalories += random(10,30)>>
+<<elseif $strikeResult is "weak">><<set $creatureGirth += ($baseDamage * 10); $enemyDamage += ($baseDamage * 0.2); $creatureCalories += ($baseDamage * 10)>>
+<<elseif $strikeResult is "solid">><<set $creatureGirth += ($baseDamage * 20); $enemyDamage += ($baseDamage/6); $creatureCalories += ($baseDamage * 20)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $creatureGirth += ($baseDamage * 50); $enemyDamage += ($baseDamage * 0.1); $creatureCalories += ($baseDamage * 50)>><<endif>>
+
+<<if $companionAbility is 0>>
+<<if $strikeResult is "glancing">><<set $girth -= ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $girth -= ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $girth -= ($baseDamage * 0.3)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $girth -= ($baseDamage * 0.2)>><<endif>>
+
+<<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''lash your tongue'', <deepalert>''but your opponent evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lashes its tongue'', <deepalert>''but your opponent evades the attack!''</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% TONGUEBLOAT is a tongueclaw attack that bloats the target's belly with inert venom, adding calories. %/
+
+<<if $combatAbility is "tonguebloat">>
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+
+<<if $playfulLeupai is 1>><<set $strikeResult = "DEVASTATING">><<endif>>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''lashes its tongue out at your belly'', latching on with the claws and<<if $strikeResult is "DEVASTATING">><affirmative> RAPIDLY</affirmative><<endif>> pumping it full of goo!<<endif>>
+
+<<if $sanity gte 60>><<set $sanity -= random(0,3)>><<endif>>
+
+<<set $lethalKO = 1; $deathCause = "burst belly">>
+
+<<if $strikeResult is "glancing">><<set $bellyBloat += ($maxBelly * 0.01); $bellyLiquid += 20; $playerDamage += ($baseDamage * 0.5); $calories += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += ($maxBelly * 0.05); $bellyLiquid += 30; $playerDamage += ($baseDamage * 0.2); $calories += $baseDamage>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly * 0.2); $bellyLiquid += ($baseDamage * 20); $playerDamage += ($baseDamage * 0.1); $calories += ($baseDamage * 1.5); $hoseDOT += random(2,5)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 0.5); $bellyLiquid += ($baseDamage * 30); $playerDamage += ($baseDamage * 0.1); $calories += ($baseDamage * 10); $hoseDOT += random(3,8)>>
+
+<<if $sanity gte 60>><<set $sanity -= random(1,2)>><<endif>>
+
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''lashes its tongue out at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player %/
+
+
+/% =========================%/
+
+<<elseif $attacker is "player">>
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''lash your tongue out at the <<print $encounter>>'s belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">> <affirmative>RAPIDLY </affirmative><<endif>>inflating it with inert venom!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lashes its tongue out at the <<print $encounter>>'s belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">> <affirmative>RAPIDLY </affirmative><<endif>>inflating it with inert venom!
+
+<<endif>>
+
+/% Weird setup for changing enemy girth here. Fix this to be based on player damage? %/
+
+<<if $strikeResult is "glancing">><<set $creatureGirth += 50; $enemyDamage += ($baseDamage * 0.5); $creatureCalories += either(10,20,30)>>
+<<elseif $strikeResult is "weak">><<set $creatureGirth += 100; $enemyDamage += ($baseDamage * 0.2); $creatureCalories += ($baseDamage * 10)>>
+<<elseif $strikeResult is "solid">><<set $creatureGirth += 250; $enemyDamage += ($baseDamage/6); $creatureCalories += ($baseDamage * 20)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $creatureGirth += 500; $enemyDamage += ($baseDamage * 0.1); $creatureCalories += ($baseDamage * 50)>><<endif>>
+
+<<if $companionAbility is 0>>
+<<if $strikeResult is "glancing">><<set $calories -= random(10,30); $bellyLiquid -= 20>>
+<<elseif $strikeResult is "weak">><<set $calories -= random(20,40); $bellyLiquid -= 30>>
+<<elseif $strikeResult is "solid">><<set $calories -= random(50,80); $bellyLiquid -= 50>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $calories -= random(70,120); $bellyLiquid -= 100>><<endif>>
+<<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''lash your tongue'', <deepalert>''but your opponent evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lashes its tongue'', <deepalert>''but your opponent evades the attack!''</deepalert><<endif>>
+
+<<endif>>
+
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% TONGUEVENOM is a tongueclaw attack that bloats the target's belly with live venom. %/
+
+<<if $combatAbility is "tonguevenom">>
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+
+<<if $playfulLeupai is 1>><<set $strikeResult = "DEVASTATING"; $miraPoisoning += random(8,24)>><<endif>>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''lashes its tongue out at your belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">><affirmative>RAPIDLY</affirmative> <<endif>>pumping it full of goo! ''//You feel strange..!//''<<endif>>
+
+<<if $sanity gte 60>><<set $sanity -= random(0,3)>><<endif>>
+
+<<if $venomType is "toxic">><<set $toxicVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "lethal">><<set $lethalVenom += $baseDamage>>
+<<elseif $venomType is "bloating">><<set $bloatVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "bursting">><<set $burstVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "breastbloating">><<set $breastbloatVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "fattening">><<set $gainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "bellyfattening">><<set $bellygainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "breastfattening">><<set $breastgainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "thighfattening">><<set $thighgainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superfattening">><<set $supergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superbellyfattening">><<set $bellySupergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superbreastfattening">><<set $breastSupergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "superthighfattening">><<set $thighSupergainVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "fattenium">><<set $fatteniumVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "bulking">><<set $bulkVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "musclebloat">><<set $musclebloatVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "flabbifying">><<set $flabbyVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "weakening">><<set $weakeningVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "gluttonous">><<set $gluttonVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "caloric">><<set $caloricVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "hallucenogenic">><<set $hallucenoVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "leucanthropic">><<set $leucanthropicVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "esque">><<set $esqueVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "noxious">><<set $noxiousVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "blubber">><<set $blubberVenom += $baseDamage * 0.5>>
+<<elseif $venomType is "ampli">><<set $ampliVenom += $baseDamage * 0.5>><<endif>>
+
+<<set $lethalKO = either(0,0,0,0,1); $deathCause = "burst belly">>
+
+<<if $venomType neq "leucanthropic">>
+<<if $strikeResult is "glancing">><<set $bellyBloat += 10; $bellyLiquid += 10; $playerDamage += ($baseDamage * 0.1); $miraPoisoning += random(0,3)>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += 20; $bellyLiquid += 20; $playerDamage += ($baseDamage * 0.2); $miraPoisoning += random(0,4)>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly / 2); $bellyLiquid += ($baseDamage * 10); $playerDamage += ($baseDamage * 0.5); $miraPoisoning += random(4,8); $hoseDOT += random(2,5)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 100); $bellyLiquid += ($baseDamage * 10); $playerDamage += ($baseDamage * 0.5); $miraPoisoning += random(5,12); $hoseDOT += random(3,8)>>
+
+<<if $sanity gte 60>><<set $sanity -= 1>><<endif>>
+
+<<elseif $venomType is "leucanthropic">>
+<<if $strikeResult is "glancing">><<set $bellyBloat += 10; $bellyLiquid += 10; $playerDamage += ($baseDamage * 0.1)>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += 20; $bellyLiquid += 20; $playerDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($baseDamage * 10); $bellyLiquid += ($baseDamage * 10); $playerDamage += ($baseDamage * 0.5); $hoseDOT += random(2,5)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 100); $bellyLiquid += ($baseDamage * 10); $playerDamage += ($baseDamage * 0.5); $hoseDOT += random(3,8)>>
+
+<<if $sanity gte 60>><<set $sanity -= random(0,3)>><<endif>>
+<<endif>>
+<<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''lashes its tongue out at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player %/
+
+/% =========================%/
+
+<<elseif $attacker is "player">>
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''lash your tongue out at the <<print $encounter>>'s belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">> <affirmative>RAPIDLY </affirmative><<endif>>inflating it with venom!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lashes its tongue out at the <<print $encounter>>'s belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">> <affirmative>RAPIDLY </affirmative><<endif>>inflating it with venom!
+
+<<endif>>
+
+<<set $storedVenom -= 20>>
+
+<<if $pVenomType is "toxic">><<set $enemy_toxicVenom += $baseDamage * 0.5>>It looks sick!<<endif>>
+<<if $pVenomType is "lethal">><<set $enemy_lethalVenom += $baseDamage>>It cries out in pain!<<endif>>
+<<if $pVenomType is "bloating">><<set $enemy_bloatVenom += $baseDamage * 0.5>>It swells up rounder!<<endif>>
+<<if $pVenomType is "bursting">><<set $enemy_burstVenom += $baseDamage * 0.5>>Its body bloats rapidly!<<endif>>
+<<if $pVenomType is "breastbloating">><<set $enemy_bloatVenom += $baseDamage * 0.5>>It swells up rounder!<<endif>>
+<<if $pVenomType is "fattening">><<set $enemy_gainVenom += $baseDamage * 0.5>>It begins to grow fatter!<<endif>>
+<<if $pVenomType is "bellyfattening">><<set $enemy_bellygainVenom += $baseDamage * 0.5>>Its belly jiggles and swells!<<endif>>
+<<if $pVenomType is "breastfattening">><<set $enemy_gainVenom += $baseDamage * 0.5>>It begins to grow fatter!<<endif>>
+<<if $pVenomType is "thighfattening">><<set $enemy_gainVenom += $baseDamage * 0.5>>Its thighs jiggle and swell!<<endif>>
+<<if $pVenomType is "superfattening">><<set $enemy_supergainVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "superbellyfattening">><<set $enemy_bellySupergainVenom += $baseDamage * 0.5>>Its belly jiggles and swells rapidly!<<endif>>
+<<if $pVenomType is "superbreastfattening">><<set $enemy_supergainVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "superthighfattening">><<set $enemy_supergainVenom += $baseDamage * 0.5>>Its thighs jiggle and swell rapidly!<<endif>>
+<<if $pVenomType is "fattenium">><<set $enemy_fatteniumVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "bulking">><<set $enemy_bulkVenom += $baseDamage * 0.5>>It cries out as its weight surges, its muscles bulging!<<endif>>
+<<if $pVenomType is "flabbifying">><<set $enemy_flabbyVenom += $baseDamage * 0.5>>It cries out as its weight surges!<<endif>>
+<<if $pVenomType is "weakening">><<set $enemy_weakeningVenom += $baseDamage * 0.5>>It trembles!<<endif>>
+<<if $pVenomType is "healing">><<set $enemy_healVenom += $baseDamage>>It looks better!<<endif>>
+<<if $pVenomType is "gluttonous">><<set $enemy_gluttonVenom += $baseDamage * 0.5>>It looks hungry!<<endif>>
+<<if $pVenomType is "caloric">><<set $enemy_caloricVenom += $baseDamage * 0.5>>Its belly gurgles!<<endif>>
+<<if $pVenomType is "hallucenogenic">><<set $enemy_hallucenoVenom += $baseDamage * 0.5>>It looks anxious!<<endif>>
+<<if $pVenomType is "leucanthropic">><<set $enemy_leucanthropicVenom += $baseDamage * 0.5>>It looks sick!<<endif>>
+
+<<if $strikeResult is "glancing">><<set $creatureGirth += 50; $enemyDamage += ($baseDamage * 0.5); $creatureCalories += either(10,20,30); $calories -= random(10,30); $bellyLiquid -= 20>>
+<<elseif $strikeResult is "weak">><<set $creatureGirth += 100; $enemyDamage += ($baseDamage * 0.2); $creatureCalories += ($baseDamage * 10); $calories -= random(20,40); $bellyLiquid -= 30>>
+<<elseif $strikeResult is "solid">><<set $creatureGirth += 250; $enemyDamage += ($baseDamage/6); $creatureCalories += ($baseDamage * 20); $calories -= random(50,80); $bellyLiquid -= 50>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $creatureGirth += 500; $enemyDamage += ($baseDamage * 0.1); $creatureCalories += ($baseDamage * 50); $calories -= random(70,120); $bellyLiquid -= 100>><<endif>>
+
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''lash your tongue'', <deepalert>''but your opponent evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lashes its tongue'', <deepalert>''but your opponent evades the attack!''</deepalert><<endif>>
+
+<<endif>>
+
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% TONGUESIPHON is a tongueclaw attack that leeches the target's health to heal the attacker! %/
+
+<<if $combatAbility is "tonguesiphon">>
+
+
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''lashes its tongue out at your belly'', latching on with the claws and draining your health!
+
+<<if $sanity gte 60>><<set $sanity -= random(0,3)>><<endif>>
+
+<<set $lethalKO = 1; $deathCause = "atrophy">>
+
+<<if $strikeResult is "glancing">><<set $girth -= ($baseDamage * 0.1); $bellyBloat -= 10; $playerDamage += ($baseDamage * 0.2); $enemyDamage -= ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $girth -= ($baseDamage * 0.2); $bellyBloat -= 20; $playerDamage += ($baseDamage * 0.3); $enemyDamage -= ($baseDamage * 0.3)>>
+<<elseif $strikeResult is "solid">><<set $girth -= ($baseDamage * 0.3); $bellyBloat -= ($maxBelly / 2); $playerDamage += ($baseDamage * 0.5); $enemyDamage -= ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $girth -= ($baseDamage * 0.5); $bellyBloat -= $maxBelly; $playerDamage += $baseDamage; $enemyDamage -= $baseDamage>>
+
+<<if $sanity gte 60>><<set $sanity -= 1>><<endif>>
+
+
+<<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''lashes its tongue out at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''lash your tongue out at the <<print $encounter>>'s belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">> <affirmative>RAPIDLY </affirmative><<endif>>draining its health!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lashes its tongue out at the <<print $encounter>>'s belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">> <affirmative>RAPIDLY </affirmative><<endif>>draining its health!
+
+<<endif>>
+
+
+<<if $strikeResult is "glancing">><<set $creatureGirth -= 50; $enemyDamage += ($baseDamage * 0.5); $creatureCalories -= either(10,20,30)>>
+<<elseif $strikeResult is "weak">><<set $creatureGirth -= 100; $enemyDamage += ($baseDamage * 0.2); $creatureCalories -= ($baseDamage * 10)>>
+<<elseif $strikeResult is "solid">><<set $creatureGirth -= 250; $enemyDamage += ($baseDamage/6); $creatureCalories -= ($baseDamage * 20)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $creatureGirth -= 500; $enemyDamage += ($baseDamage * 0.2); $creatureCalories -= ($baseDamage * 50)>><<endif>>
+
+<<if $companionAbility is 0>>
+<<if $strikeResult is "glancing">><<set $effect = random(10,30); $playerDamage -= ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $effect = random(20,40); $playerDamage -= ($baseDamage * 0.3)>>
+<<elseif $strikeResult is "solid">><<set $effect = random(50,80); $playerDamage -= ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $effect = random(70,120); $playerDamage -= $baseDamage>><<endif>>
+
+<<set $calories += $effect; $bellyBloat += $effect; $bellyLiquid += $effect>>
+
+<<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''lash your tongue'', <deepalert>''but your opponent evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lashes its tongue'', <deepalert>''but your opponent evades the attack!''</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% IMPLANT is a tongueclaw attack that plants leupai eggs and inert venom in the target. %/
+
+/% Look at this and see if the new egg generation passage can be implemented to clean up the code here a little. %/
+
+<<if $combatAbility is "implant">>
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+
+<<if $playfulLeupai is 1>><<set $strikeResult = "DEVASTATING">><<endif>>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''lashes its tongue out at your belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">> <affirmative>RAPIDLY </affirmative><<endif>>stuffing something into it!
+
+
+<<set $lethalKO = either(0,0,1); $deathCause = "burst belly">>
+
+<<if $sanity gte 60>><<set $sanity -= random(2,5)>><<endif>>
+
+<<if $maxBelly lt 400>><<set $strikeResult = 1>>
+<<elseif ($maxBelly gte 400) and ($maxBelly lte 500)>><<set $bellyScore = 1>>
+<<elseif ($maxBelly gte 500) and ($maxBelly lte 800)>><<set $bellyScore = random(1,2)>>
+<<elseif ($maxBelly gte 1000) and ($maxBelly lte 1500)>><<set $bellyScore = random(1,2)>>
+<<elseif ($maxBelly gte 1500) and ($maxBelly lte 2000)>><<set $bellyScore = random(1,3)>>
+<<elseif $maxBelly gte 2000>><<set $bellyScore = random(1,4)>><<endif>>
+
+<<if $randomEggLeupai is 0>><<set $randomEggLeupai = "belmere">><<endif>>
+
+/% Eggs only on solid + blow %/
+
+<<if $strikeResult is "glancing">><<set $bellyBloat += 50; $bellyLiquid += 20; $playerDamage += ($baseDamage * 0.5); $calories += either(10,20,30)>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += 100; $bellyLiquid += 30; $playerDamage += ($baseDamage * 0.2); $calories += ($baseDamage * 10)>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly / 2); $bellyLiquid += ($baseDamage * 20); $playerDamage += ($baseDamage/6); $calories += ($baseDamage * 20)>>
+
+<<set $leupaiEggParasite = 1; $leupaiEggLoad += $bellyScore>>
+<<if $leupaiBloated is 1>><<set $leupaiEggLoad += either(2,2,3); $bellyBloat += ($maxBelly * 100)>>
+<<elseif $leupaiBloated is 2>><<set $leupaiEggLoad += either(3,3,4,5); $bellyBloat += ($maxBelly * 100)>><<endif>>
+
+<<if $eggTimer is 0>><<set $eggTimer = 1>><<endif>>
+
+<<if $leupaiEggTimer is 0>><<set $leupaiEggTimer = random(24,40)>><<elseif $leupaiEggTimer lte 10>><<set $leupaiEggTimer += random(6,12)>><<endif>>
+
+<<if $quaggyGirth is 0>><<set $quaggyGirth = either(10,10,10,20,30)>><<endif>>
+
+<<if ($randomEggLeupai is "rexaur") or ($randomEggLeupai is "belmere") or ($randomEggLeupai is "devinn")>><<set $quaggyGirth += either(10,10,10,20,30)>><<endif>>
+<<if $quaggySubspecies1 is 0>><<set $quaggySubspecies1 = $randomEggLeupai>><<elseif $quaggySubspecies1 neq 0>><<set $quaggySubspecies2 = $randomEggLeupai>><<endif>>
+<<set $quaggyColorPoint1 = $fullChroma>>
+
+
+<<elseif $strikeResult is "DEVASTATING">>
+
+<<set $bellyBloat += ($maxBelly * 100); $bellyLiquid += ($baseDamage * 30); $playerDamage += ($baseDamage * 0.2); $calories += ($baseDamage * 50)>>
+
+<<if $sanity gte 60>><<set $sanity -= random(2,6)>><<endif>>
+
+
+<<set $leupaiEggParasite = 1; $leupaiEggLoad += $bellyScore>>
+<<if $leupaiBloated is 1>><<set $leupaiEggLoad += either(2,2,3); $bellyBloat += ($maxBelly * 100)>>
+<<elseif $leupaiBloated is 2>><<set $leupaiEggLoad += either(3,3,4,5); $bellyBloat += ($maxBelly * 100)>><<endif>>
+
+<<if $eggTimer is 0>><<set $eggTimer = 1>><<endif>>
+
+<<if $leupaiEggTimer is 0>><<set $leupaiEggTimer = random(24,40)>><<elseif $leupaiEggTimer lte 10>><<set $leupaiEggTimer += random(6,12)>><<endif>>
+
+<<if $quaggyGirth is 0>><<set $quaggyGirth = either(10,10,10,20,30)>><<endif>>
+
+<<if ($randomEggLeupai is "rexaur") or ($randomEggLeupai is "belmere") or ($randomEggLeupai is "devinn")>><<set $quaggyGirth += either(10,10,10,20,30)>><<endif>>
+<<if $quaggySubspecies1 is 0>><<set $quaggySubspecies1 = $randomEggLeupai>><<elseif $quaggySubspecies1 neq 0>><<set $quaggySubspecies2 = $randomEggLeupai>><<endif>>
+<<set $quaggyColorPoint1 = $fullChroma>><<endif>>
+
+/% Bonus eggs for weak vs. egg %/
+<<if ($defenseElement is "bestial") or ($defenseElement is "eldritch") or ($defenseElement is "egg") or ($defenseElement is "balloon") or ($defenseElement is "whimsy")>>
+<<set $leupaiEggLoad += random(1,3)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''lashes its tongue out at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''lash your tongue out at the <<print $encounter>>'s belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">> <affirmative>RAPIDLY </affirmative><<endif>>stuffing it with eggs!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lashes its tongue out at the <<print $encounter>>'s belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">> <affirmative>RAPIDLY </affirmative><<endif>>stuffing it with eggs!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $creatureGirth += 50; $enemyDamage += ($baseDamage * 0.5); $creatureCalories += either(10,20,30)>>
+<<elseif $strikeResult is "weak">><<set $creatureGirth += 100; $enemyDamage += ($baseDamage * 0.2); $creatureCalories += ($baseDamage * 10)>>
+<<elseif $strikeResult is "solid">><<set $creatureGirth += 250; $enemyDamage += ($baseDamage/6); $creatureCalories += ($baseDamage * 20); $enemy_eggDOT += random(8,12)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $creatureGirth += 500; $enemyDamage += ($baseDamage * 0.2); $creatureCalories += ($baseDamage * 50); $enemy_eggDOT += random(12,16)>><<endif>>
+
+
+/% Bonus eggs for weak vs. egg %/
+<<if ($defenseElement is "bestial") or ($defenseElement is "eldritch") or ($defenseElement is "egg") or ($defenseElement is "balloon") or ($defenseElement is "whimsy")>>
+<<set $creatureGirth += 50; $enemyDamage += ($baseDamage * 0.3); $creatureCalories += ($baseDamage * 5)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''lash your tongue'', <deepalert>''but your opponent evades the attack!''</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''lashes its tongue'', <deepalert>''but your opponent evades the attack!''</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% MIRATOXIC SALVE is a leupai-specific heal. Friendly leupai combatants use it to heal you! %/
+
+<<if $combatAbility is "miratoxic salve">>
+
+
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+The <<print $encounter>> ''suddenly grabs hold of you'', coating you in miratoxic slime-- to your shock, ''you begin to feel much better!''
+
+<<set $playerDamage -= $baseDamage * 2>>
+
+/% =========================%/
+
+/% Player %/
+
+
+/% =========================%/
+
+<<elseif $attacker is "player">>
+
+
+<<if $companionAbility is 0>>
+You ''lick your wounds'', healing them with your venom!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''licks your wounds'', healing them with its venom!
+
+<<endif>>
+
+<<set $playerDamage -= $baseDamage * 1.5>>
+
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% AMPLIPLY is a tongueclaw attack that bloats the target's belly with amplibaenes and amplibaene venom! %/
+
+<<if $combatAbility is "ampliply">>
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''lashes its tongue out at your belly'', latching on with the claws and <<if $strikeResult is "DEVASTATING">><affirmative>RAPIDLY</affirmative> <<endif>>pumping it full of something!<<endif>>
+
+<<if $sanity gte 50>><<set $sanity -= random(0,3)>><<endif>>
+
+<<set $lethalKO = either(0,0,0,0,1); $deathCause = "burst belly">>
+
+<<if $strikeResult is "glancing">><<set $bellyBloat += 10; $bellyLiquid += 10; $playerDamage += ($baseDamage * 0.1); $miraPoisoning += random(0,3); $ampliVenom += random(0,1); $calories += random(0,4)>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += 20; $bellyLiquid += 20; $playerDamage += ($baseDamage * 0.2); $miraPoisoning += random(0,4); $ampliVenom += random(0,3); $calories += random(3,8)>>
+<<if $ampliParasite is 0>><<set $ampliParasite = either(0,0,0,0,0,0,1)>><<endif>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly / 2); $bellyLiquid += ($baseDamage * 10); $playerDamage += ($baseDamage * 0.5); $miraPoisoning += random(4,8); $hoseDOT += random(2,5); $ampliVenom += random(2,5); $calories += random(6,18)>>
+<<if $ampliParasite is 0>><<set $ampliParasite = either(0,0,0,0,0,1)>><<endif>>
+
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 100); $bellyLiquid += ($baseDamage * 10); $playerDamage += ($baseDamage * 0.5); $miraPoisoning += random(5,12); $hoseDOT += random(3,8); $ampliParasite = 1; $ampliParaLoad += random(1,3); $belly += 10>>
+
+<<if $ampliParasite is 1>><<set $ampliParaLoad += random(1,3); $parasiteBellySquirm = 1>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''lashes its tongue out at you'', <affirmative>but you evade the attack!</affirmative>
+
+<<endif>>
+
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+
+/% ========================================================= %/
+/% INFLATE is an attack that bloats the target's belly. %/
+
+<<if $combatAbility is "inflate">>
+
+
+
+/% Enemy only? %/
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> grabs hold of you and<<if $strikeResult is "DEVASTATING">><affirmative> RAPIDLY</affirmative><<endif>><<if $attackFed neq 0>> <<print $attackFed>><<else>> inflates you!<<endif>>
+
+<<set $lethalKO = 1; $deathCause = "burst belly">>
+
+<<if $sanity gte 60>><<set $sanity -= random(0,2)>><<endif>>
+
+
+<<if $strikeResult is "glancing">><<set $bellyBloat += ($maxBelly * 0.05); $playerDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += ($maxBelly * 0.1); $playerDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly * 0.3); $playerDamage += ($baseDamage * 0.1); $combatLocked = 2; $fleeDisabled = 1>> ''It's holding you fast!''
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 0.5); $playerDamage += ($baseDamage * 0.1); $combatLocked = 2; $fleeDisabled = 1>> ''It's holding you fast!''<<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''grabs at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+<<endif>>
+
+<<if $combatAbility is "liquid inflate">>
+
+
+/% Enemy only? %/
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> grabs hold of you and<<if $strikeResult is "DEVASTATING">><affirmative> RAPIDLY</affirmative><<endif>><<if $attackFed neq 0>> <<print $attackFed>><<else>> inflates you<<endif>>
+
+<<set $lethalKO = 1; $deathCause = "burst belly">>
+
+<<if $sanity gte 60>><<set $sanity -= random(0,2)>><<endif>>
+
+
+<<if $strikeResult is "glancing">><<set $bellyBloat += ($maxBelly * 0.05); $bellyLiquid += ($maxBelly * 0.02); $playerDamage += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += ($maxBelly * 0.1); $bellyLiquid += ($maxBelly * 0.05); $playerDamage += ($baseDamage * 0.2)>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly * 0.3); $bellyLiquid += ($maxBelly * 0.1); $playerDamage += ($baseDamage * 0.1); $combatLocked = 2; $fleeDisabled = 1>> ''It's holding you fast!''
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 0.5); $bellyLiquid += ($maxBelly * 0.5); $playerDamage += ($baseDamage * 0.1); $combatLocked = 2; $fleeDisabled = 1>> ''It's holding you fast!''<<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''grabs at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% BALLOON is an attack that bloats the target's belly. %/
+
+<<if $combatAbility is "balloon">>
+
+
+
+/% Enemy only? %/
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> grabs hold of you and<<if $strikeResult is "DEVASTATING">><affirmative> RAPIDLY</affirmative><<endif>><<if $attackFed neq 0>> <<print $attackFed>><<else>> blows you up like a balloon!<<endif>>
+
+<<set $lethalKO = 1; $deathCause = "burst belly">>
+
+<<if $sanity gte 60>><<set $sanity -= random(0,2)>><<endif>>
+
+
+<<if $strikeResult is "glancing">><<set $bellyBloat += ($maxBelly * 0.08); $playerDamage += ($baseDamage * 0.6)>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += ($maxBelly * 0.3); $playerDamage += ($baseDamage * 0.8)>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly * 0.6); $playerDamage += ($baseDamage * 0.1); $combatLocked = 2; $fleeDisabled = 1>> ''It's holding you fast!''
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 0.8); $playerDamage += ($baseDamage * 0.3); $combatLocked = 2; $fleeDisabled = 1>> ''It's holding you fast!''<<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''grabs at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+
+
+<<endif>>
+
+<<if $combatAbility is "liquid balloon">>
+
+
+
+/% Enemy only? %/
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> grabs hold of you and<<if $strikeResult is "DEVASTATING">><affirmative> RAPIDLY</affirmative><<endif>><<if $attackFed neq 0>> <<print $attackFed>><<else>> blows you up like a balloon!<<endif>>
+
+<<set $lethalKO = 1; $deathCause = "burst belly">>
+
+<<if $strikeResult is "glancing">><<set $bellyBloat += ($maxBelly * 0.08); $bellyLiquid += ($maxBelly * 0.05); $playerDamage += ($baseDamage * 0.6)>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += ($maxBelly * 0.3); $bellyLiquid += ($maxBelly * 0.08); $playerDamage += ($baseDamage * 0.8)>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly * 0.6); $bellyLiquid += ($maxBelly * 0.3); $playerDamage += ($baseDamage * 0.1); $combatLocked = 2; $fleeDisabled = 1>> ''It's holding you fast!''
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 0.8); $bellyLiquid += ($maxBelly * 0.5); $playerDamage += ($baseDamage * 0.3); $combatLocked = 2; $fleeDisabled = 1>> ''It's holding you fast!''<<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''grabs at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+
+
+<<endif>>
+
+
+
+/% ========================================================= %/
+/% FEED is an attack that bloats the target's belly, adding calories. %/
+
+<<if $combatAbility is "feed">>
+
+
+
+/% Enemy only? %/
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> grabs hold of you and<<if $strikeResult is "DEVASTATING">><affirmative> RAPIDLY</affirmative><<endif>><<if $attackFed neq 0>> <<print $attackFed>><<else>> stuffs something<<endif>> down your throat!
+
+<<set $lethalKO = 1; $deathCause = "burst belly">>
+
+<<if $strikeResult is "glancing">><<set $bellyBloat += ($maxBelly * 0.01); $playerDamage += ($baseDamage * 0.5); $calories += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += ($maxBelly * 0.05); $playerDamage += ($baseDamage * 0.2); $calories += $baseDamage>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly * 0.2); $playerDamage += ($baseDamage * 0.1); $calories += ($baseDamage * 1.5); $combatLocked = 2; $fleeDisabled = 1; $heldDOT += random(2,4)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 0.3); $playerDamage += ($baseDamage * 0.1); $calories += ($baseDamage * 10); $combatLocked = 2; $fleeDisabled = 1; $heldDOT += random(3,6)>><<endif>>
+
+<<if $heldDOT gte 1>> <brightalert>''It's holding you fast!''</brightalert><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''grabs at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+
+
+<<endif>>
+
+<<if $combatAbility is "liquid feed">>
+
+
+
+/% Enemy only? %/
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> grabs hold of you and<<if $strikeResult is "DEVASTATING">><affirmative> RAPIDLY</affirmative><<endif>><<if $attackFed neq 0>> <<print $attackFed>><<else>> pumps something<<endif>> down your throat!
+
+<<set $lethalKO = 1; $deathCause = "burst belly">>
+
+<<if $strikeResult is "glancing">><<set $bellyBloat += ($maxBelly * 0.01); $bellyLiquid += $baseDamage; $playerDamage += ($baseDamage * 0.5); $calories += ($baseDamage * 0.5)>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += ($maxBelly * 0.05); $bellyLiquid += ($baseDamage * 2); $playerDamage += ($baseDamage * 0.2); $calories += $baseDamage>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly * 0.2); $bellyLiquid += ($baseDamage * 5); $playerDamage += ($baseDamage * 0.1); $calories += ($baseDamage * 1.5); $combatLocked = 2; $fleeDisabled = 1; $heldDOT += random(2,4)>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 0.3); $bellyLiquid += ($baseDamage * 10); $playerDamage += ($baseDamage * 0.1); $calories += ($baseDamage * 10); $combatLocked = 2; $fleeDisabled = 1; $heldDOT += random(3,6)>><<endif>>
+
+
+<<if $heldDOT gte 1>> <brightalert>''It's holding you fast!''</brightalert><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''grabs at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+
+
+<<endif>>
+
+
+
+/% ========================================================= %/
+/% ENGORGE is an attack that bloats the target's belly, adding a larger amount of calories than feed. %/
+
+<<if $combatAbility is "engorge">>
+
+
+
+/% Enemy only? %/
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> grabs hold of you and<<if $strikeResult is "DEVASTATING">><affirmative> RAPIDLY</affirmative><<endif>><<if $attackFed neq 0>> <<print $attackFed>><<else>> stuffs something<<endif>> down your throat, your belly bulging!
+
+<<set $lethalKO = 1; $deathCause = "burst belly">>
+
+<<if $strikeResult is "glancing">><<set $bellyBloat += ($maxBelly * 0.05); $playerDamage += ($baseDamage * 0.6); $calories += ($baseDamage * 0.8); $combatLocked = 0>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += ($maxBelly * 0.1); $playerDamage += ($baseDamage * 0.8); $calories += ($baseDamage * 1.5); $combatLocked = 0>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly * 0.3); $playerDamage += ($baseDamage * 0.1); $calories += ($baseDamage * 5); $combatLocked = 2; $fleeDisabled = 1>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 0.5); $playerDamage += ($baseDamage * 0.3); $calories += ($baseDamage * 25); $combatLocked = 2; $fleeDisabled = 1>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''grabs at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+
+
+<<endif>>
+
+<<if $combatAbility is "liquid engorge">>
+
+
+
+/% Enemy only? %/
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> grabs hold of you and<<if $strikeResult is "DEVASTATING">><affirmative> RAPIDLY</affirmative><<endif>><<if $attackFed neq 0>> <<print $attackFed>><<else>> pumps something<<endif>> down your throat, your belly bulging!
+
+<<set $lethalKO = 1; $deathCause = "burst belly">>
+
+<<if $strikeResult is "glancing">><<set $bellyBloat += ($maxBelly * 0.05); $bellyLiquid += ($baseDamage * 2); $playerDamage += ($baseDamage * 0.6); $calories += ($baseDamage * 0.5); $combatLocked = 0>>
+<<elseif $strikeResult is "weak">><<set $bellyBloat += ($maxBelly * 0.1); $bellyLiquid += ($baseDamage * 5); $playerDamage += ($baseDamage * 0.8); $calories += $baseDamage; $combatLocked = 0>>
+<<elseif $strikeResult is "solid">><<set $bellyBloat += ($maxBelly * 0.3); $bellyLiquid += ($baseDamage * 10); $playerDamage += ($baseDamage * 0.1); $calories += ($baseDamage * 1.5); $combatLocked = 2; $fleeDisabled = 1>>
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $bellyBloat += ($maxBelly * 0.5); $bellyLiquid += ($baseDamage * 15); $playerDamage += ($baseDamage * 0.3); $calories += ($baseDamage * 25); $combatLocked = 2; $fleeDisabled = 1>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''grabs at you'', <affirmative>but you evade the attack!</affirmative><<endif>>
+
+
+
+
+<<endif>>
+
+
+
+/% ========================================================= %/
+/% SACRIFICIAL FEED is the Sporeslave's only attack; it mindlessly feeds itself to the opponent! %/
+
+
+<<if $combatAbility is "sacrificial feed">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''leaps forward'', forcing itself roughly into your mouth!
+
+
+<<set $lethalKO = either(0,0,1); $deathCause = either("burst belly","suffocation")>>
+
+<<if $strikeResult is "glancing">>
+<<set $enemyDamage += ($baseDamage * 0.2); $playerDamage += ($baseDamage/3); $calories += random(1,5)>>
+
+<<elseif $strikeResult is "weak">>
+<<set $enemyDamage += ($baseDamage * 0.5); $calories += ($baseDamage * 10); $playerDamage += ($baseDamage/2); $calories += 10>>
+
+<<elseif $strikeResult is "solid">>
+<<set $enemyDamage += $baseDamage; $calories += ($baseDamage * 20); $playerDamage += $baseDamage; $calories += either(10,10,20)>>
+
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $enemyDamage += ($baseDamage * 1.5); $calories += ($baseDamage * 30); $playerDamage += $baseDamage * 1.5; $calories += random(20,50)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''leaps forward'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+/% =========================%/
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>''You leap forward'', pressing yourself roughly into <<print $encounter>>'s mouth and trying to crawl down its throat!
+
+<<if $strikeResult is "glancing">>
+<<set $playerDamage += ($baseDamage * 0.2); $enemyDamage += ($baseDamage/3); $creatureCalories += random(1,5)>>
+
+<<elseif $strikeResult is "weak">>
+<<set $playerDamage += ($baseDamage * 0.5); $creatureGirth += ($baseDamage * 10); $enemyDamage += ($baseDamage/2); $creatureCalories += 10>>
+
+<<elseif $strikeResult is "solid">>
+<<set $playerDamage += $baseDamage; $creatureGirth += ($baseDamage * 20); $enemyDamage += $baseDamage; $creatureCalories += either(10,10,20)>>
+
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $playerDamage += ($baseDamage * 1.5); $creatureGirth += ($baseDamage * 30); $enemyDamage += $baseDamage * 1.5; $creatureCalories += random(20,50)>><<endif>>
+
+<<elseif $strikeResult is "fail">>You leap at the <<print $encounter>>, <deepalert>''but miss!''</deepalert><<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% FLASH is a non-damaging attack that stuns the opponent for a round if it hits! %/
+
+
+<<if $combatAbility is "flash">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''dazes you with a sparkling light!''
+<<set $daze = 1>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''creates a dazzling light show'', <affirmative>but it fails!</affirmative><<endif>>
+
+/% =========================%/
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>You create a dazzling light show, ''stunning the <<print $encounter>>!''
+<<set $enemyDaze = 1>>
+
+<<elseif $strikeResult is "fail">>You create a dazzling light show, <deepalert>''but it fails!''</deepalert><<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% JELLY SHIELD is a diminishing defensive maneuver. %/
+
+
+<<if $combatAbility is "jelly shield">>
+
+
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> forms a<<if $strikeResult is "DEVASTATING">><brightalert>n ''INCREDIBLY tough''</brightalert><<else>> thick<<endif>> gelatinous coating around itself!
+
+<<set $enemy_shieldType = "diminish">>
+
+<<if $strikeResult is "glancing">><<set $enemy_shieldValue = ($baseDamage * 0.15)>>
+<<elseif $strikeResult is "weak">><<set $enemy_shieldValue = ($baseDamage * 0.3)>>
+<<elseif $strikeResult is "solid">><<set $enemy_shieldValue = ($baseDamage * 0.8)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemy_shieldValue = ($baseDamage * either(1.2,1.5,2))>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''attempts to shield itself'', <affirmative>but fails!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player/Companion %/
+
+<<elseif $attacker is "player">>
+
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You form a<<if $strikeResult is "DEVASTATING">><brightalert>n ''INCREDIBLY tough''</brightalert><<else>> thick<<endif>> gelatinous coating around yourself!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> forms a<<if $strikeResult is "DEVASTATING">><brightalert>n ''INCREDIBLY tough''</brightalert><<else>> thick<<endif>> gelatinous coating around you!
+
+<<endif>>
+
+<<set $shieldType = "diminish">>
+
+<<if $strikeResult is "glancing">><<set $shieldValue = ($baseDamage * 0.15)>>
+<<elseif $strikeResult is "weak">><<set $shieldValue = ($baseDamage * 0.3)>>
+<<elseif $strikeResult is "solid">><<set $shieldValue = ($baseDamage * 0.8)>>
+<<elseif $strikeResult is "DEVASTATING">><<set $shieldValue = ($baseDamage * either(1.2,1.5,2))>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''attempt to shield yourself'', <brightalert>but fail!</brightalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''attempts to shield you'', <brightalert>but fails!</brightalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+<<endif>>
+
+/% ========================================================= %/
+/% ITEMS %/
+
+/% ========================================================= %/
+/% FAT RAY rapidly fattens up the target if it hits! %/
+
+
+<<if $combatAbility is "fatray">>
+
+
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> ''zaps you with a fattening beam'', leaving you trembling as the buzzing energy inflates your body <<if $strikeResult is "DEVASTATING">><affirmative>''rapidly''</affirmative><<endif>>!
+
+<<set $lethalKO = either(0,1); $deathCause = either("explosion","fat suffocation")>>
+
+<<if $strikeResult is "glancing">>
+<<set $fatteningSurge = ($baseDamage / 2); $bellyBloat += ($baseDamage * 2); $breastBloat += ($baseDamage * 2)>>
+<<display FatSurge>>
+
+<<elseif $strikeResult is "weak">>
+<<set $fatteningSurge = $baseDamage; $bellyBloat += ($baseDamage * 5); $breastBloat += ($baseDamage * 5)>>
+<<display FatSurge>><<display FatSurge>>
+
+<<elseif $strikeResult is "solid">>
+<<set $fatteningSurge = $baseDamage; $bellyBloat += ($baseDamage * 10); $breastBloat += ($baseDamage * 10)>>
+<<display FatSurge>><<display FatSurge>><<display FatSurge>>
+
+<<elseif $strikeResult is "DEVASTATING">>
+<<set $fatteningSurge = ($baseDamage * 1.5); $bellyBloat += ($baseDamage * 20); $breastBloat += ($baseDamage * 20)>>
+<<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''fires a fattening beam at you'', <affirmative>but misses!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player %/
+
+/% =========================%/
+
+<<elseif $attacker is "player">>
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''zap the <<print $encounter>> with your fat ray'', and it shudders as its body <<if $strikeResult is "DEVASTATING">><affirmative>''rapidly''</affirmative> <<endif>>expands!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''zaps the <<print $encounter>> with its fat ray'', and it shudders as its body <<if $strikeResult is "DEVASTATING">><affirmative>''rapidly''</affirmative> <<endif>>expands!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.1); $creatureCalories += $baseDamage>>
+
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.2); $creatureCalories += ($baseDamage * 2)>>
+
+<<elseif $strikeResult is "solid">><<set $enemyDamage += ($baseDamage * 0.5); $creatureCalories += ($baseDamage * 3)>>
+
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += $baseDamage; $creatureCalories += ($baseDamage * 5)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''zap your fat ray at the <<print $encounter>>'', <deepalert>but miss!</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''zaps its fat ray at the <<print $encounter>>'', <deepalert>but misses!</deepalert><<endif>>
+
+<<endif>>
+
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+
+/% ========================================================= %/
+/% FATTENIUM DART fattens up the target if it hits! %/
+
+
+<<if $combatAbility is "fatdart">>
+
+
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $spellTarget neq 0>><<set $combatTarget = $spellTarget>><<else>><<set $combatTarget = either("body","belly","breasts","thighs")>><<endif>>
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> shoots you in the <<print $combatTarget>> with a dart... and <<if ($combatTarget is "breasts") or ($combatTarget is "thighs")>>they <<print either("swell","grow","bloat")>><<else>>it <<print either("swells","grows","bloats")>><<endif>> <<if $strikeResult is "DEVASTATING">><affirmative>MUCH</affirmative><<endif>> fatter!
+
+<<set $lethalKO = either(0,1); $deathCause = either("explosion","fat suffocation")>>
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.5)>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.1)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.1)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.1)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.3)>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "solid">><<set $playerDamage += ($baseDamage * 0.1)>>
+<<if $combatTarget is "body">><<set $girth += $baseDamage>>
+<<elseif $combatTarget is "belly">><<set $belly += $baseDamage; $bellyBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "breasts">><<set $breast += $baseDamage; $breastBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += $baseDamage; $thighFirmness -= ($baseDamage * 20)>><<endif>>
+
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * 0.05)>>
+<<if $combatTarget is "body">><<set $girth += ($baseDamage * 1.5)>>
+<<elseif $combatTarget is "belly">><<set $belly += ($baseDamage * 1.5); $bellyBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "breasts">><<set $breast += ($baseDamage * 1.5); $breastBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "thighs">><<set $thigh += ($baseDamage * 1.5); $thighFirmness -= ($baseDamage * 20)>><<endif>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''fires a dart at you'', <affirmative>but misses!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player %/
+
+/% =========================%/
+
+<<elseif $attacker is "player">>
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''shoot the <<print $encounter>> with a dart''... and it <<print either("swells","grows","bloats")>> <<if $strikeResult is "DEVASTATING">>up <affirmative>''MUCH''</affirmative><<endif>> fatter!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''shoots the <<print $encounter>> with a dart''... and it <<print either("swells","grows","bloats")>> <<if $strikeResult is "DEVASTATING">>up <affirmative>''MUCH''</affirmative><<endif>> fatter!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.01); $creatureCalories += ($baseDamage * 0.1)>>
+
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.03); $creatureCalories += ($baseDamage * 0.5)>>
+
+<<elseif $strikeResult is "solid">><<set $enemyDamage += ($baseDamage * 0.02); $creatureCalories += $baseDamage>>
+
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * 0.05); $creatureCalories += ($baseDamage * 1.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''fire a dart at the <<print $encounter>>'', <deepalert>but miss!</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''fires a dart at the <<print $encounter>>'', <deepalert>but misses!</deepalert><<endif>>
+
+<<endif>>
+
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% DISTENSIUM DART inflates the target if it hits! %/
+
+
+<<if $combatAbility is "bloatdart">>
+
+
+
+/% Enemy %/
+<<if $attacker is "enemy">>
+
+/% =========================%/
+
+<<if $spellTarget neq 0>><<set $combatTarget = $spellTarget>><<else>><<set $combatTarget = either("belly","breasts")>><<endif>>
+
+<<if $strikeResult neq "fail">>The <<print $encounter>> shoots you in the <<print $combatTarget>> with a dart... and <<if $combatTarget is "breasts">>they <<print either("swell","bloat","balloon")>><<else>>it <<print either("swells","bloats","balloons")>><<endif>> <<if $strikeResult is "DEVASTATING">><affirmative>MUCH</affirmative><<endif>> bigger and tighter!
+
+<<set $lethalKO = either(0,1); $deathCause = "explosion">>
+
+<<if $strikeResult is "glancing">><<set $playerDamage += ($baseDamage * 0.5)>>
+<<if $combatTarget is "belly">><<set $bellyBloat += ($baseDamage * 0.1)>>
+<<elseif $combatTarget is "breasts">><<set $breastBloat += ($baseDamage * 0.1)>><<endif>>
+
+<<elseif $strikeResult is "weak">><<set $playerDamage += ($baseDamage * 0.3)>>
+<<if $combatTarget is "belly">><<set $bellyBloat += ($baseDamage * 0.5)>>
+<<elseif $combatTarget is "breasts">><<set $breastBloat += ($baseDamage * 0.5)>><<endif>>
+
+<<elseif $strikeResult is "solid">><<set $playerDamage += ($baseDamage * 0.1)>>
+<<if $combatTarget is "belly">><<set $bellyBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "breasts">><<set $breastBloat += ($baseDamage * 20)>><<endif>>
+
+<<elseif $strikeResult is "DEVASTATING">><<set $playerDamage += ($baseDamage * 0.05)>>
+<<if $combatTarget is "belly">><<set $bellyBloat += ($baseDamage * 20)>>
+<<elseif $combatTarget is "breasts">><<set $breastBloat += ($baseDamage * 20)>><<endif>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $encounter>> ''fires a dart at you'', <affirmative>but misses!</affirmative><<endif>>
+
+
+/% =========================%/
+
+/% Player %/
+
+/% =========================%/
+
+<<elseif $attacker is "player">>
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''shoot the <<print $encounter>> with a dart''... and it <<print either("swells","bloats","balloons")>> <<if $strikeResult is "DEVASTATING">>up <affirmative>''MUCH''</affirmative><<endif>> bigger and tighter!
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''shoots the <<print $encounter>> with a dart''... and it <<print either("swells","bloats","balloons")>> <<if $strikeResult is "DEVASTATING">>up <affirmative>''MUCH''</affirmative><<endif>> bigger and tighter!
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.01); $creatureGirth += ($baseDamage * 0.1)>>
+
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.03); $creatureGirth += ($baseDamage * 0.5)>>
+
+<<elseif $strikeResult is "solid">><<set $enemyDamage += ($baseDamage * 0.02); $creatureGirth += $baseDamage>>
+
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * 0.05); $creatureGirth += ($baseDamage * 1.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''fire a dart at the <<print $encounter>>'', <deepalert>but miss!</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''fires a dart at the <<print $encounter>>'', <deepalert>but misses!</deepalert><<endif>>
+
+<<endif>>
+
+
+/% =========================%/
+
+<<endif>>
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% TRANQ DART gradually subdues the opponent! (NOCAPTURE = 0 ONLY) %/
+
+
+<<if $combatAbility is "tranquilize">>
+
+
+
+/% =========================%/
+
+/% Player Only %/
+
+/% =========================%/
+
+
+<<if $strikeResult neq "fail">><<print $theAttacker>> shoot<<if $companionAbility is 1>>s<<endif>> the <<print $encounter>> with a dart!
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($baseDamage * 0.01); $creatureStasis += ($baseDamage * 0.5)>>
+
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($baseDamage * 0.03); $creatureStasis += $baseDamage>>
+
+<<elseif $strikeResult is "solid">><<set $enemyDamage += ($baseDamage * 0.02); $creatureStasis += ($baseDamage * 1.2)>>
+
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($baseDamage * 0.05); $creatureStasis += ($baseDamage * 1.5)>><<endif>>
+
+<<elseif $strikeResult is "fail">><<print $theAttacker>> ''fire<<if $companionAbility is 1>>s<<endif>> a dart at the <<print $encounter>>'', <deepalert>but miss<<if $companionAbility is 1>>es<<endif>>!</deepalert><<endif>>
+
+<<if $noCapture is 0>>
+<<if ($creatureStasis gte ($encounterMaxPain * 0.5)) and ($creatureStasis lt ($encounterMaxPain * 0.75))>>
+The <<print $encounter>> <affirmative>''stumbles and falters dazedly...!''</affirmative>
+<<elseif $creatureStasis gte ($encounterMaxPain * 0.75)>>
+The <<print $encounter>> <affirmative>''looks dizzy... then collapses into a comatose heap!''</affirmative><<set $combatResult = "capture"; $combat = 0; $enemyDeath = 0; $creatureStasis = 0>><<endif>>
+<<endif>>
+
+
+/% =========================%/
+
+
+
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% STASIS SHARD automatically subdues any succeptible, capturable enemy! %/
+
+
+<<if $combatAbility is "stasis shard">>
+
+
+
+/% =========================%/
+
+/% Player Only %/
+
+You activate your <rare>''Stasis Shard''</rare>!
+The <<print $encounter>> cries out in surprise as its body weakens and falters; ''it falls helplessly!''
+
+/% =========================%/
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% ITEM is an ability called when a standard inventory item is used. %/
+
+
+<<if $combatAbility is "item">>
+
+/% =========================%/
+
+
+''You use <<print $itemGrammar>> <<print $combatItem>>!''
+
+/% =========================%/
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% THROW is an ability called when a throwable inventory item is used. %/
+
+
+<<if $combatAbility is "throw">>
+
+/% =========================%/
+
+
+<<if $strikeResult neq "fail">>
+<<if $companionAbility is 0>>
+You ''hurl <<print $itemGrammar>> <<print $combatItem>> at the <<print $encounter>>!''
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''hurls <<print $itemGrammar>> <<print $combatItem>> at the <<print $encounter>>!''
+
+<<endif>>
+
+<<if $strikeResult is "glancing">><<set $enemyDamage += ($throwDamage * 0.2)>>
+<<elseif $strikeResult is "weak">><<set $enemyDamage += ($throwDamage * 0.5)>>
+<<elseif $strikeResult is "solid">><<set $enemyDamage += $throwDamage>>
+<<elseif $strikeResult is "DEVASTATING">><<set $enemyDamage += ($throwDamage * either(1.5,1.5,2))>><<endif>>
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set $enemyDamage += ($throwDamage * 0.2)>><<endif>>
+
+<<if $throwType is "jar">>It ''shatters, covering them in <<print $throwContents>> and shards of glass!''
+
+<<if $combatItem is "jar of somnus">><<set $enemy_hallucenoVenom += random(0,3); $enemy_caloricVenom += random(0,4); $enemy_bulkVenom += random(0,2); $enemy_mutagenVenom += random(0,1)>>
+/% placeholder effect; replace mutagen venom with a leupai-specific mutagen %/
+<<elseif $combatItem is "jar of strong somnus">><<set $enemy_hallucenoVenom += random(0,6); $enemy_caloricVenom += random(0,6); $enemy_gainVenom += random(0,6); $enemy_bulkVenom += random(0,3); $enemy_mutagenVenom += random(0,3)>>
+/% placeholder effect; replace mutagen venom with a leupai-specific mutagen %/
+<<elseif $combatItem is "jar of miratoxin">><<set $enemy_hallucenoVenom += random(0,12); $enemy_caloricVenom += random(0,12); $enemy_gainVenom += random(0,12); $enemy_bulkVenom += random(0,12); $enemy_mutagenVenom += random(0,6)>>
+/% placeholder effect; replace mutagen venom with a leupai-specific mutagen %/
+<<elseif $combatItem is "jar of wild miratoxin">><<set $enemy_hallucenoVenom += random(0,12); $enemy_caloricVenom += random(0,12); $enemy_gainVenom += random(0,12); $enemy_bulkVenom += random(0,12); $enemy_mutagenVenom += random(0,12)>>
+
+<<elseif $combatItem is "jar of dilute fattenium">><<set $enemy_caloricVenom += random(0,4); $enemy_gainVenom += random(0,4); $enemy_fatteniumVenom += random(0,4)>>
+<<elseif $combatItem is "jar of fattenium">><<set $enemy_caloricVenom += random(0,8); $enemy_gainVenom += random(0,8); $enemy_fatteniumVenom += random(0,8)>>
+<<elseif $combatItem is "jar of dilute miraplasm">><<set $enemy_mutagenVenom += random(0,12); $enemy_weakeningVenom += random(0,8); $enemy_bulkVenom += random(0,8)>>
+<<elseif $combatItem is "jar of vital water">><<set $enemy_healVenom += random(0,12)>>/% placeholder effect %/
+<<elseif $combatItem is "jar of dirty water">><<set $enemy_weakeningVenom += random(0,4)>> /% placeholder effect; add a Sickness dot? %/
+<<elseif $combatItem is "jar of blood">>/% No effect yet %/
+<<elseif $combatItem is "jar of leupai blood">><<set $enemy_hallucenoVenom += random(0,4); $enemy_caloricVenom += random(0,6); $enemy_bulkVenom += random(0,1); $enemy_mutagenVenom += random(0,2)>>
+/% placeholder effect; replace mutagen venom with a leupai-specific mutagen %/
+
+<<elseif $combatItem is "jar of vitae">><<set $enemyDamage += ($encounterMaxPain * 5)>>
+<<set $randomizer = random(1,20) + ($finesse / 2)>>
+<<if $randomizer lte 3>> /% You are so fucking dead. %/
+<redalert>''You get splashed with the vitae!'' You scream as your body rapidly begins to disintegrate!</redalert><<set $playerDamage = $maxPain * 20; $lethalKO = 1; $deathCause = "vitae">><<endif>>
+
+<<elseif $combatItem is "jar of toxic venom">><<set $enemy_toxicVenom += random(0,4)>>
+<<elseif $combatItem is "jar of lethal venom">><<set $enemy_lethalVenom += random(0,4)>>
+<<elseif $combatItem is "jar of fattening venom">><<set $enemy_gainVenom += random(0,4)>>
+<<elseif $combatItem is "jar of super-fattening venom">><<set $enemy_supergainVenom += random(0,4)>>
+<<elseif $combatItem is "jar of belly-fattening venom">><<set $enemy_bellygainVenom += random(0,4)>>
+<<elseif $combatItem is "jar of belly super-fattening venom">><<set $enemy_bellySupergainVenom += random(0,4)>>
+<<elseif $combatItem is "jar of breast-fattening venom">><<set $enemy_gainVenom += random(0,4)>>
+<<elseif $combatItem is "jar of breast super-fattening venom">><<set $enemy_supergainVenom += random(0,4)>>
+<<elseif $combatItem is "jar of thigh-fattening venom">><<set $enemy_gainVenom += random(0,4)>>
+<<elseif $combatItem is "jar of thigh super-fattening venom">><<set $enemy_supergainVenom += random(0,4)>>
+<<elseif $combatItem is "jar of fattenium venom">><<set $enemy_fatteniumVenom += random(0,4)>>
+<<elseif $combatItem is "jar of bulking venom">><<set $enemy_bulkVenom += random(0,4)>>
+<<elseif $combatItem is "jar of flabbifying venom">><<set $enemy_flabbyVenom += random(0,4)>>
+<<elseif $combatItem is "jar of bloating venom">><<set $enemy_bloatVenom += random(0,4)>>
+<<elseif $combatItem is "jar of breast-bloating venom">><<set $enemy_bloatVenom += random(0,4)>>
+<<elseif $combatItem is "jar of bursting venom">><<set $enemy_burstVenom += random(0,4)>>
+<<elseif $combatItem is "jar of muscle-bloating venom">><<set $enemy_bulkVenom += random(0,4)>>/% placeholder effect %/
+<<elseif $combatItem is "jar of healing venom">><<set $enemy_healVenom += random(0,4)>>
+<<elseif $combatItem is "jar of weakening venom">><<set $enemy_weakeningVenom += random(0,4)>>
+<<elseif $combatItem is "jar of voracity venom">><<set $enemy_gluttonVenom += random(0,4)>>
+<<elseif $combatItem is "jar of caloric venom">><<set $enemy_caloricVenom += random(0,4)>>
+<<elseif $combatItem is "jar of hallucenogenic venom">><<set $enemy_hallucenoVenom += random(0,4)>>
+<<elseif $combatItem is "jar of mutagenic venom">><<set $enemy_mutagenVenom += random(0,4)>>
+<<elseif $combatItem is "jar of leucanthropic venom">><<set $enemy_hallucenoVenom += random(0,12); $enemy_caloricVenom += random(0,12); $enemy_gainVenom += random(0,12); $enemy_bulkVenom += random(0,8); $enemy_mutagenVenom += random(0,3)>>
+/% placeholder effect; replace mutagen venom with a leupai-specific mutagen %/
+
+<<endif>>
+
+<<endif>>
+
+
+
+<<elseif $strikeResult is "fail">>
+<<if $companionAbility is 0>>
+You ''hurl <<print $itemGrammar>> <<print $combatItem>> at the <<print $encounter>>'', <deepalert>but miss!</deepalert>
+
+<<elseif $companionAbility is 1>>
+<<print $theAttacker>> ''hurls <<print $itemGrammar>> <<print $combatItem>> at the <<print $encounter>>'', <deepalert>but misses!</deepalert><<endif>>
+
+<<endif>>
+
+/% =========================%/
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% COMPANIONS ONLY %/
+
+
+/% ========================================================= %/
+/% BEST FRIEND heals you. %/
+
+
+<<if $combatAbility is "best friend">>
+
+
+/% =========================%/
+
+/% Companion Only %/
+
+<<print $theAttacker>> paints your face in ''dog kisses!'' You feel ''//gross//, but your wounds are fading!''<<set $playerDamage -= ($maxPain * either(0.05,0.1,0.15,0.2,0.3))>>
+
+/% =========================%/
+
+<<endif>>
+
+
+/% ========================================================= %/
+/% BOSS ABILITIES %/
+
+
+/% ========================================================= %/
+/% PHOENIX %/
+
+/% ========================================================= %/
+/% INCANDESCENCE %/
+
+
+<<if $combatAbility is "incandescence">>
+
+/% =========================%/
+
+<nuclear>The air around Phoenix begins to pulse with infernal heat! ''You feel unwell...''</nuclear>
+<<set $incandescenceTick = 1>>
+
+<<endif>>
+
+/% ========================================================= %/
+/% SHITKICKER (friendly fire mode) %/
+
+
+<<if $combatAbility is "shitkicker">>
+
+<<set $pummelBlows = random(3,6)>>
+
+/% =========================%/
+
+<<if $strikeResult neq "fail">>Phoenix ''launches himself at you with his wings'', unleashing a <<if $strikeResult is "DEVASTATING">><redalert><<print $strikeResult>></redalert><<else>><brightalert><<print $strikeResult>></brightalert><<endif>> barrage of ''<<print $pummelBlows>> furious kicks'' into your <<print $combatTarget>>!
+
+
+<<if $strikeResult is "glancing">><<set ($playerDamage += ($baseDamage * 0.3)) * $pummelBlows>>
+<<elseif $strikeResult is "weak">><<set ($playerDamage += ($baseDamage * 0.5)) * $pummelBlows>>
+<<elseif $strikeResult is "solid">><<set ($playerDamage += ($baseDamage * 0.9)) * $pummelBlows>>
+<<elseif $strikeResult is "DEVASTATING">><<set ($playerDamage += ($baseDamage * either(1.2,1.5,1.7))) * $pummelBlows>><<endif>>
+
+<<set $lethalKO = either(0,1); $deathCause = "blunt force trauma">>
+
+/% Bonus damage for successful face shots %/
+<<if ($strikeResult neq "fail") and ($combatTarget is "face")>><<set ($playerDamage += ($baseDamage * 0.5)) * $pummelBlows>><<endif>>
+
+<<elseif $strikeResult is "fail">>Phoenix ''launches himself at you'', <affirmative>but you evade the strike!</affirmative><<endif>>
+
+<<endif>>
+
+/% ====================================================================================================%/
+
+/% ====================================================================================================%/
+/% Now, translate into actual damage %/
+
+
+/% ========================================================= %/
+/% Defense & Shielding (Imperfect) %/
+
+/% This subtracts directly from the attacker's base damage. %/
+
+<<if ($shieldValue gt 0) and ($attacker is "enemy")>>
+
+/% Player shielding %/
+<<set $playerDamage -= $shieldValue>>
+
+/% Diminishing shields are weakened over time %/
+<<if $shieldType is "diminish">><<set $shieldValue -= $playerDamage>>
+
+/% Reverb shields are strengthened over time %/
+<<elseif $shieldType is "reverb">><<set $shieldValue += ($playerDamage * either(0.1,0.2,0.3))>>
+
+/% HP shields are destroyed once their health reaches 0 %/
+<<elseif $shieldType is "HP">><<set $shieldHP -= $playerDamage>>
+<<if $shieldHP lte 0>><<set $shieldValue = 0; $shieldType = 0>><<endif>>
+
+/% Block shields immediately dissipate after a single use. %/
+<<elseif $shieldType is "block">><<set $shieldValue = 0; $shieldType = 0>>
+
+<<endif>>
+<<endif>>
+
+
+<<if ($enemy_shieldValue gt 0) and ($attacker is "player")>>
+
+/% Enemy shielding %/
+<<set $enemyDamage -= $enemy_shieldValue>>
+
+<<if $enemy_shieldType is "diminish">><<set $enemy_shieldValue -= $enemyDamage>>
+
+<<elseif $enemy_shieldType is "reverb">><<set $enemy_shieldValue += ($enemyDamage * either(0.1,0.2,0.3))>>
+
+<<elseif $enemy_shieldType is "HP">><<set $enemy_shieldHP -= $enemyDamage>>
+<<if $enemy_shieldHP lte 0>><<set $enemy_shieldValue = 0; $enemy_shieldType = 0>><<endif>>
+
+<<elseif $enemy_shieldType is "block">><<set $enemy_shieldValue = 0; $enemy_shieldType = 0>>
+
+<<endif>>
+<<endif>>
+
+
+/% ========================================================= %/
+/% Fat-based defense bonus %/
+
+<<if ($fatScore gte 5000) and ($fatScore lt 9000)>><<set $playerDamage = ($playerDamage * 0.95)>>
+<<elseif ($fatScore gte 9000) and ($fatScore lt 20000)>><<set $playerDamage = ($playerDamage * 0.9)>>
+<<elseif ($fatScore gte 20000) and ($fatScore lt 50000)>><<set $playerDamage = ($playerDamage * 0.85)>>
+<<elseif ($fatScore gte 50000) and ($fatScore lt 100000)>><<set $playerDamage = ($playerDamage * 0.80)>>
+<<elseif $fatScore gte 100000>><<set $playerDamage = ($playerDamage * 0.85)>><<endif>>
+
+
+/% ========================================================= %/
+/% Finalized damage output %/
+
+/% Enemy %/
+
+<<if $attacker is "enemy">>
+
+<<set $playerDamage = Math.round($playerDamage)>>
+
+<<if $playerDamage neq 0>><<set $pain += $playerDamage; $playerDamage = 0>><<endif>>
+
+/% Player %/
+
+<<elseif $attacker is "player">>
+
+<<set $enemyDamage = Math.round($enemyDamage)>>
+
+<<if $enemyDamage neq 0>><<set $enemyPain += $enemyDamage; $enemyDamage = 0>><<endif>>
+
+<<endif>>
+
+/% ====================================================================================================%/

@@ -1,0 +1,2 @@
+﻿<<display ZoneBackgrounds>><<display CompanionSetup>><center>[img[$encImg]]</center>
+<<nobr>><affirmative><<print "<<print $companion" + $compSlot + ">>">> ''joins your party!''</affirmative><<endnobr>><hr>[[Continue.|$saveState]]

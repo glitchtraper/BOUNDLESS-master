@@ -1,0 +1,21 @@
+﻿<<if $helpless is 0>>
+
+<<button [[Call for help!|passage()][$exploring = 2; $autoRest = 0]]>>
+
+<<button [[Rest.|passage()][$encImg = 0; $exploring = 3; $resting = 1; $autoRest = 0]]>>
+<<if $autoRest is 0>><<button [[AutoRest.|passage()][$autoRest = 1; $exploring = 3; $resting = 1; $pain -= either(0,0,0,1,2)]]>><<elseif $autoRest is 1>><<button [[AutoRest (ON)|passage()][$autoRest = 0; $exploring = 3; $resting = 1; $pain -= either(0,0,0,1,2)]]>><<endif>>
+
+<<button [[Inventory.|Inventory][$saveState = passage(); $autoRest = 0]]>>
+
+<<if $powers is 1>>
+<<button [[Powers.|SpecialPowers][$saveState = passage(); $autoRest = 0]]>><<endif>>
+
+<<if $companions gte 1>>
+<<button [[Companions.|Companions][ $autoRest = 0]]>><<endif>>
+	<<endif>>
+
+/% Robotics Controls %/
+
+<<if $special_avbot is -1>><<button [[Activate Avbot.|passage()][$saveStateAvbotTerminal = passage(); $special_avbot = 1; $avbotToggle = 0]]>><<elseif $special_avbot is 1>><<button [[Place Avbot on Standby.|$saveStateAvbotTerminal][$saveStateAvbotLocation = passage(); $special_avbot = -1; $avbotToggle = 1]]>><<endif>>
+
+<<set $helpless = 0>>

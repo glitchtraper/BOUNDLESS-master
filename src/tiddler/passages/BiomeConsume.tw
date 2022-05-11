@@ -1,0 +1,23 @@
+﻿<center><framed><<nobr>><<display ZoneBackgrounds>>
+
+/% What happens when you eat or drink from a biome. Depends on water type, biome type, and possibly other factors.
+
+Drinking from salt water should make you sick, unless there's a reason it wouldn't harm your species.
+Drinking from fresh water should have a chance of giving you parasites.
+
+Maybe area names can actually do things here... %/
+
+
+<<endnobr>><<display BiomeEffects>><<display Alertbox>>
+<<if $overrideExplore is 0>><<nobr>>
+
+<<if $consumeType is "drink">>
+<<button [[Drink more.|passage()][$consumeType = "drink"; $autoRest = 0; $repeatUse += 1]]>>
+
+<<elseif $consumeType is "eat">>
+<<button [[Eat more.|passage()][$consumeType = "eat"; $autoRest = 0; $repeatUse += 1]]>>
+
+<<endif>><<endnobr>>
+<<if $repeatUse gt 0>>(<<print $repeatUse>>)
+<<endif>>\
+<<button [[Continue.|$saveState][$repeatUse = 0; $poolSize = 0]]>><<endif>></framed></center>

@@ -1,0 +1,14 @@
+﻿<<nobr>>
+<<display ZoneBackgrounds>><<display Clocks>>
+<<endnobr>>\
+<<display ClockDisplay>>
+<<display ZoneDisplay>><<nobr>>
+
+
+/% Donsair lobby. View & interact with your collected donsair, and add tame ones to your party. %/
+
+
+<<endnobr>>
+''__Your Donsair__''<center>\
+<<display DonsairSelection>><framed>\
+<<button [[Back.|Mound][$donsairID = 0]]>></framed></center>

@@ -1,0 +1,5 @@
+﻿''__<<if ($plane is 0) and ($indoorZone is 0)>>Planet <<print $planet>>: The <<print $location>> of <<print $locName>>
+
+<<elseif ($plane is 0) and ($indoorZone is 1)>><<print $dungeonType>>
+
+<<elseif $plane neq 0>><mutation><<print $plane>>: <<print $planeRegion>></mutation><<endif>>__''

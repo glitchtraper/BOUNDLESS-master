@@ -1,0 +1,25 @@
+﻿The HYPOTHESIS scientists lead you out to another billetroa, decorated in flags and banners of the faction's crying eye emblem from the inside out.
+
+Within, you are taken down several corridors and into a mobile laboratory-- where you are strapped down to a table and injected with a variety of strange drugs.
+
+Your head spins as the world around you becomes soft, blurry, and nigh-incomprehensible.
+
+You feel the gentle buzz of scientists' psionic murmurings as they check your vitals, scanning your body with holographic readers and taking notes as the billetroa shudders to life, slipping out into the sprawling abyss of deep space before peeling back the layers of reality and phasing through.
+
+As they work and the billetroa flies towards its unknown destination, you fade in and out of consciousness, dimly aware of the telepathic conversation continuing on around you.
+
+//''We're putting you out on a tether now,''// one of the scientists says to you after a length of time you can't quite measure.
+//If you've ever gone out at the station, this will be... somewhat similar.
+
+Except after a little while, we're going to ''detach you and leave you to freefloat in space.'' This'll be your new home for now. Don't worry!
+We have your exact location mapped, and you'll be able to send for assistance, should you need it.
+
+This process is 99.9999995% safe, so there's virtually no need to worry about anything going wrong. ''It'll be up to you to oversee your population and planetary characteristics, though.'' We're going to start you out with a small number of revix to help prepare things on your surface, and then the rest is up to you.
+
+If things go well, your population should be able to eventually set up ''labs capable of granting you a new mobile incarnation'', after which you'll be able to switch viewpoints-- between your planetary body and your smaller mobile one-- as you please.
+
+As a planet, you'll have nothing to fear out here in space. Believe it or not, planets have no natural predators! ...well, perhaps other than black holes, but we've made certain that there are none of those anywhere nearby. Haha!//
+
+This is going to be a ''very different'' way of life, you imagine...
+
+<framed><center><<button [[Begin Planetary Mode|PlanetGame][$planetPhase = "expansion"]]>></center></framed>

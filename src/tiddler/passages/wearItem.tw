@@ -1,0 +1,173 @@
+﻿/% ==================================== %/
+/% New, silent clothing wear script! (2016) %/
+
+/% Next: Make code that checks if a slot is already in use, and returns that garment to the inventory before changing it, if so.
+If you get that working, it can be used for death screen clothing replacements, too! %/
+
+
+<<display ItemDatabase>>
+
+/% Stretchies %/
+/% ==================================== %/
+
+
+/% Tops %/
+/% ==================================== %/
+
+<<if $wearType is "top">>
+
+<<if ($topWorn neq "nothing") and ($topWorn neq 0)>>
+
+/% hold onto the new item name for a second, and Stash the previously worn item in this slot. %/
+
+<<set $replacementItem = $itemEncounter; $itemEncounter = $topWorn>><<display Store>>
+<<set $itemEncounter = $replacementItem>><<endif>>
+
+
+<<set $topColor = $wearColor>>
+
+<<set $topWorn = $itemEncounter; $topElasticityMax = $baseElasticity + ($breast + $belly); $topElasticity = ($breast + $belly); $topSnug = 0; $topTight = 0; $topStretched1 = 0; $topStretched2 = 0>>
+
+<<set $topSnugCap = $topElasticityMax * 0.5; $topTightCap = $topElasticityMax * 0.75>>
+
+<<set $topStatus = "snug">>
+
+
+/% Belts %/
+/% ==================================== %/
+
+<<elseif $wearType is "belt">>
+
+
+<<if ($beltWorn neq "nothing") and ($beltWorn neq 0)>>
+
+/% hold onto the new item name for a second, and Stash the previously worn item in this slot. %/
+
+<<set $replacementItem = $itemEncounter; $itemEncounter = $beltWorn>><<display Store>>
+<<set $itemEncounter = $replacementItem>><<endif>>
+
+
+<<set $beltColor = $wearColor>>
+
+<<set $beltWorn = $itemEncounter; $beltElasticityMax = $baseElasticity + $belly; $beltElasticity = $belly; $beltSnug = 0; $beltTight = 0; $beltStretched1 = 0; $beltStretched2 = 0>>
+
+<<set $beltSnugCap = $beltElasticityMax * 0.5; $beltTightCap = $beltElasticityMax * 0.75>>
+
+<<set $beltStatus = "snug">>
+
+
+/% Bottoms %/
+/% ==================================== %/
+
+<<elseif $wearType is "pants">>
+
+<<if ($pantsWorn neq "nothing") and ($pantsWorn neq 0)>>
+
+/% hold onto the new item name for a second, and Stash the previously worn item in this slot. %/
+
+<<set $replacementItem = $itemEncounter; $itemEncounter = $pantsWorn>><<display Store>>
+<<set $itemEncounter = $replacementItem>><<endif>>
+
+<<set $pantsColor = $wearColor>>
+
+<<set $pantsWorn = $itemEncounter; $pantsElasticityMax = $baseElasticity + $thigh; $pantsElasticity = $thigh; $pantsGrammar = $pantsPlural; $pantsSnug = 0; $pantsTight = 0; $pantsStretched1 = 0; $pantsStretched2 = 0>>
+
+<<set $pantsSnugCap = $pantsElasticityMax * 0.5; $pantsTightCap = $pantsElasticityMax * 0.75>>
+
+<<set $pantsStatus = "snug">>
+
+
+/% Non-Stretchies %/
+/% ==================================== %/
+
+
+/% Hats %/
+/% ==================================== %/
+
+<<elseif $wearType is "head">>
+
+<<if ($headWorn neq "nothing") and ($headWorn neq 0)>>
+
+/% hold onto the new item name for a second, and Stash the previously worn item in this slot. %/
+
+<<set $replacementItem = $itemEncounter; $itemEncounter = $headWorn>><<display Store>>
+<<set $itemEncounter = $replacementItem>><<endif>>
+
+<<set $headWorn = $itemEncounter>>
+
+<<set $headColor = $wearColor>>
+
+
+/% Masks & Glasses %/
+/% ==================================== %/
+
+<<elseif $wearType is "face">>
+
+<<if $faceWorn neq "nothing">>
+
+/% hold onto the new item name for a second, and Stash the previously worn item in this slot. %/
+
+<<set $replacementItem = $itemEncounter; $itemEncounter = $faceWorn>><<display Store>>
+<<set $itemEncounter = $replacementItem>><<endif>>
+
+<<set $faceWorn = $itemEncounter>>
+
+<<set $faceColor = $wearColor>>
+
+
+/% Gloves & Armbands %/
+/% ==================================== %/
+
+<<elseif $wearType is "arm">>
+
+<<if ($armWorn neq "nothing") and ($armWorn neq 0)>>
+
+/% hold onto the new item name for a second, and Stash the previously worn item in this slot. %/
+
+<<set $replacementItem = $itemEncounter; $itemEncounter = $armWorn>><<display Store>>
+<<set $itemEncounter = $replacementItem>><<endif>>
+
+
+<<set $armWorn = $itemEncounter>>
+
+<<set $armColor = $wearColor>>
+
+
+/% Back Accessories %/
+/% ==================================== %/
+
+<<elseif $wearType is "back">>
+
+<<if ($backWorn neq "nothing") and ($backWorn neq 0)>>
+
+/% hold onto the new item name for a second, and Stash the previously worn item in this slot. %/
+
+<<set $replacementItem = $itemEncounter; $itemEncounter = $backWorn>><<display Store>>
+<<set $itemEncounter = $replacementItem>><<endif>>
+
+
+<<set $backWorn = $itemEncounter>>
+
+<<set $backColor = $wearColor>>
+
+
+
+/% Shoes %/
+/% ==================================== %/
+
+<<elseif $wearType is "feet">>
+
+<<if ($feetWorn neq "nothing") and ($feetWorn neq 0)>>
+
+/% hold onto the new item name for a second, and Stash the previously worn item in this slot. %/
+
+<<set $replacementItem = $itemEncounter; $itemEncounter = $feetWorn>><<display Store>>
+<<set $itemEncounter = $replacementItem>><<endif>>
+
+
+<<set $feetWorn = $itemEncounter>>
+
+<<set $feetColor = $wearColor>>
+
+
+<<endif>>

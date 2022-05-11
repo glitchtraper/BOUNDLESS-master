@@ -1,0 +1,606 @@
+﻿/% ===================================== %/
+/% Abitte offerings %/
+
+/% Probably best to do this by admin here; that way we don't need to get weird with the links to figure out who reacts how to what. %/
+
+/% ===================================== %/
+
+<<if $administreStatue is "Phoenix">>
+/% =============================================== %/
+/% Phoenix's offering responses %/
+
+/% =============================================== %/
+/% Resources %/
+
+/% Phoe: Sweet, alchemy mats. %/
+
+<<if $fatteniumStock gte 100>><<button [[Offer Fattenium Powder.|passage()][$fatteniumStock -= 100; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += 3; $service = 1]]>><<endif>>
+
+<<if $miraStock gte 10>><<button [[Offer Miracrystal Dust.|passage()][$miraStock -= 100; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += 3; $service = 1]]>><<endif>>
+
+/% Phoe: u feedin me :V %/
+
+<<if $grainStock gte 100>><<button [[Offer Grain.|passage()][$grainStock -= 100; $adminResponse = "feel as though Phoenix isn't particularly impressed..."; $favorPhoenix += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $nutStock gte 50>><<button [[Offer Nuts.|passage()][$nutStock -= 50; $adminResponse = "feel as though Phoenix isn't particularly impressed..."; $favorPhoenix += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $waterStock gte 10>><<button [[Offer Water.|passage()][$waterStock -= 10; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $milkStock gte 10>><<button [[Offer Milk.|passage()][$milkStock -= 10; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $fruitStock gte 10>><<button [[Offer Fruit.|passage()][$fruitStock -= 10; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $vegStock gte 10>><<button [[Offer Vegetables.|passage()][$vegStock -= 10; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $rootStock gte 10>><<button [[Offer Roots.|passage()][$rootStock -= 10; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $eggStock gte 6>><<button [[Offer Eggs.|passage()][$eggStock -= 6; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += either(1,1,2); $service = 1]]>><<endif>>
+
+<<if $fishStock gte 4>><<button [[Offer Fish.|passage()][$fishStock -= 4; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += either(1,1,2); $service = 1]]>><<endif>>
+
+<<if $poultryStock gte 4>><<button [[Offer Poultry.|passage()][$poultryStock -= 4; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += either(1,1,2); $service = 1]]>><<endif>>
+
+<<if $meatStock gte 4>><<button [[Offer Meat.|passage()][$meatStock -= 4; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += either(1,2); $service = 1]]>><<endif>>
+
+<<if $leupaiStock gte 4>><<button [[Offer Leupai Flesh.|passage()][$leupaiStock -= 4; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += random(1,3); $service = 1]]>><<endif>>
+
+/% Phoe: yassssSS %/
+<<if $dragonStock gte 4>><<button [[Offer Dragon Meat.|passage()][$dragonStock -= 4; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+/% =============================================== %/
+/% Standard foods %/
+
+<<if $donut_fattenium gt 0>><<button [[Offer Fattenium Donut.|passage()][$donut_fattenium -= 1; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += random(0,2); $service = 1]]>><<endif>>
+
+/% Phoe: YASSSSSssss 8VVVVVVVV %/
+<<if $drink_espresso gt 0>><<button [[Offer Espresso.|passage()][$drink_espresso -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $drink_coffee gt 0>><<button [[Offer Black Coffee.|passage()][$drink_coffee -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $drink_coffee_milky gt 0>><<button [[Offer Milky Coffee.|passage()][$drink_coffee_milky -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $drink_fragrant gt 0>><<button [[Offer Bottle of Fragrant.|passage()][$drink_fragrant -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $candy_buttercandy gt 0>><<button [[Offer Buttercandy Bar.|passage()][$candy_buttercandy -= 1; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += random(0,2); $service = 1]]>><<endif>>
+
+<<if $pastry_indulgence gt 0>><<button [[Offer Indulgence Biscuits.|passage()][$pastry_indulgence -= 1; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += random(0,2); $service = 1]]>><<endif>>
+
+<<if $pastry_buttercake gt 0>><<button [[Offer Buttercake.|passage()][$pastry_buttercake -= 1; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += random(0,2); $service = 1]]>><<endif>>
+
+<<if $pastry_croissant gt 0>><<button [[Offer Huge Croissant Sandwich.|passage()][$pastry_croissant -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += random(0,3); $service = 1]]>><<endif>>
+
+<<if $pastry_belsuite gt 0>><<button [[Offer Plump Suai Belsuite.|passage()][$pastry_belsuite -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $pastry_belsuite_fat gt 0>><<button [[Offer Overstuffed Suai Belsuite.|passage()][$pastry_belsuite_fat -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += random(0,3); $service = 1]]>><<endif>>
+
+<<if $pastry_buttercake_spiked gt 0>><<button [[Offer Experimental Buttercake.|passage()][$pastry_buttercake_spiked -= 1; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += random(0,4); $service = 1]]>><<endif>>
+
+
+/% =============================================== %/
+/% Special foods %/
+
+/% Phoe: I uh... guess these... might be useful? In mass quantities..? %/
+<<if $berry_mira gte 10>><<button [[Offer Miraberry (x10).|passage()][$berry_mira -= 10; $adminResponse = "feel a sense of mild, albeit confused gratitude well up inside you..."; $favorPhoenix += 1; $service = 1]]>><<endif>>
+
+<<if $milk_strange gt 0>><<button [[Offer Strange Milk.|passage()][$milk_strange -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $cake_enormous gt 0>><<button [[Offer Enormous Cake.|passage()][$cake_enormous -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $mush_strange gt 0>><<button [[Offer Strange Mushroom.|passage()][$mush_strange -= 1; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += random(1,3); $service = 1]]>><<endif>>
+
+<<if $mush_glowing gt 0>><<button [[Offer Glowing Mushroom.|passage()][$mush_glowing -= 1; $adminResponse = "feel a sensation of calm appreciation."; $favorPhoenix += random(1,3); $service = 1]]>><<endif>>
+
+<<if $drink_science gt 0>><<button [[Offer Science Soda.|passage()][$drink_science -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+
+/% =============================================== %/
+/% Jarred liquids %/
+
+<<if $collectionjar_fattenium gt 0>><<button [[Offer Jar of Fattenium.|passage()][$collectionjar_fattenium -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_fattenium_weak gt 0>><<button [[Offer Jar of Dilute Fattenium.|passage()][$collectionjar_fattenium_weak -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_miraplasm_weak gt 0>><<button [[Offer Jar of Dilute Miraplasm.|passage()][$collectionjar_miraplasm_weak -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_miratoxin gt 0>><<button [[Offer Jar of Miratoxin.|passage()][$collectionjar_miratoxin -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_somnus gt 0>><<button [[Offer Jar of Strong Somnus.|passage()][$collectionjar_somnus -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $collectionjar_somnus_weak gt 0>><<button [[Offer Jar of Somnus.|passage()][$collectionjar_somnus_weak -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+/% Phoe: ...nooooo >:v %/
+<<if $collectionjar_vitae gt 0>><<button [[Offer Jar of Vitae.|passage()][$collectionjar_vitae -= 1; $adminResponse = "feel a wave of sudden anxiety wash over you..?"; $favorPhoenix -= random(0,2); $service = 1]]>><<endif>>
+
+<<if $collectionjar_water_vital gt 0>><<button [[Offer Jar of Vital Water.|passage()][$collectionjar_water_vital -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $collectionjar_water_dirty gt 0>><<button [[Offer Jar of Dirty Water.|passage()][$collectionjar_water_dirty -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $collectionjar_blood gt 0>><<button [[Offer Jar of Blood.|passage()][$collectionjar_blood -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $collectionjar_leupaiblood gt 0>><<button [[Offer Jar of Leupai Blood.|passage()][$collectionjar_leupaiblood -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $collectionjar_slime gt 0>><<button [[Offer Jar of Slime.|passage()][$collectionjar_slime -= 1; $adminResponse = "feel as though Phoenix isn't particularly impressed..."; $favorPhoenix += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_milk gt 0>><<button [[Offer Jar of Milk.|passage()][$collectionjar_milk -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_milk_adephagian gt 0>><<button [[Offer Jar of Adephagian Milk.|passage()][$collectionjar_milk_adephagian -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_cream gt 0>><<button [[Offer Jar of Cream.|passage()][$collectionjar_cream -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_cream_thick gt 0>><<button [[Offer Jar of Thick Cream.|passage()][$collectionjar_cream_thick -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_cream_whipped gt 0>><<button [[Offer Jar of Whipped Cream.|passage()][$collectionjar_cream_whipped -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_cream_imperial gt 0>><<button [[Offer Jar of Imperial Cream.|passage()][$collectionjar_cream_imperial -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += 1; $service = 1]]>><<endif>>
+
+<<if $collectionjar_cream_superimperial gt 0>><<button [[Offer Jar of Superb Imperial Cream.|passage()][$collectionjar_cream_superimperial -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += 1; $service = 1]]>><<endif>>
+
+<<if $collectionjar_mousse_imperial gt 0>><<button [[Offer Jar of Imperial Mousse.|passage()][$collectionjar_mousse_imperial -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += 1; $service = 1]]>><<endif>>
+
+<<if $collectionjar_milk_leupai gt 0>><<button [[Offer Jar of Leupai Milk.|passage()][$collectionjar_milk_leupai -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+/% =============================================== %/
+/% Jarred Toxins %/
+
+/% Phoe: YASSSSSssss 8VVVVVVVV %/
+<<if $collectionjar_venom_toxic gt 0>><<button [[Offer Jar of Toxic Venom.|passage()][$collectionjar_venom_toxic -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_lethal gt 0>><<button [[Offer Jar of Lethal Venom.|passage()][$collectionjar_venom_lethal -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_gain gt 0>><<button [[Offer Jar of Fattening Venom.|passage()][$collectionjar_venom_gain -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_supergain gt 0>><<button [[Offer Jar of Super-Fattening Venom.|passage()][$collectionjar_venom_supergain -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_bellygain gt 0>><<button [[Offer Jar of Belly-Fattening Venom.|passage()][$collectionjar_venom_bellygain -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_bellysupergain gt 0>><<button [[Offer Jar of Belly Super-Fattening Venom.|passage()][$collectionjar_venom_bellysupergain -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_breastgain gt 0>><<button [[Offer Jar of Breast-Fattening Venom.|passage()][$collectionjar_venom_breastgain -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_breastsupergain gt 0>><<button [[Offer Jar of Breast Super-Fattening Venom.|passage()][$collectionjar_venom_breastsupergain -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_thighgain gt 0>><<button [[Offer Jar of Thigh-Fattening Venom.|passage()][$collectionjar_venom_thighgain -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_thighsupergain gt 0>><<button [[Offer Jar of Thigh Super-Fattening Venom.|passage()][$collectionjar_venom_thighsupergain -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_fattenium gt 0>><<button [[Offer Jar of Fattenium Venom.|passage()][$collectionjar_venom_fattenium -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_bulk gt 0>><<button [[Offer Jar of Bulking Venom.|passage()][$collectionjar_venom_bulk -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_flab gt 0>><<button [[Offer Jar of Flabbifying Venom.|passage()][$collectionjar_venom_flab -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_bloat gt 0>><<button [[Offer Jar of Bloating Venom.|passage()][$collectionjar_venom_bloat -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_breastbloat gt 0>><<button [[Offer Jar of Breast-Bloating Venom.|passage()][$collectionjar_venom_breastbloat -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_burst gt 0>><<button [[Offer Jar of Bursting Venom.|passage()][$collectionjar_venom_burst -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_heal gt 0>><<button [[Offer Jar of Healing Venom.|passage()][$collectionjar_venom_heal -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_weakening gt 0>><<button [[Offer Jar of Weakening Venom.|passage()][$collectionjar_venom_weakening -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_glutton gt 0>><<button [[Offer Jar of Voracity Venom.|passage()][$collectionjar_venom_glutton -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_caloric gt 0>><<button [[Offer Jar of Caloric Venom.|passage()][$collectionjar_venom_caloric -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_hallucenogen gt 0>><<button [[Offer Jar of Hallucenogenic Venom.|passage()][$collectionjar_venom_hallucenogen -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_mutagen gt 0>><<button [[Offer Jar of Mutagenic Venom.|passage()][$collectionjar_venom_mutagen -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_leucanthropy gt 0>><<button [[Offer Jar of Leucanthropic Venom.|passage()][$collectionjar_venom_leucanthropy -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+
+/% =============================================== %/
+/% Shots %/
+
+/% Phoe: LAB TOYS :V %/
+
+/% Phoe: aaawww yeaaahhhH %/
+<<if $shot_fattenium gt 0>><<button [[Offer Fattenium Shot.|passage()][$shot_fattenium -= 1; $adminResponse = "have no doubt that Phoenix is pleased with your gift!"; $favorPhoenix += 10; $service = 1]]>><<endif>>
+
+/% Phoe: aaawWW YEAHHHHHH 8VVV %/
+<<if $shot_fattenium_pure gt 0>><<button [[Offer Pure Fattenium Shot.|passage()][$shot_fattenium_pure -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $shot_miratoxin gt 0>><<button [[Offer Miratoxin Shot.|passage()][$shot_miratoxin -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $shot_unmarked gt 0>><<button [[Offer Unmarked Injection.|passage()][$shot_unmarked -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_eggGrowth gt 0>><<button [[Offer Egg Accelerator Injection.|passage()][$shot_eggGrowth -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_belesse gt 0>><<button [[Offer M. belesse Injection.|passage()][$shot_parasite_belesse -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_miriete gt 0>><<button [[Offer M. miriete Injection.|passage()][$shot_parasite_miriete -= 1; $adminResponse = "have no doubt that Phoenix is pleased with your gift!"; $favorPhoenix += 10; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_belebaret gt 0>><<button [[Offer M. belebaret Injection.|passage()][$shot_parasite_belebaret -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_belite gt 0>><<button [[Offer M. belite Injection.|passage()][$shot_parasite_belite -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_moreauii gt 0>><<button [[Offer M. moreauii Injection.|passage()][$shot_parasite_moreauii -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_heleni gt 0>><<button [[Offer M. heleni Injection.|passage()][$shot_parasite_heleni -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_virii gt 0>><<button [[Offer L. virii Injection.|passage()][$shot_parasite_virii -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_slime gt 0>><<button [[Offer Slime Injection.|passage()][$shot_slime -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_worm gt 0>><<button [[Offer Dire Worm Injection.|passage()][$shot_worm -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_voracity gt 0>><<button [[Offer Voracity Shot.|passage()][$shot_voracity -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_satiatior gt 0>><<button [[Offer Satiator Shot.|passage()][$shot_satiatior -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_deflator gt 0>><<button [[Offer Deflator Injection.|passage()][$shot_deflator -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_miratoxin_detox gt 0>><<button [[Offer Mira-Detoxin Shot.|passage()][$shot_miratoxin_detox -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $shot_reality gt 0>><<button [[Offer Dose of Reality Injection.|passage()][$shot_reality -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $shot_antibio gt 0>><<button [[Offer Antibiotic Injection.|passage()][$shot_antibio -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $shot_antifungal gt 0>><<button [[Offer Antifungal Injection.|passage()][$shot_antifungal -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $shot_solvent gt 0>><<button [[Offer Solvent Injection.|passage()][$shot_solvent -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+
+/% =============================================== %/
+/% Meds & Boosters %/
+
+<<if $oil_leupai gt 0>><<button [[Offer Gainer Pills.|passage()][$oil_leupai -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $pill_gainer gt 0>><<button [[Offer Leupai Oil.|passage()][$pill_gainer -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $powder_calorie gt 0>><<button [[Offer Calorie Powder.|passage()][$powder_calorie -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $powder_calorie_extra gt 0>><<button [[Offer Extra Strength Calorie Powder.|passage()][$powder_calorie_extra -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $powder_calorie_max gt 0>><<button [[Offer Maximum Strength Calorie Powder.|passage()][$powder_calorie_max -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $powder_calorie_xp gt 0>><<button [[Offer Experimental Calorie Powder.|passage()][$powder_calorie_xp -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $shot_bustbillow gt 0>><<button [[Offer Bust Billower Shot.|passage()][$shot_bustbillow -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $shot_bustbillow_super gt 0>><<button [[Offer Super Bust Billower Shot.|passage()][$shot_bustbillow_super -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $shot_thighplump gt 0>><<button [[Offer Thigh Plumper Shot.|passage()][$shot_thighplump -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $shot_thighplump_super gt 0>><<button [[Offer Super Thigh Plumper Shot.|passage()][$shot_thighplump_super -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $pill_bellyboost gt 0>><<button [[Offer Belly Booster.|passage()][$pill_bellyboost -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $pill_bellyboost_super gt 0>><<button [[Offer Super Belly Booster.|passage()][$pill_bellyboost_super -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $special_puffbelly_ichor gt 0>><<button [[Offer Puffbelly Ichor.|passage()][$special_puffbelly_ichor -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $pill_bellybomb gt 0>><<button [[Offer Bellybomb.|passage()][$pill_bellybomb -= 1; $adminResponse = "have no doubt that Phoenix is pleased with your gift!"; $favorPhoenix += 10; $service = 1]]>><<endif>>
+
+<<if $pill_bellybomb_mega gt 0>><<button [[Offer Mega Bellybomb.|passage()][$pill_bellybomb_mega -= 1; $adminResponse = "feel an intense thrill race down your spine!"; $favorPhoenix += 15; $service = 1]]>><<endif>>
+
+
+/% =============================================== %/
+/% Misc Items %/
+
+<<if $special_dreamshard gt 0>><<button [[Offer Dreamshard.|passage()][$special_dreamshard -= 1; $adminResponse = "feel a sense of mild, albeit confused gratitude well up inside you..."; $favorPhoenix += random(0,1); $service = 1]]>><<endif>>
+
+<<if $special_battery gt 0>><<button [[Offer Dreamshard.|passage()][$special_battery -= 1; $adminResponse = "feel a sense of mild, albeit confused gratitude well up inside you..."; $favorPhoenix += random(0,1); $service = 1]]>><<endif>>
+
+<<if $special_miracrystal gt 0>><<button [[Offer Live Miracrystal Chunk.|passage()][$special_miracrystal -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $specimen_fyynling gt 0>><<button [[Offer Tiny Fyynling Specimen.|passage()][$specimen_fyynling -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorPhoenix += either(0,1); $service = 1]]>><<endif>>
+
+<<if $skull_tiny gt 0>><<button [[Offer Tiny Skull.|passage()][$skull_tiny -= 1; $adminResponse = "feel as though Phoenix isn't particularly impressed..."; $favorPhoenix += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $bones_tiny gt 0>><<button [[Offer Little Bones.|passage()][$bones_tiny -= 1; $adminResponse = "feel as though Phoenix isn't particularly impressed..."; $favorPhoenix += either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $fur_tuft gt 0>><<button [[Offer Tuft of Fur.|passage()][$fur_tuft -= 1; $adminResponse = "have the sudden impression that Phoenix may want to hit you."; $favorPhoenix -= either(0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $feather_tuft gt 0>><<button [[Offer Tuft of Feathers.|passage()][$feather_tuft -= 1; $adminResponse = "have the sudden impression that Phoenix may want to hit you."; $favorPhoenix -= either(0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $gun_dart gt 0>><<button [[Offer Dartgun.|passage()][$gun_dart -= 1; $adminResponse = "can almost see Phoenix nodding in approval."; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $shard_stasis gt 0>><<button [[Offer Stasis Shard.|passage()][$shard_stasis -= 1; $adminResponse = "hear Phoenix whisper determinedly that he's going to catch them all, just you wait..."; $favorPhoenix += random(1,15); $service = 1]]>><<endif>>
+
+<<if $special_carving_belly gt 0>><<button [[Offer Balloon-Bellied Leupai Carving.|passage()][$special_carving_belly -= 1; $adminResponse = "feel sudden excitement well up inside your heart!"; $favorPhoenix += 8; $service = 1]]>><<endif>>
+
+<<if $special_carving_breast gt 0>><<button [[Offer Balloon-Breasted Leupai Carving.|passage()][$special_carving_breast -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+<<if $special_carving_thigh gt 0>><<button [[Offer Balloon-Thighed Leupai Carving.|passage()][$special_carving_thigh -= 1; $adminResponse = "feel mild excitement and considerable gratitude!"; $favorPhoenix += 5; $service = 1]]>><<endif>>
+
+/% =============================================== %/
+
+<<elseif $administreStatue is "Nefirian">>
+
+/% =============================================== %/
+/% Nefirian's offering responses %/
+
+/% =============================================== %/
+/% Resources %/
+
+<<if $fatteniumStock gte 100>><<button [[Offer Fattenium Powder.|passage()][$fatteniumStock -= 100; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += 3; $service = 1]]>><<endif>>
+
+<<if $miraStock gte 10>><<button [[Offer Miracrystal Dust.|passage()][$miraStock -= 100; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += 3; $service = 1]]>><<endif>>
+
+/% Nef: No no no, I insist... %/
+
+<<if $grainStock gte 100>><<button [[Offer Grain.|passage()][$adminResponse = "have the sudden impression that Nefirian would rather you make something delicious out of this!"; $favorNefirian += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $nutStock gte 50>><<button [[Offer Nuts.|passage()][$adminResponse = "have the sudden impression that Nefirian would rather you make something delicious out of this!"; $favorNefirian += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $waterStock gte 10>><<button [[Offer Water.|passage()][$waterStock -= 10; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += either(0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $milkStock gte 10>><<button [[Offer Milk.|passage()][$milkStock -= 10; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $fruitStock gte 10>><<button [[Offer Fruit.|passage()][$adminResponse = "have the sudden impression that Nefirian would rather you make something delicious out of this!"; $favorNefirian += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $vegStock gte 10>><<button [[Offer Vegetables.|passage()][$adminResponse = "have the sudden impression that Nefirian would rather you make something delicious out of this!"; $favorNefirian += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $rootStock gte 10>><<button [[Offer Roots.|passage()][$adminResponse = "have the sudden impression that Nefirian would rather you make something delicious out of this!"; $favorNefirian += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $eggStock gte 6>><<button [[Offer Eggs.|passage()][$adminResponse = "have the sudden impression that Nefirian would rather you make something delicious out of this!"; $favorNefirian += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $fishStock gte 4>><<button [[Offer Fish.|passage()][$adminResponse = "have the sudden impression that Nefirian would rather you make something delicious out of this!"; $favorNefirian += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $poultryStock gte 4>><<button [[Offer Poultry.|passage()][$adminResponse = "have the sudden impression that Nefirian would rather you make something delicious out of this!"; $favorNefirian += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $meatStock gte 4>><<button [[Offer Meat.|passage()][$adminResponse = "have the sudden impression that Nefirian would rather you make something delicious out of this!"; $favorNefirian += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $leupaiStock gte 4>><<button [[Offer Leupai Flesh.|passage()][$adminResponse = "have the sudden impression that Nefirian would rather you make something delicious out of this!"; $favorNefirian += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $dragonStock gte 4>><<button [[Offer Dragon Meat.|passage()][$adminResponse = "have the sudden impression that Nefirian would rather you make something delicious out of this!"; $favorNefirian += either(0,0,0,0,0,0,0,1); $service = 1]]>><<endif>>
+
+/% =============================================== %/
+/% Standard foods %/
+
+<<if $donut_fattenium gt 0>><<button [[Offer Fattenium Donut.|passage()][$adminResponse = "can feel Nefirian gently urging you to eat it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $drink_espresso gt 0>><<button [[Offer Espresso.|passage()][$drink_espresso -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += 3; $service = 1]]>><<endif>>
+
+<<if $drink_coffee gt 0>><<button [[Offer Black Coffee.|passage()][$drink_coffee -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += 3; $service = 1]]>><<endif>>
+
+<<if $drink_coffee_milky gt 0>><<button [[Offer Milky Coffee.|passage()][$drink_coffee_milky -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += 3; $service = 1]]>><<endif>>
+
+<<if $drink_fragrant gt 0>><<button [[Offer Bottle of Fragrant.|passage()][$drink_fragrant -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += 3; $service = 1]]>><<endif>>
+
+<<if $candy_buttercandy gt 0>><<button [[Offer Buttercandy Bar.|passage()][$adminResponse = "can feel Nefirian gently urging you to eat it on jeir behalf!"; $rejectOffering = 1; $favorNefirian += either(0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $pastry_indulgence gt 0>><<button [[Offer Indulgence Biscuits.|passage()][$adminResponse = "can feel Nefirian gently urging you to eat it on jeir behalf!"; $rejectOffering = 1; $favorNefirian += either(0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $pastry_buttercake gt 0>><<button [[Offer Buttercake.|passage()][$adminResponse = "can feel Nefirian gently urging you to eat it on jeir behalf!"; $rejectOffering = 1; $favorNefirian += either(0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $pastry_croissant gt 0>><<button [[Offer Huge Croissant Sandwich.|passage()][$adminResponse = "can feel Nefirian gently urging you to eat it on jeir behalf!"; $rejectOffering = 1; $favorNefirian += either(0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $pastry_belsuite gt 0>><<button [[Offer Plump Suai Belsuite.|passage()][$adminResponse = "can feel Nefirian gently urging you to eat it on jeir behalf!"; $rejectOffering = 1; $favorNefirian += either(0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $pastry_belsuite_fat gt 0>><<button [[Offer Overstuffed Suai Belsuite.|passage()][$adminResponse = "can feel Nefirian gently urging you to eat it on jeir behalf!"; $rejectOffering = 1; $favorNefirian += either(0,0,0,1); $service = 1]]>><<endif>>
+
+<<if $pastry_buttercake_spiked gt 0>><<button [[Offer Experimental Buttercake.|passage()][$adminResponse = "can feel Nefirian gently urging you to eat it on jeir behalf!"; $rejectOffering = 1; $favorNefirian += either(0,0,0,1); $service = 1]]>><<endif>>
+
+
+/% =============================================== %/
+/% Special foods %/
+
+<<if $berry_mira gte 10>><<button [[Offer Miraberry (x10).|passage()][$adminResponse = "can feel Nefirian gently urging you to eat it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $milk_strange gt 0>><<button [[Offer Strange Milk.|passage()][$adminResponse = "can feel Nefirian gently urging you to drink it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $cake_enormous gt 0>><<button [[Offer Enormous Cake.|passage()][$adminResponse = "can feel Nefirian gently urging you to eat it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $mush_strange gt 0>><<button [[Offer Strange Mushroom.|passage()][$mush_strange -= 1; $adminResponse = "feel a sensation of calm appreciation."; $favorNefirian += random(1,3); $service = 1]]>><<endif>>
+
+<<if $mush_glowing gt 0>><<button [[Offer Glowing Mushroom.|passage()][$mush_glowing -= 1; $adminResponse = "feel a sensation of calm appreciation."; $favorNefirian += random(1,3); $service = 1]]>><<endif>>
+
+<<if $drink_science gt 0>><<button [[Offer Science Soda.|passage()][$drink_science -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += 3; $service = 1]]>><<endif>>
+
+
+/% =============================================== %/
+/% Jarred liquids %/
+
+/% Nef: I don't think you understand, darling... :3c %/
+
+<<if $collectionjar_fattenium gt 0>><<button [[Offer Jar of Fattenium.|passage()][$collectionjar_fattenium -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $fatteniumPoisoning += random(200,300); $bellyBloat = $maxBelly * 2.5; $breastBloat += $maxBreast * 5000; $bellyLiquid += 50; $pain += random(12,18); $lethalKO = 1; $deathCause = "explosion"; $favorNefirian += 10; $service = 1]]>><<endif>>
+
+<<if $collectionjar_fattenium_weak gt 0>><<button [[Offer Jar of Dilute Fattenium.|passage()][$collectionjar_fattenium_weak -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $fatteniumPoisoning += either(50,60,70,80); $bellyBloat = $maxBelly * 1.1; $breastBloat += $breast; $bellyLiquid += 50; $pain += random(2,7); $lethalKO = 1; $deathCause = "explosion"; $favorNefirian += 10; $service = 1]]>><<endif>>
+
+<<if $collectionjar_miraplasm_weak gt 0>><<button [[Offer Jar of Dilute Miraplasm.|passage()][$collectionjar_miraplasm_weak -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $mirajinRads += random(80,350); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_miratoxin gt 0>><<button [[Offer Jar of Miratoxin.|passage()][$collectionjar_miratoxin -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $miraPoisoning += random(12,36); $bellyBloat = $maxBelly * 1.1; $calories += either(100,110,120,130,140,150,200,250); $bellyLiquid += 50; $pain += random(1,3); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly"; $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_somnus gt 0>><<button [[Offer Jar of Strong Somnus.|passage()][$collectionjar_somnus -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $miraPoisoning += random(3,8); $bellyBloat = $maxBelly * 1.1; $calories += either(100,110,120,130,140,150,200,250); $bellyLiquid += 50; $pain += random(1,3); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly"; $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_somnus_weak gt 0>><<button [[Offer Jar of Somnus.|passage()][$collectionjar_somnus_weak -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $miraPoisoning += random(3,8); $bellyBloat = $maxBelly * 1.1; $calories += either(100,110,120,130,140,150,200,250); $bellyLiquid += 50; $pain += random(1,3); $health = "Sore"; $lethalKO = 1; $deathCause = "burst belly"; $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_vitae gt 0>><<button [[Offer Jar of Vitae.|passage()][$collectionjar_vitae -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_water_vital gt 0>><<button [[Offer Jar of Vital Water.|passage()][$collectionjar_water_vital -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_water_dirty gt 0>><<button [[Offer Jar of Dirty Water.|passage()][$collectionjar_water_dirty -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_blood gt 0>><<button [[Offer Jar of Blood.|passage()][$collectionjar_blood -= 1; $adminResponse = "feel sudden hunger and deep gratitude wash over you!"; $favorNefirian += 12; $service = 1]]>><<endif>>
+
+<<if $collectionjar_leupaiblood gt 0>><<button [[Offer Jar of Leupai Blood.|passage()][$collectionjar_leupaiblood -= 1; $adminResponse = "feel sudden hunger and deep gratitude wash over you!"; $favorNefirian += 12; $favorNefirian += 8; $service = 1]]>><<endif>>
+
+<<if $collectionjar_slime gt 0>><<button [[Offer Jar of Slime.|passage()][$collectionjar_slime -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $collectionjar_milk gt 0>><<button [[Offer Jar of Milk.|passage()][$collectionjar_milk -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_milk_adephagian gt 0>><<button [[Offer Jar of Adephagian Milk.|passage()][$collectionjar_milk_adephagian -= 1; $adminResponse = "feel a sense of mild gratitude well up inside you."; $favorNefirian += either(0,0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_cream gt 0>><<button [[Offer Jar of Cream.|passage()][$adminResponse = "can feel Nefirian gently urging you to drink it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $collectionjar_cream_thick gt 0>><<button [[Offer Jar of Thick Cream.|passage()][$adminResponse = "can feel Nefirian gently urging you to drink it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $collectionjar_cream_whipped gt 0>><<button [[Offer Jar of Whipped Cream.|passage()][$adminResponse = "can feel Nefirian gently urging you to drink it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $collectionjar_cream_imperial gt 0>><<button [[Offer Jar of Imperial Cream.|passage()][$adminResponse = "can feel Nefirian gently urging you to drink it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $collectionjar_cream_superimperial gt 0>><<button [[Offer Jar of Superb Imperial Cream.|passage()][$collectionjar_cream_superimperial -= 1; $collectionjar_mousse_imperial += 1; $adminResponse = "watch in surprise as the jar vanishes, leaving another in its place!"; $favorNefirian += either(0,1); $service = 1]]>><<endif>>
+
+<<if $collectionjar_mousse_imperial gt 0>><<button [[Offer Jar of Imperial Mousse.|passage()][$adminResponse = "can feel Nefirian gently urging you to eat it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $collectionjar_milk_leupai gt 0>><<button [[Offer Jar of Leupai Milk.|passage()][$adminResponse = "can feel Nefirian gently urging you to drink it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+/% =============================================== %/
+/% Jarred Toxins %/
+
+<<if $collectionjar_venom_toxic gt 0>><<button [[Offer Jar of Toxic Venom.|passage()][$collectionjar_venom_toxic -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_lethal gt 0>><<button [[Offer Jar of Lethal Venom.|passage()][$collectionjar_venom_lethal -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_gain gt 0>><<button [[Offer Jar of Fattening Venom.|passage()][$collectionjar_venom_gain -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $supergainVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_supergain gt 0>><<button [[Offer Jar of Super-Fattening Venom.|passage()][$collectionjar_venom_supergain -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $supergainVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_bellygain gt 0>><<button [[Offer Jar of Belly-Fattening Venom.|passage()][$collectionjar_venom_bellygain -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $bellySupergainVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_bellysupergain gt 0>><<button [[Offer Jar of Belly Super-Fattening Venom.|passage()][$collectionjar_venom_bellysupergain -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $bellySupergainVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_breastgain gt 0>><<button [[Offer Jar of Breast-Fattening Venom.|passage()][$collectionjar_venom_breastgain -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $breastgainVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_breastsupergain gt 0>><<button [[Offer Jar of Breast Super-Fattening Venom.|passage()][$collectionjar_venom_breastsupergain -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $breastSupergainVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_thighgain gt 0>><<button [[Offer Jar of Thigh-Fattening Venom.|passage()][$collectionjar_venom_thighgain -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $thighgainVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_thighsupergain gt 0>><<button [[Offer Jar of Thigh Super-Fattening Venom.|passage()][$collectionjar_venom_thighsupergain -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $thighSupergainVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_fattenium gt 0>><<button [[Offer Jar of Fattenium Venom.|passage()][$collectionjar_venom_fattenium -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $fatteniumVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_bulk gt 0>><<button [[Offer Jar of Bulking Venom.|passage()][$collectionjar_venom_bulk -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $bulkVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_flab gt 0>><<button [[Offer Jar of Flabbifying Venom.|passage()][$collectionjar_venom_flab -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $flabbyVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_bloat gt 0>><<button [[Offer Jar of Bloating Venom.|passage()][$collectionjar_venom_bloat -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_breastbloat gt 0>><<button [[Offer Jar of Breast-Bloating Venom.|passage()][$collectionjar_venom_breastbloat -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_burst gt 0>><<button [[Offer Jar of Bursting Venom.|passage()][$collectionjar_venom_burst -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_heal gt 0>><<button [[Offer Jar of Healing Venom.|passage()][$collectionjar_venom_heal -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_weakening gt 0>><<button [[Offer Jar of Weakening Venom.|passage()][$collectionjar_venom_weakening -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_glutton gt 0>><<button [[Offer Jar of Voracity Venom.|passage()][$collectionjar_venom_glutton -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $gluttonVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_caloric gt 0>><<button [[Offer Jar of Caloric Venom.|passage()][$collectionjar_venom_caloric -= 1; $adminResponse = "cry out in shock as you suddenly pour it down your OWN throat! In the back of your mind, you can sense Nefirian's delight..."; $caloricVenom += random(12,18); $favorNefirian += 25; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_hallucenogen gt 0>><<button [[Offer Jar of Hallucenogenic Venom.|passage()][$collectionjar_venom_hallucenogen -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_mutagen gt 0>><<button [[Offer Jar of Mutagenic Venom.|passage()][$collectionjar_venom_mutagen -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $collectionjar_venom_leucanthropy gt 0>><<button [[Offer Jar of Leucanthropic Venom.|passage()][$adminResponse = "can feel Nefirian gently urging you to drink it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+
+/% =============================================== %/
+/% Shots %/
+
+<<if $shot_fattenium gt 0>><<button [[Offer Fattenium Shot.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_fattenium_pure gt 0>><<button [[Offer Pure Fattenium Shot.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_miratoxin gt 0>><<button [[Offer Miratoxin Shot.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_unmarked gt 0>><<button [[Offer Unmarked Injection.|passage()][$shot_unmarked -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_eggGrowth gt 0>><<button [[Offer Egg Accelerator Injection.|passage()][$shot_eggGrowth -= 1; $adminResponse = "cry out in shock as your belly suddenly bulges, growing full and heavy! You can feel Nefirian's mirth..."; $favorNefirian += 15; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_belesse gt 0>><<button [[Offer M. belesse Injection.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_miriete gt 0>><<button [[Offer M. miriete Injection.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_belebaret gt 0>><<button [[Offer M. belebaret Injection.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_belite gt 0>><<button [[Offer M. belite Injection.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_moreauii gt 0>><<button [[Offer M. moreauii Injection.|passage()][$shot_parasite_moreauii -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_heleni gt 0>><<button [[Offer M. heleni Injection.|passage()][$shot_parasite_heleni -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_parasite_virii gt 0>><<button [[Offer L. virii Injection.|passage()][$shot_parasite_virii -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_slime gt 0>><<button [[Offer Slime Injection.|passage()][$shot_slime -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_worm gt 0>><<button [[Offer Dire Worm Injection.|passage()][$shot_worm -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_voracity gt 0>><<button [[Offer Voracity Shot.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_satiatior gt 0>><<button [[Offer Satiator Shot.|passage()][$shot_satiatior -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_deflator gt 0>><<button [[Offer Deflator Injection.|passage()][$shot_deflator -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_miratoxin_detox gt 0>><<button [[Offer Mira-Detoxin Shot.|passage()][$shot_miratoxin_detox -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_reality gt 0>><<button [[Offer Dose of Reality Injection.|passage()][$shot_reality -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_antibio gt 0>><<button [[Offer Antibiotic Injection.|passage()][$shot_antibio -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_antifungal gt 0>><<button [[Offer Antifungal Injection.|passage()][$shot_antifungal -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $shot_solvent gt 0>><<button [[Offer Solvent Injection.|passage()][$shot_solvent -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+
+/% =============================================== %/
+/% Meds & Boosters %/
+
+<<if $oil_leupai gt 0>><<button [[Offer Gainer Pills.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $pill_gainer gt 0>><<button [[Offer Leupai Oil.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $powder_calorie gt 0>><<button [[Offer Calorie Powder.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $powder_calorie_extra gt 0>><<button [[Offer Extra Strength Calorie Powder.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $powder_calorie_max gt 0>><<button [[Offer Maximum Strength Calorie Powder.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $powder_calorie_xp gt 0>><<button [[Offer Experimental Calorie Powder.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_bustbillow gt 0>><<button [[Offer Bust Billower Shot.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_bustbillow_super gt 0>><<button [[Offer Super Bust Billower Shot.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_thighplump gt 0>><<button [[Offer Thigh Plumper Shot.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $shot_thighplump_super gt 0>><<button [[Offer Super Thigh Plumper Shot.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $pill_bellyboost gt 0>><<button [[Offer Belly Booster.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $pill_bellyboost_super gt 0>><<button [[Offer Super Belly Booster.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $special_puffbelly_ichor gt 0>><<button [[Offer Puffbelly Ichor.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $pill_bellybomb gt 0>><<button [[Offer Bellybomb.|passage()][$pill_bellybomb -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $pill_bellybomb_mega gt 0>><<button [[Offer Mega Bellybomb.|passage()][$pill_bellybomb_mega -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+
+/% =============================================== %/
+/% Misc Items %/
+
+<<if $special_dreamshard gt 0>><<button [[Offer Dreamshard.|passage()][$special_dreamshard -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $special_battery gt 0>><<button [[Offer Battery Crystal.|passage()][$special_battery -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $special_miracrystal gt 0>><<button [[Offer Live Miracrystal Chunk.|passage()][$adminResponse = "can feel Nefirian gently urging you to hang onto it..."; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $specimen_fyynling gt 0>><<button [[Offer Tiny Fyynling Specimen.|passage()][$adminResponse = "can feel Nefirian gently urging you to use it on jeir behalf!"; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $skull_tiny gt 0>><<button [[Offer Tiny Skull.|passage()][$skull_tiny -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $bones_tiny gt 0>><<button [[Offer Little Bones.|passage()][$bones_tiny -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $fur_tuft gt 0>><<button [[Offer Tuft of Fur.|passage()][$fur_tuft -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $feather_tuft gt 0>><<button [[Offer Tuft of Feathers.|passage()][$feather_tuft -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $gun_dart gt 0>><<button [[Offer Dartgun.|passage()][$gun_dart -= 1; $dart_fattenium += 10; $adminResponse = "watch in surprise as the dartgun vanishes, leaving a set of darts in its place!"; $favorNefirian += either(0,1); $service = 1]]>><<endif>>
+
+<<if $shard_stasis gt 0>><<button [[Offer Stasis Shard.|passage()][$shard_stasis -= 1; $adminResponse = "wait for a response, but recieve none. You feel awkward."; $service = 1]]>><<endif>>
+
+<<if $special_carving_belly gt 0>><<button [[Offer Balloon-Bellied Leupai Carving.|passage()][$adminResponse = "can feel Nefirian gently urging you to hang onto it..."; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $special_carving_breast gt 0>><<button [[Offer Balloon-Breasted Leupai Carving.|passage()][$adminResponse = "can feel Nefirian gently urging you to hang onto it..."; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+<<if $special_carving_thigh gt 0>><<button [[Offer Balloon-Thighed Leupai Carving.|passage()][$adminResponse = "can feel Nefirian gently urging you to hang onto it..."; $favorNefirian += either(0,0,0,1); $rejectOffering = 1; $service = 1]]>><<endif>>
+
+/% =============================================== %/
+
+/% =============================================== %/
+/% End set. %/
+<<endif>>

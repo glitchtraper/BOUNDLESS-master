@@ -1,0 +1,6 @@
+﻿<center>[img[plate]]
+''__Alchemy__''</center>''<<if $leupaiStock gte 5>>[[Leupai Oil|passage()][$stretchMod += 5; $leupaiStock -= 5; $cooked = 1; $cookMessage = "You use the Leupai Oil! Your belly feels a little bit more elastic!"]]<<else>>//Leupai Oil//<<endif>>'' ♦ <<print $leupaiStock>>/5 ''Leupai Flesh''
+<<nobr>>
+<<endnobr>>''<<if ($leupaiStock gte 2) and ($miraStock gte 3) and ($waterStock gte 2)>>[[Calorie Booster|passage()][$calories += 200; $bonusEnergy += 150; $leupaiStock -= 2; $miraStock -= 3; $waterStock -= 2; $cooked = 1; $cookMessage = "You inject the Calorie Booster! Your stomach gurgles..."]]<<else>>//Calorie Booster//<<endif>>'' ♦ <<print $leupaiStock>>/2 ''Leupai Flesh'' ♦ <<print $miraStock>>/3 ''Miracrystal Dust'' ♦ <<print $waterStock>>/2 ''Water''
+<<nobr>>
+<<endnobr>>''<<if ($fatteniumStock gte 150) and ($waterStock gte 5)>>[[Fattenium Shot|useItem][$itemEncounter = "fattenium shot"; $saveStateItem = passage(); $fatteniumStock -= 150; $waterStock -= 5; $cooked = 1; $cookMessage = "Your body jiggles as the last of the fattenium is absorbed into your system..."]]<<else>>//Pure Fattenium Shot//<<endif>>'' ♦ <<print $fatteniumStock>>/150 ''Fattenium Powder'' ♦ <<print $waterStock>>/5 ''Water''

@@ -1,0 +1,12 @@
+﻿/% ======================================================================== %/
+
+<<if $presetType is "special">>
+	<<set $encounterKind = "special"; $specialEncounter = $preEncounter>>
+
+<<elseif $presetType is "item">>
+	<<set $encounterKind = "item"; $itemEncounter = $preEncounter>>
+
+<<elseif $presetType is "creature">>
+	<<set $encounterKind = "creature"; $encounter = $preEncounter>>
+
+<<endif>>

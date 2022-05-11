@@ -1,0 +1,74 @@
+﻿/% ======================================================================== %/
+/% FATNESS %/
+
+/% Size modifiers for applicable creatures. Hopefully I can set this up so it can be freely modified by several different areas in the code, but for now we'll have it all happen here and in the database.
+
+Creatures which ignore the size modifiers can say so in the database, which will disable the effect and name alteration. %/
+
+/% Defaults %/
+<<set $creatureFatness = either(0,"plump","round","fat")>>
+
+/% ======================================================================== %/
+/% Planetary %/
+
+/% Base creatures shouldn't get any fatter than 'blubbery' by default ('blimplike' on mirajinic planets) %/
+
+/% Mirajinic planets %/
+<<if ($planetType is "realized") or ($planetType is "crystallized")>>
+	<<set $creatureFatness = either("plump","round","round","round","fat","fat","blubbery","gelatinous")>>
+
+<<else $planetType is "distorted">>
+	<<set $creatureFatness = either("plump","round","round","fat","fat","fat","blubbery","blubbery","gelatinous")>>
+
+<<else ($planetType is "bloated") or ($planetType is "roiling")>>
+	<<set $creatureFatness = either("round","fat","fat","fat","fat","blubbery","blubbery","blubbery","gelatinous","gelatinous","blimplike")>>
+
+/% Vital planets %/
+<<else ($planetType is "overgrown") or ($planetType is "flourishing")>>
+	<<set $creatureFatness = either(0,"plump","plump","plump","round","round","fat")>>
+
+/% Sick planets %/
+<<else $planetType is "industrialized">>
+	<<set $creatureFatness = either("sickly","sickly",0,"plump","plump","round","fat")>>
+
+<<else $planetType is "barren">>
+	<<set $creatureFatness = either("sickly",0,0,0)>>
+
+<<else ($planetType is "dying") or ($planetType is "dead")>>
+	<<set $creatureFatness = either("emaciated","sickly",0)>>
+
+<<else $planetType is "irradiated">>
+	<<set $creatureFatness = either("emaciated","sickly","sickly",0)>>
+<<endif>>
+
+/% Cold planets %/
+<<if $planetTemp is "very cold">> /% +2 stages %/
+	<<if $creatureFatness is "sickly">>
+		<<set $creatureFatness = "plump">>
+		<<elseif $creatureFatness is 0>>
+			<<set $creatureFatness = "round">>
+		<<elseif $creatureFatness is "plump">>
+			<<set $creatureFatness = "fat">>
+		<<elseif $creatureFatness is "round">>
+			<<set $creatureFatness = "blubbery">>
+		<<elseif $creatureFatness is "fat">>
+			<<set $creatureFatness = "blubbery">><<endif>>
+
+<<elseif $planetTemp is "cold">>  /% +1 stage %/
+	<<if $creatureFatness is "sickly">>
+		<<set $creatureFatness = 0>>
+		<<elseif $creatureFatness is 0>>
+			<<set $creatureFatness = "plump">>
+		<<elseif $creatureFatness is "plump">>
+			<<set $creatureFatness = "round">>
+		<<elseif $creatureFatness is "round">>
+			<<set $creatureFatness = "fat">>
+		<<elseif $creatureFatness is "fat">>
+			<<set $creatureFatness = "blubbery">><<endif>>
+<<endif>>
+
+
+/% Throw out fatness modifiers for creatures that shouldn't have them. %/
+
+<<if $noFatMod is 1>>
+<<set $creatureFatness = 0>><<endif>>

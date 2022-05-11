@@ -1,0 +1,59 @@
+﻿<<display ZoneBackgrounds>><<nobr>>
+
+/% Slightly different than storing quaggies, since you have to grab the info from the database and put it somewhere first %/
+
+<<set $compSlot = 4; $companionSelected = 4>>
+
+<<display CompanionDatabase>>
+
+/% Get the earliest empty slot and store the selected companion in it. %/
+/% Slot selection. %/
+
+<<print "<<if $dons" + $donsairID + " neq 0>><<set $donsairID += 1>><<else>><<set $storeGo = 1>><<endif>>">>
+
+<<endnobr>><<if $storeGo is 1>><<nobr>>
+
+/% Setup: name %/
+	<<print "<<set $dons" + $donsairID + " = $companion" + $companionSelected + ">>">>
+	<<print "<<set $dons" + $donsairID + "Nameable = $companion" + $companionSelected + "Nameable>>">>
+
+/% Image, species, subspecies, subtype. %/
+	<<print "<<set $dons" + $donsairID + "img = $companion" + $companionSelected + "img; $dons" + $donsairID + "Spec = $companion" + $companionSelected + "Species; $dons" + $donsairID + "Subspec = $companion" + $companionSelected + "Subspec; $dons" + $donsairID + "Subtype = $companion" + $companionSelected + "Subtype>>">>
+
+/% Mini-Donsair %/
+	<<print "<<set $dons" + $donsairID + "Mini = $companion" + $companionSelected + "Mini>>">>
+
+/% Diet %/
+	<<print "<<set $dons" + $donsairID + "Vore = $companion" + $companionSelected + "Vore>>">>
+
+/% species specials & collectibles. %/
+
+	<<print "<<set $dons" + $donsairID + "Breath = $companion" + $companionSelected + "Breath>>">>
+	<<print "<<set $dons" + $donsairID + "Venom = $companion" + $companionSelected + "Venom>>">>
+	<<print "<<set $dons" + $donsairID + "Milk = $companion" + $companionSelected + "Milk>>">>
+	<<print "<<set $dons" + $donsairID + "MilkYield = $companion" + $companionSelected + "MilkYield>>">>
+
+
+/% Stats. %/
+	<<print "<<set $dons" + $donsairID + "Power = $companion" + $companionSelected + "Power>>">>
+	<<print "<<set $dons" + $donsairID + "Finesse = $companion" + $companionSelected + "Finesse>>">>
+	<<print "<<set $dons" + $donsairID + "Girth = $companion" + $companionSelected + "Girth>>">>
+
+	<<print "<<set $dons" + $donsairID + "Color = $companion" + $companionSelected + "Color>>">>
+	<<print "<<set $dons" + $donsairID + "Facet = $companion" + $companionSelected + "Facet>>">>
+	<<print "<<set $dons" + $donsairID + "Skin = $companion" + $companionSelected + "Skin>>">>
+	<<print "<<set $dons" + $donsairID + "Ears = $companion" + $companionSelected + "Ears>>">>
+	<<print "<<set $dons" + $donsairID + "Eyes = $companion" + $companionSelected + "Eyes>>">>
+	<<print "<<set $dons" + $donsairID + "Face = $companion" + $companionSelected + "Face>>">>
+	<<print "<<set $dons" + $donsairID + "Head = $companion" + $companionSelected + "Head>>">>
+	<<print "<<set $dons" + $donsairID + "Body = $companion" + $companionSelected + "Body>>">>
+	<<print "<<set $dons" + $donsairID + "Back = $companion" + $companionSelected + "Back>>">>
+	<<print "<<set $dons" + $donsairID + "Legs = $companion" + $companionSelected + "Legs>>">>
+	<<print "<<set $dons" + $donsairID + "Tail = $companion" + $companionSelected + "Tail>>">>
+
+
+<<set $storeGo = 0>><<endnobr>><center>[img[$encImg]]</center>
+<center><framed>''<affirmative><<print "<<print $dons" + $donsairID + ">>">> heads home. </affirmative>
+See you later, <<print "<<print $dons" + $donsairID + ">>">>!''</framed>
+<<button [[Continue.|$saveState][$viewingCompanion = 0; $companionSelected = 0; $donsairID = 0; $storeCompanion = 0; $compSlot = 0]]>></center><<display CompanionCleanup>><<elseif $storeGo is 0>><center>
+<framed>[img[icon_clockload]]<brightalert>''Sending home, please wait... '' //(browser may lag; give it a minute, possibly longer if you have many donsair)//</brightalert><<timedgoto passage() .5ms>></framed></center><<endif>>

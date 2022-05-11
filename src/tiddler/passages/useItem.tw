@@ -1,0 +1,4 @@
+﻿<center><<display ZoneBackgrounds>><<display ItemDatabase>><<if ($itemEncounter is "hollow tree") and ($itemEffect is 2)>><<set $encImg = "honeygorger">>
+<<elseif ($itemEncounter is "hollow tree") and ($itemEffect is 3)>><<set $encImg = "fairyhawk">><<endif>><<display EncounterImg>>
+<framed>''<<print $itemUsed>> <<print $itemEncounter>><<if $injectLoc neq 0>> into your <<print $injectLoc>><<endif>>!''<<display ItemEffects>></framed><<nobr>><<display Effects>><<display BodySystems>><<display Vitality>><<endnobr>><<if $overrideExplore is 0>>
+<<button [[Continue.|$saveStateItem][$repeatUse = 0; $poolSize = 0]]>><<endif>></center>

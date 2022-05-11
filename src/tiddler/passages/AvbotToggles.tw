@@ -1,0 +1,92 @@
+﻿/% Swaps between P1 and Avbot modes, based on the $special_avbot and $avbot_status variables.
+
+$avbot_status switches $special_avbot on (1) and off (-1), which is controlled by the player via the status link in the story menu when an avbot is available.
+
+If the avbot is destroyed, the $special_avbot variable is set to 0. otherwise 1 and -1 are the numbers used.
+
+On: "ENGAGED"; Off: "on Standby". Broken (although it shouldn't matter, as the CriticalEvents code will set it to 0, and it won't display in the menu at all because it no longer exists): "OFFLINE" %/
+
+<<if ($special_avbot is 1) and ($avbotToggle is 0)>>
+
+/% Avbot mode ENGAGED. Stash the player's stats and replace them with the Avbot's. %/
+
+<<set $p1Biome = $location; $location = $avbotBiome; $p1BiomeName = $locName; $locName = $avbotBiomeName; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $p1Zone = $indoorZone; $indoorZone = $avbotZone; $p1Dungeon = $dungeonType; $dungeonType = $avbotDungeon>>
+
+<<set $playerSpecies = $species; $species = "avbot">>
+<<set $playerSubspecies = $subspecies; $subspecies = 0>>
+<<set $playerSubstatus = $substatus; $substatus = $avbotType>>
+<<set $playerMaxPain = $maxPain; $maxPain = $avbotMaxPain; $pain = 0>>
+
+<<set $p1BellyStatus = $bellyStatus; $bellyStatus = $avbotBellyStatus; $p1BreastStatus = $breastStatus; $breastStatus = $avbotBreastStatus; $p1MaxBelly = $maxBelly; $maxBelly = $avbotMaxBelly; $p1MaxBreast = $maxBreast; $maxBreast = $avbotMaxBreast; $p1MetaGain = $metaGain; $metaGain = $avbotMetaGain; $p1MetaBurn = $metaBurn; $metaBurn = $avbotMetaBurn; $p1MilkFat = $milkFat; $milkFat = $avbotMilkFat; $p1MilkRate = $milkRate; $milkRate = $avbotMilkRate>>
+
+<<set $playerStrength = $strength; $strength = $avbotStrength; $playerFinesse = $finesse; $finesse = $avbotFinesse; $playerEsurience = $esurience; $esurience = $avbotEsurience>>
+
+<<set $playerBodyType = $bodyType; $bodyType = $avbotBodyType; $playerGirth = $girth; $girth = $avbotGirth; $playerBreast = $breast; $breast = $avbotBreast; $playerBelly = $belly; $belly = $avbotBelly; $playerThigh = $thigh; $thigh = $avbotThigh; $playerThighFirmness = $thighFirmness; $thighFirmness = $avbotThighFirmness>>
+
+<<set $p1EarNo = $playerEarNumber; $p1Ears = $playerEars; $p1EarMut = $earMutation>>
+<<set $p1Head = $playerHead; $p1HeadMut = $headMutation; $p1Facet = $playerFacet>>
+<<set $p1EyeNo = $playerEyeNumber; $p1Eyes = $playerEyes; $p1EyeColor = $playerEyeColor; $p1EyeMut = $eyeMutation>>
+<<set $p1Face = $playerFace; $p1FaceMut = $faceMutation>>
+<<set $p1ArmNo = $playerArmNumber; $p1Arms = $playerArms; $p1ArmMut = $armMutation>>
+<<set $p1Skin = $playerSkin; $p1SkinMut = $skinMutation; $p1Color = $bodyColor>>
+<<set $p1Body = $playerBody; $p1BodyMut = $bodyMutation>>
+<<set $p1Back = $playerBack; $p1Wings = $playerWings>>
+<<set $p1LegNo = $playerLegNumber; $p1Legs = $playerLegs; $p1LegMut = $legMutation>>
+<<set $p1Tail = $playerTail; $p1TailMut = $tailMutation>>
+
+
+<<set $playerEarNumber = $AvbotEarNo; $playerEars = $AvbotEars; $earMutation = 0>>
+<<set $playerHead = $AvbotHead; $headMutation = 0; $playerFacet = 0>>
+<<set $playerEyeNumber = $AvbotEyeNo; $playerEyes = 0; $playerEyeColor = $AvbotEyeColor; $eyeMutation = 0>>
+<<set $playerFace = $AvbotFace; $faceMutation = 0>>
+<<set $playerArmNumber = $AvbotArmNo; $playerArms = $AvbotArms; $armMutation = 0>>
+<<set $playerSkin = "jelly"; $skinMutation = 0; $bodyColor = $AvbotColor>>
+<<set $playerBody = $AvbotBody; $bodyMutation = 0>>
+<<set $playerBack = $AvbotBack; $playerWings = 0>>
+<<set $playerLegNumber = $AvbotLegNo; $playerLegs = $AvbotLegs; $legMutation = 0>>
+<<set $playerTail = $AvbotTail; $tailMutation = 0>>
+
+<<set $avbotToggle = 1>>
+
+<<elseif ($special_avbot neq 1) and ($avbotToggle is 1)>>
+
+/% Avbot mode off. Stash the Avbot's location & applicable stats and restore the player's. %/
+
+<<set $avbotBiome = $location; $location = $p1Biome; $avbotBiomeName = $locName; $locName = $p1BiomeName; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $avbotZone = $indoorZone; $indoorZone = $p1Zone; $avbotDungeon = $dungeonType; $dungeonType = $p1Dungeon>>
+
+<<set $species = $playerSpecies>>
+<<set $avbotSubspecies = $subspecies; $subspecies = $playerSubspecies>>
+<<set $avbotSubstatus = $substatus; $substatus = $playerSubstatus>>
+<<set $avbotMaxPain = $maxPain; $maxPain = $playerMaxPain; $pain = 0>>
+
+<<set $avbotBellyStatus = $bellyStatus; $bellyStatus = $p1BellyStatus; $avbotBreastStatus = $breastStatus; $breastStatus = $p1BreastStatus; $avbotMaxBelly = $maxBelly; $maxBelly = $p1MaxBelly; $avbotMaxBreast = $maxBreast; $maxBreast = $p1MaxBreast; $avbotMetaGain = $metaGain; $metaGain = $p1MetaGain; $avbotMetaBurn = $metaBurn; $metaBurn = $p1MetaBurn; $avbotMilkFat = $milkFat; $milkFat = $p1MilkFat; $avbotMilkRate = $milkRate; $milkRate = $p1MilkRate>>
+
+<<set $avbotStrength = $strength; $strength = $playerStrength; $avbotFinesse = $finesse; $finesse = $playerFinesse; $avbotEsurience = $esurience; $esurience = $playerEsurience>>
+
+<<set $avbotBodyType = $bodyType; $bodyType = $playerBodyType; $avbotGirth = $girth; $girth = $playerGirth; $avbotBreast = $breast; $breast = $playerBreast; $avbotBelly = $belly; $belly = $playerBelly; $avbotThigh = $thigh; $thigh = $playerThigh; $avbotThighFirmness = $thighFirmness; $thighFirmness = $playerThighFirmness>>
+
+<<set $AvbotEarNo = $playerEarNumber; $AvbotEars = $playerEars; $AvbotEarMut = $earMutation>>
+<<set $AvbotHead = $playerHead; $AvbotHeadMut = $headMutation; $AvbotFacet = $playerFacet>>
+<<set $AvbotEyeNo = $playerEyeNumber; $AvbotEyes = $playerEyes; $AvbotEyeColor = $playerEyeColor; $AvbotEyeMut = $eyeMutation>>
+<<set $AvbotFace = $playerFace; $AvbotFaceMut = $faceMutation>>
+<<set $AvbotArmNo = $playerArmNumber; $AvbotArms = $playerArms; $AvbotArmMut = $armMutation>>
+<<set $AvbotSkin = $playerSkin; $AvbotSkinMut = $skinMutation; $AvbotColor = $bodyColor>>
+<<set $AvbotBody = $playerBody; $AvbotBodyMut = $bodyMutation>>
+<<set $AvbotBack = $playerBack; $AvbotWings = $playerWings>>
+<<set $AvbotLegNo = $playerLegNumber; $AvbotLegs = $playerLegs; $AvbotLegMut = $legMutation>>
+<<set $AvbotTail = $playerTail; $AvbotTailMut = $tailMutation>>
+
+<<set $playerEarNumber = $p1EarNo; $playerEars = $p1Ears; $earMutation = $p1EarMut>>
+<<set $playerHead = $p1Head; $headMutation = $p1HeadMut; $playerFacet = $p1Facet>>
+<<set $playerEyeNumber = $p1EyeNo; $playerEyes = $p1Eyes; $playerEyeColor = $p1EyeColor; $eyeMutation = $p1EyeMut>>
+<<set $playerFace = $p1Face; $faceMutation = $p1FaceMut>>
+<<set $playerArmNumber = $p1ArmNo; $playerArms = $p1Arms; $armMutation = $p1ArmMut>>
+<<set $playerSkin = $p1Skin; $skinMutation = $p1SkinMut; $bodyColor = $p1Color>>
+<<set $playerBody = $p1Body; $bodyMutation = $p1BodyMut>>
+<<set $playerBack = $p1Back; $playerWings = $p1Wings>>
+<<set $playerLegNumber = $p1LegNo; $playerLegs = $p1Legs; $legMutation = $p1LegMut>>
+<<set $playerTail = $p1Tail; $tailMutation = $p1TailMut>>
+
+<<set $avbotToggle = 0>>
+
+<<endif>>

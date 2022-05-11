@@ -1,0 +1,43 @@
+﻿/% Status clear for mediquerie, avbot swapping, and other things that should leave genes, curses, and other 'hard' effects alone.  %/
+
+/% Explore Overrides %/
+<<set $overrideExplore = 0>>
+
+/% Bloat %/
+<<set $breastBloat = 0; $bellyBloat = 0>>
+
+/% Helium %/
+<<set $heliumBallooned = 0; $breastPlushsplosion = 0; $bellyPlushsplosion = 0>>
+
+/% Toxins %/
+<<set $miraberryToxicity = 0; $miraberryPoisoning = 0; $mushroomToxicity = 0; $mushroomPoisoning = 0; $calpowderToxicity = 0; $calpowderPoisoning = 0; $gainerToxicity = 0; $gainPoisoning = 0; $leupoilToxicity = 0; $leupoilPoisoning = 0; $bellyfatteniumToxicity = 0; $bellyfatteniumPoisoning = 0; $breastfatteniumToxicity = 0; $breastfatteniumPoisoning = 0; $thighfatteniumToxicity = 0; $thighfatteniumPoisoning = 0; $deflaToxicity = 0; $deflaPoisoning = 0; $inflaToxicity = 0; $inflaPoisoning = 0; $fatteniumPoisoning = 0; $fatteniumCascade = 0; $helenoToxicity = 0; $helenoPoisoning = 0; $caffeineToxicity = 0; $caffeinePoisoning = 0; $vitaePPM = 0; $miraPoisoning = 0; $realizing = 0; $amalgaToxicity = 0; $amalgaPoisoning = 0; $miracoSpores = 0; $miracoInfection = 0; $leucanthropyCountdown = 0; $lawornMiratoxin = 0>>
+
+<<set $toxicOverdoseWarning = 0; $painfulOverdoseWarning = 0; $bloatOverdoseWarning = 0; $breastbloatOverdoseWarning = 0; $dizzyOverdoseWarning = 0; $jiggleOverdoseWarning = 0>>
+
+/% Leupai Eggs %/
+<<set $quaggyGirth = 0; $service = 0; $leupaiEggLoad = 0; $baseQuaggyGirth = $quaggyGirth; $quaggyRerolls = 0; $eggTimer = 0; $eggBellyExplode = 0>>
+
+
+/% Venoms %/
+<<set $toxicVenom = 0; $lethalVenom = 0; $gainVenom = 0; $supergainVenom = 0; $bellygainVenom = 0; $bellySupergainVenom = 0; $breastgainVenom = 0; $breastSupergainVenom = 0; $thighgainVenom = 0; $thighSupergainVenom = 0; $fatteniumVenom = 0; $bulkVenom = 0; $bloatVenom = 0; $burstVenom = 0; $breastbloatVenom = 0; $healVenom = 0; $gluttonVenom = 0; $caloricVenom = 0; $hallucenoVenom = 0; $mutagenVenom = 0; $flabbyVenom = 0; $weakeningVenom = 0; $leucanthropicVenom = 0; $esqueVenom = 0; $noxiousVenom = 0; $blubberVenom = 0; $ampliVenom = 0; $waterballoonVenom = 0; $witherVenom = 0; $hourglassPressureVenom = 0; $bellyPressureVenom = 0; $breastPressureVenom = 0; $thighPressureVenom = 0; $bodyPressureVenom = 0; $pearPressureVenom = 0>>
+
+/% Radiation %/
+<<set $mirajinRads = 0; $nuclearRads = 0>>
+
+/% Special Ticks %/
+<<set $heliumBallooned = 0; $fatiereFattened = 0; $voreFrenzy = 0; $burstberryBloat = 0; $cowberryBloat = 0; $billetroaExpand = 0>>
+
+/% Mutation Flags %/
+<<set $mutationFlagI = 0; $mutationFlagII = 0>>
+
+/% Mining, foraging, fishing, traps %/
+<<set $forageDecay = 0; $mineDecay = 0; $trapArmed = 0>>
+
+/% Battle favor changes %/
+<<set $nefirianFavored = 0; $phoenixFavored = 0; $namelessFavored = 0; $kaolanFavored = 0>>
+
+/% Monster & Item Effects %/
+<<set $culinetEffect = 0>>
+
+/% Combat Clears %/
+<<display CombatCleanup>>

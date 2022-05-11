@@ -1,0 +1,2177 @@
+﻿/% ========== CREATURE DATABASE ==========  %/
+
+/% $creatureCalories -  How much gi will you gain by eating this? In real world terms, a pound of food is a big deal. 1 "pound"/gi = 10 encFatten. An average dog-sized critter would be about 100.
+
+$creatureGirth - How 'filling' this creature is, in stretch terms. Again looking at a real-world example, the average human would be pretty stuffed after eating a pound of food. New Boundless characters should start there, but it shouldn't be exceedingly difficult to work you way up over time. (On the other hand, a *little* time/effort would be good.) I need to work out a good 'feel' for the bloat ranges, but for now, starting $maxBelly is 100-- roughly half the size of the starting belly girth.
+
+Try to keep all of the encBloat sizes relative to each other.
+%/
+
+<<set $creatureInfo = 0; $creatureRarity = 0; $creatureIntro = 0; $canSubmit = 0; $encounterStructure = 0; $encounterSpecial = 0; $moveset = 0; $trapCapture = 0; $noCapture = 0; $noStasis = 0; $noAbsorb = 0; $killmode = 0; $bribeID = 0; $bribeQuantity = 0; $encounterSubtype = 0; $stasisImmune = 0; $creatureElement = 0; $noFatMod = 0; $creatureDesc = 0; $encounterDesc = 0; $attackFed = 0; $encounterRace = 0; $naturalColorpool = 0; $creatureColor = 0; $encounterElement = 0; $encounterWeapon = 0; $lootRolls = 1; $aggro = 0>>
+
+/% For tiny creatures %/
+
+<<set $miniDonsair = 0; $brave = 0; $noButcher = 0; $noSnare = 0>>
+
+<<if $presetEncounter is 0>> /% Only clear these if the encounter isn't hardcoded/summoned %/
+
+<<set $playfulLeupai = 0>>
+
+/% Admin favored creatures %/
+<<set $nefirianFavored = 0; $phoenixFavored = 0; $namelessFavored = 0; $kaolanFavored = 0>><<endif>>
+
+
+
+
+/% EncounterSubtype is for battles and special creatures, mainly; if what you do during a battle causes a creature's body or type to change, encounterSubtype will transfer that alteration to the captured creature should you obtain it.
+So, for example, if you use fattening moves on a creature, it will not only become fatter, but may aquire the "adiposa" subtype, which may also make applicable body parts fatter too.
+
+Creatures with a bribeID of 0 are unbribeable. Bribe ID can literally be any variable (without the $!) in the game; item IDs, resource IDs, and even consiee ($food) or stats should work, for example.
+As long as you have enough to fulfill the bribeQuantity, you can successfully bribe that creature to join you.
+
+stasisImmune Creatures cannot be automatically captured by stasis crystals. Don't bother using this option unless a creature is marked as capturable.
+
+naturalColorpool turned to 1 designates that a creature has a chance to generate its color based on the biome instead of that species' innate set. Randomizing this (either 0,1) can set a likelihood of using biome-set colors or species default colors.
+
+A variable for color pools by biome still needs to be set up to determine that and send it where needed.
+
+noAbsorb prevents the absorb option from appearing for players who would otherwise be fat enough to absorb/instakill this monster. %/
+
+<<set $waterResource = 0; $milkResource = 0; $meatResource = 0; $fishResource = 0; $poultryResource = 0; $eggResource = 0; $grainResource = 0; $rootResource = 0; $fruitResource = 0; $vegResource = 0; $sugarResource = 0; $nutResource = 0; $fatResource = 0; $herbResource = 0; $jellyResource = 0; $dragonResource = 0; $leupaiResource = 0; $fatteniumResource = 0; $miraResource = 0; $resourceLiquid = 0; $traceFattenium = 0; $traceMirajin = 0; $bacteria = 0; $resourceType = 0; $killmode = 0; $cantFlee = 0; $encounterRace = 0; $spellTarget = 0; $encPronoun = 0; $leupaiBloated = 0>>
+
+/% Since I've forgotten-- resource markers determine what meat/fat resources a creature drops when butchered. All you need to do is mark it with a '1', now. Animals should drop meat and fat by default. %/
+
+<<set $encounterUnique = 0>>
+
+/% For creatures who should be referred to by their name without a "the" attached. %/
+
+<<display ColorWheel>>
+
+/% =================================================================================== %/
+
+/% ====================================================%/
+/% 0. Denizens. %/
+/% DENIZENS are sapient creatures spawned on a planet that allows for them. Generally, the spawning pool will only specify that a denizen should be created.
+It's the creature database's job to check what sapient species live on the current planet, select one, and then convert it into a finished interactible monster.
+
+A denizen will probably be named by its occupation for combat purposes, but converted into a 'naked' individual of its species if captured as a donsair.
+
+So for example, a wild-eyed culinet may be an arka on one given encounter, and an aladeri in another. If captured, the first 'wide-eyed culinet' will be converted into a named arka donsair, while the second will become a named aladeri donsair.
+
+It'll be a good idea to have a set of base stats by species, which can be modified later by the occupations if necessary.
+%/
+
+<<if $encounter is "denizen">>
+<<set $sapientEncounter = 1; $encounterRace = either($majorDenizen,$majorDenizen,$majorDenizen,$minorDenizen1,$minorDenizen1,$minorDenizen2)>>
+
+/% If encounter race is human or anything else that specific, it stays that. Other denizen 'races' unfold into sets.
+	Later, come up with specific occupations where necessary for flavor & settlement population. %/
+
+	<<if $encounterRace is "revix">>
+		<<set $encounter = either("wanderer","wanderer","adventurer"); $encounterRace = either("post-human","arka","arquesse","somnian","aladri","daedlan","leupai","esque","milletan","chimaera","vidan")>>
+
+	<<elseif $encounterRace is "aiouran">>
+		<<set $encounter = either("wanderer","wanderer","adventurer"); $encounterRace = either("astaran","corruvoi","geodi","ketrel","luverne","quaikl","quiann","silveni")>>
+
+	<<elseif $encounterRace is "spatial">>
+		<<set $encounter = "wanderer"; $encounterRace = either("leupai","leupai","leupai","leupai","leupai","leupai","leupai","novai")>>
+			<<if $encounterRace is "leupai">><<set $encounter = either("leupai","null"); $encounterRace = 0>><<endif>>
+
+	<<elseif $encounterRace is "valenthi">>
+		<<set $encounter = either("post-human","somnian","aladri","daedlan","leupai","null","chimaera","vidan")>>
+
+	<<elseif $encounterRace is "human">>
+		<<set $encounter = either("wanderer","refugee","refugee","adventurer")>>
+			/% Insert race-specific bonuses %/
+
+	<<else>>
+		/% placeholder %/
+		<<set $encounterRace = "placeholder"; $encounter = either("wanderer","wanderer","refugee","refugee","adventurer")>><<endif>>
+<<endif>>
+
+
+/% =================================================================================== %/
+
+/% ====================================================%/
+/% Tweaks by Sapient Race. %/
+
+
+			<<if $encounterRace is "arka">>
+				<<set $encounterDesc = "Anthropomorphic creatures typically featuring a combination of various animal features.">>
+				<<set $encounter = either("wanderer","refugee","refugee","adventurer")>>
+				<<set $encLanguage = either("English","Logos","common")>>
+
+			/% Base girth & yield %/
+			<<set $creatureCalories = random(300,1200); $creatureGirth = random(2500,4500); $meatResource = 1; $fatResource = 1>>
+
+				/% Insert race-specific bonuses %/<<endif>>
+
+			<<if $encounterRace is "astaran">>
+				<<set $encounterDesc = "A tall, muscular elf with lightly-feathered skin and scaly, taloned limbs. Its skin is dark but its eyes are bright as stars.">>
+				<<set $encLanguage = "Astar">>
+				/% Insert race-specific bonuses %/<<endif>>
+
+
+			<<if $encounterRace is "corruvoi">>
+				<<set $encounterDesc = "A large, avian creature with dark feathers and pale eyes. It's face is heavily piereced with golden rings and jewelled studs.">>
+				<<set $encLanguage = "Coarr">>
+				/% Insert race-specific bonuses %/<<endif>>
+
+
+			<<if $encounterRace is "geodi">>
+				<<set $encounterDesc = "A short, stout creature with a strange, forked nose and a full beard of moss. Its hands end in large, blunt claws that are surprisingly deft.">>
+				<<set $encLanguage = "Jodaan">>
+				/% Insert race-specific bonuses %/<<endif>>
+
+
+			<<if $encounterRace is "human">>
+				<<set $encounterDesc = "A bipedal, apelike creature, frequently encountered in even the most unexpected of places. Surprisingly resilient.">>
+				<<set $encLanguage = either("english","logos","common")>>
+
+			/% Base girth & yield %/
+			<<set $creatureCalories = random(100,200); $creatureGirth = random(800,1200); $meatResource = 1; $fatResource = 1>>
+
+				/% Insert race-specific bonuses %/<<endif>>
+
+
+			<<if $encounterRace is "ketrel">>
+				<<set $encounterDesc = "A tall, lanky creature with wide, four-toed feet and a shock of brightly coloured hair. It has a short, prehensile trunk, delicately curved tusks, and seems to exhale a pale lavender mist.">>
+				<<set $encLanguage = "Tekilina">>
+				/% Insert race-specific bonuses %/<<endif>>
+
+
+			<<if $encounterRace is "leupai">>
+				/% No bonus; treat as normal monster encounter. %/
+				<<set $encounter = "leupai"; $encounterRace = 0>>
+				<<set $encLanguage = "empulse">><<endif>>
+
+
+			<<if $encounterRace is "luverne">>
+				<<set $encounterDesc = "A wolf-like humanoid, its eyes a glowing violet in colour. It shows far too many teeth when it smiles.">>
+				<<set $encLanguage = "Lurrvn">>
+				/% Insert race-specific bonuses %/<<endif>>
+
+
+			<<if $encounterRace is "null">>
+				/% No bonus; treat as normal monster encounter. TODO, add specific null subspecies %/
+				<<set $encounter = "leupai"; $encounterRace = 0>>
+				<<set $encLanguage = "empulse">><<endif>>
+
+
+			<<if $encounterRace is "post-human">>
+				<<set $encounterDesc = "A bipedal, apelike creature, frequently encountered in even the most unexpected of places. Surprisingly resilient.">>
+				<<set $encLanguage = either("english","logos","common")>>
+
+			/% Base girth & yield %/
+			<<set $creatureCalories = random(300,1200); $creatureGirth = random(2500,4500); $meatResource = 1; $fatResource = 1>>
+
+				/% Insert race-specific bonuses %/<<endif>>
+
+			<<if $encounterRace is "quaikl">>
+				<<set $encounterDesc = "A lithe, otter-like creature with a long, prehensile tail and a brightly-coloured mane of hair. It is almost never seen apart from its quiann guardian.">>
+				<<set $encLanguage = "Quaian">>
+				/% Insert race-specific bonuses %/<<endif>>
+
+
+			<<if $encounterRace is "quiann">>
+				<<set $encounterDesc = "A massive, hulking beast with crocodile like jaws and a tail thick enough to snap a small tree in half. It is almost never seen apart from its quaikl companion.">>
+				<<set $encLanguage = "monsternoises">>
+				/% Insert race-specific bonuses %/<<endif>>
+
+
+			<<if $encounterRace is "reuaai">>
+				/% No bonus; treat as normal monster encounter. TODO, add specific reuaai subspecies %/
+				<<set $encounter = "leupai"; $encounterRace = 0>>
+				<<set $encLanguage = "empulse">><<endif>>
+
+
+			<<if $encounterRace is "silveni">><<set $encounterDesc = "A humanoid creature that smirks at you with the eyes of a cat. You swear you saw a tail twitch somewhere under its robes.">>
+				<<set $encLanguage = "Silnyai">>
+				/% Insert race-specific bonuses %/<<endif>>
+
+
+			<<if $encounterRace is "novai">>
+				<<set $encounterDesc = "A short, bat-like faery, its huge ears twitching anxiously at the slightest sound. It watches you with with eyes that glimmer like stardust.">>
+				<<set $encLanguage = "Ch-chitai">>
+				/% Insert race-specific bonuses %/<<endif>>
+
+
+			<<if $encounterRace is "saenshi">>
+				<<set $encounterDesc = "A hulking, leonine creature with pale fur and eyes that burn like coals. It eyes you as though you're a particularly tasty morsel.">>
+				<<set $encLanguage = "Aarevn">>
+				/% Insert race-specific bonuses %/<<endif>>
+
+
+
+
+
+/% =================================================================================== %/
+
+/% ====================================================%/
+/% I. Creature Pools & Generic/Placeholder Creatures. %/
+
+/% ============================================= %/
+
+		<<if $encounter is "honeygorger swarm">>
+				<<set $creatureCalories = random(10,30); $creatureGirth = random(70,110); $encounterFinesse = random(12,18); $encounterPower = random(3,18); $encounterMaxPain = random(8,24); $killmode = "biter"; $noFatMod = 1; $brave = 1>>
+
+
+			/% Capture/Trapping %/
+					<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1; $noSnare = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either("green","teal","teal","blue","blue","blue","blue","blue","blue","blue","indigo","indigo","indigo","indigo","indigo","violet","violet","black")>>
+
+			/% Combat %/
+				<<set $encounterElement = "bestial"; $moveset = 65; $lootTable = 15; $venomType = either("hallucenogenic","caloric"); $injectType = "sting"; $encounterDesc = "Robust bee-tles with shiny carapaces and a giving disposition. VERY giving..."; $noButcher = 1>><<endif>>
+
+/% ============================================= %/
+
+		<<if $encounter is "fairyhawk swarm">>
+				<<set $creatureCalories = random(10,30); $creatureGirth = random(70,110); $encounterFinesse = random(22,36); $encounterPower = random(12,30); $encounterMaxPain = random(8,24); $killmode = "biter"; $noFatMod = 1; $brave = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1,1)>>
+
+			/% Capture/Trapping %/
+					<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1; $noSnare = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either("red","orange","yellow","green","teal","blue","violet","magenta","black","white")>>
+
+			/% Combat %/
+				<<set $encounterElement = "bestial"; $moveset = 64; $lootTable = 15; $venomType = either("fattening","bellyfattening","breastfattening","thighfattening","bloating","breastbloating","bursting","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","weakening","toxic","lethal","mutagenic","gluttonous","fattenium","bulking","hallucenogenic","caloric","leucanthropic","musclebloat","esque","noxious","blubber"); $injectType = "sting"; $encounterDesc = "Large, colorful wasps with a tendency to consume and utilize toxins from their environment..."; $noButcher = 1>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "woodland bird">>
+			<<set $encounter = either("pheasant","pigeon","dove","songbird","owl"); $creatureCalories = random(10,20); $creatureGirth = random(20,50); $poultryResource = 1; $fatResource = 1>>
+
+			/% Capture/Trapping %/
+				<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1; $noSnare = 1>>
+
+			/% Biome Colors %/
+				<<set $naturalColorpool = 1>>
+
+			/% Combat stats %/
+		<<set $encounterElement = "bestial"; $moveset = 34; $lootTable = 2; $encounterSpecial = either(0,0,"fleeing"); $encounterFinesse = random(8,16); $encounterPower = random(1,3); $encounterMaxPain = 5; $noCapture = 1; $trapCapture = 1; $killmode = "defensive"; $lootRolls = random(0,3)>><<endif>>
+
+		<<if $encounter is "songbird">>
+			<<set $creatureCalories = random(10,20); $creatureGirth = random(40,80); $creatureGirth = random(350,450); $poultryResource = 1; $fatResource = 1>>
+
+			/% Capture/Trapping %/
+				<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1; $noSnare = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either("red","orange","yellow","green","teal","blue","violet","magenta","black","white"); $naturalColorpool = either(0,1)>>
+
+				/% Combat stats %/
+					<<set $encounterElement = "bestial"; $moveset = 34; $lootTable = 2; $encounterSpecial = either(0,0,"fleeing"); $encounterFinesse = random(24,48); $encounterPower = random(1,3); $encounterMaxPain = 1; $noCapture = 1; $trapCapture = 1; $killmode = "defensive"; $lootRolls = random(0,3)>>
+		<<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "borb">>
+			<<set $creatureGirth = random(1,500); $creatureCalories = $creatureGirth * random(1,5); $poultryResource = 1; $fatResource = 1>>
+
+			/% Capture/Trapping %/
+				<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1; $noSnare = 1>>
+
+			/% Biome Colors %/
+				<<set $naturalColorpool = 1>>
+
+				/% Combat stats %/
+					<<set $encounterElement = "bestial"; $moveset = 34; $lootTable = 2; $encounterSpecial = either(0,0,"fleeing"); $encounterFinesse = random(4,18); $encounterPower = random(1,6); $encounterMaxPain = random(1,12); $noCapture = 1; $trapCapture = 1; $killmode = "defensive"; $lootRolls = random(0,3); $encounterDesc = "A common bird that has grown ludicrously fat from mirajin exposure and endless feasting!">>
+		<<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "waterfowl">>
+			<<set $encounter = either("swan","goose","duck"); $creatureCalories = random(40,60); $creatureGirth = random(350,450); $poultryResource = 1; $fatResource = 1>>
+
+			/% Capture/Trapping %/
+				<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1; $noSnare = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either("white","white","white","white","white","silver","gray","gray","gray","black")>>
+
+			/% Combat stats %/
+			<<set $encounterElement = "bestial"; $moveset = 34; $lootTable = 2; $encounterFinesse = random(5,9); $encounterPower = random(4,8); $encounterMaxPain = 10; $noCapture = 1; $trapCapture = 1; $killmode = "defensive"; $lootRolls = random(0,3)>>
+			<<endif>>
+
+/% ============================================= %/
+
+		<<if $encounter is "fish">>
+				<<set $creatureCalories = random(10,20); $creatureGirth = random(40,80); $fishResource = 1; $fatResource = 1>>
+
+			/% Capture/Trapping %/
+				<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1; $noSnare = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either("red","orange","yellow","green","teal","blue","violet","magenta","black","white"); $naturalColorpool = either(0,1)>>
+
+				/% Combat stats %/
+					<<set $encounterElement = "water"; $moveset = 4; $lootTable = 3; $encounterSpecial = either(0,0,"fleeing"); $encounterFinesse = random(3,12); $encounterPower = random(1,2); $encounterMaxPain = 1; $noCapture = 1; $trapCapture = 1; $killmode = "defensive"; $lootRolls = random(0,2)>>
+		<<endif>>
+
+/% ============================================= %/
+
+		<<if $encounter is "woodland critter">>
+			<<set $encounter = either("weasel","squirrel","chipmunk","mouse","rabbit"); $creatureCalories = 10; $creatureGirth = random(20,40); $meatResource = 1; $fatResource = 1>>
+
+			/% Capture/Trapping %/
+					<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1>>
+
+			/% Biome Colors %/
+				<<set $naturalColorpool = 1>>
+
+			/% Combat stats %/
+			<<set $encounterElement = "bestial"; $moveset = 4; $lootTable = 1; $encounterFinesse = random(8,24); $encounterPower = random(1,2); $encounterMaxPain = 1; $encounterSpecial = either(0,0,0,"fleeing"); $noCapture = 1; $killmode = either(0,"defensive","defensive","defensive","biter")>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "pest critter">> /% Replace with raposui. make a unique raccoon variant too %/
+			<<set $encounter = either("rat","raccoon"); $creatureCalories = random(20,40); $creatureGirth = random(80,120); $meatResource = 1; $fatResource = 1>>
+
+			/% Capture/Trapping %/
+					<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1>>
+
+			/% Biome Colors %/
+				<<set $naturalColorpool = 1>>
+
+			/% Combat stats %/
+			<<set $encounterElement = "bestial"; $moveset = 5; $lootTable = 1; $encounterFinesse = random(4,18); $encounterPower = random(3,6); $lootTable = 1; $encounterMaxPain = 3; $encounterSpecial = either(0,0,0,0,0,"fleeing"); $noCapture = 1; $trapCapture = 1; $killmode = either(0,"defensive","defensive","defensive","biter")>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "scrub critter">>
+			/% Combat stats %/
+			<<set $encounter = either("dust snake","scrub-darter","jewel scorpion")>>
+
+/% ============================================= %/
+
+		<<if $encounter is "jewel scorpion">>
+				<<set $creatureCalories = random(10,20); $creatureGirth = random(70,110); $jellyResource = 1; $encounterFinesse = random(10,16); $encounterPower = random(3,6); $encounterMaxPain = random(3,8); $encounterSpecial = either(0,0,"fleeing"); $killmode = either(0,"defensive","defensive","defensive","biter"); $noFatMod = 1; $noCapture = 1; $trapCapture = 1>>
+
+			/% Capture/Trapping %/
+					<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1>>
+
+			/% Biome Colors %/
+				<<set $naturalColorpool = 1>>
+
+			/% Venom types %/
+				<<set $encounterElement = "bestial"; $moveset = 29; $lootTable = 16; $venomType = either("bloating","bloating","bloating","bloating","bursting","bursting","weakening","weakening","hallucenogenic","hallucenogenic","toxic","toxic","lethal"); $injectType = "sting"; $encounterDesc = "A little scorpion with a gleaming carapace. Approach with caution!">>
+
+/% ============================================= %/
+
+		<<elseif $encounter is "dust snake">>
+				<<set $creatureCalories = random(10,20); $creatureGirth = random(70,110); $encounterFinesse = random(10,16); $meatResource = 1; $fatResource = 1; $encounterPower = random(3,6); $encounterMaxPain = random(3,8); $encounterSpecial = either(0,0,"fleeing"); $killmode = either(0,"defensive","defensive","defensive","biter"); $moveset = 5; $encounterDesc = "A small, venomous serpent that was exposed to mirajin...">>
+
+			/% Capture/Trapping %/
+					<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1>>
+
+			/% Biome Colors %/
+				<<set $naturalColorpool = 1>>
+
+			/% Venom types %/
+				<<set $encounterElement = "bestial"; $moveset = 29; $lootTable = 3; $venomType = either("flabbifying","fattening","fattening","fattening","fattening","superfattening","toxic"); $injectType = "bite"; $lootRolls = random(0,2)>>
+
+/% ============================================= %/
+
+		<<elseif $encounter is "scrub-darter">>
+				<<set $encounterElement = "bestial"; $creatureCalories = random(10,20); $creatureGirth = random(70,110); $meatResource = 1; $fatResource = 1; $encounterFinesse = random(10,16); $encounterPower = random(3,6); $encounterMaxPain = random(3,8); $encounterSpecial = either(0,0,"fleeing"); $killmode = either(0,"defensive","defensive","defensive","biter"); $moveset = 5; $lootTable = 2; $encounterDesc = "A tiny dinosaur. Easy to spot, but a tricky catch!"; $noFatMod = 1; $lootRolls = random(0,2)>>
+
+			/% Capture/Trapping %/
+					<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either("red","orange","yellow","green","teal","blue","violet","magenta","black","white")>>
+		<<endif>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "farm beast">>
+			/% Biome Colors %/
+				<<set $naturalColorpool = 1>>
+			/% Combat stats %/
+			<<set $moveset = 9; $encounterFinesse = random(3,8); $encounterPower = random(5,9); $encounterMaxPain = 15>>
+			<<set $encounter = either("sheep","goat","pig"); $creatureCalories = random(30,60); $creatureGirth = random(480,600); $meatResource = 1; $fatResource = 1>><<endif>>
+
+/% =================================================================================== %/
+
+/% ====================================================%/
+/% ================== People %/
+
+		<<if $encounter is "adephagian">> /% Template. Don't have adephagians wandering around in the goddamn wild. %/
+			<<set $creatureCalories = random(800,1500); $creatureGirth = random(2500,5500); $meatResource = 1; $fatResource = 1; $encounterDesc = "A species of anthropomorphic creatures bred to grow as fat and meaty as possible; prone to extreme docility.">>
+			/% Combat stats %/
+			<<set $moveset = 6; $encounterFinesse = 1; $encounterPower = random(1,3); $encounterStructure = "vertical"; $encounterMaxPain = 30; $killmode = "defensive">><<endif>>
+
+/% ============================================================================================================ %/
+
+
+/% ============================================================================================================ %/
+/% II. Combatants (Can be captured unless otherwise flagged with $noCapture = 1) %/
+
+
+/% ================== Wildlife %/
+/% =================================================================================== %/
+
+/% ====================================================%/
+/% Woodland Beasts %/
+
+
+/% ============================================= %/
+
+			<<if $encounter is "neon crawler">>
+				<<set $creatureCalories = random(10,50); $creatureGirth = random(150,2500); $meatResource = 1; $fatResource = 1; $encounterDesc = "A giant, star-nosed worm that frequents caves and soft earth. Its back spots produce soft light.">>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('pink','magenta','red','teal','blue','indigo','violet','black','white')>>
+
+			/% Combat stats %/
+					<<set $encounterElement = "earth"; $moveset = 5; $lootTable = 7; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(3,5); $encounterPower = random(3,8); $encounterMaxPain = random(15,30)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "raposui">>
+				<<set $creatureCalories = random(10,20); $creatureGirth = random(80,150); $meatResource = 1; $fatResource = 1; $encounterDesc = "A little creature mimicking the best traits of opossums and rats. Awww!">>
+
+			/% Capture/Trapping %/
+					<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('brown','golden','yellow','gray','black','silver','white')>>
+
+			/% Combat stats %/
+					<<set $encounterElement = "bestial"; $moveset = 4; $lootTable = 1; $combatant = 0; $encounterStructure = "horizontal"; $encounterFinesse = random(3,5); $encounterPower = random(3,8); $encounterMaxPain = random(5,18); $killmode = "biter"; $noCapture = 1; $trapCapture = 1>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "voxi">>
+				<<set $creatureCalories = random(20,80); $creatureGirth = random(180,450); $meatResource = 1; $fatResource = 1; $encounterDesc = "A clever, curious little vulpine creature!">>
+
+			/% Capture/Trapping %/
+				<<set $trapCapture = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('brown','red','orange','orange','orange','golden','yellow','indigo','black','silver','white')>>
+			/% Combat stats %/
+					<<set $encounterElement = "bestial"; $moveset = 4; $lootTable = 9; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(20,28); $encounterPower = random(10,16); $encounterMaxPain = random(40,80); $killmode = "biter"; $lootRolls = random(0,2)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "arctic voxi">>
+				<<set $creatureCalories = random(50,130); $creatureGirth = random(180,450); $meatResource = 1; $fatResource = 1; $encounterDesc = "Fluffier than the standard voxi, and made for life in the snow.">>
+
+			/% Capture/Trapping %/
+				<<set $trapCapture = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('gray','silver','silver','silver','silver','blue','teal','white','white','white','white','white')>>
+
+			/% Combat stats %/
+					<<set $encounterElement = "bestial"; $moveset = 4; $lootTable = 9; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(18,24); $encounterPower = random(8,13); $encounterMaxPain = random(30,55); $killmode = "biter"; $lootRolls = random(0,2)>><<endif>>
+
+
+/% ============================================= %/
+
+	<<if $encounter is "woodland beast">> /% Pool Encounter %/
+		<<set $encounter = either("boar","wolf")>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "boar">>
+				<<set $creatureCalories = random(30,60); $creatureGirth = random(380,550); $meatResource = 1; $fatResource = 1; $bribeID = either("meatStock","fatStock","sugarStock","fruitStock","grainStock","vegStock"); $bribeQuantity = random(32,48)>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','gray','silver','white','blue','brown','brown','brown','brown','red','red','red','golden','golden'); $naturalColorpool = either(0,1,1,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 3; $lootTable = 17; $combatant = 1; $encounterFinesse = random(6,12); $encounterPower = random(15,24); $encounterMaxPain = 60>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "wolf">>
+				<<set $creatureCalories = random(30,60); $creatureGirth = random(380,550); $meatResource = 1; $fatResource = 1; $bribeID = either("meatStock","fatStock"); $bribeQuantity = random(16,24)>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,0,1)>>
+
+			/% Colorsets %/
+
+				<<set $creatureColor = either('black','gray','gray','gray','silver','white','blue','brown','brown','brown','brown','brown','brown','brown','red','golden'); $naturalColorpool = either(0,1,1,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 10; $lootTable = 17; $combatant = 1; $encounterFinesse = random(10,16); $encounterPower = random(10,18); $encounterMaxPain = 40; $killmode = "biter">><<endif>>
+
+
+/% ============================================= %/
+
+<<if $encounter is "howling wind">>
+				<<set $creatureCalories = random(30,60); $creatureGirth = random(380,550); $meatResource = 1; $fatResource = 1); $encounterDesc = "This cold, shrill wind has taken the form of a snarling beast!" $bribeID = either("meatStock","fatStock"); $bribeQuantity = random(16,24)>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1,1,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('silver','silver','silver','white','white','white','white','green','teal','teal','blue','blue','golden')>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "air"; $moveset = 10; $lootTable = 17; $combatant = 1; $encounterFinesse = random(32,64); $encounterPower = random(24,32); $encounterMaxPain = random(60,88); $killmode = "biter">><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "bird of prey">> /% Pool Encounter %/
+			<<set $encounter = either("corona hawk","Kaolani eagle","star-bound crow","merreveti raven")>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "corona hawk">>
+				<<set $creatureCalories = random(30,50); $creatureGirth = random(450,520)>><<set $poultryResource = 1; $fatResource = 1; $bribeID = either("meatStock","fatStock"); $bribeQuantity = random(4,16); $encounterDesc = "A small species of raptor with gleaming metallic plumage; incredibly swift.">>
+
+			/% Capture/Trapping %/
+				<<set $trapCapture = 1; $noSnare = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','gray','gray','gray','silver','silver','silver','white','brown','brown','red','golden','golden'); $naturalColorpool = either(0,0,0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "air"; $moveset = 51; $combatant = 1; $encounterFinesse = random(34,48); $encounterPower = random(8,10); $encounterMaxPain = 10>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "star-bound crow">>
+				<<set $creatureCalories = random(30,50); $creatureGirth = random(250,500)>><<set $poultryResource = 1; $fatResource = 1; $bribeID = either("meatStock","fatStock"); $bribeQuantity = random(8,24); $encounterDesc = "An intelligent, cheeky corvid with stars on its wings; beloved anigmates of the Nameless Dark.">>
+
+			/% Capture/Trapping %/
+				<<set $trapCapture = 1; $noSnare = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','black','black','black','indigo','indigo','indigo','indigo','blue','blue','gray','silver','white','golden'); $naturalColorpool = either(0,0,0,1)>>
+
+			/% Favor %/
+				<<set $namelessFavored = 10>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "eldritch"; $moveset = 51; $combatant = 1; $encounterFinesse = random(24,30); $encounterPower = random(10,16); $encounterMaxPain = 20; $killmode = "biter">><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "merreveti raven">>
+				<<set $creatureCalories = random(30,50); $creatureGirth = random(450,800)>><<set $poultryResource = 1; $fatResource = 1; $bribeID = either("meatStock","fatStock"); $bribeQuantity = random(16,32); $encounterDesc = "Bulky, mischevious corvids native to Merrevet. They like stealing shiny things to line their nests with.">>
+
+			/% Capture/Trapping %/
+				<<set $trapCapture = 1; $noSnare = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','black','black','black','indigo','indigo','indigo','indigo','blue'); $naturalColorpool = either(0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 51; $combatant = 1; $encounterFinesse = random(18,24); $encounterPower = random(14,18); $encounterMaxPain = 40; $killmode = "biter">><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "Kaolani eagle">>
+				<<set $creatureCalories = random(30,50); $creatureGirth = random(500,1550)>><<set $poultryResource = 1; $fatResource = 1; $bribeID = either("meatStock","fatStock"); $bribeQuantity = random(24,60); $encounterDesc = "A large, powerful bird of prey with incredible, deeply-hued plumage-- said to be from Kaolan's sacred stock.">>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('golden','golden','red','red','red','orange','orange','yellow','white'); $naturalColorpool = either(0,0,0,0,0,0,0,1)>>
+
+			/% Favor %/
+				<<set $kaolanFavored = either(0,5)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 73; $combatant = 1; $encounterFinesse = random(17,20); $encounterPower = random(16,20); $encounterMaxPain = 50; $killmode = "biter"; $lootRolls = random(0,2)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "screemer">>
+				<<set $creatureCalories = random(30,50); $creatureGirth = random(450,800)>><<set $meatResource = 1; $fatResource = 1; $bribeID = either("meatStock","fatStock"); $bribeQuantity = random(16,32); $encounterDesc = "An enormous cave bat. Prefers insects and small animals, but doesn't mind nibbling on you, too.">>
+
+			/% Capture/Trapping %/
+				<<set $trapCapture = 1; $noSnare = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','gray','gray','brown','brown','indigo','blue','pink','white'); $naturalColorpool = either(0,0,0,1)>>
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 63; $lootTable = 4; $combatant = 1; $encounterFinesse = random(18,24); $encounterPower = random(10,16); $encounterMaxPain = random(25,38); $lootRolls = random(0,2)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "drudgemol">>
+				<<set $creatureCalories = random(30,50); $creatureGirth = random(250,500); $meatResource = 1; $fatResource = 1; $encounterDesc = "These enormous moles are predictably elusive.">>
+
+			/% Capture/Trapping %/
+				<<set $trapCapture = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','black','black','black','brown','brown','brown','indigo','blue','blue','gray','silver','white','golden'); $naturalColorpool = either(0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 51; $lootTable = 4; $combatant = 1; $encounterFinesse = random(12,16); $encounterPower = random(25,33); $encounterMaxPain = random(65,150)>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "great woodland beast">> /% Pool Encounter %/
+				<<set $encounter = either("bear","deer","stag")>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "bear">>
+				<<set $creatureCalories = random(60,120); $creatureGirth = random(1800,2500)>><<set $meatResource = 1; $fatResource = 1; $bribeID = either("meatStock","fatStock"); $bribeQuantity = random(68,124)>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('brown','brown','golden','golden','yellow','white','black','black','black'); $naturalColorpool = either(0,1,1,1,1,1,1,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 3; $lootTable = 17; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(8,10); $encounterPower = random(24,40); $encounterMaxPain = random(200,300); $killmode = "biter">><<endif>>
+
+
+/% ============================================= %/
+
+			<<if ($encounter is "deer") or ($encounter is "stag")>>
+				<<set $encounter = either("deer","stag"); $creatureCalories = random(60,120); $creatureGirth = random(1800,2500); $meatResource = 1; $fatResource = 1; $bribeID = either("vegStock","fruitStock","grainStock"); $bribeQuantity = random(24,64)>>
+
+<<if $encounter is "deer">><<set $lootTable = 4>>
+
+<<elseif $encounter is "stag">><<set $lootTable = 10>><<endif>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('brown','brown','red','red','orange','golden','gray','white','black'); $naturalColorpool = either(0,1,1,1,1,1,1,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 11; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(15,20); $encounterPower = random(18,24); $encounterMaxPain = random(90,145); $lootRolls = random(0,2)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "rockcharger">>
+				<<set $creatureCalories = random(60,120); $creatureGirth = random(1800,2500); $meatResource = 1; $fatResource = 1>><<set $bribeID = either("sugarStock","fruitStock","grainStock","vegStock"); $bribeQuantity = random(40,180); $encounterDesc = "A mountain titan, these great, agile rams fear little.">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('brown','brown','brown','golden','blue','black','gray','silver','white'); $naturalColorpool = either(0,0,1,1,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 12; $lootTable = 14; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(14,22); $encounterPower = random(20,28); $encounterMaxPain = random(112,200)>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "unicorn">>
+				<<set $bribeID = either("sugarStock","fruitStock","grainStock"); $bribeQuantity = random(80,360); $creatureCalories = random(60,120); $creatureGirth = random(1800,2500); $meatResource = 1; $fatResource = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('white','white','white','white','white','white','white','silver','black'); $naturalColorpool = either(0,0,0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "arcane"; $moveset = 53; $lootTable = 8; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(20,24); $encounterPower = random(24,40); $encounterMaxPain = random(175,255); $lootRolls = random(3,5)>><<endif>>
+
+
+/% =================================================================================== %/
+
+/% ====================================================%/
+/% Tropical Beasts %/
+
+
+/% ============================================= %/
+
+			<<if $encounter is "heartprint spekko">>
+				<<set $creatureCalories = random(3,12); $creatureGirth = random(400,550); $meatResource = 1; $fatResource = 1; $encounterDesc = "This little lizard is covered in heart-shaped spots!">>
+
+			/% Capture/Trapping %/
+					<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('pink','pink','magenta','magenta','red','red','red','blue','violet','black')>>
+
+			/% Combat stats %/
+					<<set $encounterElement = "bestial"; $moveset = 34; $lootTable = 3; $combatant = 0; $encounterStructure = "horizontal"; $encounterFinesse = random(28,32); $encounterPower = random(1,3); $encounterMaxPain = random(1,5)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "razormouth ripper">>
+				<<set $creatureCalories = random(20,60); $creatureGirth = random(700,2000); $meatResource = 1; $fatResource = 1; $encounterDesc = "A blazing-fast and frighteningly intelligent predatory reptile!">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','gray','gray','brown','brown','red','orange','golden','yellow','yellow','green','green','teal','blue','indigo','white'); $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 62; $lootTable = 11; $combatant = 1; $encounterFinesse = random(24,48); $encounterPower = random(12,18); $encounterMaxPain = random(30,45); $killmode = "biter"; $lootRolls = random(0,2)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "wooly razormouth">>
+				<<set $creatureCalories = random(60,100); $creatureGirth = random(1200,3500); $meatResource = 1; $fatResource = 1; $encounterDesc = "Plumper and more sluggish than their warm-weather cousins, these razormouths sport a thick coat of fur.">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','gray','gray','brown','golden','yellow','yellow','blue','silver','silver','silver','white','white','white','white'); $naturalColorpool = either(0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 62; $lootTable = 12; $combatant = 1; $encounterFinesse = random(18,32); $encounterPower = random(16,24); $encounterMaxPain = random(40,65); $killmode = "biter"; $lootRolls = random(0,2)>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "eubaryon">>
+			<<set $creatureCalories = random(300,600); $creatureGirth = random(2800,5000); $meatResource = 1; $fatResource = 1>><<set $bribeID = "fishStock"; $bribeQuantity = random(120,300); $encounterDesc = "A fish-eating saurian with a bit of a skittish disposition...">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,0,0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','black','brown','brown','green','green','teal','teal','blue','blue','indigo','indigo','violet','pink','gray','white'); $naturalColorpool = either(0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 5; $lootTable = 13; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(10,12); $encounterPower = random(28,40); $encounterMaxPain = random(200,350); $killmode = "biter"; $lootRolls = random(0,3)>><<endif>>
+
+/% ============================================= %/
+
+			<<if $encounter is "flying fortressaur">>
+				<<set $creatureCalories = random(120,250); $creatureGirth = random(8000,10000); $meatResource = 1; $fatResource = 1>><<set $bribeID = "vegStock"; $bribeQuantity = random(100,300); $encounterDesc = "Against all logic, this zeppelin-like giant lizard soars on the winds with its bony plates!">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','brown','red','orange','orange','yellow','yellow','yellow','green','green','green','teal','teal','blue','indigo','violet','magenta','pink','gray','gray','white')>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "balloon"; $encounterWeapon = "spiked tail"; $moveset = 68; $lootTable = 4; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(14,20); $encounterPower = random(18,32); $encounterMaxPain = random(98,220); $lootRolls = random(0,3)>><<endif>>
+
+/% ============================================= %/
+
+			<<if $encounter is "teratops">>
+				<<set $creatureCalories = random(120,250); $creatureGirth = random(8000,10000); $meatResource = 1; $fatResource = 1>><<set $bribeID = "vegStock"; $bribeQuantity = random(100,300); $encounterDesc = "A hulking, armored reptile with a great crest and menacing horns; the king of burden beasts.">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','black','brown','brown','red','orange','yellow','green','teal','blue','indigo','violet','magenta','pink','gray','gray','gray','white'); $naturalColorpool = either(0,0,0,1)>>
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 61; $lootTable = 4; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(14,22); $encounterPower = random(20,28); $encounterMaxPain = random(112,200); $lootRolls = random(2,4)>><<endif>>
+
+
+/% =================================================================================== %/
+
+/% ====================================================%/
+/% Scrub Beasts %/
+
+	/% Scrub critters don't really get fat without help. %/
+
+
+/% ============================================= %/
+
+			<<if $encounter is "dust coyote">>
+				<<set $creatureCalories = random(30,60); $creatureGirth = random(380,550); $meatResource = 1; $fatResource = 1; $bribeID = either("meatStock","fatStock"); $bribeQuantity = random(8,24); $noFatMod = 1; $encounterDesc = "An agile hunter of the wastes. Surprisingly vicious when hungry. Always hungry.">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1,1)>>
+
+			/% Capture/Trapping %/
+				<<set $trapCapture = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','gray','silver','white','blue'); $naturalColorpool = either(0,1,1,1,1)>>
+
+			/% Combat stats %/
+					<<set $encounterElement = "bestial"; $moveset = 10; $lootTable = 4; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(24,30); $encounterPower = random(12,14); $encounterMaxPain = 30; $killmode = "biter">><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "wasteland hyena">>
+				<<set $creatureCalories = random(60,90); $creatureGirth = random(700,1000)>><<set $meatResource = 1; $fatResource = 1; $bribeID = either("meatStock","fatStock"); $bribeQuantity = random(13,34); $noFatMod = 1; $encounterDesc = "Burly, highly intelligent wasteland beasts; they can seemingly thrive in the most barren of places.">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('red','orange','golden','yellow','blue','black','gray','silver','white','brown'); $naturalColorpool = either(0,1,1)>>
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 10; $lootTable = 18; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(12,16); $encounterPower = random(24,28); $encounterMaxPain = 60; $killmode = "biter"; $lootRolls = random(0,2)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "briarrose hyena">>
+				<<set $creatureCalories = random(150,200); $creatureGirth = random(1000,1500)>><<set $meatResource = 1; $fatResource = 1; $bribeID = "fatStock"; $bribeQuantity = random(32,128); $encounterDesc = "Hyenas raised, forcefed, and trained by Briarrose raiders to serve as war beasts. A bad choice for petting.">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('red','orange','golden','yellow','blue','black','gray','silver','white','brown'); $naturalColorpool = either(0,1)>>
+			/% Combat stats %/
+				<<set $encounterElement = "toxic"; $moveset = 10; $lootTable = 18; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(8,12); $encounterPower = random(28,32); $encounterMaxPain = 120; $killmode = "biter"; $lootRolls = random(0,4)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "tawny leo">>
+				<<set $creatureCalories = random(180,220); $creatureGirth = random(1300,4000); $meatResource = 1; $fatResource = 1; $bribeID = "meatStock"; $bribeQuantity = random(24,64); $noFatMod = 1; $encounterDesc = "Ferocious predators found throughout jungles and deserts alike. Watch the claws!">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('red','red','red','red','red','red','orange','orange','orange','orange','orange','golden','yellow','blue','black','gray','silver','white','brown','brown'); $naturalColorpool = either(0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 52; $lootTable = 18; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(20,24); $encounterPower = random(32,45); $encounterMaxPain = random(130,190); $lootRolls = random(0,3)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "dappled leo">>
+				<<set $creatureCalories = random(140,190); $creatureGirth = random(1000,2800); $meatResource = 1; $fatResource = 1; $bribeID = "meatStock"; $bribeQuantity = random(24,64); $encounterDesc = "Smaller than the desert variety big cat, but no less fierce!">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('brown','brown','orange','orange','orange','golden','golden','golden','yellow','yellow','black','white'); $naturalColorpool = either(0,0,0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 52; $lootTable = 18; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(24,28); $encounterPower = random(28,36); $encounterMaxPain = random(80,145); $lootRolls = random(0,3)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "peak leo">>
+				<<set $creatureCalories = random(180,220); $creatureGirth = random(2300,6500); $meatResource = 1; $fatResource = 1; $bribeID = "meatStock"; $bribeQuantity = random(64,144); $noFatMod = 1; $encounterDesc = "A burly, thick-coated great cat found in mountains, snow, and other frigid and treacherous terrain.">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('golden','yellow','blue','teal','gray','gray','gray','gray','silver','silver','silver','silver','white','white','white','white','white','black'); $naturalColorpool = either(0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 52; $lootTable = 18; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(20,24); $encounterPower = random(44,68); $encounterMaxPain = random(150,225); $lootRolls = random(0,3)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "primordial leo">>
+				<<set $creatureCalories = random(180,220); $creatureGirth = random(3500,7500); $meatResource = 1; $fatResource = 1; $bribeID = "meatStock"; $bribeQuantity = random(64,144); $noFatMod = 1; $encounterDesc = "A grand beast that lurks in the shadows of caves and woodlands alike. Beware!">>
+
+			/% Attacks creatures up to twice its size %/
+				<<if $fatScore lte ($creatureGirth * 2)>>
+					<<set $aggro = 1>><<endif>>
+
+
+			/% Colorsets %/
+				<<set $creatureColor = either('golden','brown','blue','blue','teal','gray','gray','gray','indigo','indigo','indigo','violet','violet','black','black','black','black','silver','white'); $naturalColorpool = either(0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 52; $lootTable = 18; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(18,24); $encounterPower = random(48,70); $encounterMaxPain = random(150,200); $lootRolls = random(2,4)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "celestial leo">>
+				<<set $creatureCalories = random(180,220); $creatureGirth = random(3500,8000); $meatResource = 1; $fatResource = 1; $noStasis = 0; $encounterDesc = "A great and shining winged lion. Challenge it if you dare!">>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('golden','silver','silver','white','white','white','white','white','white','white','white','white','white','white','white','white','white','blue','teal','indigo','black')>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "air"; $moveset = 74; $lootTable = 18; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(28,36); $encounterPower = random(66,130); $encounterMaxPain = random(350,800); $lootRolls = random(3,5)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "wild chevret">>
+				<<set $creatureCalories = random(60,120); $creatureGirth = random(1800,2500); $meatResource = 1; $fatResource = 1; $bribeID = either("sugarStock","fruitStock","grainStock","vegStock"); $bribeQuantity = random(40,180); $encounterDesc = "A hulking, horned ungulate that loosely resembles a miniature, mobile mountain. Excellent game for those capable of bringing one down.">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('brown','brown','brown','golden','yellow','white','black','blue'); $naturalColorpool = either(0,1,1,1,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 11; $lootTable = 4; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(6,8); $encounterPower = random(20,28); $encounterMaxPain = 250; $lootRolls = random(2,4)>><<endif>>
+
+
+
+/% ============================================= %/
+
+		<<if $encounter is "fregisaur">>
+			<<set $creatureCalories = random(5000,12000); $creatureGirth = random(45000,65000); $meatResource = 1; $fatResource = 1; $noCapture = 1; $encounterDesc = "A titanic sauropod dinosaur. To it, you are but a speck of dust."; $creatureIntro = "... the earth quakes before it">>
+
+			/% Colorsets %/
+				<<set $naturalColorpool = 1>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 66; $lootTable = 19; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = 1; $encounterPower = random(325,500); $encounterMaxPain = random(2500,5550); $killmode = "biter"; $lootRolls = random(3,5)>><<endif>>
+
+
+/% =================================================================================== %/
+
+/% ====================================================%/
+/% Amphibious Beasts %/
+
+
+/% ============================================= %/
+
+			<<if $encounter is "seraphim slug">>
+				<<set $creatureCalories = random(1,8); $creatureGirth = random(40,120); $jellyResource = 1; $encounterDesc = "A tiny seaslug with multiple feathery wings!"; $noFatMod = 1>>
+
+			/% Capture/Trapping %/
+				<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1; $noSnare = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $briteChroma>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "water"; $moveset = 29; $lootTable = 7; $combatant = 1; $encounterStructure = "faceless"; $encounterFinesse = random(12,24); $encounterPower = random(8,48); $encounterMaxPain = random(1,8)>>
+
+			/% Venom types %/
+				<<set $venomType = either("weakening","toxic","lethal"); $injectType = "nip">><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "serpent">>
+			<<set $creatureCalories = random(180,250); $creatureGirth = random(1800,2200); $meatResource = 1; $fatResource = 1; $bribeID = either("meatStock","eggStock"); $bribeQuantity = random(32,84); $noCapture = 0; $encounterDesc = "Great, thick snakes found in the water as often as draped over tree limbs. Bitey.">>
+
+			/% Attacks creatures up to four times its size %/
+				<<if $fatScore lte ($creatureGirth * 4)>>
+					<<set $aggro = 1>><<endif>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('brown','brown','golden','yellow','white','black','black','green','green','teal','blue','indigo','red'); $naturalColorpool = either(0,1,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 29; $lootTable = 4; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(16,24); $encounterPower = random(18,30); $encounterMaxPain = 80; $killmode = "biter">>
+
+			/% Venom types %/
+				<<set $venomType = either("fattening","bloating","weakening","weakening","toxic","lethal"); $injectType = "bite">><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "crocogator">>
+			<<set $creatureCalories = random(250,400); $creatureGirth = random(2500,7500); $meatResource = 1; $fatResource = 1; $bribeID = either("meatStock","fishStock","fishStock"); $bribeQuantity = random(62,128); $noCapture = 0; $encounterDesc = "An especially large and bulky species of mutant crocodilian...">>
+
+			/% Attacks creatures up to twice its size %/
+				<<if $fatScore lte ($creatureGirth * 2)>>
+					<<set $aggro = 1>><<endif>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','brown','brown','golden','yellow','white','green','green','green','blue','gray','indigo'); $naturalColorpool = either(0,1,1,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 3; $lootTable = 13; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(10,12); $encounterPower = random(24,38); $encounterMaxPain = 220; $killmode = "biter"; $lootRolls = random(0,3)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "mirelock">>
+				<<set $creatureCalories = random(90,250); $creatureGirth = random(350,1250); $fishResource = 1; $fatResource = 1; $encounterDesc = "This giant salamander will attempt to eat anything... Worse, its belly is incredibly elastic, so it might just succeed!">>
+
+			/% Aggression %/
+				<<set $aggro = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('brown','green','teal','black','gray'); $naturalColorpool = either(0,0,0,0,0,0,0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+					<<set $encounterElement = "water"; $moveset = 76; $lootTable = 4; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(8,12); $encounterPower = random(16,20); $encounterMaxPain = random(35,60); $killmode = "biter">><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "beach basker">>
+				<<set $creatureCalories = random(50,130); $creatureGirth = random(300,550); $meatResource = 1; $fatResource = 1; $encounterDesc = "A large marine iguana, fond of lazing by the ocean.">>
+
+			/% Capture/Trapping %/
+				<<set $trapCapture = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('red','green','teal','teal','teal','teal','teal','teal','teal','teal','blue','blue','blue','blue','blue','blue','blue','blue','indigo','indigo','indigo','violet','violet','black')>>
+
+			/% Combat stats %/
+					<<set $encounterElement = "bestial"; $moveset = 8; $lootTable = 4; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(16,24); $encounterPower = random(8,14); $encounterMaxPain = random(30,55)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "amplibaene">><<set $creatureCalories = 20; $creatureGirth = 20; $submissionDesc = "Pick it up!"; $meatResource = 1; $fatResource = 1; $noFatMod = 1; $encounterDesc = "A curious, bright-eyed, and unexpectedly aggressive salamander!">>
+
+			/% Aggressive %/
+					<<set $aggro = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $moveset = 64; $combatant = 1; $encounterFinesse = random(12,24); $encounterPower = random(1,2); $encounterMaxPain = 3; $noCapture = 1; $encounterElement = "mirajin"; $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $venomType = "ampli"; $injectType = "nip">><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "amplibaene queen">><<set $creatureCalories = 500; $creatureGirth = 900; $submissionDesc = "Wait..."; $meatResource = 1; $fatResource = 1; $noFatMod = 1; $encounterDesc = "A horrifically-bloated giant salamander. Something is wriggling inside its body...">>
+
+			/% Aggressive %/
+					<<set $aggro = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $moveset = 64; $combatant = 1; $encounterFinesse = random(3,6); $encounterPower = random(2,8); $encounterMaxPain = random(12,24); $noCapture = 1; $encounterElement = "mirajin"; $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $venomType = "ampli"; $injectType = "nip">><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "pseudo-amplipai">><<set $creatureCalories = random(800,3000); $creatureGirth = random(6000,15500); $submissionDesc = "Wait...";  $combatant = 1; $creatureBreasts = 1; $encounterFlag = "leupai"; $leupaiResource = 1; $fatResource = 1; $encounterDesc = "An amplibaene queen mutated into a horrific, pulsating pseudoleupai by miratoxic realization!"; $lootRolls = random(2,5)>>
+
+			/% Aggressive %/
+				<<set $aggro = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = 72; $lootTable = 5; $encounterFinesse = $finesse / random(1,3); $encounterPower = $strength + random(0,6); $encounterMaxPain = $maxPain + random(20,100); $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $venomType = "ampli">><<endif>>
+
+
+/% =================================================================================== %/
+
+/% ====================================================%/
+/% Oceanic Beasts %/
+
+
+/% ============================================= %/
+
+		<<if $encounter is "bubblefish">>
+				<<set $creatureCalories = random(5,12); $creatureGirth = random(50,130); $fishResource = 1; $fatResource = 1; $encounterDesc = "An adorable, spherical fish. Tends to nip...">>
+
+			/% Capture/Trapping %/
+					<<set $noCapture = 1; $trapCapture = 1; $miniDonsair = 1; $noSnare = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('silver','white','green','teal','blue','indigo','violet','pink','magenta'); $naturalColorpool = either(0,1,1,1,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "water"; $moveset = 64; $lootTable = 3; $combatant = 1; $encounterStructure = "spherical"; $encounterFinesse = random(16,24); $encounterPower = random(3,30); $encounterMaxPain = random(10,30)>>
+
+			/% Venom types %/
+				<<set $venomType = "bloating"; $injectType = "nip">><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "razor eel">>
+			<<set $creatureCalories = random(120,200); $creatureGirth = random(1300,1800); $fishResource = 1; $fatResource = 1; $noCapture = 1; $encounterDesc = "Brilliantly-colored, ribbonlike sea predators.">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('red','orange','golden','yellow','green','teal','blue','indigo','violet','pink','magenta','white')>>
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 10; $lootTable = 4; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(32,40); $encounterPower = random(10,12); $encounterMaxPain = random(30,60); $killmode = "biter">><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "breaching tusker">>
+				<<set $creatureCalories = random(60,120); $creatureGirth = random(1800,6500); $meatResource = 1; $fatResource = 1; $encounterDesc = "Powerful maned seals with saber teeth and surprisingly sharp claws!">>
+
+			/% Attacks creatures 1/2th its size or less %/
+				<<if $fatScore lte ($creatureGirth / 0.5)>>
+					<<set $aggro = 1>><<endif>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('brown','blue','blue','gray','gray','gray','silver','silver','white','black'); $naturalColorpool = either(0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 14; $lootTable = 4; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(20,24); $encounterPower = random(24,40); $encounterMaxPain = random(220,400); $lootRolls = random(0,3)>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "tidetan">>
+			<<set $creatureCalories = random(5000,12000); $creatureGirth = random(45000,65000); $fishResource = 1; $fatResource = 1; $noCapture = 1; $encounterDesc = "A whale of utterly mammoth proportions. Best not trifled with by most creatures..."; $creatureIntro = "... the sea churns around its immense form">>
+
+			/% Attacks creatures 1/4th its size or larger %/
+				<<if $fatScore gte ($creatureGirth / 0.25)>>
+					<<set $aggro = 1>><<endif>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','black','black','green','blue','blue','blue','indigo','indigo','indigo','gray','gray','gray','silver','silver','white','pink'); $naturalColorpool = either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "bestial"; $moveset = 75; $lootTable = 4; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = 5; $encounterPower = random(350,550); $encounterMaxPain = random(1990,5575); $killmode = "biter"; $lootRolls = random(4,5)>><<endif>>
+
+
+
+
+/% ====================================================%/
+/% ================== Denizens (sapient creatures, varied by planet) %/
+
+/% By occupation ("wanderer/refugee/adventurer" is default).
+For now, all sapients use a generic humanoid script on capture.%/
+
+/% =================================================================================== %/
+
+/% ====================================================%/
+
+			<<if $encounter is "refugee">>
+				<<set $creatureCalories = random(10,50); $creatureGirth = random(1750,3500); $meatResource = 1; $fatResource = 1>>
+			/% Combat stats %/
+				<<set $encounterFinesse = random(5,20); $encounterPower = random(6,16); $encounterStructure = "vertical"; $encounterMaxPain = random(20,40); $killmode = "defensive">><<endif>>
+
+
+			<<if $encounter is "wanderer">>
+				<<set $creatureCalories = random(30,100); $creatureGirth = random(4000,6000); $meatResource = 1; $fatResource = 1>>
+			/% Combat stats %/
+				<<set $combatant = 1; $encounterFinesse = random(5,18); $encounterPower = random(9,20); $encounterStructure = "vertical"; $encounterMaxPain = 50; $killmode = "defensive">><<endif>>
+
+
+			<<if $encounter is "adventurer">>
+				<<set $creatureCalories = random(20,80); $creatureGirth = random(2500,5500); $meatResource = 1; $fatResource = 1>>
+			/% Combat stats %/
+				<<set $combatant = 1; $encounterFinesse = $finesse + random(-5,5); $encounterPower = $strength + random(-5,5); $encounterMaxPain = $maxPain + random(-20,50); $encounterStructure = "vertical";  $killmode = "slayer"; $encounterDesc += " A wandering adventurer on the search for loot and glory... beware!">><<endif>>
+
+
+			<<if $encounter is "wild-eyed culinet">>
+				<<set $creatureCalories = random(50,360); $creatureGirth = random(2500,7500); $meatResource = 1; $fatResource = 1; $submissionDesc = "Approach"; $creatureBreasts = 1; $encounterDesc = "This Revix chef would LOVE to share a meal or twenty with you!">>
+
+			/% Attacks creatures less than 1000 gi %/
+				<<if $fatScore lt 10000>>
+					<<set $aggro = 1>><<endif>>
+
+			/% Combat stats %/
+				<<set $moveset = 46; $combatant = 1; $encounterFinesse = random(5,18); $encounterPower = random(9,32); $encounterStructure = "vertical"; $encounterMaxPain = 30; $noCapture = 1; $canSubmit = 1; $killmode = "defensive">><<endif>>
+
+			<<if $encounter is "friendly-looking passerby">>
+				<<set $creatureCalories = random(30,100); $creatureGirth = random(4000,6000); $meatResource = 1; $fatResource = 1; $submissionDesc = "Approach";  $meatResource = random(2,5); $fatResource = random(4,18)>>
+			/% Combat stats %/
+				<<set $moveset = random(47,49); $combatant = 1; $creatureBreasts = 1; $encounterFinesse = random(5,18); $encounterPower = random(9,20); $encounterStructure = "vertical"; $encounterMaxPain = 30; $noCapture = 1; $canSubmit = 1; $killmode = "defensive">><<endif>>
+
+
+/% =================================================================================== %/
+
+/% ================== Leupai %/
+
+/% ============================================= %/
+
+			<<if $encounter is "inkling">>
+				<<set $creatureCalories = 30; $creatureGirth = 1000; $leupaiResource = random(5,12); $encounterFlag = "leupai"; $moveset = 19; $encounterDesc = "Practically a living waterballoon. Relatively docile.">>
+
+			/% Capture/Trapping %/
+				<<set $trapCapture = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>>
+
+			/% Favor %/
+				<<set $namelessFavored = 10>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "eldritch"; $combatant = 1; $encounterStructure = "spherical"; $encounterFinesse = random(2,6); $encounterPower = random(6,8); $encounterMaxPain = 20; $killmode = "defensive">><<endif>>
+
+
+/% ==================================== %/
+/% Fyynlings & Tendrils %/
+
+/% ============================================= %/
+
+			<<if $encounter is "fyynling">>
+				<<set $creatureCalories = 100; $creatureGirth = 1000; $leupaiResource = 1; $fatResource = 1; $encounterFlag = "leupai"; $canSubmit = 1; $submissionDesc = "Approach!";  $bribeID = "belly"; $bribeName = "belly"; $bribeType = "girthWG"; $bribeQuantity = either(20,30,40,50,60); $bribeAction = "... which they prod with a tentacle, pumping it up fatter!"; $encounterDesc = "A blob of living leupai fat... it wants to give you a hug!">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('golden','golden','blue','blue','violet','violet','violet','violet','violet','pink','magenta','black','white','white','white','white','white'); $naturalColorpool = either(0,0,0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = 18; $lootTable = 6; $combatant = 1; $encounterStructure = "spherical"; $encounterFinesse = random(8,12); $encounterPower = random(14,20); $encounterMaxPain = random(24,38)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "fyynmorph">>
+				<<set $creatureCalories = random(150,600); $creatureGirth = ($creatureCalories * 10); $leupaiResource = 1; $fatResource = 1; $creatureBreasts = 1; $encounterDesc = "An eerie hybrid of fyynling and humanoid...">>
+
+			/% Aggression %/
+				<<set $aggro = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('golden','golden','blue','blue','violet','violet','violet','violet','violet','pink','magenta','black','white','white','white','white','white'); $naturalColorpool = either(0,0,0,0,0,0,0,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,3)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = 58; $lootTable = 6; $combatant = 1; $encounterFinesse = random(2,8); $encounterPower = random(8,26); $encounterStructure = "vertical"; $encounterMaxPain = random(38,64); $lootRolls = random(0,3)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "fyynling-possessed horror">>
+				<<set $creatureCalories = random(750,2500); $creatureGirth = ($creatureCalories * 10); $submissionDesc = "Submit!"; $leupaiResource = 1; $fatResource = 1;  $encounterDesc = "Once humanoid, this fyynling-stuffed creature has transformed into a nightmarish, jiggling terror!">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('golden','golden','blue','blue','violet','violet','violet','violet','violet','pink','magenta','black','white','white','white','white','white'); $naturalColorpool = either(0,0,0,0,0,0,0,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,3)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = 18; $lootTable = 6; $combatant = 1; $creatureBreasts = 1; $encounterStructure = "vertical"; $encounterFlag = "leupai"; $encounterPower = $strength + random(0,18); $encounterMaxPain = $maxPain + either(10,10,20,20,30,30,40,50); $canSubmit = 1; $lootRolls = random(0,5)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "coaxing tendril">>
+				<<set $creatureCalories = 150; $creatureGirth = 3000; $leupaiResource = 1; $fatResource = 1; $submissionDesc = "Approach!"; $encounterStructure = "faceless"; $creatureNoBelly = 1; $noAbsorb = 1; $canSubmit = 1;  $encounterDesc = "A strange, flabby tentacle connected to gods know what..."; $noCapture = 1>>
+
+			/% Aggression %/
+				<<set $aggro = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('golden','golden','blue','blue','violet','violet','violet','violet','violet','pink','magenta','black','white','white','white','white','white'); $naturalColorpool = either(0,0,0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = 35; $lootTable = 6; $combatant = 1; $creatureInfo = "It gives off an unnerving aura..."; $encounterFlag = "leupai"; $encounterFinesse = 0; $encounterPower = random(24,28);$encounterMaxPain = 160; $noCapture = 1>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "feeder tendril">>
+				<<set $creatureCalories = 250; $creatureGirth = 1500; $leupaiResource = 1; $fatResource = 1; $submissionDesc = "Approach!";  $encounterStructure = "faceless"; $creatureNoBelly = 1; $noAbsorb = 1; $canSubmit = 1; $CreatureEffects = 1; $noCapture = 1; $encounterDesc = "A fat, doughy tentacle connected to gods know what...">>
+
+			/% Aggression %/
+				<<set $aggro = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('golden','golden','blue','blue','violet','violet','violet','violet','violet','pink','magenta','black','white','white','white','white','white'); $naturalColorpool = either(0,0,0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = 37; $lootTable = 6; $combatant = 1; $creatureInfo = "It gives off an unnerving aura..."; $encounterFlag = "leupai"; $encounterFinesse = 0; $encounterPower = random(24,28); $encounterMaxPain = 400>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "hose tendril">>
+				<<set $creatureCalories = 50; $creatureGirth = 1000; $leupaiResource = 1; $fatResource = 1; $submissionDesc = "Approach!"; $encounterStructure = "faceless"; $creatureNoBelly = 1; $noAbsorb = 1; $canSubmit = 1;  $encounterDesc = "A loudly-hissing tentacle connected to gods know what..."; $noCapture = 1>>
+
+			/% Aggression %/
+				<<set $aggro = 1>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('golden','golden','blue','blue','violet','violet','violet','violet','violet','pink','magenta','black','white','white','white','white','white'); $naturalColorpool = either(0,0,0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = 45; $lootTable = 6; $combatant = 1; $creatureInfo = "It gives off an unnerving aura..."; $encounterFlag = "leupai"; $encounterFinesse = 0; $encounterPower = random(24,28); $encounterMaxPain = 320; $noCapture = 1>><<endif>>
+
+
+/% ==================================== %/
+/% Helenes %/
+
+/% ============================================= %/
+
+		<<if $encounter is "helene">> /% Pool Encounter %/
+			<<set $encounter = either("overstuffed helene","blubber-bellied helene","huge-breasted helene","blimp-thighed helene"); $moveset = 17; $bribeID = either("belly","breast","thigh"); $bribeName = $bribeID; $bribeType = "girthWG"; $bribeQuantity = either(50,60,80,100); $bribeAction = "... which suddenly swells plumper as you watch!"; $creatureCalories = random(20,100); $creatureGirth = random(2500,4000); $creatureInfo = "Its eyes gleam dangerously!"; $submissionDesc = "Approach!"; $leupaiResource = 1; $fatResource = 1;  $encounterDesc = "A succubus-like leupai hybrid, talented in adimancy and fond of adjusting the bodies of its targets to its own liking!"; $canSubmit = 1; $lootRolls = random(0,5)>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>>
+
+			/% Venom types %/
+				<<set $venomType = either("healing","weakening","gluttonous","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>><<endif>>
+
+/% ============================================= %/
+
+			<<if $encounter is "overstuffed helene">>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $combatant = 1; $creatureBreasts = 1; $encounterFlag = "daedlan"; $encounterFinesse = $finesse + random(0,6); $encounterPower = $strength + random(0,3); $encounterStructure = "vertical"; $encounterMaxPain = 80; $canSubmit = 1>><<endif>>
+
+/% ============================================= %/
+
+			<<if $encounter is "blubber-bellied helene">>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $combatant = 1; $creatureBreasts = 1; $encounterFlag = "daedlan"; $encounterFinesse = $finesse + random(0,6); $encounterPower = $strength + random(0,3); $encounterStructure = "vertical"; $encounterMaxPain = 50; $canSubmit = 1; $spellTarget = "belly">><<endif>>
+
+/% ============================================= %/
+
+			<<if $encounter is "huge-breasted helene">>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $combatant = 1; $creatureBreasts = 1; $encounterFlag = "daedlan"; $encounterFinesse = $finesse + random(0,6); $encounterPower = $strength + random(0,3); $encounterStructure = "vertical"; $encounterMaxPain = 50; $canSubmit = 1; $spellTarget = "breasts">><<endif>>
+
+/% ============================================= %/
+
+			<<if $encounter is "blimp-thighed helene">>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $combatant = 1; $creatureBreasts = 1; $encounterFlag = "daedlan"; $encounterFinesse = $finesse + random(0,6); $encounterPower = $strength + random(0,3); $encounterStructure = "vertical"; $encounterMaxPain = 50; $canSubmit = 1; $spellTarget = "thighs">><<endif>>
+
+
+/% ==================================== %/
+/% True Leupai %/
+
+/% ============================================= %/
+
+		<<if $encounter is "leupai">> /% Pool Encounter %/
+			<<set $encounter = either("belmere leupai","belmere leupai","belmere leupai","celesse leupai","devinn leupai","ein leupai","heitene leupai","intere leupai","kitsch leupai","laworn leupai","ouinsel leupai","rexaur leupai"); $lootRolls = random(2,5)>>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>><<endif>>
+
+
+/% ========================= %/
+
+		<<if $encounter is "belmere leupai">>
+			<<set $bribeID = "fatteniumStock"; $bribeQuantity = random(24,128); $creatureIntro = ", eyeing you with interest"; $creatureCalories = random(800,3000); $creatureGirth = random(6000,15500); $submissionDesc = "Wait...";  $combatant = 1; $creatureBreasts = 1; $encounterFlag = "leupai"; $leupaiResource = 1; $fatResource = 1; $leupaiBloated = either(0,0,0,0,0,0,0,1,1,2,3,3,4,5,6,7); $encounterDesc = "A fat, monstrous lizard with a talon-tipped tongue. Let it grab hold of you at your peril!"; $lootRolls = random(2,5)>>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = random(20,27); $lootTable = 5; $creatureRarity = -1; $encounterFinesse = $finesse + random(0,8); $encounterPower = $strength + random(0,12); $encounterMaxPain = $maxPain + random(10,50); $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $venomType = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>>
+
+			/% Playful? %/
+			<<if $playfulLeupai is 0>>
+				<<set $playfulLeupai = either(0,1,1)>><<endif>>
+
+			<<endif>>
+
+
+/% ========================= %/
+
+		<<if $encounter is "celesse leupai">>
+			<<set $bribeID = "fatteniumStock"; $bribeQuantity = random(24,128); $creatureIntro = ", eyeing you with interest"; $creatureCalories = random(600,2800); $creatureGirth = random(3000,12500); $submissionDesc = "Wait...";  $combatant = 1; $creatureBreasts = 1; $encounterFlag = "leupai"; $leupaiResource = 1; $fatResource = 1; $leupaiBloated = either(0,0,0,0,0,0,0,1,1,2,3,3,4,5,6,7); $encounterDesc = "An agile, catlike leupai with a mischevious glint in its eyes..."; $lootRolls = random(2,5)>>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = random(20,27); $lootTable = 5; $creatureRarity = -1; $encounterFinesse = $finesse + random(10,16); $encounterPower = $strength + random(0,4); $encounterMaxPain = $maxPain + random(10,30); $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $venomType = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>>
+
+			/% Playful? %/
+			<<if $playfulLeupai is 0>>
+				<<set $playfulLeupai = either(0,0,1)>><<endif>>
+
+			<<endif>>
+
+
+
+/% ========================= %/
+
+		<<if $encounter is "devinn leupai">>
+			<<set $bribeID = "fatteniumStock"; $bribeQuantity = random(24,128); $creatureIntro = ", eyeing you with interest"; $creatureCalories = random(900,4000); $creatureGirth = random(7000,18500); $submissionDesc = "Wait...";  $combatant = 1; $creatureBreasts = 1; $encounterFlag = "leupai"; $leupaiResource = 1; $fatResource = 1; $leupaiBloated = either(0,0,0,0,0,0,0,1,1,2,3,3,4,5,6,7); $encounterDesc = "A burly subterranean leupai featuring the worst traits of lions and crocodiles. Approach with caution!"; $lootRolls = random(3,5)>>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = random(20,27); $lootTable = 5; $creatureRarity = -1; $encounterFinesse = $finesse + random(0,8); $encounterPower = $strength + random(0,12); $encounterMaxPain = $maxPain + random(40,120); $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $venomType = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>>
+
+			/% Playful? %/
+			<<if $playfulLeupai is 0>>
+				<<set $playfulLeupai = either(0,0,0,0,1)>><<endif>>
+
+			<<endif>>
+
+
+/% ========================= %/
+
+		<<if $encounter is "ein leupai">>
+			<<set $bribeID = "fatteniumStock"; $bribeQuantity = random(24,128); $creatureIntro = ", eyeing you with interest"; $creatureCalories = random(700,3000); $creatureGirth = random(5000,15500); $submissionDesc = "Wait...";  $combatant = 1; $creatureBreasts = 1; $encounterFlag = "leupai"; $leupaiResource = 1; $fatResource = 1; $leupaiBloated = either(0,0,0,0,0,0,0,1,1,2,3,3,4,5,6,7); $encounterDesc = "A graceful humanoid leupai with a faun's legs, and a demeanor to match."; $lootRolls = random(1,5)>>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $moveset = random(20,27); $lootTable = 5; $creatureRarity = -1; $encounterFinesse = $finesse + random(6,24); $encounterPower = $strength + random(0,4); $encounterMaxPain = $maxPain + random(10,40); $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $encounterElement = "mirajin"; $venomType = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>>
+
+			/% Playful? %/
+			<<if $playfulLeupai is 0>>
+				<<set $playfulLeupai = 1>><<endif>>
+
+			<<endif>>
+
+
+/% ========================= %/
+
+		<<if $encounter is "heitene leupai">>
+			<<set $bribeID = "fatteniumStock"; $bribeQuantity = random(24,128); $creatureIntro = ", eyeing you with interest"; $creatureCalories = random(800,3000); $creatureGirth = random(6000,15500); $submissionDesc = "Wait...";  $combatant = 1; $creatureBreasts = 1; $encounterFlag = "leupai"; $leupaiResource = 1; $fatResource = 1; $leupaiBloated = either(0,0,0,0,0,0,0,1,1,2,3,3,4,5,6,7); $encounterDesc = "A bulky, bestial leupai that calls to mind an overgrown were-hyena.">>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $moveset = random(20,27); $lootTable = 5; $creatureRarity = -1; $encounterFinesse = $finesse + random(0,4); $encounterPower = $strength + random(4,12); $encounterMaxPain = $maxPain + random(10,70); $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $encounterElement = "mirajin"; $venomType = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>>
+
+			/% Playful? %/
+			<<if $playfulLeupai is 0>>
+				<<set $playfulLeupai = either(0,1,1)>><<endif>>
+
+			<<endif>>
+
+
+/% ========================= %/
+
+		<<if $encounter is "intere leupai">>
+			<<set $bribeID = "fatteniumStock"; $bribeQuantity = random(24,128); $creatureIntro = ", eyeing you with interest"; $creatureCalories = random(800,3000); $creatureGirth = random(6000,15500); $submissionDesc = "Wait...";  $combatant = 1; $creatureBreasts = 1; $encounterFlag = "leupai"; $leupaiResource = 1; $fatResource = 1; $leupaiBloated = either(0,0,0,0,0,0,0,1,1,2,3,3,4,5,6,7); $encounterDesc = "An undulating, serpentine leupai with a sluglike body and the face of a worm-maned python...">>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $moveset = random(20,27); $lootTable = 5; $creatureRarity = -1; $encounterFinesse = $finesse + random(4,6); $encounterPower = $strength + random(0,8); $encounterMaxPain = $maxPain + random(10,50); $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $encounterElement = "mirajin"; $venomType = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>>
+
+			/% Playful? %/
+			<<if $playfulLeupai is 0>>
+				<<set $playfulLeupai = either(0,1)>><<endif>>
+
+			<<endif>>
+
+
+/% ========================= %/
+
+		<<if $encounter is "kitsch leupai">>
+			<<set $bribeID = "fatteniumStock"; $bribeQuantity = random(24,128); $creatureIntro = ", eyeing you with interest"; $creatureCalories = random(600,2500); $creatureGirth = random(4000,12000); $submissionDesc = "Wait...";  $combatant = 1; $creatureBreasts = 1; $encounterFlag = "leupai"; $leupaiResource = 1; $fatResource = 1; $leupaiBloated = either(0,0,0,0,0,0,0,1,1,2,3,3,4,5,6,7); $encounterDesc = "A small, foxlike leupai with an enormous club tail.">>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $moveset = random(20,27); $lootTable = 5; $creatureRarity = -1; $encounterFinesse = $finesse + random(6,12); $encounterPower = $strength + random(0,4); $encounterMaxPain = $maxPain + random(10,40); $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $encounterElement = "mirajin"; $venomType = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>>
+
+			/% Playful? %/
+			<<if $playfulLeupai is 0>>
+				<<set $playfulLeupai = 1>><<endif>>
+
+			<<endif>>
+
+
+
+/% ========================= %/
+
+			<<if $encounter is "laworn leupai">>
+				<<set $creatureCalories = random(800,3000); $creatureGirth = random(6000,15500); $submissionDesc = "Wait...";  $combatant = 1; $creatureBreasts = 1; $encounterFlag = "leupai"; $leupaiResource = 1; $fatResource = 1; $leupaiBloated = either(0,0,0,0,0,1,1,2,3,3,4); $lootRolls = random(2,5)>>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Subtypes %/
+				<<set $lawornStyle = either("reptilitype","mammalitype")>>
+					<<if $lawornStyle is "reptilitype">><<set $encounterDesc = "A powerfully-built, scaly beast that resembles an unholy leupai-human hybrid!">>
+					<<elseif $lawornStyle is "mammalitype">><<set $encounterDesc = "A hulking, wolflike leupai with a feral, chilling gaze...">><<endif>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = either(21,22,27); $lootTable = 5; $creatureRarity = -1; $encounterFinesse = $finesse + random(2,12); $encounterPower = $strength + random(4,16); $encounterMaxPain = $maxPain + random(10,70); $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $venomType = "leucanthropic">>
+			<<endif>>
+
+
+/% ========================= %/
+
+		<<if $encounter is "ouinsel leupai">>
+			<<set $bribeID = "fatteniumStock"; $bribeQuantity = random(24,128); $creatureIntro = ", eyeing you with interest"; $creatureCalories = random(800,3000); $creatureGirth = random(6000,15500); $submissionDesc = "Wait...";  $combatant = 1; $creatureBreasts = 1; $encounterFlag = "leupai"; $leupaiResource = 1; $fatResource = 1; $leupaiBloated = either(0,0,0,0,0,0,0,1,1,2,3,3,4,5,6,7); $encounterDesc = "An overwhelmingly beautiful fae creature with regal poise... but something about it makes you anxious...">>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "mirajin"; $moveset = random(20,27); $lootTable = 5; $creatureRarity = -1; $encounterFinesse = $finesse + random(4,18); $encounterPower = $strength + random(0,8); $encounterMaxPain = $maxPain + random(10,50); $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $venomType = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>>
+
+			/% Playful? %/
+			<<if $playfulLeupai is 0>>
+				<<set $playfulLeupai = either(0,1)>><<endif>>
+
+			<<endif>>
+
+
+/% ========================= %/
+
+		<<if $encounter is "rexaur leupai">>
+			<<set $bribeID = "fatteniumStock"; $bribeQuantity = random(24,128); $creatureIntro = ", eyeing you with interest"; $creatureCalories = random(900,4000); $creatureGirth = random(7000,18500); $submissionDesc = "Wait..."; $combatant = 1; $creatureBreasts = 1; $encounterFlag = "leupai"; $leupaiResource = 1; $fatResource = 1; $leupaiBloated = either(0,0,0,0,0,0,0,1,1,2,3,3,4,5,6,7); $encounterDesc = "An enormous, saurian leupai with a menacing grin..."; $lootRolls = random(2,5)>>
+
+			/% Sapient %/
+				<<set $sapientEncounter = 1; $encLanguage = "empulse">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1,1)>>
+
+			/% Favor %/
+				<<set $nefirianFavored = random(0,5)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $fullChroma; $naturalColorpool = either(0,0,0,0,0,1)>>
+
+			/% Combat stats %/
+				<<set $moveset = random(20,27); $lootTable = 5; $creatureRarity = -1; $encounterFinesse = $finesse + random(0,4); $encounterPower = $strength + random(12,36); $encounterMaxPain = $maxPain + random(80,160); $canSubmit = 1>>
+
+			/% Venom types %/
+				<<set $encounterElement = "mirajin"; $venomType = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>>
+
+			/% Playful? %/
+			<<if $playfulLeupai is 0>>
+				<<set $playfulLeupai = either(0,1,1)>><<endif>>
+
+			<<endif>>
+
+
+/% =================================================================================== %/
+/% Leupai Mods %/
+
+
+			<<if $playfulLeupai is 1>> /% Standard leupai movesets, but will heal the player if they exceed a certain stage of damage, and flee if badly injured! %/
+				<<set $moveset = random(900,904); $aggro = 0>><<endif>>
+
+			<<if $leupaiBloated is 1>><<set $moveset = either(22,26,32); $creatureDesc = "... Its belly is packed tight with eggs!">>
+				<<if $playfulLeupai is 1>><<set $moveset = 903>><<endif>>
+			<<elseif $leupaiBloated is 2>><<set $encounterPower += random(3,5); $moveset = either(22,26,32); $creatureDesc = "... it's so bloated with eggs it looks ready to burst!">>
+				<<if $playfulLeupai is 1>><<set $moveset = 903>><<endif>>
+			<<elseif $leupaiBloated is 3>><<set $moveset = either(24,27,30,31); $creatureDesc = "... Its belly is bloated up like a balloon!">>
+				<<if $playfulLeupai is 1>><<set $moveset = either(901,904)>><<endif>>
+			<<elseif $leupaiBloated is 4>><<set $encounterPower += random(3,5); $moveset = either(30,31); $creatureDesc = "... it's belly is blimped up into ENORMOUS size with excess venom!">>
+				<<if $playfulLeupai is 1>><<set $moveset = either(901,904)>><<endif>>
+			<<elseif $leupaiBloated is 5>><<set $creatureCalories += random(200,500); $moveset = either(25,33); $creatureDesc = "... its body jiggles and quakes with plenty of extra fat!">>
+				<<if $playfulLeupai is 1>><<set $moveset = 902>><<endif>>
+			<<elseif $leupaiBloated is 6>><<set $creatureCalories += random(500,1000); $encounterPower += random(3,5); $moveset = 33; $creatureDesc = "... its flesh ripples and bounces as it moves, dragging its ludicrously blubbery body along!">>
+				<<if $playfulLeupai is 1>><<set $moveset = 902>><<endif>>
+			<<elseif $leupaiBloated is 7>><<set $creatureCalories += random(1000,5000); $encounterPower += random(5,10); $moveset = 33; $creatureDesc = "... its gelatinous, bulging body is packed with so much quivering blubber, it can barely stand upright without leaning upon its mountainous belly!">>
+				<<if $playfulLeupai is 1>><<set $moveset = 902>><<endif>>
+			<<endif>>
+
+
+/% =================================================================================== %/
+
+
+/% ==================================== %/
+/% Slimes %/
+
+
+/% ============================================= %/
+
+			<<if $encounter is "small slime">>
+				<<set $encounterDesc = "A friendly little blob of animate goo..."; $creatureCalories = 0; $creatureGirth = 500; $submissionDesc = "Wait..."; $jellyResource = 1; $creatureNoBelly = 1; $bribeID = "candy_slimebait"; $bribeName = "bubble candies"; $bribeQuantity = random(2,5); $noFatMod = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $briteChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "liquid"; $moveset = 15; $lootTable = 7; $combatant = 1; $encounterFinesse = random(2,4); $encounterPower = random(3,6); $encounterMaxPain = 10; $canSubmit = 1; $lootRolls = either(0,0,0,1,1,1,2)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "slime">>
+				<<set $encounterDesc = "A friendly blob of animate goo..."; $creatureCalories = 0; $creatureGirth = 2500; $submissionDesc = "Wait...";  $jellyResource = 1;  $creatureNoBelly = 1; $bribeID = "candy_slimebait"; $bribeName = "bubble candies"; $bribeQuantity = random(6,12); $noFatMod = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $briteChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "liquid"; $moveset = 15; $lootTable = 7; $combatant = 1; $encounterFinesse = random(3,6); $encounterPower = random(6,10); $encounterMaxPain = 30; $canSubmit = 1; $lootRolls = random(0,3)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "enormous slime">>
+				<<set $encounterDesc = "A very large, VERY friendly blob of animate goo!"; $creatureCalories = 0; $creatureGirth = random(5500,9500); $submissionDesc = "Wait..."; $jellyResource = 1; $creatureNoBelly = 1; $bribeID = "candy_slimebait"; $bribeName = "bubble candies"; $bribeQuantity = random(12,36); $noFatMod = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $briteChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "liquid"; $moveset = 16; $lootTable = 7; $combatant = 1; $encounterFinesse = random(2,4); $encounterPower = random(10,18); $encounterMaxPain = 100; $canSubmit = 1; $lootRolls = random(0,4)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "bloated anthroslime">>
+				<<set $encounterDesc = "A quivering, bipedal abomination..."; $creatureCalories = 0; $creatureGirth = random(2500,5500); $jellyResource = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $briteChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "liquid"; $moveset = 60; $lootTable = 7; $combatant = 1; $encounterFinesse = random(8,14); $encounterPower = random(8,20); $encounterMaxPain = random(60,80); $lootRolls = random(0,4)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "anthroslime adventurer">>
+				<<set $encounterDesc = "This traveler has embraced many slimes, with jiggling results..."; $creatureCalories = 0; $creatureGirth = random(2500,7500); $jellyResource = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $briteChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "liquid"; $moveset = 60; $lootTable = 7; $combatant = 1; $encounterFinesse = $finesse + random(-3,5); $encounterPower = $strength + random(-3,8); $encounterMaxPain = $maxPain + random(-10,30); $lootRolls = random(2,5)>><<endif>>
+
+
+/% ==================================== %/
+/% Puddings & Blubberslimes %/
+
+
+/% ============================================= %/
+
+			<<if $encounter is "small pudding">>
+				<<set $encounterDesc = "A curious, jiggly little opaque slime..."; $creatureCalories = random(100,500); $creatureGirth = $creatureCalories; $submissionDesc = "Wait..."; $fatResource = 1; $creatureNoBelly = 1;$noFatMod = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $briteChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "fat"; $moveset = 77; $lootTable = 7; $combatant = 1; $encounterFinesse = random(1,2); $encounterPower = random(3,6); $encounterMaxPain = 35; $canSubmit = 1; $lootRolls = random(0,2)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "pudding">>
+				<<set $encounterDesc = "A jiggly, opaque slime..."; $creatureCalories = random(1000,2500); $creatureGirth = $creatureCalories; $submissionDesc = "Wait...";  $fatResource = 1; $creatureNoBelly = 1; $noFatMod = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $briteChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "fat"; $moveset = 77; $lootTable = 7; $combatant = 1; $encounterFinesse = random(1,3); $encounterPower = random(6,10); $encounterMaxPain = 60; $canSubmit = 1; $lootRolls = random(0,3)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "enormous pudding">>
+				<<set $encounterDesc = "A huge, jiggling blob of opaque goo!"; $creatureCalories = random(5500,9500); $creatureGirth = $creatureCalories; $submissionDesc = "Wait..."; $fatResource = 1; $creatureNoBelly = 1; $noFatMod = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $briteChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "fat"; $moveset = 77; $lootTable = 7; $combatant = 1; $encounterFinesse = random(1,4); $encounterPower = random(10,18); $encounterMaxPain = 170; $canSubmit = 1; $lootRolls = random(0,5)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "groaning blubberslime">>
+				<<set $encounterDesc = "This poor creature has grown into a blob of shambling fat!"; $creatureCalories = random(2500,8500); $creatureGirth = $creatureCalories; $fatResource = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = $briteChroma; $naturalColorpool = either(0,0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "fat"; $moveset = 78; $lootTable = 7; $combatant = 1; $encounterFinesse = random(8,14); $encounterPower = $creatureCalories / 400; $encounterMaxPain = random(60,200); $lootRolls = random(1,4)>><<endif>>
+
+
+/% ==================================== %/
+/% Plants & Nature Elementals %/
+
+
+/% ============================================= %/
+
+			<<if $encounter is "tendrilvine">>
+				<<set $creatureCalories = 150; $creatureGirth = 3000; $vegResource = 1; $sugarResource = 1; $submissionDesc = "Approach!";  $encounterStructure = "faceless"; $creatureNoBelly = 1; $noFatMod = 1; $noAbsorb = 1;  $canSubmit = 1;  $encounterDesc = "A thick, leathery plant whose only aim in life seems to be grabbing random passerby and pumping them full of its nectar...">>
+
+			/% Aggression %/
+				<<set $aggro = 1>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "vegetal"; $moveset = 37; $combatant = 1; $encounterFinesse = 0; $encounterPower = random(12,24); $encounterMaxPain = 120; $attackFed = "pumps thick, sweet nectar"; $noCapture = 1; $lootRolls = random(0,2)>><<endif>>
+
+
+/% ==================================== %/
+/% Demons & Fire Elementals %/
+
+/% ============================================= %/
+
+			<<if $encounter is "imp">>
+				<<set $encounterDesc = "A mischevious little humanoid with sharp teeth and wide eyes... Probably up to no good!"; $creatureCalories = random(5,20); $creatureGirth = random(20,600); $meatResource = 1; $fatResource = 1>>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','black','red','red','red','red','orange','orange','golden','yellow','yellow','green','green','green','teal','blue','indigo','indigo','indigo','violet','violet','violet','magenta','pink','white','silver')>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "fire"; $moveset = 69; $combatant = 1; $encounterStructure = "vertical"; $encounterFinesse = random(24,48); $encounterPower = random(6,10); $encounterMaxPain = random(5,66); $lootRolls = random(0,3)>><<endif>>
+
+
+/% ============================================= %/
+
+			<<if $encounter is "firefox">>
+				<<set $creatureCalories = 0; $creatureGirth = random(200,350); $encounterDesc = "Flashing flame in vulpine shape.">>
+			/% Colorsets %/
+				<<set $creatureColor = either('red','red','red','red','red','orange','orange','orange','orange','orange','golden','golden','golden','yellow','yellow','yellow','blue','indigo','violet','white')>>
+			/% Combat stats %/
+					<<set $encounterElement = "fire"; $moveset = 70; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(32,64); $encounterPower = random(12,18); $encounterMaxPain = random(20,40)>><<endif>>
+
+
+			<<if $encounter is "hellpup">>
+				<<set $creatureCalories = random(30,90); $creatureGirth = random(500,1500); $meatResource = 1; $fatResource = 1; $bribeID = "meatStock"; $bribeQuantity = random(36,48); $encounterDesc = "A bitey little canine with smouldering breath and claws!">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','red','red','red','red','red','red','red','red','red','red','red','red','red','red','red','blue','indigo','violet')>>
+
+			/% Combat stats %/
+					<<set $encounterElement = "fire"; $moveset = 10; $combatant = 1; $encounterStructure = "horizontal"; $encounterFinesse = random(16,28); $encounterPower = random(24,33); $encounterMaxPain = random(66,120); $killmode = "biter">><<endif>>
+
+
+/% ==================================== %/
+/% Dragons %/
+
+
+/% ============================================= %/
+
+		<<if $encounter is "streamserpent">>
+			<<set $creatureCalories = random(350,600); $creatureGirth = random(2000,4500); $dragonResource = 1; $fatResource = 1; $noStasis = 0; $encounterDesc = "A flowing, sinuous dragon often found weaving like a ribbon through the clouds!">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','red','red','orange','orange','golden','golden','golden','yellow','yellow','yellow','yellow','yellow','green','teal','teal','teal','blue','blue','indigo','violet','silver','silver','silver','white')>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "air"; $moveset = 55; $lootTable = 19; $combatant = 1; $encounterFinesse = random(32,64); $encounterPower = random(30,70); $encounterMaxPain = random(185,300); $killmode = "biter"; $lootRolls = random(4,5)>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "reefwyrm">>
+			<<set $creatureCalories = random(250,450); $creatureGirth = random(1500,4000); $dragonResource = 1; $fatResource = 1;$noStasis = 0; $encounterDesc = "A monstrous aquatic serpent with a venomous bite!">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','red','orange','golden','yellow','green','green','green','teal','teal','teal','blue','blue','blue','indigo','indigo','violet','violet','silver','white')>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "water"; $moveset = 57; $lootTable = 19; $combatant = 1; $encounterFinesse = random(24,48); $encounterPower = random(30,75); $encounterMaxPain = random(220,450); $venomType = "lethal"; $injectType = "snap of its fangs"; $killmode = "biter"; $lootRolls = random(4,5)>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "flametongue">>
+			<<set $creatureCalories = random(350,600); $creatureGirth = random(3000,6500); $dragonResource = 1; $fatResource = 1; $noStasis = 0; $encounterDesc = "A monstrous fire-breathing dragon, like out of the old storybooks...">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','red','red','brown','brown','brown','orange','orange','orange','golden','golden','yellow','yellow','teal','blue','indigo','white')>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "fire"; $moveset = 54; $lootTable = 19; $combatant = 1; $encounterFinesse = random(24,48); $encounterPower = random(40,88); $encounterMaxPain = random(90,275); $killmode = "biter"; $lootRolls = random(4,5)>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "cragonn">>
+			<<set $creatureCalories = random(550,800); $creatureGirth = random(4000,8500); $dragonResource = 1; $fatResource = 1; $noStasis = 0; $encounterDesc = "A rock-encrusted draconic titan, as slow as it is immensely strong!">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','red','brown','brown','brown','orange','orange','orange','golden','golden','gray','gray','blue','silver','white')>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "earth"; $moveset = 56; $lootTable = 19; $combatant = 1; $encounterFinesse = random(8,16); $encounterPower = random(35,90); $encounterMaxPain = random(350,800); $killmode = "biter"; $lootRolls = random(4,5)>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "terrogator">>
+			<<set $creatureCalories = random(550,900); $creatureGirth = random(6000,10500); $dragonResource = 1; $fatResource = 1; $noStasis = 0; $encounterDesc = "An enormous crocodilian dragon that lurks in the damp!">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,0,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','black','black','black','red','brown','gray','gray','teal','teal','blue','blue','blue','indigo','indigo','indigo','pink','white')>>
+
+			/% Favor %/
+				<<set $namelessFavored = 5>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "eldritch"; $moveset = 54; $lootTable = 18; $combatant = 1; $encounterFinesse = random(10,22); $encounterPower = random(60,99); $encounterMaxPain = random(250,550); $killmode = "biter"; $lootRolls = random(4,5)>><<endif>>
+
+
+/% ============================================= %/
+
+		<<if $encounter is "arboryvern">>
+			<<set $creatureCalories = random(350,600); $creatureGirth = random(3000,6500); $dragonResource = 1; $fatResource = 1; $noStasis = 0; $encounterDesc = "This old tree is actually a dragon! Look out!!">>
+
+			/% Aggression %/
+				<<set $aggro = 0>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('gray','red','brown','brown','brown','orange','orange','golden','golden','golden','yellow','yellow','green','green','green','green','blue','indigo','white')>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "vegetal"; $moveset = 57; $lootTable = 19; $combatant = 1; $encounterFinesse = random(24,48); $encounterPower = random(40,88); $encounterMaxPain = random(90,275); $killmode = "biter"; $lootRolls = random(4,5); $venomType = "lethal"; $injectType = "sting">><<endif>>
+
+/% ============================================= %/
+
+		<<if $encounter is "glass dragon">>
+			<<set $creatureCalories = random(350,600); $creatureGirth = random(3000,6500); $dragonResource = 1; $fatResource = 1; $noStasis = 0; $encounterDesc = "A beautiful and glinting reptilian beast. Sunlight seems to collect in its belly...">>
+
+			/% Aggression %/
+				<<set $aggro = either(0,1,1)>>
+
+			/% Colorsets %/
+				<<set $creatureColor = either('black','black','black','red','orange','golden','golden','golden','golden','golden','golden','yellow','yellow','yellow','yellow','yellow','green','teal','blue','indigo','violet','white','white','white','white','white','white','white'); $naturalColorpool = either(0,1)>>
+
+			/% Combat stats %/
+				<<set $encounterElement = "light"; $moveset = 54; $lootTable = 19; $combatant = 1; $encounterFinesse = random(24,48); $encounterPower = random(45,120); $encounterMaxPain = random(90,155); $killmode = "biter"; $lootRolls = random(4,5)>><<endif>>
+
+
+
+/% ============================================= %/
+
+/% ====================================================%/
+/% Bosses %/
+
+/% WIP; none of these are done yet %/
+
+/% ============================================= %/
+
+		<<if $encounter is "Phoenix Moreaux">>
+		<<set $encounterUnique = 1>>
+		/% Phoenix: Friendly Fire mode %/
+				<<set $encImg = "abitte_phoenix"; $creatureCalories = 666660; $creatureGirth = 666660; $encounterPower = 666; $encounterFinesse = 666; $encounterMaxPain = 666660;  $combatant = 1; $creatureBreasts = 1; $encounterDesc = "Phoenix grins alarmingly at you..."; $moveset = 666; $stasisImmune = 1; $cantCapture = 1; $encounterStructure = "vertical">><<endif>>
+
+/% ============================================= %/
+
+		<<if $encounter is "Nefirian Phoenix, the First">>
+		<<set $encounterUnique = 1>>
+		/% Phoenix: Malicious mode %/
+				<<set $encImg = "abitte_phoenix"; $creatureCalories = 666660; $creatureGirth = 666660; $encounterPower = 6660; $encounterFinesse = 6660; $encounterMaxPain = 666666666;  $combatant = 1; $creatureBreasts = 1; $encounterDesc = "Nefirian isn't smiling anymore."; $moveset = 666.6; $stasisImmune = 1; $cantCapture = 1; $encounterStructure = "vertical">><<endif>>
+
+
+
+/% ============================================================================================================ %/
+
+
+/% ============================================================================================================ %/
+/% III. Image directory
+
+Have creatures pick up their images here, by name. That way it won't matter if they're part of a randomized set. %/
+
+<<display CreatureImages>>
+
+/% ============================================================================================================
+/% IV. Special additions %/
+
+		/% leupai avoid people with vitae in their system. %/
+
+		<<if ($vitaePPM gt 0) and ($encounterFlag is "leupai")>><<set $encounterSpecial = "fleeing">><<endif>>
+
+/% ============================================================================================================
+/% V. Common bribe definitions %/
+
+		<<if $bribeID is "meatStock">><<set $bribeName = "raw meat"; $bribeAction = "... which they devour greedily!">><<endif>>
+		<<if $bribeID is "fishStock">><<set $bribeName = "raw fish"; $bribeAction = "... which they devour greedily!">><<endif>>
+		<<if $bribeID is "fatStock">><<set $bribeName = "raw fat"; $bribeAction = "... which they devour greedily!">><<endif>>
+		<<if $bribeID is "eggStock">><<set $bribeName = "raw eggs"; $bribeAction = "... which they devour greedily!">><<endif>>
+		<<if $bribeID is "milkStock">><<set $bribeName = "milk"; $bribeAction = "... which it gulps down greedily!">><<endif>>
+		<<if $bribeID is "vegStock">><<set $bribeName = "vegetables"; $bribeAction = "... which they devour greedily!">><<endif>>
+		<<if $bribeID is "fruitStock">><<set $bribeName = "fruit"; $bribeAction = "... which they devour greedily!">><<endif>>
+		<<if $bribeID is "grainStock">><<set $bribeName = "grain"; $bribeAction = "... which they devour greedily!">><<endif>>
+		<<if $bribeID is "fatteniumStock">><<set $bribeName = "fattenium ore"; $bribeAction = "... which they devour greedily!">><<endif>>
+
+
+
+/% ============================================================================================================
+/% VI. Fatness & Prefix modifiers %/
+
+/% Fatness Modifier %/
+/%
+		emaciated (-0.5)
+		sickly (-0.2)
+		[n/a] (default)
+		plump (+0.2)
+		round (+0.5)
+		fat (+1)
+		blubbery (+1.5)
+		gelatinous (+2)
+		blimplike (+5)
+		mountainous (+10)
+		moonlike (+20)?
+
+Perhaps fatness ranges should depend on planet/plane/prefix, normally.
+So by default, a normal planet will only have creatures between default to fat, whereas larger sizes happen because of specific effects (which will need to bypass the clear at the top of the database somehow-- via flags?).
+ %/
+
+<<if $noFatMod is 1>><<set $creatureFatness = 0>>
+
+<<elseif $noFatMod is 0>><<display CreatureFatness>><<endif>>
+
+/% ============================ %/
+/% New resource setup %/
+/% TESTING - instead of being set manually, check creature calories and girth and use math to figure out resource yield? Maybe just for basic meat-and-fat resources; everything else can be hard-coded.
+If this works, we can go through and adjust the base values to use it better ($meatResource = $meatResource * ($creatureGirth / 10), for example).
+
+Hopefully this will prevent 'empty' butchering returns.
+
+Just set the needed resource output number to 1 to indicate it should be calculated. %/
+
+<<display FleshCounter>>
+
+/% ============================================================================================================
+/% VII. Combat fat & bloat setup %/
+
+<<set $encounterBloat = $creatureGirth; $encounterFat = $creatureCalories>>
+
+
+
+/% ============================================================================================================
+/% VIII. Natural color implementation %/
+
+
+<<if $naturalColorpool is 1>>
+<<set $creatureColor = $biomeCreatureColor>><<endif>>
+
+
+/% ============================================================================================================
+/% X. Adjustments for special encounter calls %/
+
+
+/% Leupai expansion modifiers %/
+
+/%
+
+1 - egg-bloated; tonguebloat, tonguevenom, implant, flee; "... Its belly is packed tight with eggs!"
+2 - extreme eggbloat; + 3-5 power, tonguebloat, tonguevenom, implant; "... it's so bloated with eggs it looks ready to burst!"
+3 - venom-bloated; tonguebloat, tonguevenom, flee; "... Its belly is bloated up like a balloon!"
+4 - extreme venombloat; + 3-5 power, tonguevenom, tonguebloat; "... it's belly is blimped up into ENORMOUS size with excess venom!"
+5 - very fat; + 3-5 power, + 200-500 calories, tonguefatten/flee only; "... its body jiggles and quakes with plenty of extra fat!"
+6 - extremely fat; + 3-5 power, + 500-1000 calories, tonguefatten only; "... its flesh ripples and bounces as it moves, dragging its ludicrously blubbery body along!"
+7 - extremely fat; + 5-10 power, + 1000-5000 calories, standard moveset; "its gelatinous, bulging body is packed with so much quivering blubber, it can barely stand upright without leaning upon its mountainous belly!"
+
+ %/
+
+<<if $callLeupaiType neq 0>><<set $leupaiBloated = $callLeupaiType; $callLeupaiType = 0>><<endif>>

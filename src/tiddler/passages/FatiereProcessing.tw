@@ -1,0 +1,37 @@
+﻿<<if $service is 1>>\
+<<if ($bellyBloat gte ($maxBelly * 1.2)) or ($fatiereBrake is 1)>><<set $fatiereFattened = 0; $fatiereBrake = 1>>
+The fatiere pump ''shudders to a stop'', leaving you panting for breath as you clutch your groaning, tightly-bloated belly.
+After a few moments, the <<print $fatier>> //fatier// returns, carefully removing the hose and mask and checking to make sure you're alright.
+
+"All good?
+Overall, ''it looks like you've gained <<print Math.round(($belly - $bellyMeasure)/10 + ($breast - $breastMeasure)/10 + ($thigh - $thighMeasure)/10 + ($girth - $girthMeasure)/10)>>~~gi~~ from this session; <<print ($breast - $breastMeasure)/10>> in the chest, <<print ($belly - $bellyMeasure)/10>> at the midsection and <<print ($thigh - $thighMeasure)/10>> around the thigh area, with <<print ($girth - $girthMeasure)/10>> distributed around the rest of your body.'' Not bad!"
+"Now, please relax; it'll just be a bit longer while I siphon out our cut, and then you'll be free to go..."
+
+The //fatier// carefully measures your plumped-up body, then sets to work using a second hose to skillfully remove some of the excess fat-- a strange, sucking sensation, albeit mercifully free of pain.
+<<set $bodyGained = ($girth - $girthMeasure)/10; $breastGained = ($breast - $breastMeasure)/10; $bellyGained = ($belly - $bellyMeasure)/10; $thighGained = ($thigh - $thighMeasure)/10; $fatierePayment = (($bodyGained + $breastGained + $bellyGained + $thighGained) * $fatiereAsking / 20); $fatierePayment = Math.round($fatierePayment); $food += $fatierePayment; $fatieeProgress += ($bodyGained + $breastGained + $bellyGained + $thighGained) * 10>>
+Finally satisfied, the <<print $fatier>> removes you from the straps, giving you a bit to rest before sending you along on your way, with a stack of <<print $fatierePayment>> ~~//consiee//~~ in exchange for your time... and blubber.<<set $girth = $girthMeasure; $breast = $breastMeasure; $belly = $bellyMeasure; $thigh = $thighMeasure>><<display BodySystems>><<display Vitality>>
+
+<center><<button [[Continue|Fatiere][$service = 0; $fatiereBrake = 0; $gainMeasure = 0; $girthMeasure = 0; $breastMeasure = 0; $thighMeasure = 0; $bellyMeasure = 0; $ffRound = 0; $fatiereHired = 0]]>></center><<endif>>\
+<<elseif $service neq 1>>\
+<<if ($bellyBloat gte ($maxBelly * 1.2)) or ($fatiereBrake is 1) or ($ffRound gte $fatiereHired)>><<set $fatiereFattened = 0; $fatiereBrake = 1>>
+The fatiere pump ''shudders to a stop'', leaving you panting for breath as you clutch your groaning, tightly-bloated belly.
+After a few moments, the <<print $fatier>> //fatier// returns, carefully removing the hose and mask and checking to make sure you're alright.
+
+"All good?
+Overall, ''it looks like you've gained <<print Math.round(($belly - $bellyMeasure)/10 + ($breast - $breastMeasure)/10 + ($thigh - $thighMeasure)/10 + ($girth - $girthMeasure)/10)>>~~gi~~ from this session; <<print ($breast - $breastMeasure)/10>> in the chest, <<print ($belly - $bellyMeasure)/10>> at the midsection and <<print ($thigh - $thighMeasure)/10>> around the thigh area, with <<print ($girth - $girthMeasure)/10>> distributed around the rest of your body.'' Not bad!
+
+"Now, since you've already paid in consiee, you're ''free to go-- provided you can //move//, naturally...'' If not, we do offer ''Helium Pills'' to help you get around. //Temporarily//."<<display BodySystems>><<display Vitality>>
+
+<center><<button [[Continue|Fatiere][$service = 0; $fatiereBrake = 0; $gainMeasure = 0; $girthMeasure = 0; $breastMeasure = 0; $thighMeasure = 0; $bellyMeasure = 0; $ffRound = 0; $fatiereHired = 0]]>></center><<endif>><<endif>>\
+<<if $fatiereBrake is 0>>
+The //fatier// takes you down a long, industrial hallway lined with immense, egg-shaped capsules-- most occupied by clients of various species, drowsily drinking from thick rubber hoses firmly strapped to their faces as their bodies rapidly billow and bloat with piles of quaking fat.
+Finally, the <<print $fatier>> stops before an empty one, unlocking and opening the capsule before helping you inside, strapping you in securely and pulling a hosemask down for you from the top of the capsule.
+
+"Don't try to move around too much; the slurry will make you lethargic," they explain.
+"Remember-- ''we'll keep feeding you until you can't safely drink any more'', so don't panic if you start to feel tight.
+Once the pump shuts off or you give the signal, we'll finish up."
+
+<center><<set $fatiereFattened += 999>><<if $fatiereBrake is 0>><<display ForcefeedEngine>><<endif>>\
+<<if $adminMode is 1>>
+//DEBUG: Bloat is <<print $bellyBloat>>/<<print $maxBelly * 1.2>>//<<endif>>
+<<button [[Stop.|passage()][$fatiereBrake = 1; $forcefeedSpeed = 0; $ffRound = 0]]>></center><<endif>>

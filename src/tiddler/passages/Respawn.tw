@@ -1,0 +1,32 @@
+﻿<<nobr>>
+
+<<set $hiddenSidebar = 1>>
+
+<<if $corpseless is 0>><<display DeathSnapshot>><<endif>>
+
+<<set $corpseless = 0>>
+
+<<display StatusClear>>
+
+<<set $location = either("Woods","Forest","Sticks","Riverside","Meadow","Field","Plains")>>
+<<display LocationName>><<set $locStatus = 0; $specStatus = 0>>
+
+<<display RevecroixRandomizer>><<display NPCNamer>><<display ColorWheel>>
+
+<<if $guideSpawned is 0>><<set $deathGuideName = $revName; $deathGuide = $randomRevecroix; $deathGuideDesc = either("sleek","plump","round","fat","blubbery","busty","blubber-stuffed","blimplike","gelatinous","blimp-bellied","moon-bellied","blimp-breasted","blimp-thighed"); $deathGuideVoice = either("singsong","cheery","chirpy","gruff","warbling","shrill","deep","rich","melodic","honeyed","smooth","silky","bright","suggestive","flirty"); $deathGuideEmote = either("smile","knowing smile","wry smile","toothy grin","sarcastic smirk","raised eyebrow","soft sigh","long-suffering sigh","sharp laugh","hearty laugh","friendly look","sneer"); $deathGuideColor = $fullChroma; $guideSpawned = 1>><<endif>>
+
+
+<<endnobr>>
+..."Hello? Come on, open your eyes!"
+
+You open your eyes //(you hadn't even realized you had been closing them)// and find yourself looking at a <<print $deathGuideDesc + " " + $deathGuideColor + " " + $deathGuide>> in a comfortable-looking black velvet robe with golden trim-- ''and a long white flag marked with a single crying eye.''
+
+The <<print $deathGuideVoice>> voice that interrupted your despairing monologue apparently belongs to this creature, who regards you with a <<print $deathGuideEmote>>.
+"<<print ("Hi.","Hi!","Hello.","Hello!","Sup?","Greetings.","Salutations!","Auia.","Auia!","Yo,","Yo!")>> <<print either("I'm","My name is","I am","You may call me","Please call me") + " " + $deathGuideName + "." + " " + either("I am","It seems as though I am","Looks like I'm","It looks like I'm","Sounds like I'm","I'm") + " your guide.">>"
+
+You stare at them, and they sigh.
+"<<print either("You're dead.","You died.","You're dead, jim.","You bit it.","You fucked up.","You kinda... died. A little.","Hate to break it to you, but you bought the farm.","You are now amongst the dead.","RIP in peace.","How does your culture send off your dead, incidentally?","Have you heard the news that you're dead?","You are now a ghost. How? It is a mystery.","Thou art dead.")>>" <<print $deathGuideName>> looks pointedly at you.
+
+//Oh.//
+
+"<<print either("Yes.","Yeah.","Yup.","Yup!")>> But don't worry about it. Follow me, okay? We'll get you set up with a replacement body..."<hr><<display PlayerGen>>

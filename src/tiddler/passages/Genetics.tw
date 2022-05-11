@@ -1,0 +1,312 @@
+﻿/% Fatty gene I - increases metagain floor. %/
+<<if $geneFattyI is 1>><<if $metaGain lt 50>><<set $metaGain = 50>><<endif>><<endif>>
+
+/% Fatty gene II - decreases metaburn ceiling. %/
+<<if $geneFattyII is 1>><<if $metaBurn gte 30>><<set $metaBurn = 20>><<endif>><<endif>>
+
+/% Muscular gene - increases strength + strength floor, decreases finesse. %/
+<<if $geneMuscular is 1>><<if $strength lt 20>><<set $strength = 20>><<endif>><<endif>>
+
+/% Dextrous gene - decreases strength, increases finesse floor %/
+
+/% Frail gene - decreases strength %/
+
+/% Tough gene - increases strength + pain buffer %/
+<<if $geneTough is 1>>
+<<if $geneToughBonus is 0>><<set $painBuffer += 5; $geneToughBonus = 1>><<endif>><<endif>>
+
+/% Soft gene - decreases strength + pain buffer %/
+<<if $geneSoft is 1>>
+<<if $geneSoftBonus is 0>><<set $painAmp += 5; $geneSoftBonus = 1>><<endif>><<endif>>
+
+/% Lean gene I - increases metaburn floor. %/
+<<if $geneLeanI is 1>><<if $metaBurn lt 50>><<set $metaBurn = 50>><<endif>><<endif>>
+
+/% Lean gene II - decreases metagain ceiling. %/
+<<if $geneLeanII is 1>><<if $metaGain gte 30>><<set $metaGain = 20>><<endif>><<endif>>
+
+/% Plump gene - increases bonusWG when weight is low. %/
+<<if $genePlump is 1>><<if ($fatScore lt $immobilityCeiling * 0.35) and ($genePlumpBonus is 0)>><<set $consecutiveGain += 1; $genePlumpBonus = 1>><<endif>><<endif>>
+
+/% Sleek gene - increases bonusDrain when weight is high. %/
+<<if $geneSleek is 1>><<if ($fatScore gte $immobilityCeiling * 0.35) and ($geneSleekBonus is 0)>><<set $consecutiveDrain += 1; $geneSleekBonus = 1>><<endif>><<endif>>
+
+/% Gainer gene - negates incidental calorie burn. Code in BodySystems %/
+
+/% Rapid Absorption gene - speeds weight gain. %/
+<<if $geneRapidAbsorption>><<if $calories gte $metaGain>><<display Bodytype>><<endif>><<endif>>
+
+/% Rapid Burn gene - speeds caloric burn. %/
+<<if $geneRapidBurn is 1>><<if $calories gte $metaBurn is 0>><<set $calories -= $metaBurn>><<endif>><<endif>>
+
+/% Plump Breast gene - extra breast gain. %/
+<<if $genePlumpBreast is 1>><<if $genePlumpBreastBonus is 0>><<set $bonusBreast += 1; $genePlumpBreastBonus = 1>><<endif>><<endif>>
+
+/% Plump Belly gene - extra belly gain. %/
+<<if $genePlumpBelly is 1>><<if $genePlumpBellyBonus is 0>><<set $bonusBelly += 1; $genePlumpBellyBonus = 1>><<endif>><<endif>>
+
+/% Plump Thigh gene - extra thigh gain. %/
+<<if $genePlumpThigh is 1>><<if $genePlumpThighBonus is 0>><<set $bonusThigh += 1; $genePlumpThighBonus = 1>><<endif>><<endif>>
+
+/% Fat Breast gene - extra breast gain. %/
+<<if $geneFatBreast is 1>><<if $geneFatBreastBonus is 0>><<set $bonusBreast += 2; $geneFatBreastBonus = 1>><<endif>><<endif>>
+
+/% Fat Belly gene - extra belly gain. %/
+<<if $geneFatBelly is 1>><<if $geneFatBellyBonus is 0>><<set $bonusBelly += 2; $geneFatBellyBonus = 1>><<endif>><<endif>>
+
+/% Fat Thigh gene - extra thigh gain. %/
+<<if $geneFatThigh is 1>><<if $geneFatThighBonus is 0>><<set $bonusThigh += 2; $geneFatThighBonus = 1>><<endif>><<endif>>
+
+/% Huge Breast gene - extra breast gain. %/
+<<if $geneHugeBreast is 1>><<if $geneHugeBreastBonus is 0>><<set $bonusBreast += 3; $geneHugeBreastBonus = 1>><<endif>><<endif>>
+
+/% Huge Belly gene - extra belly gain. %/
+<<if $geneHugeBelly is 1>><<if $geneHugeBellyBonus is 0 gte 1000>><<set $bonusBelly += 3; $geneHugeBellyBonus = 1>><<endif>><<endif>>
+
+/% Huge Thigh gene - extra thigh gain. %/
+<<if $geneHugeThigh is 1>><<if $geneHugeThighBonus is 0>><<set $bonusThigh += 3; $geneHugeThighBonus = 1>><<endif>><<endif>>
+
+/% Solid Thighs gene - increases thigh firmness. %/
+<<if $geneSolidThighs is 1>><<if $thighFirmness lt 1000>><<set $thighFirmness = 1000>><<endif>><<endif>>
+
+/% Flabby Thighs gene - decreases thigh firmness. %/
+<<if $geneFlabbyThighs is 1>><<if $thighFirmness gte 1000>><<set $thighFirmness = 800>><<endif>><<endif>>
+
+/% Glutton gene - increases esurience floor. %/
+<<if $geneGlutton is 1>><<if $esurience lt 24>><<set $esurience = 24>><<endif>><<endif>>
+
+/% Satisfied gene - decreases esurience ceiling. %/
+<<if $geneSatisfied is 1>><<if $esurience gt 12>><<set $esurience = 12>><<endif>><<endif>>
+
+/% Productive gene - boosts lactation rate. %/
+<<if $geneProductive is 1>><<set $lactation = 1>>
+<<if $milkRate lt 2>><<set $milkRate = 2>><<endif>><<endif>>
+
+/% Dry gene - grants immunity to lactation. %/
+<<if $geneDry is 1>><<set $lactation = 0; $breastBloat -= $storedMilk; $storedMilk = 0; $milkRate = 0; $milkFat = 0>><<endif>>
+
+/% Venom Bloated gene - overproduces venom, causes bloat. Requires venom gland(should it cause one to generate if none is present?) %/
+
+<<if $geneVenomBloated is 1>>
+<<if $venomGland is 0>><<set $venomGland = 1; $playerVenom = either("fattening","fattening","fattening","bellyfattening","breastfattening","thighfattening","bloating","bloating","bloating","bloating","bloating","breastbloating","breastbloating","bursting","healing","healing","healing","superfattening","superbellyfattening","superbreastfattening","superthighfattening","flabbifying","flabbifying","weakening","toxic","lethal","mutagenic","mutagenic","gluttonous","gluttonous","gluttonous","fattenium","bulking","hallucenogenic","caloric","caloric","caloric","caloric","caloric","caloric","caloric")>><<endif>>
+<<if $venomProd lt 2>><<set $venomProd = 2>><<endif>>
+
+<<set $bellyBloat += $venomProd; $storedVenom += $venomProd>><<endif>>
+
+/% Blubber gene - if weight is less than 50% to immobility, causes spontaneous weight gain. %/
+
+<<if $geneBlubber is 1>>
+<<if $fatScore lt $immobilityCeiling * 0.5>><<set $calories += either(10,10,10,20,30,50)>><<endif>>
+<<endif>>
+
+/% Blubber-Stuffed gene - if weight is less than 75% to immobility, causes spontaneous weight gain. %/
+
+<<if $geneBlubberstuffed is 1>>
+<<if $fatScore lt $immobilityCeiling * 0.75>><<set $calories += either(20,20,30,40,50,80)>><<endif>>
+<<endif>>
+
+/% Rippling gene - if weight is less than 90% to immobility, causes spontaneous weight gain. %/
+
+<<if $geneRippling is 1>>
+<<if $fatScore lt $immobilityCeiling * 0.9>><<set $calories += either(30,30,40,50,80,100)>><<endif>>
+<<endif>>
+
+/% Liquid Conversion gene - grants slime passive, converting liquids and parasitic slimes into fat. %/
+<<if $geneLiquidConversion is 1>>
+<<if $bellyLiquid gte 10>><<set $calories += 10; $bellyBloat -= 10; $bellyLiquid -= 10>><<endif>>
+<<if $storedMilk gte 10>><<set $breast += 10; $storedMilk -= 10>><<endif>>
+<<if $slimeBellyParaLoad gte 10>><<set $belly += $slimeBellyParaLoad; $bellyBloat += $slimeBellyParaLoad; $slimeBellyParaLoad = 0; $slimeBellyParasite = 0>><<endif>>
+<<if $slimeBreastParaLoad gte 10>><<set $breast += $slimeBreastParaLoad; $breastBloat += $slimeBreastParaLoad; $slimeBreastParaLoad = 0; $slimeBreastParasite = 0>><<endif>><<endif>>
+
+/% Slime Harmony gene - immune to slime transformation. Code in Overdoses/Toxicity %/
+
+/% Mirajinic Gain gene - absorbs atmospheric mirajin, converting it into fat. %/
+<<if ($geneMirajinicGain is 1) and ($mirajinRads gte 10)>><<set $mirajinRads -= 10; $calories += 10>><<endif>>
+
+/% Mirajinic Bloat gene - absorbs atmospheric mirajin, converting it into bellyBloat and breastBloat. %/
+<<if ($geneMirajinicBloat is 1) and ($mirajinRads gte 20)>><<set $mirajinRads -= 20; $bellyBloat += 20; $breastBloat += 20>><<endif>>
+
+/% Mirajin Sensitive gene - bolsters mirajin radiation, miratoxic poisoning, & somniation. %/
+<<if $geneMirajinSensitive is 1>>
+<<if $miraPoisoning gte 1>>
+
+<<set $esurience += random(0,3)>>
+
+<<set $randomizer = random(1,5)>>
+<<if $randomizer is 1>><<set $metaGain += either(0,0,10); $metaBurn -= either(0,0,10); $calories += ($miraPoisoning * 10); $belly += either(0,0,0,10)>><<endif>>
+
+<<set $randomizer = random(1,16)>>
+<<if $randomizer is 1>><<set $strength += 1>><<endif>>
+
+<<set $randomizer = random(1,10)>>
+<<if $randomizer is 1>><<set $randomizer = either(1,2)>>
+<<if $randomizer is 1>><<set $maxBelly += 10>>
+<<elseif $randomizer is 2>><<set $maxBreast += either(1,1,2,2,3)>><<endif>><<endif>>
+
+<<set $randomizer = random(1,12)>><<if $randomizer is 1>><<set $esurience += 1>><<endif>>
+
+<<if $bodyType is 0>><<set $bodyType = either(0,0,0,0,0,"round","belly","pear")>>
+<<else>><<display ExpandBodytype>><<endif>><<endif>>
+
+/% Somniation bonuses %/
+<<if $somniation gt 0>><<set $somniation += either(0,0,0,0,1)>><<endif>>
+
+<<if $somniation gte 30>><<display FatSurge>><<display FatSurge>><<endif>>
+
+/% Realization bonuses %/
+<<if $realizing gt 0>><<display FatSurge>><<endif>>
+
+/% Leupai with this gene are bound to get HUGE %/
+
+<<if $leupaiFlag is 1>><<display FatSurge>><<endif>>
+
+<<endif>>
+
+/% Unreal gene - absorbs miratoxin and somniation, converting it into calories. %/
+<<if $geneUnreal is 1>>
+<<if $miraPoisoning gte 1>><<set $miraPoisoning -= 1; $calories += 5>><<endif>>
+<<if $esurience gte 1>><<set $esurience -= 1; $calories += 10>><<endif>><<endif>>
+
+/% Vitality gene - exposure to vitae boosts energy and soothes pain. %/
+<<if $geneVitality is 1>><<if $vitaePPM gte 1>><<set $pain -= random(9,16); $bonusEnergy += random(8,16)>><<endif>><<endif>>
+
+/% Vital Essence gene - reduces mirajin radiation, miratoxic poisoning, & somniation. %/
+<<if $geneVitalEssence is 1>>
+
+<<if $mirajinRads gt 0>><<set $mirajinRads -= random(0,2)>><<endif>>
+<<if $miraPoisoning gt 0>><<set $miraPoisoning -= random(0,2)>><<endif>>
+<<if $somniation gt 0>><<set $somniation -= either(0,0,0,0,0,0,0,1)>><<endif>>
+
+<<endif>>
+
+/% Vital Allergy gene - reacts to vitae exposure as dreamkin. - $geneVitalAllergy, code in Toxins %/
+
+/% Rapid Gain gene - increases consecutiveGain. %/
+<<if $geneRapidGain is 1>><<if $geneRapidGainBonus is 0>><<set $consecutiveGain += 1; $geneRapidGainBonus = 1>><<endif>><<endif>>
+
+/% Wasting gene - increases consecutiveDrain. %/
+<<if $geneWasting is 1>><<if $geneWastingBonus is 0>><<set $consecutiveDrain += 1; $geneWastingBonus = 1>><<endif>><<endif>>
+
+/% Rubber gene - increases maxBelly and maxBreast, grants blunt trauma resistance. %/
+<<if $geneRubber is 1>><<if $geneRubberBonus is 0>><<set $maxBelly += 20; $maxBreast += 10; $geneRubberBonus = 1; $stretchy = 1>><<endif>><<endif>>
+
+/% Rigid gene - decreases maxBelly and maxBreast. %/
+<<if $geneRigid is 1>><<if $geneRigidBonus is 0>><<set $maxBelly -= 20; $maxBreast -= 10; $geneRigidBonus = 1; $stretchy = 0>><<endif>><<endif>>
+
+/% Expandable gene - grants immunity to bloat and bursting %/
+<<if $geneExpandable is 1>><<set $maxBelly += $bellyBloat; $maxBreast += $breastBloat; $stretchy = 1>><<endif>>
+
+/% Flight gene - grants powered flight %/
+<<if $geneFlight is 1>><<set $flight = 1>><<elseif ($geneFlight is 0) and ($flight is 1)>><<set $flight = 0>><<endif>>
+
+/% Bloat gene - increases bellyBloat and breastBloat. %/
+<<if $geneBloat is 1>>
+<<if $bellyBloat lt $maxBelly * 0.3>><<set $bellyBloat = $maxBelly * 0.3>><<endif>>
+<<if $breastBloat lt $breast/2>><<set $breastBloat = $breast/2>><<endif>><<endif>>
+
+/% Deflation gene - decreases bellyBloat and breastBloat when present. %/
+<<if $geneDeflation is 1>>
+<<if $bellyBloat gte $belly/2>><<set $bellyBloat -= $belly/10>><<endif>>
+<<if $breastBloat gte $breast/2>><<set $breastBloat -= $breast/10>><<endif>><<endif>>
+
+/% Parasite Resistant genes - decreases populations of specified parasites %/
+/% Parasite Bolstering genex - increases populations of specified parasites when present %/
+
+/% Ovivore gene - breaks down and consumes parasite eggs, disabling population growth and converting leupai eggs into calories. Some code in Parasites. %/
+<<if $geneOvivore is 1>>
+<<if $leupaiEggLoad gt 0>><<set $leupaiEggLoad -= 1; $calories += $quaggyGirth>><<endif>>
+<<endif>>
+
+/% Daedlan gene - bolsters leupai eggs and soothes pain when carrying. %/
+<<if $geneDaedlan is 1>>
+<<if ($leupaiEggLoad gt 0) and ($leupaiEggTimer gt 0)>><<set $quaggyGirth += either(0,0,10); $pain = $pain/2>><<endif>><<endif>>
+
+/% Toxin Resistant genes - removes overdose warning effects from specified toxins %/
+/% Toxin Allergy genes - increases effects of specified toxins %/
+
+/% Fattenium Resistant gene - converts fattenium into calories, reduces pain, and disables cascade. %/
+<<if $geneFatteniumResistant is 1>>
+<<if $fatteniumPoisoning gte 10>><<set $calories += 30; $fatteniumPoisoning -= 10; $pain = $pain/2; $fatteniumCascade = 0>><<endif>><<endif>>
+
+/% Fattenium Allergy gene - increases pain and weight gain. %/
+<<if $geneFatteniumAllergy is 1>>
+<<if $fatteniumPoisoning gte 10>><<set $pain += random(2,4)>><<display FatSurge>><<endif>><<endif>>
+
+/% Lead Belly gene - grants immunity to stomach virii for humanoids - $geneLeadBelly - code in Overdoses %/
+/% Stomach Rot gene - inflicts stomach virus effects - $geneStomachRot - code in Overdoses %/
+
+/% Weather Sensitivity gene - weight gain in cold weather, bloat in heat - $geneWeatherSensitive %/
+<<if $geneWeatherSensitive is 1>>
+<<if $coldWeather is 1>><<set $calories += $metaGain>><<display BodySystems>><<endif>>
+<<if $hotWeather is 1>><<set $bellyBloat += ($belly / 4); $breastBloat += ($breast / 4)>><<endif>><<endif>>
+
+/% Thermal Conversion gene - body converts heat into calories %/
+<<if $geneThermalConversion is 1>>
+<<if $hotWeather is 1>><<set $calories += $metaGain>><<display BodySystems>><<endif>><<endif>>
+
+/% Nourishing Light gene - body converts light into calories %/
+<<if $geneNourishingLight is 1>>
+<<if $darkArea is 0>><<set $calories += $metaGain>><<display BodySystems>><<endif>><<endif>>
+
+/% Amphibious gene - can safely breathe water without drowning - gene in AmbienceDatabase %/
+
+/% Moisture Sensitive gene - liquids, wet weather, and wet biomes cause pain. %/
+<<if $geneMoistureSensitive is 1>>
+<<if ($wetWeather is 1) or ($bellyLiquid neq 0) or ($storedMilk neq 0)>><<set $pain += random(3,6); $deathCause = "agony">><<endif>><<endif>>
+
+/% Drought Sensitive gene - dry biomes cause pain. %/
+<<if $geneDroughtSensitive is 1>>
+<<if ($wetWeather is 0) and ($bellyLiquid lt 10) and ($storedMilk lt 10)>><<set $pain += random(3,6); $deathCause = "agony">><<endif>><<endif>>
+
+/% Heat Sensitive gene - hot biomes cause pain. %/
+<<if $geneHeatSensitive is 1>>
+<<if $hotWeather is 1>><<set $pain += random(3,6); $deathCause = "agony">><<endif>><<endif>>
+
+/% Cold Sensitive gene - cold biomes cause pain. %/
+<<if $geneColdSensitive is 1>>
+<<if $coldWeather is 1>><<set $pain += random(3,6); $deathCause = "agony">><<endif>><<endif>>
+
+/% Light Sensitive gene - bright areas cause pain. %/
+<<if $geneLightSensitive is 1>>
+<<if $darkArea is 0>><<set $pain += random(3,6); $deathCause = "agony">><<endif>><<endif>>
+
+/% To do- heat and cold resistance genes %/
+
+/% ============================================================= %/
+/% Lethal Genes %/
+
+/% Overinflation gene - increases bellyBloat, inflicts pain. %/
+<<if $geneOverinflation is 1>>
+<<set $bellyBloat = $maxBelly * 5; $lethalKO = 1; $deathCause = either("burst belly","explosion")>>
+<<if $bellyStatus is "bursting">><<set $pain += random(6,12)>><<endif>><<endif>>
+
+/% Liquification gene - causes weight gain, saps strength, finesse, + energy, potential suffocation %/
+<<if $geneLiquification is 1>>
+<<set $finesse -= either(0,0,0,1)>>
+<<set $randomizer = random(1,12)>>
+<<if $randomizer is 1>><<display FatSurge>><<endif>>
+<<if $strength gt 15>><<set $strength -= either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1)>><<endif>>
+<<if $fatScore gte $immobilityCeiling>><<set $randomizer = random(1,5)>>
+<<if $randomizer is 1>><<set $lethalKO = 1; $deathCause = "fat suffocation"; $blubberDrowning = 1>><<endif>><<endif>>
+
+<<endif>>
+
+/% Sponge gene - saps strength + finesse, decreases pain buffer, inflicts pain %/
+<<if $geneSponge is 1>>
+<<if $strength gt 5>><<set $strength -= either(0,0,0,0,0,0,0,0,0,0.5); $finesse -= either(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1); $painfulOverdoseWarning = either(0,0,0,0,0,0,0,1)>>
+<<elseif $strength lte 5>><<set $painfulOverdoseWarning = 1>><<endif>>
+
+<<endif>>
+
+/% Overgrowth gene - inflicts pain, bloat. %/
+<<if $geneOvergrowth is 1>>
+<<set $bellyBloat = $maxBelly * 2; $pain += random(2,6); $finesse -= either(0,0,0,1); $overgrowth = 1; $lethalKO = 1; $deathCause = "explosion">><<endif>>
+
+/% Dissolution gene - inflicts pain. %/
+<<if $geneDissolution is 1>>
+<<set $pain += random(2,6); $dissolving = 1; $lethalKO = 1; $deathCause = "agony">><<endif>>
+
+/% Weak Skin gene - severely amplifies pain. %/
+<<if $geneWeakSkin is 1>>
+<<set $lethalKO = 1; $deathCause = "agony">>
+<<if $painAmp lt 50>><<set $painAmp = 50>><<endif>><<endif>>

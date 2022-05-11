@@ -1,0 +1,38 @@
+﻿<<display ZoneBackgrounds>>''__<brightalert>Your Mound!</brightalert> <<display ZoneDisplay>>__''
+''__Your Donsair__''<<nobr>>
+
+<<display DonsairTraits>><<display DonsairGainchecks>>
+
+<<endnobr>><center>\
+<<print "[img[$dons" + $donsairID + "img]]">></center>
+<center>__''<<print "<<print $dons" + $donsairID + ">>">>''__ the ''<<print "<<if $dons" + $donsairID + "Color neq 0>><<print $dons" + $donsairID + "Color>> <<endif>>">><<print "<<if $dons" + $donsairID + "Skin neq 0>><<print $dons" + $donsairID + "Skin>> <<endif>>">><<print "<<if $dons" + $donsairID + "Subtype neq 0>><<print $dons" + $donsairID + "Subtype>> <<endif>>">><<print "<<if $dons" + $donsairID + "Subspec neq 0>><<print $dons" + $donsairID + "Subspec>> <<endif>>">><<print "<<print $dons" + $donsairID + "Spec>>">>''</center><<nobr>>
+
+<<endnobr>></center><framed><center>''Girth:'' <<print "<<print $dons" + $donsairID + "Girth/10>>">>~~gi~~
+(//<<print $donsairVore>>vorous//)
+<narrowframe><<print "<<print $dons" + $donsairID + ">>">> <<print $donsairGirthDesc>></narrowframe>\
+\
+''Power:'' <<print $donsairPower>> ''Finesse:'' <<print $donsairFinesse>>
+<<nobr>></mini>
+
+<<print "<<if $dons" + $donsairID + "Ears neq 0>>[<<print $dons" + $donsairID + "Ears>> ears] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Facet neq 0>>[<<print $dons" + $donsairID + "Facet>> facet] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Eyes neq 0>>[<<print $dons" + $donsairID + "Eyes>> eyes] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Face neq 0>>[<<print $dons" + $donsairID + "Face>> face] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Head neq 0>>[<<print $dons" + $donsairID + "Head>>] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Body neq 0>>[<<print $dons" + $donsairID + "Body>> body] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Back neq 0>>[<<print $dons" + $donsairID + "Back>>] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Legs neq 0>>[<<print $dons" + $donsairID + "Legs>> legs] <<endif>>">>
+<<print "<<if $dons" + $donsairID + "Tail neq 0>>[<<print $dons" + $donsairID + "Tail>> tail]<<endif>>">>
+<<endnobr>><midframe>\
+\
+/% Room for donsair mutation readouts here? %/\
+\
+<<if $donsairExplode is 0>><<display DonsairOptions>>\
+<<elseif $donsairExplode is 1>>[img[icon_alert_red]]<brightalert><<print $donsairName>> ''cries out in pain as its body balloons, creaking as it swells to its absolute limit!''
+You watch in horror as it finally ''explodes'', leaving you with nothing to do but clean up the mess...<<set $butcherConfirm = 1>></brightalert>\
+<<display DonsairButcher>><<endif>>\
+\
+\
+\
+</midframe></center></framed>
+<<if $donsairExplode is 0>><center><<button [[Back.|Donsair][$donsairFetched = 0; $donsairExplode = 0; $donsairBreasts = 0; $donsairLeupai = 0; $donsairSlime = 0; $donsairDragon = 0; $donsairPoultry = 0]]>></center><<endif>>

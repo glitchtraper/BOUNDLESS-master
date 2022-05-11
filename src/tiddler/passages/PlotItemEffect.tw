@@ -1,0 +1,49 @@
+﻿/% ================================================ %/
+
+<<if $forcefedPet is "vital water">>
+/% Instant plant growth. %/
+
+		<<set $plantStart -= $plantMaturity>>
+
+	<<if $plantAge is "Mature">>
+		<<set $plantHarvestRegen = 0>>
+
+	<<endif>>
+
+/% adjust plant birthdate in database %/
+<<print "<<set $plot" + $plotID + "PlantStart = $plant" + "Start>>">>
+
+/% ================================================ %/
+
+<<elseif $forcefedPet is "blood">>
+/% Accelerated plant growth. %/
+
+		<<set $plantStart -= ($plantMaturity * 0.2)>>
+
+	<<if $plantAge is "Mature">>
+		<<set $plantHarvestRegen = 0>>
+
+	<<endif>>
+
+/% adjust plant birthdate in database %/
+<<print "<<set $plot" + $plotID + "PlantStart = $plant" + "Start>>">>
+
+/% ================================================ %/
+/% Dyes (Catchall) %/
+
+
+<<elseif $forcefedPet is "Prisma Shard">>
+	<<set $plantColor = $dyeColor>>
+
+/% ================================================ %/
+/% End all items %/
+<<endif>>
+
+
+/% ================================================ %/
+/% Update the database stats. %/
+
+<<print "<<set $plot" + $plotID + "Species = $plant" + "Species>>">>
+<<print "<<set $plot" + $plotID + "HarvestRegen = $plot" + "HarvestRegen>>">>
+
+<<display PlantDatabase>>

@@ -1,0 +1,46 @@
+﻿<<display ZoneBackgrounds>><center><<nobr>><<set $toggleDisplay = 1>>
+
+<<display TreasurePool>><<display EncounterImg>>
+
+/% Multiples & Item Luckydips use the item script. %/
+
+<<if ($roomStyle is "multiples") or ($dipType neq "resource")>>
+
+<<if $itemQuantity is 0>><<set $itemQuantity = 1>><<endif>>
+
+<<if $roomStyle neq "fullset">><<print "<<set $" + $itemID + " += " + $itemQuantity + ">>">><<endif>><<endif>>
+
+<<if $roomStyle is "luckydip">>
+/% Resource luckydips use the resource script. %/
+
+<<if $dipType is "resource">>
+<<set $waterStock += $waterResource; $milkStock += $milkResource; $meatStock += $meatResource; $fishStock += $fishResource; $poultryStock += $poultryResource; $eggStock += $eggResource; $grainStock += $grainResource; $rootStock += $rootResource; $fruitStock += $fruitResource; $vegStock += $vegResource; $sugarStock += $sugarResource; $nutStock += $nutResource; $fatStock += $fatResource; $herbStock += $herbResource; $jellyStock += $jellyResource; $dragonStock += $dragonResource; $leupaiStock += $leupaiResource; $fatteniumStock += $fatteniumResource; $miraStock += $miraResource>><<endif>>
+
+/% Regardless of dip type, run the counter down one once you're finished. %/
+
+<<set $dipsLeft -= 1>><<endif>>
+
+/% Pt. 1 - "You open the door", "You see/find"... %/<<endnobr>>
+<framed><<print $openScript>>''<<nobr>>
+
+/% "..and find/spot/discover..." %/
+<<if ($roomStyle is "multiples") or ($roomStyle is "fullset")>>
+
+/% "...a brand new car" %/
+<<if $roomStyle is "multiples">> <<print $itemQuantity>> <<print $itemEncounter>><<endif>><<if $roomStyle is "fullset">> <<print $setPrizeName>>
+/% End of Multiple-stack & full set code %/
+<<endif>>
+
+/% "...this thing(s)" %/
+<<elseif $roomStyle is "luckydip">> <<if $dipType is "item">> <<print $itemQuantity>> <<print $itemEncounter>>
+
+/% "...this OTHER thing(s)" %/
+<<elseif $dipType is "resource">><<print $resourceGrammar>> <<print $resourceEncounter>><<endif>><<endif>>
+
+
+/% !!! WOOOOooo *audience applause* %/
+!''<<endnobr>>
+You gather <<print $treasureGrammar>> up and place <<print $treasureGrammar>> in your inventory.
+<<if ($roomStyle is "luckydip") and ($dipsLeft gt 0)>><<button [[Keep Searching!|passage()][$repeatUse += 1]]>><<if $repeatUse gt 0>>
+(<<print $repeatUse>>)<<endif>><<endif>></framed>
+<<button [[Continue.|$saveStateSpecial][$dipLock = 0; $itemQuantity = 0; $repeatUse = 0]]>></center>

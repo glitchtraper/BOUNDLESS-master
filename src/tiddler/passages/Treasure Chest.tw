@@ -1,0 +1,24 @@
+﻿<<display ZoneBackgrounds>><center><<nobr>><<display TreasurePool>><<set $toggleDisplay = 1>>
+
+<<if $treasureType is "item">>
+
+<<if $itemQuantity is 0>><<set $itemQuantity = 1>><<endif>>
+
+<<print "<<set $" + $itemID + " += " + $itemQuantity + ">>">>
+
+<<elseif $treasureType is "currency">><<set $food += $currencyAmount; $encImg = "consiee">><<else>><<endif>>
+
+<<display EncounterImg>>
+
+<<endnobr>><framed>You open the chest... ''and find <<if $treasureType is "item">><<print $itemGrammar>> <<print $itemEncounter>><<elseif $treasureType is "currency">> <<if $currencyAmount gte 500>><warning><<print $currencyAmount>> consiee</warning><<else>><<print $currencyAmount>> consiee<<endif>><<elseif $treasureType is "creature">>a <<print $encounter>><<endif>> inside!<<if $currencyAmount gte 800>>!<<elseif $treasureType is "creature">>?<<endif>>''<<if $showDebug is 1>>
+
+//DEBUG:
+itemPool is <<print $itemPool>>; treasureType is <<print $treasureType>>; <<if $treasureType is "currency">> currencyAmount is <<print $currencyAmount>><<elseif $treasureType neq "currency">> clawMachine is <<print $clawMachine>>; itemEncounter is <<print $itemEncounter>>.<<endif>> //<<endif>><<nobr>>
+
+
+
+<<endnobr>><<if $treasureType is "creature">>
+<<button [[Attack!!|Combat][$saveStateBattle = "Explore"; $combat = 1; $killingBlow = 0; $calories -= 10; $bonusEnergy -= 10; $exploring = 3; $enemyPain = 0; $combatResult = 0]]>><<if $canSubmit is 1>><<button [[Submit!|CreatureEffects][$saveState = "Explore"; $exploring = 2; $resting = 0]]>><<endif>><<nobr>>
+
+<<endnobr>><<endif>></framed>
+<<button [[Continue.|$saveStateSpecial]]>></center>

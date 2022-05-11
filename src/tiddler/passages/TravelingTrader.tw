@@ -1,0 +1,7 @@
+﻿<<display BiomeDatabase>><<display ZoneBackgrounds>><<display EncounterImg>>
+<invisiframe>The traveler is excited to see you!
+
+You have <<print $food>> ~~consiee~~ to offer.</invisiframe>
+
+<center><wideframe2><<display TradePools>></wideframe2>
+<<button [[Finish Trading.|Explore][$sellPool = 0; $buyPool = 0; $tradePool = 0; $rareItemBought = 0]]>></center>

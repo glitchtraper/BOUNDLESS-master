@@ -1,0 +1,48 @@
+﻿<<if $carryBG neq 0>><<addtag $carryBG>><<endif>><<display ZoneBackgrounds>><<set $seenIt_Absorption = 1>><<if $newMachine is 1>><<display MachineEfficiency>><<set $maintained = 3; $maintenanceCap = 0>><<endif>>
+It's an odd piece of equipment with a large, enterable chamber attached to a control panel and a series of thick cables.
+
+''A label on the side announces it as an Absorption Accelerator.''<<if $inUse is 1>>
+You carefully set up the machine and turn it on, climbing into the chamber and relaxing as it begins to charge with a low hum.
+
+Finally, ''a beam of strange, warm light envelops you;'' <<if $calories gt 0>><brightalert>''your belly gurgles as it absorbs its contents and you begin to grow fatter!''</brightalert><<nobr>>
+
+<<if $machineEfficiency is "poor">>
+<<set $fatteningSurge = ($calories * 0.1); $calories -= ($calories * 0.1)>><<display FatSurge>>
+<<set $bellyBloat -= ($maxBelly * 0.1)>>
+
+<<elseif $machineEfficiency is "fair">>
+<<set $fatteningSurge = ($calories * 0.1); $calories -= ($calories * 0.2)>><<display FatSurge>><<display FatSurge>>
+<<set $bellyBloat -= ($maxBelly * 0.2)>>
+
+<<elseif $machineEfficiency is "good">>
+<<set $fatteningSurge = ($calories * 0.2); $calories -= ($calories * 0.6)>><<display FatSurge>><<display FatSurge>><<display FatSurge>>
+<<set $bellyBloat -= ($maxBelly * 0.3)>>
+
+<<elseif $machineEfficiency is "excellent">>
+<<set $fatteningSurge = ($calories * 0.1); $calories -= ($calories * 0.5)>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>
+<<set $bellyBloat -= ($maxBelly * 0.5)>>
+
+<<elseif $machineEfficiency is "flawless">>
+<<set $fatteningSurge = ($calories * 0.1); $calories -= ($calories * 0.8)>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>><<display FatSurge>>
+
+<<set $bellyBloat -= ($maxBelly * 0.7)>><<endif>>
+
+<<endnobr>><<if $calories is 0>>
+
+<deepalert>''Your now-hungry belly grumbles loudly...</deepalert>''<<endif>><<elseif ($calories lte 0) and ($species neq "blubberslime")>><redalert>after a moment, ''you begin to feel dizzy and //very ill//...''
+A shock of sudden pain shoots through you, and as you cry out, you feel your insides gurgling and your body softening...</redalert>
+
+<mutation>''Thrashing and helpless, you writhe and moan as you sink to the floor as a boneless blob of gelatinous fat and flesh!</mutation>''<<set $species = "blubberslime"; $speciesLock = 0; $playerElement = "fat"; $bellyBloat += ($machinePower * random(0,30)); $inUse = 0; $starveFloor = 1500; $subspecies = 0>><<if $sanity gte 60>><<set $sanity -= 10>><<endif>><<display BodyDatabase>><<elseif ($calories lte 0) and ($species is "blubberslime")>>after a moment, you begin to feel dizzy and //very ill//...
+
+<brightalert>''Your gelatinous belly bubbles and gurgles, but nothing much else seems to happen.''</brightalert><<set $bellyBloat += ($maxBelly * 0.1); $inUse = 0>><<endif>><<endif>><<if $doMaintenance is 1>>
+
+You sit, removing the back panel from the equipment and setting to work!<<set $doMaintenance = 0>><<if $successMaintenance is 1>>
+After a bit of careful evaluation and maintenance work, ''the machine is now in <<if $machineEfficiency is "poor">><<set $machineEfficiency = "fair">>fair condition!<<elseif $machineEfficiency is "fair">><<set $machineEfficiency = "good">>good condition!<<endif>><<display MachineEfficiency>><<set $maintenanceCap = 1>>''
+<<else>>You work and fiddle with the parts, circuits, and controls, ''but the thing is fighting you all the way..!''
+<<endif>><<endif>><<if $machinePower gt $machineBattery>>
+
+''It looks like it's run out of power.''<<endif>><<display BodySystems>><<display Effects>>
+
+<framed><center><<nobr>><<if $machinePower lte $machineBattery>><<button [[Use it.|passage()][$machineBattery -= $machinePower; $inUse = 1]]>><<endif>>
+<<if $special_battery gt 0>> <<button [[Use a battery.|passage()][$special_battery -= 1; $machineBattery += random(8,24); $inUse = 0]]>><<endif>><<if ($activeOcc is "Smithier") or ($activeOcc is "Datiere")>><<if ($maintained gt 0) and ($machineEfficiency neq "good") and ($machineEfficiency neq "excellent") and ($machineEfficiency neq "flawless") and ($maintenanceCap neq 1) and ($pain lt 60)>><<button [[Attempt Maintenance.|passage()][$inUse = 0; $maintained -= 1; $doMaintenance = 1; $successMaintenance = either(0,1)]]>><<endif>><<endif>><<endnobr>></center></framed>
+<center><<button [[Back.|$saveStateSpecial][$inUse = 0; $carryBG = 0]]>></center>

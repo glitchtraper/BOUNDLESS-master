@@ -1,0 +1,15 @@
+﻿<<nobr>><<display ZoneBackgrounds>><<display Clocks>>
+<<display ClockDisplay>>
+<<display PersistentEffects>><<endnobr>>
+''__<brightalert>Your Mound!</brightalert>
+ <<display ZoneDisplay>>__''
+<<nobr>>
+
+
+/% Greenhouse lobby. View & interact with your plants and plots. %/
+
+
+<<endnobr>>\
+''__Greenhouse Plots__''<center>
+<framed><<display PlotSelection>></framed>
+<<button [[Back.|Mound][$plotID = 0]]>></center>

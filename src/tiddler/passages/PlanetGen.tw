@@ -1,0 +1,197 @@
+﻿/% ========================================== %/
+/% Planet generation! %/
+
+
+
+/% ========================================== %/
+
+/% All planets have
+
+[surface biomes]
+[subterranean biomes]
+
+Most planets have
+
+[planet's heart]
+
+coreless planets have
+[yawning void] or [shattered debris]
+
+==========================================
+
+All planet types
+
+"shattered","hollow","molten","burning","frozen","dead","irradiated","barren","dying","liquid","industrialized","flourishing","vitalized","overgrown","distorted","realized","crystallized","roiling","bloated"
+
+%/
+
+
+/% ========================================== %/
+
+/% Planets by Class %/
+
+/% Full roster %/
+
+<<if $planetClass is 0>>
+	<<if $starterPlanet is 0>><<set $planetClass = either("Temperate Living","Hot Living","Desolate Living","Mutant Living","Hostile Cold","Hostile Cold","Hostile Cold","Hostile Hot","Hostile Hot","Hostile Hot","Dead","Dead","Dead")>>
+
+	/% Easy planets only %/
+
+	<<elseif $starterPlanet is 1>><<set $planetClass = either("Temperate Living","Temperate Living","Temperate Living","Hot Living")>>
+	<<endif>>
+<<endif>>
+
+	/% For later - give industrialized planets a higher chance of dungeons and settlements, but ALSO a higher chance of pollution and other shit %/
+
+/% ==================================================================================== %/
+/% TEMPERATE Living **Starter Planets**
+Temperate, variant humidity, some extreme heat/cold; intact core
+["industrialized","flourishing","vitalized","overgrown","distorted","realized"] %/
+
+
+	<<if $planetClass is "Temperate Living">>
+
+	<<set $majorDenizen = either("human","revix","aiouran"); $minorDenizen1 = either("human","revix","aiouran"); $minorDenizen2 = either("human","revix","aiouran")>>
+
+	<<if $starterPlanet is 1>><<set $planetType = either("overgrown","flourishing","flourishing","industrialized","industrialized","flourishing","distorted"); $planetTemp = "temperate"; $planetHumidity = "average"; $planetAtmosphere = "breathable"; $popDensity = "hi">><<set $starterPlanet = 0>>
+
+	<<elseif $starterPlanet is 0>><<set $planetType = either("industrialized","flourishing","vitalized","overgrown","distorted","realized"); $planetTemp = "temperate"; $planetHumidity = "average"; $planetAtmosphere = "breathable">>
+
+		<<if $planetType is "flourishing">><<set $popDensity = either("mid","hi")>>
+			<<elseif ($planetType is "industrialized") or ($planetType is "overgrown") or ($planetType is "distorted")>><<set $popDensity = "mid">>
+			<<elseif ($planetType is "vitalized") or ($planetType is "realized")>><<set $popDensity = either("low","mid")>><<endif>>
+	<<endif>><<endif>>
+
+/% ==================================================================================== %/
+/% HOT Living **Rare Starter Planets**
+Temperate, variant humidity, some extreme heat/cold; intact core
+["industrialized","flourishing","vitalized","overgrown","distorted","realized"] %/
+
+	<<if $planetClass is "Hot Living">>
+
+	<<set $majorDenizen = either("human","revix","aiouran"); $minorDenizen1 = either("human","revix","aiouran"); $minorDenizen2 = either("human","revix","aiouran")>>
+
+		<<if $starterPlanet is 1>><<set $planetType = either("dying","barren","industrialized","industrialized"); $planetTemp = either("temperate","hot","hot"); $planetHumidity = "high"; $planetAtmosphere = "breathable"; $popDensity = either("mid","hi")>><<set $starterPlanet = 0>>
+
+		<<elseif $starterPlanet is 0>><<set $planetType = either("burning","irradiated","barren","dying","industrialized"); $planetTemp = either("hot","hot","very hot"); $planetHumidity = "high"; $planetAtmosphere = either("breathable","breathable","toxic")>>
+				<<if $planetType is "industrialized">><<set $popDensity = either("mid","hi")>>
+				<<elseif ($planetType is "barren") or ($planetType is "irradiated") or ($planetType is "dying")>><<set $popDensity = either("low","mid")>>
+				<<elseif $planetType is "burning">><<set $popDensity = "low">><<endif>>
+		<<endif>>
+<<endif>>
+
+/% ==================================================================================== %/
+/% DESOLATE Living
+Hot or Cold, low humidity; intact core
+["molten","burning","frozen","dead","liquid","irradiated","barren","industrialized"] %/
+
+	<<if $planetClass is "Desolate Living">>
+
+	<<set $majorDenizen = either("human","revix","aiouran"); $minorDenizen1 = either("human","revix","aiouran"); $minorDenizen2 = either("human","revix","aiouran")>>
+
+	<<set $planetType = either("molten","burning","frozen","dead","dying","liquid","irradiated","barren","industrialized"); $planetTemp = either("very cold","cold","cold","hot","hot","very hot")>>
+
+		<<if $planetTemp is "very cold">><<set $planetHumidity = either("low","none"); $planetAtmosphere = either("breathable","toxic","no"); $popDensity = "low">><<endif>>
+		<<if $planetTemp is "cold">><<set $planetHumidity = either("low","low","none"); $planetAtmosphere = either("breathable","toxic","no"); $popDensity = either("low","mid")>><<endif>>
+		<<if ($planetTemp is "hot") or ($planetTemp is "very hot")>><<set $planetHumidity = either("none","low","high"); $planetAtmosphere = either("breathable","toxic","toxic","no"); $popDensity = either("low","mid")>><<endif>>
+		<<if ($planetType is "molten") or ($planetType is "irradiated") or ($planetType is "burning") or ($planetType is "liquid") or ($planetType is "industrialized")>><<set $planetHumidity = "high"; $planetAtmosphere = "toxic"; $popDensity = "low">><<endif>>
+		<<if ($planetType is "dead") or ($planetType is "barren")>><<set $planetHumidity = "low"; $planetAtmosphere = either(0,"toxic","toxic","no"); $popDensity = "low">><<endif>>
+	<<endif>>
+
+/% ==================================================================================== %/
+/% MUTANT Living
+Temperate, variant humidity, some extreme heat/cold; intact core
+["vitalized","overgrown","distorted","realized","crystallized","roiling","bloated"]%/
+
+	<<if $planetClass is "Mutant Living">>
+
+	<<set $majorDenizen = either("human","revix","aiouran"); $minorDenizen1 = either("human","revix","aiouran"); $minorDenizen2 = either("human","revix","aiouran")>>
+
+	<<set $planetType = either("vitalized","overgrown","distorted","realized","crystallized","roiling","bloated"); $planetTemp = either("cold","temperate","hot"); $planetAtmosphere = "breathable"; $popDensity = "low">>
+		<<if ($planetTemp is "temperate") or ($planetTemp is "hot")>><<set $planetHumidity = either("average","high")>>
+		<<elseif $planetTemp is "cold">><<set $planetHumidity = either("average","low","high")>><<endif>>
+	<<endif>>
+
+/% ==================================================================================== %/
+/% HOSTILE COLD
+Cold, high humidity; intact core
+["frozen","dead","liquid","barren"]%/
+
+	<<if $planetClass is "Hostile Cold">>
+
+	<<set $majorDenizen = either("human","revix","aiouran"); $minorDenizen1 = either("human","revix","aiouran"); $minorDenizen2 = either("human","revix","aiouran")>>
+
+	<<set $planetType = either("frozen","dead","liquid","barren"); $planetTemp = either("very cold","very cold","cold"); $planetAtmosphere = either("breathable","toxic","no"); $popDensity = "low">>
+		<<if $planetAtmosphere is "no">><<set $planetHumidity = "low">>
+		<<else>><<set $planetHumidity = "high">><<endif>>
+	<<endif>>
+
+/% ==================================================================================== %/
+/% HOSTILE HOT
+Hot, low (desert) or high (molten) humidity; intact core
+["molten","burning","frozen","dead","liquid","barren","crystallized"]%/
+
+	<<if $planetClass is "Hostile Hot">>
+
+	<<set $majorDenizen = either("human","revix","aiouran"); $minorDenizen1 = either("human","revix","aiouran"); $minorDenizen2 = either("human","revix","aiouran")>>
+
+	<<set $planetType = either("molten","burning","frozen","dead","liquid","barren","crystallized"); $planetTemp = either("very hot","very hot","hot"); $planetAtmosphere = either("breathable","toxic","no"); $popDensity = "low">>
+		<<if $planetAtmosphere is "none">><<set $planetHumidity = "low">>
+		<<elseif ($planetType is "liquid") or ($planetType is "molten")>><<set $planetHumidity = "high">>
+		<<else>><<set $planetHumidity = either("low","high")>><<endif>>
+	<<endif>>
+
+/% ==================================================================================== %/
+/% DEAD
+Hot or Cold, no humidity; no core
+["shattered","hollow","dead"] %/
+
+	<<if $planetClass is "Dead">>
+
+	<<set $majorDenizen = either("revix","revix","revix","spatial"); $minorDenizen1 = either("revix","spatial"); $minorDenizen2 = either("human","revix","aiouran")>>
+
+	<<set $planetType = either("shattered","hollow","dead"); $planetTemp = either("very hot","hot","cold","very cold"); $planetAtmosphere = "no"; $planetHumidity = "low" ; $popDensity = "low">>
+	<<endif>>
+
+
+/% ========================================== %/
+
+/% Static Surface liquids. %/
+
+<<if $planetType is "bloated">><<set $livingPlanetType = either("leupai","non-leupai")>>
+	<<if $livingPlanetType is "leupai">><<set $livingPlanetBlood = either("shimmering blue","glowing teal","glowing blue")>>
+	<<elsef $livingPlanetType is "non-leupai">><<set $livingPlanetBlood = "dark red">><<endif>>
+<<endif>>
+
+/% Core liquids. %/
+
+<<if ($planetType is "distorted") or ($planetType is "realized")>>
+<<set $planetCoreType = either("molten",0)>><<if $planetCoreType is "molten">><<set $planetCoreFluid = either("molten orange goo","molten red goo","molten blue goo")>><<endif>>
+
+<<elseif $planetType is "crystallized">>
+<<set $planetCoreType = either("molten","molten",0)>><<if $planetCoreType is "molten">><<set $planetCoreFluid = either("molten orange goo","molten red goo","molten blue goo")>><<endif>>
+
+<<elseif ($planetType is "vitalized") or ($planetType is "overgrown")>>
+<<set $planetCoreType = either("molten",0)>><<if $planetCoreType is "molten">><<set $planetCoreFluid = "molten teal goo">><<endif>>
+
+<<elseif ($planetType is "hollow") or ($planetType is "shattered")>>
+<<set $planetCoreType = 0>>
+
+<<elseif ($planetType is "bloated") or ($planetType is "roiling")>>
+<<set $planetCoreType = "liquid">>
+
+<<else>>
+/% Default planetary core. %/
+
+<<set $planetCoreFluid = either("molten orange goo","molten orange goo","molten red goo","molten red goo","molten blue goo")>><<endif>>
+
+
+/% ========================================== %/
+
+/%  Planet ID - so we don't have to try to ID planets by name (eventually two of the same names will be used for two different planets...) %/
+
+<<set $planetID = random(3000000,3999999)>>
+
+<<set $homeWorld = $planet>>
+<<set $hwPlanetID = $planetID; $hwClass = $planetClass; $hwType = $planetType; $hwTemp = $planetTemp; $hwHumid = $planetHumidity; $hwAtmos = $planetAtmosphere; $hwPop = $popDensity; $hwCore = $planetCoreType; $hwCoreFluid = $planetCoreFluid; $hwAmbience = $planetAmbience; $hwCiv1 = $majorDenizen; $hwCiv2 = $minorDenizen1; $hwCiv3 = $minorDenizen2>>
+

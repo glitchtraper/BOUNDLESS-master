@@ -1,0 +1,14 @@
+﻿<<nobr>><<set $hiddenSidebar = 1>>
+
+<<set $leupaiArray = []; $monsterArray = []; $humanoidArray = []>>
+<<set $humanoidArray = ["post-human","arka","aladri"]>>
+
+
+<<endnobr>>\
+<center>[img[boundless_logo]]
+<mini>//~~To those in the world, but not of it
+to those who wish for Strange things
+and, most of all,
+''to the ones who tend to them.''~~//</mini>
+♦
+//<<button [[PLAY|NewGame][$months = random(0,7); $sanity = 100; $newGame = 1; $shard_recall = 3; $food = 50]]>><hr>//</center>

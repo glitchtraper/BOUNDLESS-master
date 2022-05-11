@@ -1,0 +1,44 @@
+﻿<<display ZoneBackgrounds>><center>\
+<xtrahuge>__Crafting & Cooking__</xtrahuge>
+\
+/% Crafting Menu %/\
+/% Crafting menus stagger-- you won't see the next stage in line until you have the requirements for the stage before it. %/\
+\
+<<if $crafted is 1>>
+''Created <affirmative>[<<print $craftedItem>> ~~x~~<<print $craftedQuantity>><<if ($activeOcc is "Culinet") and ($culiBonus neq 0)>> ~~(+<<print $culiBonus>> bonus)~~<<endif>>]</affirmative>!''
+<<set $crafted = 0; $culiBonus = 0>><<endif>>\
+<<if $firewoodAshed is 1>>''<deepalert>[-1~~x~~ Firewood]</deepalert>
+<affirmative>[+Ash ~~x~~3]</affirmative>''
+<<set $key_firewood -= 1; $material_ash += 3; $firewoodAshed = 0>><<endif>>
+\
+<framed><xtralarge>''__Crafting__''</xtralarge>
+<<display HandcraftingRecipes>>
+</framed>
+<<nobr>>
+
+<<endnobr>>
+<framed><xtralarge>''__Campfire__''</xtralarge>
+<<if $key_firewood gt 0>>''(Firewood ~~x<<print $key_firewood>>~~)''
+<<display CampfireRecipes>>
+<<else>>\
+\
+//''Required Material: <deepalert>Firewood</deepalert>''//<<endif>>
+</framed>
+<<nobr>>
+
+<<endnobr>><<if $key_firewood gt 0>>
+<framed><xtralarge>''__Cooking Pot__''</xtralarge>
+<<if $key_cookpot gt 0>>
+
+<<display PotRecipes>>
+<<display BasicAlchemy>>
+
+<<else>>\
+\
+//''Required Tool: <deepalert>Cooking Pot</deepalert>''//<<endif>>
+</framed><<endif>><<nobr>>
+
+
+
+<<endnobr>>
+<<button [[Continue.|$saveState]]>></center>

@@ -1,0 +1,27 @@
+﻿/% ============================ %/
+/% Instead of being set manually, check creature calories and girth and use math to figure out resource yield? Maybe just for basic meat-and-fat resources; everything else can be hard-coded.
+If this works, we can go through and adjust the base values to use it better ($meatResource = $meatResource * ($creatureGirth / 10), for example).
+
+Hopefully this will prevent 'empty' butchering returns. %/
+
+/% Meats %/
+<<if $leupaiResource neq 0>><<set $leupaiResource = ($creatureGirth / 100); $leupaiResource = Math.round($leupaiResource); $meatResource = 0>>
+	<<if $leupaiResource lte 0>><<set $leupaiResource = random(1,3)>><<endif>>
+<<elseif $dragonResource neq 0>><<set $dragonResource = ($creatureGirth / 100); $dragonResource = Math.round($dragonResource); $meatResource = 0>>
+	<<if $dragonResource lte 0>><<set $dragonResource = random(1,3)>><<endif>>
+<<elseif $poultryResource neq 0>><<set $poultryResource = ($creatureGirth / 100); $poultryResource = Math.round($poultryResource); $meatResource = 0>>
+	<<if $poultryResource lte 0>><<set $poultryResource = random(1,3)>><<endif>>
+<<elseif $fishResource neq 0>><<set $fishResource = ($creatureGirth / 100); $fishResource = Math.round($fishResource); $meatResource = 0>>
+	<<if $fishResource lte 0>><<set $fishResource = random(1,5)>><<endif>>
+<<elseif $meatResource neq 0>><<set $meatResource = ($creatureGirth / 100); $meatResource = Math.round($meatResource)>>
+	<<if $meatResource lte 0>><<set $meatResource = random(1,3)>><<endif>><<endif>>
+
+/% Fat %/
+
+<<if $jellyResource neq 0>><<set $jellyResource = ($creatureCalories / 50); $jellyResource = Math.round($jellyResource)>>
+
+	<<if $jellyResource lte 0>><<set $jellyResource = random(1,10)>><<endif>>
+
+<<elseif $fatResource neq 0>><<set $fatResource = ($creatureCalories / 50); $fatResource = Math.round($fatResource)>>
+
+	<<if $fatResource lte 0>><<set $fatResource = random(1,3)>><<endif>><<endif>>

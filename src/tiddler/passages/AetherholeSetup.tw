@@ -1,0 +1,39 @@
+﻿/% Do we want to allow for calling specific-location aetherholes, in addition to randomized ones? %/
+
+/% ========================================================= %/
+/% Destinations %/
+
+/% ========================================================= %/
+/% From Phys %/
+
+/% TEST/SETUP MODE; all planet-side aetherholes go to Heitepresse for now %/
+<<if $plane is 0>>
+<<set $aetherDestination = "heitepresse">>
+
+
+<<elseif $plane neq 0>>
+
+/% ========================================================= %/
+/% From Rev %/
+
+<<set $aetherDestination = 0>>
+
+
+<<else>>
+
+/% ========================================================= %/
+/% If something is broken, send you to a physworld %/
+
+<<set $aetherDestination = 0>>
+
+
+/% ========================================================= %/
+<<endif>>
+
+
+<<if $plane is 0>>
+<<button [[Travel to a New Dimension.|AetherholeWarp][$dungeonLocation = 0; $zoneType = 0]]>>
+
+<<else>>
+<<button [[Return to the Physical Plane.|AetherholeWarp][$dungeonLocation = 0; $zoneType = 0]]>>
+<<endif>>

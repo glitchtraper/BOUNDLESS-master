@@ -1,0 +1,257 @@
+﻿<<display ZoneBackgrounds>><<set $didCombat = 1>><<nobr>>
+
+
+
+<<endnobr>><center><framed><<nobr>>
+
+
+<<endnobr>>\
+<huge><deepalert>''BATTLE''</deepalert></huge> <xxtramini>^^vs.^^</xxtramini> <huge>''<<if $creatureRarity is "rare">>[img[icon_rarestar]]<brightalert><<print $encounter>></brightalert><<else>><<print $encounter>><<endif>>!''</huge><<nobr>>
+
+
+<<endnobr>><<if $combat is 1>>
+__''//Round <<print $battleRound>>//''__</framed><<set $activePlayer = "you">><<endif>>
+<invisiframe>
+<<if $combat is 1>><<display EncounterImg>><<endif>><<nobr>>
+
+/% ========================================================= %/
+/% 0. How's your opponent looking? %/
+
+<<if $combat is 1>>
+
+/% Descriptions! %/
+<<if $encounterDesc neq 0>><narrowframe>
+<<print $encounterDesc>>
+<<if $creatureDesc neq 0>><<print $creatureDesc>>!<<endif>></narrowframe><<endif>>
+
+<invisiframe><<if $encounterUnique is 0>>The <<endif>>''<<print $encounter>> looks
+/% Prey response %/
+<<if ($combatant is 0) and ($brave is 0)>><brightalert><xtralarge><<print either("nervous","ready to flee","terrified")>>..!</xtralarge></brightalert>
+
+/% ============================ %/
+/% Combatant health readout %/
+
+<<elseif ($combatant is 1) or ($brave is 1)>>
+<<if $enemyPain lt ($encounterMaxPain / 5)>>
+
+<<if $playfulLeupai is 1>><affirmative><xtralarge>like it wants to play!</xtralarge></affirmative><<else>><redalert><xtralarge>ready to fight!</xtralarge></redalert><<endif>>
+
+<<elseif ($enemyPain gte ($encounterMaxPain / 5)) and ($enemyPain lt ($encounterMaxPain / 4))>><brightalert><xtralarge>shaken!</xtralarge></brightalert>
+
+<<elseif ($enemyPain gte ($encounterMaxPain / 4)) and ($enemyPain lt ($encounterMaxPain / 2))>><brightalert><xtralarge>demoralized!</xtralarge></brightalert>
+
+<<elseif ($enemyPain gte ($encounterMaxPain / 2)) and ($enemyPain lt ($encounterMaxPain * 0.7))>><brightalert><xtralarge>weak and anxious!</xtralarge></brightalert><<endif>><<endif>>''
+
+/% ============================ %/
+/% Combatant fat/bloat readouts %/
+
+/% ============================ %/
+/% Fat %/
+
+<<if $creatureCalories gt 30>><<if ($creatureCalories gte ($encounterFat * 1.2)) and ($creatureCalories lt ($encounterFat * 1.5))>> <<if $encPronoun is 0>>It's<<endif>> plumping up...
+
+<<elseif ($creatureCalories gte ($encounterFat * 1.5)) and ($creatureCalories lt ($encounterFat * 2))>> <<if $encPronoun is 0>>It's<<endif>> growing even fatter!
+
+<<elseif $creatureCalories gte ($encounterFat * 2)>> <<if $encPronoun is 0>>Its<<endif>> flesh jiggles and wobbles as its weight continues to climb..! <<endif>><<endif>>
+
+/% ============================ %/
+/% Bloat %/
+
+<<if $creatureGirth gt 30>><<if ($creatureGirth gte ($encounterBloat * 1.2)) and ($creatureGirth lt ($encounterBloat * 1.5))>><<if $encPronoun is 0>>It's<<endif>> looking rounder...
+
+<<elseif ($creatureGirth gte ($encounterBloat * 1.5)) and ($creatureGirth lt ($encounterBloat * 2))>><<if $encPronoun is 0>>It's<<endif>> swollen up twice as round!
+
+<<elseif ($creatureGirth gte ($encounterBloat * 2)) and ($creatureGirth lt ($encounterBloat * 2.5))>><<if $encPronoun is 0>>It's<<endif>> swelling bigger and bigger...
+
+<<elseif ($creatureGirth gte ($encounterBloat * 2.5)) and ($creatureGirth lt ($encounterBloat * 3))>><<if $encPronoun is 0>>It's<<endif>> ''blown up like a balloon''!<<set $encounterSubtype = "inflated">>
+
+<<elseif ($creatureGirth gte ($encounterBloat * 3)) and ($creatureGirth lt ($encounterBloat * 4))>><<if $encPronoun is 0>>It<<endif>> wheezes and gasps as it blimps ''rounder and rounder..!''<<set $encounterSubtype = "inflated">>
+
+<<elseif ($creatureGirth gte ($encounterBloat * 4)) and ($creatureGirth lt ($encounterBloat * 5))>><<if $encPronoun is 0>>It<<endif>> squirms and pants... ''it looks like it's going to pop if it gets much bigger!''<<set $encounterSubtype = "inflated">>
+
+<<elseif $creatureGirth gte ($encounterBloat * 5)>><<if $encPronoun is 0>>Its<<endif>> spherical body ''creaks loudly... ominously...''<<set $encounterSubtype = "inflated"; $enemyPain = ($encounterMaxPain * 5); $enemyDeath = "groans in agony and collapses, its grotesquely-distended belly on the verge of bursting!">><<endif>><<endif>>
+
+</invisiframe><<endif>>
+
+/% ========================================================= %/
+/% I. Flee pre-calculation %/
+
+<<set $fleeAttempt = random(1,$finesse); $fleeDefend = random(1,$encounterFinesse)>>
+<<if $fleeAttempt gte $fleeDefend>><<set $canEscape = 1>><<endif>>
+
+
+/% II. Finesse check; who moves first? %/
+
+<<if $combatFinesse gt $enemyFinesse>><<set $attacker = "player">>
+<<elseif $enemyFinesse gt $combatFinesse>><<set $attacker = "enemy">>
+<<else>><<set $randomizer = either(1,2)>>
+<<if $randomizer is 1>><<set $attacker = "player">>
+<<elseif $randomizer is 2>><<set $attacker = "enemy">><<endif>><<endif>>
+
+<<display CombatPool>>
+
+/% ========================================================= %/
+/% III. First strike! %/
+
+<<if ($battleRound neq 0) and ($combat is 1)>>
+<framed>
+<<display CombatDatabase>>
+<<display CombatPool>></framed>
+<<if ($attacker is "enemy")>><<if $enemyMessage neq 0>>
+<framed><<print $enemyMessage>><<set $enemyMessage = 0>></framed><<endif>><<endif>><<endif>>
+
+/% ========================================================= %/
+/% IV. Second strike! %/
+
+/% Is everyone still alive? If not, end combat. %/
+
+/% It's dead, jim. %/
+
+<<if ($battleRound gt 0) and ($combat is 1)>><<if $enemyPain gte ($encounterMaxPain * 0.7)>>
+<xtralarge><affirmation>''The <<print $encounter>> collapses in defeat!''</xtralarge></affirmation><<set $combatResult = "victory"; $combat = 0>><<endif>>
+
+/% YOU're dead, jim. %/
+
+<<elseif $pain gte $maxPain>>
+<redalert><xtralarge>''You collapse...!''</xtralarge></redalert><<set $combatResult = "defeat"; $combat = 0>><<endif>><<endnobr>><<if $combat is 1>><<nobr>>
+
+/% OOootherwise... %/
+
+/% Enemy's turn, if it's alive %/
+<<if $attacker is "player">><<set $attacker = "enemy">>
+
+/% Your turn, if you're alive %/
+<<elseif $attacker is "enemy">><<set $attacker = "player">>
+
+<<if $pain lt ($maxPain * 0.7)>><<set $activePlayer = "you">><<endif>><<endif>>
+<<if $battleRound gt 0>><framed>
+<<display CombatDatabase>></framed>
+<<if ($attacker is "enemy")>><<if $enemyMessage neq 0>>
+<framed><<print $enemyMessage>><<set $enemyMessage = 0>></framed><<endif>><<endif>><<endif>>
+
+<<display BodySystems>><<display Vitality>><<display Effects>>
+
+<<display Alert>>
+
+<<set $playerChoice = 0; $companionAbility = 0; $calledCompanion = 0>><<endnobr>><<endif>>
+</invisiframe><framed><<if $combat is 1>>\
+\
+\
+\
+<<display CombatDOTs>>
+<<nobr>>
+
+/% ======================================================================== %/
+/% IF COMBAT IS 1 - Combat continues! Display options. %/
+
+<<if $enemyPain gte $encounterMaxPain>>
+<xtralarge><affirmation>''The <<if $enemyDeath neq 0>><<print $encounter>> <<print $enemyDeath>><<set $enemyDeath = 0>><<else>><<print $encounter>> collapses, overcome by your assault!<<endif>>''</affirmation></xtralarge>
+
+<<set $combatResult = "victory"; $combat = 0>><<endif>>
+
+<<endnobr>><<if $combat is 1>><xtralarge><<if $pain lt ($maxPain/5)>>''You feel <<if ($substatus is "sporeslave") and ($creatureGirth gt ($fatScore / 2))>><bleak>anxious...</bleak><<elseif $calories + $bonusEnergy gte 10>><affirmation>ready to fight</affirmation><<elseif $calories + $bonusEnergy gte 10>><affirmation>ready to fight</affirmation><<elseif $calories + $bonusEnergy lt 10>><bleak>exhausted and wary..</bleak><<endif>>!''
+<<elseif ($pain gte $maxPain/5) and ($pain lt $maxPain/4)>>[img[icon_tinyalert]]''You feel a bit <brightalert>sore...</brightalert>!''
+<<elseif ($pain gte $maxPain/4) and ($pain lt $maxPain/2)>>[img[icon_tinyalertl]]''You're in <brightalert>pain</brightalert>!''
+<<elseif ($pain gte $maxPain/2) and ($pain lt $maxPain)>><<set $health = "Suffering">>
+[img[icon_tinycrit]]''You're in <deepalert>a lot of pain</deepalert>...!''
+<<elseif $pain gte $maxPain>>[img[icon_tinycrit]]<<if $playerDefeat neq 0>>''<deepalert><<print $playerDefeat>><<set $playerDefeat = 0>></deepalert>''<<else>>''You <deepalert>can't take any more</deepalert>...!''<<endif>><<set $combatResult = "defeat"; $combat = 0>><<if $activeCompanions is 0>><<set $combatResult = "defeat"; $combat = 0>><<endif>><<endif>></xtralarge>\
+\
+\
+\
+<<set $battleRound += 1>><<elseif $combat is 0>><<set $battleRound = 0>><<endif>>\
+\
+<<if $combat is 1>>\
+<<if $pain lt $maxPain>>\
+\
+<<display PlayerCombat>>\
+<<endif>>\
+\
+<<endif>><<endif>>\
+\
+<<if $combat is 0>><<nobr>>
+
+/% ======================================================================== %/
+/% IF COMBAT IS 0 - Combat ends! %/
+
+<<endnobr>>
+<<if ($combatResult is "defeat") or ($pain gte $maxPain)>><redalert>''You have been defeated...''</redalert><<set $combatResult = "defeat">>
+<<elseif $combatResult is "victory">><affirmative><<print $encounter>>'' <<if $enemyDeath neq 0>><<print $enemyDeath>><<set $enemyDeath = 0>><<else>>has been defeated!<<endif>>''</affirmative><<if $plantCombatant is 1>><<set $planted = 0; $emptyPlot = 1; $plantCombatant = 0>><<endif>>
+<<elseif $combatResult is "capture">><cheery><<print $encounter>>'' has been subdued!''</cheery><<if $plantCombatant is 1>><<set $planted = 0; $emptyPlot = 1; $plantCombatant = 0>><<endif>>
+<<elseif ($enemyPain gte $encounterMaxPain * 0.7) and ($pain gte $maxPain)>><brightalert>You and <<print $encounter>>'' both collapse in a heap!''</brightalert><<if $plantCombatant is 1>><<set $planted = 0; $emptyPlot = 1; $plantCombatant = 0>><<endif>><<endif>>\
+\
+/% KO Clause %/\
+\
+\
+\
+<<if $combatResult is "defeat">><<if $pain gte ($maxPain * 1.2)>>\
+<<button [[Continue...|LoseCondition][$saveState = $saveStateBattle]]>>\
+\
+\
+<<elseif $pain lt ($maxPain * 1.2)>>/% Incapacitation Clause %/\
+\
+<<if $enemyPain lt $encounterMaxPain * 0.7>>\
+<<if $canSubmit is 1>><<button [[Continue...|CreatureEffects][$saveState = $saveStateBattle]]>>\
+<<elseif $canSubmit is 0>><<button [[Continue...|LoseCondition][$saveState = $saveStateBattle]]>><<endif>>\
+\
+\
+<<elseif $enemyPain gte $encounterMaxPain * 0.7>><<button [[Continue...|$saveStateBattle]]>><<endif>><<endif>>\
+\
+\
+<<elseif $combatResult is "escape">>/% Enemy Escaped Clause %/\
+<<button [[Continue...|$saveStateBattle]]]>><<nobr>>
+
+
+/% Win Clause %/
+<<endnobr>><<elseif $combatResult is "victory">>\
+\
+\
+\
+/% Drops %/\
+<<if $lootRolls neq 0>><<display CreatureLoot>><<endif>>
+\
+\
+/% Butchery %/\
+<<if $killingBlow is 1>><narrowframe>You butcher <<print $encounter>> and pack away the spoils:<<display CreatureResources>></narrowframe>\
+\
+\
+\
+/% Win Options %/\
+\
+\
+\
+<<elseif $killingBlow is 0>><<if ($autoEat is 1) and ($creatureGirth gt 0) and ($voreFrenzy is 0)>>
+<brightalert>''Unable to resist, you <large>devour</large> your helpless opponent on the spot!''<<set $calories += $creatureCalories; $bellyBloat += $creatureGirth; $ateIt = 1; $lethalKO = 1; $deathCause = "burst belly">></brightalert>\
+\
+<<elseif ($voreFrenzy gt 0)>>
+<brightalert>''Unable to resist, you <large>devour</large> your helpless opponent on the spot!''<<set $calories += $creatureCalories; $bellyBloat += $creatureGirth; $ateIt = 1; $lethalKO = 1; $deathCause = "burst belly">></brightalert>\
+\
+<<elseif ($autoEat is 0) and ($noButcher is 0)>><<button [[Butcher!|passage()][$killingBlow = 1]]>>\
+\
+\
+<<if $creatureGirth lte $maxBelly * 1.2 + $stretchMod * 10>><<button [[Eat!|$saveStateBattle][$calories += $creatureCalories; $bellyBloat += $creatureGirth]]>><<endif>>\
+\
+\
+\
+<<endif>>\
+\
+\
+\
+<<endif>><<button [[Continue.|$saveStateBattle]]>><<nobr>>
+
+
+/% Capture Clause %/
+<<endnobr>><<elseif $combatResult is "capture">>\
+\
+<<if ($hasMound is 1) and ($trapCapture is 0)>><<button [[Capture!|DonsairStore][$donsairID = 1; $saveState = $saveStateBattle; $captiveType = "captive"; $captiveMood = random(1,40)]]>><<else>><<button [[Butcher!|passage()][$killingBlow = 1; $combatResult = "victory"]]>><<endif>><<button [[Continue.|$saveStateBattle]]>>
+\
+<<endif>><<endif>>\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+</framed></center>

@@ -1,0 +1,4 @@
+﻿/% Checks variables at the start of a page and disables exploration procs if applicable %/
+
+/% Quaggy hatching %/
+<<if ($leupaiEggTimer is 0) and ($leupaiEggLoad gt 0)>><<set $overrideExplore = 1>><<endif>>

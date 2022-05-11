@@ -1,0 +1,129 @@
+﻿/% ================================================== %/
+/% Companion aging, mostly for leupai %/
+
+/% Leupai life progression:
+
+1 week (5 days) = quagling to quaggy
+3 weeks/1 month (15 days) = quaggy to gecko
+3 months (90 days) = gecko to adult %/
+
+/% Chance of a dramatic or brooding quaggy picking a new name %/
+
+<<if $companion1Species is "leupai">>
+<<if ($companion1Pers is "dramatic") or ($companion1Pers is "brooding")>><<set $randomizer = random(1,256)>>
+	<<if $randomizer is 1>><<set $randomizer = either(1,1,2)>>
+	/% Single name %/<<if $randomizer is 1>>
+				<<display NPCNamer>><<set $companion1 = $revName>>
+				/% Double name %/ <<elseif $randomizer is 2>>
+				<<display NPCNamer>><<set $companion1 = $revName>>
+				<<display NPCNamer>><<set $companion1 = $companion1 + " "+ $revName>><<endif>><<set $companion1Named = 1>>
+					<<endif>><<endif>><<endif>>
+
+<<if $companion2Species is "leupai">>
+<<if ($companion2Pers is "dramatic") or ($companion2Pers is "brooding")>><<set $randomizer = random(1,256)>>
+	<<if $randomizer is 1>><<set $randomizer = either(1,1,2)>>
+	/% Single name %/<<if $randomizer is 1>>
+				<<display NPCNamer>><<set $companion2 = $revName>>
+				/% Double name %/ <<elseif $randomizer is 2>>
+				<<display NPCNamer>><<set $companion2 = $revName>>
+				<<display NPCNamer>><<set $companion2 = $companion2 + " "+ $revName>><<endif>><<set $companion2Named = 1>>
+					<<endif>><<endif>><<endif>>
+
+<<if $companion3Species is "leupai">>
+<<if ($companion3Pers is "dramatic") or ($companion3Pers is "brooding")>><<set $randomizer = random(1,256)>>
+	<<if $randomizer is 1>><<set $randomizer = either(1,1,2)>>
+	/% Single name %/<<if $randomizer is 1>>
+				<<display NPCNamer>><<set $companion3 = $revName>>
+				/% Double name %/ <<elseif $randomizer is 2>>
+				<<display NPCNamer>><<set $companion3 = $revName>>
+				<<display NPCNamer>><<set $companion3 = $companion3 + " "+ $revName>><<endif>><<set $companion3Named = 1>>
+					<<endif>><<endif>><<endif>>
+
+/% ================================================== %/
+
+/% Companion 1 %/
+<<if $companion1Species is "leupai">>
+
+<<if $companion1Aging is 1>>
+
+<<if $companion1Age lt 5>><<set $companion1AgeStatus = "quagling"; $companion1Occupation = $companion1AgeStatus>>
+<<elseif ($companion1Age gte 5) and ($companion1Age lt 15)>><<set $companion1AgeStatus = "quaggy"; $companion1Occupation = $companion1AgeStatus>>
+<<elseif ($companion1Age gte 15) and ($companion1Age lt 90)>><<set $companion1AgeStatus = "gecko"; $companion1Occupation = $companion1AgeStatus>>
+<<elseif $companion1Age gte 90>><<set $companion1AgeStatus = "adult"; $companion1Occupation = "idlee"; $companion1Aging = 0>><<endif>><<endif>>
+
+<<if $companion1 is "undeclared">>
+<<if $companion1AgeStatus neq "adult">><<set $randomizer = random(1,256)>>
+	<<elseif $companion1AgeStatus if "adult">>/% Alright kid, pick a damn name already. %/
+			<<set $randomizer = 1>><<endif>>
+
+	<<if $randomizer is 1>>/% This leupai has now chosen a name. %/
+
+		<<if $companion1Pers neq "dramatic">><<set $randomizer = either(1,1,1,1,2)>>
+		<<elseif $companion1Pers is "dramatic">><<set $randomizer = either(1,1,2)>><<endif>>
+			/% Single name %/<<if $randomizer is 1>>
+			<<display NPCNamer>><<set $companion1 = $revName>>
+			/% Double name %/ <<elseif $randomizer is 2>>
+			<<display NPCNamer>><<set $companion1 = $revName>>
+			<<display NPCNamer>><<set $companion1 = $companion1 + " "+ $revName>><<endif>><<set $companion1Named = 1>>
+				<<endif>>
+		<<endif>>
+<<endif>>
+
+
+/% Companion 2 %/
+<<if $companion2Species is "leupai">>
+
+<<if $companion2Aging is 1>>
+
+<<if $companion2Age lt 5>><<set $companion2AgeStatus = "quagling"; $companion2Occupation = $companion2AgeStatus>>
+<<elseif ($companion2Age gte 5) and ($companion2Age lt 15)>><<set $companion2AgeStatus = "quaggy"; $companion2Occupation = $companion2AgeStatus>>
+<<elseif ($companion2Age gte 15) and ($companion2Age lt 90)>><<set $companion2AgeStatus = "gecko"; $companion2Occupation = $companion2AgeStatus>>
+<<elseif $companion2Age gte 90>><<set $companion2AgeStatus = "adult"; $companion2Occupation = "idlee"; $companion2Aging = 0>><<endif>>
+		<<endif>>
+
+<<if $companion2 is "undeclared">>
+<<if $companion2AgeStatus neq "adult">><<set $randomizer = random(1,256)>>
+	<<elseif $companion2AgeStatus if "adult">>/% Alright kid, pick a damn name already. %/
+			<<set $randomizer = 1>><<endif>>
+
+	<<if $randomizer is 1>>/% This leupai has now chosen a name. %/
+
+		<<if $companion2Pers neq "dramatic">><<set $randomizer = either(1,1,1,1,2)>>
+		<<elseif $companion2Pers is "dramatic">><<set $randomizer = either(1,1,2)>><<endif>>
+			/% Single name %/<<if $randomizer is 1>>
+			<<display NPCNamer>><<set $companion2 = $revName>>
+			/% Double name %/ <<elseif $randomizer is 2>>
+			<<display NPCNamer>><<set $companion2 = $revName>>
+			<<display NPCNamer>><<set $companion2 = $companion2 + " "+ $revName>><<endif>><<set $companion2Named = 1>>
+				<<endif>>
+		<<endif>>
+<<endif>>
+
+/% Companion 3 %/
+<<if $companion3Species is "leupai">>
+
+<<if $companion3Aging is 1>>
+
+<<if $companion3Age lt 5>><<set $companion3AgeStatus = "quagling"; $companion3Occupation = $companion3AgeStatus>>
+<<elseif ($companion3Age gte 5) and ($companion3Age lt 15)>><<set $companion3AgeStatus = "quaggy"; $companion3Occupation = $companion3AgeStatus>>
+<<elseif ($companion3Age gte 15) and ($companion3Age lt 90)>><<set $companion3AgeStatus = "gecko"; $companion3Occupation = $companion3AgeStatus>>
+<<elseif $companion3Age gte 90>><<set $companion3AgeStatus = "adult"; $companion3Occupation = "idlee"; $companion3Aging = 0>><<endif>>
+		<<endif>>
+
+<<if $companion3 is "undeclared">>
+<<if $companion3AgeStatus neq "adult">><<set $randomizer = random(1,256)>>
+	<<elseif $companion3AgeStatus if "adult">>/% Alright kid, pick a damn name already. %/
+			<<set $randomizer = 1>><<endif>>
+
+	<<if $randomizer is 1>>/% This leupai has now chosen a name. %/
+
+		<<if $companion3Pers neq "dramatic">><<set $randomizer = either(1,1,1,1,2)>>
+		<<elseif $companion3Pers is "dramatic">><<set $randomizer = either(1,1,2)>><<endif>>
+			/% Single name %/<<if $randomizer is 1>>
+			<<display NPCNamer>><<set $companion3 = $revName>>
+			/% Double name %/ <<elseif $randomizer is 2>>
+			<<display NPCNamer>><<set $companion3 = $revName>>
+			<<display NPCNamer>><<set $companion3 = $companion3 + " "+ $revName>><<endif>><<set $companion3Named = 1>>
+				<<endif>>
+		<<endif>>
+<<endif>>

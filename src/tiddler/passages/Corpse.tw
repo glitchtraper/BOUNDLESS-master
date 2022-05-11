@@ -1,0 +1,10 @@
+﻿<invisiframe><<if $eatenCorpse is 0>>//''You discover the corpse of a <redalert><<if $corpseColor neq 0>><<print $corpseColor>> <<endif>><<if $corpseType neq 0>><<print $corpseType>> <<endif>><<if $corpseSubspecies neq 0>><<print $corpseSubspecies>> <<endif>><<print $corpseSpecies>></redalert>.
+
+<<print $corpseCondition>>''//<<elseif $eatenCorpse neq 0>>//''You found the corpse of a <<if $corpseColor neq 0>><<print $corpseColor>> <<endif>><<if $corpseType neq 0>><<print $corpseType>> <<endif>><<if $corpseSubspecies neq 0>><<print $corpseSubspecies>> <<endif>><<print $corpseSpecies>>.''//
+<<if $eatenCorpse is 2>><<display ButcherPlayer>>
+<center><narrowframe>//''You butcher the fallen creature and pack away the spoils:''//<<display CreatureResources>></center></narrowframe><<endif>>
+//''It has been dealt with accordingly, now.''//<<endif>>\
+\
+\
+</invisiframe><framed><center><<if ($canEatCorpse is 1) and ($eatenCorpse is 0)>><<if ($bellyStatus neq "bursting") and (($corpseMeat + $corpseFat) * 10 lte $maxBelly * 1.2 + $stretchMod * 10)>><<button [[Consume.|passage()][$eatenCorpse = 1; $canEatCorpse = 0; $storedCorpse = 0; $calories += ($corpseMeat / 2) + ($corpseFat); $bellyBloat += ($corpseMeat + $corpseFat) * 100]]>> <<endif>><<button [[Butcher.|passage()][$eatenCorpse = 2; $canEatCorpse = 0; $storedCorpse = 0]]>> <<button [[I want NOTHING to do with this...|Explore][$storedCorpse = 0]]>>
+<<else>><<button [[Continue.|Explore]]>><<endif>></center></framed>

@@ -1,0 +1,23 @@
+﻿/% ================================================ %/
+/% BLOCK 1 %/
+
+<miraframed><<if $plot1 is 0>>[[Plot 1: (Empty)|PlotView][$plotID = 1]]
+<<else>>[[Plot 1: <<print $plot1>>|PlotView][$plotID = 1]]<<endif>></miraframed>
+<miraframed><<if $plot2 is 0>>[[Plot 2: (Empty)|PlotView][$plotID = 2]]
+<<else>>[[Plot 2: <<print $plot2>>|PlotView][$plotID = 2]]<<endif>></miraframed>
+<miraframed><<if $plot3 is 0>>[[Plot 3: (Empty)|PlotView][$plotID = 3]]
+<<else>>[[Plot 3: <<print $plot3>>|PlotView][$plotID = 3]]<<endif>></miraframed>
+<miraframed><<if $plot4 is 0>>[[Plot 4: (Empty)|PlotView][$plotID = 4]]
+<<else>>[[Plot 4: <<print $plot4>>|PlotView][$plotID = 4]]<<endif>></miraframed>
+<miraframed><<if $plot5 is 0>>[[Plot 5: (Empty)|PlotView][$plotID = 5]]
+<<else>>[[Plot 5: <<print $plot5>>|PlotView][$plotID = 5]]<<endif>></miraframed>
+<miraframed><<if $plot6 is 0>>[[Plot 6: (Empty)|PlotView][$plotID = 6]]
+<<else>>[[Plot 6: <<print $plot6>>|PlotView][$plotID = 6]]<<endif>></miraframed>
+<miraframed><<if $plot7 is 0>>[[Plot 7: (Empty)|PlotView][$plotID = 7]]
+<<else>>[[Plot 7: <<print $plot7>>|PlotView][$plotID = 7]]<<endif>></miraframed>
+<miraframed><<if $plot8 is 0>>[[Plot 8: (Empty)|PlotView][$plotID = 8]]
+<<else>>[[Plot 8: <<print $plot8>>|PlotView][$plotID = 8]]<<endif>></miraframed>
+<miraframed><<if $plot9 is 0>>[[Plot 9: (Empty)|PlotView][$plotID = 9]]
+<<else>>[[Plot 9: <<print $plot9>>|PlotView][$plotID = 9]]<<endif>></miraframed>
+<miraframed><<if $plot10 is 0>>[[Plot 10: (Empty)|PlotView][$plotID = 10]]
+<<else>>[[Plot 10: <<print $plot10>>|PlotView][$plotID = 10]]<<endif>></miraframed>

@@ -1,0 +1,18 @@
+﻿<center><<display ZoneBackgrounds>><<display EncounterImg>><<set $canBribe = 0>>
+
+The <<print $encounter>> eyes you with interest...<<nobr>>
+
+/% What does this creature want? Do you have it? Do you have enough? %/
+
+<<if $bribeID neq 0>>
+
+/% If you do, turn bribe on. %/
+<<print "<<if $" + $bribeID + " gte $bribeQuantity>> <<set $canBribe = 1>><<endif>>">>
+
+<<endif>>
+
+
+<<endnobr>>
+<<if $canBribe is 0>>...but ''you don't seem to have what it wants! <redalert>It loses its patience with you!''</redalert><<endif>>
+
+<framed><<if $canBribe is 1>>[[Bribe <<print $encounter>>!|JoinConfirm][$wasBribed = 1]] ♦ <<endif>><<if $canSubmit is 1>>[[Submit...|CreatureEffects][$calories += $creatureCalories; $bellyBloat += $creatureGirth; $saveState = "Explore"; $exploring = 3; $helpless = 0; $encounterKind = 0; $pause = 0; $ffEncouraged = 0; $toggleDisplay = 1]] ♦ <<endif>><<if $immobileMode is 0>>[[Fight!|Combat][$saveStateBattle = "Explore"; $combat = 1; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0]] ♦ <<if $finesse gte $encounterFinesse>>[[Flee!!|Explore][$calories -= 100; $bonusEnergy -= 100; $exploring = 3]]<<else>>[[Flee!!|Explore][$saveStateBattle = "Explore"; $combat = 1; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0]]<<endif>><<endif>></framed></center>

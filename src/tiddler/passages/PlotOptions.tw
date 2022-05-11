@@ -1,0 +1,2 @@
+﻿<<display PlotInventory>>
+<<if $planted neq 0>><<button [[Name Plant.|PlantName]]>><<endif>><<if ($planted neq 0) and ($plantAge neq "Seed")>><<display PlotInteractions>><<endif>><<if $planted neq 0>><<button [[Empty Plot.|PlotEmptyConfirm][$emptyPlot = 0]]>><<endif>>

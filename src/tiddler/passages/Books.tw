@@ -1,0 +1,104 @@
+﻿You flip open the book.
+<hr>//<<nobr>><<set $randomizer = either(1,1)>>
+
+/% Going to turn this into the library/books inner workings.
+Instead of choosing the contents of the book here, we'll have it happen in the link when you click to open a book and read it, wherever that comes in from.
+
+This will be a catalogue of the contents of all books available in the game.
+ %/
+
+
+/% Parasite book %/
+
+/% Microleupii series %/
+<<endnobr>><<if $randomizer is 1>>
+__''Micro-organisms of HYPOTHESIS''__
+
+''Microleupii'' is a genus of microorganism created by HYPOTHESIS for use in body alteration processes.
+
+The Microleupii family includes ''M. belesse'', ''M. miriete'', ''M. belebaret'', and ''M. belite'', which all affect bodily functions related to weight gain and the processing of food into fat, each in a different manner and targeting a particular area.
+
+''Microstygi'' is a genus of microorganism created by HYPOTHESIS for use in body alteration processes.
+
+The Microstygi family includes ''M. moreauii'' and ''M. heleni'', which both reproduce rapidly in the body, causing gradual bloating over time.
+
+''Lactosa virii'' is a microorganism created by HYPOTHESIS for agricultural, industrial, and personal use.
+
+It alters the body in order to stimulate and gradually increase lactation and milk production, typically also causing slow expansion of the breasts as a result of increasing pressure.<<endif>><<nobr>>
+
+/% Pending Books
+
+	♠ Aspecte. A book about all of the different types, and their prevalence in rev society. Maybe mention the old MiraNet Aspecte game for fun points
+	♠ The Hypothesis Breach. Subject file. HIGHLY censored; probably only a few lines/words visible, including "the hypothesis breach", "largest aetherhole ever recorded", and "referred to by laymen as the [REDACTED] nebula". It needs to read like an SCP file, fo sho
+
+	♠ Leupai.
+	As hard definitions go, leupai are their own kingdom of crystalline "mimic" lifeforms, superficially resembling animals, plants, or even inorganic objects (to a lesser degree).
+	Leupai "blood" is blue, and more akin to a thick jelly that makes up the majority of their bodies (with the rest being either dense, hard crystal-- such as the "skull", facet, teeth, and claws, or more flexible crystalline organs like the outer skin layer, egg, and venom sacs ). Leupai limbs are essentially tendrils or tentacles, and can be stretched, compressed, and bent freely without harm to the leupai.
+
+	Leupai can consume nearly anything, digesting solid food by dissolving it into a jellylike form which is then absorbed completely into themselves.
+	Their skins are incredibly elastic, enabling them to consume large quantities of food, swallow creatures and objects larger than themselves without harm, and inflate, deflate, and compress their bodies at will.
+
+	Leupai oil can be extracted and refined from the flesh and "blood" of leupai, and used to elasticize living flesh, treat fabrics, or be processed into a strong rubber.
+
+	True leupai possess four nostril-like "vents"-- a throwback to their humanoid origins, now primarily used to release excess air or liquids when needed; leupai do not need to breathe (although being cut off from Reveric energies can "suffocate" one, given time).
+	Leupai hybrids such as the Daedlan family only possess a single pair of nostril vents.
+
+	Most leupai are venomous, poisonous, or both. Toxins produced by leupai are mutagenic to organic life of all kinds, causing bloating, mutation, voracious hunger, hallucenations, and eventual transformation into a new leupai (a process called 'realization' by leupologists). Large-scale release of miratoxin into an ecosystem can result in the mutation of the entire area into a collection of alien flora and fauna which will, in turn, spread the transformation into neighboring regions. Whole planets are sometimes changed in this manner, typically as a result of the presence of one or more leupai queens.
+
+	Sufficient long-term exposure to miratoxin will produce pseudoleupai-- creatures that resemble hybridized leupai in appearance, and may even possess partial tongueclaws or mild venom. Somnians are humans who have been gradually exposed to mutagenic levels of miratoxin in this way, typically via tainted water supplies or direct consumption of water-diluted miratoxin (known as "somnus").
+
+	Leupai are completely sexless; they possess no sexual organs, nor do they display dimorphism of any kind.
+
+	They are parasitic, using their tongueclaws as ovipositors to deposit eggs in the abdominal cavities of live hosts. Leupai eggs typically will not become viable until exposed to the genetic material of a host creature-- after which the new genes are used to determine the final appearance and nature of the resulting quaggy. In times of duress or necessity, a leupai may force its eggs to finish developing without outside influence, which results in copies of the parent.
+
+	In a host, leupai eggs secrete residual miratoxin, causing a sharp spike in appetite, as well as residual weight gain, typically centered in the abdomen (this is believed to provide extra protection while eggs finish development).
+	Prior to hatching, leupai eggs will roughly double to triple in size, then have a last, rapid growth spurt which typically ruptures the outer shell of the egg, as well as the abdominal cavity of non-leupai hosts. Quaggies will tear or eat their way out of the host if no sufficiently-sized exit is present once the eggshell is shed.
+	Many leupai may remain to tend to a host creature carrying eggs, assisting with hatching and using miratoxin to seal and help heal wounds prior to the emergence of the quaggies.
+
+	Leupai species and subspecies may easily hybridize with one another, with quaggies typically taking on an even blend of features from each parent. True hybrids of leupai and non-leupai species must be laboratory-made, due to the nature of leupai reproduction; such creatures are typically sterile, and do not produce viable eggs.
+
+	In rare cases, leupai may create "true" hybrids when eggs are hatched within other compatible alien species.
+
+	Leupai are notably unharmed by the vaccuum of space, although long-term exposure may cause gradual mutation.
+
+	♠ Gi.
+	Girth (Gi) is a standard Revecroit unit of measurement, used to refer to weight, width, circumference, and mass.
+	No one seems quite certain how this works, but the Revecroix people utilize it in everyday and industrial life with alarming skill and accuracy just the same, despite the very obvious differences in how such things aught to be measured-- and, worse, how differently such things aught to measure up.
+
+	Perhaps no one has told them how utterly and blatantly the very concept of such a thing flies in the face of reasonable science, yet.
+	Perhaps I shall have to be the one to do so. - L.R. Grant.
+
+	♠ The Null.
+	Null are a leupai subtype that fall from the night sky in great numbers on occasion. According to the Revecroix, they live in and around black holes-- but anyone with two brain cells to rub together knows that such a thing is impossible, and frankly I don't know how much I believe that black holes even exist at all!
+	No living creature possesses physiology capable of even living near a body of such supposedly catastrophic heat and pressure, let alone somehow surviving the process of being pulled into taffy once one reaches the so-called "event horizon".
+
+	I don't know who writes Revecroix science books, but they really aught to screen more thoroughly, if not actually learn how science works altogether! - L.R. Grant.
+
+	♠ Mounds.
+	Leupai mounds are usually dug into soil or rock, preserving natural features externally while hollowing out structures and reinforcing them with space-age materials for living purposes.
+
+	Family mounds typically include several passages connecting to nearby tunnels and caverns for hunting and travel, one or more nests/living areas, one or more pools or other natural water sources, a coop where living creatures are kept for fattening, nesting, and/or eventual eating, a crafting and/or storage area, and a kitchen including one or more flat surfaces for preparation, a pantry for keeping plants and fungi, and a lava pit for cooking and disposal. Anywhere from a single Leupai to multiple gigs and/or Houses may live within a single mound.
+
+	Organizational mounds are built by and for organizations and practicing professionals, containing one or more rooms tailored to their specific needs. Such mounds may be many times larger than a family mound (some of the Hypothesis Conglomerate's many branches, for example), or even the size of a single small room, in the case of mounds made to house a single entity's workroom. Many org mounds consist of multiple smaller mounds joined by short tunnels to share an area between several associated or interdependent trades, including their respective storerooms-- providing convenience to both the owners and their patrons.
+
+	Without the need for oxygen, their crystalline physiology, and the ability to survive even in the vaccuum of space, leupai can settle almost anywhere, barring such extremes as within stars or gas giants. They tend to prefer areas that allow them to easily (and stealthily, if necessary) acquire food, although their ability to slip between dimensions makes this easier than it would otherwise be.
+
+	♠ Technology.
+	Revecroit computers and computer devices function through MiraNet, a multiversal "hypernet" and transmission system which allows for communication and transfer of information via psi energy. MiraNet can be accessed and interacted with by any Revecroit computer, as well as directly through the minds of entities with sufficient psionic ability and knowledge of its existence.
+
+	Revecroit computer hardware is a combination of a mainframe-enabled miracrystal and one or more linked paperscreens or Ethereal User Interface (EUI) screens-- a holograph-like, nonphysical screen powered by ambient mirajin energy and called into temporary existence by psionic will when desired.
+
+	♠ Art.
+	Revecroit 'sculpture' is created from either a fleshlike material made from processed Leupai flesh and oils, or through the process of mutating and/or freezing living creatures into the desired shapes.
+	Such sculptures have the look and feel of living flesh, and can display lifelike colors or be set to any type of hue and/or texture as desired, from pale stone to brilliant, shiny plastics or metals.
+
+	Mechanical sculptures have smooth edges and lines, glowing lights, floating UIs, and other computeresque and/or machinery features resembling Revecroit robotics and devices.
+
+	Two-dimensional Revecroit artwork is created on hair-thin, fully flexible 'paperscreens', which allow for painting, drawing, programming, video, fractals, and the creation and playback of other visual effects as desired in both still and animated form. Such works may also be rigged to play sound and emit and induce other sensory information such as scents, textures, and flavors, and can also be made to produce holographic or three-dimensional "pop-up" effects.
+
+
+ %/
+
+<<endnobr>>//
+<<display BodySystems>><<display Alert>><<display Effects>>
+<hr>[[Back.|$saveStateSpecial][$inUse = 0]]

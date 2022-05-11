@@ -1,0 +1,2 @@
+﻿<<display ZoneBackgrounds>><center>/% Image placeholder. %/</center>
+<<nobr>><affirmative><<print $newQuaggyName1>><<if $newQuaggyName2 neq 0>> <<print $newQuaggyName2>><<endif>> ''joins your party!''</affirmative><<display CompanionSetup>><<set $addQuaggy = 0>><<endnobr>><hr><<if $quaggyRerolls lte 0>>[[Continue.|$saveStateQuaggyGen]]<<elseif $quaggyRerolls gt 0>>[[See the next quaggy.|QuaggyGenerator][$pauseGeneration = 0]] ♦ [[Move on.|QuaggyDismissal][$pauseGeneration = 0]]<<endif>>

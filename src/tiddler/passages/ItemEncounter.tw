@@ -1,0 +1,40 @@
+﻿<<nobr>><<display ZoneBackgrounds>><<set $ateIt = 0>>
+
+<<if $itemType is "food">><<if $itemLiquid is 0>><<set $useDesc = "Eat it!"; $consumeVerb = "eat"; $gluttonyVerb = "devouring">><<elseif $itemLiquid is 1>><<set $useDesc = "Drink it!"; $consumeVerb = "drink"; $gluttonyVerb = "gulping it down">><<endif>><<endif>>
+<<if $itemGrammar is 0>><<set $itemGrammar = "a">><<endif>>
+
+<<if $gluttonyVerb is 0>><<set $gluttonyVerb = "devouring">><<endif>>
+
+<<endnobr>>
+You <<print either("spot","see","notice")>> <<print $itemGrammar>> ''<<print $itemEncounter>>'' nearby!<<if $itemSpecialDesc neq 0>> <<print $itemSpecialDesc>><<endif>>
+<<nobr>>
+
+/% Food %/
+<<endnobr>>\
+<<if $itemType is "food">>\
+<<if $autoEat is 1>>
+You can't resist ''<<print $gluttonyVerb>> it on the spot!''<<display FoodEffects>><<set $ateIt = 1>>\
+\
+<<elseif $autoEat is 0>> <miraframed>[[<<print $useDesc>>|passage()][$eating = 1; $lethalKO = 1; $deathCause = "burst belly"]]</miraframed> <miraframed>[[Take it.|passage()][$storing = 1]]</miraframed><<endif>>\
+\
+<<elseif ($itemType is "statfood") or ($itemType is "drinkable")>>\
+<<if $autoEat is 1>>
+You can't resist ''<<print $gluttonyVerb>> it on the spot!''<<set $ateIt = 1>>
+
+<<display ItemEffects>>\
+\
+<<elseif $autoEat is 0>> <miraframed>[[<<print $useDesc>>|useItem][$saveStateItem = passage()]]</miraframed> <miraframed>[[Take it.|passage()][$storing = 1]]</miraframed><<endif>>\
+\
+/% Wearable %/
+<<elseif $itemType is "wearable">> <miraframed>[[Wear it.|passage()][$puttingOn = 1]]</miraframed> <miraframed>[[Take it.|passage()][$storing = 1]]</miraframed>\
+\
+/% Consumables %/\
+<<elseif $itemType is "medicine">> <miraframed>[[<<print $useDesc>>|useItem][$saveStateItem = passage(); $toggleDisplay = 1]]</miraframed> <miraframed>[[Take it.|passage()][$storing = 1]]</miraframed>\
+<<elseif $itemType is "tranq">> <miraframed>[[<<print $useDesc>>|useItem][$saveStateItem = passage(); $toggleDisplay = 1]]</miraframed> <miraframed>[[Take it.|passage()][$storing = 1]]</miraframed>\
+\
+/% Static %/\
+<<elseif $itemType is "pool">> <miraframed>[[<<print $useDesc>>|useItem][$saveStateItem = passage(); $toggleDisplay = 1; $poolSize = -33]]</miraframed> <<if ($collectiblePool is 1) and ($special_jar gt 0)>> <miraframed>[[Collect.|passage()][$storing = 1; $itemEncounter = $collectedItem]]</miraframed><<endif>>\
+<<elseif $itemType is "static">> <miraframed>[[<<print $useDesc>>|useItem][$saveStateItem = passage(); $toggleDisplay = 1]]</miraframed> <<if ($collectiblePool is 1) and ($special_jar gt 0)>> <miraframed>[[Collect.|passage()][$storing = 1]]</miraframed><<endif>>\
+\
+/% Everything else. %/\
+<<else>> <miraframed>[[Take it.|passage()][$storing = 1]]</miraframed><<endif>>

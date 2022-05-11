@@ -1,0 +1,98 @@
+﻿<<nobr>><<if $mannedShop is 0>><<display RevecroixRandomizer>><<set $hypothesi = $randomRareLeupai; $mannedShop = 1; $hypothesiDesc = either("sleek","plump","round","fat","blubbery","busty","blubber-stuffed","blimplike","gelatinous"); $hypothesiVoice = either("singsong","cheery","chirpy","gruff","warbling","shrill","deep","rich","melodic","honeyed","smooth","silky")>><<endif>><<endnobr>><<if $service is 0>>You walk in to find a huge, imposing-looking laboratory full of tanks, operating tables, and gleaming medical equipment-- and a <<print $hypothesiDesc>> <<print $hypothesi>> clad in a sharp ''<hypo>HYPOTHESIS</hypo>''-issue labcoat, examining you with a great deal of interest.
+
+//<hypo>Well, ''hello'',</hypo>// they say-- //directly into your brain.//
+//<hypo>What'll it be today?
+If you have the consiee handy, please know that I do request ''a small trade'' in exchange for my services. The HYPOTHESIS Conglomerate will redisperse this trade to Revix who request it, thus ensuring our people have steady access to the foodstuffs they require!
+If you do not have it to spare, then it's no matter-- ''but you should find a HYPOTHESIS office and request some, yourself!'' We won't have people going hungry, after all.</hypo>//
+
+The //Hypothesi// offers you a warm smile.<<endif>><<nobr>>
+
+<<endnobr>><<if $service is 1>>//<hypo>Alright, let's have a look at you.</hypo>//
+The <<print $hypothesi>> //Hypothesi// leads you over to an operating table, helping you lie down before running a curious holographic screen over your body, reading it intently.
+
+//<hypo>Yes, here we are; now, here's what I see, and what I can do for you...</hypo>//<<endif>><<nobr>>
+
+
+<<endnobr>><<if $service is 2>>The <<print $hypothesi>> //Hypothesi// opens a drawer, removing several injectors and a number of various other trinkets, setting them on a nearby table.
+They carefully place one of the injectors against your skin, painlessly drawing a blood sample before scurrying away across the room and placing it in an odd machine.
+You watch as best you can from the table as they continue their work-- eventually returning to you and pulling open a large holographic UI in midair, including a model of your body.
+
+Biting their lip, the <<print $hypothesi>> fiddles and types onto the ephemeral screen, adjusting dials and numbers. ''You feel intensely odd, your insides seeming to squirm...''
+
+At last, the //Hypothesi// breathes a contented sigh, dismissing the hologram with a casual wave of a hand. //<hypo>Your unwanted genes ''shall trouble you no longer''.
+How else may I be of service?</hypo>// Their <<print $hypothesiVoice>> voice buzzes in your head.<<endif>><<nobr>>
+
+
+<<endnobr>><<if $service is 3>>//<hypo>Alright, let's have a look at you.</hypo>//
+The <<print $hypothesi>> //Hypothesi// leads you over to an operating table, helping you lie down and strapping you in before running a curious holographic screen over your body, reading it intently.
+
+//<hypo>Excellent... now! I am not a Sculptor, so my "reach" is limited, and ''you will have to work with genes you already have active''.
+But, if you will just relax, I'll jack you into a MiraNet simulation and ''you can manipulate your features in realtime...!''</hypo>//
+
+You take a deep breath and relax-- ''and the world melts away'', leaving you standing in a peaceful meadow, the breeze caressing you.
+After a moment's pause, however, you realize that ''everything but you is faded in color!''
+
+As you look down at yourself, ''a gentle synthetic voice whispers instructions into your mind...''
+
+<center><midframe><<display GenespecBodygrid>></midframe></center><<endif>><<nobr>>
+
+<<endnobr>><<display BodySystems>><<display Effects>>
+
+<framed><center><<if $food gte 200>><<button [[Scan for Afflictive Genes. (~~50 consiee.~~)|passage()][$service = 1; $evaluated = 1; $food -= 50; $geneCheck = 0]]>><<else>><<button [[Scan for Afflictive Genes.|passage()][$service = 1; $evaluated = 1; $geneCheck = 0]]>><<endif>><<if $food gte 300>><<button [[Genetic Manipulation. (~~100 consiee.~~)|passage()][$service = 3; $food -= 100]]>><<else>><<button [[Genetic Manipulation.|passage()][$service = 3]]>><<endif>><<nobr>>
+
+/% ================================= %/
+/% Evaluation-only %/
+
+<<if $evaluated is 1>>
+
+<<if $geneProductive is 1>><<set $geneCheck = 1>><<button [[Deactivate Productive Gene (Disable bonus lactation).|passage()][$service = 2; $geneProductive = 0]]>><<endif>>
+<<if $geneDry is 1>><<set $geneCheck = 1>><<button [[Deactivate Dry Gene (Enable lactation).|passage()][$service = 2; $geneDry = 0]]>><<endif>>
+
+<<if $geneGlutton is 1>><<set $geneCheck = 1>><<button [[Deactivate Glutton Gene (Disable esurience penalty).|passage()][$service = 2; $geneGlutton = 0]]>><<endif>>
+<<if $geneExhaustion is 1>><<set $geneCheck = 1>><<button [[Deactivate Exhaustion Gene (Disable exhaustion penalty).|passage()][$service = 2; $geneExhaustion = 0]]>><<endif>>
+
+<<if $geneFrail is 1>><<set $geneCheck = 1>><<button [[Deactivate Frail Gene (Disable strength penalty).|passage()][$service = 2; $geneFrail = 0]]>><<endif>>
+<<if $geneSoft is 1>><<set $geneCheck = 1>><<button [[Deactivate Soft Gene (Disable strength & pain penalty).|passage()][$service = 2; $geneSoft = 0; $painAmp -= 5; $geneSoftBonus = 0]]>><<endif>>
+
+<<if $geneBloat is 1>><<set $geneCheck = 1>><<button [[Deactivate Bloat Gene (Disable bloat penalty).|passage()][$service = 2; $geneBloat = 0]]>><<endif>>
+<<if $geneRigid is 1>><<set $geneCheck = 1>><<button [[Deactivate Rigid Gene (Disable stretch penalty).|passage()][$service = 2; $geneRigid = 0]]>><<endif>>
+
+<<if $geneBlubber is 1>><<set $geneCheck = 1>><<button [[Deactivate Blubber Gene (Disable minimum girth).|passage()][$service = 2; $geneBlubber = 0]]>><<endif>>
+<<if $geneBlubberstuffed is 1>><<set $geneCheck = 1>><<button [[Deactivate Blubber-Stuffed Gene (Disable minimum girth).|passage()][$service = 2; $geneBlubberstuffed = 0]]>><<endif>>
+<<if $geneRippling is 1>><<set $geneCheck = 1>><<button [[Deactivate Rippling Gene (Disable minimum girth).|passage()][$service = 2; $geneRippling = 0]]>><<endif>>
+
+<<if $geneLiquidConversion is 1>><<set $geneCheck = 1>><<button [[Deactivate Liquid Conversion (Disable liquid-to-fat conversion).|passage()][$service = 2; $geneLiquidConversion = 0]]>><<endif>>
+<<if $geneThermalConversion is 1>><<set $geneCheck = 1>><<button [[Deactivate Thermal Conversion (Disable heat-to-fat conversion).|passage()][$service = 2; $geneThermalConversion = 0]]>><<endif>>
+<<if $geneNourishingLight is 1>><<set $geneCheck = 1>><<button [[Deactivate Nourishing Light (Disable light-to-fat conversion).|passage()][$service = 2; $geneThermalConversion = 0]]>><<endif>>
+<<if $geneMirajinicGain is 1>><<set $geneCheck = 1>><<button [[Deactivate Mirajinic Gain (Disable mirajin-to-fat conversion).|passage()][$service = 2; $geneMirajinicGain = 0]]>><<endif>>
+<<if $geneUnreal is 1>><<set $geneCheck = 1>><<button [[Deactivate Unreal Gene (Disable miratoxin-to-fat conversion).|passage()][$service = 2; $geneUnreal = 0]]>><<endif>>
+<<if $geneMirajinicGain is 1>><<set $geneCheck = 1>><<button [[Deactivate Mirajinic Gain (Disable mirajin-to-fat conversion).|passage()][$service = 2; $geneMirajinicGain = 0]]>><<endif>>
+
+<<if $geneRapidBurn is 1>><<set $geneCheck = 1>><<button [[Deactivate Rapid Burn Gene (Disable gain penalty).|passage()][$service = 2; $geneRapidBurn = 0]]>><<endif>>
+<<if $geneWasting is 1>><<set $geneCheck = 1>><<button [[Deactivate Wasting Gene (Disable drain penalty).|passage()][$service = 2; $geneWasting = 0]]>><<endif>>
+
+<<if $geneMoistureSensitive is 1>><<set $geneCheck = 1>><<button [[Deactivate Moisture Sensitive Gene (Disable moisture allergy).|passage()][$service = 2; $geneMoistureSensitive = 0]]>><<endif>>
+<<if $geneDroughtSensitive is 1>><<set $geneCheck = 1>><<button [[Deactivate Drought Sensitive Gene (Disable dry weather allergy).|passage()][$service = 2; $geneDroughtSensitive = 0]]>><<endif>>
+<<if $geneLightSensitive is 1>><<set $geneCheck = 1>><<button [[Deactivate Light Sensitive Gene (Disable light allergy).|passage()][$service = 2; $geneLightSensitive = 0]]>><<endif>>
+<<if $geneHeatSensitive is 1>><<set $geneCheck = 1>><<button [[Deactivate Heat Sensitive Gene (Disable heat allergy).|passage()][$service = 2; $geneHeatSensitive = 0]]>><<endif>>
+<<if $geneColdSensitive is 1>><<set $geneCheck = 1>><<button [[Deactivate Cold Sensitive Gene (Disable cold allergy).|passage()][$service = 2; $geneColdSensitive = 0]]>><<endif>>
+
+<<if $geneFatteniumAllergy is 1>><<set $geneCheck = 1>><<button [[Deactivate Fattenium Allergy Gene (Disable fattenium allergy).|passage()][$service = 2; $geneFatteniumAllergy = 0]]>><<endif>>
+<<if $geneMirajinSensitive is 1>><<set $geneCheck = 1>><<button [[Deactivate Mirajin Sensitive Gene (Disable mirajin allergy).|passage()][$service = 2; $geneMirajinSensitive = 0]]>><<endif>>
+<<if $geneVitalAllergy is 1>><<set $geneCheck = 1>><<button [[Deactivate Vital Allergy Gene (Disable vitae allergy).|passage()][$service = 2; $geneVitalAllergy = 0]]>><<endif>>
+
+<<if $geneStomachRot is 1>><<set $geneCheck = 1>><<button [[Deactivate Stomach Rot Gene (Cure disease).|passage()][$service = 2; $geneStomachRot = 0]]>><<endif>>
+<<if $geneOverinflation is 1>><<set $geneCheck = 1>><<button [[Deactivate Overinflation Gene (Cure disease).|passage()][$service = 2; $geneOverinflation = 0]]>><<endif>>
+<<if $geneLiquification is 1>><<set $geneCheck = 1>><<button [[Deactivate Liquification Gene (Cure disease).|passage()][$service = 2; $geneLiquification = 0]]>><<endif>>
+<<if $geneSponge is 1>><<set $geneCheck = 1>><<button [[Deactivate Sponge Gene (Cure disease).|passage()][$service = 2; $geneSponge = 0]]>><<endif>>
+<<if $geneOvergrowth is 1>><<set $geneCheck = 1>><<button [[Deactivate Overgrowth Gene (Cure disease).|passage()][$service = 2; $geneOvergrowth = 0; $overgrowth = 0]]>><<endif>>
+<<if $geneDissolution is 1>><<set $geneCheck = 1>><<button [[Deactivate Dissolution Gene (Cure disease).|passage()][$service = 2; $geneDissolution = 0; $dissolving = 0]]>><<endif>>
+<<if $geneWeakSkin is 1>><<set $geneCheck = 1>><<button [[Deactivate WeakSkin Gene (Cure disease).|passage()][$service = 2; $geneWeakSkin = 0]]>><<endif>>
+
+<<if $geneCheck is 0>><miraframed><xtralarge>''Check OK;
+No Afflictive Genes Found!''<<set $evaluated = 0>></xtralarge></miraframed><<endif>>
+
+<<endif>>
+
+<<endnobr>></center></framed>
+<center><<button [[Leave.|$saveStateEncounter][$itemPool = 0; $encounterPool = 0; $mannedShop = 0; $service = 0; $geneCheck = 0; $evaluated = 0; $explore = 3; $indoorZone = 0; $dungeonType = 0]]>></center>

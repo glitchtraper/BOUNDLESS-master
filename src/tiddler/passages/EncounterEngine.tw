@@ -1,0 +1,111 @@
+﻿/% ======================================================================== %/
+/% Time to roll the encounters! %/
+
+<<set $randomizer = random(1,100)>>
+
+/% ======================================== %/
+/% Default Encounters (Outdoors, overland, non-settlement/building) %/
+
+	/% Found nothing. (10%) %/
+	<<if $randomizer lte 10>><<set $encounterKind = 0>>
+
+	/% Most common. (40%) %/
+	<<elseif ($randomizer gt 10) and ($randomizer lte 50)>><<set $encounterKind = "creature">>
+
+	/% Second most common. (30%) %/
+	<<elseif ($randomizer gt 50) and ($randomizer lte 80)>><<set $encounterKind = "item">>
+
+	/% Rarer encounters. (25%) %/
+	<<elseif $randomizer gt 80>><<set $encounterKind = "special">><<endif>>
+
+
+/% ======================================================================== %/
+/% Immobile mode (overrides everything else) %/
+
+<<if $immobileMode is 1>>
+
+	/% Found nothing. (70%) %/
+	<<if $randomizer lte 15>><<set $encounterKind = 0>>
+
+	/% Most common. (30%) %/
+	<<elseif ($randomizer gt 15) and ($randomizer lte 45)>><<set $encounterKind = "creature">><<endif>>
+
+
+/% ======================================================================== %/
+/% Specific Encounters (indoors, special areas, etc.) %/
+
+/% ======================================== %/
+/% Laboratory dungeon %/
+
+<<elseif $zoneType is "science">>
+
+	/% Found nothing. (10%) %/
+	<<if $randomizer lte 10>><<set $encounterKind = 0>>
+
+	/% Most common. (40%) %/
+	<<elseif ($randomizer gt 10) and ($randomizer lte 50)>><<set $encounterKind = "creature">>
+
+	/% Second most common. (35%) %/
+	<<elseif ($randomizer gt 50) and ($randomizer lte 75)>><<set $encounterKind = "item">>
+
+	/% Rarer encounters. (25%) %/
+	<<elseif $randomizer gte 75>><<set $encounterKind = "special">><<endif>>
+
+/% ======================================== %/
+/% Storage dungeon %/
+
+<<elseif $zoneType is "revstorage">>
+
+	/% Found nothing. (10%) %/
+	<<if $randomizer lte 10>><<set $encounterKind = 0>>
+
+	/% Most common. (45%) %/
+	<<elseif ($randomizer gt 10) and ($randomizer lte 55)>><<set $encounterKind = "item">>
+
+	/% Rarer encounters. (30%) %/
+	<<elseif ($randomizer gt 55) and ($randomizer lte 85)>><<set $encounterKind = "creature">>
+
+	/% Special encounters. (15%) %/
+	<<elseif $randomizer gt 85>><<set $encounterKind = "special">><<endif>>
+
+
+/% ======================================== %/
+/% Planar/Static Planet encounters. (unused for now) %/
+
+
+
+/% ======================================== %/
+
+
+
+/% ======================================================================== %/
+/% Now, spit out the encounter results, and then call the footer info. %/
+
+<<endif>>
+/% ======================================================================== %/
+
+/% Creature encounters %/
+<<if $encounterKind is "creature">>
+
+<<display CreaturePool>>
+
+<<endif>>
+
+/% ======================================================================== %/
+
+/% Special item encounters %/
+<<if $encounterKind is "item">>
+
+<<display ItemPool>>
+
+<<endif>>
+
+/% ======================================================================== %/
+
+/% Special encounters %/ <<if $encounterKind is "special">>
+
+<<display SpecialPool>>
+
+<<endif>>
+
+/% ======================================================================== %/

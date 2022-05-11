@@ -1,0 +1,139 @@
+﻿<<nobr>>
+
+<<if $mannedShop is 0>><<display RevecroixRandomizer>><<set $fatier = $randomRevecroix; $mannedShop = 1; $fatierDesc = either("sleek","plump","round","fat","blubbery","busty","blubber-stuffed","blimplike","gelatinous"); $fatierVoice = either("singsong","cheery","chirpy","gruff","warbling","shrill","deep","rich","melodic","honeyed","smooth","silky"); $fatiereStock = random(5000,1500000)>><<endif>>
+
+
+<<endnobr>><<if $service is 0>>You walk into the fatiere, the deep bass hum of the pumps reverberating through the walls and floor.
+A <<print $fatierDesc>> <<print $fatier>> polishes its desk with a soft-looking scrap of cloth as it glances up at you.
+
+<<if $fatiereStock gte 850000>><<if $fatScore gte 1500>>"//Auia//, friend-- I hope I can interest you in ''buying some of our stock today,''" it says with a <<print $fatierVoice>> voice and a winning smile.
+"We've got ''quite the surplus, and I'd be willing to let it go for practically //nothing~!//''"<<elseif $fatScore lt 1500>>"//Aui--//Oh, dear //Administre, LOOK at you!//" it gasps, practically hurling the cloth across the room in shock.
+"Nonononono//noooo//, this won't do //at ''all''//," the //fatier// clucks anxiously, leaping up and stalking around you in an appraising circle. "You're practically //bones!// ...if you even have them. //I'm not certain.//
+
+"Listen, I tell you what.
+We're fine for stock-- really, no, we're //brilliant//. ''If you're here to have a job done''-- and you'd //BETTER be//, let me tell you, friend--, ''I'm not gonna charge you for it. //At all//''.
+So, come on. ''Just come back and I'll get you all set up, on me. //PLEASE!//''"<<endif>><<else (if $fatiereStock lt 2500) and (if $fatiereStock gt 500)>><<if $fatScore gte 1500>>"//Auia//, friend, and welcome. What can I help you with today?"<<elseif $fatScore lt 1500>>It frowns concernedly, dropping the cloth and sitting up in its chair.
+"Oh, //look at you//, you poor thing. //Who did it to you?// Just tell me, and I'll-- ah, no, no," it sighs, shaking its head.
+"Listen-- ''I'm authorized to give discounts to persons in need, as they say, and I'm //pretty sure// you're in need.''
+I'd hate to take perfectly good //consiee// off of you, but I'm alright with paying the difference, okay?"<<endif>><<nobr>>
+
+<<endnobr>><<elseif $fatiereStock lte 20000>><<if $fatScore gte 3000>>"Oh, ''//do// tell me you're going to let us have some of that,''" it says wishfully, unabashedly admiring your body.
+"Stock's pretty dry lately, and, well... //you// certainly aren't, hmm? ''I'd be happy to pay handsomely!''"<<elseif ($fatScore lt 3000) and ($fatScore gt 2000)>>"I don't want to push, of course," says the <<print $fatier>> fatiee, "But ''we could stand to replenish our stock a bit, and we're happy to pay extra for the privilege,'' as you can see on the board over there..." they gesture pointedly over to the sign.
+"//Just so you know, of course.//"<<elseif $fatScore lt 1500>>The //fatier// sighs dramatically at you.
+"On one hand, ''we're in a bit of a downturn, stockwise,''" it begins. "But on the other hand, ''what kind of person would I be if I didn't offer you a discount on what we've got left?''
+It won't be much of one, admittedly, but... Rose help me, I can't just let you walk into my Fatiere and ''starve before my eyes, now, //can I..?//''"<<endif>><<endif>><<endif>>\
+\
+\
+<<if $service is 1>>\
+"Fatieres specialize in the ''production and trade of raw fat'' for various culinary, industrial, and scientific purposes," the <<print $fatier>> explains.
+
+"There are two main services we provide here; ''forcefeeding sessions'' which essentially "borrow" a client's body to use in fat production-- either in exchange for consiee, or to keep a portion of the fat produced, and ''pumps'' with which we siphon out excess fat from areas of the client's choosing.
+
+"During a forcefeeding session, we ''feed you as much of our weight gain slurry as you can safely consume'', after which we divide up the resulting fat according to the agreements made beforehand.
+''The more slurry you can drink, the higher the yield for everyone involved.''
+
+If you can't stomach the pump for long, I recommend ''increasing your elasticity somehow''-- a dose or three of ''Leupai Oil'' would help, as a temporary measure, or you could just try ''gorging yourself for a while...''"<<endif>>\
+<<elseif $service is 2>>
+<<nobr>>
+
+
+<<if $fatiereStock lt 20000>><<set $fatiereAsking = 120; $fatiereOffering = 100; $fatiereDiscount = 100>><<endif>>
+<<if ($fatiereStock gte 20000) and ($fatiereStock lt 200000)>><<set $fatiereAsking = 80; $fatiereOffering = 65; $fatiereDiscount = 75>><<endif>>
+<<if ($fatiereStock gte 200000) and ($fatiereStock lt 500000)>><<set $fatiereAsking = 60; $fatiereOffering = 45; $fatiereDiscount = 50>><<endif>>
+<<if ($fatiereStock gte 500000) and ($fatiereStock lt 850000)>><<set $fatiereAsking = 35; $fatiereOffering = 25; $fatiereDiscount = 15>><<endif>>
+<<if $fatiereStock gte 850000>><<set $fatiereAsking = 25; $fatiereOffering = 10; $fatiereDiscount = 0>><<endif>>
+
+<<endnobr>><center><framed>__''<<print $location>> of <<print $locName>> Fatiere''__
+
+<framed>__''RATES''__
+__''BUYING FAT:''__ 25~~gi~~ for <<print $fatiereOffering>>~~consiee~~
+__''FORCEFEEDING SESSIONS:''__ <<print $fatiereOffering>>~~consiee~~/''10 rounds''
+<mini>
+//We do not purchase fat from individuals under 150~~gi~~ for your health & safety. ''We will offer our services to you at a discount.''
+''Rates fluctuate based on local demand.''//</mini></center></framed>\
+
+<center><framed>\
+__''Forcefeeding Sessions''____
+<<nobr>>
+
+/% ========================== Sessions %/
+
+<<button [[About Fatiere Sessions|passage()][$service = 1]]>>
+
+<<if $bellyStatus neq "bursting">>
+
+<<button [[Forcefeeding Session (Fat for Consiee)|FatiereProcessing][$service = 1; $girthMeasure = $girth; $breastMeasure = $breast; $bellyMeasure = $belly; $thighMeasure = $thigh; $ffCalories = 0; $ffBloat = 140; $ffLiquid = 50; $ffBreastBloat = 0; $ffMilk = 0; $ffPain = -10; $ffGreed = 0; $lethalKO = 0; $noncon = 0; $ffeedingNoun = "hose"; $ffeedingVerb = "feed"; $ffeedingTarget = "belly"; $ffeedingEffect = "quaking as it pumps full, round, and heavy"; $serviceOverride = 1; $forcefeedSpeed = "rapid"]]>>
+
+<<if $food gte ($fatiereOffering * 10)>><<button [[Forcefeeding Session (10 Rounds)|FatiereProcessing][$food -= ($fatiereOffering * 10); $service = 2; $fatiereHired = 10; $girthMeasure = $girth; $breastMeasure = $breast; $bellyMeasure = $belly; $thighMeasure = $thigh; $ffCalories = 0; $ffBloat = 140; $ffLiquid = 50; $ffBreastBloat = 0; $ffMilk = 0; $ffPain = -10; $ffGreed = 0; $lethalKO = 0; $noncon = 0; $ffeedingNoun = "hose"; $ffeedingVerb = "feed"; $ffeedingTarget = "belly"; $ffeedingEffect = "quaking as it pumps full, round, and heavy"; $serviceOverride = 1; $forcefeedSpeed = "rapid"]]>><<endif>>
+
+<<if $food gte ($fatiereOffering * 20)>><<button [[Forcefeeding Session (20 Rounds)|FatiereProcessing][$food -= ($fatiereOffering * 20); $service = 2; $fatiereHired = 20; $girthMeasure = $girth; $breastMeasure = $breast; $bellyMeasure = $belly; $thighMeasure = $thigh; $ffCalories = 0; $ffBloat = 140; $ffLiquid = 50; $ffBreastBloat = 0; $ffMilk = 0; $ffPain = -10; $ffGreed = 0; $lethalKO = 0; $noncon = 0; $ffeedingNoun = "hose"; $ffeedingVerb = "feed"; $ffeedingTarget = "belly"; $ffeedingEffect = "quaking as it pumps full, round, and heavy"; $serviceOverride = 1; $forcefeedSpeed = "rapid"]]>><<endif>>
+
+<<if $food gte ($fatiereOffering * 30)>><<button [[Forcefeeding Session (30 Rounds)|FatiereProcessing][$food -= ($fatiereOffering * 30); $service = 2; $fatiereHired = 30; $girthMeasure = $girth; $breastMeasure = $breast; $bellyMeasure = $belly; $thighMeasure = $thigh; $ffCalories = 0; $ffBloat = 140; $ffLiquid = 50; $ffBreastBloat = 0; $ffMilk = 0; $ffPain = -10; $ffGreed = 0; $lethalKO = 0; $noncon = 0; $ffeedingNoun = "hose"; $ffeedingVerb = "feed"; $ffeedingTarget = "belly"; $ffeedingEffect = "quaking as it pumps full, round, and heavy"; $serviceOverride = 1; $forcefeedSpeed = "rapid"]]>><<endif>>
+
+<<if $food gte ($fatiereOffering * 50)>><<button [[Forcefeeding Session (50 Rounds)|FatiereProcessing][$food -= ($fatiereOffering * 50); $service = 2; $fatiereHired = 50; $girthMeasure = $girth; $breastMeasure = $breast; $bellyMeasure = $belly; $thighMeasure = $thigh; $ffCalories = 0; $ffBloat = 140; $ffLiquid = 50; $ffBreastBloat = 0; $ffMilk = 0; $ffPain = -10; $ffGreed = 0; $lethalKO = 0; $noncon = 0; $ffeedingNoun = "hose"; $ffeedingVerb = "feed"; $ffeedingTarget = "belly"; $ffeedingEffect = "quaking as it pumps full, round, and heavy"; $serviceOverride = 1; $forcefeedSpeed = "rapid"]]>><<endif>>
+
+<<if $food gte ($fatiereOffering * 100)>><<button [[Forcefeeding Session (100 Rounds)|FatiereProcessing][$food -= ($fatiereOffering * 100); $service = 2; $fatiereHired = 100; $girthMeasure = $girth; $breastMeasure = $breast; $bellyMeasure = $belly; $thighMeasure = $thigh; $ffCalories = 0; $ffBloat = 140; $ffLiquid = 50; $ffBreastBloat = 0; $ffMilk = 0; $ffPain = -10; $ffGreed = 0; $lethalKO = 0; $noncon = 0; $ffeedingNoun = "hose"; $ffeedingVerb = "feed"; $ffeedingTarget = "belly"; $ffeedingEffect = "quaking as it pumps full, round, and heavy"; $serviceOverride = 1; $forcefeedSpeed = "rapid"]]>><<endif>>
+
+<<endif>>
+
+<<endnobr>>
+____''Fat Trading''____
+<<nobr>>
+
+/% ========================== Selling %/
+
+
+<<if $girth gte 2750>><<button [[Sell Body Fat. (25~~gi~~)|passage()][$service = 2; $food += $fatiereOffering; $girth -= 250; $fatiereStock += 250; $fatieeProgress += 25]]>><<endif>>
+
+<<if $girth gte 5000>><<button [[Sell Body Fat. (250~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 10); $girth -= 2500; $fatiereStock += 2500; $fatieeProgress += 250]]>><<endif>>
+
+<<if $girth gte 27500>><<button [[Sell Body Fat. (2500~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 100); $girth -= 25000; $fatiereStock += 25000; $fatieeProgress += 2500]]>><<endif>>
+
+<<if $girth gte 252500>><<button [[Sell Body Fat. (25000~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 1000); $girth -= 250000; $fatiereStock += 250000; $fatieeProgress += 25000]]>><<endif>>
+
+
+<<if $breast gte 300>><<button [[Sell Breast Fat. (25~~gi~~)|passage()][$service = 2; $food += $fatiereOffering; $breast -= 250; $fatiereStock += 250; $fatieeProgress += 25]]>><<endif>>
+
+<<if $breast gte 2550>><<button [[Sell Breast Fat. (250~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 10); $breast -= 2500; $fatiereStock += 2500; $fatieeProgress += 250]]>><<endif>>
+
+<<if $breast gte 25500>><<button [[Sell Breast Fat. (2500~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 100); $breast -= 25000; $fatiereStock += 25000; $fatieeProgress += 2500]]>><<endif>>
+
+<<if $breast gte 255000>><<button [[Sell Breast Fat. (25000~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 1000); $breast -= 250000; $fatiereStock += 250000; $fatieeProgress += 25000]]>><<endif>>
+
+
+<<if $belly gte 300>><<button [[Sell Belly Fat. (25~~gi~~)|passage()][$service = 2; $food += $fatiereOffering; $belly -= 250; $fatiereStock += 250; $fatieeProgress += 25]]>><<endif>>
+
+<<if $belly gte 2550>><<button [[Sell Belly Fat. (250~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 10); $belly -= 2500; $fatiereStock += 2500; $fatieeProgress += 250]]>><<endif>>
+
+<<if $belly gte 25500>><<button [[Sell Belly Fat. (2500~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 100); $belly -= 25000; $fatiereStock += 25000; $fatieeProgress += 2500]]>><<endif>>
+
+<<if $belly gte 255000>><<button [[Sell Belly Fat. (25000~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 1000); $belly -= 250000; $fatiereStock += 250000; $fatieeProgress += 25000]]>><<endif>>
+
+<<if $thigh gte 300>><<button [[Sell Thigh Fat. (25~~gi~~)|passage()][$service = 2; $food += $fatiereOffering; $thigh -= 250; $fatiereStock += 250; $fatieeProgress += 25]]>><<endif>>
+
+<<if $thigh gte 2550>><<button [[Sell Thigh Fat. (250~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 10); $thigh -= 2500; $fatiereStock += 2500; $fatieeProgress += 250]]>><<endif>>
+
+<<if $thigh gte 25500>><<button [[Sell Thigh Fat. (2500~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 100); $thigh -= 25000; $fatiereStock += 25000; $fatieeProgress += 2500]]>><<endif>>
+
+<<if $thigh gte 255000>><<button [[Sell Thigh Fat. (25000~~gi~~)|passage()][$service = 2; $food += ($fatiereOffering * 1000); $thigh -= 250000; $fatiereStock += 250000; $fatieeProgress += 25000]]>><<endif>>
+
+<<endnobr>>
+\
+/% ================================= %/\
+/% For Sale %/\
+____''Buy''____
+<<nobr>>
+
+<<if $food gte 500>><<button [[Helium Pills ~~x~~1: 500~~consiee~~|passage()][$pill_helium += 1; $food -= 500]]>><<else>><unframe>''Helium Pills ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+<<if $food gte 2500>><<button [[Helium Pills ~~x~~5: 2500~~consiee~~|passage()][$pill_helium += 5; $food -= 2500]]>><<endif>>
+<<if $food gte 5000>><<button [[Helium Pills ~~x~~12: 5000~~consiee~~|passage()][$pill_helium += 12; $food -= 5000]]>><<endif>>
+
+<<if $food gte 300>><<button [[Leupai Oil ~~x~~1: 300~~consiee~~|passage()][$oil_leupai += 1; $food -= 300]]>><<else>><unframe>''Leupai Oil ~~x~~1: 300~~consiee~~''</unframe><<endif>>
+<<if $food gte 1500>><<button [[Leupai Oil ~~x~~5: 1500~~consiee~~|passage()][$oil_leupai += 5; $food -= 1500]]>><<endif>>
+
+<<if $food gte 1500>><<button [[Plushifier ~~x~~1: 1500~~consiee~~|passage()][$shot_plushifier += 1; $food -= 1500]]>><<else>><unframe>''Plushifier ~~x~~1: 1500~~consiee~~''</unframe><<endif>>
+<<if $food gte 2500>><<button [[Plushifier ~~x~~2: 2500~~consiee~~|passage()][$shot_plushifier += 2; $food -= 2500]]>><<endif>>
+<<if $food gte 3250>><<button [[Plushifier ~~x~~3: 3250~~consiee~~|passage()][$shot_plushifier += 3; $food -= 3250]]>><<endif>>
+
+<<endnobr>></framed><<set $service = 0>>
+<<button [[Leave.|$saveStateEncounter][$itemPool = 0; $encounterPool = 0; $mannedShop = 0; $serviceOverride = 0; $service = 0; $explore = 3; $indoorZone = 0; $dungeonType = 0; $justLeftType = "area"; $justLeft = "Fatiere"; $stepcounter = 1; $stepsCounted = 0; $location = $saveBiome]]>></center>

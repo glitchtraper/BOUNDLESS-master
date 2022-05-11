@@ -1,0 +1,687 @@
+﻿<center><<nobr>>
+
+/% Easy admin-mode access switch. Just set it to 1 to turn it on.
+Set it to 0 before releases! %/
+
+<<set $adminMode = 0>>
+
+<xtramini><<if $adminMode is 1>><<if $showAdmin is 0>>[[♥|passage()][$showAdmin = 1]]<<elseif $showAdmin is 1>>[[♥|passage()][$showAdmin = 0]]<<endif>>
+
+<<elseif $adminMode is 0>>♥<<endif>>
+
+<<if $showAdmin is 1>>
+
+<hr>
+
+<<if $showEventAdmin is 0>><<button [[Events|passage()][$showEventAdmin = 1]]>>
+<<elseif $showEventAdmin is 1>><<button [[Events|passage()][$showEventAdmin = 0]]>><<endif>>
+
+<<if $showZoneAdmin is 0>><<button [[Zones|passage()][$showZoneAdmin = 1]]>>
+<<elseif $showZoneAdmin is 1>><<button [[Zones|passage()][$showZoneAdmin = 0]]>><<endif>>
+
+<<if $showBodyAdmin is 0>><<button [[Body Edit|passage()][$showBodyAdmin = 1]]>>
+<<elseif $showBodyAdmin is 1>><<button [[Body Edit|passage()][$showBodyAdmin = 0]]>><<endif>>
+
+<<if $showAfflictionsAdmin is 0>><<button [[Afflictions|passage()][$showAfflictionsAdmin = 1]]>>
+<<elseif $showAfflictionsAdmin is 1>><<button [[Afflictions|passage()][$showAfflictionsAdmin = 0]]>><<endif>>
+
+<<if $showItemAdmin is 0>><<button [[Items|passage()][$showItemAdmin = 1]]>>
+<<elseif $showItemAdmin is 1>><<button [[Items|passage()][$showItemAdmin = 0]]>><<endif>>
+
+<<button [[Consiee.|passage()][$food += 10000]]>>
+
+<<if $showEventAdmin is 1>>
+
+/% ================================================================== %/
+/% Time & Events %/
+
+<hr>
+
+<<button [[Daytime.|passage()][$hours = 3]]>>
+
+<<button [[Nighttime.|passage()][$hours = 8]]>>
+
+<<button [[+1 Day (Display).|passage()][$days += 1]]>>
+
+<<button [[+1 Week (Display).|passage()][$weeks += 1]]>>
+
+<hr>
+
+<<button [[Traveling Trader.|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "special"; $preEncounter = "traveling trader"; $sellPool = 1; $buyPool = 3; $tradePool = 1; $rareItem = random(1,10)]]>>
+
+<hr>
+
+<<button [[Encounter: Honeygorger Swarm|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "creature"; $preEncounter = "honeygorger swarm"; $exploring = 0; $befriendable = 1]]>>
+
+<<button [[Encounter: Fairyhawk Swarm|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "creature"; $preEncounter = "fairyhawk swarm"; $exploring = 0; $befriendable = 0]]>>
+
+<hr>
+
+<<button [[Encounter: Faerie Feast Curio|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "special"; $preEncounter = "magical curio"; $encounter = "faefeast"; $exploring = 0]]>>
+
+<<button [[Encounter: Billetroa Arka Curio|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "special"; $preEncounter = "magical curio"; $encounter = "billetroa arka"; $curioAction = "Interact."; $exploring = 0]]>>
+
+<<button [[Encounter: Random Corpse Curio|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "special"; $preEncounter = "corpse curio"; $curioAction = "Examine."; $encounter = either("poisoned","pained","eaten","incinerated","frozen","bled","drowned","fat-drowned","smashed","slashed","suffocated","burst-bellied","exploded","irradiated","starved","atrophied","drained","vitalized","vitannihilated","mirajinized") + " corpse"; $curioSpecies = either("human","post-human","arka","adephagian"); $exploring = 0]]>>
+
+<<button [[Encounter: Random Tree Curio|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "special"; $preEncounter = "tree curio"; $encounter = either("woodtree","antlertree","pottree","axetree","pickaxetree","shoveltree"); $exploring = 0]]>>
+
+<<button [[Encounter: Random Magical Mirror Curio|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "special"; $preEncounter = "magical curio"; $encounter = either("fattenmirror","slimmirror","funmirror"); $curioAction = "Interact."; $exploring = 0]]>>
+
+<<button [[Encounter: Random Magical Statue Curio|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "special"; $preEncounter = "magical curio"; $encounter = either("well-fed helene","egg-fattened daedlan","gluttonous daedlan","gluttonous adephagian","spherical leupai","milk-bloated adephagian","feeder nefirian","immobile aladri","billetroa arka"); $curioAction = "Interact."; $exploring = 0]]>>
+
+<<button [[Encounter: Random Magical Fountain Curio|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "special"; $preEncounter = "magical curio"; $encounter = either("balloon fountain","greed fountain","gain fountain","bulk fountain","venomous fountain","fattenium fountain","milk fountain","berry fountain","metamorphous fountain"); $curioAction = "Interact."; $exploring = 0]]>>
+
+<<button [[Encounter: Random Magical Curio|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "special"; $preEncounter = "magical curio"; $encounter = either("fattenmirror","slimmirror","funmirror","well-fed helene","egg-fattened daedlan","gluttonous daedlan","gluttonous adephagian","spherical leupai","milk-bloated adephagian","feeder nefirian","immobile aladri","billetroa arka","balloon fountain","greed fountain","gain fountain","bulk fountain","venomous fountain","fattenium fountain","milk fountain","berry fountain","metamorphous fountain"); $curioAction = "Interact."; $exploring = 0]]>>
+
+<<button [[Encounter: Random Statuary Curio|Explore][$presetEncounter = 1; $presetEvent = 1; $presetType = "special"; $preEncounter = "decorative curio"; $encounter = "statue"; $curioMaterial = either("stone statue","wooden carving","crystal sculpture","ice sculpture","rusted metal sculpture","flesh-sculpture","marble statue","golden statue","topiary"); $statueBiomeFlavor = either("overgrown with weeds and twisting vines. It depicts ","singed and coated with ash. It depicts ","discolored and worn. It depicts ","caked with mud. It depicts ","discolored and worn. It depicts ","half-coated in thick, black ichor of some sort. It depicts "); $exploring = 0]]>>
+
+<<endif>>
+
+<<if $showZoneAdmin is 1>>
+
+/% ================================================================== %/
+/% Zones & Buildings %/
+
+<hr>
+
+<<button [[Aetherhole][$saveStateEncounter = "Explore"]]>>
+<<button [[Transport Aetherhole|TransportAetherhole][$saveStateEncounter = "Explore"]]>>
+<<button [[Abitte][$saveStateEncounter = "Explore"; $mannedShop = 0]]>>
+<<button [[Mediquerie][$saveStateEncounter = "Explore"; $cycleWeather = 1; $mannedShop = 0]]>>
+<<button [[Fatiere][$saveStateEncounter = "Explore"; $weatherType = 0; $newWeather = 1; $cycleWeather = 1; $mannedShop = 0]]>>
+<<button [[Bovieterie][$saveStateEncounter = "Explore"; $cycleWeather = 1; $mannedShop = 0]]>>
+<<button [[Billeporte][$saveStateEncounter = "Explore"; $cycleWeather = 1; $mannedShop = 0]]>>
+<<button [[Hypo Genelab][$saveStateEncounter = "Explore"; $cycleWeather = 1; $mannedShop = 0]]>>
+
+<hr>
+
+<<button [[Abandoned Laboratory Mound|passage()][$dungeonType = "Abandoned Laboratory Mound"; $saveStateEncounter = "Explore"; $specStatus = 0; $exploring = 3; $indoorZone = 1; $dungeonLocation = $dungeonType; $cycleWeather = 1]]>>
+<<button [[Abandoned Storage Mound|passage()][$dungeonType = "Abandoned Storage Mound"; $saveStateEncounter = "Explore"; $specStatus = 0; $exploring = 3; $indoorZone = 1; $dungeonLocation = $dungeonType; $cycleWeather = 1]]>>
+
+<hr>
+
+<<button [[Meadow|passage()][$location = "Meadow"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Field|passage()][$location = "Field"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Highlands|passage()][$location = "Highlands"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Clearing|passage()][$location = "Clearing"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Forest|passage()][$location = "Forest"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Woods|passage()][$location = "Woods"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Deep Forest|passage()][$location = "Deep Forest"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Deep Woods|passage()][$location = "Deep Woods"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Jungle|passage()][$location = "Jungle"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Rainforest|passage()][$location = "Rainforest"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<hr>
+
+<<button [[Farms|passage()][$location = "Farms"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Pasture|passage()][$location = "Pasture"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<hr>
+
+<<button [[Plains|passage()][$location = "Plains"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Valley|passage()][$location = "Valley"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Scrublands|passage()][$location = "Scrublands"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Canyon|passage()][$location = "Canyon"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Cliffs|passage()][$location = "Cliffs"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Mountain|passage()][$location = "Mountain"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<hr>
+
+<<button [[Rocky Desert|passage()][$location = "Rocky Desert"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Red Sands|passage()][$location = "Red Sands"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Volcano|passage()][$location = "Volcano"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Obsidian Wastes|passage()][$location = "Obsidian Wastes"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Molten Fields|passage()][$location = "Molten Fields"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Molten Sea|passage()][$location = "Molten Sea"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Boiling Ocean|passage()][$location = "Boiling Ocean"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<<button [[Ash Cave|passage()][$location = "Ash Cave"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Obsidian Tunnel|passage()][$location = "Obsidian Tunnel"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Vents|passage()][$location = "Vents"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Magma Pit|passage()][$location = "Magma Pit"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Boiling Dark|passage()][$location = "Boiling Dark"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Hellmouth Depths|passage()][$location = "Hellmouth Depths"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Molten Void|passage()][$location = "Molten Void"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<hr>
+
+<<button [[Riverside|passage()][$location = "Riverside"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[River|passage()][$location = "River"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Lake|passage()][$location = "Lake"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Marsh|passage()][$location = "Marsh"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Reeds|passage()][$location = "Reeds"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Bog|passage()][$location = "Bog"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Swamp|passage()][$location = "Swamp"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<<button [[Underground Spring|passage()][$location = "Underground Spring"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<hr>
+
+<<button [[Beach|passage()][$location = "Beach"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Ocean|passage()][$location = "Ocean"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<<button [[Reef|passage()][$location = "Reef"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Brackish Depths|passage()][$location = "Brackish Depths"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<hr>
+
+<<button [[Icewood|passage()][$location = "Icewood"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Tundra|passage()][$location = "Tundra"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Frost Wastes|passage()][$location = "Frost Wastes"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Frozen Riverside|passage()][$location = "Frozen Riverside"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Frozen River|passage()][$location = "Frozen River"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Frozen Lake|passage()][$location = "Frozen Lake"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Frozen Beach|passage()][$location = "Frozen Beach"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Ice|passage()][$location = "Ice"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Frigid Ocean|passage()][$location = "Frigid Ocean"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Peak|passage()][$location = "Peak"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<<button [[Frozen Cavern|passage()][$location = "Frozen Cavern"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Ice Cave|passage()][$location = "Ice Cave"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Deep Frost|passage()][$location = "Deep Frost"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Frozen Heart|passage()][$location = "Frozen Heart"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Icy Void|passage()][$location = "Icy Void"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Frigid Depths|passage()][$location = "Frigid Depths"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<hr>
+
+<<button [[Garden|passage()][$location = "Garden"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Crystal Spires|passage()][$location = "Crystal Spires"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Crystalforest|passage()][$location = "Crystalforest"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<<button [[Crystal Caverns|passage()][$location = "Crystal Caverns"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Underglade|passage()][$location = "Underglade"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<hr>
+
+<<button [[Deadwood|passage()][$location = "Deadwood"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<<button [[Cave|passage()][$location = "Cave"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Tunnel|passage()][$location = "Tunnel"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<hr>
+
+<<button [[Mine|passage()][$location = "Mine"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<hr>
+
+<<button [[Crater|passage()][$location = "Crater"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Slagheap|passage()][$location = "Slagheap"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<<button [[Acid Pools|passage()][$location = "Acid Pools"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+<hr>
+
+<<button [[Nest|passage()][$location = "Nest"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Labyrinth|passage()][$location = "Labyrinth"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Pit|passage()][$location = "Pit"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[The Slithering Dark|passage()][$location = "The Slithering Dark"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[The Endless Echoes|passage()][$location = "The Endless Echoes"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Shattered Void|passage()][$location = "Shattered Void"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+<<button [[Writhing Void|passage()][$location = "Writhing Void"; $forageDecay = 0; $mineDecay = 0; $trapArmed = 0; $biomeNorth = 0; $biomeWest = 0; $biomeSouth = 0; $biomeEast = 0]]>>
+
+/% ================== %/
+
+<hr><<endif>>
+
+<<if $showBodyAdmin is 1>>
+/% ================================================================== %/
+/% Body Edit %/
+
+<hr>
+<<button [[Fatten Up!|passage()][$girth += either(30,40,50,60); $belly += either(10,20,30,40,50); $breast += either(10,20,30); $calories += either(20,30,40,50); $milkFat += either(0,0,10); $thigh += either(10,20,30); $thighFirmness -= either(0,10,20,30,40,50)]]>>
+
+<<button [[Fatten Up More!|passage()][$girth += either(100,200,300,400); $belly += either(50,60,70,80,90); $breast += either(50,60,70,80,90); $calories += either(50,60,70,80,90); $milkFat += either(10,10,20); $thigh += either(50,60,70,80,90); $thighFirmness -= either(50,60,70,80,90)]]>>
+
+<<button [[Fatten Body.|passage()][$girth += 250]]>>
+
+<<button [[Fatten Belly.|passage()][$belly += 250]]>>
+
+<<button [[Fatten Breasts.|passage()][$breast += 100]]>>
+
+<<button [[Fatten Thighs.|passage()][$thigh += 100]]>>
+
+<<button [[Fatten Eggs.|passage()][$quaggyGirth += 50]]>>
+
+<<button [[Bloat Belly.|passage()][$bellyBloat += ($maxBelly / 5)]]>>
+
+<<button [[Bloat Breasts.|passage()][$breastBloat += ($maxBreast / 5)]]>>
+
+<<button [[Liquid Bloat Belly.|passage()][$bellyBloat += ($maxBelly / 5); $bellyLiquid = $bellyBloat]]>>
+
+<<button [[Liquid Bloat Breasts.|passage()][$breastBloat += ($maxBreast / 5); $storedMilk = $breastBloat]]>>
+
+<<button [[Waterballoon Belly.|passage()][$bellyLiquid += $maxBelly]]>>
+
+<<button [[Lactation.|passage()][$storedMilk += 50; $lactation = 1]]>>
+
+<hr>
+
+<<button [[Revert.|passage()][$bodyType = 0]]>>
+
+<<button [[Get Round.|passage()][$bodyType = "round"]]>>
+
+<<button [[Get Busty.|passage()][$bodyType = "busty"]]>>
+
+<<button [[Go Pear-Shaped.|passage()][$bodyType = "pear"]]>>
+
+<<button [[Get Curvy.|passage()][$bodyType = "hourglass"]]>>
+
+<<button [[Get A Gut.|passage()][$bodyType = "belly"]]>>
+
+<<button [[Be Thunderous.|passage()][$bodyType = "thighs"]]>>
+
+<<button [[Be a Cow.|passage()][$bodyType = "boviete"]]>>
+
+<<button [[Overindulge.|passage()][$bodyType = "cubus"]]>>
+
+<<button [[Be a Nest.|passage()][$bodyType = "guguetelle"]]>>
+
+<<button [[Bulge.|passage()][$bodyType = "bulging"]]>>
+
+<<button [[Bloat Up.|passage()][$bodyType = "bloatpear"]]>>
+
+<<button [[Blimp Out.|passage()][$bodyType = "blimpthigh"]]>>
+
+<hr>
+
+<<button [[Calorie Boost|passage()][$calories += 500]]>>
+
+<<button [[Gutload.|passage()][$calories += 5000]]>>
+
+<<button [[Thicken Milk.|passage()][$milkFat += 10]]>>
+
+<<button [[Increase Strength.|passage()][$strength += 1]]>>
+
+<<button [[Soften Thighs.|passage()][$thighFirmness -= 100]]>>
+
+<<button [[Milk Boost.|passage()][$milkRate += 10]]>>
+
+<<button [[Metabolism Drop.|passage()][$metaGain += 10]]>>
+
+<<button [[BLUBBER BOMB.|passage()][$girth += either(1000,2000,3000,4000,5000); $belly += either(1000,2000,3000,4000,5000); $breast += either(1000,2000,3000,4000,5000); $calories += either(100000,200000,300000,400000,500000); $milkFat += either(1000,2000,3000,4000,5000); $thigh += either(1000,2000,3000,4000,5000); $thighFirmness -= either(1000,2000,3000,4000,5000)]]>>
+
+<<button [[Attain Flight|passage()][$playerWings = either("wings","bat wings","insect wings"); $geneFlight = 1; $powers = 1]]>>
+<hr>
+
+<<button [[Typeless.|passage()][$playerElement = 0]]>>
+<<button [[Bestial Type.|passage()][$playerElement = "bestial"]]>>
+<<button [[Mirajin Type.|passage()][$playerElement = "mirajin"]]>>
+<<button [[Vitae Type.|passage()][$playerElement = "vitae"]]>>
+<<button [[Arcane Type.|passage()][$playerElement = "arcane"]]>>
+<<button [[Psionic Type.|passage()][$playerElement = "psionic"]]>>
+<<button [[Electric Type.|passage()][$playerElement = "electric"]]>>
+<<button [[Radiation Type.|passage()][$playerElement = "radiation"]]>>
+<<button [[Sonic Type.|passage()][$playerElement = "sonic"]]>>
+<<button [[Light Type.|passage()][$playerElement = "light"]]>>
+<<button [[Eldritch Type.|passage()][$playerElement = "eldritch"]]>>
+<<button [[Void Type.|passage()][$playerElement = "void"]]>>
+<<button [[Love Type.|passage()][$playerElement = "love"]]>>
+<<button [[Fire Type.|passage()][$playerElement = "fire"]]>>
+<<button [[Earth Type.|passage()][$playerElement = "earth"]]>>
+<<button [[Air Type.|passage()][$playerElement = "air"]]>>
+<<button [[Water Type.|passage()][$playerElement = "water"]]>>
+<<button [[Metal Type.|passage()][$playerElement = "metal"]]>>
+<<button [[Crystal Type.|passage()][$playerElement = "crystal"]]>>
+<<button [[Toxic Type.|passage()][$playerElement = "toxic"]]>>
+<<button [[Vegetal Type.|passage()][$playerElement = "vegetal"]]>>
+<<button [[Fungal Type.|passage()][$playerElement = "fungal"]]>>
+<<button [[Viral Type.|passage()][$playerElement = "viral"]]>>
+<<button [[Decay Type.|passage()][$playerElement = "decay"]]>>
+<<button [[Fat Type.|passage()][$playerElement = "fat"]]>>
+<<button [[Food Type.|passage()][$playerElement = "food"]]>>
+<<button [[Balloon Type.|passage()][$playerElement = "balloon"]]>>
+<<button [[Liquid Type.|passage()][$playerElement = "liquid"]]>>
+<<button [[Vore Type.|passage()][$playerElement = "vore"]]>>
+<<button [[Egg Type.|passage()][$playerElement = "egg"]]>>
+<<button [[Parasite Type.|passage()][$playerElement = "parasite"]]>>
+<<button [[Whimsy Type.|passage()][$playerElement = "whimsy"]]>>
+
+<hr><<endif>>
+
+/% ================================================================== %/
+
+<<if $showAfflictionsAdmin is 1>>
+
+/% ================================================================== %/
+/% Afflictions %/
+
+<hr>
+
+<<button [[Contract/Intensify Moonbelly.|passage()][$diseaseMoonbelly += 0.5]]>>
+
+<<button [[Contract Leucanthropy.|passage()][$lycanthropy = "laworn"; $leupaiFlag = 1]]>>
+
+<hr>
+
+<<button [[Mutate (Subtle).|passage()][$mutationStrength = "subtle"; $mutationToggle = 1]]>>
+
+<<button [[Mutate (Minor).|passage()][$mutationStrength = "minor"; $mutationToggle = 1]]>>
+
+<<button [[Mutate (Major).|passage()][$mutationStrength = "major"; $mutationToggle = 1]]>>
+
+<<button [[Mutate (Severe).|passage()][$mutationStrength = "severe"; $mutationToggle = 1]]>>
+
+<hr>
+
+<<button [[Leupai Egg Stuffer. |passage()][$belly += (10,10,20,20,30); $leupaiEggParasite = 1; $leupaiEggLoad += random(2,5); $eggTimer = 1; $leupaiEggTimer += random(3,5); $quaggySubspecies1 = either("belmere","celesse","devinn","erinyi","ein", "heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","null","ouinsel","rexaur","rosso"); $quaggySubspecies2 = either("belmere","celesse","devinn","erinyi","ein", "heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","null","ouinsel","rexaur","rosso"); $quaggyColorPoint1 = either("red","orange","yellow","golden","green","teal","blue","indigo","violet","pink","magenta","black","gray","silver","white","brown"); $quaggyGirth += either(10,10,20,30,50)]]>>
+
+<<button [[Dire Worms.|passage()][$direParasite = 1; $direParaLoad += 250]]>>
+
+<<button [[Amplibaene.|passage()][$ampliParasite = 1; $ampliParaLoad += 1]]>>
+
+<<button [[Parasitic Zeppelon.|passage()][$zeppelonParasite = 1]]>>
+
+<<button [[Parasitic Milkmelon.|passage()][$milkmelonParasite = 1; $breastMelonType = either(0,0,"creaking")]]>>
+
+<<button [[Parasitic Creaking Milkmelon.|passage()][$milkmelonParasite = 1; $breastMelonType = "creaking"]]>>
+
+<<button [[Parasitic Tendrilvine.|passage()][$tendrilvineParasite = 1]]>>
+
+<hr>
+
+<<button [[Detox.|passage()][$miraberryToxicity = 0; $miraberryPoisoning = 0; $mushroomToxicity = 0; $mushroomPoisoning = 0; $calpowderToxicity = 0; $calpowderPoisoning = 0; $gainerToxicity = 0; $gainPoisoning = 0; $leupoilToxicity = 0; $leupoilPoisoning = 0; $bellyfatteniumToxicity = 0; $bellyfatteniumPoisoning = 0; $breastfatteniumToxicity = 0; $breastfatteniumPoisoning = 0; $thighfatteniumToxicity = 0; $bellyfatteniumPoisoning = 0; $deflaToxicity = 0; $deflaPoisoning = 0; $inflaToxicity = 0; $inflaPoisoning = 0; $fatteniumPoisoning = 0; $fatteniumCascade = 0; $helenoToxicity = 0; $helenoPoisoning = 0; $caffeineToxicity = 0; $caffeinePoisoning = 0; $vitaePPM = 0]]>>
+
+<<button [[Induce Pain.|passage()][$pain += 10]]>>
+
+<<button [[Soothe Pain.|passage()][$pain -= 10]]>>
+
+<<button [[Miratoxin.|passage()][$miraPoisoning += 10]]>>
+
+<<button [[Vitae.|passage()][$vitaePPM += 10]]>>
+
+<<button [[Knockout Pain.|passage()][$pain += $maxPain * 2; $lethalKO = 0]]>>
+
+<<button [[Lethal Agony.|passage()][$pain += $maxPain * 2; $lethalKO = 1]]>>
+
+<hr>
+
+<<button [[Just Fuck Me Up.|passage()][$miraberryToxicity += ($girth/20); $mushroomToxicity += ($girth/20); $calpowderToxicity += ($girth/20); $gainerToxicity += ($girth/20); $leupoilToxicity += ($girth/20); $breastfatteniumToxicity += ($girth/20); $bellyfatteniumToxicity += ($girth/20); $thighfatteniumToxicity += ($girth/20); $deflaToxicity += ($girth/20); $inflaToxicity += ($girth/20); $fatteniumPoisoning += ($girth/20); $helenoToxicity += ($girth/20); $caffeineToxicity += ($girth/20); $vitaePPM += 50]]>>
+
+<<button [[Just Fuck Me Up: Low Vitae Edition.|passage()][$miraberryToxicity += ($girth/20); $mushroomToxicity += ($girth/20); $calpowderToxicity += ($girth/20); $gainerToxicity += ($girth/20); $leupoilToxicity += ($girth/20); $breastfatteniumToxicity += ($girth/20); $bellyfatteniumToxicity += ($girth/20); $thighfatteniumToxicity += ($girth/20); $deflaToxicity += ($girth/20); $inflaToxicity += ($girth/20); $fatteniumPoisoning += ($girth/20); $helenoToxicity += ($girth/20); $caffeineToxicity += ($girth/20); $vitaePPM += 10]]>>
+
+<<button [[Just Fuck Me Up: Vitae-Free Edition.|passage()][$miraberryToxicity += ($girth/20); $mushroomToxicity += ($girth/20); $calpowderToxicity += ($girth/20); $gainerToxicity += ($girth/20); $leupoilToxicity += ($girth/20); $breastfatteniumToxicity += ($girth/20); $bellyfatteniumToxicity += ($girth/20); $thighfatteniumToxicity += ($girth/20); $deflaToxicity += ($girth/20); $inflaToxicity += ($girth/20); $fatteniumPoisoning += ($girth/20); $helenoToxicity += ($girth/20); $caffeineToxicity += ($girth/20)]]>>
+
+<hr>
+
+<<button [[Miradical!|passage()][$mirajinRads += 20]]>>
+
+<<button [[Normal Radical!|passage()][$nuclearRads += 20]]>>
+
+<<button [[Nuke Me, Brah|passage()][$nuclearRads += 500]]>>
+
+<hr><<endif>>
+
+<<if $showItemAdmin is 1>>
+/% ================================================================== %/
+/% Items %/
+
+<hr>
+<<button [[Greenhouse Starter Kit.|passage()][$mound_greenhouse += 1; $waterStock += 1000; $seed_rose_glass += 100; $seed_tendrilvine += 100]]>>
+
+<<button [[Basic Pickaxe.|passage()][$key_pickaxe += 10]]>>
+
+<<button [[Basic Shovel.|passage()][$key_shovel += 10]]>>
+
+<<button [[Cooking Pot.|passage()][$key_cookpot += 1]]>>
+
+<<button [[Firewood x100.|passage()][$key_firewood += 100]]>>
+
+<hr>
+
+<<button [[Dreamshard x100.|passage()][$special_dreamshard += 100]]>>
+
+<<button [[Depth Meter x100.|passage()][$special_depthmeter += 100]]>>
+
+<<button [[Geiger Counter x100.|passage()][$special_gcounter += 100]]>>
+
+<<button [[Live Miracrystal x100.|passage()][$special_miracrystal += 100]]>>
+
+<<button [[Miracrystal Dust x100.|passage()][$miraStock += 100]]>>
+
+<<button [[Battery Crystal x100.|passage()][$special_battery += 100]]>>
+
+<<button [[Recall Shard x100.|passage()][$shard_recall += 100]]>>
+
+<<button [[Stasis Shard x100.|passage()][$shard_stasis += 100]]>>
+
+<<button [[Egress Shard x100.|passage()][$shard_egress += 100]]>>
+
+<<button [[Shield Shard x100.|passage()][$shard_shield += 100]]>>
+
+<<button [[Vital Shard x100.|passage()][$shard_vital += 100]]>>
+
+<<button [[Expansion Shard x100.|passage()][$shard_expansion += 100]]>>
+
+<<button [[Genesis Shard x100.|passage()][$shard_genesis += 100]]>>
+
+<hr>
+
+<<button [[Spectrum Prisma Shard x100.|passage()][$dye_rainbow += 100]]>>
+
+<<button [[White Prisma Shard x100.|passage()][$dye_white += 100]]>>
+
+<<button [[Silver Prisma Shard x100.|passage()][$dye_silver += 100]]>>
+
+<<button [[Magenta Prisma Shard x100.|passage()][$dye_magenta += 100]]>>
+
+<<button [[Pink Prisma Shard x100.|passage()][$dye_pink += 100]]>>
+
+<<button [[Red Prisma Shard x100.|passage()][$dye_red += 100]]>>
+
+<<button [[Brown Prisma Shard x100.|passage()][$dye_brown += 100]]>>
+
+<<button [[Orange Prisma Shard x100.|passage()][$dye_orange += 100]]>>
+
+<<button [[Yellow Prisma Shard x100.|passage()][$dye_yellow += 100]]>>
+
+<<button [[Golden Prisma Shard x100.|passage()][$dye_golden += 100]]>>
+
+<<button [[Green Prisma Shard x100.|passage()][$dye_green += 100]]>>
+
+<<button [[White Prisma Shard x100.|passage()][$dye_white += 100]]>>
+
+<<button [[Teal Prisma Shard x100.|passage()][$dye_teal += 100]]>>
+
+<<button [[Blue Prisma Shard x100.|passage()][$dye_blue += 100]]>>
+
+<<button [[Indigo Prisma Shard x100.|passage()][$dye_indigo += 100]]>>
+
+<<button [[Violet Prisma Shard x100.|passage()][$dye_violet += 100]]>>
+
+<<button [[Black Prisma Shard x100.|passage()][$dye_black += 100]]>>
+
+<<button [[Gray Prisma Shard x100.|passage()][$dye_gray += 100]]>>
+
+<hr>
+
+<<button [[Black Ichor Potion x100.|passage()][$potion_puffbelly += 100]]>>
+
+<<button [[Test Mutator x100.|passage()][$potion_mutest += 100]]>>
+
+<<button [[Mysterious Potion x100.|passage()][$potion_mystery += 100]]>>
+
+<<button [[Soothers x100.|passage()][$pill_soother += 100]]>>
+
+<<button [[Bolstering Vitamin Slurry x100.|passage()][$statboost_stamina += 100]]>>
+
+<<button [[Bulk Powder x100.|passage()][$statboost_strength += 100]]>>
+
+<<button [[Limber Tonic x100.|passage()][$statboost_finesse += 100]]>>
+
+<<button [[Voracity Shot x100.|passage()][$shot_voracity += 100]]>>
+
+<<button [[Miratoxin Shot x100.|passage()][$shot_miratoxin += 100]]>>
+
+<<button [[Fattenium Shot x100.|passage()][$shot_fattenium += 100]]>>
+
+<<button [[Pure Fattenium Shot x100.|passage()][$shot_fattenium_pure += 100]]>>
+
+<<button [[Helium Pills x100.|passage()][$pill_helium += 100]]>>
+
+<<button [[Egg Accelerator Injection x100.|passage()][$shot_eggGrowth += 100]]>>
+
+<<button [[Venombloat Injection x100.|passage()][$shot_venombloat += 100]]>>
+
+<<button [[Deflator Injection x100.|passage()][$shot_deflator += 100]]>>
+
+<<button [[Plushifier x100.|passage()][$shot_plushifier += 100]]>>
+
+<<button [[Belly Plushifier x100.|passage()][$shot_plushifier_belly += 100]]>>
+
+<<button [[Breast Plushifier x100.|passage()][$shot_plushifier_breast += 100]]>>
+
+<hr>
+
+<<button [[Tiny Fyynling Specimen x100.|passage()][$specimen_fyynling += 100]]>>
+
+<<button [[Jar of Somnus x100.|passage()][$collectionjar_somnus_weak += 100]]>>
+
+<<button [[Jar of Strong Somnus x100.|passage()][$collectionjar_somnus += 100]]>>
+
+<<button [[Jar of Miratoxin x100.|passage()][$collectionjar_miratoxin += 100]]>>
+
+<<button [[Jar of Dilute Fattenium x100.|passage()][$collectionjar_fattenium_weak += 100]]>>
+
+<<button [[Jar of Fattenium x100.|passage()][$collectionjar_fattenium += 100]]>>
+
+<<button [[Jar of Dilute Miraplasm x100.|passage()][$collectionjar_miraplasm_weak += 100]]>>
+
+<<button [[Jar of Vital Water x100.|passage()][$collectionjar_water_vital += 100]]>>
+
+<<button [[Jar of Leupai Blood x100.|passage()][$collectionjar_leupaiblood += 100]]>>
+
+<<button [[Jar of Toxic Venom x100.|passage()][$collectionjar_venom_toxic += 100]]>>
+
+<<button [[Jar of Lethal Venom x100.|passage()][$collectionjar_venom_lethal += 100]]>>
+
+<<button [[Jar of Fattening Venom x100.|passage()][$collectionjar_venom_gain += 100]]>>
+
+<<button [[Jar of Super-Fattening Venom x100.|passage()][$collectionjar_venom_supergain += 100]]>>
+
+<<button [[Jar of Belly-Fattening Venom x100.|passage()][$collectionjar_venom_bellygain += 100]]>>
+
+<<button [[Jar of Belly Super-Fattening Venom x100.|passage()][$collectionjar_venom_bellysupergain += 100]]>>
+
+<<button [[Jar of Breast-Fattening Venom x100.|passage()][$collectionjar_venom_breastgain += 100]]>>
+
+<<button [[Jar of Breast Super-Fattening Venom x100.|passage()][$collectionjar_venom_breastsupergain += 100]]>>
+
+<<button [[Jar of Thigh-Fattening Venom x100.|passage()][$collectionjar_venom_thighgain += 100]]>>
+
+<<button [[Jar of Thigh Super-Fattening Venom x100.|passage()][$collectionjar_venom_thighsupergain += 100]]>>
+
+<<button [[Jar of Fattenium Venom x100.|passage()][$collectionjar_venom_fattenium += 100]]>>
+
+<<button [[Jar of Bulking Venom x100.|passage()][$collectionjar_venom_bulk += 100]]>>
+
+<<button [[Jar of Flabbifying Venom x100.|passage()][$collectionjar_venom_flab += 100]]>>
+
+<<button [[Jar of Bloating Venom x100.|passage()][$collectionjar_venom_bloat += 100]]>>
+
+<<button [[Jar of Breast-Bloating Venom x100.|passage()][$collectionjar_venom_breastbloat += 100]]>>
+
+<<button [[Jar of Bursting Venom x100.|passage()][$collectionjar_venom_burst += 100]]>>
+
+<<button [[Jar of Healing Venom x100.|passage()][$collectionjar_venom_heal += 100]]>>
+
+<<button [[Jar of Weakening Venom x100.|passage()][$collectionjar_venom_weakening += 100]]>>
+
+<<button [[Jar of Voracity Venom x100.|passage()][$collectionjar_venom_glutton += 100]]>>
+
+<<button [[Jar of Caloric Venom x100.|passage()][$collectionjar_venom_caloric += 100]]>>
+
+<<button [[Jar of Hallucenogenic Venom x100.|passage()][$collectionjar_venom_hallucenogen += 100]]>>
+
+<<button [[Jar of Mutagenic Venom x100.|passage()][$collectionjar_venom_mutagen += 100]]>>
+
+<<button [[Jar of Leucanthropic Venom x100.|passage()][$collectionjar_venom_leucanthropy += 100]]>>
+
+<hr>
+
+<<button [[Miraberry x100.|passage()][$berry_mira += 100]]>>
+
+<<button [[Science Soda x100.|passage()][$drink_science += 100]]>>
+
+<<button [[Strange Milk x100.|passage()][$milk_strange += 100]]>>
+
+<<button [[Enormous Cake x100.|passage()][$cake_enormous += 100]]>>
+
+<hr>
+
+<<button [[Snare Trap x100.|passage()][$trap_snare += 100]]>>
+
+<<button [[Cage Trap x100.|passage()][$trap_cage += 100]]>>
+
+<<button [[Stasis Trap x100.|passage()][$trap_stasis += 100]]>>
+
+<<button [[Crescent Knife x1.|passage()][$knife_crescent += 1]]>>
+
+<<button [[Dartgun x1.|passage()][$gun_dart += 1]]>>
+
+<<button [[Tranquilizer Darts x100.|passage()][$dart_tranq += 100]]>>
+
+<<button [[Fattenium Darts x100.|passage()][$dart_fattenium += 100]]>>
+
+<<button [[Distensium Darts x100.|passage()][$dart_distensium += 100]]>>
+
+<<button [[Fat Ray x1.|passage()][$gun_fatray += 1]]>>
+
+<hr>
+
+<<button [[HYPO Mega-Armor.|passage()][$set_hypo_head += 1; $set_hypo_top += 1; $set_hypo_belt += 1; $set_hypo_pants += 1; $set_hypo_skirt += 1]]>>
+
+<<button [[Scientist Set.|passage()][$set_science_glasses += 1; $set_science_goggles += 1; $set_science_mask += 1; $set_science_top += 1; $set_science_top_stained += 1]]>>
+
+<<button [[Expanding Belt x100.|passage()][$set_magicgain_belt += 100]]>>
+
+<<button [[Fat Demon Belt x100.|passage()][$set_fatdemon_belt += 100]]>>
+
+<<button [[Night on the Town Set.|passage()][$set_town_head += 1]]>>
+
+<<button [[Prisma Shard Set.|passage()][$dye_rainbow += 100; $dye_white += 100; $dye_silver += 100; $dye_magenta += 100; $dye_pink += 100; $dye_red += 100; $dye_brown += 100; $dye_orange += 100; $dye_yellow += 100; $dye_golden += 100; $dye_green += 100; $dye_teal += 100; $dye_blue += 100; $dye_indigo += 100; $dye_violet += 100; $dye_black += 100; $dye_gray += 100; $dye_white += 100]]>>
+
+<hr>
+
+<<button [[Raw Fish x100.|passage()][$fishStock += 100]]>>
+
+<<button [[Raw Meat x100.|passage()][$meatStock += 100]]>>
+
+<<button [[Raw Fat x100.|passage()][$fatStock += 100]]>>
+
+<<button [[Raw Poultry x100.|passage()][$poultryStock += 100]]>>
+
+<<button [[Raw Flesh x100.|passage()][$fleshStock += 100]]>>
+
+<<button [[Eggs x100.|passage()][$eggStock += 100]]>>
+
+<<button [[Grain x100.|passage()][$grainStock += 100]]>>
+
+<<button [[Fruit x100.|passage()][$fruitStock += 100]]>>
+
+<<button [[Vegetables x100.|passage()][$vegStock += 100]]>>
+
+<<button [[Fattenium Ore x100.|passage()][$fatteniumStock += 100]]>>
+
+<<button [[Distensium Ore x100.|passage()][$distensiumStock += 100]]>>
+
+<<button [[Water x100.|passage()][$waterStock += 100]]>>
+
+<<button [[Milk x100.|passage()][$milkStock += 100]]>>
+
+<hr>
+
+<<button [[Fat Pumpkin Seeds x100.|passage()][$seed_fatpumpkin += 100]]>>
+
+<<button [[Milkmelon Seeds x100.|passage()][$seed_milkmelon += 100]]>>
+
+<<button [[Zeppelon Seeds x100.|passage()][$seed_zeppelon += 100]]>>
+
+<<button [[Tendrilvine Seeds x100.|passage()][$seed_tendrilvine += 100]]>>
+
+
+<hr><<endif>>
+
+<<endif>></xtramini>
+
+<<endnobr>></center>

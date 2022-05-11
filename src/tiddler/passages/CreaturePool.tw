@@ -1,0 +1,425 @@
+﻿/% Pre-setup; clear any residual creature flags. %/
+
+<<set $encImg = 0; $combatant = 0; $creatureBreasts = 0; $encFatten = 0; $encBloat = 0; $predDesc = 0; $CreatureEffects = 0; $creatureNoBelly = 0; $lootTable = 0; $encounterSpecial = 0; $encounterFlag = 0>>
+
+<<set $waterResource = 0; $milkResource = 0; $meatResource = 0; $fishResource = 0; $poultryResource = 0; $eggResource = 0; $grainResource = 0; $rootResource = 0; $fruitResource = 0; $vegResource = 0;  $sugarResource = 0; $nutResource = 0; $fatResource = 0; $herbResource = 0; $jellyResource = 0; $dragonResource = 0; $leupaiResource = 0; $fatteniumResource = 0; $miraResource = 0>>
+
+	<<set $randomizer = random(1,100); $clawMachine = random(1,100)>>
+
+
+/% This passage used to contain encounter tables based on biome, but now it simply sets up encounter type and rarity via biome.
+CreatureCategories takes the biome and rarity and further divides it by planet type, atmosphere type, and planetary population before selecting a final encounter from those parameters.
+
+Placing the more ornate code-- the rarity selectors-- here will hopefully keep the final selection page from becoming massive. %/
+
+/% ======================================================================== %/
+/% Dungeons %/
+
+<<if $indoorZone neq 0>>
+
+/% ======================================================================== %/
+/% Lab Dungeon %/
+			<<if $dungeonLocation is "Abandoned Laboratory Mound">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<set $encounter = "common">>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 40>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 60>><<set $encounter = "rare1">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "rare2">>
+						<<endif>>
+				<<endif>>
+
+
+/% ======================================================================== %/
+/% Storage Dungeon %/
+			<<elseif $dungeonLocation is "Abandoned Storage Mound">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<set $encounter = "common">>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+
+						<<if $clawMachine lte 40>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<set $encounter = "rare">>
+				<<endif>>
+
+/% ======================================================================== %/
+/% End dungeon encounters %/
+
+			<<endif>>
+
+/% ======================================================================== %/
+/% Overworld %/
+
+<<elseif $indoorZone is 0>>
+
+/% ================================================== %/
+/% SUBTERRANEAN %/
+
+			<<if $zoneMobs is "subterranean">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<set $encounter = "common">>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 40>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 40>><<set $encounter = "rare1">>
+						<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $encounter = "rare2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "rare3">>
+						<<endif>>
+				<<endif>>
+
+
+			/% ================================================== %/
+			/% ELDRITCH %/
+
+			<<elseif $zoneMobs is "eldritch">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<set $encounter = "common">>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 40>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 60>><<set $encounter = "rare1">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "rare2">>
+						<<endif>>
+				<<endif>>
+
+			/% ================================================== %/
+			/% INFERNAL %/
+
+			<<elseif $zoneMobs is "infernal">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<set $encounter = "common">>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 40>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 60>><<set $encounter = "rare1">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "rare2">>
+						<<endif>>
+				<<endif>>
+
+			/% ================================================== %/
+			/% AGRICULTURE %/
+
+			<<elseif $zoneMobs is "agriculture">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<set $encounter = "common">>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 40>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 40>><<set $encounter = "rare1">>
+						<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $encounter = "rare2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "rare3">>
+						<<endif>>
+				<<endif>>
+
+
+			/% ================================================== %/
+			/% WOODLAND %/
+
+			<<elseif $zoneMobs is "woodland">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<if $clawMachine lte 20>><<set $encounter = "common1">>
+						<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>><<set $encounter = "common2">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "common3">>
+						<<endif>>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 20>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 20>><<set $encounter = "rare1">>
+						<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>><<set $encounter = "rare2">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "rare3">>
+						<<endif>>
+				<<endif>>
+
+
+			/% ================================================== %/
+			/% BOREAL %/
+
+			<<elseif $zoneMobs is "boreal">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<if $clawMachine lte 20>><<set $encounter = "common1">>
+						<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>><<set $encounter = "common2">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "common3">>
+						<<endif>>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 20>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 20>><<set $encounter = "rare1">>
+						<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>><<set $encounter = "rare2">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "rare3">>
+						<<endif>>
+				<<endif>>
+
+
+			/% ================================================== %/
+			/% FEY %/
+
+			<<elseif $zoneMobs is "fey">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<if $clawMachine lte 20>><<set $encounter = either("woodland bird","pest critter","woodland critter")>>
+						<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>><<set $encounter = either("fish","waterfowl","dust snake")>>
+						<<elseif $clawMachine gte 61>><<set $encounter = either("slime","small slime")>>
+						<<endif>>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 20>><<set $encounter = "farm beast">>
+						<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>><<set $encounter = either("bird of prey","woodland beast")>>
+						<<elseif $clawMachine gte 61>><<set $encounter = "serpent">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 50>><<set $encounter = either("great woodland beast","wild chevret")>>
+						<<elseif ($clawMachine gte 51) and ($clawMachine lte 80)>><<set $encounter = either("leupai","helene")>>
+						<<elseif $clawMachine gte 81>><<set $encounter = "unicorn">>
+						<<endif>>
+				<<endif>>
+
+
+			/% ================================================== %/
+			/% SCRUB %/
+
+			<<elseif $zoneMobs is "scrub">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<if $clawMachine lte 60>><<set $encounter = "common1">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "common2">>
+						<<endif>>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 50>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 51) and ($clawMachine lte 70)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 50>><<set $encounter = "rare1">>
+						<<elseif ($clawMachine gte 51) and ($clawMachine lte 80)>><<set $encounter = "rare2">>
+						<<elseif $clawMachine gte 81>><<set $encounter = "rare3">>
+						<<endif>>
+				<<endif>>
+
+
+			/% ================================================== %/
+			/% FRESHWATER %/
+
+			<<elseif $zoneMobs is "freshwater">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<set $encounter = "common">>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 40>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 40>><<set $encounter = "rare1">>
+						<<elseif ($clawMachine gte 41) and ($clawMachine lte 70)>><<set $encounter = "rare2">>
+						<<elseif ($clawMachine gte 71) and ($clawMachine lte 90)>><<set $encounter = "rare3">>
+						<<elseif $clawMachine gte 91>><<set $encounter = "rare4">>
+						<<endif>>
+				<<endif>>
+
+
+			/% ================================================== %/
+			/% WETLAND %/
+
+			<<elseif $zoneMobs is "wetland">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<if $clawMachine lte 50>><<set $encounter = "common1">>
+						<<elseif ($clawMachine gte 51) and ($clawMachine lte 70)>><<set $encounter = "common2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "common3">>
+						<<endif>>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 50>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 51) and ($clawMachine lte 70)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 50>><<set $encounter = "rare1">>
+						<<elseif ($clawMachine gte 51) and ($clawMachine lte 90)>><<set $encounter = "rare2">>
+						<<elseif $clawMachine gte 91>><<set $encounter = "rare3">>
+						<<endif>>
+				<<endif>>
+
+
+			/% ================================================== %/
+			/% TROPICAL %/
+
+			<<elseif $zoneMobs is "tropical">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<if $clawMachine lte 60>><<set $encounter = "scrub critter">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "dust snake">>
+						<<endif>>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 50>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 51) and ($clawMachine lte 70)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 71>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 50>><<set $encounter = "rare1">>
+						<<elseif ($clawMachine gte 51) and ($clawMachine lte 80)>><<set $encounter = "rare2">>
+						<<elseif $clawMachine gte 81>><<set $encounter = "rare3">>
+						<<endif>>
+				<<endif>>
+
+			/% ================================================== %/
+			/% OCEANIC %/
+
+			<<elseif $zoneMobs is "oceanic">>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<set $encounter = "common">>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 60>><<set $encounter = "uncommon1">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "uncommon2">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 60>><<set $encounter = "rare1">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "rare2">>
+						<<endif>>
+				<<endif>>
+
+
+			/% ================================================== %/
+			/% Default/undefined encounters %/
+
+			<<else>>
+
+				/% Common (50%) %/
+				<<if $randomizer lte 50>>
+						<<if $clawMachine lte 20>><<set $encounter = "common1">>
+						<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>><<set $encounter = "common2">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "common3">>
+						<<endif>>
+
+				/% Uncommon (30% chance) %/
+				<<elseif ($randomizer gt 50) and ($randomizer lt 80)>>
+						<<if $clawMachine lte 20>><<set $encounter = "uncommon1">>
+						<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>><<set $encounter = "uncommon2">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "uncommon3">>
+						<<endif>>
+
+				/% Rare (20%) %/
+				<<elseif $randomizer gte 80>>
+						<<if $clawMachine lte 20>><<set $encounter = "rare1">>
+						<<elseif ($clawMachine gte 21) and ($clawMachine lte 60)>><<set $encounter = "rare2">>
+						<<elseif $clawMachine gte 61>><<set $encounter = "rare3">>
+						<<endif>>
+				<<endif>>
+
+
+/% ======================================================================== %/
+/% End overworld encounters %/
+
+			<<endif>>
+
+/% ======================================================================== %/
+/% End default encounters %/
+
+<<endif>>
+
+/% Call final encounters %/
+
+<<display CreatureCategories>>
+

@@ -1,0 +1,398 @@
+﻿/% Pools for traveling traders. %/\
+/% Selling Pools %/\
+\
+\
+<huge>''Buy: ''</huge>
+<<nobr>>
+
+
+
+
+
+
+<<endnobr>><<if $sellPool is 1>><<nobr>>
+
+/% Miner's pool; expensive dreamshards, battery crystals, prisma shards, recall shards %/
+
+<<if $food gte 300>><<button [[Dreamshard ~~x~~1: 300~~consiee~~|passage()][$special_dreamshard += 1; $food -= 300]]>><<else>><unframe>''Dreamshard ~~x~~1: 300~~consiee~~''</unframe><<endif>>
+<<if $food gte 1500>><<button [[Dreamshard ~~x~~5: 1500~~consiee~~|passage()][$special_dreamshard += 5; $food -= 1500]]>><<else>><unframe>''Dreamshard ~~x~~5: 1500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 500>><<button [[Battery Crystal ~~x~~1: 500~~consiee~~|passage()][$special_battery += 1; $food -= 500]]>><<else>><unframe>''Battery Crystal ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+<<if $food gte 1500>><<button [[Battery Crystal ~~x~~3: 1500~~consiee~~|passage()][$special_battery += 3; $food -= 1500]]>><<else>><unframe>''Battery Crystal ~~x~~3: 1500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 600>><<button [[Red Prisma Shard ~~x~~1: 600~~consiee~~|passage()][$dye_red += 1; $food -= 600]]>><<else>><unframe>''Red Prisma Shard ~~x~~1: 600~~consiee~~''</unframe><<endif>>
+<<if $food gte 1600>><<button [[Red Prisma Shard ~~x~~3: 1600~~consiee~~|passage()][$dye_red += 3; $food -= 1600]]>><<else>><unframe>''Red Prisma Shard ~~x~~3: 1600~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 500>><<button [[Green Prisma Shard ~~x~~1: 500~~consiee~~|passage()][$dye_green += 1; $food -= 500]]>><<else>><unframe>''Green Prisma Shard ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+<<if $food gte 1500>><<button [[Green Prisma Shard ~~x~~3: 1500~~consiee~~|passage()][$dye_green += 3; $food -= 1500]]>><<else>><unframe>''Green Prisma Shard ~~x~~3: 1500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 500>><<button [[Blue Prisma Shard ~~x~~1: 500~~consiee~~|passage()][$dye_blue += 1; $food -= 500]]>><<else>><unframe>''Blue Prisma Shard ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+<<if $food gte 1500>><<button [[Blue Prisma Shard ~~x~~3: 1500~~consiee~~|passage()][$dye_blue += 3; $food -= 1500]]>><<else>><unframe>''Blue Prisma Shard ~~x~~3: 1500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 500>><<button [[Brown Prisma Shard ~~x~~1: 500~~consiee~~|passage()][$dye_brown += 1; $food -= 500]]>><<else>><unframe>''Brown Prisma Shard ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+<<if $food gte 1500>><<button [[Brown Prisma Shard ~~x~~3: 1500~~consiee~~|passage()][$dye_brown += 3; $food -= 1500]]>><<else>><unframe>''Brown Prisma Shard ~~x~~3: 1500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 800>><<button [[Recall Shard ~~x~~1: 800~~consiee~~|passage()][$shard_recall += 1; $food -= 800]]>><<else>><unframe>''Recall Shard ~~x~~1: 800~~consiee~~''</unframe><<endif>>
+<<if $food gte 2000>><<button [[Recall Shard ~~x~~3: 2000~~consiee~~|passage()][$shard_recall += 3; $food -= 2000]]>><<else>><unframe>''Recall Shard ~~x~~3: 2000~~consiee~~''</unframe><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+
+
+
+
+
+<<endnobr>><<if $sellPool is 2>><<nobr>>
+
+/% Mid-range dreamshards, revix foods %/
+
+<<if $food gte 250>><<button [[Dreamshard ~~x~~1: 250~~consiee~~|passage()][$special_dreamshard += 1; $food -= 250]]>><<else>><unframe>''Dreamshard ~~x~~1: 250~~consiee~~''</unframe><<endif>>
+<<if $food gte 750>><<button [[Dreamshard ~~x~~3: 750~~consiee~~|passage()][$special_dreamshard += 3; $food -= 750]]>><<else>><unframe>''Dreamshard ~~x~~3: 750~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 10>><<button [[Buttercandy Bar ~~x~~1: 10~~consiee~~|passage()][$candy_buttercandy += 1; $food -= 10]]>><<else>><unframe>''Buttercandy Bar ~~x~~1: 10~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 30>><<button [[Indulgence Biscuits ~~x~~1: 30~~consiee~~|passage()][$pastry_buttercake += 1; $food -= 30]]>><<else>><unframe>''Indulgence Biscuits ~~x~~1: 30~~consiee~~''</unframe><<endif>>
+<<if $food gte 80>><<button [[Buttercake ~~x~~3: 80~~consiee~~|passage()][$pastry_buttercake += 3; $food -= 80]]>><<else>><unframe>''Buttercake ~~x~~3: 80~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 100>><<button [[Plump Suai Belsuite ~~x~~1: 100~~consiee~~|passage()][$pastry_belsuite += 1; $food -= 100]]>><<else>><unframe>''Plump Suai Belsuite ~~x~~1: 100~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 300>><<button [[Fattenium Donut ~~x~~1: 300~~consiee~~|passage()][$donut_fattenium += 1; $food -= 300]]>><<else>><unframe>''Fattenium Donut ~~x~~1: 300~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 2000>><<button [[Enormous Cake ~~x~~1: 2000~~consiee~~|passage()][$cake_enormous += 1; $food -= 2000]]>><<else>><unframe>''Enormous Cake ~~x~~1: 2000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 10>><<button [[Bottle of Fragrant ~~x~~1: 10~~consiee~~|passage()][$drink_fragrant += 1; $food -= 10]]>><<else>><unframe>''Bottle of Fragrant ~~x~~1: 10~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 30>><<button [[Adephagian Milk ~~x~~1: 30~~consiee~~|passage()][$drink_milk += 1; $food -= 30]]>><<else>><unframe>''Adephagian Milk ~~x~~1: 30~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 800>><<button [[Science Soda ~~x~~1: 800~~consiee~~|passage()][$drink_science += 1; $food -= 800]]>><<else>><unframe>''Science Soda ~~x~~1: 800~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1500>><<button [[Strange Milk ~~x~~1: 1500~~consiee~~|passage()][$milk_strange += 1; $food -= 1500]]>><<else>><unframe>''Strange Milk ~~x~~1: 1500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 400>><<button [[Magenta Prisma Shard ~~x~~1: 400~~consiee~~|passage()][$dye_magenta += 1; $food -= 400]]>><<else>><unframe>''Magenta Prisma Shard ~~x~~1: 400~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 400>><<button [[Teal Prisma Shard ~~x~~1: 400~~consiee~~|passage()][$dye_teal += 1; $food -= 400]]>><<else>><unframe>''Teal Prisma Shard ~~x~~1: 400~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 400>><<button [[Yellow Prisma Shard ~~x~~1: 400~~consiee~~|passage()][$dye_teal += 1; $food -= 400]]>><<else>><unframe>''Yellow Prisma Shard ~~x~~1: 400~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1800>><<button [[Black Prisma Shard ~~x~~1: 1800~~consiee~~|passage()][$dye_black += 1; $food -= 1800]]>><<else>><unframe>''Black Prisma Shard ~~x~~1: 1800~~consiee~~''</unframe><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+
+
+
+
+
+<<endnobr>><<if $sellPool is 3>><<nobr>>
+
+/% Black market stash %/
+
+<<if $food gte 300>><<button [[Glass Jar ~~x~~1: 300~~consiee~~|passage()][$special_jar += 1; $food -= 300]]>><<else>><unframe>''Glass Jar ~~x~~1: 300~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 500>><<button [[Live Miracrystal Chunk ~~x~~1: 500~~consiee~~|passage()][$special_miracrystal += 1; $food -= 500]]>><<else>><unframe>''Live Miracrystal Chunk ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 500>><<button [[Fattenium Donut ~~x~~1: 500~~consiee~~|passage()][$donut_fattenium += 1; $food -= 500]]>><<else>><unframe>''Fattenium Donut ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 800>><<button [[Science Soda ~~x~~1: 800~~consiee~~|passage()][$drink_science += 1; $food -= 800]]>><<else>><unframe>''Science Soda ~~x~~1: 800~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 2000>><<button [[Strange Milk ~~x~~1: 2000~~consiee~~|passage()][$milk_strange += 1; $food -= 2000]]>><<else>><unframe>''Strange Milk ~~x~~1: 2000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 3000>><<button [[Enormous Cake ~~x~~1: 3000~~consiee~~|passage()][$cake_enormous += 1; $food -= 3000]]>><<else>><unframe>''Enormous Cake ~~x~~1: 3000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 500>><<button [[Leupai Oil ~~x~~1: 500~~consiee~~|passage()][$oil_leupai += 1; $food -= 500]]>><<else>><unframe>''Leupai Oil ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 650>><<button [[Mega Bellybomb ~~x~~1: 650~~consiee~~|passage()][$pill_bellybomb_mega += 1; $food -= 650]]>><<else>><unframe>''Mega Bellybomb ~~x~~1: 650~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 900>><<button [[Unmarked Injection ~~x~~1: 900~~consiee~~|passage()][$shot_unmarked += 1; $food -= 900]]>><<else>><unframe>''Unmarked Injection ~~x~~1: 900~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1000>><<button [[Gainer Pills ~~x~~1: 1000~~consiee~~|passage()][$pill_gainer += 1; $food -= 1000]]>><<else>><unframe>''Gainer Pills ~~x~~1: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 3500>><<button [[Maximum Strength Calorie Powder ~~x~~1: 3500~~consiee~~|passage()][$powder_calorie_max += 1; $food -= 3500]]>><<else>><unframe>''Maximum Strength Calorie Powder ~~x~~1: 3500~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 5000>><<button [[Dartgun ~~x~~1: 5000~~consiee~~|passage()][$gun_dart += 1; $food -= 5000]]>><<else>><unframe>''Dartgun ~~x~~1: 5000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 5000>><<button [[Miratoxin Shot ~~x~~1: 5000~~consiee~~|passage()][$shot_miratoxin += 1; $food -= 5000]]>><<else>><unframe>''Miratoxin Shot ~~x~~1: 5000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 10000>><<button [[Fattenium Shot ~~x~~1: 10000~~consiee~~|passage()][$shot_fattenium += 1; $food -= 10000]]>><<else>><unframe>''Fattenium Shot ~~x~~1: 10000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 35000>><<button [[Pure Fattenium Shot ~~x~~1: 35000~~consiee~~|passage()][$shot_fattenium_pure += 1; $food -= 35000]]>><<else>><unframe>''Pure Fattenium Shot ~~x~~1: 35000~~consiee~~''</unframe><<endif>>
+
+<<endnobr>>\
+/% One per merchant. %/\
+<<if ($rareItem is 1) and ($rareItemBought is 0)>>
+<<if $food gte 15000>><<button [[Balloon-Bellied Leupai Carving ~~x~~1: 15000~~consiee~~|passage()][$special_carving_belly += 1; $food -= 15000; $rareItemBought = 1]]>><<else>><unframe>''Balloon-Bellied Leupai Carving ~~x~~1: 15000~~consiee~~''</unframe><<endif>>\
+\
+<<elseif ($rareItem is 2) and ($rareItemBought is 0)>>
+<<if $food gte 15000>><<button [[Balloon-Breasted Leupai Carving ~~x~~1: 15000~~consiee~~|passage()][$special_carving_breast += 1; $food -= 15000; $rareItemBought = 1]]>><<else>><unframe>''Balloon-Breasted Leupai Carving ~~x~~1: 15000~~consiee~~''</unframe><<endif>>\
+\
+<<elseif ($rareItem is 3) and ($rareItemBought is 0)>>
+<<if $food gte 15000>><<button [[Balloon-Thighed Leupai Carving ~~x~~1: 15000~~consiee~~|passage()][$special_carving_thigh += 1; $food -= 15000; $rareItemBought = 1]]>><<else>><unframe>''Balloon-Thighed Leupai Carving ~~x~~1: 15000~~consiee~~''</unframe><<endif>>\
+\
+<<elseif ($rareItem is 4) and ($rareItemBought is 0)>>
+<<if $food gte 8000>><<button [[Fat Ray ~~x~~1: 8000~~consiee~~|passage()][$gun_fatray += 1; $food -= 8000; $rareItemBought = 1]]>><<else>><unframe>''Fat Ray ~~x~~1: 8000~~consiee~~''</unframe><<endif>>\
+\
+<<elseif ($rareItem is 5) and ($rareItemBought is 0)>>
+<<if $food gte 2000>><<button [[Spectrum Prisma Shard ~~x~~1: 2000~~consiee~~|passage()][$dye_rainbow += 1; $food -= 2000; $rareItemBought = 1]]>><<else>><unframe>''Spectrum Prisma Shard ~~x~~1: 2000~~consiee~~''</unframe><<endif>>\
+\
+<<elseif ($rareItem is 6) and ($rareItemBought is 0)>>
+<<if $food gte 1500>><<button [[Thick-Rimmed Glasses ~~x~~1: 1500~~consiee~~|passage()][$set_science_glasses += 1; $food -= 1500; $rareItemBought = 1]]>><<else>><unframe>''Thick-Rimmed Glasses ~~x~~1: 1500~~consiee~~''</unframe><<endif>>\
+\
+<<elseif ($rareItem is 7) and ($rareItemBought is 0)>>
+<<if $food gte 1500>><<button [[Laboratory Goggles ~~x~~1: 1500~~consiee~~|passage()][$set_science_goggles += 1; $food -= 1500; $rareItemBought = 1]]>><<else>><unframe>''Laboratory Goggles ~~x~~1: 1500~~consiee~~''</unframe><<endif>>\
+\
+<<elseif ($rareItem is 8) and ($rareItemBought is 0)>>
+<<if $food gte 5000>><<button [[Top Hat ~~x~~1: 5000~~consiee~~|passage()][$set_town_head += 1; $food -= 5000; $rareItemBought = 1]]>><<else>><unframe>''Top Hat ~~x~~1: 5000~~consiee~~''</unframe><<endif>>\
+\
+<<endif>>\
+\
+<<endif>><<nobr>>
+
+
+<<endnobr>><<if $sellPool is 4>><<nobr>>
+
+/% Military trader %/
+
+<<if $food gte 300>><<button [[Dreamshard ~~x~~1: 300~~consiee~~|passage()][$special_dreamshard += 1; $food -= 300]]>><<else>><unframe>''Dreamshard ~~x~~1: 300~~consiee~~''</unframe><<endif>>
+<<if $food gte 900>><<button [[Dreamshard ~~x~~3: 900~~consiee~~|passage()][$special_dreamshard += 3; $food -= 900]]>><<else>><unframe>''Dreamshard ~~x~~3: 900~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 400>><<button [[Battery Crystal ~~x~~1: 400~~consiee~~|passage()][$special_battery += 1; $food -= 400]]>><<else>><unframe>''Battery Crystal ~~x~~1: 400~~consiee~~''</unframe><<endif>>
+<<if $food gte 1200>><<button [[Battery Crystal ~~x~~3: 1200~~consiee~~|passage()][$special_battery += 3; $food -= 1200]]>><<else>><unframe>''Battery Crystal ~~x~~3: 1200~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 350>><<button [[Live Miracrystal Chunk ~~x~~1: 350~~consiee~~|passage()][$special_miracrystal += 1; $food -= 350]]>><<else>><unframe>''Live Miracrystal Chunk ~~x~~1: 350~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 800>><<button [[Science Soda ~~x~~1: 800~~consiee~~|passage()][$drink_science += 1; $food -= 800]]>><<else>><unframe>''Science Soda ~~x~~1: 800~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 900>><<button [[Unmarked Injection ~~x~~1: 900~~consiee~~|passage()][$shot_unmarked += 1; $food -= 900]]>><<else>><unframe>''Unmarked Injection ~~x~~1: 900~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 1000>><<button [[Tranquilizer Dart ~~x~~5: 1000~~consiee~~|passage()][$dart_tranq += 5; $food -= 1000]]>><<else>><unframe>''Tranquilizer Dart ~~x~~5: 1000~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 900>><<button [[Toxic Dart ~~x~~5: 900~~consiee~~|passage()][$dart_toxic += 5; $food -= 900]]>><<else>><unframe>''Toxic Dart ~~x~~5: 900~~consiee~~''</unframe><<endif>>
+
+<<if $food gte 3000>><<button [[Dartgun ~~x~~1: 3000~~consiee~~|passage()][$gun_dart += 1; $food -= 3000]]>><<else>><unframe>''Dartgun ~~x~~1: 3000~~consiee~~''</unframe><<endif>>
+<<endnobr>><<endif>><<nobr>>
+
+
+
+/% Buying Pools %/
+
+
+<<endnobr>><hr><huge>''Sell: ''</huge>
+<<nobr>>
+
+
+
+
+
+
+<<endnobr>><<if $buyPool is 1>><<nobr>>
+
+/% Basic gubs & Resources %/
+
+<<if $fur_tuft gte 10>><<button [[Tuft of Fur ~~x~~10: 5~~consiee~~|passage()][$fur_tuft -= 10; $food += 5]]>><<else>><unframe>''Tuft of Fur ~~x~~10: 5~~consiee~~''</unframe><<endif>>
+<<if $fur_tuft gt 1>><<button [[Tuft of Fur ~~x~~10: 5~~consiee~~ (Sell All)|passage()][$food += ($fur_tuft / 10) * 5; $fur_tuft = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $feather_tuft gte 10>><<button [[Tuft of Feathers ~~x~~10: 5~~consiee~~|passage()][$feather_tuft -= 10; $food += 5]]>><<else>><unframe>''Tuft of Feathers x10: 3~~consiee~~''</unframe><<endif>>
+<<if $feather_tuft gt 1>><<button [[Tuft of Feathers ~~x~~10: 5~~consiee~~ (Sell All)|passage()][$food += ($feather_tuft / 10) * 5; $feather_tuft = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $bones_tiny gt 0>><<button [[Little Bones ~~x~~1: 2~~consiee~~|passage()][$bones_tiny -= 1; $food += 2]]>><<else>><unframe>''Little Bones ~~x~~1: 2~~consiee~~''</unframe><<endif>>
+<<if $bones_tiny gte 5>><<button [[Little Bones ~~x~~5: 10~~consiee~~|passage()][$bones_tiny -= 5; $food += 10]]>><<endif>>
+<<if $bones_tiny gt 1>><<button [[Little Bones ~~x~~1: 2~~consiee~~ (Sell All)|passage()][$food += $bones_tiny * 2; $bones_tiny = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $skull_tiny gt 0>><<button [[Tiny Skull ~~x~~1: 5~~consiee~~|passage()][$skull_tiny -= 1; $food += 5]]>><<else>><unframe>''Tiny Skull ~~x~~1: 5~~consiee~~''</unframe><<endif>>
+<<if $skull_tiny gte 5>><<button [[Tiny Skull ~~x~~5: 25~~consiee~~|passage()][$skull_tiny -= 5; $food += 25]]>><<endif>>
+<<if $skull_tiny gt 1>><<button [[Tiny Skull ~~x~~1:5~~consiee~~ (Sell All)|passage()][$food += $skull_tiny * 5; $skull_tiny = 0]]>><<endif>>
+
+<<if $special_miracrystal gt 0>><<button [[Live Miracrystal Chunk ~~x~~1: 60~~consiee~~|passage()][$special_miracrystal -= 1; $food += 60]]>><<else>><unframe>''Live Miracrystal Chunk ~~x~~1: 60~~consiee~~''</unframe><<endif>>
+<<if $special_miracrystal gt 1>><<button [[Live Miracrystal Chunk at 60~~consiee~~ each (Sell All)|passage()][$food += $special_miracrystal * 60; $special_miracrystal = 0]]>><<endif>>
+
+<<if $grainStock gte 10>><<button [[Grains ~~x~~10: 5~~consiee~~|passage()][$grainStock -= 10; $food += 5]]>><<else>><unframe>''Grains ~~x~~10: 5~~consiee~~''</unframe><<endif>>
+<<if $grainStock gte 20>><<button [[Grains ~~x~~20: 10~~consiee~~|passage()][$grainStock -= 20; $food += 10]]>><<endif>>
+<<if $grainStock gt 1>><<button [[Grains at ~~x~~10: 5~~consiee~~ (Sell All)|passage()][$food += ($grainStock / 10) * 5; $grainStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $fatStock gte 10>><<button [[Fat ~~x~~10: 60~~consiee~~|passage()][$fatStock -= 10; $food += 60]]>><<else>><unframe>''Fat ~~x~~10: 60~~consiee~~''</unframe><<endif>>
+<<if $fatStock gte 20>><<button [[Fat ~~x~~20: 120~~consiee~~|passage()][$fatStock -= 20; $food += 120]]>><<endif>>
+<<if $fatStock gt 1>><<button [[Fat at ~~x~~10: 60~~consiee~~ (Sell All)|passage()][$food += ($fatStock / 10) * 60; $fatStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $miraStock gte 10>><<button [[Miracrystal Dust at 15~~consiee~~ each (Sell 10)|passage()][$miraStock -= 10; $food += 150]]>><<endif>>
+<<if $miraStock gte 20>><<button [[Miracrystal Dust at 15~~consiee~~ each (Sell 20)|passage()][$miraStock -= 20; $food += 300]]>><<endif>>
+<<if $miraStock gt 1>><<button [[Miracrystal Dust at 15~~consiee~~ each (Sell All)|passage()][$food += $miraStock * 15; $miraStock = 0]]>><<endif>>
+
+<<if $fatteniumStock gte 10>><<button [[Fattenium Powder at 50~~consiee~~ each (Sell 10)|passage()][$fatteniumStock -= 10; $food += 500]]>><<endif>>
+<<if $fatteniumStock gte 20>><<button [[Fattenium Powder at 50~~consiee~~ each (Sell 20)|passage()][$fatteniumStock -= 20; $food += 1000]]>><<endif>>
+<<if $fatteniumStock gt 1>><<button [[Fattenium Powder at 50~~consiee~~ each (Sell All)|passage()][$food += $fatteniumStock * 50; $fatteniumStock = 0]]>><<endif>>
+
+
+<<endnobr>><<endif>><<nobr>>
+
+
+
+<<endnobr>><<if $buyPool is 2>><<nobr>>
+
+/% Basic gubs & Food Resources %/
+
+<<if $fur_tuft gte 10>><<button [[Tuft of Fur ~~x~~10: 3~~consiee~~|passage()][$fur_tuft -= 10; $food += 3]]>><<else>><unframe>''Tuft of Fur ~~x~~10: 3~~consiee~~''</unframe><<endif>> <<if $fur_tuft gt 1>><<button [[Tuft of Fur ~~x~~10: 3~~consiee~~ (Sell All)|passage()][$food += ($fur_tuft / 10) * 3; $fur_tuft = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $feather_tuft gte 10>><<button [[Tuft of Feathers x10: 3~~consiee~~|passage()][$feather_tuft -= 10; $food += 3]]>><<else>><unframe>''Tuft of Feathers x10: 3~~consiee~~''</unframe><<endif>> <<if $feather_tuft gt 1>><<button [[Tuft of Feathers ~~x~~10: 3~~consiee~~ (Sell All)|passage()][$food += ($feather_tuft / 10) * 3; $feather_tuft = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $bones_tiny gt 0>><<button [[Little Bones ~~x~~1: 1~~consiee~~|passage()][$bones_tiny -= 1; $food += 1]]>><<else>><unframe>''Little Bones ~~x~~1: 1~~consiee~~''</unframe><<endif>> <<if $bones_tiny gte 5>><<button [[Little Bones ~~x~~5: 5~~consiee~~|passage()][$bones_tiny -= 5; $food += 5]]>><<endif>> <<if $bones_tiny gt 1>><<button [[Little Bones ~~x~~1: 1~~consiee~~ (Sell All)|passage()][$food += $bones_tiny; $bones_tiny = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $skull_tiny gt 0>><<button [[Tiny Skull ~~x~~1: 3~~consiee~~|passage()][$skull_tiny -= 1; $food += 3]]>><<else>><unframe>''Tiny Skull ~~x~~1: 3~~consiee~~''</unframe><<endif>> <<if $skull_tiny gte 5>><<button [[Tiny Skull ~~x~~5: 15~~consiee~~|passage()][$skull_tiny -= 5; $food += 15]]>><<endif>> <<if $skull_tiny gt 1>><<button [[Tiny Skull ~~x~~1: 3~~consiee~~ (Sell All)|passage()][$food += $skull_tiny * 3; $skull_tiny = 0]]>><<endif>>
+
+<<if $mush_strange gte 10>><<button [[Strange Mushroom at 25~~consiee~~ each (Sell 10)|passage()][$mush_strange -= 10; $food += 250]]>><<endif>> <<if $mush_strange gte 20>><<button [[Strange Mushroom at 25~~consiee~~ each (Sell 20)|passage()][$mush_strange -= 20; $food += 500]]>><<endif>> <<if $mush_strange gt 1>><<button [[Strange Mushroom at 25~~consiee~~ each (Sell All)|passage()][$food += $mush_strange * 25; $mush_strange = 0]]>><<else>><unframe>''Strange Mushroom at 25~~consiee~~ each''</unframe><<endif>>
+
+<<if $grainStock gte 10>><<button [[Grains ~~x~~10: 5~~consiee~~|passage()][$grainStock -= 10; $food += 5]]>><<else>><unframe>''Grains ~~x~~10: 5~~consiee~~''</unframe><<endif>> <<if $grainStock gte 20>><<button [[Grains ~~x~~20: 10~~consiee~~|passage()][$grainStock -= 20; $food += 10]]>><<endif>> <<if $grainStock gt 1>><<button [[Grains at ~~x~~10: 5~~consiee~~ (Sell All)|passage()][$food += ($grainStock / 10) * 5; $grainStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $nutStock gte 10>><<button [[Nuts ~~x~~10: 5~~consiee~~|passage()][$nutStock -= 10; $food += 5]]>><<else>><unframe>''Nuts ~~x~~10: 5~~consiee~~''</unframe><<endif>> <<if $nutStock gte 20>><<button [[Nuts ~~x~~20: 10~~consiee~~|passage()][$nutStock -= 20; $food += 10]]>><<endif>> <<if $nutStock gt 1>><<button [[Nuts ~~x~~10: 5~~consiee~~ (Sell All)|passage()][$food += ($nutStock / 10) * 5; $nutStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $rootStock gte 5>><<button [[Roots ~~x~~5: 5~~consiee~~|passage()][$rootStock -= 5; $food += 5]]>><<else>><unframe>''Roots ~~x~~5: 5~~consiee~~''</unframe><<endif>> <<if $rootStock gte 10>><<button [[Roots ~~x~~10: 10~~consiee~~|passage()][$rootStock -= 10; $food += 10]]>><<endif>> <<if $rootStock gt 1>><<button [[Roots ~~x~~5: 5~~consiee~~ (Sell All)|passage()][$food += ($rootStock / 5) * 5; $rootStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $vegStock gte 5>><<button [[Vegetables ~~x~~5: 8~~consiee~~|passage()][$vegStock -= 5; $food += 8]]>><<else>><unframe>''Vegetables ~~x~~5: 8~~consiee~~''</unframe><<endif>> <<if $vegStock gte 10>><<button [[Vegetables ~~x~~10: 16~~consiee~~|passage()][$vegStock -= 10; $food += 16]]>><<endif>> <<if $vegStock gt 1>><<button [[Vegetables ~~x~~5: 8~~consiee~~ (Sell All)|passage()][$food += ($vegStock / 5) * 8; $vegStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $fruitStock gte 5>><<button [[Fruit ~~x~~5: 10~~consiee~~|passage()][$fruitStock -= 5; $food += 10]]>><<else>><unframe>''Fruit ~~x~~5: 10~~consiee~~''</unframe><<endif>> <<if $fruitStock gte 10>><<button [[Fruit ~~x~~10: 20~~consiee~~|passage()][$fruitStock -= 10; $food += 20]]>><<endif>> <<if $fruitStock gt 1>><<button [[Fruit ~~x~~5: 10~~consiee~~ (Sell All)|passage()][$food += ($fruitStock / 5) * 10; $fruitStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $eggStock gte 6>><<button [[Eggs ~~x~~6: 5~~consiee~~|passage()][$eggStock -= 6; $food += 5]]>><<else>><unframe>''Eggs ~~x~~6: 5~~consiee~~''</unframe><<endif>> <<if $eggStock gte 12>><<button [[Eggs ~~x~~12: 10~~consiee~~|passage()][$eggStock -= 12; $food += 10]]>><<endif>> <<if $eggStock gt 1>><<button [[Eggs ~~x~~6: 5~~consiee~~ (Sell All)|passage()][$food += ($eggStock / 6) * 5; $eggStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $fishStock gte 5>><<button [[Fish ~~x~~5: 10~~consiee~~|passage()][$fishStock -= 5; $food += 10]]>><<else>><unframe>''Fish ~~x~~5: 10~~consiee~~''</unframe><<endif>>
+	<<if $fishStock gte 10>><<button [[Fish ~~x~~10: 20~~consiee~~|passage()][$fishStock -= 10; $food += 20]]>><<endif>>
+	<<if $fishStock gt 1>><<button [[Fish ~~x~~5: 10~~consiee~~ (Sell All)|passage()][$food += ($fishStock / 5) * 10; $fishStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $poultryStock gte 5>><<button [[Poultry ~~x~~5: 12~~consiee~~|passage()][$poultryStock -= 5; $food += 12]]>><<else>><unframe>''Poultry ~~x~~5: 12~~consiee~~''</unframe><<endif>> <<if $poultryStock gte 10>><<button [[Poultry ~~x~~10: 24~~consiee~~|passage()][$poultryStock -= 10; $food += 24]]>><<endif>> <<if $poultryStock gt 1>><<button [[Poultry ~~x~~20: 60~~consiee~~|passage()][$food += ($poultryStock / 20) * 60; $poultryStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $meatStock gte 10>><<button [[Meat ~~x~~10: 50~~consiee~~|passage()][$meatStock -= 10; $food += 50]]>><<else>><unframe>''Meat ~~x~~10: 50~~consiee~~''</unframe><<endif>> <<if $meatStock gte 20>><<button [[Meat ~~x~~20: 120~~consiee~~|passage()][$meatStock -= 20; $food += 120]]>><<endif>> <<if $meatStock gt 1>><<button [[Meat ~~x~~10: 50~~consiee~~ (Sell All)|passage()][$food += ($meatStock / 10) * 50; $meatStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $fatStock gte 10>><<button [[Fat ~~x~~10: 60~~consiee~~|passage()][$fatStock -= 10; $food += 60]]>><<else>><unframe>''Fat ~~x~~10: 60~~consiee~~''</unframe><<endif>> <<if $fatStock gte 20>><<button [[Fat ~~x~~20: 150~~consiee~~|passage()][$fatStock -= 20; $food += 150]]>><<endif>> <<if $fatStock gt 1>><<button [[Fat at ~~x~~10: 60~~consiee~~ (Sell All)|passage()][$food += ($fatStock / 10) * 60; $fatStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<if $herbStock gte 10>><<button [[Herbs ~~x~~10: 55~~consiee~~|passage()][$herbStock -= 10; $food += 55]]>><<else>><unframe>''Herbs ~~x~~10: 55~~consiee~~''</unframe><<endif>> <<if $herbStock gte 20>><<button [[Herbs ~~x~~20: 125~~consiee~~|passage()][$herbStock -= 20; $food += 125]]>><<endif>> <<if $herbStock gt 1>><<button [[Herbs at ~~x~~10: 55~~consiee~~ (Sell All)|passage()][$food += ($herbStock / 10) * 55; $herbStock = 0; $food = Math.round($food)]]>><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+
+
+
+<<endnobr>><<if $buyPool is 3>><<nobr>>
+
+/% Dungeon drops %/
+
+<<if $special_miracrystal gt 0>><<button [[Live Miracrystal Chunk ~~x~~1: 60~~consiee~~|passage()][$special_miracrystal -= 1; $food += 60]]>><<else>><unframe>''Live Miracrystal Chunk ~~x~~1: 60~~consiee~~''</unframe><<endif>> <<if $special_miracrystal gt 1>><<button [[Live Miracrystal Chunk at 60~~consiee~~ each (Sell All)|passage()][$food += $special_miracrystal * 60; $special_miracrystal = 0]]>><<endif>>
+
+<<if $milk_strange gt 0>><<button [[Strange Milk ~~x~~1: 1500~~consiee~~|passage()][$milk_strange -= 1; $food += 1500]]>><<else>><unframe>''Strange Milk ~~x~~1: 1500~~consiee~~''</unframe><<endif>> <<if $milk_strange gt 1>><<button [[Strange Milk ~~x~~1: 1500~~consiee~~ (Sell All)|passage()][$food += $milk_strange * 1500; $milk_strange = 0]]>><<endif>>
+
+<<if $shot_worm gt 0>><<button [[Dire Worm Injection ~~x~~1: 600~~consiee~~|passage()][$shot_worm -= 1; $food += 600]]>><<else>><unframe>''Dire Worm Injection ~~x~~1: 600~~consiee~~''</unframe><<endif>> <<if $shot_worm gt 1>><<button [[Dire Worm Injection ~~x~~1: 600~~consiee~~ (Sell All)|passage()][$food += $shot_worm * 600; $shot_worm = 0]]>><<endif>>
+
+
+<<if $shot_unmarked gt 0>><<button [[Unmarked Injection ~~x~~1: 800~~consiee~~|passage()][$shot_unmarked -= 1; $food += 800]]>><<else>><unframe>''Unmarked Injection ~~x~~1: 800~~consiee~~''</unframe><<endif>> <<if $shot_unmarked gt 1>><<button [[Unmarked Injection ~~x~~1: 800~~consiee~~ (Sell All)|passage()][$food += $shot_unmarked * 800; $shot_unmarked = 0]]>><<endif>>
+
+
+<<if $shot_bustbillow gt 0>><<button [[Bust Billower Shot ~~x~~1: 900~~consiee~~|passage()][$shot_bustbillow -= 1; $food += 900]]>><<else>><unframe>''Bust Billower Shot ~~x~~1: 900~~consiee~~''</unframe><<endif>> <<if $shot_bustbillow gt 1>><<button [[Bust Billower Shot ~~x~~1: 900~~consiee~~ (Sell All)|passage()][$food += $shot_bustbillow * 900; $shot_bustbillow = 0]]>><<endif>>
+
+
+<<if $pill_bellyboost gt 0>><<button [[Belly Booster ~~x~~1: 900~~consiee~~|passage()][$pill_bellyboost -= 1; $food += 900]]>><<else>><unframe>''Belly Booster ~~x~~1: 900~~consiee~~''</unframe><<endif>> <<if $pill_bellyboost gt 1>><<button [[Belly Booster ~~x~~1: 900~~consiee~~ (Sell All)|passage()][$food += $pill_bellyboost * 900; $pill_bellyboost = 0]]>><<endif>>
+
+
+<<if $shot_thighplump gt 0>><<button [[Thigh Plumper Shot ~~x~~1: 900~~consiee~~|passage()][$shot_thighplump -= 1; $food += 900]]>><<else>><unframe>''Thigh Plumper Shot ~~x~~1: 900~~consiee~~''</unframe><<endif>> <<if $shot_thighplump gt 1>><<button [[Thigh Plumper Shot ~~x~~1: 900~~consiee~~ (Sell All)|passage()][$food += $shot_thighplump * 900; $shot_thighplump = 0]]>><<endif>>
+
+
+<<if $shot_slime gt 0>><<button [[Slime Injection ~~x~~1: 1000~~consiee~~|passage()][$shot_slime -= 1; $food += 1000]]>><<else>><unframe>''Slime Injection ~~x~~1: 1000~~consiee~~''</unframe><<endif>> <<if $shot_slime gt 1>><<button [[Slime Injection ~~x~~1: 1000~~consiee~~ (Sell All)|passage()][$food += $shot_slime * 1000; $shot_slime = 0]]>><<endif>>
+
+
+<<if $shot_eggGrowth gt 0>><<button [[Egg Accelerator Injection ~~x~~1: 1000~~consiee~~|passage()][$shot_eggGrowth -= 1; $food += 1000]]>><<else>><unframe>''Egg Accelerator Injection ~~x~~1: 1000~~consiee~~''</unframe><<endif>> <<if $shot_eggGrowth gt 1>><<button [[Egg Accelerator Injection ~~x~~1: 1000~~consiee~~ (Sell All)|passage()][$food += $shot_eggGrowth * 1000; $shot_eggGrowth = 0]]>><<endif>>
+
+
+<<if $shot_parasite_moreauii gt 0>><<button [[M. moreauii Injection ~~x~~1: 1000~~consiee~~|passage()][$shot_parasite_moreauii -= 1; $food += 1000]]>><<else>><unframe>''M. moreauii Injection ~~x~~1: 1000~~consiee~~''</unframe><<endif>> <<if $shot_parasite_moreauii gt 1>><<button [[M. moreauii Injection ~~x~~1: 1000~~consiee~~ (Sell All)|passage()][$food += $shot_parasite_moreauii * 1000; $shot_parasite_moreauii = 0]]>><<endif>>
+
+
+<<if $shot_parasite_heleni gt 0>><<button [[M. heleni Injection ~~x~~1: 1000~~consiee~~|passage()][$shot_parasite_heleni -= 1; $food += 1000]]>><<else>><unframe>''M. heleni Injection ~~x~~1: 1000~~consiee~~''</unframe><<endif>> <<if $shot_parasite_heleni gt 1>><<button [[M. heleni Injection ~~x~~1: 1000~~consiee~~ (Sell All)|passage()][$food += $shot_parasite_heleni * 1000; $shot_parasite_heleni = 0]]>><<endif>>
+
+
+<<if $shot_parasite_miriete gt 0>><<button [[M. miriete Injection ~~x~~1: 2000~~consiee~~|passage()][$shot_parasite_miriete -= 1; $food += 2000]]>><<else>><unframe>''M. miriete Injection ~~x~~1: 2000~~consiee~~''</unframe><<endif>> <<if $shot_parasite_miriete gt 1>><<button [[M. miriete Injection ~~x~~1: 2000~~consiee~~ (Sell All)|passage()][$food += $shot_parasite_miriete * 2000; $shot_parasite_miriete = 0]]>><<endif>>
+
+
+<<if $shot_parasite_belebaret gt 0>><<button [[M. belebaret Injection ~~x~~1: 2000~~consiee~~|passage()][$shot_parasite_belebaret -= 1; $food += 2000]]>><<else>><unframe>''M. belebaret Injection ~~x~~1: 2000~~consiee~~''</unframe><<endif>> <<if $shot_parasite_belebaret gt 1>><<button [[M. belebaret Injection ~~x~~1: 2000~~consiee~~ (Sell All)|passage()][$food += $shot_parasite_belebaret * 2000; $shot_parasite_belebaret = 0]]>><<endif>>
+
+
+<<if $shot_parasite_belite gt 0>><<button [[M. belite Injection ~~x~~1: 3000~~consiee~~|passage()][$shot_parasite_belite -= 1; $food += 3000]]>><<else>><unframe>''M. belite Injection ~~x~~1: 3000~~consiee~~''</unframe><<endif>><<if $shot_parasite_belite gt 1>><<button [[M. belite Injection ~~x~~1: 3000~~consiee~~ (Sell All)|passage()][$food += $shot_parasite_belite * 3000; $shot_parasite_belite = 0]]>><<endif>>
+
+
+<<if $shot_parasite_virii gt 0>><<button [[L. virii Injection ~~x~~1: 3000~~consiee~~|passage()][$shot_parasite_virii -= 1; $food += 3000]]>><<else>><unframe>''L. virii Injection ~~x~~1: 3000~~consiee~~''</unframe><<endif>> <<if $shot_parasite_virii gt 1>><<button [[L. virii Injection ~~x~~1: 3000~~consiee~~ (Sell All)|passage()][$food += $shot_parasite_virii * 3000; $shot_parasite_virii = 0]]>><<endif>>
+
+
+<<if $shot_parasite_belesse gt 0>><<button [[M. belesse Injection ~~x~~1: 5000~~consiee~~|passage()][$shot_parasite_belesse -= 1; $food += 5000]]>><<else>><unframe>''M. belesse Injection ~~x~~1: 5000~~consiee~~''</unframe><<endif>> <<if $shot_parasite_belesse gt 1>><<button [[M. belesse Injection ~~x~~1: 5000~~consiee~~ (Sell All)|passage()][$food += $shot_parasite_belesse * 5000; $shot_parasite_belesse = 0]]>><<endif>>
+
+
+<<if $shot_miratoxin gt 0>><<button [[Miratoxin Shot ~~x~~1: 5000~~consiee~~|passage()][$shot_miratoxin -= 1; $food += 5000]]>><<else>><unframe>''Miratoxin Shot ~~x~~1: 5000~~consiee~~''</unframe><<endif>> <<if $shot_miratoxin gt 1>><<button [[Miratoxin Shot ~~x~~1: 5000~~consiee~~ (Sell All)|passage()][$food += $shot_miratoxin * 5000; $shot_miratoxin = 0]]>><<endif>>
+
+
+<<if $shot_fattenium gt 0>><<button [[Fattenium Shot ~~x~~1: 8000~~consiee~~|passage()][$shot_fattenium -= 1; $food += 8000]]>><<else>><unframe>''Fattenium Shot ~~x~~1: 8000~~consiee~~''</unframe><<endif>> <<if $shot_fattenium gt 1>><<button [[Fattenium Shot ~~x~~1: 8000~~consiee~~ (Sell All)|passage()][$food += $shot_fattenium * 8000; $shot_fattenium = 0]]>><<endif>>
+
+
+<<if $shot_fattenium_pure gt 0>><<button [[Pure Fattenium Shot ~~x~~1: 16000~~consiee~~|passage()][$shot_fattenium_pure -= 1; $food += 16000]]>><<else>><unframe>''Pure Fattenium Shot ~~x~~1: 16000~~consiee~~''</unframe><<endif>> <<if $shot_fattenium_pure gt 1>><<button [[Pure Fattenium Shot ~~x~~1: 16000~~consiee~~ (Sell All)|passage()][$food += $shot_fattenium_pure * 16000; $shot_fattenium_pure = 0]]>><<endif>>
+
+<<endnobr>><<endif>><<nobr>>
+
+
+
+
+<<endnobr>><<if $buyPool is 4>><<nobr>>
+
+/% Clothing %/
+
+<<if $set_hospital_feet gt 0>><<button [[Hospital Slippers ~~x~~1: 200~~consiee~~|passage()][$set_hospital_feet -= 1; $food += 200]]>><<else>><unframe>''Hospital Slippers ~~x~~1: 200~~consiee~~''</unframe><<endif>>
+
+<<if $set_threadbare_feet gt 0>><<button [[Worn Leather Sandals ~~x~~1: 225~~consiee~~|passage()][$set_threadbare_feet -= 1; $food += 225]]>><<else>><unframe>''Worn Leather Sandals ~~x~~1: 225~~consiee~~''</unframe><<endif>>
+
+<<if $set_hospital_top gt 0>><<button [[Flimsy Hospital Gown ~~x~~1: 250~~consiee~~|passage()][$set_hospital_top -= 1; $food += 250]]>><<else>><unframe>''Flimsy Hospital Gown ~~x~~1: 250~~consiee~~''</unframe><<endif>>
+
+<<if $set_threadbare_top gt 0>><<button [[Threadbare Top ~~x~~1: 275~~consiee~~|passage()][$set_threadbare_top -= 1; $food += 275]]>><<else>><unframe>''Threadbare Top ~~x~~1: 275~~consiee~~''</unframe><<endif>>
+
+<<if $set_threadbare_pants gt 0>><<button [[Threadbare Pants ~~x~~1: 275~~consiee~~|passage()][$set_threadbare_pants -= 1; $food += 275]]>><<else>><unframe>''Threadbare Pants ~~x~~1: 275~~consiee~~''</unframe><<endif>>
+
+<<if $set_threadbare_skirt gt 0>><<button [[Threadbare Skirt ~~x~~1: 275~~consiee~~|passage()][$set_threadbare_skirt -= 1; $food += 275]]>><<else>><unframe>''Threadbare Skirt ~~x~~1: 275~~consiee~~''</unframe><<endif>>
+
+<<if $set_science_mask gt 0>><<button [[Paper Medical Mask ~~x~~1: 300~~consiee~~|passage()][$set_science_mask -= 1; $food += 300]]>><<else>><unframe>''Paper Medical Mask ~~x~~1: 300~~consiee~~''</unframe><<endif>>
+
+<<if $set_threadbare_cape gt 0>><<button [[Threadbare Cape ~~x~~1: 350~~consiee~~|passage()][$set_threadbare_cape -= 1; $food += 350]]>><<else>><unframe>''Threadbare Cape ~~x~~1: 350~~consiee~~''</unframe><<endif>>
+
+<<if $set_hospital_top_bloody gt 0>><<button [[Bloody Hospital Gown ~~x~~1: 500~~consiee~~|passage()][$set_hospital_top_bloody -= 1; $food += 500]]>><<else>><unframe>''Bloody Hospital Gown ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+
+<<if $set_science_glasses gt 0>><<button [[Thick-Rimmed Glasses ~~x~~1: 500~~consiee~~|passage()][$set_science_glasses -= 1; $food += 500]]>><<else>><unframe>''Thick-Rimmed Glasses ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+
+<<if $set_science_goggles gt 0>><<button [[Laboratory Goggles ~~x~~1: 500~~consiee~~|passage()][$set_science_goggles -= 1; $food += 500]]>><<else>><unframe>''Laboratory Goggles ~~x~~1: 500~~consiee~~''</unframe><<endif>>
+
+<<if $set_hypo_belt gt 0>><<button [[HYPOTHESIS Cesile ~~x~~1: 600~~consiee~~|passage()][$set_hypo_belt -= 1; $food += 600]]>><<else>><unframe>''HYPOTHESIS Cesile ~~x~~1: 600~~consiee~~''</unframe><<endif>>
+
+<<if $set_science_top gt 0>><<button [[Classic Labcoat ~~x~~1: 750~~consiee~~|passage()][$set_science_top -= 1; $food += 750]]>><<else>><unframe>''Classic Labcoat ~~x~~1: 750~~consiee~~''</unframe><<endif>>
+
+<<if $set_science_top_stained gt 0>><<button [[Stained Labcoat ~~x~~1: 750~~consiee~~|passage()][$set_science_top_stained -= 1; $food += 750]]>><<else>><unframe>''Stained Labcoat ~~x~~1: 750~~consiee~~''</unframe><<endif>>
+
+<<if $set_hypo_pants gt 0>><<button [[HYPOTHESIS Coroles ~~x~~1: 800~~consiee~~|passage()][$set_hypo_pants -= 1; $food += 800]]>><<else>><unframe>''HYPOTHESIS Coroles ~~x~~1: 800~~consiee~~''</unframe><<endif>>
+
+<<if $set_hypo_skirt gt 0>><<button [[HYPOTHESIS Kilt ~~x~~1: 800~~consiee~~|passage()][$set_hypo_skirt -= 1; $food += 800]]>><<else>><unframe>''HYPOTHESIS Kilt ~~x~~1: 800~~consiee~~''</unframe><<endif>>
+
+<<if $set_hypo_top gt 0>><<button [[HYPOTHESIS Kite ~~x~~1: 800~~consiee~~|passage()][$set_hypo_top -= 1; $food += 800]]>><<else>><unframe>''HYPOTHESIS Kite ~~x~~1: 800~~consiee~~''</unframe><<endif>>
+
+<<if $set_town_head gt 0>><<button [[Top Hat ~~x~~1: 2500~~consiee~~|passage()][$set_town_head -= 1; $food += 2500]]>><<else>><unframe>''Top Hat ~~x~~1: 2500~~consiee~~''</unframe><<endif>>
+
+<<if ($set_hypo_top gt 0) and ($set_hypo_belt gt 0)>>
+
+<<if $set_hypo_skirt gt 0>><<button [[HYPOTHESIS Power Armor (w/Kilt) ~~x~~1: 3000~~consiee~~|passage()][$set_hypo_top -= 1; $set_hypo_belt -= 1; $set_hypo_skirt -= 1; $food += 3000]]>><<endif>>
+
+<<if $set_hypo_pants gt 0>><<button [[HYPOTHESIS Power Armor (w/Coroles) ~~x~~1: 3000~~consiee~~|passage()][$set_hypo_top -= 1; $set_hypo_belt -= 1;$set_hypo_pants -= 1; $food += 3000]]>><<endif>>
+
+<<endif>>
+
+
+<<endnobr>><<endif>><<nobr>>
+
+
+/% Trading Pools %/
+
+
+<<endnobr>><hr><huge>''Trade: ''</huge>
+<<if $tradePool is 1>><<nobr>>
+
+/% Crystal Swap %/
+
+<<if $special_miracrystal gt 0>><<button [[Live Miracrystal Chunk ~~x~~1: Dreamshard ~~x~~1|passage()][$special_miracrystal -= 1; $special_dreamshard += 1]]>><<else>><unframe>''Trade:  Live Miracrystal Chunk ~~x~~1: Dreamshard ~~x~~1''</unframe><<endif>> <<if $special_miracrystal gt 0>><<button [[Live Miracrystal Chunk ~~x~~1: Battery Crystal ~~x~~3|passage()][$special_miracrystal -= 1; $special_battery += 3]]>><<else>><unframe>''Trade:  Live Miracrystal Chunk ~~x~~1: Battery Crystal ~~x~~3''</unframe><<endif>><<endnobr>>\
+\
+\
+<<endif>>

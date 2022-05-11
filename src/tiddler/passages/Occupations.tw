@@ -1,0 +1,70 @@
+﻿<<display ZoneBackgrounds>><center>''__OCCUPATIONS__''</center><<nobr>>
+
+
+<<endnobr>><framed>An <brightalert>''Idlee''</brightalert> <affirmative>''has no calling to speak of, which is not uncommon in Revecroir, as any occupation means only as much as it does to the person who has chosen it.''</affirmative>
+Idlee may be those who have opted not to pick up a trade at all, or people who are simply not currently practicing it for a variety of reasons.
+<center><<button [[Deactivate Occupations.|passage()][$activeOcc = 0]]>></center></framed>
+<<nobr>>
+
+
+<<endnobr>>
+<framed>A <brightalert>''Beltedier''</brightalert>, or //Queen//, is a creature who specializes in <affirmative>''hosting and hatching leupai eggs in large quantities''</affirmative>, either to bolster the population or for specific breeding projects.
+Beltedier are so dedicated to their clutches that they allow their bodies to transform into monstrous, bloated flesh-nests to increase efficiency and productivity, greatly decreasing the likelihood of a lethal emergence even with hundreds of eggs.
+<center><<if $unlOccupation_Beltedier is 1>><<if $activeOcc neq "Beltedier">><<button [[Activate Occupation.|passage()][$activeOcc = "Beltedier"]]>><<else>><<button [[Deactivate Occupation.|passage()][$activeOcc = 0]]>><<endif>><<else>>//<unframe>''Occupation Locked!''</unframe>//<<endif>></center></framed>
+<<nobr>>
+
+
+<<endnobr>>
+<framed>A <brightalert>''Boviet''</brightalert> is a creature which <affirmative>''produces harvestable products-- frequently milk or venom-- for trade, consumption, or other purposes.''</affirmative>
+Boviet may be attended to by other creatures, or handle processing by themselves, depending on ability. Many Boviet alter their bodies to grow to enormous size and stretch exponentially, increasing production rates and quantity for better yields.
+<center><<if $unlOccupation_Boviet is 1>><<if $activeOcc neq "Boviet">><<button [[Activate Occupation.|passage()][$activeOcc = "Boviet"]]>><<else>><<button [[Deactivate Occupation.|passage()][$activeOcc = 0]]>><<endif>><<else>>//<unframe>''Occupation Locked!''</unframe>//<<endif>></center></framed>
+<<nobr>>
+
+
+<<endnobr>>
+<framed>A <brightalert>''Datiere''</brightalert> is a <affirmative>''digital craftsmaster and engineer, using psionics and ingenuity to design and power technological projects.''</affirmative>
+Datiere can "speak" to Revecroit machines with their minds and fingers alike, coding new applications and functions from scratch as well as altering pre-existing systems to incredible effect.
+<center><<if $unlOccupation_Datiere is 1>><<if $activeOcc neq "Datiere">><<button [[Activate Occupation.|passage()][$activeOcc = "Datiere"]]>><<else>><<button [[Deactivate Occupation.|passage()][$activeOcc = 0]]>><<endif>><<else>>//<unframe>''Occupation Locked!''</unframe>//<<endif>></center></framed>
+<<nobr>>
+
+
+<<endnobr>>
+<framed>A <brightalert>''Donsair''</brightalert> is any creature who is <affirmative>''cared for exclusively by another-- whether in servitude, in service, or as a pampered pet.''</affirmative>
+Donsair may run errands or travel on occasion, but are most frequently kept at home where they can be attended to or fussed over to their masters' liking.
+<center><<if $unlOccupation_Donsair is 1>><<if $activeOcc neq "Donsair">><<button [[Activate Occupation.|passage()][$activeOcc = "Donsair"]]>><<else>><<button [[Deactivate Occupation.|passage()][$activeOcc = 0]]>><<endif>><<else>>//<unframe>''Occupation Locked!''</unframe>//<<endif>></center></framed>
+<<nobr>>
+
+
+<<endnobr>>
+<framed>A <brightalert>''Caviere''</brightalert> is a creature <affirmative>''specializing in exploration-- particularly but not exclusively pertaining to the finding of potential homes and settlements in the wilds.''</affirmative>
+Cavieres know their way around the land better than most, capable of moving swiftly, expending far less energy, and finding more treasures and secrets on the run.
+<center><<if $unlOccupation_Caviere is 1>><<if $activeOcc neq "Caviere">><<button [[Activate Occupation.|passage()][$activeOcc = "Caviere"]]>><<else>><<button [[Deactivate Occupation.|passage()][$activeOcc = 0]]>><<endif>><<else>>//<unframe>''Occupation Locked!''</unframe>//<<endif>></center></framed>
+<<nobr>>
+
+
+<<endnobr>>
+<framed>A <brightalert>''Culinet''</brightalert> is a creature <affirmative>''specializing in the care, raising, and preparation of livestock and their flesh and by-products.''</affirmative>
+Culinet are accomplished breeders and cooks alike, and have a knack for sourcing new stock from the wild to enhance their projects' bloodlines.
+<center><<if $unlOccupation_Culinet is 1>><<if $activeOcc neq "Culinet">><<button [[Activate Occupation.|passage()][$activeOcc = "Culinet"]]>><<else>><<button [[Deactivate Occupation.|passage()][$activeOcc = 0]]>><<endif>><<else>>//<unframe>''Occupation Locked!''</unframe>//<<endif>></center></framed>
+<<nobr>>
+
+
+<<endnobr>>
+<framed>A <brightalert>''Fatiee''</brightalert> is a creature which <affirmative>''fattens itself up for harvest at a Fatiere, providing valuable fats and oils for a wide variety of trades and professions.''</affirmative>
+Dedicated Fatiee quickly become exceptionally elastic-- capable of feats of expansion rivaling those of leupai--, and their bodies are particularly efficient at absorbing calories and accumulating excess fat.
+<center><<if $unlOccupation_Fatiee is 1>><<if $activeOcc neq "Fatiee">><<button [[Activate Occupation.|passage()][$activeOcc = "Fatiee"]]>><<else>><<button [[Deactivate Occupation.|passage()][$activeOcc = 0]]>><<endif>><<else>>//<unframe>''Occupation Locked!''</unframe>//<<endif>></center></framed>
+<<nobr>>
+
+
+<<endnobr>>
+<framed>A <brightalert>''Finier''</brightalert> specializes in <affirmative>''the creation of fine fabrics, clothings, furniture, and decor-- many of which are made from the flesh, skins, fats, and other parts of various creatures both living and dead.''</affirmative>
+The best Finiee can shape materials and creatures to their liking with skill and finesse equal to that of the best Sculptors, crafting unique apparel and gear with amazing properties.
+<center><<if $unlOccupation_Finier is 1>><<if $activeOcc neq "Finier">><<button [[Activate Occupation.|passage()][$activeOcc = "Finier"]]>><<else>><<button [[Deactivate Occupation.|passage()][$activeOcc = 0]]>><<endif>><<else>>//<unframe>''Occupation Locked!''</unframe>//<<endif>></center></framed>
+<<nobr>>
+
+
+<<endnobr>>
+<framed>A <brightalert>''Jaque''</brightalert> is an <affirmative>''all-purpose traveler, craftsmaster, and eccentric.''</affirmative>
+Although their many talents and abilities don't quite measure up to the work of specialists, any good Jaque is incredibly helpful in a pinch, and their versatility makes them welcome everywhere.
+<center><<if $unlOccupation_Jaque is 1>><<if $activeOcc neq "Jaque">><<button [[Activate Occupation.|passage()][$activeOcc = "Jaque"]]>><<else>><<button [[Deactivate Occupation.|passage()][$activeOcc = 0]]>><<endif>><<else>>//<unframe>''Occupation Locked!''</unframe>//<<endif>></center></framed><center>
+<<button [[Continue.|Explore]]>></center>

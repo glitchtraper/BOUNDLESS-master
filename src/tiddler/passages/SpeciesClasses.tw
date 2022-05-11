@@ -1,0 +1,94 @@
+﻿/% =========================================== %/
+/% Species Class Setup %/
+/% Reads the input species and gives it a final classification. %/
+
+/% =========================================== %/
+/% Leupai %/
+
+<<if ($speClassInput is "leupai") or ($speClassInput is "erinyi") or ($speClassInput is "alchemite") or ($speClassInput is "esque") or ($speClassInput is "daedlan") or ($speClassInput is "iicarn") or ($speClassInput is "helene") or ($speClassInput is "somnian")>>
+
+<<set $speClassOutput = "leupai">>
+
+
+/% =========================================== %/
+/% Dragon %/
+
+<<elseif ($speClassInput is "mythosi") or ($speClassInput is "asotirix dragon") or ($speClassInput is "streamserpent") or ($speClassInput is "reefwyrm") or ($speClassInput is "flametongue") or ($speClassInput is "cragonn") or ($speClassInput is "terrogator")>>
+
+<<set $speClassOutput = "dragon">>
+
+
+/% =========================================== %/
+/% Fae %/
+
+<<elseif ($speClassInput is "aladri") or ($speClassInput is "novai") or ($speClassInput is "ketrel") or ($speClassInput is "quaikl")>>
+
+<<set $speClassOutput = "fae">>
+
+
+/% =========================================== %/
+/% Humanoid %/
+
+<<elseif ($speClassInput is "post-human") or ($speClassInput is "arka") or ($speClassInput is "adephagian") or ($speClassInput is "chimaera") or ($speClassInput is "luverne") or ($speClassInput is "silveni") or ($speClassInput is "geodi") or ($speClassInput is "milletan")>>
+
+<<set $speClassOutput = "humanoid">>
+
+
+/% =========================================== %/
+/% Elemental %/
+
+<<elseif ($speClassInput is "vidan") or ($speClassInput is "imp") or ($speClassInput is "firefox") or ($speClassInput is "hellpup")>>
+
+<<set $speClassOutput = "elemental">>
+
+
+/% =========================================== %/
+/% Carnivorous Beast %/
+
+<<elseif ($speClassInput is "scorpion") or ($speClassInput is "snake") or ($speClassInput is "coyote") or ($speClassInput is "wolf") or ($speClassInput is "hyena") or ($speClassInput is "quiann") or ($speClassInput is "leo") or ($speClassInput is "bear") or ($speClassInput is "serpent") or ($speClassInput is "crocogator") or ($speClassInput is "breaching tusker") or ($speClassInput is "eubaryon") or ($speClassInput is "razormouth")>>
+
+<<set $speClassOutput = "carnibeast">>
+
+
+
+/% =========================================== %/
+/% Beast of Burden %/
+
+<<elseif ($speClassInput is "deer") or ($speClassInput is "stag") or ($speClassInput is "unicorn") or ($speClassInput is "chevret") or ($speClassInput is "rockcharger") or ($speClassInput is "teratops")>>
+
+<<set $speClassOutput = "burdenbeast">>
+
+
+
+/% =========================================== %/
+/% Omni/Herbi Beast %/
+
+<<elseif ($speClassInput is "boar") or ($speClassInput is "mirelock") or ($speClassInput is "beach basker") or ($speClassInput is "spekko") or ($speClassInput is "drudgemol")>>
+
+<<set $speClassOutput = "omnibeast">>
+
+
+/% =========================================== %/
+/% Avian %/
+
+<<elseif ($speClassInput is "hawk") or ($speClassInput is "scrub-darter") or ($speClassInput is "eagle") or ($speClassInput is "crow") or ($speClassInput is "raven") or ($speClassInput is "astaran") or ($speClassInput is "corruvoi") or ($speClassInput is "screemer")>>
+
+<<set $speClassOutput = "avian">>
+
+
+/% =========================================== %/
+/% Mutant %/
+
+<<elseif ($speClassInput is "mutant") or ($speClassInput is "arquesse") or ($speClassInput is "sporeslave")>>
+
+<<set $speClassOutput = "mutant">>
+
+
+/% =========================================== %/
+/% Amorphous %/
+
+<<elseif ($speClassInput is "slime") or ($speClassInput is "blubberslime") or ($speClassInput is "fyynling") or ($speClassInput is "fyynmorph") or ($speClassInput is "fyynling horror")>>
+
+<<set $speClassOutput = "amorphous">>
+
+<<endif>>

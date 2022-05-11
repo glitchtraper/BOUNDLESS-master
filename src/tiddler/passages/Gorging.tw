@@ -1,0 +1,36 @@
+﻿<<if ($stretchy is 0) and ($esqueVenom is 0)>><<if $bellyBloat gt ($maxBelly + $stretchMod)>>
+
+	/% Damage per turn = gorgestretch * $maxPain
+	so damage ranges from none to 1/10th max pain per turn, depending on amount of bloat. %/
+
+	<<if ($bellyBloat gte ($maxBelly + $stretchMod)) and ($bellyBloat lt (($maxBelly + $stretchMod) * 1.2))>>
+	<<set $gorgeStretch = either(0,0,0.01,0.01,0.02); $lethalKO = either(0,0,1)>>
+
+	<<elseif ($bellyBloat gte (($maxBelly + $stretchMod) * 1.2)) and ($bellyBloat lt (($maxBelly + $stretchMod) * 1.5))>>
+	<<set $gorgeStretch = either(0,0.01,0.02); $lethalKO = either(0,0,1)>>
+
+	<<elseif ($bellyBloat gte (($maxBelly + $stretchMod) * 1.5)) and ($bellyBloat lt (($maxBelly + $stretchMod) * 1.7))>>
+	<<set $gorgeStretch = either(0.01,0.02,0.03); $lethalKO = either(0,0,1)>>
+
+	<<elseif ($bellyBloat gte (($maxBelly + $stretchMod) * 1.7)) and ($bellyBloat lt (($maxBelly + $stretchMod) * 2))>>
+	<<set $gorgeStretch = either(0.02,0.03,0.04); $lethalKO = either(0,1)>>
+
+	<<elseif ($bellyBloat gte (($maxBelly + $stretchMod) * 2)) and ($bellyBloat lt (($maxBelly + $stretchMod) * 2.5))>>
+	<<set $gorgeStretch = either(0.04,0.05,0.06); $lethalKO = either(0,1)>>
+
+	<<elseif ($bellyBloat gte (($maxBelly + $stretchMod) * 2.5)) and ($bellyBloat lt (($maxBelly + $stretchMod) * 3))>>
+	<<set $gorgeStretch = either(0.05,0.06,0.07,0.08); $lethalKO = either(0,1)>>
+
+	<<elseif ($bellyBloat gte (($maxBelly + $stretchMod) * 3)) and ($bellyBloat lt (($maxBelly + $stretchMod) * 4))>>
+	<<set $gorgeStretch = either(0.07,0.08,0.09); $lethalKO = either(0,1,1)>>
+
+	<<elseif ($bellyBloat gte (($maxBelly + $stretchMod) * 4)) and ($bellyBloat lt (($maxBelly + $stretchMod) * 5))>>
+	<<set $gorgeStretch = either(0.08,0.09,0.1); $lethalKO = either(0,1,1)>>
+
+	<<elseif $bellyBloat gte (($maxBelly + $stretchMod) * 5)>>
+	<<set $gorgeStretch = 0.1; $lethalKO = 1>>
+
+	<<endif>>
+
+	<<set $pain += ($maxPain * $gorgeStretch); $deathCause = "burst belly"; $gorging = 1>>
+<<endif>><<endif>>

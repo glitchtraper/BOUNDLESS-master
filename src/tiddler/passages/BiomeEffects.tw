@@ -1,0 +1,135 @@
+﻿<center>/% ========================================== %/\
+/% Drinking %/\
+<<nobr>>
+
+<<endnobr>>\
+<<if $consumeType is "drink">>\
+You kneel to take a drink.<<nobr>>
+
+<<if ($locName is "Poison") or ($locName is "Venom") or ($locName is "Toxins")>>
+<<set $randomizer = random(1,6)>>
+
+	/% Toxic Venom %/
+	<<if $randomizer is 1>><<set $toxicVenom += random(0,5)>>
+
+	/% Lethal Venom %/
+	<<elseif $randomizer is 2>><<set $lethalVenom += random(0,5)>>
+
+	/% Weakening Venom %/
+	<<elseif $randomizer is 3>><<set $weakeningVenom += random(0,5)>>
+
+	/% Hallucenogenic Venom %/
+	<<elseif $randomizer is 4>><<set $hallucenoVenom += random(0,5)>>
+
+	/% Mutagenic Venom %/
+	<<elseif $randomizer is 5>><<set $mutagenVenom += random(0,5)>>
+
+	/% Noxious Venom %/
+	<<elseif $randomizer is 6>><<set $noxiousVenom += random(0,5)>><<endif>>
+
+''This water is tainted..!''
+
+<<elseif $locName is "Oil">>
+	<<set $randomizer = random(1,6)>>
+
+	/% Caloric Oil %/
+	<<if $randomizer is 1>><<set $calories += random(6,18)>>
+
+	/% Leupai Oil %/
+	<<elseif $randomizer is 2>><<set $stretchMod += random(1,3); $leupoilToxicity += random(0,3); $calories += random(2,6)>>
+
+	/% Fattenium %/
+	<<elseif $randomizer is 3>><<set $fatteniumVenom += random(0,5); $calories += random(6,18)>>
+
+	/% Distensium %/
+	<<elseif $randomizer is 4>><<set $burstVenom += random(0,5)>>
+
+	/% Noxious Oil %/
+	<<elseif $randomizer is 6>><<set $noxiousVenom += random(0,5)>><<endif>>
+
+''It leaves a strange, oily coating on your tongue...''
+
+<<elseif $locName is "Mutants">>
+	<<set $mutationStrength = either("subtle","subtle","subtle","subtle","minor","minor","minor","major")>><<display MutationDatabase>>
+
+''You feel bizarre...''
+
+<<elseif $locName is "Breasts">>
+	<<set $breast += random(1,3); $breastBloat += ($maxBreast * 0.1)>>
+
+''Your chest tightens as it begins to swell!''
+
+<<elseif $locName is "Bellies">>
+	<<set $belly += random(1,3); $bellyBloat += ($maxBelly * 0.1)>>
+
+''Your belly gurgles and groans as it puffs up rounder!''
+
+<<elseif $locName is "Thighs">>
+	<<set $thigh += random(1,3)>>
+
+''Your thighs squish and bulge, plumping up!''
+
+<<elseif ($locName is "Balloons") or ($locName is "Bloating") or ($locName is "Swelling")>>
+	<<set $bellyBloat += ($maxBelly * 0.3); $bloatVenom += random(3,8)>>
+
+''Your belly begins to inflate!''
+
+<<elseif ($locName is "Blimps") or ($locName is "Bursting")>>
+	<<set $bellyBloat += ($maxBelly * 0.5); $burstVenom += random(6,12)>>
+
+''You gasp as your body begins to bloat and expand rapidly!''
+
+<<elseif ($locName is "Feeding") or ($locName is "Feasting") or ($locName is "Feasts") or ($locName is "Gluttony") or ($locName is "Gorging") or ($locName is "Eating") or ($locName is "Devouring") or ($locName is "Stuffing")>>
+	<<set $bellyBloat += ($maxBelly * 0.3); $calories += random(4,12)>>
+
+''Your belly protrudes, feeling much more full!''
+
+
+<<elseif $locName is "Plumping">>
+	<<set $fatteningSurge = random(20,50)>><<display FatSurge>>
+
+''You feel a little bit rounder...''
+
+<<elseif ($locName is "Blubber") or ($locName is "Fattening") or ($locName is "Flesh") or ($locName is "Gaining")>>
+	<<set $fatteningSurge = random(20,50)>><<display FatSurge>><<set $fatteningSurge = random(20,50)>><<display FatSurge>><<set $fatteningSurge = random(20,50)>><<display FatSurge>>
+
+''Your body suddenly billows with fat!''
+
+<<elseif ($locName is "Immobility") or ($locName is "Billetroa")>>
+	<<set $blubberVenom += random(6,12)>>
+
+''You suddenly begin to RAPIDLY gain weight!''
+
+<<elseif ($locName is "Eggs") or ($locName is "Parasites")>>
+
+''You feel odd...''
+
+	<<set $randomizer = random(1,10)>>
+		<<if $randomizer is 1>><<set $breastParasite = 1; $breastParaLoad += 10>>
+			<<elseif $randomizer is 2>><<set $bellyParasite = 1; $bellyParaLoad += 10>>
+			<<elseif $randomizer is 3>><<set $bodyPlumperParasite = 1; $wgParaLoad += 10>>
+			<<elseif $randomizer is 4>><<set $bellyPlumperParasite = 1; $bellywgParaLoad += 10>>
+			<<elseif $randomizer is 5>><<set $breastPlumperParasite = 1; $breastwgParaLoad += 10>>
+			<<elseif $randomizer is 6>><<set $metaParasite = 1; $metaParaLoad += 10>>
+			<<elseif $randomizer is 7>><<set $direParasite = 1; $direParaLoad += random(50,150)>>
+			<<elseif $randomizer gte 8>><<display LeupaiEggGen>>''Your belly suddenly bulges outward!''
+		<<endif>>
+
+
+<<elseif ($locName is "Hunger") or ($locName is "Greed") or ($locName is "Voracity")>>
+	<<set $esurience += random(0,0.5)>>
+
+''Your stomach growls loudly!''
+
+<<elseif $locName is "Chocolate">>
+		<<set $calories += random(1,8)>>
+
+<<endif>><<endnobr>><<if $zoneType is "freshwater">>
+''You feel refreshed!''<<set $pain -= random(2,5); $bellyLiquid += 10>>\
+<<elseif $zoneType is "saltwater">>
+<<if $leupaiFlag is 1>>''You feel refreshed!''<<set $pain -= random(2,5)>><<else>>''This water is disgusting!''<<set $noxiousVenom += random(0,6)>><<endif>>
+<<endif>><<nobr>>
+
+
+<<endnobr>>\
+<<elseif $consumeType is "eat">><<endif>></center>

@@ -1,0 +1,1066 @@
+﻿<<if $companion1Species is "leupai">>
+/% ========================================================== %/
+/% Stage 1 - Quaggy %/
+
+<<if ($companion1AgeStatus is "quaggy") and ($companion1Growth is 0)>>
+	<<set $companion1Growth = 1; $companion1GrowthAlert = 1>>
+
+/% Standard leupai %/
+<<if ($companion1Subspecies neq "devinn") and ($companion1Subspecies neq "celesse") and ($companion1Subspecies neq "erinyi") and ($companion1Subspecies neq "intere") and ($companion1Subspecies neq "laworn") and ($companion1Subspecies neq "Kaolani") and ($companion1Subspecies neq "kitsch") and ($companion1Subspecies neq "rexaur") and ($companion1Subspecies neq "astar") and ($companion1Subspecies neq "fragmentari")>>
+<<set $companion1Strength += either(1,1,2); $companion1Finesse += random(0,2); $companion1MaxEnergy += 2>><<endif>>
+
+/% Speed leupai %/
+<<if ($companion1Subspecies is "erinyi") or ($companion1Subspecies is "intere") or ($companion1Subspecies is "celesse") or ($companion1Subspecies is "kitsch")>>
+<<set $companion1Strength += random(0,1); $companion1Finesse += random(2,3); $companion1MaxEnergy += 3>><<endif>>
+
+/% Power leupai %/
+<<if ($companion1Subspecies is "devinn") or ($companion1Subspecies is "laworn") or ($companion1Subspecies is "Kaolani")>>
+<<set $companion1Strength += random(1,3); $companion1Finesse += random(1,2); $companion1MaxEnergy += 2>><<endif>>
+
+/% Power+ leupai %/
+<<if ($companion1Subspecies is "rexaur") or ($companion1Subspecies is "astar") or ($companion1Subspecies is "fragmentari")>>
+<<set $companion1Strength += random(2,3); $companion1Finesse += random(2,3); $companion1MaxEnergy += 5>><<endif>>
+
+/% Base gain (no breast this round) %/
+
+<<if $companion1Sickly neq 1>><<set $companion1Girth += either(20,30,40,50,60)>><<endif>>
+<<if $companion1Sickly is 1>><<set $companion1Girth += either(10,10,20,30,40)>><<endif>>
+<<if $companion1Superfat is 1>><<set $companion1Girth += either(10,20,20,30,40,50)>><<endif>>
+
+
+<<if ($companion1Bodytype is "belly") or ($companion1Bodytype is "round") or ($companion1Bodytype is "pear") or ($companion1Bodytype is "bulging") or ($companion1Bodytype is "guguetelle")>>
+<<set $companion1Belly += either(10,20,30,40,50)>><<endif>>
+
+<<if ($companion1Bodytype is "thigh") or ($companion1Bodytype is "hourglass") or ($companion1Bodytype is "pear") or ($companion1Bodytype is "cubus") or ($companion1Bodytype is "bulging") or ($companion1Bodytype is "bloatpear") or ($companion1Bodytype is "blimpthigh") or ($companion1Bodytype is "busty") or ($companion1Bodytype is "boviete")>>
+<<set $companion1Thigh += either(10,10,20)>><<endif>>
+
+<<if ($companion1Bodytype is "busty") or ($companion1Bodytype is "boviete") or ($companion1Bodytype is "hourglass") or ($companion1Bodytype is "cubus")>>
+<<set $companion1Belly += 10>><<endif>>
+
+/% Genetic Bonus (weak this round) %/
+
+/% Body Bonus %/
+
+<<if $companion1Miriete is 1>><<set $companion1Belly += either(10,20,30)>><<endif>>
+<<if $companion1Superthigh is 1>><<set $companion1Thigh += either(10,20,30)>><<endif>>
+
+/% Fragile build (--armor +energy) %/
+<<if ($companion1Skin is "snowglobe") or ($companion1Skin is "lacework") or ($companion1Skin is "plush") or ($companion1Skin is "porcelain") or ($companion1Skin is "glass") or ($companion1Skin is "snowy")>>
+<<set $companion1Armor -= random(1,2); $companion1MaxEnergy += 2>><<endif>>
+
+/% Chubber build (+girth -finesse +armor) %/
+<<if ($companion1Skin is "blubbery") or ($companion1Skin is "fleshy")>>
+<<set $companion1Girth += either(20,30); $companion1Belly += either(10,20,20); $companion1Thigh += either(10,10,20); $companion1Finesse -= random(0,2); $companion1Armor += random(1,2)>><<endif>>
+
+/% Slick build (+finesse) %/
+<<if ($companion1Skin is "damp") or ($companion1Skin is "clammy") or ($companion1Skin is "fish-scaled") or ($companion1Skin is "jelly") or ($companion1Skin is "dripping") or ($companion1Skin is "weeping")>>
+<<set $companion1Finesse += random(0,2)>><<endif>>
+
+/% Shining build (++finesse +energy) %/
+<<if ($companion1Skin is "wispy") or ($companion1Skin is "holographic") or ($companion1Skin is "laser-light") or ($companion1Skin is "crystalline") or ($companion1Skin is "faceted") or ($companion1Skin is "glittering") or ($companion1Skin is "icy") or ($companion1Skin is "frozen")>>
+<<set $companion1Finesse += random(1,3); $companion1MaxEnergy += 2>><<endif>>
+
+/% Blazing build (++energy) %/
+<<if ($companion1Skin is "ashen") or ($companion1Skin is "molten") or ($companion1Skin is "burning") or ($companion1Skin is "fiery") or ($companion1Skin is "melting") or ($companion1Skin is "wired")>>
+<<set $companion1MaxEnergy += random(2,3)>><<endif>>
+
+/% Shell build (-finesse ++armor) %/
+<<if ($companion1Skin is "robotic") or ($companion1Skin is "steel") or ($companion1Skin is "carapaced") or ($companion1Skin is "clockwork") or ($companion1Skin is "boulder") or ($companion1Skin is "cracked") or ($companion1Skin is "plastic") or ($companion1Skin is "armored") or ($companion1Skin is "studded")>>
+<<set $companion1Finesse -= random(0,2); $companion1Armor += random(2,3)>><<endif>>
+
+/% (No Leg & Tail Bonus gain this round) %/
+
+/% (No Aspecte Bonus gain this round) %/
+
+/% (No Occupational Bonus gain this round) %/
+
+/% Patron-Favored Bonus %/
+
+/% Nefirian - fat finesse %/
+<<if $companion1Patron is "Nefirian">>
+<<if ($companion1Pers is "expansionist") or ($companion1Subspecies is "belmere") or ($companion1Subspecies is "celesse") or ($companion1Subspecies is "isri") or ($companion1Subspecies is "rosso")>>
+<<set $companion1Girth += 10; $companion1Belly += 10; $companion1Finesse += 1>><<endif>><<endif>>
+
+/% Nameless - skittish %/
+<<if $companion1Patron is "Nameless">>
+<<if ($companion1Pers is "brooding") or ($companion1Subspecies is "devinn") or ($companion1Subspecies is "intere")>>
+<<set $companion1Finesse += 1; $companion1MaxEnergy += 1>><<endif>><<endif>>
+
+/% Phoenix - reckless %/
+<<if $companion1Patron is "Phoenix">>
+<<if ($companion1Pers is "anarchist") or ($companion1Subspecies is "erinyi") or ($companion1Subspecies is "moreaui")>>
+<<set $companion1Strength += 1; $companion1Armor -= 1; $companion1MaxEnergy += 1>><<endif>><<endif>>
+
+/% Kaolan - wildfire %/
+<<if $companion1Patron is "Kaolan">>
+<<if ($companion1Pers is "wildling") or ($companion1Subspecies is "Kaolani")>>
+<<set $companion1Strength += 1; $companion1Finesse += 1; $companion1Armor -= 1>><<endif>><<endif>>
+
+/% Giovan - dazzler %/
+<<if $companion1Patron is "Giovan">>
+<<if ($companion1Pers is "cool") or ($companion1Subspecies is "null")>>
+<<set $companion1Finesse += 1; $companion1MaxEnergy += 1>><<endif>><<endif>>
+
+<<endif>>
+/% ========================================================== %/
+/% Stage 2 - Gecko %/
+
+<<if ($companion1AgeStatus is "gecko") and ($companion1Growth is 1)>>
+	<<set $companion1Growth = 2; $companion1GrowthAlert = 1>>
+
+/% Standard leupai %/
+<<if ($companion1Subspecies neq "devinn") and ($companion1Subspecies neq "celesse") and ($companion1Subspecies neq "erinyi") and ($companion1Subspecies neq "intere") and ($companion1Subspecies neq "laworn") and ($companion1Subspecies neq "Kaolani") and ($companion1Subspecies neq "kitsch") and ($companion1Subspecies neq "rexaur") and ($companion1Subspecies neq "astar") and ($companion1Subspecies neq "fragmentari")>>
+<<set $companion1Strength += either(2,2,3); $companion1Finesse += random(1,3); $companion1MaxEnergy += 3>><<endif>>
+
+/% Speed leupai %/
+<<if ($companion1Subspecies is "erinyi") or ($companion1Subspecies is "intere") or ($companion1Subspecies is "celesse") or ($companion1Subspecies is "kitsch")>>
+<<set $companion1Strength += random(1,2); $companion1Finesse += random(3,5); $companion1MaxEnergy += 5>><<endif>>
+
+/% Power leupai %/
+<<if ($companion1Subspecies is "devinn") or ($companion1Subspecies is "laworn") or ($companion1Subspecies is "Kaolani")>>
+<<set $companion1Strength += random(3,5); $companion1Finesse += random(0,2); $companion1MaxEnergy += 3>><<endif>>
+
+/% Power+ leupai %/
+<<if ($companion1Subspecies is "rexaur") or ($companion1Subspecies is "astar") or ($companion1Subspecies is "fragmentari")>>
+<<set $companion1Strength += random(4,7); $companion1Finesse += random(1,2); $companion1Armor += random(1,3); $companion1MaxEnergy += 5>><<endif>>
+
+/% Base gain %/
+
+<<if $companion1Sickly neq 1>><<set $companion1Girth += either(30,40,50,60,70)>><<endif>>
+<<if $companion1Sickly is 1>><<set $companion1Girth += either(20,30,40,50)>><<endif>>
+<<if $companion1Superfat is 1>><<set $companion1Girth += either(50,60,70,80)>><<endif>>
+
+
+<<if ($companion1Bodytype is "belly") or ($companion1Bodytype is "round") or ($companion1Bodytype is "pear") or ($companion1Bodytype is "bulging") or ($companion1Bodytype is "guguetelle")>>
+<<set $companion1Belly += either(40,50,60)>><<endif>>
+
+<<if ($companion1Bodytype is "thigh") or ($companion1Bodytype is "hourglass") or ($companion1Bodytype is "pear") or ($companion1Bodytype is "cubus") or ($companion1Bodytype is "bulging") or ($companion1Bodytype is "bloatpear") or ($companion1Bodytype is "blimpthigh") or ($companion1Bodytype is "busty") or ($companion1Bodytype is "boviete")>>
+<<set $companion1Thigh += either(40,50,60); $companion1Belly += either(20,30,40)>><<endif>>
+
+<<if ($companion1Bodytype is "busty") or ($companion1Bodytype is "boviete") or ($companion1Bodytype is "hourglass") or ($companion1Bodytype is "cubus")>>
+<<set $companion1Breast += either(10,20)>><<endif>>
+
+/% Genetic Bonus %/
+
+/% Body Bonus %/
+
+<<if $companion1Boviete is 1>><<set $companion1Breast += either(10,10,20)>><<endif>>
+<<if $companion1Miriete is 1>><<set $companion1Belly += either(20,30,40)>><<endif>>
+<<if $companion1Superthigh is 1>><<set $companion1Thigh += either(20,30,40)>><<endif>>
+
+/% Fragile build (--armor +energy) %/
+<<if ($companion1Skin is "snowglobe") or ($companion1Skin is "lacework") or ($companion1Skin is "plush") or ($companion1Skin is "porcelain") or ($companion1Skin is "glass") or ($companion1Skin is "snowy")>>
+<<set $companion1Armor -= 1; $companion1MaxEnergy += random(2,4)>><<endif>>
+
+/% Chubber build (+girth -finesse +armor) %/
+<<if ($companion1Skin is "blubbery") or ($companion1Skin is "fleshy")>>
+<<set $companion1Girth += either(30,40,50); $companion1Belly += either(20,30,40); $companion1Thigh += either(20,30,40); $companion1Breast += either(10,20); $companion1Finesse -= random(1,3); $companion1Armor += random(1,2)>><<endif>>
+
+/% Slick build (+finesse) %/
+<<if ($companion1Skin is "damp") or ($companion1Skin is "clammy") or ($companion1Skin is "fish-scaled") or ($companion1Skin is "jelly") or ($companion1Skin is "dripping") or ($companion1Skin is "weeping")>>
+<<set $companion1Finesse += random(1,3)>><<endif>>
+
+/% Shining build (++finesse +energy) %/
+<<if ($companion1Skin is "wispy") or ($companion1Skin is "holographic") or ($companion1Skin is "laser-light") or ($companion1Skin is "crystalline") or ($companion1Skin is "faceted") or ($companion1Skin is "glittering") or ($companion1Skin is "icy") or ($companion1Skin is "frozen")>>
+<<set $companion1Finesse += random(2,5); $companion1MaxEnergy += 2>><<endif>>
+
+/% Blazing build (++energy) %/
+<<if ($companion1Skin is "ashen") or ($companion1Skin is "molten") or ($companion1Skin is "burning") or ($companion1Skin is "fiery") or ($companion1Skin is "melting") or ($companion1Skin is "wired")>>
+<<set $companion1MaxEnergy += random(3,5)>><<endif>>
+
+/% Shell build (-finesse ++armor) %/
+<<if ($companion1Skin is "robotic") or ($companion1Skin is "steel") or ($companion1Skin is "carapaced") or ($companion1Skin is "clockwork") or ($companion1Skin is "boulder") or ($companion1Skin is "cracked") or ($companion1Skin is "plastic") or ($companion1Skin is "armored") or ($companion1Skin is "studded")>>
+<<set $companion1Finesse -= 1; $companion1Armor += random(1,5)>><<endif>>
+
+<<if $companion1Back is "wings">>
+<<set $companion1Girth -= 10; $companion1Finesse += 1>><<endif>>
+
+/% Leg & Tail Bonus %/
+
+<<if $companion1Legs is "no">>
+<<set $companion1Finesse -= 1>><<endif>>
+
+<<if $companion1Legs is "four">>
+<<set $companion1Finesse += 1>><<endif>>
+
+<<if ($companion1Legs is "six") or ($companion1Body is "weasel") or ($companion1Body is "raptor")>>
+<<set $companion1Finesse += 2>><<endif>>
+
+<<if ($companion1Legs is "eight") or ($companion1Legs is "tentacle")>>
+<<set $companion1Finesse += 3>><<endif>>
+
+<<if ($companion1Tail is "serpentine") or ($companion1Tail is "sauropod")>>
+<<set $companion1Finesse += 1>><<endif>>
+
+/% Aspecte Bonus %/
+
+<<if $companion1Asp is "belepresse">><<set $companion1Girth += either(30,40,50); $companion1Belly += either(10,20,30); $companion1Thigh += either(10,20,30); $companion1Breast += either(10,20)>><<endif>>
+<<if $companion1Asp is "beletoire">><<set $companion1Belly += either(30,40,50); $companion1Breast += either(10,10,20)>><<endif>>
+<<if ($companion1Asp is "belsusset") or ($companion1Asp is "predatrix")>><<set $companion1Girth += either(80,90,100); $companion1Belly += either(30,40,50); $companion1Thigh += either(20,30,40,50); $companion1Breast += either(10,20,30)>><<endif>>
+<<if $companion1Asp is "guguetele">><<set $companion1Belly += either(30,40,50)>><<endif>>
+<<if ($companion1Asp is "revetoire") or ($companion1Asp is "vitossi")>><<set $companion1Girth += either(20,30,40,50); $companion1Belly += either(10,20,30,40,50); $companion1Thigh += either(10,20,30,40,50); $companion1Breast += either(10,20,30)>><<endif>>
+<<if ($companion1Asp is "susseroit") or ($companion1Asp is "vouere")>><<set $companion1Girth += either(0,10,20,30,40,50); $companion1Belly += either(0,10,20,30); $companion1Thigh += either(0,10,20,30); $companion1Breast += either(0,10,20,30)>><<endif>>
+
+/% (No Occupational Bonus this round) %/
+
+
+<<endif>>
+/% ========================================================== %/
+/% Stage 3 - Adult %/
+
+<<if ($companion1AgeStatus is "adult") and ($companion1Growth is 2)>>
+	<<set $companion1Growth = 3; $companion1GrowthAlert = 1>>
+
+/% Standard leupai %/
+<<if ($companion1Subspecies neq "devinn") and ($companion1Subspecies neq "celesse") and ($companion1Subspecies neq "erinyi") and ($companion1Subspecies neq "intere") and ($companion1Subspecies neq "laworn") and ($companion1Subspecies neq "Kaolani") and ($companion1Subspecies neq "kitsch") and ($companion1Subspecies neq "rexaur") and ($companion1Subspecies neq "astar") and ($companion1Subspecies neq "fragmentari")>>
+<<set $companion1Strength += random(2,8); $companion1Finesse += random(1,5); $companion1MaxEnergy += 10>><<endif>>
+
+/% Speed leupai %/
+<<if ($companion1Subspecies is "erinyi") or ($companion1Subspecies is "intere") or ($companion1Subspecies is "celesse") or ($companion1Subspecies is "kitsch")>>
+<<set $companion1Strength += random(0,3); $companion1Finesse += random(5,12); $companion1MaxEnergy += 12>><<endif>>
+
+/% Power leupai %/
+<<if ($companion1Subspecies is "devinn") or ($companion1Subspecies is "laworn") or ($companion1Subspecies is "Kaolani")>>
+<<set $companion1Strength += random(3,5); $companion1Finesse += random(0,2); $companion1MaxEnergy += 10>><<endif>>
+
+/% Power+ leupai %/
+<<if ($companion1Subspecies is "rexaur") or ($companion1Subspecies is "astar") or ($companion1Subspecies is "fragmentari")>>
+<<set $companion1Strength += random(3,12); $companion1Finesse += random(0,3); $companion1Armor += random(1,5); $companion1MaxEnergy += 15>><<endif>>
+
+/% Base gain %/
+
+<<if $companion1Sickly neq 1>><<set $companion1Girth += either(100,150,200,250,300)>><<endif>>
+<<if $companion1Sickly is 1>><<set $companion1Girth += either(50,80,100,110,120,150)>><<endif>>
+<<if $companion1Superfat is 1>><<set $companion1Girth += either(200,250,300,350,400,450,500)>><<endif>>
+
+
+<<if ($companion1Bodytype is "belly") or ($companion1Bodytype is "round") or ($companion1Bodytype is "pear") or ($companion1Bodytype is "bulging") or ($companion1Bodytype is "guguetelle")>>
+<<set $companion1Belly += either(60,70,80,90,100,110,120,150)>><<endif>>
+
+<<if ($companion1Bodytype is "thigh") or ($companion1Bodytype is "hourglass") or ($companion1Bodytype is "pear") or ($companion1Bodytype is "cubus") or ($companion1Bodytype is "bulging") or ($companion1Bodytype is "bloatpear") or ($companion1Bodytype is "blimpthigh") or ($companion1Bodytype is "busty") or ($companion1Bodytype is "boviete")>>
+<<set $companion1Thigh += either(50,60,70,80,90,100); $companion1Belly += either(30,40,50)>><<endif>>
+
+<<if ($companion1Bodytype is "busty") or ($companion1Bodytype is "boviete") or ($companion1Bodytype is "hourglass") or ($companion1Bodytype is "cubus")>>
+<<set $companion1Breast += either(40,50,60,70,80,90)>><<endif>>
+
+<<if ($companion1Bodytype is "hourglass") or ($companion1Bodytype is "cubus")>>
+<<set $companion1Breast += either(20,30,40,50,60)>><<endif>>
+
+/% Genetic Bonus %/
+
+/% Body Bonus %/
+
+<<if $companion1Boviete is 1>><<set $companion1Breast += either(30,40,50,60)>><<endif>>
+<<if $companion1Miriete is 1>><<set $companion1Belly += either(30,40,50,60)>><<endif>>
+<<if $companion1Superthigh is 1>><<set $companion1Thigh += either(30,40,50,60)>><<endif>>
+<<if $companion1Milky is 1>><<set $companion1Breast += either(30,40,50,60)>><<endif>>
+
+/% Fragile build (--armor +energy) %/
+<<if ($companion1Skin is "snowglobe") or ($companion1Skin is "lacework") or ($companion1Skin is "plush") or ($companion1Skin is "porcelain") or ($companion1Skin is "glass") or ($companion1Skin is "snowy")>>
+<<set $companion1MaxEnergy += random(4,12)>><<endif>>
+
+/% Chubber build (+girth -finesse +armor) %/
+<<if ($companion1Skin is "blubbery") or ($companion1Skin is "fleshy")>>
+<<set $companion1Girth += either(50,80,100,120,150,200); $companion1Belly += either(40,50,60,70,80,90,100); $companion1Thigh += either(40,50,60,70,80,90,100); $companion1Breast += either(40,50,60,70,80,90,100); $companion1Finesse -= random(2,3); $companion1Armor += random(5,12)>><<endif>>
+
+/% Slick build (+finesse) %/
+<<if ($companion1Skin is "damp") or ($companion1Skin is "clammy") or ($companion1Skin is "fish-scaled") or ($companion1Skin is "jelly") or ($companion1Skin is "dripping") or ($companion1Skin is "weeping")>>
+<<set $companion1Finesse += random(1,3)>><<endif>>
+
+/% Shining build (++finesse +energy) %/
+<<if ($companion1Skin is "wispy") or ($companion1Skin is "holographic") or ($companion1Skin is "laser-light") or ($companion1Skin is "crystalline") or ($companion1Skin is "faceted") or ($companion1Skin is "glittering") or ($companion1Skin is "icy") or ($companion1Skin is "frozen")>>
+<<set $companion1Finesse += random(2,5); $companion1MaxEnergy += 5>><<endif>>
+
+/% Blazing build (++energy) %/
+<<if ($companion1Skin is "ashen") or ($companion1Skin is "molten") or ($companion1Skin is "burning") or ($companion1Skin is "fiery") or ($companion1Skin is "melting") or ($companion1Skin is "wired")>>
+<<set $companion1MaxEnergy += random(5,12)>><<endif>>
+
+/% Shell build (-finesse ++armor) %/
+<<if ($companion1Skin is "robotic") or ($companion1Skin is "steel") or ($companion1Skin is "carapaced") or ($companion1Skin is "clockwork") or ($companion1Skin is "boulder") or ($companion1Skin is "cracked") or ($companion1Skin is "plastic") or ($companion1Skin is "armored") or ($companion1Skin is "studded")>>
+<<set $companion1Finesse -= 1; $companion1Armor += random(5,12)>><<endif>>
+
+<<if $companion1Back is "wings">>
+<<set $companion1Girth -= 20; $companion1Finesse += 5>><<endif>>
+
+/% Leg & Tail Bonus %/
+
+<<if ($companion1Legs is "six") or ($companion1Body is "weasel") or ($companion1Body is "raptor")or ($companion1Legs is "eight") or ($companion1Legs is "tentacle")>>
+<<set $companion1Finesse += random(1,3)>><<endif>>
+
+/% Aspecte Bonus %/
+
+<<if $companion1Asp is "belepresse">><<set $companion1Girth += either(50,100,150); $companion1Belly += either(70,80,90,100); $companion1Thigh += either(50,60,70,80,90,100); $companion1Breast += either(40,50,60)>><<endif>>
+<<if $companion1Asp is "beletoire">><<set $companion1Belly += either(70,80,90,100); $companion1Breast += either(40,50,60)>><<endif>>
+<<if ($companion1Asp is "belsusset") or ($companion1Asp is "predatrix")>><<set $companion1Girth += either(50,100,150,200,250); $companion1Belly += either(60,70,80,90,100,110,120,150); $companion1Thigh += either(50,60,70,80,90,100); $companion1Breast += either(40,50,60,70,80,90)>><<endif>>
+<<if $companion1Asp is "guguetele">><<set $companion1Belly += either(70,80,90,100)>><<endif>>
+<<if ($companion1Asp is "revetoire") or ($companion1Asp is "vitossi")>><<set $companion1Girth += either(50,60,70,80,90,100,120); $companion1Belly += either(60,70,80,90,100,110); $companion1Thigh += either(40,50,60,70,80,90,100); $companion1Breast += either(30,40,50,60,70,80)>><<endif>>
+<<if ($companion1Asp is "susseroit") or ($companion1Asp is "vouere")>><<set $companion1Girth += either(0,10,20,30,40,50); $companion1Belly += either(0,10,20,30); $companion1Thigh += either(0,10,20,30); $companion1Breast += either(0,10,20,30)>><<endif>>
+
+/% Occupational Bonus %/
+
+/% Engorgesse Branch %/
+<<if ($companion1Occupation is "Donsair") or ($companion1Occupation is "Culinet")>>
+<<set $companion1Girth += either(50,100,150,200,250,300,400,500,600,800,1000); $companion1Belly += either(70,80,90,100,150,200,300,400,500); $companion1Thigh += either(70,80,90,100,150,200,300,400,500); $companion1Breast += either(70,80,90,100)>><<endif>>
+
+<<if ($companion1Occupation is "Fatiee") or ($companion1Occupation is "Succulee")>>
+<<set $companion1Girth += either(500,600,800,1000,1500,2000); $companion1Belly += either(500,600,700,800,900,1000,1100,1200); $companion1Thigh += either(500,600,700,800,900,1000,1100,1200); $companion1Breast += either(70,80,90,100,110,120,130,140,150,180,200)>><<endif>>
+
+<<if ($companion1Occupation is "Beltedier") or ($companion1Occupation is "Boviet")>>
+<<set $companion1Girth += either(300,400,500,600,800,1000); $companion1Belly += either(900,1000,1100,1200,1500,1800,2000); $companion1Thigh += either(500,600,700,800); $companion1Breast += either(500,600,700,800,900,1000,1100,1200,1300,1400,1500)>><<endif>>
+
+/% Military Branch %/
+<<if ($companion1Occupation is "Militiere") or ($companion1Occupation is "Smithier") or ($companion1Occupation is "Mercine") or ($companion1Occupation is "Wildere")>>
+<<set $companion1Strength += random(8,15)>><<endif>>
+
+/% Passive Branch %/
+<<if ($companion1Occupation is "Finier") or ($companion1Occupation is "Sculptor") or ($companion1Occupation is "Taxidere") or ($companion1Occupation is "Datiere") or ($companion1Occupation is "Astronomier") or ($companion1Occupation is "Scribier") or ($companion1Occupation is "Medique") or ($companion1Occupation is "Smithier") or ($companion1Occupation is "Culinet")>>
+<<set $companion1Finesse += random(8,15)>><<endif>>
+
+/% Active Branch %/
+<<if ($companion1Occupation is "Professor") or ($companion1Occupation is "Performier") or ($companion1Occupation is "Hypothesi") or ($companion1Occupation is "Jillaume") or ($companion1Occupation is "Jaque") or ($companion1Occupation is "Alchemiee") or ($companion1Occupation is "Subtlee") or ($companion1Occupation is "Caviere")>>
+<<set $companion1MaxEnergy += either(10,12,14,16,18,20)>><<endif>>
+
+/% Patron-Favored Bonus %/
+
+/% Nefirian - fat finesse %/
+<<if $companion1Patron is "Nefirian">>
+<<if ($companion1Pers is "expansionist") or ($companion1Subspecies is "belmere") or ($companion1Subspecies is "celesse") or ($companion1Subspecies is "isri") or ($companion1Subspecies is "rosso")>>
+<<set $companion1Girth += either(80,100,120,150,180,200); $companion1Belly += either(40,50,60,80,100,120); $companion1Finesse += random(3,5)>><<endif>><<endif>>
+
+/% Nameless - skittish %/
+<<if $companion1Patron is "Nameless">>
+<<if ($companion1Pers is "brooding") or ($companion1Subspecies is "devinn") or ($companion1Subspecies is "intere")>>
+<<set $companion1Finesse += random(3,5); $companion1MaxEnergy += random(2,4)>><<endif>><<endif>>
+
+/% Phoenix - reckless %/
+<<if $companion1Patron is "Phoenix">>
+<<if ($companion1Pers is "anarchist") or ($companion1Subspecies is "erinyi") or ($companion1Subspecies is "moreaui")>>
+<<set $companion1Strength += random(3,5); $companion1Armor -= 2; $companion1MaxEnergy += random(2,4)>><<endif>><<endif>>
+
+/% Kaolan - wildfire %/
+<<if $companion1Patron is "Kaolan">>
+<<if ($companion1Pers is "wildling") or ($companion1Subspecies is "Kaolani")>>
+<<set $companion1Strength += random(3,5); $companion1Finesse += random(3,5); $companion1Armor -= 2>><<endif>><<endif>>
+
+/% Giovan - dazzler %/
+<<if $companion1Patron is "Giovan">>
+<<if ($companion1Pers is "cool") or ($companion1Subspecies is "null")>>
+<<set $companion1Finesse += random(3,5); $companion1MaxEnergy += random(4,8)>><<endif>><<endif>>
+
+<<endif>>
+
+<<endif>>
+
+
+
+
+<<if $companion2Species is "leupai">>
+/% ========================================================== %/
+/% Stage 1 - Quaggy %/
+
+<<if ($companion2AgeStatus is "quaggy") and ($companion2Growth is 0)>>
+	<<set $companion2Growth = 1; $companion2GrowthAlert = 1>>
+
+/% Standard leupai %/
+<<if ($companion2Subspecies neq "devinn") and ($companion2Subspecies neq "celesse") and ($companion2Subspecies neq "erinyi") and ($companion2Subspecies neq "intere") and ($companion2Subspecies neq "laworn") and ($companion2Subspecies neq "Kaolani") and ($companion2Subspecies neq "kitsch") and ($companion2Subspecies neq "rexaur") and ($companion2Subspecies neq "astar") and ($companion2Subspecies neq "fragmentari")>>
+<<set $companion2Strength += either(1,1,2); $companion2Finesse += random(0,2); $companion2MaxEnergy += 2>><<endif>>
+
+/% Speed leupai %/
+<<if ($companion2Subspecies is "erinyi") or ($companion2Subspecies is "intere") or ($companion2Subspecies is "celesse") or ($companion2Subspecies is "kitsch")>>
+<<set $companion2Strength += random(0,1); $companion2Finesse += random(2,3); $companion2MaxEnergy += 3>><<endif>>
+
+/% Power leupai %/
+<<if ($companion2Subspecies is "devinn") or ($companion2Subspecies is "laworn") or ($companion2Subspecies is "Kaolani")>>
+<<set $companion2Strength += random(1,3); $companion2Finesse += random(1,2); $companion2MaxEnergy += 2>><<endif>>
+
+/% Power+ leupai %/
+<<if ($companion2Subspecies is "rexaur") or ($companion2Subspecies is "astar") or ($companion2Subspecies is "fragmentari")>>
+<<set $companion2Strength += random(2,3); $companion2Finesse += random(2,3); $companion2MaxEnergy += 5>><<endif>>
+
+/% Base gain (no breast this round) %/
+
+<<if $companion2Sickly neq 1>><<set $companion2Girth += either(20,30,40,50,60)>><<endif>>
+<<if $companion2Sickly is 1>><<set $companion2Girth += either(10,10,20,30,40)>><<endif>>
+<<if $companion2Superfat is 1>><<set $companion2Girth += either(10,20,20,30,40,50)>><<endif>>
+
+
+<<if ($companion2Bodytype is "belly") or ($companion2Bodytype is "round") or ($companion2Bodytype is "pear") or ($companion2Bodytype is "bulging") or ($companion2Bodytype is "guguetelle")>>
+<<set $companion2Belly += either(10,20,30,40,50)>><<endif>>
+
+<<if ($companion2Bodytype is "thigh") or ($companion2Bodytype is "hourglass") or ($companion2Bodytype is "pear") or ($companion2Bodytype is "cubus") or ($companion2Bodytype is "bulging") or ($companion2Bodytype is "bloatpear") or ($companion2Bodytype is "blimpthigh") or ($companion2Bodytype is "busty") or ($companion2Bodytype is "boviete")>>
+<<set $companion2Thigh += either(10,10,20)>><<endif>>
+
+<<if ($companion2Bodytype is "busty") or ($companion2Bodytype is "boviete") or ($companion2Bodytype is "hourglass") or ($companion2Bodytype is "cubus")>>
+<<set $companion2Belly += 10>><<endif>>
+
+/% Genetic Bonus (weak this round) %/
+
+/% Body Bonus %/
+
+<<if $companion2Miriete is 1>><<set $companion2Belly += either(10,20,30)>><<endif>>
+<<if $companion2Superthigh is 1>><<set $companion2Thigh += either(10,20,30)>><<endif>>
+
+/% Fragile build (--armor +energy) %/
+<<if ($companion2Skin is "snowglobe") or ($companion2Skin is "lacework") or ($companion2Skin is "plush") or ($companion2Skin is "porcelain") or ($companion2Skin is "glass") or ($companion2Skin is "snowy")>>
+<<set $companion2Armor -= random(1,2); $companion2MaxEnergy += 2>><<endif>>
+
+/% Chubber build (+girth -finesse +armor) %/
+<<if ($companion2Skin is "blubbery") or ($companion2Skin is "fleshy")>>
+<<set $companion2Girth += either(20,30); $companion2Belly += either(10,20,20); $companion2Thigh += either(10,10,20); $companion2Finesse -= random(0,2); $companion2Armor += random(1,2)>><<endif>>
+
+/% Slick build (+finesse) %/
+<<if ($companion2Skin is "damp") or ($companion2Skin is "clammy") or ($companion2Skin is "fish-scaled") or ($companion2Skin is "jelly") or ($companion2Skin is "dripping") or ($companion2Skin is "weeping")>>
+<<set $companion2Finesse += random(0,2)>><<endif>>
+
+/% Shining build (++finesse +energy) %/
+<<if ($companion2Skin is "wispy") or ($companion2Skin is "holographic") or ($companion2Skin is "laser-light") or ($companion2Skin is "crystalline") or ($companion2Skin is "faceted") or ($companion2Skin is "glittering") or ($companion2Skin is "icy") or ($companion2Skin is "frozen")>>
+<<set $companion2Finesse += random(1,3); $companion2MaxEnergy += 2>><<endif>>
+
+/% Blazing build (++energy) %/
+<<if ($companion2Skin is "ashen") or ($companion2Skin is "molten") or ($companion2Skin is "burning") or ($companion2Skin is "fiery") or ($companion2Skin is "melting") or ($companion2Skin is "wired")>>
+<<set $companion2MaxEnergy += random(2,3)>><<endif>>
+
+/% Shell build (-finesse ++armor) %/
+<<if ($companion2Skin is "robotic") or ($companion2Skin is "steel") or ($companion2Skin is "carapaced") or ($companion2Skin is "clockwork") or ($companion2Skin is "boulder") or ($companion2Skin is "cracked") or ($companion2Skin is "plastic") or ($companion2Skin is "armored") or ($companion2Skin is "studded")>>
+<<set $companion2Finesse -= random(0,2); $companion2Armor += random(2,3)>><<endif>>
+
+/% (No Leg & Tail Bonus gain this round) %/
+
+/% (No Aspecte Bonus gain this round) %/
+
+/% (No Occupational Bonus gain this round) %/
+
+/% Patron-Favored Bonus %/
+
+/% Nefirian - fat finesse %/
+<<if $companion2Patron is "Nefirian">>
+<<if ($companion2Pers is "expansionist") or ($companion2Subspecies is "belmere") or ($companion2Subspecies is "celesse") or ($companion2Subspecies is "isri") or ($companion2Subspecies is "rosso")>>
+<<set $companion2Girth += 10; $companion2Belly += 10; $companion2Finesse += 1>><<endif>><<endif>>
+
+/% Nameless - skittish %/
+<<if $companion2Patron is "Nameless">>
+<<if ($companion2Pers is "brooding") or ($companion2Subspecies is "devinn") or ($companion2Subspecies is "intere")>>
+<<set $companion2Finesse += 1; $companion2MaxEnergy += 1>><<endif>><<endif>>
+
+/% Phoenix - reckless %/
+<<if $companion2Patron is "Phoenix">>
+<<if ($companion2Pers is "anarchist") or ($companion2Subspecies is "erinyi") or ($companion2Subspecies is "moreaui")>>
+<<set $companion2Strength += 1; $companion2Armor -= 1; $companion2MaxEnergy += 1>><<endif>><<endif>>
+
+/% Kaolan - wildfire %/
+<<if $companion2Patron is "Kaolan">>
+<<if ($companion2Pers is "wildling") or ($companion2Subspecies is "Kaolani")>>
+<<set $companion2Strength += 1; $companion2Finesse += 1; $companion2Armor -= 1>><<endif>><<endif>>
+
+/% Giovan - dazzler %/
+<<if $companion2Patron is "Giovan">>
+<<if ($companion2Pers is "cool") or ($companion2Subspecies is "null")>>
+<<set $companion2Finesse += 1; $companion2MaxEnergy += 1>><<endif>><<endif>>
+
+<<endif>>
+/% ========================================================== %/
+/% Stage 2 - Gecko %/
+
+<<if ($companion2AgeStatus is "gecko") and ($companion2Growth is 1)>>
+	<<set $companion2Growth = 2; $companion2GrowthAlert = 1>>
+
+/% Standard leupai %/
+<<if ($companion2Subspecies neq "devinn") and ($companion2Subspecies neq "celesse") and ($companion2Subspecies neq "erinyi") and ($companion2Subspecies neq "intere") and ($companion2Subspecies neq "laworn") and ($companion2Subspecies neq "Kaolani") and ($companion2Subspecies neq "kitsch") and ($companion2Subspecies neq "rexaur") and ($companion2Subspecies neq "astar") and ($companion2Subspecies neq "fragmentari")>>
+<<set $companion2Strength += either(2,2,3); $companion2Finesse += random(1,3); $companion2MaxEnergy += 3>><<endif>>
+
+/% Speed leupai %/
+<<if ($companion2Subspecies is "erinyi") or ($companion2Subspecies is "intere") or ($companion2Subspecies is "celesse") or ($companion2Subspecies is "kitsch")>>
+<<set $companion2Strength += random(1,2); $companion2Finesse += random(3,5); $companion2MaxEnergy += 5>><<endif>>
+
+/% Power leupai %/
+<<if ($companion2Subspecies is "devinn") or ($companion2Subspecies is "laworn") or ($companion2Subspecies is "Kaolani")>>
+<<set $companion2Strength += random(3,5); $companion2Finesse += random(0,2); $companion2MaxEnergy += 3>><<endif>>
+
+/% Power+ leupai %/
+<<if ($companion2Subspecies is "rexaur") or ($companion2Subspecies is "astar") or ($companion2Subspecies is "fragmentari")>>
+<<set $companion2Strength += random(4,7); $companion2Finesse += random(1,2); $companion2Armor += random(1,3); $companion2MaxEnergy += 5>><<endif>>
+
+/% Base gain %/
+
+<<if $companion2Sickly neq 1>><<set $companion2Girth += either(30,40,50,60,70)>><<endif>>
+<<if $companion2Sickly is 1>><<set $companion2Girth += either(20,30,40,50)>><<endif>>
+<<if $companion2Superfat is 1>><<set $companion2Girth += either(50,60,70,80)>><<endif>>
+
+
+<<if ($companion2Bodytype is "belly") or ($companion2Bodytype is "round") or ($companion2Bodytype is "pear") or ($companion2Bodytype is "bulging") or ($companion2Bodytype is "guguetelle")>>
+<<set $companion2Belly += either(40,50,60)>><<endif>>
+
+<<if ($companion2Bodytype is "thigh") or ($companion2Bodytype is "hourglass") or ($companion2Bodytype is "pear") or ($companion2Bodytype is "cubus") or ($companion2Bodytype is "bulging") or ($companion2Bodytype is "bloatpear") or ($companion2Bodytype is "blimpthigh") or ($companion2Bodytype is "busty") or ($companion2Bodytype is "boviete")>>
+<<set $companion2Thigh += either(40,50,60); $companion2Belly += either(20,30,40)>><<endif>>
+
+<<if ($companion2Bodytype is "busty") or ($companion2Bodytype is "boviete") or ($companion2Bodytype is "hourglass") or ($companion2Bodytype is "cubus")>>
+<<set $companion2Breast += either(10,20)>><<endif>>
+
+/% Genetic Bonus %/
+
+/% Body Bonus %/
+
+<<if $companion2Boviete is 1>><<set $companion2Breast += either(10,10,20)>><<endif>>
+<<if $companion2Miriete is 1>><<set $companion2Belly += either(20,30,40)>><<endif>>
+<<if $companion2Superthigh is 1>><<set $companion2Thigh += either(20,30,40)>><<endif>>
+
+/% Fragile build (--armor +energy) %/
+<<if ($companion2Skin is "snowglobe") or ($companion2Skin is "lacework") or ($companion2Skin is "plush") or ($companion2Skin is "porcelain") or ($companion2Skin is "glass") or ($companion2Skin is "snowy")>>
+<<set $companion2Armor -= 1; $companion2MaxEnergy += random(2,4)>><<endif>>
+
+/% Chubber build (+girth -finesse +armor) %/
+<<if ($companion2Skin is "blubbery") or ($companion2Skin is "fleshy")>>
+<<set $companion2Girth += either(30,40,50); $companion2Belly += either(20,30,40); $companion2Thigh += either(20,30,40); $companion2Breast += either(10,20); $companion2Finesse -= random(1,3); $companion2Armor += random(1,2)>><<endif>>
+
+/% Slick build (+finesse) %/
+<<if ($companion2Skin is "damp") or ($companion2Skin is "clammy") or ($companion2Skin is "fish-scaled") or ($companion2Skin is "jelly") or ($companion2Skin is "dripping") or ($companion2Skin is "weeping")>>
+<<set $companion2Finesse += random(1,3)>><<endif>>
+
+/% Shining build (++finesse +energy) %/
+<<if ($companion2Skin is "wispy") or ($companion2Skin is "holographic") or ($companion2Skin is "laser-light") or ($companion2Skin is "crystalline") or ($companion2Skin is "faceted") or ($companion2Skin is "glittering") or ($companion2Skin is "icy") or ($companion2Skin is "frozen")>>
+<<set $companion2Finesse += random(2,5); $companion2MaxEnergy += 2>><<endif>>
+
+/% Blazing build (++energy) %/
+<<if ($companion2Skin is "ashen") or ($companion2Skin is "molten") or ($companion2Skin is "burning") or ($companion2Skin is "fiery") or ($companion2Skin is "melting") or ($companion2Skin is "wired")>>
+<<set $companion2MaxEnergy += random(3,5)>><<endif>>
+
+/% Shell build (-finesse ++armor) %/
+<<if ($companion2Skin is "robotic") or ($companion2Skin is "steel") or ($companion2Skin is "carapaced") or ($companion2Skin is "clockwork") or ($companion2Skin is "boulder") or ($companion2Skin is "cracked") or ($companion2Skin is "plastic") or ($companion2Skin is "armored") or ($companion2Skin is "studded")>>
+<<set $companion2Finesse -= 1; $companion2Armor += random(1,5)>><<endif>>
+
+<<if $companion2Back is "wings">>
+<<set $companion2Girth -= 10; $companion2Finesse += 1>><<endif>>
+
+/% Leg & Tail Bonus %/
+
+<<if $companion2Legs is "no">>
+<<set $companion2Finesse -= 1>><<endif>>
+
+<<if $companion2Legs is "four">>
+<<set $companion2Finesse += 1>><<endif>>
+
+<<if ($companion2Legs is "six") or ($companion2Body is "weasel") or ($companion2Body is "raptor")>>
+<<set $companion2Finesse += 2>><<endif>>
+
+<<if ($companion2Legs is "eight") or ($companion2Legs is "tentacle")>>
+<<set $companion2Finesse += 3>><<endif>>
+
+<<if ($companion2Tail is "serpentine") or ($companion2Tail is "sauropod")>>
+<<set $companion2Finesse += 1>><<endif>>
+
+/% Aspecte Bonus %/
+
+<<if $companion2Asp is "belepresse">><<set $companion2Girth += either(30,40,50); $companion2Belly += either(10,20,30); $companion2Thigh += either(10,20,30); $companion2Breast += either(10,20)>><<endif>>
+<<if $companion2Asp is "beletoire">><<set $companion2Belly += either(30,40,50); $companion2Breast += either(10,10,20)>><<endif>>
+<<if ($companion2Asp is "belsusset") or ($companion2Asp is "predatrix")>><<set $companion2Girth += either(80,90,100); $companion2Belly += either(30,40,50); $companion2Thigh += either(20,30,40,50); $companion2Breast += either(10,20,30)>><<endif>>
+<<if $companion2Asp is "guguetele">><<set $companion2Belly += either(30,40,50)>><<endif>>
+<<if ($companion2Asp is "revetoire") or ($companion2Asp is "vitossi")>><<set $companion2Girth += either(20,30,40,50); $companion2Belly += either(10,20,30,40,50); $companion2Thigh += either(10,20,30,40,50); $companion2Breast += either(10,20,30)>><<endif>>
+<<if ($companion2Asp is "susseroit") or ($companion2Asp is "vouere")>><<set $companion2Girth += either(0,10,20,30,40,50); $companion2Belly += either(0,10,20,30); $companion2Thigh += either(0,10,20,30); $companion2Breast += either(0,10,20,30)>><<endif>>
+
+/% (No Occupational Bonus this round) %/
+
+
+<<endif>>
+/% ========================================================== %/
+/% Stage 3 - Adult %/
+
+<<if ($companion2AgeStatus is "adult") and ($companion2Growth is 2)>>
+	<<set $companion2Growth = 3; $companion2GrowthAlert = 1>>
+
+/% Standard leupai %/
+<<if ($companion2Subspecies neq "devinn") and ($companion2Subspecies neq "celesse") and ($companion2Subspecies neq "erinyi") and ($companion2Subspecies neq "intere") and ($companion2Subspecies neq "laworn") and ($companion2Subspecies neq "Kaolani") and ($companion2Subspecies neq "kitsch") and ($companion2Subspecies neq "rexaur") and ($companion2Subspecies neq "astar") and ($companion2Subspecies neq "fragmentari")>>
+<<set $companion2Strength += random(2,8); $companion2Finesse += random(1,5); $companion2MaxEnergy += 10>><<endif>>
+
+/% Speed leupai %/
+<<if ($companion2Subspecies is "erinyi") or ($companion2Subspecies is "intere") or ($companion2Subspecies is "celesse") or ($companion2Subspecies is "kitsch")>>
+<<set $companion2Strength += random(0,3); $companion2Finesse += random(5,12); $companion2MaxEnergy += 12>><<endif>>
+
+/% Power leupai %/
+<<if ($companion2Subspecies is "devinn") or ($companion2Subspecies is "laworn") or ($companion2Subspecies is "Kaolani")>>
+<<set $companion2Strength += random(3,5); $companion2Finesse += random(0,2); $companion2MaxEnergy += 10>><<endif>>
+
+/% Power+ leupai %/
+<<if ($companion2Subspecies is "rexaur") or ($companion2Subspecies is "astar") or ($companion2Subspecies is "fragmentari")>>
+<<set $companion2Strength += random(3,12); $companion2Finesse += random(0,3); $companion2Armor += random(1,5); $companion2MaxEnergy += 15>><<endif>>
+
+/% Base gain %/
+
+<<if $companion2Sickly neq 1>><<set $companion2Girth += either(100,150,200,250,300)>><<endif>>
+<<if $companion2Sickly is 1>><<set $companion2Girth += either(50,80,100,110,120,150)>><<endif>>
+<<if $companion2Superfat is 1>><<set $companion2Girth += either(200,250,300,350,400,450,500)>><<endif>>
+
+
+<<if ($companion2Bodytype is "belly") or ($companion2Bodytype is "round") or ($companion2Bodytype is "pear") or ($companion2Bodytype is "bulging") or ($companion2Bodytype is "guguetelle")>>
+<<set $companion2Belly += either(60,70,80,90,100,110,120,150)>><<endif>>
+
+<<if ($companion2Bodytype is "thigh") or ($companion2Bodytype is "hourglass") or ($companion2Bodytype is "pear") or ($companion2Bodytype is "cubus") or ($companion2Bodytype is "bulging") or ($companion2Bodytype is "bloatpear") or ($companion2Bodytype is "blimpthigh") or ($companion2Bodytype is "busty") or ($companion2Bodytype is "boviete")>>
+<<set $companion2Thigh += either(50,60,70,80,90,100); $companion2Belly += either(30,40,50)>><<endif>>
+
+<<if ($companion2Bodytype is "busty") or ($companion2Bodytype is "boviete") or ($companion2Bodytype is "hourglass") or ($companion2Bodytype is "cubus")>>
+<<set $companion2Breast += either(40,50,60,70,80,90)>><<endif>>
+
+<<if ($companion2Bodytype is "hourglass") or ($companion2Bodytype is "cubus")>>
+<<set $companion2Breast += either(20,30,40,50,60)>><<endif>>
+
+/% Genetic Bonus %/
+
+/% Body Bonus %/
+
+<<if $companion2Boviete is 1>><<set $companion2Breast += either(30,40,50,60)>><<endif>>
+<<if $companion2Miriete is 1>><<set $companion2Belly += either(30,40,50,60)>><<endif>>
+<<if $companion2Superthigh is 1>><<set $companion2Thigh += either(30,40,50,60)>><<endif>>
+<<if $companion2Milky is 1>><<set $companion2Breast += either(30,40,50,60)>><<endif>>
+
+/% Fragile build (--armor +energy) %/
+<<if ($companion2Skin is "snowglobe") or ($companion2Skin is "lacework") or ($companion2Skin is "plush") or ($companion2Skin is "porcelain") or ($companion2Skin is "glass") or ($companion2Skin is "snowy")>>
+<<set $companion2MaxEnergy += random(4,12)>><<endif>>
+
+/% Chubber build (+girth -finesse +armor) %/
+<<if ($companion2Skin is "blubbery") or ($companion2Skin is "fleshy")>>
+<<set $companion2Girth += either(50,80,100,120,150,200); $companion2Belly += either(40,50,60,70,80,90,100); $companion2Thigh += either(40,50,60,70,80,90,100); $companion2Breast += either(40,50,60,70,80,90,100); $companion2Finesse -= random(2,3); $companion2Armor += random(5,12)>><<endif>>
+
+/% Slick build (+finesse) %/
+<<if ($companion2Skin is "damp") or ($companion2Skin is "clammy") or ($companion2Skin is "fish-scaled") or ($companion2Skin is "jelly") or ($companion2Skin is "dripping") or ($companion2Skin is "weeping")>>
+<<set $companion2Finesse += random(1,3)>><<endif>>
+
+/% Shining build (++finesse +energy) %/
+<<if ($companion2Skin is "wispy") or ($companion2Skin is "holographic") or ($companion2Skin is "laser-light") or ($companion2Skin is "crystalline") or ($companion2Skin is "faceted") or ($companion2Skin is "glittering") or ($companion2Skin is "icy") or ($companion2Skin is "frozen")>>
+<<set $companion2Finesse += random(2,5); $companion2MaxEnergy += 5>><<endif>>
+
+/% Blazing build (++energy) %/
+<<if ($companion2Skin is "ashen") or ($companion2Skin is "molten") or ($companion2Skin is "burning") or ($companion2Skin is "fiery") or ($companion2Skin is "melting") or ($companion2Skin is "wired")>>
+<<set $companion2MaxEnergy += random(5,12)>><<endif>>
+
+/% Shell build (-finesse ++armor) %/
+<<if ($companion2Skin is "robotic") or ($companion2Skin is "steel") or ($companion2Skin is "carapaced") or ($companion2Skin is "clockwork") or ($companion2Skin is "boulder") or ($companion2Skin is "cracked") or ($companion2Skin is "plastic") or ($companion2Skin is "armored") or ($companion2Skin is "studded")>>
+<<set $companion2Finesse -= 1; $companion2Armor += random(5,12)>><<endif>>
+
+<<if $companion2Back is "wings">>
+<<set $companion2Girth -= 20; $companion2Finesse += 5>><<endif>>
+
+/% Leg & Tail Bonus %/
+
+<<if ($companion2Legs is "six") or ($companion2Body is "weasel") or ($companion2Body is "raptor")or ($companion2Legs is "eight") or ($companion2Legs is "tentacle")>>
+<<set $companion2Finesse += random(1,3)>><<endif>>
+
+/% Aspecte Bonus %/
+
+<<if $companion2Asp is "belepresse">><<set $companion2Girth += either(50,100,150); $companion2Belly += either(70,80,90,100); $companion2Thigh += either(50,60,70,80,90,100); $companion2Breast += either(40,50,60)>><<endif>>
+<<if $companion2Asp is "beletoire">><<set $companion2Belly += either(70,80,90,100); $companion2Breast += either(40,50,60)>><<endif>>
+<<if ($companion2Asp is "belsusset") or ($companion2Asp is "predatrix")>><<set $companion2Girth += either(50,100,150,200,250); $companion2Belly += either(60,70,80,90,100,110,120,150); $companion2Thigh += either(50,60,70,80,90,100); $companion2Breast += either(40,50,60,70,80,90)>><<endif>>
+<<if $companion2Asp is "guguetele">><<set $companion2Belly += either(70,80,90,100)>><<endif>>
+<<if ($companion2Asp is "revetoire") or ($companion2Asp is "vitossi")>><<set $companion2Girth += either(50,60,70,80,90,100,120); $companion2Belly += either(60,70,80,90,100,110); $companion2Thigh += either(40,50,60,70,80,90,100); $companion2Breast += either(30,40,50,60,70,80)>><<endif>>
+<<if ($companion2Asp is "susseroit") or ($companion2Asp is "vouere")>><<set $companion2Girth += either(0,10,20,30,40,50); $companion2Belly += either(0,10,20,30); $companion2Thigh += either(0,10,20,30); $companion2Breast += either(0,10,20,30)>><<endif>>
+
+/% Occupational Bonus %/
+
+/% Engorgesse Branch %/
+<<if ($companion2Occupation is "Donsair") or ($companion2Occupation is "Culinet")>>
+<<set $companion2Girth += either(50,100,150,200,250,300,400,500,600,800,1000); $companion2Belly += either(70,80,90,100,150,200,300,400,500); $companion2Thigh += either(70,80,90,100,150,200,300,400,500); $companion2Breast += either(70,80,90,100)>><<endif>>
+
+<<if ($companion2Occupation is "Fatiee") or ($companion2Occupation is "Succulee")>>
+<<set $companion2Girth += either(500,600,800,1000,1500,2000); $companion2Belly += either(500,600,700,800,900,1000,1100,1200); $companion2Thigh += either(500,600,700,800,900,1000,1100,1200); $companion2Breast += either(70,80,90,100,110,120,130,140,150,180,200)>><<endif>>
+
+<<if ($companion2Occupation is "Beltedier") or ($companion2Occupation is "Boviet")>>
+<<set $companion2Girth += either(300,400,500,600,800,1000); $companion2Belly += either(900,1000,1100,1200,1500,1800,2000); $companion2Thigh += either(500,600,700,800); $companion2Breast += either(500,600,700,800,900,1000,1100,1200,1300,1400,1500)>><<endif>>
+
+/% Military Branch %/
+<<if ($companion2Occupation is "Militiere") or ($companion2Occupation is "Smithier") or ($companion2Occupation is "Mercine") or ($companion2Occupation is "Wildere")>>
+<<set $companion2Strength += random(8,15)>><<endif>>
+
+/% Passive Branch %/
+<<if ($companion2Occupation is "Finier") or ($companion2Occupation is "Sculptor") or ($companion2Occupation is "Taxidere") or ($companion2Occupation is "Datiere") or ($companion2Occupation is "Astronomier") or ($companion2Occupation is "Scribier") or ($companion2Occupation is "Medique") or ($companion2Occupation is "Smithier") or ($companion2Occupation is "Culinet")>>
+<<set $companion2Finesse += random(8,15)>><<endif>>
+
+/% Active Branch %/
+<<if ($companion2Occupation is "Professor") or ($companion2Occupation is "Performier") or ($companion2Occupation is "Hypothesi") or ($companion2Occupation is "Jillaume") or ($companion2Occupation is "Jaque") or ($companion2Occupation is "Alchemiee") or ($companion2Occupation is "Subtlee") or ($companion2Occupation is "Caviere")>>
+<<set $companion2MaxEnergy += either(10,12,14,16,18,20)>><<endif>>
+
+/% Patron-Favored Bonus %/
+
+/% Nefirian - fat finesse %/
+<<if $companion2Patron is "Nefirian">>
+<<if ($companion2Pers is "expansionist") or ($companion2Subspecies is "belmere") or ($companion2Subspecies is "celesse") or ($companion2Subspecies is "isri") or ($companion2Subspecies is "rosso")>>
+<<set $companion2Girth += either(80,100,120,150,180,200); $companion2Belly += either(40,50,60,80,100,120); $companion2Finesse += random(3,5)>><<endif>><<endif>>
+
+/% Nameless - skittish %/
+<<if $companion2Patron is "Nameless">>
+<<if ($companion2Pers is "brooding") or ($companion2Subspecies is "devinn") or ($companion2Subspecies is "intere")>>
+<<set $companion2Finesse += random(3,5); $companion2MaxEnergy += random(2,4)>><<endif>><<endif>>
+
+/% Phoenix - reckless %/
+<<if $companion2Patron is "Phoenix">>
+<<if ($companion2Pers is "anarchist") or ($companion2Subspecies is "erinyi") or ($companion2Subspecies is "moreaui")>>
+<<set $companion2Strength += random(3,5); $companion2Armor -= 2; $companion2MaxEnergy += random(2,4)>><<endif>><<endif>>
+
+/% Kaolan - wildfire %/
+<<if $companion2Patron is "Kaolan">>
+<<if ($companion2Pers is "wildling") or ($companion2Subspecies is "Kaolani")>>
+<<set $companion2Strength += random(3,5); $companion2Finesse += random(3,5); $companion2Armor -= 2>><<endif>><<endif>>
+
+/% Giovan - dazzler %/
+<<if $companion2Patron is "Giovan">>
+<<if ($companion2Pers is "cool") or ($companion2Subspecies is "null")>>
+<<set $companion2Finesse += random(3,5); $companion2MaxEnergy += random(4,8)>><<endif>><<endif>>
+
+<<endif>>
+
+<<endif>>
+
+
+
+
+
+<<if $companion3Species is "leupai">>
+/% ========================================================== %/
+/% Stage 1 - Quaggy %/
+
+<<if ($companion3AgeStatus is "quaggy") and ($companion3Growth is 0)>>
+	<<set $companion3Growth = 1; $companion3GrowthAlert = 1>>
+
+/% Standard leupai %/
+<<if ($companion3Subspecies neq "devinn") and ($companion3Subspecies neq "celesse") and ($companion3Subspecies neq "erinyi") and ($companion3Subspecies neq "intere") and ($companion3Subspecies neq "laworn") and ($companion3Subspecies neq "Kaolani") and ($companion3Subspecies neq "kitsch") and ($companion3Subspecies neq "rexaur") and ($companion3Subspecies neq "astar") and ($companion3Subspecies neq "fragmentari")>>
+<<set $companion3Strength += either(1,1,2); $companion3Finesse += random(0,2); $companion3MaxEnergy += 2>><<endif>>
+
+/% Speed leupai %/
+<<if ($companion3Subspecies is "erinyi") or ($companion3Subspecies is "intere") or ($companion3Subspecies is "celesse") or ($companion3Subspecies is "kitsch")>>
+<<set $companion3Strength += random(0,1); $companion3Finesse += random(2,3); $companion3MaxEnergy += 3>><<endif>>
+
+/% Power leupai %/
+<<if ($companion3Subspecies is "devinn") or ($companion3Subspecies is "laworn") or ($companion3Subspecies is "Kaolani")>>
+<<set $companion3Strength += random(1,3); $companion3Finesse += random(1,2); $companion3MaxEnergy += 2>><<endif>>
+
+/% Power+ leupai %/
+<<if ($companion3Subspecies is "rexaur") or ($companion3Subspecies is "astar") or ($companion3Subspecies is "fragmentari")>>
+<<set $companion3Strength += random(2,3); $companion3Finesse += random(2,3); $companion3MaxEnergy += 5>><<endif>>
+
+/% Base gain (no breast this round) %/
+
+<<if $companion3Sickly neq 1>><<set $companion3Girth += either(20,30,40,50,60)>><<endif>>
+<<if $companion3Sickly is 1>><<set $companion3Girth += either(10,10,20,30,40)>><<endif>>
+<<if $companion3Superfat is 1>><<set $companion3Girth += either(10,20,20,30,40,50)>><<endif>>
+
+
+<<if ($companion3Bodytype is "belly") or ($companion3Bodytype is "round") or ($companion3Bodytype is "pear") or ($companion3Bodytype is "bulging") or ($companion3Bodytype is "guguetelle")>>
+<<set $companion3Belly += either(10,20,30,40,50)>><<endif>>
+
+<<if ($companion3Bodytype is "thigh") or ($companion3Bodytype is "hourglass") or ($companion3Bodytype is "pear") or ($companion3Bodytype is "cubus") or ($companion3Bodytype is "bulging") or ($companion3Bodytype is "bloatpear") or ($companion3Bodytype is "blimpthigh") or ($companion3Bodytype is "busty") or ($companion3Bodytype is "boviete")>>
+<<set $companion3Thigh += either(10,10,20)>><<endif>>
+
+<<if ($companion3Bodytype is "busty") or ($companion3Bodytype is "boviete") or ($companion3Bodytype is "hourglass") or ($companion3Bodytype is "cubus")>>
+<<set $companion3Belly += 10>><<endif>>
+
+/% Genetic Bonus (weak this round) %/
+
+/% Body Bonus %/
+
+<<if $companion3Miriete is 1>><<set $companion3Belly += either(10,20,30)>><<endif>>
+<<if $companion3Superthigh is 1>><<set $companion3Thigh += either(10,20,30)>><<endif>>
+
+/% Fragile build (--armor +energy) %/
+<<if ($companion3Skin is "snowglobe") or ($companion3Skin is "lacework") or ($companion3Skin is "plush") or ($companion3Skin is "porcelain") or ($companion3Skin is "glass") or ($companion3Skin is "snowy")>>
+<<set $companion3Armor -= random(1,2); $companion3MaxEnergy += 2>><<endif>>
+
+/% Chubber build (+girth -finesse +armor) %/
+<<if ($companion3Skin is "blubbery") or ($companion3Skin is "fleshy")>>
+<<set $companion3Girth += either(20,30); $companion3Belly += either(10,20,20); $companion3Thigh += either(10,10,20); $companion3Finesse -= random(0,2); $companion3Armor += random(1,2)>><<endif>>
+
+/% Slick build (+finesse) %/
+<<if ($companion3Skin is "damp") or ($companion3Skin is "clammy") or ($companion3Skin is "fish-scaled") or ($companion3Skin is "jelly") or ($companion3Skin is "dripping") or ($companion3Skin is "weeping")>>
+<<set $companion3Finesse += random(0,2)>><<endif>>
+
+/% Shining build (++finesse +energy) %/
+<<if ($companion3Skin is "wispy") or ($companion3Skin is "holographic") or ($companion3Skin is "laser-light") or ($companion3Skin is "crystalline") or ($companion3Skin is "faceted") or ($companion3Skin is "glittering") or ($companion3Skin is "icy") or ($companion3Skin is "frozen")>>
+<<set $companion3Finesse += random(1,3); $companion3MaxEnergy += 2>><<endif>>
+
+/% Blazing build (++energy) %/
+<<if ($companion3Skin is "ashen") or ($companion3Skin is "molten") or ($companion3Skin is "burning") or ($companion3Skin is "fiery") or ($companion3Skin is "melting") or ($companion3Skin is "wired")>>
+<<set $companion3MaxEnergy += random(2,3)>><<endif>>
+
+/% Shell build (-finesse ++armor) %/
+<<if ($companion3Skin is "robotic") or ($companion3Skin is "steel") or ($companion3Skin is "carapaced") or ($companion3Skin is "clockwork") or ($companion3Skin is "boulder") or ($companion3Skin is "cracked") or ($companion3Skin is "plastic") or ($companion3Skin is "armored") or ($companion3Skin is "studded")>>
+<<set $companion3Finesse -= random(0,2); $companion3Armor += random(2,3)>><<endif>>
+
+/% (No Leg & Tail Bonus gain this round) %/
+
+/% (No Aspecte Bonus gain this round) %/
+
+/% (No Occupational Bonus gain this round) %/
+
+/% Patron-Favored Bonus %/
+
+/% Nefirian - fat finesse %/
+<<if $companion3Patron is "Nefirian">>
+<<if ($companion3Pers is "expansionist") or ($companion3Subspecies is "belmere") or ($companion3Subspecies is "celesse") or ($companion3Subspecies is "isri") or ($companion3Subspecies is "rosso")>>
+<<set $companion3Girth += 10; $companion3Belly += 10; $companion3Finesse += 1>><<endif>><<endif>>
+
+/% Nameless - skittish %/
+<<if $companion3Patron is "Nameless">>
+<<if ($companion3Pers is "brooding") or ($companion3Subspecies is "devinn") or ($companion3Subspecies is "intere")>>
+<<set $companion3Finesse += 1; $companion3MaxEnergy += 1>><<endif>><<endif>>
+
+/% Phoenix - reckless %/
+<<if $companion3Patron is "Phoenix">>
+<<if ($companion3Pers is "anarchist") or ($companion3Subspecies is "erinyi") or ($companion3Subspecies is "moreaui")>>
+<<set $companion3Strength += 1; $companion3Armor -= 1; $companion3MaxEnergy += 1>><<endif>><<endif>>
+
+/% Kaolan - wildfire %/
+<<if $companion3Patron is "Kaolan">>
+<<if ($companion3Pers is "wildling") or ($companion3Subspecies is "Kaolani")>>
+<<set $companion3Strength += 1; $companion3Finesse += 1; $companion3Armor -= 1>><<endif>><<endif>>
+
+/% Giovan - dazzler %/
+<<if $companion3Patron is "Giovan">>
+<<if ($companion3Pers is "cool") or ($companion3Subspecies is "null")>>
+<<set $companion3Finesse += 1; $companion3MaxEnergy += 1>><<endif>><<endif>>
+
+<<endif>>
+/% ========================================================== %/
+/% Stage 2 - Gecko %/
+
+<<if ($companion3AgeStatus is "gecko") and ($companion3Growth is 1)>>
+	<<set $companion3Growth = 2; $companion3GrowthAlert = 1>>
+
+/% Standard leupai %/
+<<if ($companion3Subspecies neq "devinn") and ($companion3Subspecies neq "celesse") and ($companion3Subspecies neq "erinyi") and ($companion3Subspecies neq "intere") and ($companion3Subspecies neq "laworn") and ($companion3Subspecies neq "Kaolani") and ($companion3Subspecies neq "kitsch") and ($companion3Subspecies neq "rexaur") and ($companion3Subspecies neq "astar") and ($companion3Subspecies neq "fragmentari")>>
+<<set $companion3Strength += either(2,2,3); $companion3Finesse += random(1,3); $companion3MaxEnergy += 3>><<endif>>
+
+/% Speed leupai %/
+<<if ($companion3Subspecies is "erinyi") or ($companion3Subspecies is "intere") or ($companion3Subspecies is "celesse") or ($companion3Subspecies is "kitsch")>>
+<<set $companion3Strength += random(1,2); $companion3Finesse += random(3,5); $companion3MaxEnergy += 5>><<endif>>
+
+/% Power leupai %/
+<<if ($companion3Subspecies is "devinn") or ($companion3Subspecies is "laworn") or ($companion3Subspecies is "Kaolani")>>
+<<set $companion3Strength += random(3,5); $companion3Finesse += random(0,2); $companion3MaxEnergy += 3>><<endif>>
+
+/% Power+ leupai %/
+<<if ($companion3Subspecies is "rexaur") or ($companion3Subspecies is "astar") or ($companion3Subspecies is "fragmentari")>>
+<<set $companion3Strength += random(4,7); $companion3Finesse += random(1,2); $companion3Armor += random(1,3); $companion3MaxEnergy += 5>><<endif>>
+
+/% Base gain %/
+
+<<if $companion3Sickly neq 1>><<set $companion3Girth += either(30,40,50,60,70)>><<endif>>
+<<if $companion3Sickly is 1>><<set $companion3Girth += either(20,30,40,50)>><<endif>>
+<<if $companion3Superfat is 1>><<set $companion3Girth += either(50,60,70,80)>><<endif>>
+
+
+<<if ($companion3Bodytype is "belly") or ($companion3Bodytype is "round") or ($companion3Bodytype is "pear") or ($companion3Bodytype is "bulging") or ($companion3Bodytype is "guguetelle")>>
+<<set $companion3Belly += either(40,50,60)>><<endif>>
+
+<<if ($companion3Bodytype is "thigh") or ($companion3Bodytype is "hourglass") or ($companion3Bodytype is "pear") or ($companion3Bodytype is "cubus") or ($companion3Bodytype is "bulging") or ($companion3Bodytype is "bloatpear") or ($companion3Bodytype is "blimpthigh") or ($companion3Bodytype is "busty") or ($companion3Bodytype is "boviete")>>
+<<set $companion3Thigh += either(40,50,60); $companion3Belly += either(20,30,40)>><<endif>>
+
+<<if ($companion3Bodytype is "busty") or ($companion3Bodytype is "boviete") or ($companion3Bodytype is "hourglass") or ($companion3Bodytype is "cubus")>>
+<<set $companion3Breast += either(10,20)>><<endif>>
+
+/% Genetic Bonus %/
+
+/% Body Bonus %/
+
+<<if $companion3Boviete is 1>><<set $companion3Breast += either(10,10,20)>><<endif>>
+<<if $companion3Miriete is 1>><<set $companion3Belly += either(20,30,40)>><<endif>>
+<<if $companion3Superthigh is 1>><<set $companion3Thigh += either(20,30,40)>><<endif>>
+
+/% Fragile build (--armor +energy) %/
+<<if ($companion3Skin is "snowglobe") or ($companion3Skin is "lacework") or ($companion3Skin is "plush") or ($companion3Skin is "porcelain") or ($companion3Skin is "glass") or ($companion3Skin is "snowy")>>
+<<set $companion3Armor -= 1; $companion3MaxEnergy += random(2,4)>><<endif>>
+
+/% Chubber build (+girth -finesse +armor) %/
+<<if ($companion3Skin is "blubbery") or ($companion3Skin is "fleshy")>>
+<<set $companion3Girth += either(30,40,50); $companion3Belly += either(20,30,40); $companion3Thigh += either(20,30,40); $companion3Breast += either(10,20); $companion3Finesse -= random(1,3); $companion3Armor += random(1,2)>><<endif>>
+
+/% Slick build (+finesse) %/
+<<if ($companion3Skin is "damp") or ($companion3Skin is "clammy") or ($companion3Skin is "fish-scaled") or ($companion3Skin is "jelly") or ($companion3Skin is "dripping") or ($companion3Skin is "weeping")>>
+<<set $companion3Finesse += random(1,3)>><<endif>>
+
+/% Shining build (++finesse +energy) %/
+<<if ($companion3Skin is "wispy") or ($companion3Skin is "holographic") or ($companion3Skin is "laser-light") or ($companion3Skin is "crystalline") or ($companion3Skin is "faceted") or ($companion3Skin is "glittering") or ($companion3Skin is "icy") or ($companion3Skin is "frozen")>>
+<<set $companion3Finesse += random(2,5); $companion3MaxEnergy += 2>><<endif>>
+
+/% Blazing build (++energy) %/
+<<if ($companion3Skin is "ashen") or ($companion3Skin is "molten") or ($companion3Skin is "burning") or ($companion3Skin is "fiery") or ($companion3Skin is "melting") or ($companion3Skin is "wired")>>
+<<set $companion3MaxEnergy += random(3,5)>><<endif>>
+
+/% Shell build (-finesse ++armor) %/
+<<if ($companion3Skin is "robotic") or ($companion3Skin is "steel") or ($companion3Skin is "carapaced") or ($companion3Skin is "clockwork") or ($companion3Skin is "boulder") or ($companion3Skin is "cracked") or ($companion3Skin is "plastic") or ($companion3Skin is "armored") or ($companion3Skin is "studded")>>
+<<set $companion3Finesse -= 1; $companion3Armor += random(1,5)>><<endif>>
+
+<<if $companion3Back is "wings">>
+<<set $companion3Girth -= 10; $companion3Finesse += 1>><<endif>>
+
+/% Leg & Tail Bonus %/
+
+<<if $companion3Legs is "no">>
+<<set $companion3Finesse -= 1>><<endif>>
+
+<<if $companion3Legs is "four">>
+<<set $companion3Finesse += 1>><<endif>>
+
+<<if ($companion3Legs is "six") or ($companion3Body is "weasel") or ($companion3Body is "raptor")>>
+<<set $companion3Finesse += 2>><<endif>>
+
+<<if ($companion3Legs is "eight") or ($companion3Legs is "tentacle")>>
+<<set $companion3Finesse += 3>><<endif>>
+
+<<if ($companion3Tail is "serpentine") or ($companion3Tail is "sauropod")>>
+<<set $companion3Finesse += 1>><<endif>>
+
+/% Aspecte Bonus %/
+
+<<if $companion3Asp is "belepresse">><<set $companion3Girth += either(30,40,50); $companion3Belly += either(10,20,30); $companion3Thigh += either(10,20,30); $companion3Breast += either(10,20)>><<endif>>
+<<if $companion3Asp is "beletoire">><<set $companion3Belly += either(30,40,50); $companion3Breast += either(10,10,20)>><<endif>>
+<<if ($companion3Asp is "belsusset") or ($companion3Asp is "predatrix")>><<set $companion3Girth += either(80,90,100); $companion3Belly += either(30,40,50); $companion3Thigh += either(20,30,40,50); $companion3Breast += either(10,20,30)>><<endif>>
+<<if $companion3Asp is "guguetele">><<set $companion3Belly += either(30,40,50)>><<endif>>
+<<if ($companion3Asp is "revetoire") or ($companion3Asp is "vitossi")>><<set $companion3Girth += either(20,30,40,50); $companion3Belly += either(10,20,30,40,50); $companion3Thigh += either(10,20,30,40,50); $companion3Breast += either(10,20,30)>><<endif>>
+<<if ($companion3Asp is "susseroit") or ($companion3Asp is "vouere")>><<set $companion3Girth += either(0,10,20,30,40,50); $companion3Belly += either(0,10,20,30); $companion3Thigh += either(0,10,20,30); $companion3Breast += either(0,10,20,30)>><<endif>>
+
+/% (No Occupational Bonus this round) %/
+
+
+<<endif>>
+/% ========================================================== %/
+/% Stage 3 - Adult %/
+
+<<if ($companion3AgeStatus is "adult") and ($companion3Growth is 2)>>
+	<<set $companion3Growth = 3; $companion3GrowthAlert = 1>>
+
+/% Standard leupai %/
+<<if ($companion3Subspecies neq "devinn") and ($companion3Subspecies neq "celesse") and ($companion3Subspecies neq "erinyi") and ($companion3Subspecies neq "intere") and ($companion3Subspecies neq "laworn") and ($companion3Subspecies neq "Kaolani") and ($companion3Subspecies neq "kitsch") and ($companion3Subspecies neq "rexaur") and ($companion3Subspecies neq "astar") and ($companion3Subspecies neq "fragmentari")>>
+<<set $companion3Strength += random(2,8); $companion3Finesse += random(1,5); $companion3MaxEnergy += 10>><<endif>>
+
+/% Speed leupai %/
+<<if ($companion3Subspecies is "erinyi") or ($companion3Subspecies is "intere") or ($companion3Subspecies is "celesse") or ($companion3Subspecies is "kitsch")>>
+<<set $companion3Strength += random(0,3); $companion3Finesse += random(5,12); $companion3MaxEnergy += 12>><<endif>>
+
+/% Power leupai %/
+<<if ($companion3Subspecies is "devinn") or ($companion3Subspecies is "laworn") or ($companion3Subspecies is "Kaolani")>>
+<<set $companion3Strength += random(3,5); $companion3Finesse += random(0,2); $companion3MaxEnergy += 10>><<endif>>
+
+/% Power+ leupai %/
+<<if ($companion3Subspecies is "rexaur") or ($companion3Subspecies is "astar") or ($companion3Subspecies is "fragmentari")>>
+<<set $companion3Strength += random(3,12); $companion3Finesse += random(0,3); $companion3Armor += random(1,5); $companion3MaxEnergy += 15>><<endif>>
+
+/% Base gain %/
+
+<<if $companion3Sickly neq 1>><<set $companion3Girth += either(100,150,200,250,300)>><<endif>>
+<<if $companion3Sickly is 1>><<set $companion3Girth += either(50,80,100,110,120,150)>><<endif>>
+<<if $companion3Superfat is 1>><<set $companion3Girth += either(200,250,300,350,400,450,500)>><<endif>>
+
+
+<<if ($companion3Bodytype is "belly") or ($companion3Bodytype is "round") or ($companion3Bodytype is "pear") or ($companion3Bodytype is "bulging") or ($companion3Bodytype is "guguetelle")>>
+<<set $companion3Belly += either(60,70,80,90,100,110,120,150)>><<endif>>
+
+<<if ($companion3Bodytype is "thigh") or ($companion3Bodytype is "hourglass") or ($companion3Bodytype is "pear") or ($companion3Bodytype is "cubus") or ($companion3Bodytype is "bulging") or ($companion3Bodytype is "bloatpear") or ($companion3Bodytype is "blimpthigh") or ($companion3Bodytype is "busty") or ($companion3Bodytype is "boviete")>>
+<<set $companion3Thigh += either(50,60,70,80,90,100); $companion3Belly += either(30,40,50)>><<endif>>
+
+<<if ($companion3Bodytype is "busty") or ($companion3Bodytype is "boviete") or ($companion3Bodytype is "hourglass") or ($companion3Bodytype is "cubus")>>
+<<set $companion3Breast += either(40,50,60,70,80,90)>><<endif>>
+
+<<if ($companion3Bodytype is "hourglass") or ($companion3Bodytype is "cubus")>>
+<<set $companion3Breast += either(20,30,40,50,60)>><<endif>>
+
+/% Genetic Bonus %/
+
+/% Body Bonus %/
+
+<<if $companion3Boviete is 1>><<set $companion3Breast += either(30,40,50,60)>><<endif>>
+<<if $companion3Miriete is 1>><<set $companion3Belly += either(30,40,50,60)>><<endif>>
+<<if $companion3Superthigh is 1>><<set $companion3Thigh += either(30,40,50,60)>><<endif>>
+<<if $companion3Milky is 1>><<set $companion3Breast += either(30,40,50,60)>><<endif>>
+
+/% Fragile build (--armor +energy) %/
+<<if ($companion3Skin is "snowglobe") or ($companion3Skin is "lacework") or ($companion3Skin is "plush") or ($companion3Skin is "porcelain") or ($companion3Skin is "glass") or ($companion3Skin is "snowy")>>
+<<set $companion3MaxEnergy += random(4,12)>><<endif>>
+
+/% Chubber build (+girth -finesse +armor) %/
+<<if ($companion3Skin is "blubbery") or ($companion3Skin is "fleshy")>>
+<<set $companion3Girth += either(50,80,100,120,150,200); $companion3Belly += either(40,50,60,70,80,90,100); $companion3Thigh += either(40,50,60,70,80,90,100); $companion3Breast += either(40,50,60,70,80,90,100); $companion3Finesse -= random(2,3); $companion3Armor += random(5,12)>><<endif>>
+
+/% Slick build (+finesse) %/
+<<if ($companion3Skin is "damp") or ($companion3Skin is "clammy") or ($companion3Skin is "fish-scaled") or ($companion3Skin is "jelly") or ($companion3Skin is "dripping") or ($companion3Skin is "weeping")>>
+<<set $companion3Finesse += random(1,3)>><<endif>>
+
+/% Shining build (++finesse +energy) %/
+<<if ($companion3Skin is "wispy") or ($companion3Skin is "holographic") or ($companion3Skin is "laser-light") or ($companion3Skin is "crystalline") or ($companion3Skin is "faceted") or ($companion3Skin is "glittering") or ($companion3Skin is "icy") or ($companion3Skin is "frozen")>>
+<<set $companion3Finesse += random(2,5); $companion3MaxEnergy += 5>><<endif>>
+
+/% Blazing build (++energy) %/
+<<if ($companion3Skin is "ashen") or ($companion3Skin is "molten") or ($companion3Skin is "burning") or ($companion3Skin is "fiery") or ($companion3Skin is "melting") or ($companion3Skin is "wired")>>
+<<set $companion3MaxEnergy += random(5,12)>><<endif>>
+
+/% Shell build (-finesse ++armor) %/
+<<if ($companion3Skin is "robotic") or ($companion3Skin is "steel") or ($companion3Skin is "carapaced") or ($companion3Skin is "clockwork") or ($companion3Skin is "boulder") or ($companion3Skin is "cracked") or ($companion3Skin is "plastic") or ($companion3Skin is "armored") or ($companion3Skin is "studded")>>
+<<set $companion3Finesse -= 1; $companion3Armor += random(5,12)>><<endif>>
+
+<<if $companion3Back is "wings">>
+<<set $companion3Girth -= 20; $companion3Finesse += 5>><<endif>>
+
+/% Leg & Tail Bonus %/
+
+<<if ($companion3Legs is "six") or ($companion3Body is "weasel") or ($companion3Body is "raptor")or ($companion3Legs is "eight") or ($companion3Legs is "tentacle")>>
+<<set $companion3Finesse += random(1,3)>><<endif>>
+
+/% Aspecte Bonus %/
+
+<<if $companion3Asp is "belepresse">><<set $companion3Girth += either(50,100,150); $companion3Belly += either(70,80,90,100); $companion3Thigh += either(50,60,70,80,90,100); $companion3Breast += either(40,50,60)>><<endif>>
+<<if $companion3Asp is "beletoire">><<set $companion3Belly += either(70,80,90,100); $companion3Breast += either(40,50,60)>><<endif>>
+<<if ($companion3Asp is "belsusset") or ($companion3Asp is "predatrix")>><<set $companion3Girth += either(50,100,150,200,250); $companion3Belly += either(60,70,80,90,100,110,120,150); $companion3Thigh += either(50,60,70,80,90,100); $companion3Breast += either(40,50,60,70,80,90)>><<endif>>
+<<if $companion3Asp is "guguetele">><<set $companion3Belly += either(70,80,90,100)>><<endif>>
+<<if ($companion3Asp is "revetoire") or ($companion3Asp is "vitossi")>><<set $companion3Girth += either(50,60,70,80,90,100,120); $companion3Belly += either(60,70,80,90,100,110); $companion3Thigh += either(40,50,60,70,80,90,100); $companion3Breast += either(30,40,50,60,70,80)>><<endif>>
+<<if ($companion3Asp is "susseroit") or ($companion3Asp is "vouere")>><<set $companion3Girth += either(0,10,20,30,40,50); $companion3Belly += either(0,10,20,30); $companion3Thigh += either(0,10,20,30); $companion3Breast += either(0,10,20,30)>><<endif>>
+
+/% Occupational Bonus %/
+
+/% Engorgesse Branch %/
+<<if ($companion3Occupation is "Donsair") or ($companion3Occupation is "Culinet")>>
+<<set $companion3Girth += either(50,100,150,200,250,300,400,500,600,800,1000); $companion3Belly += either(70,80,90,100,150,200,300,400,500); $companion3Thigh += either(70,80,90,100,150,200,300,400,500); $companion3Breast += either(70,80,90,100)>><<endif>>
+
+<<if ($companion3Occupation is "Fatiee") or ($companion3Occupation is "Succulee")>>
+<<set $companion3Girth += either(500,600,800,1000,1500,2000); $companion3Belly += either(500,600,700,800,900,1000,1100,1200); $companion3Thigh += either(500,600,700,800,900,1000,1100,1200); $companion3Breast += either(70,80,90,100,110,120,130,140,150,180,200)>><<endif>>
+
+<<if ($companion3Occupation is "Beltedier") or ($companion3Occupation is "Boviet")>>
+<<set $companion3Girth += either(300,400,500,600,800,1000); $companion3Belly += either(900,1000,1100,1200,1500,1800,2000); $companion3Thigh += either(500,600,700,800); $companion3Breast += either(500,600,700,800,900,1000,1100,1200,1300,1400,1500)>><<endif>>
+
+/% Military Branch %/
+<<if ($companion3Occupation is "Militiere") or ($companion3Occupation is "Smithier") or ($companion3Occupation is "Mercine") or ($companion3Occupation is "Wildere")>>
+<<set $companion3Strength += random(8,15)>><<endif>>
+
+/% Passive Branch %/
+<<if ($companion3Occupation is "Finier") or ($companion3Occupation is "Sculptor") or ($companion3Occupation is "Taxidere") or ($companion3Occupation is "Datiere") or ($companion3Occupation is "Astronomier") or ($companion3Occupation is "Scribier") or ($companion3Occupation is "Medique") or ($companion3Occupation is "Smithier") or ($companion3Occupation is "Culinet")>>
+<<set $companion3Finesse += random(8,15)>><<endif>>
+
+/% Active Branch %/
+<<if ($companion3Occupation is "Professor") or ($companion3Occupation is "Performier") or ($companion3Occupation is "Hypothesi") or ($companion3Occupation is "Jillaume") or ($companion3Occupation is "Jaque") or ($companion3Occupation is "Alchemiee") or ($companion3Occupation is "Subtlee") or ($companion3Occupation is "Caviere")>>
+<<set $companion3MaxEnergy += either(10,12,14,16,18,20)>><<endif>>
+
+/% Patron-Favored Bonus %/
+
+/% Nefirian - fat finesse %/
+<<if $companion3Patron is "Nefirian">>
+<<if ($companion3Pers is "expansionist") or ($companion3Subspecies is "belmere") or ($companion3Subspecies is "celesse") or ($companion3Subspecies is "isri") or ($companion3Subspecies is "rosso")>>
+<<set $companion3Girth += either(80,100,120,150,180,200); $companion3Belly += either(40,50,60,80,100,120); $companion3Finesse += random(3,5)>><<endif>><<endif>>
+
+/% Nameless - skittish %/
+<<if $companion3Patron is "Nameless">>
+<<if ($companion3Pers is "brooding") or ($companion3Subspecies is "devinn") or ($companion3Subspecies is "intere")>>
+<<set $companion3Finesse += random(3,5); $companion3MaxEnergy += random(2,4)>><<endif>><<endif>>
+
+/% Phoenix - reckless %/
+<<if $companion3Patron is "Phoenix">>
+<<if ($companion3Pers is "anarchist") or ($companion3Subspecies is "erinyi") or ($companion3Subspecies is "moreaui")>>
+<<set $companion3Strength += random(3,5); $companion3Armor -= 2; $companion3MaxEnergy += random(2,4)>><<endif>><<endif>>
+
+/% Kaolan - wildfire %/
+<<if $companion3Patron is "Kaolan">>
+<<if ($companion3Pers is "wildling") or ($companion3Subspecies is "Kaolani")>>
+<<set $companion3Strength += random(3,5); $companion3Finesse += random(3,5); $companion3Armor -= 2>><<endif>><<endif>>
+
+/% Giovan - dazzler %/
+<<if $companion3Patron is "Giovan">>
+<<if ($companion3Pers is "cool") or ($companion3Subspecies is "null")>>
+<<set $companion3Finesse += random(3,5); $companion3MaxEnergy += random(4,8)>><<endif>><<endif>>
+
+<<endif>>
+
+<<endif>>
+

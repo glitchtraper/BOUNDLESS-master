@@ -1,0 +1,6 @@
+﻿<<display ZoneBackgrounds>><center>[img[$donsairImg]]
+Enter your donsair's new name. [[Cancel|DonsairView]]
+
+<framed><<print "<<textinput $dons" + $donsairID + ">>">></framed>
+
+<<button [[Finalize.|DonsairView]]>></center>

@@ -1,0 +1,22 @@
+﻿<<nobr>>
+/% Immobility %/
+
+<<if $immobilityDisabled is 0>>
+
+<<set $immobilityCeiling = $strength * 1000>>
+
+/% Girth Immobility %/
+
+<<if ($fatScore gte $immobilityCeiling) and ($immobilityDisabled is 0) and ($immobile is 0) and ($special_walkermech neq 1)>><<set $immobile = 1; $immobilityCause = "girth">>
+
+/% Pain Immobility %/
+
+<<elseif ($pain gte ($maxPain * 0.8)) and ($immobilityDisabled is 0) and ($immobile is 0)>><<set $immobile = 1; $immobilityCause = "pain">><<endif>>
+
+<<endif>>
+
+<<if ($fatScore lt $immobilityCeiling) and ($pain lt ($maxPain * 0.8))>><<set $immobile = 0; $immobileMode = 0; $immobilityCause = 0>><<endif>>
+
+<<if ($immobilityDisabled is 1) and ($immobilityCause is "girth")>><<set $immobile = 0; $immobileMode = 0; $immobilityCause = 0>><<endif>>
+
+<<endnobr>>

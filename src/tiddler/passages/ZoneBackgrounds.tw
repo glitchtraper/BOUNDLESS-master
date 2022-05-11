@@ -1,0 +1,171 @@
+﻿/% ========================================== %/
+/% ============  Biome Backgrounds %/
+
+/% Clear old tags %/
+<<removetag "hills">><<removetag "hillspm">><<removetag "fields">><<removetag "fieldspm">><<removetag "forest">><<removetag "forestpm">><<removetag "deadwood">><<removetag "deadwoodpm">><<removetag "freshwater">><<removetag "freshwaterpm">><<removetag "beach">><<removetag "beachpm">><<removetag "ocean">><<removetag "oceanpm">><<removetag "jungle">><<removetag "junglepm">><<removetag "harddesert">><<removetag "harddesertpm">><<removetag "sands">><<removetag "sandspm">><<removetag "coldmountain">><<removetag "coldmountainpm">><<removetag "mountain">><<removetag "mountainpm">><<removetag "cave">><<removetag "wetcave">><<removetag "icecave">><<removetag "firecave">><<removetag "magmacave">><<removetag "crystalcave">><<removetag "deepcave">><<removetag "magmacore">><<removetag "splash">><<removetag "crystalforest">><<removetag "ruins">><<removetag "snowforest">>
+
+<<if $indoorZone is 0>>
+
+<<removetag "abandonedmound">>
+
+<<if ($location is "Plains") or ($location is "Valley") or ($location is "Highlands")>>
+	<<if $daytime is 1>><<removetag "hillspm">><<addtag "hills">>
+	<<elseif $daytime is 0>><<removetag "hills">><<addtag "hillspm">><<endif>>
+	<<else>><<removetag "hills">><<removetag "hillspm">><<endif>>
+
+
+<<if ($zoneType is "agriculture") or ($location is "Meadow") or ($location is "Field") or ($location is "Garden")>>
+	<<if $daytime is 1>><<removetag "fieldspm">><<addtag "fields">>
+	<<elseif $daytime is 0>><<removetag "fields">><<addtag "fieldspm">><<endif>>
+	<<else>><<removetag "fields">><<removetag "fieldspm">><<endif>>
+
+
+<<if ($location is "Forest") or ($location is "Woods") or ($location is "Deep Forest") or ($location is "Deep Woods") or ($location is "Clearing")>>
+	<<if $daytime is 1>><<removetag "forestpm">><<addtag "forest">>
+	<<elseif $daytime is 0>><<removetag "forest">><<addtag "forestpm">><<endif>>
+	<<else>><<removetag "forest">><<removetag "forestpm">><<endif>>
+
+<<if $location is "Deadwood">>
+	<<if $daytime is 1>><<removetag "deadwoodpm">><<addtag "deadwood">>
+	<<elseif $daytime is 0>><<removetag "deadwood">><<addtag "deadwoodpm">><<endif>>
+	<<else>><<removetag "deadwood">><<removetag "deadwoodpm">><<endif>>
+
+<<if $zoneType is "freshwater">>
+	<<if $daytime is 1>><<removetag "freshwaterpm">><<addtag "freshwater">>
+	<<elseif $daytime is 0>><<removetag "freshwater">><<addtag "freshwaterpm">><<endif>>
+	<<else>><<removetag "freshwater">><<removetag "freshwaterpm">><<endif>>
+
+<<if $location is "Beach">>
+	<<if $daytime is 1>><<removetag "beachpm">><<addtag "beach">>
+	<<elseif $daytime is 0>><<removetag "beach">><<addtag "beachpm">><<endif>>
+	<<else>><<removetag "beach">><<removetag "beachpm">><<endif>>
+
+<<if $location is "Ocean">>
+	<<if $daytime is 1>><<removetag "oceanpm">><<addtag "ocean">>
+	<<elseif $daytime is 0>><<removetag "ocean">><<addtag "oceanpm">><<endif>>
+	<<else>><<removetag "ocean">><<removetag "oceanpm">><<endif>>
+
+
+<<if ($location is "Jungle") or ($location is "Rainforest")>>
+		<<if $daytime is 1>><<removetag "junglepm">><<addtag "jungle">>
+		<<elseif $daytime is 0>><<removetag "jungle">><<addtag "junglepm">><<endif>>
+		<<else>><<removetag "jungle">><<removetag "junglepm">>
+			<<endif>>
+
+
+<<if ($zoneType is "earth") and ($zoneFoliage is "moderate") and ($location neq "Mountain") and ($location neq "Plains") and ($location neq "Valley")>>
+		<<if $daytime is 1>><<removetag "harddesertpm">><<addtag "harddesert">>
+		<<elseif $daytime is 0>><<removetag "harddesert">><<addtag "harddesertpm">><<endif>>
+		<<else>><<removetag "harddesert">><<removetag "harddesertpm">>
+			<<endif>>
+
+
+<<if ($location is "Scrublands") or ($location is "Canyon") or ($location is "Rocky Desert")>>
+		<<if $daytime is 1>><<removetag "harddesertpm">><<addtag "harddesert">>
+		<<elseif $daytime is 0>><<removetag "harddesert">><<addtag "harddesertpm">><<endif>>
+		<<else>><<removetag "harddesert">><<removetag "harddesertpm">>
+			<<endif>>
+
+
+
+<<if $location is "Red Sands">>
+	<<if $daytime is 1>><<removetag "sandspm">><<addtag "sands">>
+	<<elseif $daytime is 0>><<removetag "sands">><<addtag "sandspm">><<endif>>
+	<<else>><<removetag "sands">><<removetag "sandspm">><<endif>>
+
+
+<<if $location is "Cliffs">>
+	<<if $daytime is 1>><<removetag "coldmountainpm">><<addtag "coldmountain">>
+		<<elseif $daytime is 0>><<removetag "coldmountain">><<addtag "coldmountainpm">><<endif>><<endif>>
+
+<<if ($location is "Mountain") or ($location is "Volcano") or ($location is "Peak")>>
+	<<if $hotWeather is 0>>
+		<<if $daytime is 1>><<removetag "coldmountainpm">><<addtag "coldmountain">>
+		<<elseif $daytime is 0>><<removetag "coldmountain">><<addtag "coldmountainpm">><<endif>>
+			<<elseif $hotWeather is 1>>
+				<<if $daytime is 1>><<removetag "mountainpm">><<addtag "mountain">>
+				<<elseif $daytime is 0>><<removetag "mountain">><<addtag "mountainpm">><<endif>>
+				<<endif>>
+					<<else>><<removetag "mountain">><<removetag "mountainpm">><<endif>>
+
+<<if ($location neq "Cliffs") and ($location neq "Mountain")>>
+	<<removetag "coldmountain">><<removetag "coldmountainpm">><<endif>>
+
+<<if ($location is "Crystalforest") or ($location is "Crystal Spires")>>
+	<<if $daytime is 1>><<removetag "crystalforestpm">><<addtag "crystalforest">>
+		<<elseif $daytime is 0>><<removetag "crystalforest">><<addtag "crystalforestpm">><<endif>>
+					<<else>><<removetag "crystalforest">><<removetag "crystalforestpm">><<endif>>
+
+<<if $location is "Icewood">>
+	<<if $daytime is 1>><<removetag "snowforestpm">><<addtag "snowforest">>
+		<<elseif $daytime is 0>><<removetag "snowforest">><<addtag "snowforestpm">><<endif>>
+					<<else>><<removetag "snowforestpm">><<removetag "snowforest">><<endif>>
+
+<<if ($location is "Crater") or ($location is "Wastelands") or ($location is "Slagheap") or ($location is "Ruins")>>
+	<<if $daytime is 1>><<removetag "ruinspm">><<addtag "ruins">>
+		<<elseif $daytime is 0>><<removetag "ruins">><<addtag "ruinspm">><<endif>>
+					<<else>><<removetag "ruins">><<removetag "ruinspm">><<endif>>
+
+
+
+
+/% ========================================================= %/
+/% Subterranean %/
+
+<<if ($location is "Cave") or ($location is "Tunnel") or ($location is "Mine")>>
+<<addtag "cave">><<endif>>
+
+<<if $location is "Underground Spring">><<addtag "wetcave">><<endif>>
+
+<<if ($location is "Frozen Cavern") or ($location is "Ice Cave")>><<addtag "icecave">><<endif>>
+
+/% Placeholder for frozen core %/
+<<if ($location is "Frigid Depths") or ($location is "Frozen Heart") or ($location is "Icy Void") or ($location is "Deep Frost")>><<addtag "icecave">><<endif>>
+
+<<if ($location is "Ash Cave") or ($location is "Obsidian Tunnel") or ($location is "Vents")>><<addtag "firecave">><<endif>>
+
+<<if ($location is "Magma Pit") or ($location is "Boiling Dark")>><<addtag "magmacave">><<endif>>
+
+<<if $location is "Crystal Caverns">><<addtag "crystalcave">><<endif>>
+
+/% Placeholder for forest cave %/
+<<if $location is "Underglade">><<addtag "crystalcave">><<endif>>
+
+<<if ($location is "Nest") or ($location is "Labyrinth") or ($location is "Pit")>>
+<<addtag "deepcave">><<endif>>
+
+/% Placeholder for flesh core %/
+<<if ($location is "The Slithering Dark") or ($location is "The Endless Echoes") or ($location is "Planet's Heart") or ($location is "Shattered Void") or ($location is "Writhing Void")>><<addtag "deepcave">><<endif>>
+
+<<if ($location is "Planet's Heart") or ($location is "Hellmouth Depths") or ($location is "Molten Void")>><<addtag "magmacore">><<endif>>
+
+
+<<endif>>
+
+/% ========================================================= %/
+/% ============  Dungeon Backgrounds %/
+
+<<if $indoorZone is 1>>
+
+	<<if ($dungeonType is "Abandoned Laboratory Mound") or ($dungeonType is "Abandoned Storage Mound")>><<addtag "abandonedmound">><<else>><<removetag "abandonedmound">><<endif>>
+	<<if $dungeonType is "Echoing Cavern">><<addtag "missingno">><<else>><<removetag "missingno">><<endif>>
+
+<<else>><<removetag "abandonedmound">><<endif>>
+
+
+
+/% ========================================================= %/
+/% Planar Backgrounds %/
+
+
+<<if $location is "Heitprussi Gardens">>
+<<addtag "splash">>
+
+<<else>><<removetag "splash">><<endif>>
+
+
+
+/% ========================================================= %/
+/% ============  Special Backgrounds %/
+
+<<if $blackout is 1>><<addtag "blackscreen">><<else>><<removetag "blackscreen">><<endif>>

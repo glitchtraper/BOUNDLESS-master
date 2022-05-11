@@ -1,0 +1,304 @@
+﻿<<nobr>>
+/% =================================================================== %/
+/% Basics %/
+
+<<if ($combatLocked is 0) and ($substatus neq "sporeslave")>>
+/% If not prevented from fighting %/
+
+
+<<button [[Strike!|passage()][$playerChoice = "strike"; $enemyDeath = 0]]>>
+
+<<button [[Defend!|passage()][$playerChoice = "defend"]]>>
+
+
+<<elseif $combatLocked is 2>>
+/% If held %/
+
+<<button [[Struggle!|passage()][$playerChoice = "struggle"; $playerDefenseless = 1]]>><<endif>>
+
+<<if ($combatLocked is 0) and ($substatus neq "sporeslave")>>
+
+/% =================================================================== %/
+/% Weapons %/
+
+/% Melee %/
+<<if $knife_crescent gt 0>>
+<<button [[Crescent Knife|passage()][$playerChoice = "eviscerate"; $enemyDeath = 0]]>><<endif>>
+
+/% =================================================================== %/
+
+/% Tranqs & Dartgun %/
+<<if $gun_dart gt 0>>
+/% Standard darts %/
+<<if $dart_tranq gt 0>><<button [[Tranquilizer Dart|passage()][$playerChoice = "tranquilize"; $dart_tranq -= 1; $enemyDeath = 0]]>><<endif>>
+
+/% Fattenium darts %/
+<<if $dart_fattenium gt 0>><<button [[Fattenium Dart|passage()][$playerChoice = "fatdart"; $dart_fattenium -= 1; $enemyDeath = "shrieks in horror as it swells up to enormous size, its fat-stuffed body creaking before it finally explodes!"]]>><<endif>>
+
+/% Distensium darts %/
+<<if $dart_distensium gt 0>><<button [[Dispensium Dart|passage()][$playerChoice = "bloatdart"; $dart_distensium -= 1; $enemyDeath = "groans in agony and collapses, its grotesquely-distended belly on the verge of bursting!"]]>><<endif>>
+
+<<endif>>
+
+
+/% Fat Ray %/
+<<if $gun_fatray gt 0>>
+
+/% Runs on battery crystals %/
+<<if $special_battery gt 0>><<button [[Fat Ray|passage()][$playerChoice = "fatray"; $special_battery -= either(0,0,1); $enemyDeath = "shrieks in horror as it swells up to enormous size, its fat-stuffed body creaking before it finally explodes!"]]>><<endif>><<endif>>
+
+
+/% =================================================================== %/
+/% Shields %/
+
+<<if $shard_shield gt 0>>
+<<button [[Shield Shard|passage()][$playerChoice = "bulwark"; $shard_shield -= 1]]>><<endif>>
+
+
+
+/% =================================================================== %/
+/% Special %/
+
+<<if $material_powder_bright gt 0>>
+<<button [[Bright Powder|passage()][$playerChoice = "flash"; $material_powder_bright -= 1]]>><<endif>>
+
+/% =================================================================== %/
+/% Innate Abilities %/
+
+
+/% =================================================================== %/
+/% Pummel (High Finesse) %/
+
+<<if ($finesse gte 20)>><<button [[Pummel|passage()][$playerChoice = "pummel"; $enemyDeath = "is utterly annihilated by your ferocious fists!"]]>><<endif>>
+
+/% =================================================================== %/
+/% Bite %/
+
+<<if ($withTeeth is 1) or ($voreFrenzy gt 0)>><<button [[Lunge|passage()][$playerChoice = "lunge"; $enemyDeath = "is torn to ribbons by your gnashing teeth!"]]>><<endif>>
+
+/% =================================================================== %/
+/% Swallow %/
+
+<<if $voreFrenzy gt 30>><<button [[Swallow|passage()][$playerChoice = "swallow"; $enemyDeath = "struggles desperately before vanishing down your throat!"]]>><<endif>>
+
+
+/% =================================================================== %/
+/% Slimes %/
+
+<<if ($species is "slime") or ($substatus is "slime")>>
+
+<<button [[Bloat|passage()][$playerChoice = "bloat"; $enemyDeath = "wheezes and thrashes, bloated up into a helpless, jiggly ball!"]]>>
+
+<<endif>>
+
+
+/% =================================================================== %/
+/% Leupai %/
+
+<<if ($species is "leupai") or ($species is "erinyi")>>
+
+
+<<button [[Tonguesiphon|passage()][$playerChoice = "tonguesiphon"; $enemyDeath = "breathes a last, tortured gasp, its vital essence drained away!"]]>>
+
+
+<<button [[Tonguebloat|passage()][$playerChoice = "tonguebloat"; $enemyDeath = "foams at the mouth and rolls its eyes back as it blows up like a balloon, looking ready to pop!"]]>>
+
+
+<<if $girth gte 5000>>
+<<button [[Tonguefatten|passage()][$playerChoice = "tonguefatten"; $enemyDeath = "gasps for breath as it squirms and struggles against its fat-bloated body!"]]>><<endif>>
+
+
+<<if $storedVenom gte 20>>
+<<button [[Tonguevenom|passage()][$playerChoice = "tonguevenom"; $enemyDeath = "foams at the mouth and rolls its eyes back as it blows up like a balloon, looking ready to pop!"]]>><<endif>>
+
+
+<<if $hunger is "Overengorged">>
+<<button [[Implant|passage()][$playerChoice = "implant"; $enemyDeath = "trembles and howls as its belly is stretched full to bursting with eggs!"]]>><<endif>><<endif>>
+
+
+<<endif>>
+
+/% =================================================================== %/
+/% Sporeslave %/
+
+<<if $substatus is "sporeslave">>
+
+/% Only 'combat' abilities for sporeslaves %/
+
+<<if $creatureGirth gt ($fatScore / 2)>>
+
+<<button [[Irresistable Urge...?!|passage()][$playerChoice = "sacrificial feed"; $enemyDeath = either("groans in agony and collapses, its grotesquely-distended belly on the verge of bursting!","squirms and gasps desperately for breath before finally falling still!"); $lethalKO = 1; $deathCause = "eaten"]]>>
+
+<<else>>
+
+<<button [[Strike!|passage()][$playerChoice = "strike"; $enemyDeath = 0]]>><<endif>>
+
+<<endif>>
+
+
+/% =================================================================== %/
+
+
+/% Spacer linebreak %/
+<<endnobr>><<if $activeCompanions gt 0>>
+<narrowframe><<if $companionLocked is 0>><<nobr>>
+
+/% ======================================= %/
+/% Companion Abilities %/
+
+<<endnobr>><<if $companion1 neq 0>>\
+<mini>''<<print $companion1>> the <<print $companion1Spec>>'':</mini>
+<<set $callCompanion = 1>><<display CompanionCombat>><<endif>><<nobr>>
+
+<<endnobr>><<if $companion2 neq 0>>
+<mini>''<<print $companion2>> the <<print $companion2Spec>>'':</mini>
+<<set $callCompanion = 2>><<display CompanionCombat>><<endif>><<nobr>>
+
+<<endnobr>><<if $companion3 neq 0>>
+<mini>''<<print $companion3>> the <<print $companion3Spec>>'':</mini>
+<<set $callCompanion = 3>><<display CompanionCombat>><<endif>>\
+<<elseif $companionLocked is 1>>
+<unframe>Companion Abilities disabled!</unframe><<endif>></narrowframe><<endif>><<nobr>>
+
+<<if ($itemLocked is 0) and ($substatus neq "sporeslave")>>
+
+/% ======================================= %/
+/% Healing items %/
+
+
+/% Basic Ointment %/
+<<if $med_ointment gt 0>><<button [[Basic Ointment|passage()][$med_ointment -= 1; $playerChoice = "item"; $pain -= $maxPain * 0.1; $itemGrammar = "a"; $combatItem = "basic ointment"]]>><<endif>>
+
+/% Soothers %/
+<<if $pill_soother gt 0>><<button [[Soothers|passage()][$pill_soother -= 1; $playerChoice = "item"; $pain -= $maxPain * 0.2; $amalgaToxicity += random(2,6); $itemGrammar = "a"; $combatItem = "bottle of Soothers"]]>><<endif>>
+
+/% Vital Shard %/
+<<if $shard_vital gt 0>><<button [[Vital Shard|passage()][$shard_vital -= 1; $playerChoice = "item"; $pain -= $maxPain * 0.5; $itemGrammar = "a"; $combatItem = "vital shard"]]>><<endif>>
+
+
+/% ======================================= %/
+/% Combat items %/
+
+
+/% ======================================= %/
+/% Throwables %/
+
+<<if $collectionjar_venom_toxic gt 0>><<button [[Throw Jar of Toxic Venom|passage()][$collectionjar_venom_toxic -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of toxic venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_lethal gt 0>><<button [[Throw Jar of Lethal Venom|passage()][$collectionjar_venom_lethal -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of lethal venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_gain gt 0>><<button [[Throw Jar of Fattening Venom|passage()][$collectionjar_venom_gain -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of fattening venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_supergain gt 0>><<button [[Throw Jar of Super-Fattening Venom|passage()][$collectionjar_venom_gain -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of super-fattening venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_bellygain gt 0>><<button [[Throw Jar of Belly-Fattening Venom|passage()][$collectionjar_venom_bellygain -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of belly-fattening venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_bellysupergain gt 0>><<button [[Throw Jar of Belly Super-Fattening Venom|passage()][$collectionjar_venom_bellysupergain -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of belly super-fattening venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_breastgain gt 0>><<button [[Throw Jar of Breast-Fattening Venom|passage()][$collectionjar_venom_breastgain -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of breast-fattening venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_breastsupergain gt 0>><<button [[Throw Jar of Breast Super-Fattening Venom|passage()][$collectionjar_venom_breastsupergain -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of breast super-fattening venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_thighgain gt 0>><<button [[Throw Jar of Thigh-Fattening Venom|passage()][$collectionjar_venom_thighgain -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of thigh-fattening venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_thighsupergain gt 0>><<button [[Throw Jar of Thigh Super-Fattening Venom|passage()][$collectionjar_venom_thighsupergain -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of thigh super-fattening venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_fattenium gt 0>><<button [[Throw Jar of Fattenium Venom|passage()][$collectionjar_venom_fattenium -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of fattenium venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_bulk gt 0>><<button [[Throw Jar of Bulking Venom|passage()][$collectionjar_venom_bulk -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of bulking venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_flab gt 0>><<button [[Throw Jar of Flabbifying Venom|passage()][$collectionjar_venom_flab -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of flabbifying venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_bloat gt 0>><<button [[Throw Jar of Bloating Venom|passage()][$collectionjar_venom_bloat -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of bloating venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_breastbloat gt 0>><<button [[Throw Jar of Breast-Bloating Venom|passage()][$collectionjar_venom_breastbloat -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of breast-bloating venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_burst gt 0>><<button [[Throw Jar of Bursting Venom|passage()][$collectionjar_venom_burst -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of bursting venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_musclebloat gt 0>><<button [[Throw Jar of Muscle-Bloating Venom|passage()][$collectionjar_venom_musclebloat -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of muscle-bloating venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_heal gt 0>><<button [[Throw Jar of Healing Venom|passage()][$collectionjar_venom_heal -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of healing venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_weakening gt 0>><<button [[Throw Jar of Weakening Venom|passage()][$collectionjar_venom_weakening -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of weakening venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_glutton gt 0>><<button [[Throw Jar of Voracity Venom|passage()][$collectionjar_venom_glutton -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of voracity venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_caloric gt 0>><<button [[Throw Jar of Caloric Venom|passage()][$collectionjar_venom_caloric -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of caloric venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_hallucenogen gt 0>><<button [[Throw Jar of Hallucenogenic Venom|passage()][$collectionjar_venom_hallucenogen -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of hallucenogenic venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_mutagen gt 0>><<button [[Throw Jar of Mutagenic Venom|passage()][$collectionjar_venom_mutagen -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of mutagenic venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_venom_leucanthropy gt 0>><<button [[Throw Jar of Leucanthropic Venom|passage()][$collectionjar_venom_leucanthropy -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of leucanthropy venom"; $throwType = "jar"; $throwContents = "poison"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_somnus_weak gt 0>><<button [[Throw Jar of Somnus|passage()][$collectionjar_somnus_weak -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of somnus"; $throwType = "jar"; $throwContents = "goo"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_somnus gt 0>><<button [[Throw Jar of Strong Somnus|passage()][$collectionjar_somnus -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of strong somnus"; $throwType = "jar"; $throwContents = "goo"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_miratoxin gt 0>><<button [[Throw Jar of Miratoxin|passage()][$collectionjar_miratoxin -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of miratoxin"; $throwType = "jar"; $throwContents = "goo"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_miratoxin_wild gt 0>><<button [[Throw Jar of Wild Miratoxin|passage()][$collectionjar_miratoxin_wild -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of wild miratoxin"; $throwType = "jar"; $throwContents = "goo"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_fattenium_weak gt 0>><<button [[Throw Jar of Dilute Fattenium|passage()][$collectionjar_fattenium_weak -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of dilute fattenium"; $throwType = "jar"; $throwContents = "oil"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = "gasps for breath as it squirms and struggles against its fat-bloated body!"]]>><<endif>>
+
+<<if $collectionjar_fattenium gt 0>><<button [[Throw Jar of Fattenium|passage()][$collectionjar_fattenium -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of fattenium"; $throwType = "jar"; $throwContents = "oil"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = "gasps for breath as it squirms and struggles against its fat-bloated body!"]]>><<endif>>
+
+<<if $collectionjar_miraplasm_weak gt 0>><<button [[Throw Jar of Dilute Miraplasm|passage()][$collectionjar_miraplasm_weak -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of dilute miraplasm"; $throwType = "jar"; $throwContents = "goo"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_water_vital gt 0>><<button [[Throw Jar of Vital Water|passage()][$collectionjar_water_vital -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of vital water"; $throwType = "jar"; $throwContents = "water"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_water_dirty gt 0>><<button [[Throw Jar of Dirty Water|passage()][$collectionjar_water_dirty -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of dirty water"; $throwType = "jar"; $throwContents = "water"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_blood gt 0>><<button [[Throw Jar of Blood|passage()][$collectionjar_blood -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of blood"; $throwType = "jar"; $throwContents = "blood"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_leupaiblood gt 0>><<button [[Throw Jar of Leupai Blood|passage()][$collectionjar_leupaiblood -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of leupai blood"; $throwType = "jar"; $throwContents = "blood"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = 0]]>><<endif>>
+
+<<if $collectionjar_vitae gt 0>><<button [[Throw Jar of Vitae|passage()][$collectionjar_vitae -= 1; $playerChoice = "throw"; $itemGrammar = "a"; $combatItem = "jar of vitae"; $throwType = "jar"; $throwContents = "vitae"; $throwDamage = (($strength - $combatWeaken) / 3); $enemyDeath = "screams in agony as it melts away into a puddle of glowing teal ichor!"]]>><<endif>>
+
+
+/% ======================================= %/
+/% Special items %/
+
+/% Stasis Shard (Instant Subdual) %/
+<<if ($shard_stasis gt 0) and ($noCapture is 0) and ($trapCapture is 0)>>
+<<if $stasisImmune is 0>><<button [[Stasis Shard (Instant Subdue)|passage()][$playerChoice = "stasis shard"; $shard_stasis -= 1; $combatResult = "capture"; $combat = 0; $enemyDeath = 0]]>><<endif>><<endif>>
+
+/% Egress Shard (guaranteed escape) %/
+<<if $shard_egress gt 0>>
+<<button [[Egress Shard|Explore][$escapedBattle = 1; $canEscape = 0; $shard_egress -= either(0,0,1)]]>><<endif>>
+
+/% ======================================= %/
+<<endif>>
+
+/% =================================================================== %/
+
+/% Submission & Flight %/
+
+/% Always available %/
+
+<<if $substatus neq "sporeslave">>
+
+<<button [[Pass|passage()][$playerChoice = "pass"; $playerDefenseless = 1]]>>
+
+<<elseif ($substatus is "sporeslave") and ($creatureGirth lte ($fatScore / 2))>>
+
+<<button [[Pass|passage()][$playerChoice = "pass"; $playerDefenseless = 1]]>><<endif>>
+
+
+<<if ($immobile is 0) and ($fleeDisabled is 0) and ($substatus neq "sporeslave")>>
+/% If you can move and something hasn't actively prevented you from trying to flee %/
+
+<<if $canEscape is 1>>
+/% Successful flee attempt (pre-rolled) %/
+<<button [[Flee!|Explore][$escapedBattle = 1; $canEscape = 0]]>>
+
+<<else>>
+/% Failed flee attempt (pre-rolled) %/
+<<button [[Flee!|passage()][$playerChoice = "flee"]]>><<endif>><<endif>>
+
+<<if $canSubmit is 1>>
+/% If monster explicitly has a submit option %/
+
+<<button [[Submit!|CreatureEffects][$enemyPain = 0; $escapedBattle = 0; $saveState = $saveStateBattle; $enemyDeath = 0]]>><<endif>>
+
+<<endnobr>>

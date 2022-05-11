@@ -1,0 +1,1316 @@
+﻿/% ======================================================================== %/
+/% POPULATION POSSIBILITIES %/
+
+/% Based on the class ($planetClass), atmosphere ($planetAtmosphere) and population ($popDensity) of a planet, different creatures can (or cannot) be found.
+
+Population density affects how often creatures are found, and whether they are sapient or wild. This will also overflow into things like finding buildings, towns, etc.
+
+This passage takes the rarities called via creaturePool and translates them into a final encounter, based on planet class, population, and atmosphere. %/
+
+<<set $sapientEncounter = 0; $encounterLock = 0>>
+
+/% EncounterLock prevents sapient encounter overrides, for special/rare encounters (ie culinets) %/
+
+/% ======================================================================== %/
+/% World zone: Dungeons %/
+
+	<<if $indoorZone neq 0>>
+
+/% ======================================================================== %/
+/% I'm not sure these need adjustment based on planetPop or atmosphere. There's room for exceptions, of course. %/
+
+		<<if $dungeonLocation is "Abandoned Laboratory Mound">>
+					<<if $encounter is "common">>
+						<<set $encounter = either("pest critter","raposui")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = "fyynling">>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("fyynling","fyynmorph")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "fyynmorph">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = "leupai">>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "fyynling-possessed horror">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("pest critter","raposui")>><<endif>>
+
+
+/% ======================================================================== %/
+
+		<<elseif $dungeonLocation is "Abandoned Storage Mound">>
+					<<if $encounter is "common">>
+						<<set $encounter = either("pest critter","raposui")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("small slime","small pudding","slime","pudding")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("bloated anthroslime","groaning blubberslime","fyynling","fyynmorph","screemer")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("leupai")>>
+
+					<<elseif $encounter is "rare">>
+						<<set $encounter = either("enormous slime","enormous pudding")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("pest critter","raposui")>><<endif>>
+
+
+/% ======================================================================== %/
+/% End dungeon pools %/
+
+		<<endif>>
+
+/% ======================================================================== %/
+/% World zone: Overworld biomes %/
+
+	<<elseif $indoorZone is 0>>
+
+/% ======================================================================== %/
+/% Mobs by Planar Region. %/
+
+/% HEITEPRESSE %/
+/% =================================== %/
+
+<<if $planeRegion is "The Secret Gardens">>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("woodland bird","woodland critter","fish","waterfowl")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = either("raposui","voxi")>>
+
+					<<elseif $encounter is "common3">>
+						<<set $encounter = either("tendrilvine","belmere leupai")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("ouinsel leupai","ein leupai")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("helene","bird of prey","woodland beast")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("heitene leupai","celesse leupai","kitsch leupai")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("great woodland beast","wild chevret")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("fyynmorph","laworn leupai")>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("devinn leupai","intere leupai","rexaur leupai")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = "leupai">>
+
+					<<endif>>
+
+
+/% =================================== %/
+
+<<elseif $planeRegion is "placeholder">>
+
+
+/% ======================================================================== %/
+/% End plane-specific mobs %/
+
+
+/% ======================================================================== %/
+/% Mobs by Planetary Biome. %/
+
+/% Breakdown; Biome Type => Planet Class
+For now, we can leave out the atmosphere type. We'll insert those later as needed. %/
+
+
+/% SUBTERRANEAN %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "subterranean">>
+
+		<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common">>
+						<<set $encounter = either("fish","pest critter","neon crawler","raposui")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("small slime","slime","small pudding","pudding","screemer")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("bloated anthroslime","groaning blubberslime","groaning blubberslime","anthroslime adventurer")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("fyynling","drudgemol")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("enormous slime","enormous pudding","primordial leo")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("leupai","helene")>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = "fyynling-possessed horror">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = "neon crawler">>
+
+					<<endif>>
+
+		<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+
+					<<if $encounter is "common">>
+						<<set $encounter = either("pest critter","neon crawler","raposui")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("small slime","slime","small pudding","pudding")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("bloated anthroslime","bloated anthroslime","groaning blubberslime","groaning blubberslime","anthroslime adventurer")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "fyynling">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("enormous slime","enormous pudding")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("leupai","helene")>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = "fyynling-possessed horror">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = "neon crawler">>
+
+					<<endif>>
+
+
+/% ========================= %/
+		<<endif>>
+		/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% WOODLAND %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "woodland">>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("woodland bird","pest critter","woodland critter","fish","waterfowl","raposui")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter =  either("voxi","mirelock","small slime","small pudding","borb")>>
+
+					<<elseif $encounter is "common3">>
+						<<set $encounter = either("slime","pudding","bloated anthroslime","groaning blubberslime")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("serpent","anthroslime adventurer")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("bird of prey","woodland beast","tendrilvine","neon crawler")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("great woodland beast","razormouth ripper","screemer")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = "primordial leo">>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("helene","leupai")>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("unicorn","terrogator")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("voxi","woodland bird")>>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+				<<if $encounter is "common1">>
+						<<set $encounter = either("pest critter","raposui")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter =  either("small slime","small pudding","borb")>>
+
+					<<elseif $encounter is "common3">>
+						<<set $encounter = either("slime","bloated anthroslime","pudding","groaning blubberslime")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = "anthroslime adventurer">>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("tendrilvine","neon crawler")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("razormouth ripper","screemer")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = "primordial leo">>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("helene","leupai")>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = "terrogator">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("pest critter","raposui")>>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% BOREAL %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "boreal">>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("fish","woodland bird","woodland critter","borb")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter =  "arctic voxi">>
+
+					<<elseif $encounter is "common3">>
+						<<set $encounter = either("Kaolani eagle","wooly razormouth")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = "rockcharger">>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("woodland beast","breaching tusker")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("deer","stag")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("great woodland beast","peak leo","howling wind")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "helene">>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = "leupai">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("arctic voxi","woodland bird")>>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("pest critter","raposui")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = either("raposui","borb")>>
+
+					<<elseif $encounter is "common3">>
+						<<set $encounter = "wooly razormouth">>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = "raposui">>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("woodland beast","breaching tusker")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "howling wind">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = "peak leo">>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "helene">>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = "leupai">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("pest critter","raposui")>>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% SCRUB %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "scrub">>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("scrub critter","raposui")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = "beach basker">>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("bird of prey","dust coyote")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("wasteland hyena","razormouth ripper")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "tawny leo">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("wild chevret","rockcharger","teratops")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "tawny leo">>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("cragonn","streamserpent","fregisaur")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("scrub critter","raposui")>>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("scrub critter","raposui")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = "raposui">>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = "dust coyote">>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("wasteland hyena","razormouth ripper")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "tawny leo">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("rockcharger","teratops")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "tawny leo">>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("cragonn","streamserpent")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("scrub critter","raposui")>>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% MOUNTAIN %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "mountain">>
+
+			<<if $hotWeather is 1>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = "rockcharger">>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = "borb">>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("wooly razormouth","bird of prey")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = "dust coyote">>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "wolf">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("wild chevret","razormouth ripper")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "peak leo">>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("cragonn","flametongue","streamserpent","celestial leo")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = "bird of prey">>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if mountain is warm-weather. %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = "bird of prey">>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = "borb">>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = "razormouth ripper">>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = "dust coyote">>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "wolf">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = "razormouth ripper">>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "peak leo">>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("cragonn","flametongue","streamserpent")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = "dust coyote">>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% FRESHWATER %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "freshwater">>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("fish","mirelock","raposui")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("small slime","small pudding","voxi","woodland critter","pest critter","woodland bird","borb")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("slime","pudding","waterfowl","bloated anthroslime","groaning blubberslime")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("tendrilvine","serpent","anthroslime adventurer","eubaryon")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("crocogator","enormous slime","enormous pudding","bird of prey","woodland beast")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("great woodland beast","leupai","helene")>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("terrogator","breaching tusker","pseudo-amplipai")>>
+
+					<<elseif $encounter is "rare4">>
+						<<set $encounter = "unicorn">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = "mirelock">>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = "raposui">>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("small slime","small pudding","pest critter","borb")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("slime","pudding","bloated anthroslime")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("tendrilvine","anthroslime adventurer","groaning blubberslime")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("enormous slime","enormous pudding")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("leupai","helene")>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("terrogator","pseudo-amplipai")>>
+
+					<<elseif $encounter is "rare4">>
+						<<set $encounter = "woodland bird">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = "raposui">>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% WETLAND %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "wetland">>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("woodland bird","pest critter","raposui","amplibaene")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = either("small slime","small pudding","fish","mirelock","borb")>>
+
+					<<elseif $encounter is "common3">>
+						<<set $encounter = either("slime","pudding","bloated anthroslime","razormouth ripper","tendrilvine")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("voxi","bird of prey","waterfowl","eubaryon","neon crawler")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("crocogator","anthroslime adventurer","groaning blubberslime","amplibaene queen")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("serpent","woodland beast")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("leupai","enormous slime","enormous pudding","great woodland beast","pseudo-amplipai")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "terrogator">>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = "unicorn">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = "mirelock">>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("pest critter","raposui")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = either("small slime","small pudding","amplibaene","borb")>>
+
+					<<elseif $encounter is "common3">>
+						<<set $encounter = either("slime","pudding","bloated anthroslime","razormouth ripper","tendrilvine")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = "neon crawler">>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("anthroslime adventurer","groaning blubberslime","amplibaene queen")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "pest critter">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("leupai","enormous slime","enormous pudding","pseudo-amplipai")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "bird of prey">>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = "terrogator">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = "woodland bird">>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% TROPICAL %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "tropical">>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("scrub critter","heartprint spekko")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = either("beach basker","dust snake","borb")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("tendrilvine","razormouth ripper")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("bird of prey","serpent","eubaryon","amplibaene")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("dappled leo","crocogator","teratops")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("seraphim slug","tawny leo","amplibaene queen")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "leupai">>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("flametongue","streamserpent","pseudo-amplipai")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("heartprint spekko","beach basker","razormouth ripper")>>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = "scrub critter">>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = either("scrub critter","borb")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("tendrilvine","razormouth ripper")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = "bird of prey">>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "neon crawler">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = "seraphim slug">>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "leupai">>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("flametongue","streamserpent","pseudo-amplipai")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = "neon crawler">>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% OCEANIC %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "oceanic">>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("fish","bubblefish")>>
+
+					<<elseif $encounter is "uncommon">>
+						<<set $encounter = either("beach basker","razor eel","seraphim slug","breaching tusker")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("crocogator","eubaryon")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("reefwyrm","tidetan","tidetan")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("fish","seraphim slug","bubblefish")>>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("fish","bubblefish")>>
+
+					<<elseif $encounter is "uncommon">>
+						<<set $encounter = either("razor eel","seraphim slug")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = "crocogator">>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("reefwyrm","tidetan","tidetan")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("fish","seraphim slug","bubblefish")>>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% AGRICULTURE %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "agriculture">>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("fish","farm beast","woodland critter","raposui","borb")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("voxi","neon crawler","small pudding","amplibaene")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("pest critter","woodland bird","dust snake","waterfowl","pudding")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("bird of prey","woodland beast","tendrilvine","amplibaene queen")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("great woodland beast","groaning blubberslime","wild-eyed culinet")>>
+								<<if $encounter is "wild-eyed culinet">><<set $sapientEncounter = 1; $encounterLock = 1>><<endif>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "wild-eyed culinet"; $sapientEncounter = 1; $encounterLock = 1>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("helene","leupai","enormous pudding","tawny leo","pseudo-amplipai","wild-eyed culinet")>>
+								<<if $encounter is "wild-eyed culinet">><<set $sapientEncounter = 1; $encounterLock = 1>><<endif>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("voxi","raposui","farm beast")>>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("pest critter","raposui","borb")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("pest critter","dust snake","neon crawler","small pudding","amplibaene")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = "woodland bird">>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("bird of prey","tendrilvine","pudding")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("dust coyote","groaning blubberslime","amplibaene queen","wild-eyed culinet")>>
+								<<if $encounter is "wild-eyed culinet">><<set $sapientEncounter = 1; $encounterLock = 1>><<endif>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "wild-eyed culinet"; $sapientEncounter = 1; $encounterLock = 1>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("helene","leupai","enormous pudding","tawny leo","pseudo-amplipai","wild-eyed culinet")>>
+								<<if $encounter is "wild-eyed culinet">><<set $sapientEncounter = 1; $encounterLock = 1>><<endif>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("voxi","raposui","farm beast")>>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% FEY %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "fey">>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("woodland bird","pest critter","woodland critter","raposui","borb")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = either("fish","waterfowl","voxi")>>
+
+					<<elseif $encounter is "common3">>
+						<<set $encounter = either("pudding","slime","small pudding","small slime","tendrilvine")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("bloated anthroslime","groaning blubberslime")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("bird of prey","woodland beast","anthroslime adventurer")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("serpent","amplibaene")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("great woodland beast","wild chevret","enormous pudding","amplibaene queen")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("leupai","helene","fyynmorph","pseudo-amplipai")>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = "unicorn">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("voxi","fyynling","raposui")>>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("woodland bird","pest critter","woodland critter","raposui","borb")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter = either("fish","waterfowl","voxi")>>
+
+					<<elseif $encounter is "common3">>
+						<<set $encounter = either("pudding","slime","small pudding","small slime","tendrilvine","amplibaene")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("bloated anthroslime","groaning blubberslime")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("bird of prey","woodland beast","anthroslime adventurer")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("serpent","fyynling")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("great woodland beast","wild chevret","enormous pudding","amplibaene queen")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("leupai","helene","fyynmorph","pseudo-amplipai")>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = "unicorn">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("voxi","bird of prey")>>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% ELDRITCH %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "eldritch">>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("pest critter","neon crawler","small pudding","fyynling","raposui")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("pudding","fyynmorph","drudgemol","amplibaene")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("coaxing tendril","bloated anthroslime","screemer","groaning blubberslime")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("feeder tendril","hose tendril","anthroslime adventurer","amplibaene queen")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("leupai","enormous pudding","pseudo-amplipai")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "fyynling-possessed horror">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("neon crawler","fyynling","raposui")>>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("pest critter","neon crawler","small pudding","fyynling","raposui")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("pudding","fyynmorph","amplibaene")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("coaxing tendril","bloated anthroslime","amplibaene queen")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = either("feeder tendril","hose tendril","anthroslime adventurer")>>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("leupai","enormous pudding","pseudo-amplipai")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("neon crawler","fyynling","raposui")>>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% INFERNAL %/
+/% =================================== %/
+
+<<elseif $zoneMobs is "infernal">>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = "pest critter">>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = "imp">>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = "firefox">>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "hellpup">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = "leupai">>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("flametongue","glass dragon")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = "imp">>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("pest critter","raposui")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = "imp">>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = "firefox">>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "hellpup">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = "leupai">>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = "flametongue">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("imp","pest critter","raposui")>>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ========================= %/
+
+/% UNDEFINED/PLACEHOLDER %/
+/% =================================== %/
+
+<<else>>
+
+			<<if ($planetClass is "Temperate Living") or ($planetClass is "Hot Living")>>
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("woodland bird","pest critter","woodland critter","fish","waterfowl")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter =  either("voxi","mirelock","small slime","small pudding","borb")>>
+
+					<<elseif $encounter is "common3">>
+						<<set $encounter = either("slime","bloated anthroslime","pudding")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("serpent","anthroslime adventurer","groaning blubberslime")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = either("bird of prey","woodland beast","tendrilvine")>>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "great woodland beast">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = either("primordial leo","enormous pudding")>>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("helene","leupai")>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = either("unicorn","terrogator")>>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("pest critter","raposui")>>
+
+					<<endif>>
+
+			<<else>>
+/% ========================= %/
+/% ... else if planet is NOT temporate or hot living. Later on specify these where necessary; "Desolate Living", "Hostile Hot","Hostile Cold","Mutant Living","Dead". %/
+
+					<<if $encounter is "common1">>
+						<<set $encounter = either("pest critter","raposui")>>
+
+					<<elseif $encounter is "common2">>
+						<<set $encounter =  either("small slime","small pudding")>>
+
+					<<elseif $encounter is "common3">>
+						<<set $encounter = either("slime","bloated anthroslime","pudding")>>
+
+					<<elseif $encounter is "uncommon1">>
+						<<set $encounter = either("anthroslime adventurer","groaning blubberslime")>>
+
+					<<elseif $encounter is "uncommon2">>
+						<<set $encounter = "tendrilvine">>
+
+					<<elseif $encounter is "uncommon3">>
+						<<set $encounter = "great woodland beast">>
+
+					<<elseif $encounter is "rare1">>
+						<<set $encounter = "enormous pudding">>
+
+					<<elseif $encounter is "rare2">>
+						<<set $encounter = either("helene","leupai")>>
+
+					<<elseif $encounter is "rare3">>
+						<<set $encounter = "terrogator">>
+
+					<<else>> /% Catchall %/
+						<<set $encounter = either("pest critter","raposui")>>
+
+					<<endif>>
+
+
+/% ========================= %/
+			<<endif>>
+	/% End planet-type specifications. %/
+
+/% ======================================================================== %/
+
+				<<endif>>
+
+/% End biome/dungeon specifications %/
+
+/% ======================================================================== %/
+
+<<endif>>
+
+/% End indor/outdoor specifications %/
+/% ======================================================================== %/
+
+/% ======================================================================== %/
+/% Dead planets %/
+/% For now, you find nothing. Later, maybe you'll find tiny, rare organisms. %/
+
+<<if $planetClass is "Dead">>
+
+	/% There's nothing on this planet. Later, we may make it so creatures may make an appearance very rarely. %/
+	<<set $encounter = 0; $overrideEncounter = 2>>
+
+<<endif>>
+
+/% ======================================================================== %/
+/% SPECIAL ADJUSTMENTS pt. I %/
+
+/% ======================================================================== %/
+/% Bigger belly = more leupai. %/
+
+	<<if $noHostileLeupai is 0>>
+		<<if ($belly gte 300) and ($belly lt 500)>><<set $randomizer = random(1,64)>>
+			<<if $randomizer is 16>><<set $encounter = "leupai">><<endif>>
+			<<elseif ($belly gte 500) and ($belly lt 700)>><<set $randomizer = random(1,48)>>
+				<<if $randomizer is 12>><<set $encounter = "leupai">><<endif>>
+				<<elseif $belly gte 700>><<set $randomizer = random(1,32)>>
+					<<if $randomizer is 8>><<set $encounter = "leupai">><<endif>><<endif>>
+	<<endif>>
+
+/% ======================================================================== %/
+/% Sapient marker. %/
+/% Denizens are a random humanoid or sapient native to the current planet, chosen from its available pool of such creatures (generated along with the planet).
+
+Their occupation and/or status may be tied to their species, the biome/planet in which they appear, etc. %/
+
+<<if $encounter is "denizen">>
+	<<set $sapientEncounter = 1>><<endif>>
+
+/% ======================================================================== %/
+/% Immobility special encounters %/
+
+<<if ($immobileMode is 1) and ($encounter neq "enormous null leupai")>>
+
+	<<set $randomizer = random(1,8)>>
+		<<if $randomizer is 1>>
+			<<if $event_planetaryNullCrumb is 0>><<set $encounter = "friendly-looking passerby"; $sapientEncounter = 1>>
+			<<else>><<set $encounter = "enormous null leupai">><<endif>>
+		<<endif>>
+<<endif>>
+
+/% ======================================================================== %/
+/% POPULATIONS %/
+
+/% "Population density" in this case primarily refers to sapient creatures. Hipop planets have more sapients than beasts/monsters (in applicable areas), while midpop planets are the default with a more "even" mix.
+
+Lowpop planets have sapients only rarely, and fewer monster encounters in general-- wild beasts and monsters tend to shy away normally. %/
+
+<<set $popRandomizer = random(1,100)>>
+
+<<if $popDensity is "hi">>
+	/% 90% chance of successful encounter (15% chance of replacement with biome/planet-relevant sapient if non-dungeon area, see above) %/
+	<<if $popRandomizer gte 90>>
+		/% Failed encounter. %/
+		<<set $encounter = 0; $overrideEncounter = 2>>
+			<<else>><<set $randomizer = random(1,100)>><<endif>>
+		<<if ($randomizer lte 15) and ($encounterLock is 0)>><<if $dungeonLocation is 0>><<set $encounter = "denizen">><<endif>><<endif>>
+
+<<elseif $popDensity is "mid">>
+	/% 70% chance of successful encounter; 5% chance of replacement with biome/planet-relevant sapient if non-dungeon area %/
+	<<if $popRandomizer gte 70>>
+		/% Failed encounter. %/
+		<<set $encounter = 0; $overrideEncounter = 2>>
+			<<else>><<set $randomizer = random(1,100)>><<endif>>
+		<<if ($randomizer lte 5) and ($encounterLock is 0)>><<if $dungeonLocation is 0>><<set $encounter = "denizen">><<endif>><<endif>>
+
+<<elseif $popDensity is "low">>
+	/% 50% chance of successful creature encounter (5% chance if sapient) %/
+	<<if $sapientEncounter is 0>>
+		<<if $popRandomizer gte 50>>
+			/% Failed encounter. %/
+			<<set $encounter = 0; $overrideEncounter = 2>><<endif>>
+
+	<<elseif $sapientEncounter is 1>>
+		<<if $popRandomizer gt 5>>
+			/% Failed encounter. %/
+			<<set $encounter = 0; $overrideEncounter = 2>><<endif>>
+			<<endif>>
+<<endif>>
+
+
+/% ======================================================================== %/
+/% SPECIAL ADJUSTMENTS pt. II %/
+
+/% ======================================================================== %/
+/% Immobility failed encounters %/
+
+<<if ($immobileMode is 1) and ($overrideEncounter is 2)>>
+	<<set $overrideEncounter = 9>><<endif>>
+
+/% ======================================================================== %/
+/% Wandering Null for mobility aids/planetary mode breadcrumb %/
+
+<<if ($fatScore gte 20000) and ($event_planetaryNullCrumb is 0) and ($substatus neq "sporeslave")>><<set $randomizer = random(1,2)>>
+			<<if $randomizer is 1>><<set $encounter = "enormous null leupai"; $overrideEncounter = 1>><<endif>><<endif>>
+
+
+/% ======================================================================== %/
+/% FATNESS %/
+
+/% Size modifiers for applicable creatures. Hopefully I can set this up so it can be freely modified by several different areas in the code, but for now we'll have it all happen here and in the database.
+
+Creatures which ignore the size modifiers can say so in the database, which will disable the effect and name alteration. %/
+
+<<display CreatureSizer>>
+
+/% ======================================================================== %/
+/% PREFIXES %/
+
+/% Prefixes are adjustments to a base creature based on the environment it's found in.
+Set these up here, and then alter stats from the creature database. %/
+
+<<set $creaturePrefix = 0>>
+
+/% ======================================================================== %/
+/% Final placeholder attempt%/
+/% If a final encounter hasn't been chosen by now, shove a possum in it. %/
+
+	<<if $encounter is 0>><<set $encounter = "raposui">><<endif>>
+
+/% ======================================================================== %/
+/% Admin override %/
+/% Don't forget to remove/comment this out %/
+
+/% ======================================================================== %/
+/% Error alert %/
+/% If a final encounter hasn't been chosen by now, change to an error readout. %/
+
+<<if ($encounter is "common1") or ($encounter is "common2") or ($encounter is "common3") or ($encounter is "common4") or ($encounter is "uncommon1") or ($encounter is "uncommon2") or ($encounter is "uncommon3") or ($encounter is "uncommon4") or ($encounter is "rare1") or ($encounter is "rare2") or ($encounter is "rare3") or ($encounter is "rare4")>>
+	<<set $encounter = 0; $overrideEncounter = 99>><<endif>>

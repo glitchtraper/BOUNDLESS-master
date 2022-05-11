@@ -1,0 +1,16 @@
+﻿<center><<nobr>><<display ZoneBackgrounds>>
+/% Discarding everything but worn clothes %/
+<<if $discardWorn is 0>><<print "<<set $" + $itemID + " = 0>>">>
+
+/% Discarding worn clothes %/
+<<elseif $discardWorn is 1>>
+
+<<if $wearType is "top">><<set $topWorn = "nothing"; $topElasticity = 0; $topElasticityMax = 0>>
+<<elseif $wearType is "belt">><<set $beltWorn = "nothing"; $beltElasticity = 0; $beltElasticityMax = 0>>
+<<elseif $wearType is "pants">><<set $pantsWorn = "nothing"; $pantsElasticity = 0; $pantsElasticityMax = 0>><<endif>>
+
+
+<<set $discardWorn = 0>><<endif>>
+
+<<endnobr>>You throw your <<print $itemName>> to the winds.
+<hr>[[Continue.|Inventory][$selectedItem = 0]]</center>

@@ -1,0 +1,96 @@
+﻿/% ===================================================== %/
+/% Only run this script if there are enough calories to spend!
+For non-caloric weight gain, try the Fattenium script (in Cogs) or consider whether a custom one is needed. %/
+
+<<if $calories gt 0>>
+
+/% Key --
+Body - 1
+Breast - 2
+Belly - 3
+Thigh - 4 %/
+
+<<if $bodyType is 0>> /% Default %/
+<<set $randomizer = either(1,1,2,3,4)>>
+
+<<elseif $bodyType is "busty">> /% Breast, Body %/
+<<set $randomizer = either(1,2)>>
+
+<<elseif $bodyType is "hourglass">> /% Breast, Thigh, Body %/
+<<set $randomizer = either(1,2,4)>>
+
+<<elseif $bodyType is "round">> /% Belly, Breast, Body %/
+<<set $randomizer = either(1,2,3)>>
+
+<<elseif $bodyType is "belly">> /% Belly, Body %/
+<<set $randomizer = either(1,3)>>
+
+<<elseif $bodyType is "pear">> /% Belly, Thigh, Body %/
+<<set $randomizer = either(1,3,4)>>
+
+<<elseif $bodyType is "thigh">> /% Thigh, Body %/
+<<set $randomizer = either(1,4)>>
+
+/% Special types %/
+
+<<elseif $bodyType is "boviete">> /% Breast %/
+<<set $randomizer = 2>>
+
+<<elseif $bodyType is "cubus">> /% Breast, Thigh %/
+<<set $randomizer = either(2,4)>>
+
+<<elseif $bodyType is "guguetelle">> /% Belly %/
+<<set $randomizer = 3>>
+
+<<elseif $bodyType is "bulging">> /% Belly, Breast %/
+<<set $randomizer = either(2,3)>>
+
+<<elseif $bodyType is "bloatpear">> /% Belly, Thigh %/
+<<set $randomizer = either(3,3,3,4)>>
+
+<<elseif $bodyType is "blimpthigh">> /% Thigh %/
+<<set $randomizer = 4>>
+
+
+<<endif>>
+
+/% ===================================================== %/
+/% Calculate gain amount %/
+
+/% Gain per Round = metaGain/10 * 0.3 @ 100% efficiency %/
+
+<<set $gpr = ($metaGain/10) * 0.6>>
+<<set $gainTick = ($gpr * $calEfficiency)>>
+
+/% ===================================================== %/
+/% Finalize weight gain %/
+
+/% Body gain %/
+
+<<if $randomizer is 1>>
+
+<<set $girth += $gainTick>>
+
+/% Breast gain %/
+
+<<elseif $randomizer is 2>>
+
+<<set $breast += $gainTick>>
+
+/% Belly gain %/
+
+<<elseif $randomizer is 3>>
+
+<<set $belly += $gainTick>>
+
+/% Thigh gain %/
+
+<<elseif $randomizer is 4>>
+
+<<set $thigh += $gainTick>><<endif>>
+
+<<set $calories -= $metaGain>>
+
+<<endif>>
+
+<<set $girth = Math.round($girth); $breast = Math.round($breast); $belly = Math.round($belly); $thigh = Math.round($thigh)>>

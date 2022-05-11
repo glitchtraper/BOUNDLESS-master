@@ -1,0 +1,43 @@
+﻿/% =============================================================== %/
+/% Conversation questions. %/
+
+
+/% =============================================================== %/
+/% INITIAL %/
+
+/% Most questions will, naturally, work best if the creature you're speaking to can understand you. %/
+
+
+<<button [[How are you?|passage()][$convoType = "how are you"]]>>
+
+<<button [[Ask About Species|passage()][$convoType = "species query"]]>>
+
+<<if $occEncounter is 1>>
+
+<<button [[Ask About Occupation|passage()][$convoType = "occupation query"]]>>
+
+<<endif>>
+
+/% =============================================================== %/
+/% Specific Queries %/
+
+<<if $encounterFlag is "leupai">>
+
+<<button [[Willing to Play?|Combat][$saveStateBattle = "Explore"; $combat = 1; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $moveset = random(900,904); $rep_HYPOTHESIS += 3; $favorNefirian += 5; $playfulLeupai = 1; $noCapture = 0; $noStasis = 0; $encounterPower * 2]]>>
+
+<<button [[Ask for Inert Venom|Combat][$saveStateBattle = "Explore"; $combat = 1; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $moveset = 901; $rep_HYPOTHESIS += 3; $favorNefirian += 3; $playfulLeupai = 1; $noCapture = 0; $noStasis = 0; $encounterPower * 2]]>>
+
+<<button [[Ask for Fat|Combat][$saveStateBattle = "Explore"; $combat = 1; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $moveset = 902; $rep_HYPOTHESIS += 3; $favorNefirian += 5; $playfulLeupai = 1; $noCapture = 0; $noStasis = 0; $encounterPower * 2]]>>
+
+<<button [[Ask for Eggs|Combat][$saveStateBattle = "Explore"; $combat = 1; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $moveset = 903; $rep_HYPOTHESIS += 5; $favorNefirian += 10; $playfulLeupai = 1; $noCapture = 0; $noStasis = 0; $encounterPower * 2]]>>
+
+<<button [[Ask for Venom|Combat][$saveStateBattle = "Explore"; $combat = 1; $killingBlow = 0; $calories -= 100; $bonusEnergy -= 100; $exploring = 3; $enemyPain = 0; $combatResult = 0; $moveset = 904; $rep_HYPOTHESIS += 5; $favorNefirian += 10; $playfulLeupai = 1; $noCapture = 0; $noStasis = 0; $encounterPower * 2]]>>
+
+<<endif>>
+
+/% =============================================================== %/
+/% Quest & Trade Queries %/
+
+<<button [[Looking for something?|passage()][$convoType = "trade"]]>>
+
+/% =============================================================== %/

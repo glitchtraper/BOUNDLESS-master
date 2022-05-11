@@ -1,0 +1,2 @@
+﻿<center><<if $encImg neq 0>><<print "[img[" + $encImg + "]]">>
+<<else>>[img[placeholder]]<<endif>></center>

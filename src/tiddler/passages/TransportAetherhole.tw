@@ -1,0 +1,38 @@
+﻿<<display ZoneBackgrounds>><center>[img[aetherhole]]</center>
+
+The edges of the aetherhole glow and shift as you peer inside; a simple passage between two points in time and space....
+
+<<nobr>>
+
+/% Results of travel depend on the population of the current area. %/
+
+
+<framed><center>
+
+<<if $popDensity neq "low">>
+<<button [[Travel To Mediquerie.|Mediquerie][$saveStateEncounter = "Explore"; $weatherType = 0; $newWeather = 1]]>>
+
+<<button [[Travel To Fatiere.|Fatiere][$saveStateEncounter = "Explore"; $weatherType = 0; $newWeather = 1]]>>
+
+<<button [[Travel To Bovieterie.|Bovieterie][$saveStateEncounter = "Explore"; $weatherType = 0; $newWeather = 1]]>><<endif>>
+
+<<button [[Travel To Billeporte.|Billeporte][$saveStateEncounter = "Explore"; $weatherType = 0; $newWeather = 1]]>>
+
+<<button [[Travel To Dungeon.|Explore][$dungeonType = either("Abandoned Laboratory Mound","Abandoned Storage Mound"); $saveStateEncounter = "Explore"; $specStatus = 0; $exploring = 3; $indoorZone = 1; $dungeonLocation = $dungeonType; $weatherType = 0; $newWeather = 1]]>>
+
+<<if $plane is 0>><<button [[Travel To New Location.|Explore][$startBiome = 0; $location = $startBiome; $locName = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $hours += random(1,2); $weatherType = 0; $newWeather = 1]]>><<endif>>
+
+<<if $subterranean is 1>>
+<<button [[Travel to the Surface.|Explore][$depthMeter = 0; $location = 0; $subterranean = 0; $biomeNorth = 0; $biomeSouth = 0; $biomeEast = 0; $biomeWest = 0; $weatherType = 0; $newWeather = 1]]>><<endif>>
+
+<<if ($hasMound is 1) and ($plane is $moundPlane) and ($moundwPlanetID is $planetID)>>
+<<button [[Travel Home.|Mound][$locName = $moundLocation; $location = $moundBiome; $weatherType = 0; $newWeather = 1]]>><<endif>>
+
+
+
+</center></framed>
+<<endnobr>>
+\
+\
+\
+<center><<button [[Leave.|$saveStateEncounter][$explore = 3; $indoorZone = 0; $dungeonType = 0; $location = $saveBiome]]>></center>

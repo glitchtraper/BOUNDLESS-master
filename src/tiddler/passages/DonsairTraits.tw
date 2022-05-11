@@ -1,0 +1,72 @@
+﻿/% Donsair trait checks for items & other effects. %/
+
+/% Setup. DO NOT REMOVE THE PLUS SIGN FROM THE VARIABLE. For whatever reason, this makes it work without causing the massive lag spikes. what are you even, twine..? %/
+
+<<print "<<set $donsair" + "Name = $dons" + $donsairID + ">>">>
+<<print "<<set $donsair" + "Img = $dons" + $donsairID + "img>>">>
+<<print "<<set $donsair" + "Underage = $dons" + $donsairID + "Underage>>">>
+<<print "<<set $donsair" + "Species = $dons" + $donsairID + "Spec>>">>
+<<print "<<set $donsair" + "Subspec = $dons" + $donsairID + "Subspec>>">>
+<<print "<<set $donsair" + "Subtype = $dons" + $donsairID + "Subtype>>">>
+<<print "<<set $mini" + "Donsair = $dons" + $donsairID + "Mini>>">>
+<<print "<<set $donsair" + "Vore = $dons" + $donsairID + "Vore>>">>
+<<print "<<set $donsair" + "Girth = $dons" + $donsairID + "Girth>>">>
+<<print "<<set $donsair" + "FatteniumDose = $dons" + $donsairID + "Fattenium>>">>
+<<print "<<set $donsair" + "Active = $dons" + $donsairID + "Active>>">>
+
+<<print "<<set $donsair" + "Power = $dons" + $donsairID + "Power>>">>
+<<print "<<set $donsair" + "Finesse = $dons" + $donsairID + "Finesse>>">>
+
+/% ================================================================= %/
+
+<<print "<<set $donsair" + "Color = $dons" + $donsairID + "Color>>">>
+<<print "<<set $donsair" + "Skin = $dons" + $donsairID + "Skin>>">>
+
+<<print "<<set $donsair" + "Ears = $dons" + $donsairID + "Ears>>">>
+<<print "<<set $donsair" + "Facet = $dons" + $donsairID + "Facet>>">>
+<<print "<<set $donsair" + "Eyes = $dons" + $donsairID + "Eyes>>">>
+<<print "<<set $donsair" + "Face = $dons" + $donsairID + "Face>>">>
+<<print "<<set $donsair" + "Head = $dons" + $donsairID + "Head>>">>
+<<print "<<set $donsair" + "Body = $dons" + $donsairID + "Body>>">>
+<<print "<<set $donsair" + "Back = $dons" + $donsairID + "Back>>">>
+<<print "<<set $donsair" + "Legs = $dons" + $donsairID + "Legs>>">>
+<<print "<<set $donsair" + "Tail = $dons" + $donsairID + "Tail>>">>
+
+/% ================================================================= %/
+
+/% Update renamed companion donsair. %/
+
+<<if $donsairActive is 1>>
+
+<<if ($donsairID is $companion1ID) and ($companion1 neq $donsairName)>>
+<<set $companion1 = $donsairName>>
+
+<<elseif ($donsairID is $companion2ID) and ($companion2 neq $donsairName)>>
+<<set $companion2 = $donsairName>>
+
+<<elseif ($donsairID is $companion3ID) and ($companion3 neq $donsairName)>>
+<<set $companion3 = $donsairName>><<endif>>
+
+<<endif>>
+
+/% ================================================================= %/
+
+/% Rename check %/
+<<print "<<set $donsair" + "Rename = $dons" + $donsairID + "Nameable>>">>
+
+/% Classification check, for butchery %/
+<<if ($donsairSpecies is "leupai") or ($donsairSpecies is "helene") or ($donsairSpecies is "somnian") or ($donsairSpecies is "fyynling") or ($donsairSpecies is "fyynling horror")>>
+<<set $donsairLeupai = 1>>
+
+<<elseif ($donsairSpecies is "slime") or ($donsairSubtype is "slime")>>
+<<set $donsairSlime = 1>>
+
+<<elseif $donsairSpecies is "mythosi">>
+<<set $donsairDragon = 1>>
+
+<<elseif ($donsairSpecies is "hawk") or ($donsairSpecies is "crow") or ($donsairSpecies is "raven") or ($donsairSpecies is "eagle")>>
+<<set $donsairPoultry = 1>><<endif>>
+
+/% Breast check, for lactation %/
+<<if ($donsairSpecies is "helene") or ($donsairSpecies is "leupai")  or ($donsairSpecies is "mythosi")>>
+<<set $donsairBreasts = 1>><<endif>>

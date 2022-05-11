@@ -1,0 +1,16 @@
+﻿<center><<display ZoneBackgrounds>><<display MiningDatabase>><<nobr>>
+
+<<endnobr>><<display EncounterImg>>
+<framed><<print $forageResult>><<nobr>>
+
+/% Pick decay for basic pickaxes. %/
+
+<<if ($key_pickaxe gt 0) and ($key_pickaxe_metal is 0) and ($playerArms neq "digging")>>
+<<set $pickaxeWear += either(0,0,0,1,1,1,1,2)>>
+
+<<endif>>
+
+<<endnobr>><<if $pickaxeWear gte 16>><<set $pickaxeWear = 0; $key_pickaxe -= 1>>
+[img[icon_alert_critical]]<brightalert>Your basic pickaxe ''breaks!''</brightalert>
+<<endif>></framed>
+<<if ($calories gte 12) or ($calories gte 12)>><<if ($key_pickaxe gt 0) or ($key_pickaxe_metal gt 0) or ($playerArms is "digging")>><<button [[Keep Mining.|passage()][$mineDecay += random(2,12); $calories -= 12; $bonusEnergy -= 12]]>><<endif>> <<endif>><<button [[Continue.|Explore][$forageResult = 0]]>></center>

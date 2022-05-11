@@ -1,0 +1,20 @@
+﻿<center><<display ZoneBackgrounds>>\
+/% ================================================ %/\
+/% plants have different harvest modes.
+
+default harvest - items
+combat harvest - send to combat with set encounter %/\
+\
+<framed>[img[$plantImg]]
+<<display PlantHarvestModes>></framed><<nobr>>
+
+/% ================================================ %/
+/% Process how long it'll take before the plant can be harvested again. %/
+
+<<set $plantHarvestRegen = $globalTime + $plantHarvestTimer>>
+
+<<print "<<set $plot" + $plotID + "HarvestRegen = $plot" + "HarvestRegen>>">>
+
+/% ================================================ %/
+<<endnobr>>
+<<if $overrideExplore is 0>><<button [[Back.|PlotView]]>><<endif>></center>

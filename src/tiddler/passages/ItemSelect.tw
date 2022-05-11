@@ -1,0 +1,179 @@
+﻿<<nobr>>
+
+<<display SplittableItems>>
+
+<<if $usedItem is 1>>
+
+/% ====================================================== %/
+/% Remove the item now, for the new system -- so the counter number will update accurately.
+Turning nonConsume on will prevent the script from consuming one of this item... in theory. %/
+
+<<print "<<set $" + $itemID + " -= 1>>">>
+
+/% If none are left, clear the selection. %/
+<<print "<<if $" + $itemID + " lte 0>><<set $" + "selectedItem" + "= 0>><<endif>>">>
+
+<<endif>>
+
+
+<<endnobr>>\
+<<if $selectedItem is 1>>\
+<framed><center>\
+\
+''<<nobr>>
+/% Cursed & Dangerous items %/
+<<if ($itemTag is "cursed") or ($itemTag is "dangerous")>>
+
+<redalert><<print $itemName>></redalert>
+
+/% Mira items %/
+<<elseif $itemTag is "mira">>
+
+<mutation><<print $itemName>></mutation>
+
+/% Rare items %/
+<<elseif $itemTag is "rare">>
+
+<rare><<print $itemName>></rare>
+
+/% Common items %/
+<<else>><<print $itemName>><<endif>>
+
+<<endnobr>> (<xtramini>x</xtramini><<print "<<print $" + $itemID + ">>">>)
+//<<print $itemDesc>>//
+\
+<<nobr>>''<<set $itemTag = 0>>
+
+/% This button is typing-sensitive, so it displays the right command. Item used will be subtracted on the next screen; make sure to set useQuantity in the selection button if a use would consume more than one (for resources, mostly).
+If the item is a status item, itemEncounter should already be set (once the item is selected), and will be called on the next page. %/
+
+
+<<if ($itemType is "status") or ($itemType is "key")>>
+<<button [[Use|passage()][$usedItem = 1; $used = $itemType]]>>
+<<elseif $itemType is "food">>
+<<button [[Eat|passage()][$usedItem = 1; $used = $itemType]]>>
+<<elseif $itemType is "drink">>
+<<button [[Drink|passage()][$usedItem = 1; $used = $itemType]]>>
+<<elseif $itemType is "wearable">>
+<<button [[Wear|passage()][$usedItem = 1; $used = $itemType; $puttingOn = 1]]>>
+<<elseif $itemType is "trap">>
+<<button [[Arm|passage()][$usedItem = 1; $used = $itemType]]>>
+<<elseif $itemType is "dye">>
+
+<<if $playerEyeNumber neq 0>><<button [[Dye Eyes|passage()][$usedItem = 1; $used = $itemType; $playerEyeColor = $dyeColor]]>><<endif>>
+<<button [[Dye Yourself|passage()][$usedItem = 1; $used = $itemType; $bodyColor = $dyeColor]]>>
+
+<<if $headWorn neq "nothing">><<button [[Dye Clothing (Head)|passage()][$usedItem = 1; $used = $itemType; $headColor = $dyeColor]]>><<endif>>
+<<if $faceWorn neq "nothing">><<button [[Dye Clothing (Face)|passage()][$usedItem = 1; $used = $itemType; $faceColor = $dyeColor]]>><<endif>>
+<<if $topWorn neq "nothing">><<button [[Dye Clothing (Top)|passage()][$usedItem = 1; $used = $itemType; $topColor = $dyeColor]]>><<endif>>
+<<if $armWorn neq "nothing">><<button [[Dye Clothing (Arms)|passage()][$usedItem = 1; $used = $itemType; $armColor = $dyeColor]]>><<endif>>
+<<if $backWorn neq "nothing">><<button [[Dye Clothing (Back)|passage()][$usedItem = 1; $used = $itemType; $backColor = $dyeColor]]>><<endif>>
+<<if $beltWorn neq "nothing">><<button [[Dye Clothing (Belt)|passage()][$usedItem = 1; $used = $itemType; $beltColor = $dyeColor]]>><<endif>>
+<<if $pantsWorn neq "nothing">><<button [[Dye Clothing (Bottoms)|passage()][$usedItem = 1; $used = $itemType; $pantsColor = $dyeColor]]>><<endif>>
+<<if $feetWorn neq "nothing">><<button [[Dye Clothing (Feet)|passage()][$usedItem = 1; $used = $itemType; $feetColor = $dyeColor]]>><<endif>>
+
+<<endif>>
+
+/% ======================================================== %/
+/% Special Items %/
+
+/% Maybe consider a separate page for these, later. %/
+
+<<if $itemID is "specimen_fyynling">>
+<<button [[Shatter Jar|passage()][$usedItem = 1; $used = "special"; $specialUsed = "shatter"; $specialUseDesc = "It begins to crawl out of its broken container!"; $presetEncounter = 1; $presetType = "creature"; $preEncounter = "fyynling"; $exploring = 0; $befriendable = 1]]>><<endif>>
+
+
+<<if $itemID is "shard_genesis">>
+<<button [[Activate|passage()][$usedItem = 1; $used = "special"; $specialUsed = "activate"; $specialUseDesc = "It dissolves into dust, and a bulky creature begins to take shape before you...!"; $presetEncounter = 1; $presetType = "creature"; $preEncounter = "leupai"; $playfulLeupai = 1; $exploring = 0; $befriendable = 1]]>><<endif>>
+
+
+/% ======================================================== %/
+/% Splittable Items (make sure to add to SplittableItems!) %/
+
+<<if $itemSplits is 1>>
+<<button [[Convert into Resources|passage()][$used = $itemType; $splitResources = 1]]>><<endif>>
+
+/% ======================================================== %/
+
+/% Discard requires the item ID and item Name, which are now set in advance by selecting the item, so no need to do so here. %/
+<<if $noDiscard is 0>><<button [[Discard|DiscardConfirm][$itemEncounter = 0]]>><<endif>><<endnobr>>
+\
+</center></framed><<endif>>\
+\
+\
+\
+<<if $usedItem is 1>>\
+\
+<<nobr>>
+
+/% ====================================================== %/
+/% Call food/drink stats, where necessary. %/
+
+<<if ($itemType is "food") or ($itemType is "drink")>>
+<<display FoodEffects>>
+<<endif>>
+
+
+<<endnobr>>\
+\
+<center><<nobr>>You <<if $used is "status">>use
+<<elseif $used is "food">>eat
+<<elseif $used is "drink">>drink
+<<elseif $used is "wearable">>put on
+<<elseif $used is "trap">>arm
+<<elseif $used is "special">><<print $specialUsed>>
+<<else>>use<<endif>> the ''<<print $itemName>>''!<<endnobr>>
+\
+\
+<<if $used is "status">>
+<<display ItemEffects>><<endif>>\
+\
+\
+<<if $used is "special">>
+<<print $specialUseDesc>><<endif>>\
+\
+\
+<<if $used is "key">>
+<<display Unlocks>><<endif>>\
+\
+\
+<<if $used is "trap">><<set $trapArmed = 1; $trapType = $itemEncounter>><<endif>>\
+\
+\
+</center>\
+\
+/% ====================================================== %/\
+/% Item Returns %/\
+/% When you use applicable items, you get these items "back".
+Useful for jars and bottles, fruits and vegetables that would give seeds, foods that might have bones, etc.
+
+You could easily make it so there was a chance you get an item back instead of it being guaranteed, too... %/\
+<<nobr>>
+
+
+/% Jars %/
+<<if $jarReturn is 1>>
+<<set $special_jar += 1; $jarReturn = 0>>''<affirmative><mini>+1 glass jar!</mini></affirmative>''<<endif>>
+
+/% Seeds %/
+<<endnobr>><<if ($seedFruit is 1) and ($seedQuantity neq 0)>>\
+<<print "<<set $" + $seedID + " += " + $seedQuantity + ">>">>\
+<center>''<affirmative><mini>+<<print $seedQuantity>> seeds!</mini></affirmative>''</center>\
+<<set $seedFruit = 0; $seedQuantity = 0>><<endif>><<nobr>>
+
+
+
+<<endnobr>>\
+/% ====================================================== %/\
+/% Call vitals. %/\
+\
+<<display BodySystems>><<display Alert>><<display Effects>><<display Vitality>>
+\
+\
+<<if $alertStatus neq 0>>
+<<print $alertStatus>>\
+\
+\
+<<if $wornStore is 1>><<display Store>><<endif>><<endif>>\
+\
+<<set $usedItem = 0; $used = 0; $noDiscard = 0>><<endif>>

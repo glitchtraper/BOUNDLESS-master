@@ -1,0 +1,157 @@
+﻿/% =========================================================================== %/
+/% PLANT DATABASE %/
+
+/% This works a bit differently than the companion database.
+Instead of grabbing all the information and depositing it in a specific set of variables, here we'll store data for each plant species by growth stage.
+
+Relatively few 'dynamic' variables should need to be used; plants that have a range of color or physical characteristics will likely want to store their color data by plot as the plant develops, but otherwise it should be safe to just pull from here as needed.
+
+We'll try to use as little staggercoding as possible. Maybe we'll learn things we can use to clean up the donsair code, in time. %/
+
+/% =========================================================================== %/
+/% Plants by Species %/
+
+<<set $plantSpecies = $planted>>
+
+/% =========================%/
+/% Glass Rose %/
+
+<<if $planted is "glass rose">>
+
+
+/% Plant growth - Flowering %/
+/% Time from seed to maturity: 1 week (400 minutes/clicks) %/
+<<set $plantMaturity = 400>>
+
+	<<if $plantTimer lt 30>>
+		<<set $plantAge = "Seed">>
+
+	<<elseif ($plantTimer gte 30) and ($plantTimer lt 100)>>
+
+/% Requires watering to sprout %/
+		<<if ($plantAge is "Seed") and ($plantNeedsWater is "No")>>
+			<<set $plantAge = "Sprout">><<endif>>
+
+	<<elseif ($plantTimer gte 100) and ($plantTimer lt 400) and ($plantAge is "Sprout")>>
+		<<set $plantAge = "Juvenile">>
+
+	<<elseif $plantTimer gte 400>>
+		<<set $plantAge = "Mature">>
+
+	<<endif>>
+
+/% Parameters by stage %/
+
+	<<if $plantAge is "Seed">>
+
+	<<elseif $plantAge is "Sprout">>
+
+	<<elseif $plantAge is "Juvenile">>
+
+/% Develop flower color now. %/
+
+			<<if $plantColor is 0>><<set $plantColor = either("white","teal","green","blue","indigo","violet","pink","magenta","red")>>
+
+/% Change image %/
+		<<set $plantImg = "rose_glass-" + $plantColor>>
+	<<endif>>
+
+	<<elseif $plantAge is "Mature">>
+
+	<<if $plantNeedsWater is "No">>
+		<<set $plantNeedsWater = either("Yes!","No","No")>><<endif>>
+
+/% Develop flower color if needed. %/
+
+			<<if $plantColor is 0>><<set $plantColor = either("white","teal","green","blue","indigo","violet","pink","magenta","red")>><<endif>>
+
+/% Change image %/
+		<<set $plantImg = "rose_glass-" + $plantColor>>
+
+/% Yields rose hips and Glass Rose flowers when harvested.
+Rose hips contain seeds when eaten or itemSplit. %/
+
+	<<set $plantHarvestMode = 0; $plantHarvestFruit = random(2,4); $plantFruitType = "Glass Rosehip"; $plantHarvestFlowers = either(1,2,2,3,3,3,3,4,4,5,6); $plantFlowerType = "Glass Rose">>
+
+/% Harvest timer - medium. %/
+
+/% Timer currently accelerated; true time is (36,72) %/
+	<<set $plantHarvestTimer = random(3,5)>>
+
+	<<endif>>
+
+
+/% =========================%/
+/% Tendrilvine %/
+
+<<elseif $planted is "tendrilvine">>
+
+/% Plant growth - Weed %/
+/% Time from seed to maturity: 1 day (80 minutes/clicks) %/
+<<set $plantMaturity = 80>>
+
+	<<if $plantTimer lt 20>>
+		<<set $plantAge = "Seed">>
+
+	<<elseif ($plantTimer gte 20) and ($plantTimer lt 40)>>
+
+/% Requires watering to sprout %/
+		<<if ($plantAge is "Seed") and ($plantNeedsWater is "No")>>
+			<<set $plantAge = "Sprout">><<endif>>
+
+	<<elseif ($plantTimer gte 40) and ($plantTimer lt 80) and ($plantAge is "Sprout")>>
+		<<set $plantAge = "Juvenile">>
+
+	<<elseif $plantTimer gte 80>>
+		<<set $plantAge = "Mature">>
+
+	<<endif>>
+
+
+/% Drinkiness - Thirsty %/
+	<<if $plantNeedsWater is "No">>
+			<<if $waterTimer lt $globalTime - 5>><<set $plantNeedsWater = either("No","No","Yes!")>><<endif>>
+		<<endif>>
+
+
+/% Parameters by stage %/
+
+	<<if $plantAge is "Seed">>
+
+	<<elseif $plantAge is "Sprout">>
+
+	<<elseif $plantAge is "Juvenile">>
+
+	<<elseif $plantAge is "Mature">>
+
+/% Change image %/
+	<<set $plantImg = "tendrilvine">>
+
+/% Harvest initiates combat with Tendrilvine.
+If killed, drops inert tendrilvine and tendrilvine seeds (as per standard mob), and clears the plot. %/
+
+	<<set $encounter = "tendrilvine"; $plantHarvestMode = "combat">>
+
+/% Harvest timer - short. %/
+/% Timer currently accelerated; true time is (16,32) %/
+	<<set $plantHarvestTimer = random(3,5)>>
+
+	<<endif>>
+
+
+
+/% =========================%/
+
+
+<<endif>>
+
+
+/% =========================%/
+/% Finalize new information. %/
+
+<<set $plantTimer = $globalTime - $plantStart>>
+
+<<print "<<set $plot" + $plotID + "PlantTimer = $plant" + "Timer>>">>
+<<print "<<set $plot" + $plotID + "PlantAge = $plant" + "Age>>">>
+<<print "<<set $plot" + $plotID + "PlantColor = $plant" + "Color>>">>
+<<print "<<set $plot" + $plotID + "Thirsty = $plant" + "NeedsWater>>">>

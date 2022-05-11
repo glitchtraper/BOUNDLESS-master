@@ -1,0 +1,31 @@
+﻿/% All machines have a power pool, "$machineBattery".
+From this pool is drawn the energy cost for each use, "$machinePower".
+
+$machinePower = $machineBasePower * $machineEfficiency(Int)
+
+$machineBasePower is the base power potential of the generated machine. This value is adjusted by machineEfficiencyInt, which is a value determined by the condition of the machine as stated in $machineEfficiency.
+
+[Poor] efficiency (For old/broken machines) - $machinePower [/4] (20% power)
+
+[Fair] efficiency (For old/broken machines) - $machinePower [/2] (50% power)
+
+[Good] efficiency (For standard machines) - $machinePower [1] (100% power)
+
+[Excellent] efficiency (For standard/rare/modded machines) - $machinePower [x1.2] (120% power)
+
+[Flawless] efficiency (For rare/modded machines) - $machinePower [x1.5] (150% power)
+
+ %/
+
+
+<<if $machineEfficiency is "poor">><<set $machinePower = $machineBasePower / 3; $machineBattery -= 20>><<endif>>
+
+<<if $machineEfficiency is "fair">><<set $machinePower = $machineBasePower / 2>><<endif>>
+
+<<if $machineEfficiency is "good">><<set $machinePower = $machineBasePower>><<endif>>
+
+<<if $machineEfficiency is "excellent">><<set $machinePower = ($machineBasePower + ($machineBasePower / 3)); $machineBattery += random(20,40)>><<endif>>
+
+<<if $machineEfficiency is "flawless">><<set $machinePower = ($machineBasePower + ($machineBasePower / 2)); $machineBattery += random(40,100)>><<endif>>
+
+<<set $newMachine = 0; $machinePower = Math.round($machinePower)>>
