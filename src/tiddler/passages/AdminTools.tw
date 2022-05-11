@@ -28,7 +28,7 @@ Set it to 0 before releases! %/
 <<if $showItemAdmin is 0>><<button [[Items|passage()][$showItemAdmin = 1]]>>
 <<elseif $showItemAdmin is 1>><<button [[Items|passage()][$showItemAdmin = 0]]>><<endif>>
 
-<<button [[Consiee.|passage()][$food += 10000]]>>
+<<button [[Consiee.|passage()][$food += 18000000000000000000000000000000000000000000000000000]]>>
 
 <<if $showEventAdmin is 1>>
 
@@ -231,9 +231,9 @@ Set it to 0 before releases! %/
 <hr>
 <<button [[Fatten Up!|passage()][$girth += either(30,40,50,60); $belly += either(10,20,30,40,50); $breast += either(10,20,30); $calories += either(20,30,40,50); $milkFat += either(0,0,10); $thigh += either(10,20,30); $thighFirmness -= either(0,10,20,30,40,50)]]>>
 
-<<button [[Fatten Up More!|passage()][$girth += either(100,200,300,400); $belly += either(50,60,70,80,90); $breast += either(50,60,70,80,90); $calories += either(50,60,70,80,90); $milkFat += either(10,10,20); $thigh += either(50,60,70,80,90); $thighFirmness -= either(50,60,70,80,90)]]>>
+<<button [[Fatten Up More!|passage()][$girth += either(100,200,300,40000000000000000000000000000000000); $belly += either(50000000000000000000000000000000000000000000000,16000000000000000000000000000,7000,18000000000000000000000000000000000000000000000000000,90000000000000000000000000); $breast += either(50,60,70,80,90); $calories += either(50,60,70,80,90); $milkFat += either(10,10,20); $thigh += either(50,60,70,80,90); $thighFirmness -= either(50,60,70,80,90)]]>>
 
-<<button [[Fatten Body.|passage()][$girth += 250]]>>
+<<button [[Fatten Body.|passage()][$girth += 250000000000000000000000000000000000000000000000000000000000000000000000000000000000000]]>>
 
 <<button [[Fatten Belly.|passage()][$belly += 250]]>>
 
@@ -285,21 +285,21 @@ Set it to 0 before releases! %/
 
 <hr>
 
-<<button [[Calorie Boost|passage()][$calories += 500]]>>
+<<button [[Calorie Boost|passage()][$calories += 50000000000000000000000000000000000000000000000]]>>
 
-<<button [[Gutload.|passage()][$calories += 5000]]>>
+<<button [[Gutload.|passage()][$calories += 50000000000000000000000000000000000000000000000]]>>
 
-<<button [[Thicken Milk.|passage()][$milkFat += 10]]>>
+<<button [[Thicken Milk.|passage()][$milkFat += 1500000000000000000000000000000000000000000000000000000]]>>
 
-<<button [[Increase Strength.|passage()][$strength += 1]]>>
+<<button [[Increase Strength.|passage()][$strength += 100000000000000000000000000000000000000000000000000000000000000]]>>
 
-<<button [[Soften Thighs.|passage()][$thighFirmness -= 100]]>>
+<<button [[Soften Thighs.|passage()][$thighFirmness -= 1000000000000000000000000000000000000000000000000000000000000000000000]]>>
 
-<<button [[Milk Boost.|passage()][$milkRate += 10]]>>
+<<button [[Milk Boost.|passage()][$milkRate += 10000000000000000000000000000000000000000000000000000000000000000000000000000000]]>>
 
-<<button [[Metabolism Drop.|passage()][$metaGain += 10]]>>
+<<button [[Metabolism Drop.|passage()][$metaGain += 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]]>>
 
-<<button [[BLUBBER BOMB.|passage()][$girth += either(1000,2000,3000,4000,5000); $belly += either(1000,2000,3000,4000,5000); $breast += either(1000,2000,3000,4000,5000); $calories += either(100000,200000,300000,400000,500000); $milkFat += either(1000,2000,3000,4000,5000); $thigh += either(1000,2000,3000,4000,5000); $thighFirmness -= either(1000,2000,3000,4000,5000)]]>>
+<<button [[BLUBBER BOMB.|passage()][$girth += either(100000000000000000000000000000000000000000000000000000000000000,20000000000000000000000000000000000000000000000000000000000000000000000,300000000000000000000000000000000000000000000000000,40000000000000000000000000000000000000000000000000000000000000000,5000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000); $belly += either(1000,2000,3000,4000,5000); $breast += either(1000,2000,3000,4000,5000); $calories += either(100000,200000,300000,400000,500000); $milkFat += either(1000,2000,3000,4000,5000); $thigh += either(1000,2000,3000,4000,5000); $thighFirmness -= either(1000,2000,3000,4000,5000)]]>>
 
 <<button [[Attain Flight|passage()][$playerWings = either("wings","bat wings","insect wings"); $geneFlight = 1; $powers = 1]]>>
 <hr>
@@ -348,7 +348,7 @@ Set it to 0 before releases! %/
 
 <hr>
 
-<<button [[Contract/Intensify Moonbelly.|passage()][$diseaseMoonbelly += 0.5]]>>
+<<button [[Contract/Intensify Moonbelly.|passage()][$diseaseMoonbelly += 50000000000000000000000000000000000000000000000]]>>
 
 <<button [[Contract Leucanthropy.|passage()][$lycanthropy = "laworn"; $leupaiFlag = 1]]>>
 
@@ -364,11 +364,11 @@ Set it to 0 before releases! %/
 
 <hr>
 
-<<button [[Leupai Egg Stuffer. |passage()][$belly += (10,10,20,20,30); $leupaiEggParasite = 1; $leupaiEggLoad += random(2,5); $eggTimer = 1; $leupaiEggTimer += random(3,5); $quaggySubspecies1 = either("belmere","celesse","devinn","erinyi","ein", "heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","null","ouinsel","rexaur","rosso"); $quaggySubspecies2 = either("belmere","celesse","devinn","erinyi","ein", "heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","null","ouinsel","rexaur","rosso"); $quaggyColorPoint1 = either("red","orange","yellow","golden","green","teal","blue","indigo","violet","pink","magenta","black","gray","silver","white","brown"); $quaggyGirth += either(10,10,20,30,50)]]>>
+<<button [[Leupai Egg Stuffer. |passage()][$belly += (10,10,20,20,30000000000000000000000000000000000); $leupaiEggParasite = 1; $leupaiEggLoad += random(2000000000000000000000000000000000000000,50000000000000000000000000000000000000000000000); $eggTimer = 100000; $leupaiEggTimer += random(3,500000000000); $quaggySubspecies1 = either("belmere","celesse","devinn","erinyi","ein", "heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","null","ouinsel","rexaur","rosso"); $quaggySubspecies2 = either("belmere","celesse","devinn","erinyi","ein", "heitene","intere","isri","Kaolani","kitsch","laworn","moreaui","null","ouinsel","rexaur","rosso"); $quaggyColorPoint1 = either("red","orange","yellow","golden","green","teal","blue","indigo","violet","pink","magenta","black","gray","silver","white","brown"); $quaggyGirth += either(10,10,20,30,50)]]>>
 
 <<button [[Dire Worms.|passage()][$direParasite = 1; $direParaLoad += 250]]>>
 
-<<button [[Amplibaene.|passage()][$ampliParasite = 1; $ampliParaLoad += 1]]>>
+<<button [[Amplibaene.|passage()][$ampliParasite = 1; $ampliParaLoad += 100000000000000000000000000000000000000000000000000000000000000]]>>
 
 <<button [[Parasitic Zeppelon.|passage()][$zeppelonParasite = 1]]>>
 
@@ -400,7 +400,7 @@ Set it to 0 before releases! %/
 
 <<button [[Just Fuck Me Up: Low Vitae Edition.|passage()][$miraberryToxicity += ($girth/20); $mushroomToxicity += ($girth/20); $calpowderToxicity += ($girth/20); $gainerToxicity += ($girth/20); $leupoilToxicity += ($girth/20); $breastfatteniumToxicity += ($girth/20); $bellyfatteniumToxicity += ($girth/20); $thighfatteniumToxicity += ($girth/20); $deflaToxicity += ($girth/20); $inflaToxicity += ($girth/20); $fatteniumPoisoning += ($girth/20); $helenoToxicity += ($girth/20); $caffeineToxicity += ($girth/20); $vitaePPM += 10]]>>
 
-<<button [[Just Fuck Me Up: Vitae-Free Edition.|passage()][$miraberryToxicity += ($girth/20); $mushroomToxicity += ($girth/20); $calpowderToxicity += ($girth/20); $gainerToxicity += ($girth/20); $leupoilToxicity += ($girth/20); $breastfatteniumToxicity += ($girth/20); $bellyfatteniumToxicity += ($girth/20); $thighfatteniumToxicity += ($girth/20); $deflaToxicity += ($girth/20); $inflaToxicity += ($girth/20); $fatteniumPoisoning += ($girth/20); $helenoToxicity += ($girth/20); $caffeineToxicity += ($girth/20)]]>>
+<<button [[Just Fuck Me Up: Vitae-Free Edition.|passage()][$miraberryToxicity += ($girth/20); $mushroomToxicity += ($girth/20); $calpowderToxicity += ($girth/20); $gainerToxicity += ($girth/20); $leupoilToxicity += ($girth/20); $breastfatteniumToxicity += ($girth/20); $bellyfatteniumToxicity += ($girth/2000000000000000000000000000000000000000); $thighfatteniumToxicity += ($girth/20); $deflaToxicity += ($girth/20000000000000000000000000000000000000000000000000000000000000000000000); $inflaToxicity += ($girth/2000000000000000000000000000000000000000); $fatteniumPoisoning += ($girth/2000000000000000000000000000000000000000000000); $helenoToxicity += ($girth/20); $caffeineToxicity += ($girth/20)]]>>
 
 <hr>
 
@@ -417,7 +417,7 @@ Set it to 0 before releases! %/
 /% Items %/
 
 <hr>
-<<button [[Greenhouse Starter Kit.|passage()][$mound_greenhouse += 1; $waterStock += 1000; $seed_rose_glass += 100; $seed_tendrilvine += 100]]>>
+<<button [[Greenhouse Starter Kit.|passage()][$mound_greenhouse += 1; $waterStock += 10000000000000000000000000000; $seed_rose_glass += 100; $seed_tendrilvine += 100]]>>
 
 <<button [[Basic Pickaxe.|passage()][$key_pickaxe += 10]]>>
 
@@ -441,7 +441,7 @@ Set it to 0 before releases! %/
 
 <<button [[Battery Crystal x100.|passage()][$special_battery += 100]]>>
 
-<<button [[Recall Shard x100.|passage()][$shard_recall += 100]]>>
+<<button [[Recall Shard x100.|passage()][$shard_recall += 10000000000000000000000000000000000000000000000000000000000000000000000000000000]]>>
 
 <<button [[Stasis Shard x100.|passage()][$shard_stasis += 100]]>>
 
@@ -503,7 +503,7 @@ Set it to 0 before releases! %/
 
 <<button [[Soothers x100.|passage()][$pill_soother += 100]]>>
 
-<<button [[Bolstering Vitamin Slurry x100.|passage()][$statboost_stamina += 100]]>>
+<<button [[Bolstering Vitamin Slurry x100.|passage()][$statboost_stamina += 10000000000000000000000000000000000000000000000000000000000000000000000000000000]]>>
 
 <<button [[Bulk Powder x100.|passage()][$statboost_strength += 100]]>>
 
@@ -515,13 +515,13 @@ Set it to 0 before releases! %/
 
 <<button [[Fattenium Shot x100.|passage()][$shot_fattenium += 100]]>>
 
-<<button [[Pure Fattenium Shot x100.|passage()][$shot_fattenium_pure += 100]]>>
+<<button [[Pure Fattenium Shot x100.|passage()][$shot_fattenium_pure += 10000000000000000000000000000000000000000000000000000000000000000000000000000000]]>>
 
 <<button [[Helium Pills x100.|passage()][$pill_helium += 100]]>>
 
 <<button [[Egg Accelerator Injection x100.|passage()][$shot_eggGrowth += 100]]>>
 
-<<button [[Venombloat Injection x100.|passage()][$shot_venombloat += 100]]>>
+<<button [[Venombloat Injection x100.|passage()][$shot_venombloat += 10000000000000000000000000000000000000000000000000000000000000000000000000000000]]>>
 
 <<button [[Deflator Injection x100.|passage()][$shot_deflator += 100]]>>
 
@@ -533,7 +533,7 @@ Set it to 0 before releases! %/
 
 <hr>
 
-<<button [[Tiny Fyynling Specimen x100.|passage()][$specimen_fyynling += 100]]>>
+<<button [[Tiny Fyynling Specimen x100.|passage()][$specimen_fyynling += 10000000000000000000000000000000000000000000000000000000000000000000000000000000]]>>
 
 <<button [[Jar of Somnus x100.|passage()][$collectionjar_somnus_weak += 100]]>>
 
@@ -643,9 +643,9 @@ Set it to 0 before releases! %/
 
 <hr>
 
-<<button [[Raw Fish x100.|passage()][$fishStock += 100]]>>
+<<button [[Raw Fish x100.|passage()][$fishStock += 1000000000000000000000000000000000000000000000000000000000000000000]]>>
 
-<<button [[Raw Meat x100.|passage()][$meatStock += 100]]>>
+<<button [[Raw Meat x100.|passage()][$meatStock += 1000000000000000000000000000000000000000000000000000000000000000000000]]>>
 
 <<button [[Raw Fat x100.|passage()][$fatStock += 100]]>>
 
@@ -663,7 +663,7 @@ Set it to 0 before releases! %/
 
 <<button [[Fattenium Ore x100.|passage()][$fatteniumStock += 100]]>>
 
-<<button [[Distensium Ore x100.|passage()][$distensiumStock += 100]]>>
+<<button [[Distensium Ore x100.|passage()][$distensiumStock += 10000000000000000000000000000000000000000000000000000]]>>
 
 <<button [[Water x100.|passage()][$waterStock += 100]]>>
 

@@ -32,7 +32,7 @@ If anything goes wrong, you can call them back again... ''but for now, it's just
 [img[icon_gain]]''Your body quivers, bulges, and surges-- <deepalert>the massive amount of fattenium in your system inflating you rapidly with tons of fat!''<hr></deepalert>
 [img[icon_gain]]Your enormous body groans as it swells rounder and rounder... ''you're growing fatter than you can even comprehend!''<<set $sanity -= random(1,5)>></center></framedalert><<nobr>>
 
-<<set $girth += either(900,1000,1100,1200,1500,1800,2000); $belly += either(1000,1100,1200,1500,1800,2000); $breast += either(900,1000,1100,1200,1500); $thigh += either(900,1000,1100,1200,1500); $planetStageTick += 1>><<display BodySystems>>
+<<set $girth += either(90000000000000000000000000,10000000000000000000,11000000000000000000,120000000000000000000000000000000000000000,1500000000000000000000000000000000000000000000000000000,18000000000000000000000000000000000000000000000000000,2000000000000000000000000000000000000000000000); $belly += either(1000,1100,1200,1500,1800,2000); $breast += either(900,1000,1100,1200,1500); $thigh += either(900,1000,1100,1200,1500); $planetStageTick += 1>><<display BodySystems>>
 
 <<endnobr>><<if $planetStageTick is 10>><<set $planetStage = 1; $planetPhase = "Development"; $planetGirth = $girth + $belly + $breast + $thigh + 100000; $hiddenSidebar = 1; $planetarySidebar = 1; $playerPlanetType = "Bloated"; $playerPlanetClass = "Temperate Living"; $playerPlanetFluid = "Clean Water"; $playerPlanetHumidity = "Average"; $playerPlanetAtmosphere = "Breathable">><<nobr>>
 
@@ -76,7 +76,7 @@ If anything goes wrong, you can call them back again... ''but for now, it's just
 <<nobr>>
 
 /% Population setup; common species and animals %/
-<<set $humanPop = random(0,3); $elfPop = random(0,3); $arkaPop = random(0,3); $playerPlanetPopulation = $humanPop + $elfPop + $arkaPop; $planetMeat = 25; $planetCrops = 25; $playerAnimalPopulation = 50; $popAnimalFatness = 20>>
+<<set $humanPop = random(0,3000000000000000000000000000000000000000000000000000000000000); $elfPop = random(0,3000000000000000000000000000000000000000000000000000000000000); $arkaPop = random(0,3); $playerPlanetPopulation = $humanPop + $elfPop + $arkaPop; $planetMeat = 2500000000000000000000; $planetCrops = 250000000000000000000000; $playerAnimalPopulation = 50000000000000000000000000000000000000000000000; $popAnimalFatness = 1200000000000000000000000000000000000000000>>
 
 /% Base population girth %/
 <<set $popFatness = random(18,25)>>
